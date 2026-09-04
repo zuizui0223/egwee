@@ -6,15 +6,42 @@
     "title": "Test the state before interpreting the residual",
     "type": "ordered_gate_diagram",
     "nodes": [
-      {"id": "candidate_state", "label": "Candidate ecological state / proxy"},
-      {"id": "measurement_adequacy", "label": "Gate 1: endpoint-relevant measurement adequacy"},
-      {"id": "representation_preservation", "label": "Gate 2: information-preserving representation"},
-      {"id": "residual_context", "label": "Gate 3: transferable residual context"},
-      {"id": "cross_study_identifiability", "label": "Gate 4: cross-study identifiability"},
-      {"id": "stop_upstream", "label": "Do not interpret residual context"},
-      {"id": "state_incomplete", "label": "Missing response-relevant coordinate detected"},
-      {"id": "residual_redundant", "label": "No detected transferable residual-context gain"},
-      {"id": "cross_study_stop", "label": "not_identifiable / STOP"}
+      {
+        "id": "candidate_state",
+        "label": "Candidate ecological state / proxy"
+      },
+      {
+        "id": "measurement_adequacy",
+        "label": "Gate 1: endpoint-relevant measurement adequacy"
+      },
+      {
+        "id": "representation_preservation",
+        "label": "Gate 2: information-preserving representation"
+      },
+      {
+        "id": "residual_context",
+        "label": "Gate 3: transferable residual context"
+      },
+      {
+        "id": "cross_study_identifiability",
+        "label": "Gate 4: cross-study identifiability"
+      },
+      {
+        "id": "stop_upstream",
+        "label": "Do not interpret residual context"
+      },
+      {
+        "id": "state_incomplete",
+        "label": "Missing response-relevant coordinate detected"
+      },
+      {
+        "id": "residual_redundant",
+        "label": "No detected transferable residual-context gain"
+      },
+      {
+        "id": "cross_study_stop",
+        "label": "not_identifiable / STOP"
+      }
     ],
     "edges": [
       ["candidate_state", "measurement_adequacy", "test"],
@@ -32,8 +59,23 @@
   "figure_2": {
     "title": "Locked natural-data outcomes on the four-gate workflow",
     "type": "system_branch_map",
-    "order": ["Honshu-Izu", "Zurich BetterBlooms", "Toronto community gardens", "Oenothera harringtonii", "Eschscholzia californica", "Mallorca carob", "Campanula americana"],
-    "columns": ["system", "candidate_state", "declared_endpoint", "holdout_unit", "gate_reached", "locked_outcome"],
+    "order": [
+      "Honshu-Izu",
+      "Zurich BetterBlooms",
+      "Toronto community gardens",
+      "Oenothera harringtonii",
+      "Eschscholzia californica",
+      "Mallorca carob",
+      "Campanula americana"
+    ],
+    "columns": [
+      "system",
+      "candidate_state",
+      "declared_endpoint",
+      "holdout_unit",
+      "gate_reached",
+      "locked_outcome"
+    ],
     "grouping": {
       "line_1": "residual context adds no detected transferable gain after partial state",
       "line_2": "missing contemporary process coordinate detected",
@@ -41,6 +83,12 @@
       "line_4": "preprocessing erases mechanistic information"
     },
     "footer": "Cross-study outcome: cross_origin_convergence_not_identifiable_from_existing_archives. This is a design STOP, not an ecological null.",
-    "forbidden_encodings": ["one pooled effect-size axis", "cross-system severity ranking", "origin-level coefficient", "warning-validity denominator", "post-result endpoint or proxy substitution"]
+    "forbidden_encodings": [
+      "one pooled effect-size axis",
+      "cross-system severity ranking",
+      "origin-level coefficient",
+      "warning-validity denominator",
+      "post-result endpoint or proxy substitution"
+    ]
   }
 }
