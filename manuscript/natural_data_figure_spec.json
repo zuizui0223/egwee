@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "source_registry": "manuscript/natural_data_gate_registry.json",
+  "rule": "Figures may only display labels, outcomes, holdout units, evidence summaries, or claim ceilings present in the locked source registry. No pooled effect size or inferred cross-system ranking is allowed.",
+  "figure_1": {
+    "title": "Test the state before interpreting the residual",
+    "type": "ordered_gate_diagram",
+    "nodes": [
+      {"id": "candidate_state", "label": "Candidate ecological state / proxy"},
+      {"id": "measurement_adequacy", "label": "Gate 1: endpoint-relevant measurement adequacy"},
+      {"id": "representation_preservation", "label": "Gate 2: information-preserving representation"},
+      {"id": "residual_context", "label": "Gate 3: transferable residual context"},
+      {"id": "cross_study_identifiability", "label": "Gate 4: cross-study identifiability"},
+      {"id": "stop_upstream", "label": "Do not interpret residual context"},
+      {"id": "state_incomplete", "label": "Missing response-relevant coordinate detected"},
+      {"id": "residual_redundant", "label": "No detected transferable residual-context gain"},
+      {"id": "cross_study_stop", "label": "not_identifiable / STOP"}
+    ],
+    "edges": [
+      ["candidate_state", "measurement_adequacy", "test"],
+      ["measurement_adequacy", "stop_upstream", "not earned / not estimable"],
+      ["measurement_adequacy", "state_incomplete", "added process coordinate improves endpoint"],
+      ["measurement_adequacy", "representation_preservation", "candidate state is interpretable"],
+      ["representation_preservation", "stop_upstream", "mechanistic distinction erased"],
+      ["representation_preservation", "residual_context", "distinction preserved"],
+      ["residual_context", "residual_redundant", "no transferable gain"],
+      ["residual_context", "cross_study_identifiability", "synthesis requested"],
+      ["cross_study_identifiability", "cross_study_stop", "origin/study/protocol confounded or archive STOP"]
+    ],
+    "caption_claim": "Residual environmental or historical context is interpretable only after the proposed ecological state has earned endpoint-relevant status and its analytical representation preserves the biological information it claims to add. Cross-study synthesis has an independent identifiability gate."
+  },
+  "figure_2": {
+    "title": "Locked natural-data outcomes on the four-gate workflow",
+    "type": "system_branch_map",
+    "order": ["Honshu-Izu", "Zurich BetterBlooms", "Toronto community gardens", "Oenothera harringtonii", "Eschscholzia californica", "Mallorca carob", "Campanula americana"],
+    "columns": ["system", "candidate_state", "declared_endpoint", "holdout_unit", "gate_reached", "locked_outcome"],
+    "grouping": {
+      "line_1": "residual context adds no detected transferable gain after partial state",
+      "line_2": "missing contemporary process coordinate detected",
+      "line_3": "candidate proxy does not earn endpoint-relevant adequacy or endpoint is not identifiable",
+      "line_4": "preprocessing erases mechanistic information"
+    },
+    "footer": "Cross-study outcome: cross_origin_convergence_not_identifiable_from_existing_archives. This is a design STOP, not an ecological null.",
+    "forbidden_encodings": ["one pooled effect-size axis", "cross-system severity ranking", "origin-level coefficient", "warning-validity denominator", "post-result endpoint or proxy substitution"]
+  }
+}
