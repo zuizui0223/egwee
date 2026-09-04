@@ -111,6 +111,23 @@ For *Campanula americana*, none of the fixed interaction representations improve
 
 The available origin comparison confounds origin with study, taxa, protocol, biological coordinate and response construction. A subsequent minimal multi-archive bridge stopped at automated archive access before schema mapping or outcome modelling. The locked result remains `cross_origin_convergence_not_identifiable_from_existing_archives`. This is a design boundary, not evidence for or against a shared urban–island law.
 
+### 3.6 Six system-level branches did not license a stronger downstream inference
+
+Table 1 makes the fail-closed consequence explicit. Here **unreachable under the frozen evidence** means that a stronger interpretation is not licensed by the existing data and analysis contract; it does not mean that the corresponding biological process is impossible. The six rows also did not stop for one common reason. Three reached the residual-context gate but a negative residual cannot certify state completeness; two stopped at measurement adequacy; and one lost its intended distinction at the representation gate.
+
+| System | Furthest gate / locked result | Numerical or exact certificate | Stronger inference not licensed |
+| --- | --- | --- | --- |
+| Honshu–Izu | Residual context / no detected transferable distance gain | MSE 1.08774 → 1.13209 with distance; 4.08% worsening; 3/8 sites improved | The partial state is complete, or mainland distance is biologically irrelevant. |
+| Zurich BetterBlooms | Residual context / no reproducible positive residual-context gain | **0/6** reproductive endpoints passed the preregistered positive rule | The interaction state is complete, or local/urban context is biologically irrelevant. |
+| Toronto community gardens | Residual context / no detected residual urban-context information | Added context worsened held-out NLL by **4932.9195**, bootstrap 95% interval [603.9654, 10953.6611] | The supplied partial state is complete, or urban context is biologically irrelevant. |
+| *Eschscholzia californica* | Measurement adequacy / primary endpoint not identifiable | Exact metadata mismatch `Fallow ground` versus `Fallow graound`, reproduced at a second array before primary model fitting | The pollinator proxy is an adequate seed-function state, or residual context can be interpreted after it. |
+| Mallorca carob | Measurement adequacy / process measurement adequacy not earned | Two mandatory proxy gains: **-0.10195** [-3.12202, 3.61919] and -0.09919 [-3.14415, 3.66453] | Pollinator abundance is an endpoint-relevant state, or the residual-context gate may be opened. |
+| *Campanula americana* | Representation preservation / mechanistic distinction erased | Standardised rich/simple coordinates differed by at most **8.88e-16**; no fixed representation beat the mean baseline | The richer effective-transfer state was analytically supplied as a distinct coordinate, or downstream residual context can be interpreted after it. |
+
+*Oenothera harringtonii* is intentionally **not one of these six rows**. Its frozen result is a positive gate diagnosis: adding maternal spatial isolation improved held-out MSE by 20.93% (`0.11619` to `0.09187`; locked permutation `p=0.00130`), identifying a missing contemporary coordinate rather than producing a negative, failed-adequacy or representation-collapse branch. The cross-origin STOP is also kept separate because it is a synthesis-level identifiability boundary, not a seventh system-level row.
+
+The table therefore does not count six replications of one effect. It records six distinct reasons why a stronger state or residual-context claim is not warranted. The machine-readable source is `manuscript/unreachable_six_systems.json` and is checked directly against `natural_data_gate_registry.json`.
+
 ## 4. Discussion
 
 ### 4.1 A negative residual is conditional evidence
@@ -140,7 +157,8 @@ Supported:
 - the four gate outcomes are empirically distinguishable in the locked natural-data analyses;
 - residual-context interpretation is conditional on upstream state measurement and representation;
 - fail-closed outcomes can determine what inference is authorised next;
-- preprocessing can make a biologically richer raw measurement analytically non-distinct.
+- preprocessing can make a biologically richer raw measurement analytically non-distinct;
+- six system-level branches identify specific stronger inferences that remain unreachable under the frozen evidence, for four different blocking reasons rather than one pooled failure mode.
 
 Not supported:
 
@@ -149,13 +167,16 @@ Not supported:
 - state completeness from a negative residual-context test;
 - general irrelevance of distance, urbanisation, habitat or pollinators;
 - predictive validity of the separate EGWE genetic warning statistic;
-- a common origin effect from the existing archives.
+- a common origin effect from the existing archives;
+- treating the six rows in Table 1 as exchangeable replications or as a severity ranking.
 
-## Figure plan
+## Figure and table plan
 
 **Figure 1.** Ordered four-gate interpretation diagram from `natural_data_figure_spec.json`.
 
 **Figure 2.** Seven-system branch map showing candidate state, endpoint, holdout unit, gate reached and locked outcome. No pooled effect-size axis.
+
+**Table 1.** Six system-level downstream-inference boundaries: furthest gate reached, exact/numerical certificate, and the stronger inference not licensed by the frozen evidence.
 
 **Figure 3.** Optional within-study held-out contrasts, faceted by system and retained on native scales.
 
