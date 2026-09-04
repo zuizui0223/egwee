@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "purpose": "Machine-readable publication registry for the independent natural-data four-gate synthesis. This registry routes locked results; it does not pool effect sizes or change frozen analyses.",
+  "shared_order": [
+    "measurement_adequacy",
+    "representation_preservation",
+    "residual_context",
+    "cross_study_identifiability"
+  ],
+  "systems": [
+    {
+      "system": "Honshu-Izu",
+      "line": 1,
+      "candidate_state": "TM_z + FDQ + FEve functional partial state",
+      "declared_endpoint": "locked held-out functional endpoint",
+      "holdout_unit": "site",
+      "gate_reached": "residual_context",
+      "locked_outcome": "no_detected_transferable_distance_gain",
+      "evidence_summary": "held-out MSE 1.08774 for partial state versus 1.13209 after mainland distance; 4.08% worsening; distance model improved 3/8 held-out sites",
+      "claim_ceiling": "No detected transferable mainland-distance gain after the locked partial state; does not establish state completeness or biological irrelevance of distance."
+    },
+    {
+      "system": "Zurich BetterBlooms",
+      "line": 1,
+      "candidate_state": "source-defined function-specific pollinator interaction state",
+      "declared_endpoint": "six fixed reproductive endpoints",
+      "holdout_unit": "garden",
+      "gate_reached": "residual_context",
+      "locked_outcome": "no_reproducible_positive_residual_context_gain",
+      "evidence_summary": "0/6 reproductive endpoints met the preregistered positive residual-context rule under the locked garden-holdout design",
+      "claim_ceiling": "No reproducible positive held-out gain from the locked local/urban context terms after the interaction state; does not imply urban context is biologically irrelevant."
+    },
+    {
+      "system": "Toronto community gardens",
+      "line": 1,
+      "candidate_state": "phytometer identity + effort-standardised direct visitation + focal floral units + source-matched garden floral richness",
+      "declared_endpoint": "locked pollination/reproductive predictive endpoint set",
+      "holdout_unit": "garden",
+      "gate_reached": "residual_context",
+      "locked_outcome": "no_detected_residual_urban_context_information",
+      "evidence_summary": "adding urban cover and green-space edge density increased total held-out NLL by 4932.9195; garden-bootstrap 95% interval [603.9654, 10953.6611]",
+      "claim_ceiling": "No detected held-out residual urban-context gain after the locked partial state; does not establish complete state measurement or urban irrelevance."
+    },
+    {
+      "system": "Oenothera harringtonii",
+      "line": 2,
+      "candidate_state": "current pollinator-treatment state before spatial mating opportunity",
+      "declared_endpoint": "locked mating/reproductive endpoint",
+      "holdout_unit": "maternal plant",
+      "gate_reached": "measurement_adequacy",
+      "locked_outcome": "missing_contemporary_process_coordinate_detected",
+      "evidence_summary": "adding maternal spatial isolation reduced leave-one-maternal-plant-out MSE from 0.11619 to 0.09187, a 20.93% improvement; locked permutation p=0.00130",
+      "claim_ceiling": "Spatial mating opportunity remained a missing contemporary coordinate for the declared endpoint; not a general isolation law or direct functional-loss result."
+    },
+    {
+      "system": "Eschscholzia californica",
+      "line": 3,
+      "candidate_state": "preregistered pan-trap count / mean-ITD pollinator proxy state",
+      "declared_endpoint": "primary seed-function endpoint plus independently estimable mating and pollen-movement endpoints",
+      "holdout_unit": "array",
+      "gate_reached": "measurement_adequacy",
+      "locked_outcome": "multi_endpoint_not_identifiable",
+      "evidence_summary": "exact metadata gate found Fallow ground versus Fallow graound; prospective one-key sensitivity found the same mismatch at a second array and stopped before seed-function model fitting; independently estimable endpoints did not show reproducible held-out proxy gain",
+      "claim_ceiling": "The candidate proxy did not earn general endpoint-relevant state status under the frozen design; pollinator irrelevance and endpoint/proxy rescue are not authorised."
+    },
+    {
+      "system": "Mallorca carob",
+      "line": 3,
+      "candidate_state": "two deposited non-identical pollinator-abundance representations",
+      "declared_endpoint": "fruit production (TotalFruits) with log(TotalFlowers) exposure",
+      "holdout_unit": "orchard",
+      "gate_reached": "measurement_adequacy",
+      "locked_outcome": "process_measurement_adequacy_not_earned",
+      "evidence_summary": "leave-one-orchard-out NB2 analysis across 20 orchards; fruit-production gains -0.10195 [-3.12202, 3.61919] and -0.09919 [-3.14415, 3.66453]; residual-context gate not opened",
+      "claim_ceiling": "Neither deposited pollinator-abundance representation earned endpoint-relevant adequacy; does not imply pollinator irrelevance."
+    },
+    {
+      "system": "Campanula americana",
+      "line": 4,
+      "candidate_state": "phase-visitation versus independently calibrated effective-transfer interaction coordinates",
+      "declared_endpoint": "pollen limitation",
+      "holdout_unit": "population",
+      "gate_reached": "representation_preservation",
+      "locked_outcome": "mechanistic_information_erased_by_preprocessing",
+      "evidence_summary": "23-population leave-one-population-out test; no fixed interaction representation beat the mean baseline; after feature-wise standardisation effective-transfer coordinates were constant positive rescalings of phase-visitation coordinates and differed by at most 8.88e-16",
+      "claim_ceiling": "The declared representation erased the efficiency multiplier that made the richer biological measurement distinct; no alternative scaling or endpoint rerun is authorised."
+    }
+  ],
+  "cross_study": {
+    "locked_outcome": "cross_origin_convergence_not_identifiable_from_existing_archives",
+    "reason": "origin is confounded with study, taxa, protocol, biological coordinate, and response construction; the subsequent four-archive bridge stopped at automated archive access before schema mapping or outcome modelling",
+    "claim_ceiling": "STOP is a design boundary, not evidence for or against a shared urban-island or origin-level ecological law."
+  }
+}
