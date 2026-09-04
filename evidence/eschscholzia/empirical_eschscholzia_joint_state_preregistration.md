@@ -14,20 +14,58 @@ The target state is therefore closer to the natural condition map than a single 
 
 Four EIDC datasets are fixed before any row-level outcome inspection:
 
-1. **Pollinator availability / traits (`I/T`)** — DOI `10.5285/01906784-6742-44bf-b244-a4b63bed8d82`.
-2. **Direct seed function / pollen limitation (`F_seed`)** — DOI `10.5285/8caf2d8a-564d-4f2e-a797-174165a83796`.
-3. **Pollinator dependence / alternative route (`R`)** — DOI `10.5285/5b400b69-b828-45e8-b04e-7ccbfdb0987f`.
-4. **Mating / paternity (`G_mating/C`)** — DOI `10.5285/7b721c07-bc38-4815-8669-4675867663d0`.
+1. **Pollinator availability / traits (`I/T`)**  
+   DOI `10.5285/01906784-6742-44bf-b244-a4b63bed8d82`  
+   Title: *Pollinator data from pan traps located in habitats comprising different floral cover in Buckinghamshire, UK*.
+
+2. **Direct seed function / pollen limitation (`F_seed`)**  
+   DOI `10.5285/8caf2d8a-564d-4f2e-a797-174165a83796`  
+   Title: *The seed set of supplemented and pollinator exposed flowers from Eschscholzia californica plants located within habitats comprising different floral cover*.
+
+3. **Pollinator dependence / alternative route (`R`)**  
+   DOI `10.5285/5b400b69-b828-45e8-b04e-7ccbfdb0987f`  
+   Title: *The seed set of Eschscholzia californica plants introduced into habitats comprising different floral cover*; exposed and pollinator-excluded flowers are represented.
+
+4. **Mating / paternity (`G_mating/C`)**  
+   DOI `10.5285/7b721c07-bc38-4815-8669-4675867663d0`  
+   Title: *Paternity of Eschscholzia californica plants introduced to habitats comprising different floral cover*.
 
 All four are NERC Environmental Information Data Centre products and are described as parts of the same larger field experiment.
 
+## Fixed access route for discovery
+
+The first machine-access route is the EIDC data-package service:
+
+`https://data-package.ceh.ac.uk/data/<dataset UUID>`
+
+where the UUID is the DOI suffix. This is an access/schema gate, not an outcome analysis. Run `32734878637` showed that this route returns a small HTML landing document rather than the data payload directly. The second access adapter therefore reads only that landing document's `href` / form `action` attributes and follows every same-CEH link attached to the same UUID or an explicit CSV/ZIP/download route. Candidate selection is URL-structural and occurs without data-row inspection. Every verifiable CSV/ZIP candidate is retained rather than selecting among them by content.
+
 ## Schema-only boundary
 
-Discovery may contain only source identifiers, hashes, archive members and header labels. It must not calculate or inspect outcome rows, values, frequencies, means, correlations, coefficients, p-values or effect directions.
+The discovery artifact may contain only:
+
+- DOI / dataset UUID / fixed package URL;
+- HTTP content type and response size;
+- SHA-256 of the returned package/file;
+- member file names if an archive;
+- per CSV: row-independent header labels only;
+- no data rows, values, frequencies, means, correlations, coefficients, p-values or effect directions.
+
+The discovery code must not calculate even descriptive outcome summaries.
 
 ## Fixed biological mapping target
 
-From headers/keys only, the next stage may map source columns to experiment block/array, focal plant, habitat/context, pollinator taxon/count and ITD, exposed/supplemented seed function, exposed/excluded seed function, and selfed/outcrossed/paternity state.
+From **headers/keys only**, the next stage may map source columns to:
+
+- experiment block and array;
+- focal plant identity where present;
+- floral habitat/context;
+- pollinator taxon/count and source-provided body-size/ITD trait (`I/T`);
+- exposed and pollen-supplemented seed function (`F_seed` / pollen limitation);
+- exposed and pollinator-excluded seed function (`R`, pollinator dependence / autonomous route);
+- selfed/outcrossed status and/or assigned father/paternity (`G_mating/C`).
+
+No new endpoint family may be selected from values after the schema is seen.
 
 ## Prospective scientific question
 
@@ -37,15 +75,44 @@ This question is intentionally multi-endpoint. It does not assume that one suffi
 
 ## Frozen identifiability rule
 
-`joint_state_identifiable` requires common block/array identifiers across all four products, common focal-plant identifiers across the plant-level endpoint products, and habitat attachable by declared keys without reading values.
+The classification is determined from **column/key presence only**.
 
-`partial_joint_state_identifiable` requires the common block/array hierarchy but allows at least one endpoint product to lack a common focal-plant key.
+### `joint_state_identifiable`
 
-`not_identifiable_from_archive` applies if synchronization would require guessing IDs from row order, values, distributions, or post hoc combinations.
+Call this only if:
+
+1. all four process products (`I/T`, `F_seed`, `R`, `G_mating/C`) expose a common experiment **block + array** identifier or an unambiguous header-level equivalent; **and**
+2. both seed-function products and the paternity product expose a common focal-plant identifier or an unambiguous header-level equivalent, so plant-level outcomes can be nested under the same array; **and**
+3. habitat/context is explicitly represented in the endpoint datasets or can be attached by the same declared block/array key without reading values.
+
+The pollinator product need not have focal-plant identity because pan traps are array-level availability measurements; it must, however, attach to the exact array hierarchy.
+
+### `partial_joint_state_identifiable`
+
+Call this when:
+
+1. all four products expose a common block/array hierarchy, so the same field arrays can be synchronized; but
+2. at least one of `F_seed`, `R`, or `G_mating/C` lacks a common focal-plant key.
+
+This permits only an explicitly hierarchical array-level or mixed-resolution second preregistration. Missing plant identity may not be reconstructed from row order, outcome values, or sample counts.
+
+### `not_identifiable_from_archive`
+
+Call this if:
+
+- the four products do not expose a defensible common block/array key; or
+- a required process product is absent; or
+- synchronization would require guessing IDs from row order, values, distributions, or post hoc combinations.
+
+Thus a common block/array key is the minimum admissible bridge; shared plant identity in the three plant-level endpoint products separates `joint` from `partial`.
+
+All three outcomes are acceptable and may not be changed after outcome values are seen.
 
 ## Claim ceiling
 
-Pan traps represent **pollinator availability/community state**, not direct visits to each focal plant. The campaign will not claim that floral-rich versus floral-poor habitat is itself a functional-fragmentation regime. Habitat context remains an upstream route whose residual predictive information is tested after measured process state.
+Pan traps represent **pollinator availability/community state**, not direct visits to each focal plant. Even a successful later test must preserve that proxy boundary.
+
+The campaign will not claim that floral-rich versus floral-poor habitat is itself a functional-fragmentation regime. Habitat context remains an upstream route whose residual predictive information is tested after measured process state.
 
 ## Stop rule
 
