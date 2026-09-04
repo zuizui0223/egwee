@@ -4,7 +4,7 @@ This repository is the authoritative development home for the **natural-data fou
 
 ## Scientific question
 
-Before residual geography, habitat, origin, or history is interpreted, has the proposed ecological state first earned endpoint-relevant predictive status, and does its analytical representation preserve the information it claims to add?
+Before residual geography, habitat, origin, or history is interpreted, has the proposed ecological state first earned endpoint-relevant predictive status, and does its analytical representation preserve enough information for the intended inference?
 
 The ordered workflow is:
 
@@ -25,6 +25,13 @@ The paper is an empirical methodological synthesis across locked natural-data an
 
 Current primary venue: **Ecological Indicators**. `Methods in Ecology and Evolution` is a conditional stretch target only if the gate logic is developed into a reusable new method with truth-known simulation/benchmark validation.
 
+## Repository map
+
+- `manuscript/` — active paper spine, locked gate registry, figure contract, publication decision, venue decision, and nearest-neighbour novelty audit.
+- `evidence/` — system-level preregistrations, locked results, response-firewalled diagnostics, and cross-origin STOP records. Start with `evidence/README.md`.
+- `background/` — natural mechanism audits, empirical measurement crosswalk, and prospective field protocol. These are ecological process anchors and design material, **not** external validation of the synthetic EGWE/EGC model closure.
+- `MIGRATION_MANIFEST.md` — provenance and ownership record for the 2026-09-04 migration from EGWE.
+
 ## Source of truth
 
 1. `manuscript/natural_data_gate_registry.json`
@@ -36,6 +43,6 @@ Current primary venue: **Ecological Indicators**. `Methods in Ecology and Evolut
 
 ## Relationship to EGC / EGWE
 
-[`eco-genetic-criticality`](https://github.com/zuizui0223/eco-genetic-criticality) owns the mechanistic eco-genetic criticality and state-separation programme. [`eco-genetic-warning-extensions`](https://github.com/zuizui0223/eco-genetic-warning-extensions) owns warning validity and model state-representation work. This repository owns the **independent natural-data measurement/representation gate programme**.
+[`eco-genetic-criticality`](https://github.com/zuizui0223/eco-genetic-criticality) owns the mechanistic eco-genetic criticality and state-separation programme. [`eco-genetic-warning-extensions`](https://github.com/zuizui0223/eco-genetic-warning-extensions) owns warning validity and model state-representation/process-portability work. This repository owns the **independent natural-data measurement/representation gate programme**.
 
-Historical source files remain available in EGWE for provenance, but new reader-facing development of this empirical paper belongs here.
+Historical source files remain available in EGWE for provenance and validator stability, but new reader-facing development of this empirical paper belongs here. Frozen outcomes, endpoints, holdout units, STOP rules, and claim ceilings are not altered by relocation.
