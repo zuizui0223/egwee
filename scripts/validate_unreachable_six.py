@@ -9,10 +9,15 @@ BOUNDARY = ROOT / "manuscript" / "unreachable_six_systems.json"
 SPINE = ROOT / "manuscript" / "natural_data_ecological_indicators_spine.md"
 
 
+def _normalise_typography(text: str) -> str:
+    return text.replace("–", "-").replace("—", "-")
+
+
 def main() -> int:
     gates = json.loads(GATES.read_text(encoding="utf-8"))
     boundary = json.loads(BOUNDARY.read_text(encoding="utf-8"))
     spine = SPINE.read_text(encoding="utf-8")
+    spine_normalised = _normalise_typography(spine)
 
     assert gates["schema_version"] == 1
     assert boundary["schema_version"] == 1
@@ -42,10 +47,10 @@ def main() -> int:
         assert row["unreachable_stronger_inference"]
         assert row["blocking_reason"]
         assert row["boundary_class"]
-        assert row["system"] in spine
+        assert _normalise_typography(row["system"]) in spine_normalised
 
-    # The publication table must preserve the three logically distinct reasons
-    # for non-progression rather than collapsing all six into one generic fail.
+    # The publication table must preserve the logically distinct reasons for
+    # non-progression rather than collapsing all six into one generic failure.
     classes = {row["boundary_class"] for row in rows}
     assert "negative_residual_does_not_certify_completeness" in classes
     assert "measurement_identifiability_blocks_downstream_gate" in classes
