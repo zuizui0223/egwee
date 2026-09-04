@@ -33,7 +33,22 @@ Seven natural-data analyses occupy distinct branches. Six negative/failed/repres
 - [x] deterministic submission builder and SHA-256 manifest;
 - [x] evidence-note provenance included without redistributing third-party raw data;
 - [x] downstream EGC/EGWE headline-value firewall in the builder;
-- [x] dedicated GitHub Actions submission workflow.
+- [x] dedicated GitHub Actions submission workflow;
+- [x] final rasterized visual QA of Figure 1, Figure 2 and graphical abstract;
+- [x] Figure 1 right-edge branch-label clipping corrected after visual QA;
+- [x] Figure 2 synthesis-boundary label / machine-ID spacing corrected after visual QA.
+
+## Final submission-artifact QA
+
+The final visual-QA workflow on head `658fe81bcfe9bf8f8365ffc6c0e973389af321ca` completed successfully as run `33901155115`. Its uploaded submission artifact was:
+
+- artifact ID: `9947675062`;
+- artifact name: `egwee-ecological-indicators-submission`;
+- artifact digest: `sha256:0a36e6ec4331f93b4a870317845fb8c93f51b2658703ea1d2b6a679e07d3ebae`.
+
+The artifact was downloaded, the three SVG displays were rasterized at high preview resolution, and the generated images were inspected directly. Figure 1 no longer clips `study/origin/protocol confounded`; Figure 2 cleanly separates `Synthesis-level boundary` from `cross_origin_convergence_not_identifiable_from_existing_archives`; the graphical abstract required no correction. The layout-only fixes were merged as PR #3, merge commit `22da5cfe51b6db04d293bd9cb4b7b5bf26c3df2f`.
+
+This visual QA did not alter any scientific text, system assignment, effect estimate, endpoint, stop rule, bibliography, or claim ceiling.
 
 ## Live-policy checks
 
@@ -53,4 +68,4 @@ Elsevier's current general Highlights guidance specifies 3–5 bullets and <=85 
 
 ## Merge gate
 
-The submission branch may merge only after both the existing four-gate manuscript contract and the new Ecological Indicators submission-bundle workflow succeed on the same PR head.
+**Passed.** The four-gate manuscript contract, deterministic Ecological Indicators submission-bundle workflow, submission firewall, Highlights contract, uploaded artifact, and final rasterized visual QA have all completed successfully. Further scientific reopening is not required by the active manuscript claim.
