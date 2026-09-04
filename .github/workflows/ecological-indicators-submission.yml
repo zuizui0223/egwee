@@ -14,6 +14,7 @@ on:
       - "manuscript/cover_letter_ecological_indicators.md"
       - "evidence/**"
       - "scripts/build_ecological_indicators_submission.py"
+      - "scripts/build_ecological_indicators_submission_final.py"
       - "scripts/validate_unreachable_six.py"
       - ".github/workflows/ecological-indicators-submission.yml"
   push:
@@ -29,6 +30,7 @@ on:
       - "manuscript/cover_letter_ecological_indicators.md"
       - "evidence/**"
       - "scripts/build_ecological_indicators_submission.py"
+      - "scripts/build_ecological_indicators_submission_final.py"
       - "scripts/validate_unreachable_six.py"
       - ".github/workflows/ecological-indicators-submission.yml"
   workflow_dispatch:
@@ -48,9 +50,9 @@ jobs:
       - name: Validate locked six-system inference boundary
         run: python scripts/validate_unreachable_six.py
 
-      - name: Build deterministic journal submission bundle
+      - name: Build deterministic journal submission bundle with visual-QA fixes
         run: |
-          python scripts/build_ecological_indicators_submission.py \
+          python scripts/build_ecological_indicators_submission_final.py \
             --repo-root . \
             --output ecological_indicators_submission
 
@@ -68,6 +70,8 @@ jobs:
           grep -q 'Bockstaller & Girardin, 2003' ecological_indicators_submission/manuscript/main_text.md
           grep -q '10.5061/dryad.5nj81nf' ecological_indicators_submission/manuscript/main_text.md
           grep -q 'cross_origin_convergence_not_identifiable_from_existing_archives' ecological_indicators_submission/figures/figure2_system_branch_map.svg
+          grep -q 'text-anchor="end"' ecological_indicators_submission/figures/figure1_four_gate_workflow.svg
+          grep -q 'x="235.0"' ecological_indicators_submission/figures/figure2_system_branch_map.svg
 
       - name: Verify Highlights contract
         run: |
