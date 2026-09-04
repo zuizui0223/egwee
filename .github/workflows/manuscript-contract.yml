@@ -1,0 +1,47 @@
+name: Four-gate manuscript contract
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "manuscript/natural_data_gate_registry.json"
+      - "manuscript/unreachable_six_systems.json"
+      - "manuscript/natural_data_ecological_indicators_spine.md"
+      - "scripts/validate_unreachable_six.py"
+      - ".github/workflows/manuscript-contract.yml"
+  push:
+    branches: [main]
+    paths:
+      - "manuscript/natural_data_gate_registry.json"
+      - "manuscript/unreachable_six_systems.json"
+      - "manuscript/natural_data_ecological_indicators_spine.md"
+      - "scripts/validate_unreachable_six.py"
+      - ".github/workflows/manuscript-contract.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inference-boundary:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Validate six-system downstream-inference table
+        run: python scripts/validate_unreachable_six.py
+      - name: Confirm gate registry remains seven-system source of truth
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          gate = json.loads(Path('manuscript/natural_data_gate_registry.json').read_text())
+          six = json.loads(Path('manuscript/unreachable_six_systems.json').read_text())
+          assert len(gate['systems']) == 7
+          assert len(six['systems']) == 6
+          assert six['excluded_positive_system']['system'] == 'Oenothera harringtonii'
+          assert gate['cross_study']['locked_outcome'] == 'cross_origin_convergence_not_identifiable_from_existing_archives'
+          print('7-system registry / 6-system inference-boundary split is intact.')
+          PY

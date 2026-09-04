@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "purpose": "Publication table for six system-level analyses in which the frozen evidence does not license a stronger downstream state/context inference. 'Unreachable' means unreachable under the frozen evidence and analysis contract, not biologically impossible.",
+  "source_registry": "manuscript/natural_data_gate_registry.json",
+  "selection_rule": "Include system-level branches with a locked negative, failed-adequacy, not-identifiable, or representation-collapse outcome that blocks a stronger downstream interpretation. Exclude Oenothera harringtonii because its frozen result positively identifies a missing contemporary coordinate. Keep the cross-origin identifiability STOP as a separate synthesis-level boundary rather than a seventh system row.",
+  "systems": [
+    {
+      "system": "Honshu-Izu",
+      "gate_reached": "residual_context",
+      "locked_outcome": "no_detected_transferable_distance_gain",
+      "numeric_certificate": "held-out MSE 1.08774 for the partial state versus 1.13209 with mainland distance; 4.08% worsening; improvement at 3/8 held-out sites",
+      "unreachable_stronger_inference": "The locked partial state is complete, or mainland distance is biologically irrelevant.",
+      "blocking_reason": "A negative residual-context result is conditional on the supplied state and cannot certify completeness or irrelevance.",
+      "boundary_class": "negative_residual_does_not_certify_completeness"
+    },
+    {
+      "system": "Zurich BetterBlooms",
+      "gate_reached": "residual_context",
+      "locked_outcome": "no_reproducible_positive_residual_context_gain",
+      "numeric_certificate": "0/6 fixed reproductive endpoints met the preregistered positive residual-context rule under garden holdout",
+      "unreachable_stronger_inference": "The interaction state is complete, or local/urban context is biologically irrelevant.",
+      "blocking_reason": "Failure to obtain reproducible residual gain does not identify the supplied state as sufficient.",
+      "boundary_class": "negative_residual_does_not_certify_completeness"
+    },
+    {
+      "system": "Toronto community gardens",
+      "gate_reached": "residual_context",
+      "locked_outcome": "no_detected_residual_urban_context_information",
+      "numeric_certificate": "adding urban cover and green-space edge density worsened held-out NLL by 4932.9195; garden-bootstrap 95% interval [603.9654, 10953.6611]",
+      "unreachable_stronger_inference": "The partial pollination/floral state is complete, or urban context is biologically irrelevant.",
+      "blocking_reason": "A held-out residual-context non-gain is not evidence that all response-relevant state coordinates were measured.",
+      "boundary_class": "negative_residual_does_not_certify_completeness"
+    },
+    {
+      "system": "Eschscholzia californica",
+      "gate_reached": "measurement_adequacy",
+      "locked_outcome": "multi_endpoint_not_identifiable",
+      "numeric_certificate": "exact metadata gate detected 'Fallow ground' versus 'Fallow graound'; the prospectively allowed one-key sensitivity found the mismatch at a second array and stopped before primary seed-function model fitting",
+      "unreachable_stronger_inference": "The preregistered pollinator proxy is an adequate seed-function state, or residual habitat/context effects can be interpreted after it.",
+      "blocking_reason": "The primary endpoint/proxy mapping is not identifiable under the frozen metadata contract; downstream residual modelling would manufacture a repaired state after outcome inspection.",
+      "boundary_class": "measurement_identifiability_blocks_downstream_gate"
+    },
+    {
+      "system": "Mallorca carob",
+      "gate_reached": "measurement_adequacy",
+      "locked_outcome": "process_measurement_adequacy_not_earned",
+      "numeric_certificate": "leave-one-orchard-out fruit-production gains -0.10195 [-3.12202, 3.61919] and -0.09919 [-3.14415, 3.66453] for the two deposited pollinator-abundance representations",
+      "unreachable_stronger_inference": "Pollinator abundance is an endpoint-relevant state coordinate, or residual landscape/local-management context can be interpreted after it.",
+      "blocking_reason": "Neither mandatory deposited process representation earned held-out measurement adequacy, so the residual-context gate was not opened.",
+      "boundary_class": "failed_measurement_adequacy_blocks_residual_gate"
+    },
+    {
+      "system": "Campanula americana",
+      "gate_reached": "representation_preservation",
+      "locked_outcome": "mechanistic_information_erased_by_preprocessing",
+      "numeric_certificate": "after feature-wise standardisation, effective-transfer and phase-visitation coordinates differed by at most 8.88e-16; no fixed interaction representation beat the mean baseline in 23-population leave-one-population-out prediction",
+      "unreachable_stronger_inference": "The richer effective-transfer state was analytically supplied as a distinct coordinate, or residual context can be interpreted after that supposedly richer state.",
+      "blocking_reason": "Preprocessing projected the richer biological measurement onto the simpler visitation coordinate, so the claimed mechanistic distinction was not preserved for downstream inference.",
+      "boundary_class": "representation_collapse_blocks_downstream_gate"
+    }
+  ],
+  "excluded_positive_system": {
+    "system": "Oenothera harringtonii",
+    "reason": "Its frozen result is not an unreachable branch: maternal spatial isolation reduced held-out MSE from 0.11619 to 0.09187 (20.93% improvement; locked permutation p=0.00130), positively identifying a missing contemporary coordinate."
+  },
+  "separate_synthesis_boundary": {
+    "locked_outcome": "cross_origin_convergence_not_identifiable_from_existing_archives",
+    "reason": "Origin is confounded with study, taxa, protocol, biological coordinate and response construction; this is a synthesis-level STOP, not one of the six system rows."
+  }
+}
