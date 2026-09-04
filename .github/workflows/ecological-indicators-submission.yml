@@ -1,0 +1,87 @@
+name: Ecological Indicators submission bundle
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "manuscript/natural_data_ecological_indicators_spine.md"
+      - "manuscript/natural_data_gate_registry.json"
+      - "manuscript/unreachable_six_systems.json"
+      - "manuscript/natural_data_figure_spec.json"
+      - "manuscript/references.md"
+      - "manuscript/highlights.txt"
+      - "manuscript/submission_metadata.md"
+      - "manuscript/cover_letter_ecological_indicators.md"
+      - "evidence/**"
+      - "scripts/build_ecological_indicators_submission.py"
+      - "scripts/validate_unreachable_six.py"
+      - ".github/workflows/ecological-indicators-submission.yml"
+  push:
+    branches: [main]
+    paths:
+      - "manuscript/natural_data_ecological_indicators_spine.md"
+      - "manuscript/natural_data_gate_registry.json"
+      - "manuscript/unreachable_six_systems.json"
+      - "manuscript/natural_data_figure_spec.json"
+      - "manuscript/references.md"
+      - "manuscript/highlights.txt"
+      - "manuscript/submission_metadata.md"
+      - "manuscript/cover_letter_ecological_indicators.md"
+      - "evidence/**"
+      - "scripts/build_ecological_indicators_submission.py"
+      - "scripts/validate_unreachable_six.py"
+      - ".github/workflows/ecological-indicators-submission.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-submission:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate locked six-system inference boundary
+        run: python scripts/validate_unreachable_six.py
+
+      - name: Build deterministic journal submission bundle
+        run: |
+          python scripts/build_ecological_indicators_submission.py \
+            --repo-root . \
+            --output ecological_indicators_submission
+
+      - name: Verify submission firewall and core files
+        run: |
+          test -s ecological_indicators_submission/MANIFEST.sha256
+          test -s ecological_indicators_submission/manuscript/main_text.md
+          test -s ecological_indicators_submission/manuscript/cover_letter.md
+          test -s ecological_indicators_submission/manuscript/highlights.txt
+          test -s ecological_indicators_submission/figures/figure1_four_gate_workflow.svg
+          test -s ecological_indicators_submission/figures/figure2_system_branch_map.svg
+          test -s ecological_indicators_submission/figures/graphical_abstract.svg
+          test -s ecological_indicators_submission/tables/table1_downstream_inference_boundaries.csv
+          ! grep -R '0.2543\|+5.33\|+5.20\|35/35\|48/48\|33/33\|49/49' ecological_indicators_submission/manuscript/main_text.md
+          grep -q 'Bockstaller & Girardin, 2003' ecological_indicators_submission/manuscript/main_text.md
+          grep -q '10.5061/dryad.5nj81nf' ecological_indicators_submission/manuscript/main_text.md
+          grep -q 'cross_origin_convergence_not_identifiable_from_existing_archives' ecological_indicators_submission/figures/figure2_system_branch_map.svg
+
+      - name: Verify Highlights contract
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          lines = [x.strip() for x in Path('ecological_indicators_submission/manuscript/highlights.txt').read_text().splitlines() if x.strip()]
+          assert 3 <= len(lines) <= 5, len(lines)
+          assert all(len(x) <= 85 for x in lines), [(x, len(x)) for x in lines]
+          print('Highlights:', [(len(x), x) for x in lines])
+          PY
+
+      - name: Upload submission artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: egwee-ecological-indicators-submission
+          path: ecological_indicators_submission/
+          if-no-files-found: error
