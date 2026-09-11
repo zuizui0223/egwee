@@ -32,25 +32,31 @@ Replicated experimental connectivity/edge design across five planted species, wi
 
 Suzuki, Nagamitsu & Tomaru (2013), *BMC Ecology* 13:10. DOI `10.1186/1472-6785-13-10`.
 
-Six adjacent fragmented populations. Reports population structure, paternity-derived pollen flow, selfing, female seed-production success and male reproductive success. Because the source is primarily a population-structure gradient, it belongs in the Fisher-z / continuous-exposure stream unless a pre-existing binary contrast is explicitly available.
+Six adjacent fragmented populations. Reports population structure, paternity-derived pollen flow, selfing, female seed-production success and male reproductive success. Native GLM/MCMC coefficients are retained unless a compatible standardized-effect rule is locked before synthesis.
 
 ### PS003 — *Serapias lingua*
 
 Pellegrino, Bellusci & Palermo (2015), *BMC Plant Biology* 15:222. DOI `10.1186/s12870-015-0600-8`.
 
-Nine fragmented subpopulations. Reports microsatellite genetic diversity/differentiation, paternity pollen flow, clonality and fruit production. Treat as a gradient study unless the original design supplies a non-post-hoc categorical contrast.
+Nine fragmented subpopulations. Reports microsatellite genetic diversity/differentiation, paternity pollen flow, clonality and fruit production. Under the locked geometry amendment, population area is represented as `fragmentation_severity=-log(area)` for the primary gradient stream; binary recoding is not substituted post hoc.
 
 ### PS012 — *Tillandsia intermedia* / *T. makoyana*
 
 DOI `10.1093/aobpla/ply038`.
 
-Continuous-versus-fragmented forest comparison over three years, including floral-visitor composition/visitation and female reproductive success. Useful same-study `I + F (+R)` pair.
+Continuous-versus-fragmented forest comparison over three years, including floral-visitor composition/visitation and female reproductive success. Site is a random factor nested within habitat, so individual plant counts do not become fragmentation-level replicate counts.
 
 ### PS015 — *Conospermum undulatum* interaction / pollen-quality gradient
 
 Delnevo et al. (2020), *Biological Conservation*. DOI `10.1016/j.biocon.2020.108824`.
 
 Across eleven remnant populations, specialist native bee visitation increased with floral display/connectivity, while small isolated populations lacked part of the effective pollinator fauna and showed stronger pollen-quality limitation. This is a high-priority same-study `D + I + T + F` gradient and fills the contemporary interaction layer between the 2019 reproductive study and the later adult-genetic / paternity studies.
+
+### PS016 — *Primula elatior* multilayer landscape gradient
+
+Bohm et al. (2025), *Biological Conservation* 305:111044. DOI `10.1016/j.biocon.2025.111044`.
+
+Thirty-three natural populations were analysed for population size, SNP diversity, floral morph balance and reproductive performance; pollinator surveys were performed in fifteen populations. The study reports that smaller populations have lower genetic diversity and more skewed morph ratios, whereas seed production is associated with morph balance and pollinator abundance and is not detectably associated with genetic diversity. Landscape forest cover also predicts pollinator abundance and seed production nonlinearly. This is a high-priority `D + I + T + F + G_adult` source because it exposes cross-layer separation within one study without requiring cross-publication row joins. Exact supplementary coefficients or population-level tables are still required before standardized effect admission.
 
 ## Programme-level anchors that must remain split by publication/year
 
