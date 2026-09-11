@@ -104,8 +104,6 @@ def main() -> None:
     assert next(r for r in mag if r["endpoint_id"] == "F_population_size")["raw_effect"] == "0.00055"
     assert next(r for r in mag if r["endpoint_id"] == "C_population_separation_male_success")["raw_effect"] == "-0.575"
 
-    # Primula is deliberately model-pending: source-reported cross-layer
-    # separation is retained, but narrative nulls/directions are not converted to zero/r.
     assert not any(r["effect_unit_status"] in {"g_admissible", "fisher_z_admissible"} for r in prim)
     assert any(r["endpoint_id"] == "Gadult_population_size" for r in prim)
     assert any(r["endpoint_id"] == "F_seed_pollinator_abundance" for r in prim)
@@ -143,7 +141,7 @@ def main() -> None:
         "PS012",
         "PS002",
         "PS003",
-        "oriented `g=-2.32154`",
+        "**`-2.32153761`**",
         "Fisher `z=-1.5412215`",
         "Fisher `z=-2.3040450`",
     ):
