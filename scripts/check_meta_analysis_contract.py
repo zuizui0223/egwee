@@ -16,6 +16,7 @@ SEEDS = ROOT / "manuscript/meta_analysis_seed_sources.md"
 PRIMARY_SEED = ROOT / "manuscript/meta_analysis_primary_study_seed_v1.csv"
 PRIMARY_SEED_SOURCES = ROOT / "manuscript/meta_analysis_primary_study_seed_v1_sources.md"
 EXTRACTION_QUEUE = ROOT / "manuscript/meta_analysis_extraction_queue_v1.csv"
+SPONDIAS = ROOT / "evidence/meta_extraction/PS001_spondias_extraction_v1.csv"
 
 
 def _csv_rows(path: Path) -> list[dict[str, str]]:
@@ -36,6 +37,7 @@ def main() -> None:
         PRIMARY_SEED,
         PRIMARY_SEED_SOURCES,
         EXTRACTION_QUEUE,
+        SPONDIAS,
     ):
         assert path.is_file(), path
 
@@ -58,9 +60,19 @@ def main() -> None:
 
     assert "pseudo-replication firewall" in amendment.lower()
     assert "do not manufacture g" in amendment.lower()
-    assert "n_independent" in schema["required_fields"]
     assert schema["schema_version"] == 2
     assert schema["amendment"] == "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-11_EFFECT_UNITS.md"
+    for field in (
+        "effect_unit_status",
+        "effect_unit_note",
+        "independent_unit",
+        "dispersion_unit",
+        "n_independent_fragmented",
+        "n_independent_reference",
+        "n_individuals_fragmented",
+        "n_individuals_reference",
+    ):
+        assert field in schema["required_fields"], field
     assert schema["primary_effect_stream"] == "hedges_g_fragmented_minus_reference"
     assert schema["secondary_effect_stream"] == "fisher_z_correlation_with_fragmentation_severity"
     assert set(schema["primary_layers"]) == {
@@ -122,6 +134,18 @@ def main() -> None:
     assert any(r["study_id"] == "PS004" for r in queue)
     assert any(r["study_id"] == "PS014" for r in queue)
 
+    # First real extraction must preserve the sampling hierarchy rather than
+    # manufacturing a standardized effect from incompatible N/SD summaries.
+    spondias = _csv_rows(SPONDIAS)
+    assert len(spondias) >= 10
+    allowed = set(schema["effect_unit_status_values"])
+    assert all(r["effect_unit_status"] in allowed for r in spondias)
+    assert not any(r["effect_unit_status"] == "g_admissible" for r in spondias)
+    assert sum(r["effect_unit_status"] == "model_contrast_pending_standardisation" for r in spondias) >= 3
+    assert sum(r["effect_unit_status"] == "raw_reanalysis_required" for r in spondias) >= 6
+    assert any("locus" in r["effect_unit_note"].lower() for r in spondias)
+    assert any("nested" in r["effect_unit_note"].lower() for r in spondias)
+
     provenance = PRIMARY_SEED_SOURCES.read_text(encoding="utf-8")
     for doi in (
         "10.1016/j.biocon.2021.109007",
@@ -135,8 +159,8 @@ def main() -> None:
     print(
         "EGWEE multilayer meta-analysis contract: PASS; "
         f"{len(primary)} source-verified primary-study seeds, "
-        f"{len(candidates)} candidate systems, {len(queue)} queued extraction studies; "
-        "effect-unit firewall active"
+        f"{len(candidates)} candidate systems, {len(queue)} queued extraction studies, "
+        f"{len(spondias)} PS001 raw endpoints; effect-unit firewall active, 0 naive g admitted"
     )
 
 
