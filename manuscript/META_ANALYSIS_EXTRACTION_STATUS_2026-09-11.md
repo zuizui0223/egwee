@@ -6,10 +6,13 @@ This is an execution ledger, not a Results section. No pooled meta-analytic conc
 
 ## Corpus state
 
-- source-verified primary-study seeds: **14**
-- candidate systems/programmes: **18**
-- priority extraction queue: **7 studies**
-- studies with first-pass endpoint extraction materialized: **3**
+- source-verified primary-study seeds: **15**
+- candidate systems/programmes: **19**
+- priority extraction queue: **8 studies**
+- studies with first-pass endpoint extraction materialized: **4**
+- currently `g_admissible` effects: **1**
+
+The four-gate programme remains QC/provenance only. The active paper is the multilayer fragmentation meta-analysis.
 
 ## PS001 — *Spondias purpurea*
 
@@ -45,11 +48,9 @@ Using sites—not seedlings—as the independent units:
 - oriented effect = **`-2.32153761`**
 - sampling variance = `1.10035878`; SE ≈ `1.04898`
 
-This is one study/species effect with only three independent sites per habitat. It is therefore low precision and does not by itself establish a general layer effect.
+This is one study/species effect with only three independent sites per habitat. It is therefore low precision and does not by itself establish a general layer effect. `scripts/check_brosimum_extraction.py` independently reconstructs this value in CI.
 
-`N_ep=1/r_p` is retained only descriptively because it is the deterministic reciprocal of the same observation and would double-count the signal.
-
-Other Brosimum endpoints—pollen-flow distance, habitat-level genetic summaries and model-based progeny vigour—remain outside naive Hedges-g standardisation until their hierarchy is reconstructed or raw data are reanalysed. The article states that raw data are archived on Figshare (`10.6084/m9.figshare.22130177.v1`).
+`N_ep=1/r_p` is retained only descriptively because it is the deterministic reciprocal of the same observation and would double-count the signal. Other Brosimum endpoints remain outside naive Hedges-g standardisation until their hierarchy is reconstructed or raw Figshare data (`10.6084/m9.figshare.22130177.v1`) are reanalysed.
 
 ## PS014 — Hulting et al. replicated fragmentation experiment
 
@@ -59,24 +60,54 @@ File: `evidence/meta_extraction/PS014_hulting_extraction_v1.csv`
 - quantitative primary effects admitted: **0 so far**
 - raw dataset: Dryad `10.5061/dryad.bnzs7h4mb`
 
-The published experiment gives a particularly important within-study qualitative pattern:
+Published within-study pattern:
 
 - flowering likelihood and flower production increased with distance from the habitat edge across all five species;
 - pollination rate showed no detected response to connectivity or edge distance;
 - seed production increased with distance from edge for four of five species.
 
-This is a direct candidate instance of cross-layer fragmentation discordance (`D/F` respond while `I` does not), but the null interaction effect is **not coded as zero**. Species-specific coefficients/uncertainty or a hierarchy-preserving raw-data reanalysis are required before meta-analysis admission.
+This is a high-value candidate state-separation pattern (`D/F` respond while `I` does not), but the nonsignificant interaction result is **not coded as zero**. Species-specific coefficients/uncertainty or a hierarchy-preserving raw-data reanalysis are required. Raw rows are nested as block → patch → plant → reproductive structure.
 
-Dryad documents the nesting variables (`block`, `patch`, `distance`, `species`, plant reproductive status, flowering structures and seed counts). Plant/structure rows are therefore not treated as independent landscape replicates.
+## PS011 — *Conospermum undulatum* contemporary pollen-flow layer
+
+File: `evidence/meta_extraction/PS011_conospermum_2026_extraction_v1.csv`
+
+- contemporary `C` pollen immigration and pollen-distance rows retained for the gradient stream;
+- selfing retained as a mechanism/moderator, not a primary D/I/C/F/G response;
+- offspring/seedling paternity/genotypes require population/maternal nesting in raw reanalysis;
+- adult-genetic context is marked **descriptive duplicate**, linked to the standing adult cohort already represented by PS010/Delnevo et al. 2021 rather than counted as another independent adult-genetic effect.
+
+The 2026 focal populations are all remnant/fragmented populations, so no post-hoc continuous/reference binary split is created. A source-defined isolation/matrix predictor is required for Fisher-z or model-based gradient extraction.
+
+## PS015 — *Conospermum undulatum* interaction / pollen-quality layer
+
+Verified seed: Delnevo et al. (2020), DOI `10.1016/j.biocon.2020.108824`.
+
+Across eleven populations, native specialist visitation/effective pollinator representation increased with floral display/connectivity, whereas small isolated remnants had stronger pollen-quality limitation. This adds a same-study `D + I + T + F` gradient between the 2019 reproduction study and the later adult-genetic / contemporary-paternity layers.
+
+PS015 is now priority **5** in the extraction queue. It is not row-joined with PS009/PS010/PS011; the four publications share a programme/system identity but retain separate observation IDs and years.
+
+## Conospermum programme — empirical lag architecture
+
+The source-verified programme now spans:
+
+1. **2019:** population/floral support and reproductive function (`D/R/F`);
+2. **2020:** pollinator visitation/effectiveness and pollen-quality limitation (`D/I/T/F`);
+3. **2021:** standing adult genetics and historical connectivity (`G_adult/M`);
+4. **2026:** contemporary pollen flow / offspring paternity (`C/G_offspring/M`).
+
+This is a strong candidate natural analogue of the NEE state-separation idea: contemporary interaction/mating processes can shift while standing adult neutral genetics still records an older landscape. It is not yet a pooled or causal result because the four campaigns are temporally distinct and cannot be concatenated as one synchronized observation.
 
 ## Current inference boundary
 
 Supported now:
 
 - the corpus contains genuinely multilayer natural fragmentation studies;
+- multiple studies expose cross-layer differences within the same system or experiment;
 - published summaries require explicit hierarchy handling before standardized effects are admitted;
-- at least one effect can already be reconstructed at the correct site level (`PS004 r_p`);
-- the Hulting experiment supplies a strong candidate empirical state-separation pattern requiring quantitative extraction.
+- one site-level standardized effect is already safely reconstructable (`PS004 r_p`, oriented `g=-2.32154`);
+- Spondias demonstrates why many apparently extractable summaries are not safely standardizable without cluster-aware reconstruction;
+- Hulting and the Conospermum programme provide high-value empirical state-separation/lag targets for quantitative extraction.
 
 Not supported yet:
 
@@ -88,7 +119,7 @@ Not supported yet:
 
 ## Next extraction order
 
-1. obtain/reanalyse PS004 Figshare data to recover site/maternal-tree-aware progeny-vigour and genetic effects where possible;
-2. obtain/reanalyse PS014 Dryad data for species-specific edge effects on flowering, pollination and seed production;
-3. extract PS011 *Conospermum* contemporary pollen-flow/offspring layer while preserving population/year linkage;
-4. continue PS012 / PS002 / PS003 according to the locked queue.
+1. extract PS015 Conospermum 2020 population-level visitation / pollen-quality coefficients;
+2. obtain/reanalyse PS004 Figshare data for additional site/maternal-tree-aware progeny-vigour and genetic effects;
+3. obtain/reanalyse PS014 Dryad data for species-specific edge effects on flowering, pollination and seed production;
+4. proceed to PS012 Tillandsia, PS002 Magnolia and PS003 Serapias using their locked design streams.
