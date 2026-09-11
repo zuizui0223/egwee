@@ -9,7 +9,7 @@ This is an execution ledger, not a Results section. No pooled meta-analytic conc
 - source-verified primary-study seeds: **15**
 - candidate systems/programmes: **19**
 - priority extraction queue: **8 studies**
-- studies with first-pass endpoint extraction materialized: **4**
+- studies with first-pass endpoint extraction materialized: **6**
 - currently `g_admissible` effects: **1**
 
 The four-gate programme remains QC/provenance only. The active paper is the multilayer fragmentation meta-analysis.
@@ -66,7 +66,7 @@ Published within-study pattern:
 - pollination rate showed no detected response to connectivity or edge distance;
 - seed production increased with distance from edge for four of five species.
 
-This is a high-value candidate state-separation pattern (`D/F` respond while `I` does not), but the nonsignificant interaction result is **not coded as zero**. Species-specific coefficients/uncertainty or a hierarchy-preserving raw-data reanalysis are required. Raw rows are nested as block → patch → plant → reproductive structure.
+This is a high-value candidate state-separation pattern (`D/F` respond while `I` does not), but the nonsignificant interaction result is **not coded as zero**. Species-specific coefficients/uncertainty or a hierarchy-preserving raw-data reanalysis are required. Dryad confirms that rows are nested observations: block → patch → plant → reproductive structure.
 
 ## PS011 — *Conospermum undulatum* contemporary pollen-flow layer
 
@@ -81,11 +81,26 @@ The 2026 focal populations are all remnant/fragmented populations, so no post-ho
 
 ## PS015 — *Conospermum undulatum* interaction / pollen-quality layer
 
-Verified seed: Delnevo et al. (2020), DOI `10.1016/j.biocon.2020.108824`.
+File: `evidence/meta_extraction/PS015_conospermum_2020_extraction_v1.csv`
 
 Across eleven populations, native specialist visitation/effective pollinator representation increased with floral display/connectivity, whereas small isolated remnants had stronger pollen-quality limitation. This adds a same-study `D + I + T + F` gradient between the 2019 reproduction study and the later adult-genetic / contemporary-paternity layers.
 
-PS015 is now priority **5** in the extraction queue. It is not row-joined with PS009/PS010/PS011; the four publications share a programme/system identity but retain separate observation IDs and years.
+The first-pass extraction stores only source-supported ranges/directions and model targets. No coefficient or variance is invented from narrative summaries. The study remains `model_contrast_pending_standardisation` until population-level coefficients/SE or raw data are recovered.
+
+PS015 is priority **5** in the extraction queue. It is not row-joined with PS009/PS010/PS011; the four publications share a programme/system identity but retain separate observation IDs and years.
+
+## PS012 — *Tillandsia intermedia* / *T. makoyana*
+
+File: `evidence/meta_extraction/PS012_tillandsia_extraction_v1.csv`
+
+The study sampled three continuous and three fragmented sites per species over three years. It provides a useful same-study contrast between interaction and reproduction:
+
+- pollinator visitation rate was reported as similar between habitat conditions for both species;
+- fruit set did not differ between habitats (`T. intermedia`: `F(1,4)=2.2`, `P=0.22`; `T. makoyana`: `F(1,4)=0.25`, `P=0.64`);
+- 2011 seed set was `78±2.8%` continuous vs `79±2.7%` fragmented for *T. intermedia* and `86±2.4%` vs `77±4.1%` for *T. makoyana*; the latter habitat contrast was significant (`F(1,60)=4.3`, `P<0.05`);
+- autonomous selfing capacity differed strongly (`AFI=0` in *T. intermedia*, `0.47` in *T. makoyana`) and is retained as a moderator/mechanism rather than a fragmentation response.
+
+Crucially, the reported plant sample sizes (e.g. seed-set subsets `35/29` and `38/27`) are **not** used as independent fragmentation replicate counts because exposure is site-level. The correct independent habitat units are three continuous and three fragmented sites. Without site-level seed-set/visitation summaries or raw data, the apparently significant `T. makoyana` seed-set result is retained as `raw_reanalysis_required`, not converted into a plant-level Hedges `g`.
 
 ## Conospermum programme — empirical lag architecture
 
@@ -106,8 +121,8 @@ Supported now:
 - multiple studies expose cross-layer differences within the same system or experiment;
 - published summaries require explicit hierarchy handling before standardized effects are admitted;
 - one site-level standardized effect is already safely reconstructable (`PS004 r_p`, oriented `g=-2.32154`);
-- Spondias demonstrates why many apparently extractable summaries are not safely standardizable without cluster-aware reconstruction;
-- Hulting and the Conospermum programme provide high-value empirical state-separation/lag targets for quantitative extraction.
+- Spondias and Tillandsia demonstrate why individual/offspring counts cannot automatically serve as fragmentation-level `n`;
+- Hulting, Tillandsia and the Conospermum programme provide high-value empirical state-separation/lag targets for quantitative extraction.
 
 Not supported yet:
 
@@ -119,7 +134,8 @@ Not supported yet:
 
 ## Next extraction order
 
-1. extract PS015 Conospermum 2020 population-level visitation / pollen-quality coefficients;
+1. recover PS015 Conospermum 2020 population-level coefficients/SE or raw data;
 2. obtain/reanalyse PS004 Figshare data for additional site/maternal-tree-aware progeny-vigour and genetic effects;
 3. obtain/reanalyse PS014 Dryad data for species-specific edge effects on flowering, pollination and seed production;
-4. proceed to PS012 Tillandsia, PS002 Magnolia and PS003 Serapias using their locked design streams.
+4. recover PS012 Tillandsia site-level visitation/seed-set summaries if available;
+5. proceed to PS002 Magnolia and PS003 Serapias using their locked gradient streams.
