@@ -150,7 +150,17 @@ The cross-origin result illustrates why a synthesis should sometimes terminate. 
 
 This paper does not replace established indicator-validation frameworks. It adds an ordered interpretation problem particularly relevant when a biological state proxy is followed by residual-context modelling. The four-gate workflow can be used as a reporting checklist: before interpreting residual context, state what biological measure was supplied, what endpoint it earned, whether its representation preserved the intended information, what holdout unit was used, and whether the requested synthesis was identifiable.
 
-## 5. Claim ceiling
+## 5. Conclusion
+
+Across the seven locked natural-data analyses, the common result is not a shared ecological effect of islandness, urbanisation, fragmentation or pollination. The common result is an **ordered inferential constraint**: a variable may be interpreted as an ecological state indicator only after its measurement has earned endpoint-relevant status, its analytical representation has preserved the information it claims to contain, any residual context has been tested for transferable predictive gain, and the requested cross-system comparison is identifiable. The analyses show that each of these gates can fail for a different reason in real ecological datasets.
+
+The paper's positive conclusion is therefore:
+
+> **Test the state before interpreting the residual.** Residual geography, habitat, origin or history is biologically interpretable only after the proposed state itself has passed measurement and representation checks; otherwise the residual cannot diagnose state incompleteness, and its absence cannot certify state sufficiency.
+
+This is stronger than a reporting checklist but narrower than a universal ecological law: it specifies the order in which downstream interpretation becomes licensed by evidence.
+
+## 6. Claim ceiling
 
 Supported:
 
