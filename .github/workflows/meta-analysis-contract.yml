@@ -16,6 +16,7 @@ on:
       - 'manuscript/meta_analysis_submission_metadata.md'
       - 'evidence/meta_extraction/**'
       - 'scripts/check_meta_analysis_contract.py'
+      - 'scripts/check_brosimum_extraction.py'
       - '.github/workflows/meta-analysis-contract.yml'
   push:
     branches: [main]
@@ -33,6 +34,7 @@ on:
       - 'manuscript/meta_analysis_submission_metadata.md'
       - 'evidence/meta_extraction/**'
       - 'scripts/check_meta_analysis_contract.py'
+      - 'scripts/check_brosimum_extraction.py'
       - '.github/workflows/meta-analysis-contract.yml'
 
 jobs:
@@ -45,3 +47,5 @@ jobs:
           python-version: '3.11'
       - name: Validate protocol-first meta-analysis state
         run: python scripts/check_meta_analysis_contract.py
+      - name: Audit first admissible site-level effect
+        run: python scripts/check_brosimum_extraction.py
