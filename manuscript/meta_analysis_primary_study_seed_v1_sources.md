@@ -46,6 +46,12 @@ DOI `10.1093/aobpla/ply038`.
 
 Continuous-versus-fragmented forest comparison over three years, including floral-visitor composition/visitation and female reproductive success. Useful same-study `I + F (+R)` pair.
 
+### PS015 — *Conospermum undulatum* interaction / pollen-quality gradient
+
+Delnevo et al. (2020), *Biological Conservation*. DOI `10.1016/j.biocon.2020.108824`.
+
+Across eleven remnant populations, specialist native bee visitation increased with floral display/connectivity, while small isolated populations lacked part of the effective pollinator fauna and showed stronger pollen-quality limitation. This is a high-priority same-study `D + I + T + F` gradient and fills the contemporary interaction layer between the 2019 reproductive study and the later adult-genetic / paternity studies.
+
 ## Programme-level anchors that must remain split by publication/year
 
 ### Miyake *Camellia japonica* programme
@@ -65,10 +71,11 @@ Do not row-join across campaigns.
 ### Perth *Conospermum undulatum* programme
 
 - Delnevo et al. (2019), DOI `10.1002/ece3.5653`: population/floral support and reproductive function.
+- Delnevo et al. (2020), DOI `10.1016/j.biocon.2020.108824`: pollinator visitation/effectiveness and pollen-quality limitation across eleven remnants.
 - Delnevo et al. (2021), DOI `10.1007/s10531-021-02256-x`: adult genetic structure and historical connectivity.
 - Delnevo et al. (2026), DOI `10.1002/ece3.73406`: contemporary offspring paternity and pollen flow.
 
-These studies intentionally represent different temporal/cohort layers and must not be collapsed into one row-level effect.
+These studies intentionally represent different temporal/cohort/process layers and must not be collapsed into one row-level effect. The 2026 paper's adult-genetic context overlaps the standing adult cohort reported in the programme and is linked rather than counted as a new independent adult-genetic effect.
 
 ## Partial comparator seed
 
