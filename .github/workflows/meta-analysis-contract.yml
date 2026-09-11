@@ -7,6 +7,7 @@ on:
       - 'manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md'
       - 'manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md'
       - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-11_EFFECT_UNITS.md'
+      - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-11_GRADIENT_GEOMETRY.md'
       - 'manuscript/META_ANALYSIS_EXTRACTION_STATUS_2026-09-11.md'
       - 'manuscript/meta_analysis_effect_schema.json'
       - 'manuscript/meta_analysis_seed_sources.md'
@@ -19,6 +20,7 @@ on:
       - 'scripts/check_meta_analysis_contract.py'
       - 'scripts/check_meta_analysis_progress.py'
       - 'scripts/check_brosimum_extraction.py'
+      - 'scripts/check_serapias_extraction.py'
       - '.github/workflows/meta-analysis-contract.yml'
   push:
     branches: [main]
@@ -27,6 +29,7 @@ on:
       - 'manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md'
       - 'manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md'
       - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-11_EFFECT_UNITS.md'
+      - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-11_GRADIENT_GEOMETRY.md'
       - 'manuscript/META_ANALYSIS_EXTRACTION_STATUS_2026-09-11.md'
       - 'manuscript/meta_analysis_effect_schema.json'
       - 'manuscript/meta_analysis_seed_sources.md'
@@ -39,6 +42,7 @@ on:
       - 'scripts/check_meta_analysis_contract.py'
       - 'scripts/check_meta_analysis_progress.py'
       - 'scripts/check_brosimum_extraction.py'
+      - 'scripts/check_serapias_extraction.py'
       - '.github/workflows/meta-analysis-contract.yml'
 
 jobs:
@@ -55,3 +59,5 @@ jobs:
         run: python scripts/check_meta_analysis_progress.py
       - name: Audit first admissible site-level effect
         run: python scripts/check_brosimum_extraction.py
+      - name: Audit reconstructable Serapias gradient effects
+        run: python scripts/check_serapias_extraction.py
