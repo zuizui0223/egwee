@@ -12,6 +12,9 @@ SPONDIAS = ROOT / "evidence/meta_extraction/PS001_spondias_extraction_v1.csv"
 BROSIMUM = ROOT / "evidence/meta_extraction/PS004_brosimum_extraction_v1.csv"
 HULTING = ROOT / "evidence/meta_extraction/PS014_hulting_extraction_v1.csv"
 CONOSPERMUM_2026 = ROOT / "evidence/meta_extraction/PS011_conospermum_2026_extraction_v1.csv"
+CONOSPERMUM_2020 = ROOT / "evidence/meta_extraction/PS015_conospermum_2020_extraction_v1.csv"
+TILLANDSIA = ROOT / "evidence/meta_extraction/PS012_tillandsia_extraction_v1.csv"
+SERAPIAS = ROOT / "evidence/meta_extraction/PS003_serapias_gradient_effects_v1.csv"
 
 
 def rows(path: Path) -> list[dict[str, str]]:
@@ -20,7 +23,11 @@ def rows(path: Path) -> list[dict[str, str]]:
 
 
 def main() -> None:
-    for path in (PRIMARY, CANDIDATES, QUEUE, STATUS, SPONDIAS, BROSIMUM, HULTING, CONOSPERMUM_2026):
+    files = (
+        PRIMARY, CANDIDATES, QUEUE, STATUS, SPONDIAS, BROSIMUM, HULTING,
+        CONOSPERMUM_2026, CONOSPERMUM_2020, TILLANDSIA, SERAPIAS,
+    )
+    for path in files:
         assert path.is_file(), path
 
     primary = rows(PRIMARY)
@@ -54,10 +61,16 @@ def main() -> None:
     brosimum = rows(BROSIMUM)
     hulting = rows(HULTING)
     cono26 = rows(CONOSPERMUM_2026)
+    cono20 = rows(CONOSPERMUM_2020)
+    till = rows(TILLANDSIA)
+    ser = rows(SERAPIAS)
     assert len(spondias) >= 10
     assert len(brosimum) >= 8
     assert len(hulting) >= 4
     assert len(cono26) >= 5
+    assert len(cono20) >= 4
+    assert len(till) >= 8
+    assert len(ser) == 2
 
     # Spondias: no naive standardized effect admitted because published
     # denominators/dispersion units are incompatible with a simple group g.
@@ -69,6 +82,11 @@ def main() -> None:
     assert len(b_g) == 1
     assert b_g[0]["endpoint_id"] == "C_paternity_rp"
     assert abs(float(b_g[0]["oriented_effect"]) - (-2.3215376099)) < 1e-9
+
+    # Serapias: two admissible population-level gradient effects, one each in C/F.
+    assert {r["layer"] for r in ser} == {"C", "F"}
+    assert all(r["effect_unit_status"] == "fisher_z_admissible" for r in ser)
+    assert all(int(r["n_independent"]) == 9 for r in ser)
 
     # Hulting: published pollination null is retained as a model contrast,
     # never synthesized as numerical zero.
@@ -84,21 +102,36 @@ def main() -> None:
     assert any(r["endpoint_id"] == "C_pollen_immigration" for r in cono26)
     assert any(r["endpoint_id"] == "Goffspring_presence" for r in cono26)
 
+    # Conospermum 2020 remains model/raw pending; narrative ranges are not effects.
+    assert not any(r["effect_unit_status"] in {"g_admissible", "fisher_z_admissible"} for r in cono20)
+
+    # Tillandsia exposure is site-level: individual plant n cannot be promoted to
+    # independent fragmentation replicates even for the significant T. makoyana seed-set result.
+    assert not any(r["effect_unit_status"] == "g_admissible" for r in till)
+    assert all(r["n_independent_continuous"] in {"", "3"} for r in till)
+    assert all(r["n_independent_fragmented"] in {"", "3"} for r in till)
+    mak_seed = next(r for r in till if r["species"] == "Tillandsia makoyana" and r["endpoint"] == "seed_set_2011")
+    assert mak_seed["effect_unit_status"] == "raw_reanalysis_required"
+
     status = STATUS.read_text(encoding="utf-8")
     for token in (
         "source-verified primary-study seeds: **15**",
         "candidate systems/programmes: **19**",
-        "studies with first-pass endpoint extraction materialized: **4**",
-        "currently `g_admissible` effects: **1**",
+        "studies with first-pass endpoint extraction materialized: **7**",
+        "currently admissible quantitative effects: **3**",
         "PS015",
+        "PS012",
+        "PS003",
         "oriented `g=-2.32154`",
+        "Fisher `z=-1.5412215`",
+        "Fisher `z=-2.3040450`",
     ):
         assert token in status, token
 
     print(
         "EGWEE extraction progress: PASS; "
         f"{len(primary)} verified studies, {len(candidates)} candidates, {len(queue)} queued, "
-        "4 materialized extractions, 1 current g-admissible effect"
+        "7 materialized extractions, 3 admissible effects (1 g + 2 Fisher-z)"
     )
 
 
