@@ -9,7 +9,7 @@ This is an execution ledger, not a Results section. No pooled meta-analytic conc
 - source-verified primary-study seeds: **15**
 - candidate systems/programmes: **19**
 - priority extraction queue: **8 studies**
-- studies with first-pass endpoint extraction materialized: **7**
+- studies with first-pass endpoint extraction materialized: **8**
 - currently admissible quantitative effects: **3** (`1` Hedges `g`, `2` Fisher `z(r)`)
 
 The four-gate programme remains QC/provenance only. The active paper is the multilayer fragmentation meta-analysis.
@@ -97,10 +97,25 @@ The study sampled three continuous and three fragmented sites per species over t
 
 - pollinator visitation rate was reported as similar between habitat conditions for both species;
 - fruit set did not differ between habitats (`T. intermedia`: `F(1,4)=2.2`, `P=0.22`; `T. makoyana`: `F(1,4)=0.25`, `P=0.64`);
-- 2011 seed set was `78±2.8%` continuous vs `79±2.7%` fragmented for *T. intermedia* and `86±2.4%` vs `77±4.1%` for *T. makoyana*; the latter habitat contrast was significant (`F(1,60)=4.3`, `P<0.05`);
+- 2011 seed set was `78±2.8%` continuous vs `79±2.7%` fragmented for *T. intermedia* and `86±2.4%` vs `77±4.1%` for *T. makoyana`; the latter habitat contrast was significant (`F(1,60)=4.3`, `P<0.05`);
 - autonomous selfing capacity differed strongly (`AFI=0` in *T. intermedia*, `0.47` in *T. makoyana`) and is retained as a moderator/mechanism rather than a fragmentation response.
 
 Crucially, the reported plant sample sizes are **not** used as independent fragmentation replicate counts because exposure is site-level. The correct independent habitat units are three continuous and three fragmented sites. Without site-level seed-set/visitation summaries or raw data, the apparently significant `T. makoyana` seed-set result is retained as `raw_reanalysis_required`, not converted into a plant-level Hedges `g`.
+
+## PS002 — *Magnolia stellata*
+
+File: `evidence/meta_extraction/PS002_magnolia_extraction_v1.csv`
+
+The open-access source reports strong model-level links between population structure and reproduction, but the estimands are native GLM/MCMC parameters rather than population-level correlations or two-group standardized contrasts. First-pass extraction therefore preserves the source scale:
+
+- female ovule survival vs population size: coefficient `+0.00055`, SE `0.00003`, `P<0.001`;
+- female ovule survival vs neighbouring population size: `+0.00013`, SE `0.00001`, `P<0.001`;
+- female ovule survival vs local density (50 m): `-0.00056`, SE `0.00004`, `P<0.001`;
+- selfing vs local density (25 m): `-0.00534`, SE `0.00105`, `P<0.001`;
+- between-population pollen flow: `6.09%`, with mean pollen dispersal distance about `602 m`;
+- male reproductive success separation parameter: median `gamma=-0.575`, 95% credible interval `[-1.105,-0.021]`.
+
+These quantities are biologically useful but are **not** converted post hoc to Fisher `z` or Hedges `g`. A compatible, locked conversion or reconstructed population-level gradient is required before admission to a pooled quantitative stream. `scripts/check_magnolia_extraction.py` verifies the native coefficients and enforces zero fabricated standardized effects.
 
 ## PS003 — *Serapias lingua*
 
@@ -137,7 +152,8 @@ Supported now:
 - published summaries require explicit hierarchy handling before standardized effects are admitted;
 - three quantitative effects are currently admissible under the locked streams: one site-level Hedges `g` (`PS004`) and two population-level Fisher `z(r)` effects (`PS003`);
 - Spondias and Tillandsia demonstrate why individual/offspring counts cannot automatically serve as fragmentation-level `n`;
-- Hulting, Tillandsia and the Conospermum programme provide high-value empirical state-separation/lag targets for further quantitative extraction.
+- Hulting, Tillandsia and the Conospermum programme provide high-value empirical state-separation/lag targets for further quantitative extraction;
+- Magnolia adds strong native-scale model evidence, but no standardized effect is admitted from it yet.
 
 Not supported yet:
 
@@ -153,4 +169,4 @@ Not supported yet:
 2. obtain/reanalyse PS004 Figshare data for additional site/maternal-tree-aware progeny-vigour and genetic effects;
 3. obtain/reanalyse PS014 Dryad data for species-specific edge effects on flowering, pollination and seed production;
 4. recover PS012 Tillandsia site-level visitation/seed-set summaries if available;
-5. reconstruct PS002 Magnolia population-level gradient effects where a geometry-defined exposure can be recovered without outcome-dependent grouping.
+5. continue expansion beyond the current seed corpus while keeping binary and gradient streams separate.
