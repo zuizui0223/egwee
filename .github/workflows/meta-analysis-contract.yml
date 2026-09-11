@@ -1,0 +1,37 @@
+name: Multilayer meta-analysis contract
+
+on:
+  pull_request:
+    paths:
+      - 'README.md'
+      - 'manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md'
+      - 'manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md'
+      - 'manuscript/meta_analysis_effect_schema.json'
+      - 'manuscript/meta_analysis_seed_sources.md'
+      - 'manuscript/meta_analysis_candidate_ledger.csv'
+      - 'manuscript/meta_analysis_submission_metadata.md'
+      - 'scripts/check_meta_analysis_contract.py'
+      - '.github/workflows/meta-analysis-contract.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'README.md'
+      - 'manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md'
+      - 'manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md'
+      - 'manuscript/meta_analysis_effect_schema.json'
+      - 'manuscript/meta_analysis_seed_sources.md'
+      - 'manuscript/meta_analysis_candidate_ledger.csv'
+      - 'manuscript/meta_analysis_submission_metadata.md'
+      - 'scripts/check_meta_analysis_contract.py'
+      - '.github/workflows/meta-analysis-contract.yml'
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate protocol-first meta-analysis state
+        run: python scripts/check_meta_analysis_contract.py
