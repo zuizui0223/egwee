@@ -6,10 +6,10 @@ This is an execution ledger, not a Results section. No pooled meta-analytic conc
 
 ## Corpus state
 
-- source-verified primary-study seeds: **15**
+- source-verified primary-study seeds: **16**
 - candidate systems/programmes: **19**
-- priority extraction queue: **8 studies**
-- studies with first-pass endpoint extraction materialized: **8**
+- priority extraction queue: **9 studies**
+- studies with first-pass endpoint extraction materialized: **9**
 - currently admissible quantitative effects: **3** (`1` Hedges `g`, `2` Fisher `z(r)`)
 
 The four-gate programme remains QC/provenance only. The active paper is the multilayer fragmentation meta-analysis.
@@ -89,6 +89,21 @@ The first-pass extraction stores only source-supported ranges/directions and mod
 
 PS015 is priority **5** in the extraction queue. It is not row-joined with PS009/PS010/PS011; the four publications share a programme/system identity but retain separate observation IDs and years.
 
+## PS016 — *Primula elatior* multilayer landscape study
+
+File: `evidence/meta_extraction/PS016_primula_2025_extraction_v1.csv`
+
+This 2025 study is a high-value same-paper cross-layer source:
+
+- `33` natural populations contribute population size, SNP diversity, floral morph balance and reproductive performance;
+- pollinator abundance was surveyed in a subset of `15` populations;
+- small populations were genetically less diverse and had more skewed morph ratios;
+- seed number per fruit increased with more balanced morph ratio and with pollinator abundance;
+- genetic diversity was not detectably associated with reproductive performance;
+- forest cover showed nonlinear relationships with pollinator abundance and seed production.
+
+This is already an empirical state-separation pattern—`G_adult` responds to population size while direct `F` is associated more strongly with compatible-mate structure and `I`—but narrative significance/direction is not converted to an effect size. The six first-pass rows remain `model_contrast_pending_standardisation` or `descriptive_only` until supplementary coefficients or population-level tables are recovered. In particular, the reported null `G -> F` relation is **not coded as zero**.
+
 ## PS012 — *Tillandsia intermedia* / *T. makoyana*
 
 File: `evidence/meta_extraction/PS012_tillandsia_extraction_v1.csv`
@@ -100,7 +115,7 @@ The study sampled three continuous and three fragmented sites per species over t
 - 2011 seed set was `78±2.8%` continuous vs `79±2.7%` fragmented for *T. intermedia* and `86±2.4%` vs `77±4.1%` for *T. makoyana`; the latter habitat contrast was significant (`F(1,60)=4.3`, `P<0.05`);
 - autonomous selfing capacity differed strongly (`AFI=0` in *T. intermedia*, `0.47` in *T. makoyana`) and is retained as a moderator/mechanism rather than a fragmentation response.
 
-Crucially, the reported plant sample sizes are **not** used as independent fragmentation replicate counts because exposure is site-level. The correct independent habitat units are three continuous and three fragmented sites. Without site-level seed-set/visitation summaries or raw data, the apparently significant `T. makoyana` seed-set result is retained as `raw_reanalysis_required`, not converted into a plant-level Hedges `g`.
+Crucially, the reported plant sample sizes are **not** used as independent fragmentation replicate counts because exposure is site-level and site was modeled as a random factor nested within habitat. Without site-level back-transformed means/uncertainty or raw data, no habitat Hedges `g` is manufactured from plant-level denominators.
 
 ## PS002 — *Magnolia stellata*
 
@@ -152,7 +167,7 @@ Supported now:
 - published summaries require explicit hierarchy handling before standardized effects are admitted;
 - three quantitative effects are currently admissible under the locked streams: one site-level Hedges `g` (`PS004`) and two population-level Fisher `z(r)` effects (`PS003`);
 - Spondias and Tillandsia demonstrate why individual/offspring counts cannot automatically serve as fragmentation-level `n`;
-- Hulting, Tillandsia and the Conospermum programme provide high-value empirical state-separation/lag targets for further quantitative extraction;
+- Hulting, Primula and the Conospermum programme provide high-value empirical state-separation/lag targets for further quantitative extraction;
 - Magnolia adds strong native-scale model evidence, but no standardized effect is admitted from it yet.
 
 Not supported yet:
@@ -165,8 +180,8 @@ Not supported yet:
 
 ## Next extraction order
 
-1. recover PS015 Conospermum 2020 population-level coefficients/SE or raw data;
-2. obtain/reanalyse PS004 Figshare data for additional site/maternal-tree-aware progeny-vigour and genetic effects;
-3. obtain/reanalyse PS014 Dryad data for species-specific edge effects on flowering, pollination and seed production;
-4. recover PS012 Tillandsia site-level visitation/seed-set summaries if available;
-5. continue expansion beyond the current seed corpus while keeping binary and gradient streams separate.
+1. recover PS016 Primula supplementary coefficients or population table for `D-G`, `T-F` and `I-F` paths;
+2. recover PS015 Conospermum 2020 population-level coefficients/SE or raw data;
+3. obtain/reanalyse PS004 Figshare data for additional site/maternal-tree-aware progeny-vigour and genetic effects;
+4. obtain/reanalyse PS014 Dryad data for species-specific edge effects on flowering, pollination and seed production;
+5. recover PS012 Tillandsia site-level back-transformed visitation/seed-set summaries if available.
