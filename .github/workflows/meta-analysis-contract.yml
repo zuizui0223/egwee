@@ -14,6 +14,7 @@ on:
       - 'manuscript/meta_analysis_primary_study_seed_v1_sources.md'
       - 'manuscript/meta_analysis_extraction_queue_v1.csv'
       - 'manuscript/meta_analysis_submission_metadata.md'
+      - 'evidence/meta_extraction/**'
       - 'scripts/check_meta_analysis_contract.py'
       - '.github/workflows/meta-analysis-contract.yml'
   push:
@@ -30,6 +31,7 @@ on:
       - 'manuscript/meta_analysis_primary_study_seed_v1_sources.md'
       - 'manuscript/meta_analysis_extraction_queue_v1.csv'
       - 'manuscript/meta_analysis_submission_metadata.md'
+      - 'evidence/meta_extraction/**'
       - 'scripts/check_meta_analysis_contract.py'
       - '.github/workflows/meta-analysis-contract.yml'
 
