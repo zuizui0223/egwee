@@ -14,6 +14,7 @@ HULTING = ROOT / "evidence/meta_extraction/PS014_hulting_extraction_v1.csv"
 CONOSPERMUM_2026 = ROOT / "evidence/meta_extraction/PS011_conospermum_2026_extraction_v1.csv"
 CONOSPERMUM_2020 = ROOT / "evidence/meta_extraction/PS015_conospermum_2020_extraction_v1.csv"
 TILLANDSIA = ROOT / "evidence/meta_extraction/PS012_tillandsia_extraction_v1.csv"
+MAGNOLIA = ROOT / "evidence/meta_extraction/PS002_magnolia_extraction_v1.csv"
 SERAPIAS = ROOT / "evidence/meta_extraction/PS003_serapias_gradient_effects_v1.csv"
 
 
@@ -25,7 +26,7 @@ def rows(path: Path) -> list[dict[str, str]]:
 def main() -> None:
     files = (
         PRIMARY, CANDIDATES, QUEUE, STATUS, SPONDIAS, BROSIMUM, HULTING,
-        CONOSPERMUM_2026, CONOSPERMUM_2020, TILLANDSIA, SERAPIAS,
+        CONOSPERMUM_2026, CONOSPERMUM_2020, TILLANDSIA, MAGNOLIA, SERAPIAS,
     )
     for path in files:
         assert path.is_file(), path
@@ -63,6 +64,7 @@ def main() -> None:
     cono26 = rows(CONOSPERMUM_2026)
     cono20 = rows(CONOSPERMUM_2020)
     till = rows(TILLANDSIA)
+    mag = rows(MAGNOLIA)
     ser = rows(SERAPIAS)
     assert len(spondias) >= 10
     assert len(brosimum) >= 8
@@ -70,6 +72,7 @@ def main() -> None:
     assert len(cono26) >= 5
     assert len(cono20) >= 4
     assert len(till) >= 8
+    assert len(mag) == 6
     assert len(ser) == 2
 
     # Spondias: no naive standardized effect admitted because published
@@ -87,6 +90,12 @@ def main() -> None:
     assert {r["layer"] for r in ser} == {"C", "F"}
     assert all(r["effect_unit_status"] == "fisher_z_admissible" for r in ser)
     assert all(int(r["n_independent"]) == 9 for r in ser)
+
+    # Magnolia: native GLM/MCMC model parameters are preserved, but no post-hoc
+    # conversion to a standardized stream is allowed without a locked rule.
+    assert not any(r["effect_unit_status"] in {"g_admissible", "fisher_z_admissible"} for r in mag)
+    assert next(r for r in mag if r["endpoint_id"] == "F_population_size")["raw_effect"] == "0.00055"
+    assert next(r for r in mag if r["endpoint_id"] == "C_population_separation_male_success")["raw_effect"] == "-0.575"
 
     # Hulting: published pollination null is retained as a model contrast,
     # never synthesized as numerical zero.
@@ -117,10 +126,11 @@ def main() -> None:
     for token in (
         "source-verified primary-study seeds: **15**",
         "candidate systems/programmes: **19**",
-        "studies with first-pass endpoint extraction materialized: **7**",
+        "studies with first-pass endpoint extraction materialized: **8**",
         "currently admissible quantitative effects: **3**",
         "PS015",
         "PS012",
+        "PS002",
         "PS003",
         "oriented `g=-2.32154`",
         "Fisher `z=-1.5412215`",
@@ -131,7 +141,7 @@ def main() -> None:
     print(
         "EGWEE extraction progress: PASS; "
         f"{len(primary)} verified studies, {len(candidates)} candidates, {len(queue)} queued, "
-        "7 materialized extractions, 3 admissible effects (1 g + 2 Fisher-z)"
+        "8 materialized extractions, 3 admissible effects (1 g + 2 Fisher-z)"
     )
 
 
