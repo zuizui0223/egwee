@@ -8,12 +8,14 @@ ROOT = Path(__file__).resolve().parents[1]
 README = ROOT / "README.md"
 MANUSCRIPT = ROOT / "manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md"
 PROTOCOL = ROOT / "manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md"
+AMENDMENT = ROOT / "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-11_EFFECT_UNITS.md"
 SCHEMA = ROOT / "manuscript/meta_analysis_effect_schema.json"
 METADATA = ROOT / "manuscript/meta_analysis_submission_metadata.md"
 LEDGER = ROOT / "manuscript/meta_analysis_candidate_ledger.csv"
 SEEDS = ROOT / "manuscript/meta_analysis_seed_sources.md"
 PRIMARY_SEED = ROOT / "manuscript/meta_analysis_primary_study_seed_v1.csv"
 PRIMARY_SEED_SOURCES = ROOT / "manuscript/meta_analysis_primary_study_seed_v1_sources.md"
+EXTRACTION_QUEUE = ROOT / "manuscript/meta_analysis_extraction_queue_v1.csv"
 
 
 def _csv_rows(path: Path) -> list[dict[str, str]]:
@@ -26,18 +28,21 @@ def main() -> None:
         README,
         MANUSCRIPT,
         PROTOCOL,
+        AMENDMENT,
         SCHEMA,
         METADATA,
         LEDGER,
         SEEDS,
         PRIMARY_SEED,
         PRIMARY_SEED_SOURCES,
+        EXTRACTION_QUEUE,
     ):
         assert path.is_file(), path
 
     readme = README.read_text(encoding="utf-8")
     manuscript = MANUSCRIPT.read_text(encoding="utf-8")
     protocol = PROTOCOL.read_text(encoding="utf-8")
+    amendment = AMENDMENT.read_text(encoding="utf-8")
     metadata = METADATA.read_text(encoding="utf-8")
     schema = json.loads(SCHEMA.read_text(encoding="utf-8"))
 
@@ -50,7 +55,12 @@ def main() -> None:
     assert "primary meta-analysis requires a direct fragmented-versus-reference comparison" in protocol.lower()
     assert "Missing biological layers are not coded as zero effects" in protocol
     assert "Do not define a `compensated` category" in protocol
-    assert schema["schema_version"] == 1
+
+    assert "pseudo-replication firewall" in amendment.lower()
+    assert "do not manufacture g" in amendment.lower()
+    assert "n_independent" in schema["required_fields"]
+    assert schema["schema_version"] == 2
+    assert schema["amendment"] == "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-11_EFFECT_UNITS.md"
     assert schema["primary_effect_stream"] == "hedges_g_fragmented_minus_reference"
     assert schema["secondary_effect_stream"] == "fisher_z_correlation_with_fragmentation_severity"
     assert set(schema["primary_layers"]) == {
@@ -61,6 +71,20 @@ def main() -> None:
         "G_adult",
         "G_offspring",
     }
+    assert set(schema["effect_unit_status_values"]) == {
+        "g_admissible",
+        "fisher_z_admissible",
+        "model_contrast_pending_standardisation",
+        "raw_reanalysis_required",
+        "descriptive_only",
+    }
+    for forbidden_shortcut in (
+        "pair_individual_sample_size_with_locus_level_SD",
+        "treat_nested_offspring_or_paternity_events_as_independent_fragmentation_replicates",
+        "force_model_based_contrasts_into_Hedges_g_without_compatible_standardisation",
+    ):
+        assert forbidden_shortcut in schema["forbidden_shortcuts"]
+
     assert "protocol_locked_screening_and_extraction_pending" in metadata
     for forbidden in (
         "meta-analysis demonstrates",
@@ -89,6 +113,15 @@ def main() -> None:
     assert any(r["system"] == "Brosimum alicastrum" and "priority_extraction" in r["current_status"] for r in candidates)
     assert any(r["system"] == "Magnolia stellata" and r["direct_fragmentation_contrast"] == "gradient" for r in candidates)
 
+    queue = _csv_rows(EXTRACTION_QUEUE)
+    assert len(queue) >= 7
+    priorities = [int(r["priority"]) for r in queue]
+    assert priorities == sorted(priorities), priorities
+    assert queue[0]["study_id"] == "PS001"
+    assert {r["design_stream"] for r in queue} >= {"hedges_g_direct", "fisher_z_gradient"}
+    assert any(r["study_id"] == "PS004" for r in queue)
+    assert any(r["study_id"] == "PS014" for r in queue)
+
     provenance = PRIMARY_SEED_SOURCES.read_text(encoding="utf-8")
     for doi in (
         "10.1016/j.biocon.2021.109007",
@@ -101,7 +134,9 @@ def main() -> None:
 
     print(
         "EGWEE multilayer meta-analysis contract: PASS; "
-        f"{len(primary)} source-verified primary-study seeds, {len(candidates)} candidate systems"
+        f"{len(primary)} source-verified primary-study seeds, "
+        f"{len(candidates)} candidate systems, {len(queue)} queued extraction studies; "
+        "effect-unit firewall active"
     )
 
 
