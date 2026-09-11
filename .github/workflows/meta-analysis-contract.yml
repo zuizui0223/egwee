@@ -21,6 +21,7 @@ on:
       - 'scripts/check_meta_analysis_progress.py'
       - 'scripts/check_brosimum_extraction.py'
       - 'scripts/check_serapias_extraction.py'
+      - 'scripts/check_serapias_binary_effects.py'
       - 'scripts/check_magnolia_extraction.py'
       - '.github/workflows/meta-analysis-contract.yml'
   push:
@@ -44,6 +45,7 @@ on:
       - 'scripts/check_meta_analysis_progress.py'
       - 'scripts/check_brosimum_extraction.py'
       - 'scripts/check_serapias_extraction.py'
+      - 'scripts/check_serapias_binary_effects.py'
       - 'scripts/check_magnolia_extraction.py'
       - '.github/workflows/meta-analysis-contract.yml'
 
@@ -63,5 +65,7 @@ jobs:
         run: python scripts/check_brosimum_extraction.py
       - name: Audit reconstructable Serapias gradient effects
         run: python scripts/check_serapias_extraction.py
+      - name: Audit source-defined Serapias paired multilayer effects
+        run: python scripts/check_serapias_binary_effects.py
       - name: Audit Magnolia native-scale model extraction
         run: python scripts/check_magnolia_extraction.py
