@@ -1,6 +1,8 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "frozen_on": "2026-09-11",
+  "amended_on": "2026-09-11",
+  "amendment": "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-11_EFFECT_UNITS.md",
   "primary_effect_stream": "hedges_g_fragmented_minus_reference",
   "secondary_effect_stream": "fisher_z_correlation_with_fragmentation_severity",
   "orientation_rule": "negative_means_lower_biological_support_or_function_under_greater_fragmentation",
@@ -15,6 +17,13 @@
   "secondary_layers": [
     "T_partner_trait"
   ],
+  "effect_unit_status_values": [
+    "g_admissible",
+    "fisher_z_admissible",
+    "model_contrast_pending_standardisation",
+    "raw_reanalysis_required",
+    "descriptive_only"
+  ],
   "required_fields": [
     "study_id",
     "citation_key",
@@ -25,19 +34,27 @@
     "layer",
     "endpoint_id",
     "effect_stream",
+    "effect_unit_status",
+    "effect_unit_note",
+    "independent_unit",
+    "dispersion_unit",
+    "n_independent_fragmented",
+    "n_independent_reference",
+    "n_individuals_fragmented",
+    "n_individuals_reference",
+    "n_loci_or_repeated_dimensions",
     "raw_effect",
     "raw_variance",
     "orientation_multiplier",
     "oriented_effect",
     "oriented_variance",
-    "sample_size_fragmented",
-    "sample_size_reference",
     "fragmentation_component",
     "direct_process_measurement",
     "cohort",
     "pollination_vector",
     "mating_system",
     "time_since_fragmentation",
+    "source_observation_id",
     "source_location",
     "extraction_notes"
   ],
@@ -48,6 +65,7 @@
     "contrast_id"
   ],
   "anti_double_counting_rule": "duplicate reports of the same observations must share a source_observation_id and contribute only once per endpoint contrast",
+  "sampling_unit_rule": "sample sizes and dispersion used for effect variance must correspond to the same independent observation level; lower-level individuals, seeds, offspring or loci cannot be promoted to independent fragmentation replicates",
   "primary_tests": [
     "omnibus_layer_heterogeneity",
     "I_minus_F",
@@ -61,6 +79,9 @@
     "treat_multiple_effects_as_independent_studies",
     "pool_Hedges_g_and_Fisher_z_without_preregistered_conversion",
     "define_compensation_from_the_same_function_outcome_used_as_response",
-    "reinterpret_nonsignificance_as_equivalence"
+    "reinterpret_nonsignificance_as_equivalence",
+    "pair_individual_sample_size_with_locus_level_SD",
+    "treat_nested_offspring_or_paternity_events_as_independent_fragmentation_replicates",
+    "force_model_based_contrasts_into_Hedges_g_without_compatible_standardisation"
   ]
 }
