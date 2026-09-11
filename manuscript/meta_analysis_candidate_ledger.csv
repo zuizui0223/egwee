@@ -1,0 +1,13 @@
+candidate_id,system,seed_role,direct_fragmentation_contrast,known_layers,primary_pairing_value,current_status,notes
+C01,Crepis sancta,mechanistic_anchor,yes,"D;I;C;R;G;F;M",high,screen_original_papers,"programme spans related studies/years; do not row-join unmatched campaigns"
+C02,Camellia japonica-Zosterops japonicus Miyake,mechanistic_anchor,yes,"D;I;C;G;F;M",high,screen_original_papers,"movement-compensation system; 2008 and 2013 campaigns must remain separately identified"
+C03,Conospermum undulatum,mechanistic_anchor,yes,"D;I;C;R;G;F;M",high,screen_original_papers,"adult-genetic history lag and contemporary pollen-flow/reproduction evidence span studies"
+C04,Spondias purpurea,mechanistic_anchor,yes,"D;I;C;R;G_adult;G_offspring;F;M",very_high,priority_extraction,"near-synchronised continuous-vs-fragmented comparison with multiple layers"
+C05,Honshu-Izu coastal networks,secondary_seed,no_strict_binary,"I;T;F;M",medium,secondary_gradient_candidate,"distance/island geography; likely Fisher-z gradient stream unless a valid two-group fragmentation contrast exists"
+C06,Zurich BetterBlooms,secondary_seed,uncertain,"D;I;T;F",medium,screen_exposure_definition,"urban intensity is not automatically equivalent to fragmentation"
+C07,Chicago Penstemon hirsutus,high_value_seed,uncertain,"D;I;T;C;R;G;F;M",high,screen_original_papers,"connectivity/function-rich partial state in existing crosswalk"
+C08,Primula elatior,high_value_seed,yes,"D;I;T;C;R;G;F;M",high,priority_screening,"strong terrestrial multilayer candidate"
+C09,Oenothera harringtonii,secondary_seed,uncertain,"I;C;G;F",medium,screen_original_paper,"existing EGWEE result targets spatial mating opportunity rather than a meta-analysis-ready fragmentation contrast"
+C10,Eschscholzia californica,secondary_seed,uncertain,"I_proxy;C;G;F",low,screen_original_paper,"existing gate result contains measurement-identifiability limitations"
+C11,Mallorca carob,secondary_seed,uncertain,"I_proxy;F",low,screen_original_paper,"urban/agricultural context; exposure must satisfy fragmentation rule"
+C12,Campanula americana,secondary_seed,no,"I;T;F",low,representation_only,"use for conceptual representation discussion only unless original study contains an eligible fragmentation contrast"
