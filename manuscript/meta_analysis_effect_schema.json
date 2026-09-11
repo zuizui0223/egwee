@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "frozen_on": "2026-09-11",
+  "primary_effect_stream": "hedges_g_fragmented_minus_reference",
+  "secondary_effect_stream": "fisher_z_correlation_with_fragmentation_severity",
+  "orientation_rule": "negative_means_lower_biological_support_or_function_under_greater_fragmentation",
+  "primary_layers": [
+    "D_resource_demography",
+    "I_interaction",
+    "C_movement_connectivity",
+    "F_reproductive_function",
+    "G_adult",
+    "G_offspring"
+  ],
+  "secondary_layers": [
+    "T_partner_trait"
+  ],
+  "required_fields": [
+    "study_id",
+    "citation_key",
+    "doi_or_stable_id",
+    "species_id",
+    "system_id",
+    "contrast_id",
+    "layer",
+    "endpoint_id",
+    "effect_stream",
+    "raw_effect",
+    "raw_variance",
+    "orientation_multiplier",
+    "oriented_effect",
+    "oriented_variance",
+    "sample_size_fragmented",
+    "sample_size_reference",
+    "fragmentation_component",
+    "direct_process_measurement",
+    "cohort",
+    "pollination_vector",
+    "mating_system",
+    "time_since_fragmentation",
+    "source_location",
+    "extraction_notes"
+  ],
+  "cluster_fields": [
+    "study_id",
+    "species_id",
+    "system_id",
+    "contrast_id"
+  ],
+  "anti_double_counting_rule": "duplicate reports of the same observations must share a source_observation_id and contribute only once per endpoint contrast",
+  "primary_tests": [
+    "omnibus_layer_heterogeneity",
+    "I_minus_F",
+    "C_minus_F",
+    "G_adult_minus_G_offspring",
+    "G_adult_minus_contemporary_interaction_function",
+    "process_function_covariance"
+  ],
+  "forbidden_shortcuts": [
+    "code_missing_layer_as_zero",
+    "treat_multiple_effects_as_independent_studies",
+    "pool_Hedges_g_and_Fisher_z_without_preregistered_conversion",
+    "define_compensation_from_the_same_function_outcome_used_as_response",
+    "reinterpret_nonsignificance_as_equivalence"
+  ]
+}
