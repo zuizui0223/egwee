@@ -9,8 +9,8 @@ This is an execution ledger, not a Results section. No pooled meta-analytic conc
 - source-verified primary-study seeds: **15**
 - candidate systems/programmes: **19**
 - priority extraction queue: **8 studies**
-- studies with first-pass endpoint extraction materialized: **6**
-- currently `g_admissible` effects: **1**
+- studies with first-pass endpoint extraction materialized: **7**
+- currently admissible quantitative effects: **3** (`1` Hedges `g`, `2` Fisher `z(r)`)
 
 The four-gate programme remains QC/provenance only. The active paper is the multilayer fragmentation meta-analysis.
 
@@ -100,7 +100,22 @@ The study sampled three continuous and three fragmented sites per species over t
 - 2011 seed set was `78±2.8%` continuous vs `79±2.7%` fragmented for *T. intermedia* and `86±2.4%` vs `77±4.1%` for *T. makoyana*; the latter habitat contrast was significant (`F(1,60)=4.3`, `P<0.05`);
 - autonomous selfing capacity differed strongly (`AFI=0` in *T. intermedia*, `0.47` in *T. makoyana`) and is retained as a moderator/mechanism rather than a fragmentation response.
 
-Crucially, the reported plant sample sizes (e.g. seed-set subsets `35/29` and `38/27`) are **not** used as independent fragmentation replicate counts because exposure is site-level. The correct independent habitat units are three continuous and three fragmented sites. Without site-level seed-set/visitation summaries or raw data, the apparently significant `T. makoyana` seed-set result is retained as `raw_reanalysis_required`, not converted into a plant-level Hedges `g`.
+Crucially, the reported plant sample sizes are **not** used as independent fragmentation replicate counts because exposure is site-level. The correct independent habitat units are three continuous and three fragmented sites. Without site-level seed-set/visitation summaries or raw data, the apparently significant `T. makoyana` seed-set result is retained as `raw_reanalysis_required`, not converted into a plant-level Hedges `g`.
+
+## PS003 — *Serapias lingua*
+
+File: `evidence/meta_extraction/PS003_serapias_gradient_effects_v1.csv`
+
+This is the first study yielding two admissible cross-layer effects from the same population-level table. The nine published populations provide population area, fruit set and pollen immigration. Following the locked geometry amendment, positive right-skewed area is transformed globally as `fragmentation_severity = -log(area)`.
+
+Using populations—not fruits or genotypes—as the independent units:
+
+- reproductive function (`F`, fruit set): `r=-0.9123254`, Fisher `z=-1.5412215`, variance `1/(9-3)=0.1666667`;
+- movement/connectivity (`C`, pollen immigration): `r=-0.9802552`, Fisher `z=-2.3040450`, variance `0.1666667`.
+
+Negative effects mean stronger fragmentation (smaller population area) is associated with lower support/function. Untransformed-area versions are stored only as sensitivity representations of the same observations (`z=-1.08641` for fruit set; `z=-1.61461` for pollen immigration) and cannot enter the same pooled model.
+
+`scripts/check_serapias_extraction.py` reconstructs both effects directly from the published Table 1 values in CI.
 
 ## Conospermum programme — empirical lag architecture
 
@@ -120,9 +135,9 @@ Supported now:
 - the corpus contains genuinely multilayer natural fragmentation studies;
 - multiple studies expose cross-layer differences within the same system or experiment;
 - published summaries require explicit hierarchy handling before standardized effects are admitted;
-- one site-level standardized effect is already safely reconstructable (`PS004 r_p`, oriented `g=-2.32154`);
+- three quantitative effects are currently admissible under the locked streams: one site-level Hedges `g` (`PS004`) and two population-level Fisher `z(r)` effects (`PS003`);
 - Spondias and Tillandsia demonstrate why individual/offspring counts cannot automatically serve as fragmentation-level `n`;
-- Hulting, Tillandsia and the Conospermum programme provide high-value empirical state-separation/lag targets for quantitative extraction.
+- Hulting, Tillandsia and the Conospermum programme provide high-value empirical state-separation/lag targets for further quantitative extraction.
 
 Not supported yet:
 
@@ -138,4 +153,4 @@ Not supported yet:
 2. obtain/reanalyse PS004 Figshare data for additional site/maternal-tree-aware progeny-vigour and genetic effects;
 3. obtain/reanalyse PS014 Dryad data for species-specific edge effects on flowering, pollination and seed production;
 4. recover PS012 Tillandsia site-level visitation/seed-set summaries if available;
-5. proceed to PS002 Magnolia and PS003 Serapias using their locked gradient streams.
+5. reconstruct PS002 Magnolia population-level gradient effects where a geometry-defined exposure can be recovered without outcome-dependent grouping.
