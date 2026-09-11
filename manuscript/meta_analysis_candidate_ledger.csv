@@ -6,7 +6,7 @@ C04,Spondias purpurea,mechanistic_anchor,yes,"D;I;C;G_adult;G_offspring;F;M",ver
 C05,Honshu-Izu coastal networks,secondary_seed,no_strict_binary,"I;T;F;M",medium,secondary_gradient_candidate,"distance/island geography; Fisher-z gradient stream unless a valid pre-existing two-group fragmentation contrast exists"
 C06,Zurich BetterBlooms,secondary_seed,uncertain,"D;I;T;F",medium,screen_exposure_definition,"urban intensity is not automatically equivalent to fragmentation"
 C07,Chicago Penstemon hirsutus,high_value_seed,uncertain,"D;I;T;C;R;G;F;M",high,screen_original_papers,"connectivity/function-rich partial state in existing crosswalk"
-C08,Primula elatior,high_value_seed,yes,"D;I;T;C;R;G;F;M",high,priority_screening,"strong terrestrial multilayer candidate; primary-paper verification still required"
+C08,Primula elatior,high_value_seed,gradient,"D;I;T;F;G_adult",very_high,source_verified_gradient_priority,"Bohm et al. 2025 Biological Conservation 10.1016/j.biocon.2025.111044; 33 populations for D/G/T/F and pollinator surveys in 15, with cross-layer separation between genetic diversity and direct reproductive drivers"
 C09,Oenothera harringtonii,secondary_seed,uncertain,"I;C;G;F",medium,screen_original_paper,"existing EGWEE result targets spatial mating opportunity rather than a meta-analysis-ready fragmentation contrast"
 C10,Eschscholzia californica,secondary_seed,uncertain,"I_proxy;C;G;F",low,screen_original_paper,"existing gate result contains measurement-identifiability limitations"
 C11,Mallorca carob,secondary_seed,uncertain,"I_proxy;F",low,screen_original_paper,"urban/agricultural context; exposure must satisfy fragmentation rule"
