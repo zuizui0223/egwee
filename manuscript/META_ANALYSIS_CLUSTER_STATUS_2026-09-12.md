@@ -59,7 +59,28 @@ The **comparison gate is open** because two independent clusters now satisfy the
 1. `ML001 Serapias`: `C/F/G_adult`;
 2. `ML002 Brosimum`: `C/F`.
 
-This authorizes a first covariance-aware cross-system **C-F pilot comparison**. It does **not** authorize a broad claim that multilayer concordance is general across fragmented plant systems. Additional independent clusters remain required for that claim.
+This authorizes a covariance-aware cross-system C-F comparison. It does **not** authorize a broad claim that multilayer concordance is general across fragmented plant systems. Additional independent clusters remain required for that claim.
+
+## Cross-system C-F pilot — diagnostic only
+
+The first pilot is calculated at the cluster level, not by treating four C/F effect rows as independent observations. For each cluster:
+
+`delta_F_minus_C = g_F - g_C`
+
+with
+
+`V(delta) = V(F) + V(C) - 2 Cov(F,C)`.
+
+Current cluster contrasts are:
+
+- `ML001 Serapias`: `delta(F-C) = +5.54492414`, variance `4.25650739`, 95% CI `[1.50126267, 9.58858562]`;
+- `ML002 Brosimum`: `delta(F-C) = +1.03459796`, variance `0.64917885`, 95% CI `[-0.54457710, 2.61377303]`.
+
+Both independent clusters have `C < 0` and `F < 0`, and in both clusters the connectivity/movement effect is more negative than the reproductive-function effect (`C < F` after common orientation). Thus the current replicated pattern is **directional C-F deterioration with stronger C loss than F loss in 2/2 systems**.
+
+A covariance-aware fixed-effect combination gives diagnostic `delta(F-C) = +1.63145806`, variance `0.56327177`, 95% CI `[0.16047699, 3.10243914]`. Between-cluster dispersion is nontrivial (`Q(df=1)=4.14682905`; descriptive `I2=75.9%`). With only two clusters, these pooled statistics are retained solely as a pipeline/pattern diagnostic; they are not treated as a stable cross-system grand mean or general ecological law.
+
+The main information gained is therefore not a pooled effect size but a sharper next question: whether the apparent ordering `fragmentation -> stronger deterioration in movement/connectivity than realised reproductive function` persists when independent clusters are added, and which biological mechanisms permit F to remain less negative than C.
 
 ## Remaining independent-cluster recovery queue
 
@@ -68,4 +89,4 @@ This authorizes a first covariance-aware cross-system **C-F pilot comparison**. 
 3. `ML005 Conospermum 2026`: recover population-aware `C/G_offspring` under one predeclared landscape predictor; do not concatenate the historical adult cohort.
 4. `ML006 Primula`: recover one common landscape exposure before treating published `G/I/F` paths as a fragmentation cluster; current paths use different predictors.
 
-The immediate next analysis is the two-cluster C-F pilot using the stored within-cluster covariance blocks. Broad cross-system synthesis stays provisional until the independent-cluster set expands.
+The immediate next recovery target is `ML003 Spondias`, because it can add the broadest independent multilayer test if its site-level/model covariance can be reconstructed without violating the effect-unit firewall. The C-F pilot remains provisional until this independent-cluster set expands.
