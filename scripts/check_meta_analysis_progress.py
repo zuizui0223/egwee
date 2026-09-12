@@ -7,7 +7,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PRIMARY = ROOT / "manuscript/meta_analysis_primary_study_seed_v1.csv"
 CANDIDATES = ROOT / "manuscript/meta_analysis_candidate_ledger.csv"
 QUEUE = ROOT / "manuscript/meta_analysis_extraction_queue_v1.csv"
-STATUS = ROOT / "manuscript/META_ANALYSIS_EXTRACTION_STATUS_2026-09-11.md"
+STATUS = ROOT / "manuscript/META_ANALYSIS_CLUSTER_STATUS_2026-09-12.md"
 SPONDIAS = ROOT / "evidence/meta_extraction/PS001_spondias_extraction_v1.csv"
 BROSIMUM = ROOT / "evidence/meta_extraction/PS004_brosimum_extraction_v1.csv"
 HULTING = ROOT / "evidence/meta_extraction/PS014_hulting_extraction_v1.csv"
@@ -16,7 +16,9 @@ CONOSPERMUM_2020 = ROOT / "evidence/meta_extraction/PS015_conospermum_2020_extra
 TILLANDSIA = ROOT / "evidence/meta_extraction/PS012_tillandsia_extraction_v1.csv"
 MAGNOLIA = ROOT / "evidence/meta_extraction/PS002_magnolia_extraction_v1.csv"
 PRIMULA = ROOT / "evidence/meta_extraction/PS016_primula_2025_extraction_v1.csv"
-SERAPIAS = ROOT / "evidence/meta_extraction/PS003_serapias_gradient_effects_v1.csv"
+SERAPIAS_GRADIENT = ROOT / "evidence/meta_extraction/PS003_serapias_gradient_effects_v1.csv"
+SERAPIAS_BINARY = ROOT / "evidence/meta_extraction/PS003_serapias_binary_effects_v1.csv"
+CLUSTERS = ROOT / "evidence/meta_extraction/multilayer_cluster_registry_v1.csv"
 
 
 def rows(path: Path) -> list[dict[str, str]]:
@@ -27,7 +29,8 @@ def rows(path: Path) -> list[dict[str, str]]:
 def main() -> None:
     files = (
         PRIMARY, CANDIDATES, QUEUE, STATUS, SPONDIAS, BROSIMUM, HULTING,
-        CONOSPERMUM_2026, CONOSPERMUM_2020, TILLANDSIA, MAGNOLIA, PRIMULA, SERAPIAS,
+        CONOSPERMUM_2026, CONOSPERMUM_2020, TILLANDSIA, MAGNOLIA, PRIMULA,
+        SERAPIAS_GRADIENT, SERAPIAS_BINARY, CLUSTERS,
     )
     for path in files:
         assert path.is_file(), path
@@ -35,7 +38,6 @@ def main() -> None:
     primary = rows(PRIMARY)
     candidates = rows(CANDIDATES)
     queue = rows(QUEUE)
-
     assert len(primary) >= 16, len(primary)
     assert len(candidates) >= 19, len(candidates)
     assert len(queue) >= 9, len(queue)
@@ -46,8 +48,6 @@ def main() -> None:
     assert set(queue_ids) <= primary_ids, f"queue references unknown IDs: {set(queue_ids) - primary_ids}"
     assert any(r["study_id"] == "PS012" and "Tillandsia" in r["species"] for r in primary)
     assert any(r["study_id"] == "PS016" and r["species"] == "Primula elatior" for r in primary)
-    assert any(r["study_id"] == "PS012" and "Tillandsia" in r["species"] for r in queue)
-    assert any(r["study_id"] == "PS016" and r["species"] == "Primula elatior" for r in queue)
     assert any(r["study_id"] == "PS015" and int(r["priority"]) == 5 for r in queue)
     assert any(r["study_id"] == "PS011" and r["design_stream"] == "fisher_z_gradient" for r in queue)
 
@@ -64,7 +64,6 @@ def main() -> None:
     c08 = next(r for r in candidates if r["candidate_id"] == "C08")
     assert c08["system"] == "Primula elatior"
     assert "source_verified" in c08["current_status"]
-
     c19 = next(r for r in candidates if r["candidate_id"] == "C19")
     assert "Conospermum" in c19["system"]
     assert c19["direct_fragmentation_contrast"] == "gradient"
@@ -78,7 +77,10 @@ def main() -> None:
     till = rows(TILLANDSIA)
     mag = rows(MAGNOLIA)
     prim = rows(PRIMULA)
-    ser = rows(SERAPIAS)
+    ser_gradient = rows(SERAPIAS_GRADIENT)
+    ser_binary = rows(SERAPIAS_BINARY)
+    clusters = rows(CLUSTERS)
+
     assert len(spondias) >= 10
     assert len(brosimum) >= 8
     assert len(hulting) >= 4
@@ -87,30 +89,43 @@ def main() -> None:
     assert len(till) >= 8
     assert len(mag) == 6
     assert len(prim) == 6
-    assert len(ser) == 2
+    assert len(ser_gradient) == 2
+    assert len(ser_binary) == 4
 
+    # Effect-unit firewall remains active in systems not yet reconstructed.
     assert not any(r["effect_unit_status"] == "g_admissible" for r in spondias)
-
-    b_g = [r for r in brosimum if r["effect_unit_status"] == "g_admissible"]
-    assert len(b_g) == 1
-    assert b_g[0]["endpoint_id"] == "C_paternity_rp"
-    assert abs(float(b_g[0]["oriented_effect"]) - (-2.3215376099)) < 1e-9
-
-    assert {r["layer"] for r in ser} == {"C", "F"}
-    assert all(r["effect_unit_status"] == "fisher_z_admissible" for r in ser)
-    assert all(int(r["n_independent"]) == 9 for r in ser)
-
     assert not any(r["effect_unit_status"] in {"g_admissible", "fisher_z_admissible"} for r in mag)
-    assert next(r for r in mag if r["endpoint_id"] == "F_population_size")["raw_effect"] == "0.00055"
-    assert next(r for r in mag if r["endpoint_id"] == "C_population_separation_male_success")["raw_effect"] == "-0.575"
-
     assert not any(r["effect_unit_status"] in {"g_admissible", "fisher_z_admissible"} for r in prim)
-    assert any(r["endpoint_id"] == "Gadult_population_size" for r in prim)
-    assert any(r["endpoint_id"] == "F_seed_pollinator_abundance" for r in prim)
+    assert not any(r["effect_unit_status"] in {"g_admissible", "fisher_z_admissible"} for r in cono20)
+    assert not any(r["effect_unit_status"] == "g_admissible" for r in till)
+
+    # PS004 is now one admissible two-layer cluster, not two studies.
+    b_g = [r for r in brosimum if r["effect_unit_status"] == "g_admissible"]
+    assert {r["endpoint_id"] for r in b_g} == {"C_paternity_rp", "F_progeny_vigour"}
+    b_c = next(r for r in b_g if r["endpoint_id"] == "C_paternity_rp")
+    b_f = next(r for r in b_g if r["endpoint_id"] == "F_progeny_vigour")
+    assert abs(float(b_c["oriented_effect"]) - (-2.3215376099)) < 1e-9
+    assert abs(float(b_f["oriented_effect"]) - (-1.286939644908)) < 1e-9
+    for endpoint in ("Gadult_Ho", "Goffspring_Ho", "Goffspring_F"):
+        assert next(r for r in brosimum if r["endpoint_id"] == endpoint)["effect_unit_status"] == "raw_reanalysis_required"
+
+    # PS003 binary effects form one 3-layer cluster; FIS is sensitivity only.
+    ser_primary = [r for r in ser_binary if r["primary_or_sensitivity"] == "primary"]
+    assert len(ser_primary) == 3
+    assert {r["layer"] for r in ser_primary} == {"C", "F", "G_adult"}
+    assert all(r["effect_unit_status"] == "g_admissible" for r in ser_primary)
+    ser_sensitivity = [r for r in ser_binary if r["primary_or_sensitivity"] == "sensitivity"]
+    assert len(ser_sensitivity) == 1
+    assert ser_sensitivity[0]["endpoint"] == "fixation_index_FIS"
+
+    # Gradient effects remain a distinct alternate geometry, not extra clusters.
+    assert {r["layer"] for r in ser_gradient} == {"C", "F"}
+    assert all(r["effect_unit_status"] == "fisher_z_admissible" for r in ser_gradient)
+    assert all(int(r["n_independent"]) == 9 for r in ser_gradient)
+
     prim_null = next(r for r in prim if r["endpoint_id"] == "F_seed_genetic_diversity")
     assert prim_null["effect_unit_status"] == "descriptive_only"
     assert prim_null["raw_effect"] in {"", "NA"}
-
     h_i = next(r for r in hulting if r["endpoint_id"] == "I_pollination_rate")
     assert h_i["effect_unit_status"] == "model_contrast_pending_standardisation"
     assert h_i["raw_effect"] in {"", "NA"}
@@ -121,36 +136,40 @@ def main() -> None:
     assert any(r["endpoint_id"] == "C_pollen_immigration" for r in cono26)
     assert any(r["endpoint_id"] == "Goffspring_presence" for r in cono26)
 
-    assert not any(r["effect_unit_status"] in {"g_admissible", "fisher_z_admissible"} for r in cono20)
-
-    assert not any(r["effect_unit_status"] == "g_admissible" for r in till)
-    assert all(r["n_independent_continuous"] in {"", "3"} for r in till)
-    assert all(r["n_independent_fragmented"] in {"", "3"} for r in till)
     mak_seed = next(r for r in till if r["species"] == "Tillandsia makoyana" and r["endpoint"] == "seed_set_2011")
     assert mak_seed["effect_unit_status"] == "raw_reanalysis_required"
+
+    by_cluster = {r["cluster_id"]: r for r in clusters}
+    admissible = [r for r in clusters if r["cluster_status"] == "admissible_multilayer_cluster"]
+    assert {r["cluster_id"] for r in admissible} == {"ML001", "ML002"}
+    assert set(by_cluster["ML001"]["admissible_primary_layers"].split(";")) == {"C", "F", "G_adult"}
+    assert set(by_cluster["ML002"]["admissible_primary_layers"].split(";")) == {"C", "F"}
+    primary_cluster_effects = sum(int(r["n_admissible_primary_effects"]) for r in admissible)
+    assert primary_cluster_effects == 5
 
     status = STATUS.read_text(encoding="utf-8")
     for token in (
         "source-verified primary-study seeds: **16**",
         "candidate systems/programmes: **19**",
         "priority extraction queue: **9 studies**",
-        "studies with first-pass endpoint extraction materialized: **9**",
-        "currently admissible quantitative effects: **3**",
-        "PS016",
-        "PS015",
-        "PS012",
-        "PS002",
-        "PS003",
-        "**`-2.32153761`**",
-        "Fisher `z=-1.5412215`",
-        "Fisher `z=-2.3040450`",
+        "independent admissible multilayer clusters: **2**",
+        "primary admissible effects inside those clusters: **5**",
+        "ML001 / PS003",
+        "ML002 / PS004",
+        "-10.09901484",
+        "-4.55409070",
+        "-26.07246637",
+        "-2.32153761",
+        "-1.28693964",
+        "comparison gate is open",
     ):
         assert token in status, token
 
     print(
         "EGWEE extraction progress: PASS; "
-        f"{len(primary)} verified studies, {len(candidates)} candidates, {len(queue)} queued, "
-        "9 materialized extractions, 3 admissible effects (1 g + 2 Fisher-z)"
+        f"{len(primary)} verified studies, {len(candidates)} candidates, {len(queue)} queued; "
+        "2 independent admissible multilayer clusters, 5 primary cluster effects; "
+        "1 sensitivity g + 2 alternate-geometry Fisher-z effects retained outside the cluster count"
     )
 
 
