@@ -8,6 +8,7 @@ on:
       - 'manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md'
       - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-11_EFFECT_UNITS.md'
       - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-11_GRADIENT_GEOMETRY.md'
+      - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-12_MULTILAYER_CLUSTERS.md'
       - 'manuscript/META_ANALYSIS_EXTRACTION_STATUS_2026-09-11.md'
       - 'manuscript/meta_analysis_effect_schema.json'
       - 'manuscript/meta_analysis_seed_sources.md'
@@ -22,6 +23,7 @@ on:
       - 'scripts/check_brosimum_extraction.py'
       - 'scripts/check_serapias_extraction.py'
       - 'scripts/check_serapias_binary_effects.py'
+      - 'scripts/check_multilayer_cluster_contract.py'
       - 'scripts/check_magnolia_extraction.py'
       - '.github/workflows/meta-analysis-contract.yml'
   push:
@@ -32,6 +34,7 @@ on:
       - 'manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md'
       - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-11_EFFECT_UNITS.md'
       - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-11_GRADIENT_GEOMETRY.md'
+      - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-12_MULTILAYER_CLUSTERS.md'
       - 'manuscript/META_ANALYSIS_EXTRACTION_STATUS_2026-09-11.md'
       - 'manuscript/meta_analysis_effect_schema.json'
       - 'manuscript/meta_analysis_seed_sources.md'
@@ -46,6 +49,7 @@ on:
       - 'scripts/check_brosimum_extraction.py'
       - 'scripts/check_serapias_extraction.py'
       - 'scripts/check_serapias_binary_effects.py'
+      - 'scripts/check_multilayer_cluster_contract.py'
       - 'scripts/check_magnolia_extraction.py'
       - '.github/workflows/meta-analysis-contract.yml'
 
@@ -67,5 +71,7 @@ jobs:
         run: python scripts/check_serapias_extraction.py
       - name: Audit source-defined Serapias paired multilayer effects
         run: python scripts/check_serapias_binary_effects.py
+      - name: Audit multilayer cluster dependence contract
+        run: python scripts/check_multilayer_cluster_contract.py
       - name: Audit Magnolia native-scale model extraction
         run: python scripts/check_magnolia_extraction.py
