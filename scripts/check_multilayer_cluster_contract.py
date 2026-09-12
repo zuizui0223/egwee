@@ -158,7 +158,7 @@ def main() -> None:
     assert "one cluster with three correlated outcomes" in amendment
     assert "Do not set covariance to zero" in amendment
     assert "at least two independent admissible multilayer clusters" in amendment
-    assert "metafor" in amendment and "vtype=LS" in amendment
+    assert "metafor::escalc" in amendment and 'vtype="LS"' in amendment
 
     validate_serapias()
     validate_brosimum()
