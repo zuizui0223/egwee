@@ -16,7 +16,8 @@ GROUPS = {
 }
 
 
-def hedges_g(fragmented: list[float], reference: list[float]) -> tuple[float, float]:
+def hedges_g_metafor_ls(fragmented: list[float], reference: list[float]) -> tuple[float, float]:
+    """Hedges g and metafor escalc(SMD, vtype='LS') sampling variance."""
     n1, n2 = len(fragmented), len(reference)
     m1, m2 = stats.mean(fragmented), stats.mean(reference)
     s1, s2 = stats.stdev(fragmented), stats.stdev(reference)
@@ -25,7 +26,7 @@ def hedges_g(fragmented: list[float], reference: list[float]) -> tuple[float, fl
     d = (m1 - m2) / pooled
     j = 1 - 3 / (4 * df - 1)
     g = j * d
-    variance = (n1 + n2) / (n1 * n2) + g**2 / (2 * df)
+    variance = 1 / n1 + 1 / n2 + g**2 / (2 * (n1 + n2))
     return g, variance
 
 
@@ -44,7 +45,7 @@ def main() -> None:
     for endpoint, key in mapping.items():
         row = by_endpoint[endpoint]
         frag, ref, orientation = GROUPS[key]
-        g, variance = hedges_g(frag, ref)
+        g, variance = hedges_g_metafor_ls(frag, ref)
         assert int(row["n_fragmented"]) == 3
         assert int(row["n_reference"]) == 6
         assert row["fragmented_group"] == "C;F;G"
@@ -60,7 +61,7 @@ def main() -> None:
     assert by_endpoint["fixation_index_FIS"]["primary_or_sensitivity"] == "sensitivity"
     assert {r["layer"] for r in rows if r["primary_or_sensitivity"] == "primary"} == {"C", "F", "G_adult"}
 
-    print("PS003 Serapias predefined 3-vs-6 multilayer contrast: PASS")
+    print("PS003 Serapias predefined 3-vs-6 multilayer contrast: PASS; metafor SMD vtype=LS variance locked")
 
 
 if __name__ == "__main__":
