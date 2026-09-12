@@ -8,7 +8,9 @@ on:
       - 'manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md'
       - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-11_EFFECT_UNITS.md'
       - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-11_GRADIENT_GEOMETRY.md'
+      - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-12_MULTILAYER_CLUSTERS.md'
       - 'manuscript/META_ANALYSIS_EXTRACTION_STATUS_2026-09-11.md'
+      - 'manuscript/META_ANALYSIS_CLUSTER_STATUS_2026-09-12.md'
       - 'manuscript/meta_analysis_effect_schema.json'
       - 'manuscript/meta_analysis_seed_sources.md'
       - 'manuscript/meta_analysis_candidate_ledger.csv'
@@ -20,8 +22,13 @@ on:
       - 'scripts/check_meta_analysis_contract.py'
       - 'scripts/check_meta_analysis_progress.py'
       - 'scripts/check_brosimum_extraction.py'
+      - 'scripts/probe_brosimum_figshare.py'
+      - 'scripts/audit_brosimum_raw_workbook.py'
+      - 'scripts/recover_brosimum_multilayer_cluster.py'
       - 'scripts/check_serapias_extraction.py'
       - 'scripts/check_serapias_binary_effects.py'
+      - 'scripts/check_multilayer_cluster_contract.py'
+      - 'scripts/check_cross_system_cf_pilot.py'
       - 'scripts/check_magnolia_extraction.py'
       - '.github/workflows/meta-analysis-contract.yml'
   push:
@@ -32,7 +39,9 @@ on:
       - 'manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md'
       - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-11_EFFECT_UNITS.md'
       - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-11_GRADIENT_GEOMETRY.md'
+      - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-12_MULTILAYER_CLUSTERS.md'
       - 'manuscript/META_ANALYSIS_EXTRACTION_STATUS_2026-09-11.md'
+      - 'manuscript/META_ANALYSIS_CLUSTER_STATUS_2026-09-12.md'
       - 'manuscript/meta_analysis_effect_schema.json'
       - 'manuscript/meta_analysis_seed_sources.md'
       - 'manuscript/meta_analysis_candidate_ledger.csv'
@@ -44,8 +53,13 @@ on:
       - 'scripts/check_meta_analysis_contract.py'
       - 'scripts/check_meta_analysis_progress.py'
       - 'scripts/check_brosimum_extraction.py'
+      - 'scripts/probe_brosimum_figshare.py'
+      - 'scripts/audit_brosimum_raw_workbook.py'
+      - 'scripts/recover_brosimum_multilayer_cluster.py'
       - 'scripts/check_serapias_extraction.py'
       - 'scripts/check_serapias_binary_effects.py'
+      - 'scripts/check_multilayer_cluster_contract.py'
+      - 'scripts/check_cross_system_cf_pilot.py'
       - 'scripts/check_magnolia_extraction.py'
       - '.github/workflows/meta-analysis-contract.yml'
 
@@ -57,15 +71,27 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - name: Install raw-data reader
+        run: python -m pip install --quiet openpyxl
       - name: Validate protocol-first meta-analysis state
         run: python scripts/check_meta_analysis_contract.py
       - name: Validate corpus and extraction progress
         run: python scripts/check_meta_analysis_progress.py
       - name: Audit first admissible site-level effect
         run: python scripts/check_brosimum_extraction.py
+      - name: Probe Brosimum public raw-data package
+        run: python scripts/probe_brosimum_figshare.py
+      - name: Inspect Brosimum raw workbook hierarchy
+        run: python scripts/audit_brosimum_raw_workbook.py
+      - name: Recover Brosimum site-level multilayer effects
+        run: python scripts/recover_brosimum_multilayer_cluster.py
       - name: Audit reconstructable Serapias gradient effects
         run: python scripts/check_serapias_extraction.py
       - name: Audit source-defined Serapias paired multilayer effects
         run: python scripts/check_serapias_binary_effects.py
+      - name: Audit multilayer cluster dependence contract
+        run: python scripts/check_multilayer_cluster_contract.py
+      - name: Audit cross-system C-F pilot
+        run: python scripts/check_cross_system_cf_pilot.py
       - name: Audit Magnolia native-scale model extraction
         run: python scripts/check_magnolia_extraction.py
