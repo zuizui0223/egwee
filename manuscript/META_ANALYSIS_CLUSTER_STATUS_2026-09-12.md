@@ -10,8 +10,8 @@ This ledger supersedes the quantitative-count portions of `META_ANALYSIS_EXTRACT
 - candidate systems/programmes: **19**
 - priority extraction queue: **9 studies**
 - first-pass endpoint extractions materialized before this amendment: **9 studies**
-- independent admissible multilayer clusters: **2**
-- primary admissible effects inside those clusters: **5** (`PS003`: C/F/G_adult; `PS004`: C/F)
+- independent admissible multilayer clusters: **3**
+- primary admissible effects inside those clusters: **7** (`PS003`: C/F/G_adult; `PS004`: C/F; `PS001`: C/G_adult)
 - alternative/sensitivity standardized effect retained outside the primary count: **1** (`PS003` adult `F_IS`)
 - separate admissible gradient effects retained as an alternate design stream: **2** (`PS003` C/F Fisher-z effects against `-log(area)`)
 
@@ -44,9 +44,24 @@ The paired six-site residual correlation between oriented `C` support and `F` TP
 
 Raw adult and progeny microsatellite genotypes were also recovered. Their simple raw `H_O` reconstruction is diagnostic only because it does not yet exactly reproduce the publication-level Table 2 summaries. `G_adult` and `G_offspring` therefore remain `raw_reanalysis_required`; they were not promoted to make the cluster look more complete.
 
+## ML003 / PS001 — *Spondias purpurea*
+
+The same five study sites define the third independent multilayer cluster: continuous `Careyes/Chamela` versus fragmented `Mesa/Nacastillo/Ranchitos`.
+
+Two source tables provide one site-level estimate per independent site:
+
+- `C`, multilocus correlated paternity `r_p` from Table 3, oriented as mating/connectivity support: Hedges `g = -0.25474678`, variance `0.83982293`;
+- `G_adult`, spatial genetic structure strength `Sp` from Table 2, oriented so stronger fragmentation-induced SGS is deterioration: Hedges `g = +0.50972995`, variance `0.85931580`.
+
+The C and adult-G effects therefore do **not** form a simple concordant deterioration pattern. Contemporary sire-pool support is lower under fragmentation while standing adult spatial genetic structure does not shift in the same deterioration direction. This is retained as a cross-layer state-separation result, not reinterpreted as an absence of fragmentation effects.
+
+Using the five paired sites, the group-centered oriented C-G correlation proxy is `r = -0.44037050`, giving covariance `-0.37410066`. The 2x2 working covariance block is positive definite and is rebuilt in CI. The diagnostic paired contrast `G_adult - C = +0.76447673` has variance `2.44734005` and a broad 95% CI `[-2.30174269, 3.83069615]`; with five sites this contrast is descriptive rather than a standalone inferential claim.
+
+Importantly, no lower-level observation was promoted to make ML003 qualify. Pollinator visitation and fruit-set remain source-model/site-reconstruction targets; pollen-distance offspring events remain nested; `H_O/F` cohort summaries remain blocked where individual counts and locus-level dispersion are incompatible.
+
 ## Standardized-effect variance contract
 
-All admitted binary Hedges-g effects now use one convention: `metafor::escalc(measure="SMD", vtype="LS")`.
+All admitted binary Hedges-g effects use one convention: `metafor::escalc(measure="SMD", vtype="LS")`.
 
 `V(g) = 1/n_fragmented + 1/n_reference + g^2 / [2(n_fragmented + n_reference)]`.
 
@@ -54,16 +69,19 @@ The previous mixed use of alternative SMD variance formulas was removed before a
 
 ## Gate state
 
-The **comparison gate is open** because two independent clusters now satisfy the multilayer contract:
+The **general multilayer comparison gate is open at three independent clusters**:
 
 1. `ML001 Serapias`: `C/F/G_adult`;
-2. `ML002 Brosimum`: `C/F`.
+2. `ML002 Brosimum`: `C/F`;
+3. `ML003 Spondias`: `C/G_adult`.
 
-This authorizes a covariance-aware cross-system C-F comparison. It does **not** authorize a broad claim that multilayer concordance is general across fragmented plant systems. Additional independent clusters remain required for that claim.
+This is the first state in which the evidence is no longer one-system or two-system only. It still does **not** authorize a broad pooled grand mean across all layers: the three clusters have different overlapping layer sets, small independent-unit counts and visibly different cross-layer geometry.
+
+The narrower **C-F comparison remains a two-cluster analysis**, because Spondias does not yet have an effect-unit-valid F estimate on the same five-site scale.
 
 ## Cross-system C-F pilot — diagnostic only
 
-The first pilot is calculated at the cluster level, not by treating four C/F effect rows as independent observations. For each cluster:
+The C-F pilot is calculated at the cluster level, not by treating four C/F effect rows as independent observations. For each qualifying cluster:
 
 `delta_F_minus_C = g_F - g_C`
 
@@ -76,17 +94,15 @@ Current cluster contrasts are:
 - `ML001 Serapias`: `delta(F-C) = +5.54492414`, variance `4.25650739`, 95% CI `[1.50126267, 9.58858562]`;
 - `ML002 Brosimum`: `delta(F-C) = +1.03459796`, variance `0.64917885`, 95% CI `[-0.54457710, 2.61377303]`.
 
-Both independent clusters have `C < 0` and `F < 0`, and in both clusters the connectivity/movement effect is more negative than the reproductive-function effect (`C < F` after common orientation). Thus the current replicated pattern is **directional C-F deterioration with stronger C loss than F loss in 2/2 systems**.
+Both C-F clusters have `C < 0` and `F < 0`, and in both the connectivity/movement effect is more negative than the reproductive-function effect. A covariance-aware fixed-effect diagnostic gives `delta(F-C) = +1.63145806`, variance `0.56327177`, 95% CI `[0.16047699, 3.10243914]`, with `Q(df=1)=4.14682905` and descriptive `I2=75.9%`.
 
-A covariance-aware fixed-effect combination gives diagnostic `delta(F-C) = +1.63145806`, variance `0.56327177`, 95% CI `[0.16047699, 3.10243914]`. Between-cluster dispersion is nontrivial (`Q(df=1)=4.14682905`; descriptive `I2=75.9%`). With only two clusters, these pooled statistics are retained solely as a pipeline/pattern diagnostic; they are not treated as a stable cross-system grand mean or general ecological law.
+With only two C-F clusters, these pooled statistics remain pipeline/pattern diagnostics rather than a stable cross-system grand mean. ML003 strengthens the broader state-separation claim but does not increase the C-F denominator.
 
-The main information gained is therefore not a pooled effect size but a sharper next question: whether the apparent ordering `fragmentation -> stronger deterioration in movement/connectivity than realised reproductive function` persists when independent clusters are added, and which biological mechanisms permit F to remain less negative than C.
+## Remaining independent-cluster / layer recovery queue
 
-## Remaining independent-cluster recovery queue
-
-1. `ML003 Spondias`: highest biological layer coverage, but site-level/model-based effect-unit reconstruction is still blocked; lower-level trees/offspring/loci cannot become fragmentation `n`.
+1. `ML003 Spondias`: now admitted as `C/G_adult`; next recover I or F on the same five-site scale to connect the state-separation result to realised interaction/function.
 2. `ML004 Conospermum 2020`: recover source coefficients/SE or raw population values for a common fragmentation/isolation predictor across `I/F`.
 3. `ML005 Conospermum 2026`: recover population-aware `C/G_offspring` under one predeclared landscape predictor; do not concatenate the historical adult cohort.
 4. `ML006 Primula`: recover one common landscape exposure before treating published `G/I/F` paths as a fragmentation cluster; current paths use different predictors.
 
-The immediate next recovery target is `ML003 Spondias`, because it can add the broadest independent multilayer test if its site-level/model covariance can be reconstructed without violating the effect-unit firewall. The C-F pilot remains provisional until this independent-cluster set expands.
+The next high-value question is no longer merely whether another cluster exists. It is whether additional systems reproduce one of the now-observed cross-layer geometries: concordant deterioration (`Serapias`), stronger process than function loss (`Brosimum`), or contemporary-process/adult-genetic separation (`Spondias`).
