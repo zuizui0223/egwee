@@ -17,6 +17,7 @@ PRIMARY_SEED = ROOT / "manuscript/meta_analysis_primary_study_seed_v1.csv"
 PRIMARY_SEED_SOURCES = ROOT / "manuscript/meta_analysis_primary_study_seed_v1_sources.md"
 EXTRACTION_QUEUE = ROOT / "manuscript/meta_analysis_extraction_queue_v1.csv"
 SPONDIAS = ROOT / "evidence/meta_extraction/PS001_spondias_extraction_v1.csv"
+SPONDIAS_SITE_EFFECTS = ROOT / "evidence/meta_extraction/PS001_spondias_site_effects_v1.csv"
 
 
 def _csv_rows(path: Path) -> list[dict[str, str]]:
@@ -26,18 +27,8 @@ def _csv_rows(path: Path) -> list[dict[str, str]]:
 
 def main() -> None:
     for path in (
-        README,
-        MANUSCRIPT,
-        PROTOCOL,
-        AMENDMENT,
-        SCHEMA,
-        METADATA,
-        LEDGER,
-        SEEDS,
-        PRIMARY_SEED,
-        PRIMARY_SEED_SOURCES,
-        EXTRACTION_QUEUE,
-        SPONDIAS,
+        README, MANUSCRIPT, PROTOCOL, AMENDMENT, SCHEMA, METADATA, LEDGER, SEEDS,
+        PRIMARY_SEED, PRIMARY_SEED_SOURCES, EXTRACTION_QUEUE, SPONDIAS, SPONDIAS_SITE_EFFECTS,
     ):
         assert path.is_file(), path
 
@@ -63,32 +54,20 @@ def main() -> None:
     assert schema["schema_version"] == 2
     assert schema["amendment"] == "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-11_EFFECT_UNITS.md"
     for field in (
-        "effect_unit_status",
-        "effect_unit_note",
-        "independent_unit",
-        "dispersion_unit",
-        "n_independent_fragmented",
-        "n_independent_reference",
-        "n_individuals_fragmented",
+        "effect_unit_status", "effect_unit_note", "independent_unit", "dispersion_unit",
+        "n_independent_fragmented", "n_independent_reference", "n_individuals_fragmented",
         "n_individuals_reference",
     ):
         assert field in schema["required_fields"], field
     assert schema["primary_effect_stream"] == "hedges_g_fragmented_minus_reference"
     assert schema["secondary_effect_stream"] == "fisher_z_correlation_with_fragmentation_severity"
     assert set(schema["primary_layers"]) == {
-        "D_resource_demography",
-        "I_interaction",
-        "C_movement_connectivity",
-        "F_reproductive_function",
-        "G_adult",
-        "G_offspring",
+        "D_resource_demography", "I_interaction", "C_movement_connectivity",
+        "F_reproductive_function", "G_adult", "G_offspring",
     }
     assert set(schema["effect_unit_status_values"]) == {
-        "g_admissible",
-        "fisher_z_admissible",
-        "model_contrast_pending_standardisation",
-        "raw_reanalysis_required",
-        "descriptive_only",
+        "g_admissible", "fisher_z_admissible", "model_contrast_pending_standardisation",
+        "raw_reanalysis_required", "descriptive_only",
     }
     for forbidden_shortcut in (
         "pair_individual_sample_size_with_locus_level_SD",
@@ -99,10 +78,7 @@ def main() -> None:
 
     assert "protocol_locked_screening_and_extraction_pending" in metadata
     for forbidden in (
-        "meta-analysis demonstrates",
-        "meta-analysis showed",
-        "pooled effect was",
-        "significantly more negative",
+        "meta-analysis demonstrates", "meta-analysis showed", "pooled effect was", "significantly more negative",
     ):
         assert forbidden not in manuscript.lower(), forbidden
 
@@ -134,25 +110,32 @@ def main() -> None:
     assert any(r["study_id"] == "PS004" for r in queue)
     assert any(r["study_id"] == "PS014" for r in queue)
 
-    # First real extraction must preserve the sampling hierarchy rather than
-    # manufacturing a standardized effect from incompatible N/SD summaries.
+    # PS001 now has one effect-unit-valid C endpoint reconstructed from five
+    # site-specific Table 3 estimates. The lower-level firewall remains active
+    # for I/F/G and pollen-distance summaries.
     spondias = _csv_rows(SPONDIAS)
+    spondias_site = _csv_rows(SPONDIAS_SITE_EFFECTS)
     assert len(spondias) >= 10
+    assert len(spondias_site) == 1
     allowed = set(schema["effect_unit_status_values"])
     assert all(r["effect_unit_status"] in allowed for r in spondias)
-    assert not any(r["effect_unit_status"] == "g_admissible" for r in spondias)
+    s_g = [r for r in spondias if r["effect_unit_status"] == "g_admissible"]
+    assert len(s_g) == 1 and s_g[0]["endpoint_id"] == "C_paternity_correlation"
+    assert s_g[0]["independent_unit"] == "site"
     assert sum(r["effect_unit_status"] == "model_contrast_pending_standardisation" for r in spondias) >= 3
-    assert sum(r["effect_unit_status"] == "raw_reanalysis_required" for r in spondias) >= 6
+    assert sum(r["effect_unit_status"] == "raw_reanalysis_required" for r in spondias) >= 5
+    assert any(r["endpoint_id"] == "C_effective_sires" and r["effect_unit_status"] == "descriptive_only" for r in spondias)
     assert any("locus" in r["effect_unit_note"].lower() for r in spondias)
     assert any("nested" in r["effect_unit_note"].lower() for r in spondias)
+    assert spondias_site[0]["endpoint_id"] == "C_paternity_correlation"
+    assert spondias_site[0]["effect_unit_status"] == "g_admissible"
+    assert int(spondias_site[0]["n_independent_fragmented"]) == 3
+    assert int(spondias_site[0]["n_independent_reference"]) == 2
 
     provenance = PRIMARY_SEED_SOURCES.read_text(encoding="utf-8")
     for doi in (
-        "10.1016/j.biocon.2021.109007",
-        "10.1186/1472-6785-13-10",
-        "10.1186/s12870-015-0600-8",
-        "10.1002/ajb2.16157",
-        "10.1111/1365-2745.14452",
+        "10.1016/j.biocon.2021.109007", "10.1186/1472-6785-13-10",
+        "10.1186/s12870-015-0600-8", "10.1002/ajb2.16157", "10.1111/1365-2745.14452",
     ):
         assert doi in provenance, doi
 
@@ -160,7 +143,8 @@ def main() -> None:
         "EGWEE multilayer meta-analysis contract: PASS; "
         f"{len(primary)} source-verified primary-study seeds, "
         f"{len(candidates)} candidate systems, {len(queue)} queued extraction studies, "
-        f"{len(spondias)} PS001 raw endpoints; effect-unit firewall active, 0 naive g admitted"
+        f"{len(spondias)} PS001 endpoints; effect-unit firewall active, "
+        "one site-level Spondias C effect admitted without promoting nested I/F/G units"
     )
 
 
