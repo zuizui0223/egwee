@@ -110,27 +110,28 @@ def main() -> None:
     assert any(r["study_id"] == "PS004" for r in queue)
     assert any(r["study_id"] == "PS014" for r in queue)
 
-    # PS001 now has one effect-unit-valid C endpoint reconstructed from five
-    # site-specific Table 3 estimates. The lower-level firewall remains active
-    # for I/F/G and pollen-distance summaries.
+    # PS001 now has two effect-unit-valid layers reconstructed from the same five
+    # sites: contemporary paternity connectivity and adult spatial genetic structure.
+    # Lower-level visitation, reproduction, pollen-distance and cohort-genetic
+    # summaries remain protected by the original pseudo-replication firewall.
     spondias = _csv_rows(SPONDIAS)
     spondias_site = _csv_rows(SPONDIAS_SITE_EFFECTS)
-    assert len(spondias) >= 10
-    assert len(spondias_site) == 1
+    assert len(spondias) >= 12
+    assert len(spondias_site) == 2
     allowed = set(schema["effect_unit_status_values"])
     assert all(r["effect_unit_status"] in allowed for r in spondias)
     s_g = [r for r in spondias if r["effect_unit_status"] == "g_admissible"]
-    assert len(s_g) == 1 and s_g[0]["endpoint_id"] == "C_paternity_correlation"
-    assert s_g[0]["independent_unit"] == "site"
+    assert {r["endpoint_id"] for r in s_g} == {"C_paternity_correlation", "Gadult_Sp"}
+    assert all(r["independent_unit"] == "site" for r in s_g)
     assert sum(r["effect_unit_status"] == "model_contrast_pending_standardisation" for r in spondias) >= 3
     assert sum(r["effect_unit_status"] == "raw_reanalysis_required" for r in spondias) >= 5
     assert any(r["endpoint_id"] == "C_effective_sires" and r["effect_unit_status"] == "descriptive_only" for r in spondias)
     assert any("locus" in r["effect_unit_note"].lower() for r in spondias)
     assert any("nested" in r["effect_unit_note"].lower() for r in spondias)
-    assert spondias_site[0]["endpoint_id"] == "C_paternity_correlation"
-    assert spondias_site[0]["effect_unit_status"] == "g_admissible"
-    assert int(spondias_site[0]["n_independent_fragmented"]) == 3
-    assert int(spondias_site[0]["n_independent_reference"]) == 2
+    assert {r["endpoint_id"] for r in spondias_site} == {"C_paternity_correlation", "Gadult_Sp"}
+    assert all(r["effect_unit_status"] == "g_admissible" for r in spondias_site)
+    assert all(int(r["n_independent_fragmented"]) == 3 for r in spondias_site)
+    assert all(int(r["n_independent_reference"]) == 2 for r in spondias_site)
 
     provenance = PRIMARY_SEED_SOURCES.read_text(encoding="utf-8")
     for doi in (
@@ -144,7 +145,7 @@ def main() -> None:
         f"{len(primary)} source-verified primary-study seeds, "
         f"{len(candidates)} candidate systems, {len(queue)} queued extraction studies, "
         f"{len(spondias)} PS001 endpoints; effect-unit firewall active, "
-        "one site-level Spondias C effect admitted without promoting nested I/F/G units"
+        "Spondias C and adult-G site effects admitted while nested I/F/cohort-G summaries remain blocked"
     )
 
 
