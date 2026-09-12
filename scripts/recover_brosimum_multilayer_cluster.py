@@ -17,10 +17,11 @@ VALID_HABITATS = {"CON", "FRA"}
 
 # Published site-level multilocus correlated-paternity values (Table 3), already
 # independently audited in evidence/meta_extraction/PS004_brosimum_extraction_v1.csv.
+# The raw workbook abbreviates Cuixmala as CUI.
 RP_BY_POP = {
     "CHA": 0.106,
     "CAR": 0.164,
-    "CUX": 0.107,
+    "CUI": 0.107,
     "ASE": 0.246,
     "TEC": 0.208,
     "ZAP": 0.191,
@@ -94,8 +95,6 @@ def load_workbook_from_figshare() -> object:
         path = Path(tmp) / TARGET
         download(item["download_url"], path)
         assert path.stat().st_size == int(item["size"])
-        # read-only workbook must remain usable after temporary file removal, so
-        # force sheet values into memory before leaving via a normal workbook.
         wb = load_workbook(path, read_only=False, data_only=True)
     return wb
 
@@ -215,8 +214,6 @@ def main() -> None:
     f_g, f_var = hedges_g([f_values[p] for p in fragmented], [f_values[p] for p in reference])
     print(f"BROSIMUM_EFFECT layer=F endpoint=TPDW g={f_g:.12f} var={f_var:.12f}")
 
-    # Print all genetic stages; promotion to G_adult/G_offspring is based on the
-    # source stage labels after inspection, never guessed from effect direction.
     genetic_effects: dict[str, tuple[float, float]] = {}
     for stage, values in sorted(genetic.items()):
         if set(values) != set(pops):
@@ -226,17 +223,11 @@ def main() -> None:
         genetic_effects[stage] = (g, variance)
         print(f"BROSIMUM_EFFECT layer=G stage={stage!r} g={g:.12f} var={variance:.12f}")
 
-    # Existing C endpoint, oriented so lower values mean fragmentation reduces
-    # biological support. raw rp increases under deterioration, therefore -rp
-    # is used only for the covariance correlation proxy; its audited g/variance
-    # are supplied separately below.
     c_support = {p: -RP_BY_POP[p] for p in pops}
     c_g_raw, c_var = hedges_g([RP_BY_POP[p] for p in fragmented], [RP_BY_POP[p] for p in reference])
     c_g = -c_g_raw
     print(f"BROSIMUM_EFFECT layer=C endpoint=rp oriented_g={c_g:.12f} var={c_var:.12f}")
 
-    # Pairwise residual correlations at the six independent sites. These are
-    # covariance proxies, not exact known sampling correlations.
     vectors: dict[str, dict[str, float]] = {"C_rp_support": c_support, "F_TPDW": f_values}
     for stage, values in genetic.items():
         if set(values) == set(pops):
