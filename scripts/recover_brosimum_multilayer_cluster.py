@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import csv
 import json
 import math
 import statistics as stats
@@ -10,9 +11,11 @@ from pathlib import Path
 
 from openpyxl import load_workbook
 
+ROOT = Path(__file__).resolve().parents[1]
 ARTICLE_ID = 22130177
 TARGET = "Datos-Brosimum.xlsx"
 API = f"https://api.figshare.com/v2/articles/{ARTICLE_ID}"
+SITE_SNAPSHOT = ROOT / "evidence/meta_extraction/PS004_brosimum_site_table_v1.csv"
 VALID_HABITATS = {"CON", "FRA"}
 
 # Published site-level multilocus correlated-paternity values (Table 3), already
@@ -55,6 +58,7 @@ def number(value: object) -> float | None:
 
 
 def hedges_g(fragmented: list[float], reference: list[float]) -> tuple[float, float]:
+    """Hedges g with metafor escalc(SMD, vtype='LS') sampling variance."""
     n1, n2 = len(fragmented), len(reference)
     assert n1 >= 2 and n2 >= 2
     m1, m2 = stats.mean(fragmented), stats.mean(reference)
@@ -64,7 +68,7 @@ def hedges_g(fragmented: list[float], reference: list[float]) -> tuple[float, fl
     d = (m1 - m2) / pooled
     j = 1 - 3 / (4 * df - 1)
     g = j * d
-    variance = (n1 + n2) / (n1 * n2) + g**2 / (2 * df)
+    variance = 1 / n1 + 1 / n2 + g**2 / (2 * (n1 + n2))
     return g, variance
 
 
@@ -91,6 +95,8 @@ def load_workbook_from_figshare() -> object:
     matches = [f for f in payload.get("files", []) if f.get("name") == TARGET]
     assert len(matches) == 1, matches
     item = matches[0]
+    assert int(item["id"]) == 39338195
+    assert item.get("computed_md5") == "049db31f8ebcec42c4c44ebe4a6af70a"
     with tempfile.TemporaryDirectory() as tmp:
         path = Path(tmp) / TARGET
         download(item["download_url"], path)
@@ -184,6 +190,29 @@ def recover_genetic_ho(wb: object) -> tuple[dict[str, str], dict[str, dict[str, 
     return habitat_by_pop, by_stage, counts
 
 
+def check_snapshot(
+    habitat: dict[str, str],
+    vigor: dict[str, dict[str, float]],
+    genetic: dict[str, dict[str, float]],
+    mother_counts: dict[str, int],
+    genetic_counts: dict[str, dict[str, int]],
+) -> None:
+    with SITE_SNAPSHOT.open(newline="", encoding="utf-8") as fh:
+        rows = list(csv.DictReader(fh))
+    assert len(rows) == 6
+    by_pop = {r["population"]: r for r in rows}
+    assert set(by_pop) == set(habitat) == set(RP_BY_POP)
+    for pop, row in by_pop.items():
+        assert row["habitat"] == habitat[pop]
+        assert abs(float(row["C_paternity_rp"]) - RP_BY_POP[pop]) < 1e-12
+        assert abs(float(row["F_TPDW_site_mean"]) - vigor["TPDW"][pop]) < 1e-9
+        assert int(row["n_maternal_trees_vigor"]) == mother_counts[pop]
+        assert abs(float(row["G_adult_Ho_raw_diagnostic"]) - genetic["AD"][pop]) < 1e-9
+        assert abs(float(row["G_progeny_Ho_raw_diagnostic"]) - genetic["PR"][pop]) < 1e-9
+        assert int(row["n_adult_genotype_rows"]) == genetic_counts["AD"][pop]
+        assert int(row["n_progeny_genotype_rows"]) == genetic_counts["PR"][pop]
+
+
 def main() -> None:
     wb = load_workbook_from_figshare()
     vigor_habitat, vigor, mother_counts = recover_vigor(wb)
@@ -192,52 +221,43 @@ def main() -> None:
     assert vigor_habitat == genetic_habitat
     habitat = vigor_habitat
     pops = sorted(habitat)
+    assert set(pops) == set(RP_BY_POP), (pops, sorted(RP_BY_POP))
+    assert set(genetic) == {"AD", "PR"}
+    check_snapshot(habitat, vigor, genetic, mother_counts, genetic_counts)
+
     print(f"BROSIMUM_RECOVERY pops={pops!r}")
     print(f"BROSIMUM_RECOVERY habitat={habitat!r}")
     print(f"BROSIMUM_RECOVERY maternal_tree_counts={mother_counts!r}")
-    print(f"BROSIMUM_RECOVERY genetic_stages={sorted(genetic)!r}")
     print(f"BROSIMUM_RECOVERY genetic_individual_counts={genetic_counts!r}")
-    assert set(pops) == set(RP_BY_POP), (pops, sorted(RP_BY_POP))
-
-    for endpoint in sorted(vigor):
-        print(f"BROSIMUM_SITE_VIGOR endpoint={endpoint} values={vigor[endpoint]!r}")
-    for stage in sorted(genetic):
-        print(f"BROSIMUM_SITE_HO stage={stage!r} values={genetic[stage]!r}")
 
     fragmented = [p for p in pops if habitat[p] == "FRA"]
     reference = [p for p in pops if habitat[p] == "CON"]
     assert len(fragmented) == len(reference) == 3
 
-    # Primary F endpoint: total plant dry weight (TPDW), an integrated one-year
-    # progeny-vigour measure. Other vigor endpoints remain sensitivity endpoints.
     f_values = vigor["TPDW"]
     f_g, f_var = hedges_g([f_values[p] for p in fragmented], [f_values[p] for p in reference])
     print(f"BROSIMUM_EFFECT layer=F endpoint=TPDW g={f_g:.12f} var={f_var:.12f}")
 
-    genetic_effects: dict[str, tuple[float, float]] = {}
+    # Genetic values are reconstructed for QA only. They are not promoted until
+    # the raw-file summaries reconcile with the publication's Table 2 summaries.
     for stage, values in sorted(genetic.items()):
-        if set(values) != set(pops):
-            print(f"BROSIMUM_EFFECT_SKIP stage={stage!r} reason=not_all_six_populations")
-            continue
         g, variance = hedges_g([values[p] for p in fragmented], [values[p] for p in reference])
-        genetic_effects[stage] = (g, variance)
-        print(f"BROSIMUM_EFFECT layer=G stage={stage!r} g={g:.12f} var={variance:.12f}")
+        print(f"BROSIMUM_DIAGNOSTIC layer=G stage={stage!r} g={g:.12f} var={variance:.12f}")
 
     c_support = {p: -RP_BY_POP[p] for p in pops}
     c_g_raw, c_var = hedges_g([RP_BY_POP[p] for p in fragmented], [RP_BY_POP[p] for p in reference])
     c_g = -c_g_raw
     print(f"BROSIMUM_EFFECT layer=C endpoint=rp oriented_g={c_g:.12f} var={c_var:.12f}")
 
-    vectors: dict[str, dict[str, float]] = {"C_rp_support": c_support, "F_TPDW": f_values}
-    for stage, values in genetic.items():
-        if set(values) == set(pops):
-            vectors[f"G_Ho_{stage}"] = values
+    vectors = {"C_rp_support": c_support, "F_TPDW": f_values}
     names = list(vectors)
     centered = {name: group_centered(vectors[name], habitat, pops) for name in names}
     for i, a in enumerate(names):
         for b in names[i:]:
             r = pearson(centered[a], centered[b])
             print(f"BROSIMUM_CORR a={a!r} b={b!r} r={r:.12f}")
+
+    print("BROSIMUM_RECOVERY snapshot=PASS; C/F site-level cluster recoverable; G remains QA-pending")
 
 
 if __name__ == "__main__":
