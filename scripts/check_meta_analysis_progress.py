@@ -9,6 +9,7 @@ CANDIDATES = ROOT / "manuscript/meta_analysis_candidate_ledger.csv"
 QUEUE = ROOT / "manuscript/meta_analysis_extraction_queue_v1.csv"
 STATUS = ROOT / "manuscript/META_ANALYSIS_CLUSTER_STATUS_2026-09-12.md"
 SPONDIAS = ROOT / "evidence/meta_extraction/PS001_spondias_extraction_v1.csv"
+SPONDIAS_SITE = ROOT / "evidence/meta_extraction/PS001_spondias_site_effects_v1.csv"
 BROSIMUM = ROOT / "evidence/meta_extraction/PS004_brosimum_extraction_v1.csv"
 HULTING = ROOT / "evidence/meta_extraction/PS014_hulting_extraction_v1.csv"
 CONOSPERMUM_2026 = ROOT / "evidence/meta_extraction/PS011_conospermum_2026_extraction_v1.csv"
@@ -28,7 +29,7 @@ def rows(path: Path) -> list[dict[str, str]]:
 
 def main() -> None:
     files = (
-        PRIMARY, CANDIDATES, QUEUE, STATUS, SPONDIAS, BROSIMUM, HULTING,
+        PRIMARY, CANDIDATES, QUEUE, STATUS, SPONDIAS, SPONDIAS_SITE, BROSIMUM, HULTING,
         CONOSPERMUM_2026, CONOSPERMUM_2020, TILLANDSIA, MAGNOLIA, PRIMULA,
         SERAPIAS_GRADIENT, SERAPIAS_BINARY, CLUSTERS,
     )
@@ -70,6 +71,7 @@ def main() -> None:
     assert "source_verified" in c19["current_status"]
 
     spondias = rows(SPONDIAS)
+    spondias_site = rows(SPONDIAS_SITE)
     brosimum = rows(BROSIMUM)
     hulting = rows(HULTING)
     cono26 = rows(CONOSPERMUM_2026)
@@ -82,6 +84,7 @@ def main() -> None:
     clusters = rows(CLUSTERS)
 
     assert len(spondias) >= 10
+    assert len(spondias_site) == 1
     assert len(brosimum) >= 8
     assert len(hulting) >= 4
     assert len(cono26) >= 5
@@ -92,14 +95,26 @@ def main() -> None:
     assert len(ser_gradient) == 2
     assert len(ser_binary) == 4
 
-    # Effect-unit firewall remains active in systems not yet reconstructed.
-    assert not any(r["effect_unit_status"] == "g_admissible" for r in spondias)
+    # PS001 now has exactly one effect-unit-valid C effect. All other rich
+    # layers stay blocked/pending until reconstructed at the same site frame.
+    s_g = [r for r in spondias if r["effect_unit_status"] == "g_admissible"]
+    assert len(s_g) == 1 and s_g[0]["endpoint_id"] == "C_paternity_correlation"
+    assert s_g[0]["independent_unit"] == "site"
+    assert spondias_site[0]["endpoint_id"] == "C_paternity_correlation"
+    assert spondias_site[0]["effect_unit_status"] == "g_admissible"
+    assert abs(float(spondias_site[0]["oriented_effect"]) - (-0.254746780651)) < 1e-9
+    assert not any(
+        r["effect_unit_status"] == "g_admissible" and r["endpoint_id"] != "C_paternity_correlation"
+        for r in spondias
+    )
+
+    # Effect-unit firewall remains active in other unreconstructed systems.
     assert not any(r["effect_unit_status"] in {"g_admissible", "fisher_z_admissible"} for r in mag)
     assert not any(r["effect_unit_status"] in {"g_admissible", "fisher_z_admissible"} for r in prim)
     assert not any(r["effect_unit_status"] in {"g_admissible", "fisher_z_admissible"} for r in cono20)
     assert not any(r["effect_unit_status"] == "g_admissible" for r in till)
 
-    # PS004 is now one admissible two-layer cluster, not two studies.
+    # PS004 is one admissible two-layer cluster, not two studies.
     b_g = [r for r in brosimum if r["effect_unit_status"] == "g_admissible"]
     assert {r["endpoint_id"] for r in b_g} == {"C_paternity_rp", "F_progeny_vigour"}
     b_c = next(r for r in b_g if r["endpoint_id"] == "C_paternity_rp")
@@ -144,6 +159,9 @@ def main() -> None:
     assert {r["cluster_id"] for r in admissible} == {"ML001", "ML002"}
     assert set(by_cluster["ML001"]["admissible_primary_layers"].split(";")) == {"C", "F", "G_adult"}
     assert set(by_cluster["ML002"]["admissible_primary_layers"].split(";")) == {"C", "F"}
+    assert by_cluster["ML003"]["cluster_status"] == "single_layer_admissible_candidate"
+    assert by_cluster["ML003"]["admissible_primary_layers"] == "C"
+    assert int(by_cluster["ML003"]["n_admissible_primary_effects"]) == 1
     primary_cluster_effects = sum(int(r["n_admissible_primary_effects"]) for r in admissible)
     assert primary_cluster_effects == 5
 
@@ -154,13 +172,8 @@ def main() -> None:
         "priority extraction queue: **9 studies**",
         "independent admissible multilayer clusters: **2**",
         "primary admissible effects inside those clusters: **5**",
-        "ML001 / PS003",
-        "ML002 / PS004",
-        "-10.09901484",
-        "-4.55409070",
-        "-26.07246637",
-        "-2.32153761",
-        "-1.28693964",
+        "ML001 / PS003", "ML002 / PS004",
+        "-10.09901484", "-4.55409070", "-26.07246637", "-2.32153761", "-1.28693964",
         "comparison gate is open",
     ):
         assert token in status, token
@@ -169,7 +182,7 @@ def main() -> None:
         "EGWEE extraction progress: PASS; "
         f"{len(primary)} verified studies, {len(candidates)} candidates, {len(queue)} queued; "
         "2 independent admissible multilayer clusters, 5 primary cluster effects; "
-        "1 sensitivity g + 2 alternate-geometry Fisher-z effects retained outside the cluster count"
+        "ML003 Spondias now has one admissible site-level C effect but remains below the multilayer gate"
     )
 
 
