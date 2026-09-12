@@ -23,6 +23,7 @@ on:
       - 'scripts/check_brosimum_extraction.py'
       - 'scripts/probe_brosimum_figshare.py'
       - 'scripts/audit_brosimum_raw_workbook.py'
+      - 'scripts/recover_brosimum_multilayer_cluster.py'
       - 'scripts/check_serapias_extraction.py'
       - 'scripts/check_serapias_binary_effects.py'
       - 'scripts/check_multilayer_cluster_contract.py'
@@ -51,6 +52,7 @@ on:
       - 'scripts/check_brosimum_extraction.py'
       - 'scripts/probe_brosimum_figshare.py'
       - 'scripts/audit_brosimum_raw_workbook.py'
+      - 'scripts/recover_brosimum_multilayer_cluster.py'
       - 'scripts/check_serapias_extraction.py'
       - 'scripts/check_serapias_binary_effects.py'
       - 'scripts/check_multilayer_cluster_contract.py'
@@ -77,6 +79,8 @@ jobs:
         run: python scripts/probe_brosimum_figshare.py
       - name: Inspect Brosimum raw workbook hierarchy
         run: python scripts/audit_brosimum_raw_workbook.py
+      - name: Recover Brosimum site-level multilayer effects
+        run: python scripts/recover_brosimum_multilayer_cluster.py
       - name: Audit reconstructable Serapias gradient effects
         run: python scripts/check_serapias_extraction.py
       - name: Audit source-defined Serapias paired multilayer effects
