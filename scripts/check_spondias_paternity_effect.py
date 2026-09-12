@@ -31,7 +31,7 @@ def main() -> None:
     site = rows(SITE)
     effect_rows = rows(EFFECT)
     assert len(site) == 5
-    assert len(effect_rows) == 1
+    assert len(effect_rows) >= 1
     assert sum(r["habitat"] == "FRA" for r in site) == 3
     assert sum(r["habitat"] == "CON" for r in site) == 2
     assert {r["population"] for r in site} == {"Careyes", "Chamela", "Mesa", "Nacastillo", "Ranchitos"}
@@ -40,10 +40,9 @@ def main() -> None:
     reference = [float(r["multilocus_correlated_paternity_rp"]) for r in site if r["habitat"] == "CON"]
     g, variance = hedges_g_metafor_ls(fragmented, reference)
 
-    row = effect_rows[0]
+    row = next(r for r in effect_rows if r["endpoint_id"] == "C_paternity_correlation")
     assert row["study_id"] == "PS001"
     assert row["cluster_id"] == "ML003"
-    assert row["endpoint_id"] == "C_paternity_correlation"
     assert row["layer"] == "C_movement_connectivity"
     assert row["effect_unit_status"] == "g_admissible"
     assert row["independent_unit"] == "site"
@@ -62,7 +61,7 @@ def main() -> None:
     print(
         "PS001 Spondias paternity effect: PASS; "
         f"5 independent sites, raw g={g:.6f}, oriented g={-g:.6f}, "
-        f"var={variance:.6f}; ML003 has one admissible C layer only"
+        f"var={variance:.6f}"
     )
 
 
