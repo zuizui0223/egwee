@@ -23,6 +23,11 @@ def fisher_survival_even_df(stat: float, k: int) -> float:
     return math.exp(-x) * sum(x**j / math.factorial(j) for j in range(k))
 
 
+def fisher_combine(pvals: list[float]) -> tuple[float, int, float]:
+    stat = -2.0 * sum(math.log(p) for p in pvals)
+    return stat, 2 * len(pvals), fisher_survival_even_df(stat, len(pvals))
+
+
 def cluster_test(cluster: str, effects: dict[str, float], covariance: dict[tuple[str, str], float]) -> dict:
     pair_results = []
     for a, b in combinations(effects, 2):
@@ -125,8 +130,21 @@ def main() -> None:
 
     primary_clusters = [ml001(), ml002(), ml003()]
     pvals = [c["cluster_p_bonferroni"] for c in primary_clusters]
-    fisher_stat = -2.0 * sum(math.log(p) for p in pvals)
-    combined_p = fisher_survival_even_df(fisher_stat, len(pvals))
+    fisher_stat, fisher_df, combined_p = fisher_combine(pvals)
+
+    loo = []
+    for dropped in primary_clusters:
+        retained = [c for c in primary_clusters if c["cluster_id"] != dropped["cluster_id"]]
+        stat, df, p = fisher_combine([c["cluster_p_bonferroni"] for c in retained])
+        loo.append({
+            "dropped_cluster": dropped["cluster_id"],
+            "retained_clusters": [c["cluster_id"] for c in retained],
+            "fisher_statistic": stat,
+            "fisher_df": df,
+            "combined_p": p,
+            "reject_at_0_05": p < 0.05,
+        })
+    influential = [r["dropped_cluster"] for r in loo if not r["reject_at_0_05"]]
 
     gradient = ml015_gradient_generalisation()
 
@@ -137,17 +155,27 @@ def main() -> None:
         "n_primary_effects": 9,
         "primary_clusters": primary_clusters,
         "primary_fisher_statistic": fisher_stat,
-        "primary_fisher_df": 2 * len(pvals),
+        "primary_fisher_df": fisher_df,
         "primary_combined_p": combined_p,
         "primary_decision": (
             "reject_primary_binary_layer_exchangeability"
             if combined_p < 0.05 else "do_not_reject_primary_binary_layer_exchangeability"
         ),
+        "primary_leave_one_cluster_out": loo,
+        "primary_influential_cluster_dependency": {
+            "detected": bool(influential),
+            "clusters": influential,
+            "interpretation": (
+                "full primary rejection is not leave-one-cluster-out robust"
+                if influential else "full primary rejection is leave-one-cluster-out robust"
+            ),
+        },
         "gradient_generalisation": gradient,
         "gradient_combined_with_primary": False,
         "claim_ceiling": (
             "primary inference uses ML001-ML003 only; ML015 is separate Fisher-z gradient generalisation evidence; "
-            "no Hedges-g/Fisher-z cross-family Fisher combination is permitted"
+            "no Hedges-g/Fisher-z cross-family Fisher combination is permitted; primary corpus-level rejection "
+            "must be reported with its leave-one-cluster-out dependency"
         ),
     }
     print("EGWEE_STATE_SEPARATION " + json.dumps(out, sort_keys=True))
