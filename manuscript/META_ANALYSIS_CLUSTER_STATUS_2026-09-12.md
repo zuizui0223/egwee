@@ -104,8 +104,23 @@ The narrower C-F comparison remains `k=2` because neither Spondias nor Eucalyptu
 
 The important new cross-system conclusion is broader: the admitted systems no longer support a single scalar deterioration picture. Serapias and Brosimum show concordant C/F deterioration; Spondias exposes cohort- and representation-dependent genetic response; Eucalyptus wandoo shows direct I-F discordance under one common fragmentation gradient.
 
+## Formal state-separation synthesis
+
+A cross-family formal synthesis is now closed without pooling Hedges-g and gradient-slope magnitudes. Within each cluster, all admitted endpoint pairs are compared with their stored covariance; the cluster p-value is the Bonferroni-corrected minimum pairwise p-value. The four independent cluster p-values are then combined with Fisher's method.
+
+Cluster-level results are:
+
+- ML001 Serapias: `p_cluster = 0.00354530`;
+- ML002 Brosimum: `p_cluster = 0.19911670`;
+- ML003 Spondias: `p_cluster = 0.17406774`;
+- ML015 Eucalyptus wandoo: `p_cluster = 0.00786120`.
+
+The independent-cluster Fisher synthesis gives `chi-square(8) = 27.70024526`, **`p = 0.0005347329`**. The terminal decision is `reject_general_layer_exchangeability`.
+
+The supported claim is therefore narrower and stronger than a pooled grand effect: **biological responses under fragmentation cannot generally be treated as exchangeable manifestations of one scalar deterioration state**. This does not imply a universal layer ordering, does not require every cluster to reject exchangeability individually, and does not validate the finite-model operator sequence in nature. The synthesis is retrospective and is recorded in `STATE_SEPARATION_SYNTHESIS_RESULT_2026-09-13.md`.
+
 ## Closed recovery routes
 
 `ML004 Conospermum 2020` is closed as `effect_unit_or_variance_not_reconstructable`; `ML005 Conospermum 2026` is blocked by source access/exposure recovery; `ML006 Primula` lacks a keyed common-population G/I/F table; and ML007–ML013 remain blocked by source access, incompatible estimands, insufficient independent landscape replication, or unreconstructable dependence as recorded in the canonical cluster registry.
 
-The next priority is no longer simply to increase candidate count. It is to test whether the four-cluster geometry supports a defensible cross-layer heterogeneity/state-separation synthesis without pretending that binary Hedges-g and standardized gradient slopes are one interchangeable effect-size family.
+The next priority is no longer candidate accumulation. The four-cluster state-separation result is now formally closed; any further empirical work should target a genuinely prospective external test or an additional independent cluster under a predeclared admission rule, rather than re-optimizing the present corpus.

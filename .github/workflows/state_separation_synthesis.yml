@@ -1,0 +1,23 @@
+name: State separation synthesis
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/synthesize_state_separation.py'
+      - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-13_STATE_SEPARATION_SYNTHESIS.md'
+      - 'evidence/meta_extraction/**'
+      - '.github/workflows/state_separation_synthesis.yml'
+  workflow_dispatch:
+
+jobs:
+  synthesize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install numerical dependency
+        run: python -m pip install --quiet numpy
+      - name: Run locked retrospective synthesis
+        run: python scripts/synthesize_state_separation.py
