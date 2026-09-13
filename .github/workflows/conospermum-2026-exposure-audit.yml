@@ -1,0 +1,28 @@
+name: Conospermum 2026 exposure audit
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/audit_conospermum_2019_public_preview.py'
+      - 'scripts/check_conospermum_2026_exposure_contract.py'
+      - 'manuscript/CONOSPERMUM_2026_CLUSTER_RECOVERY_CONTRACT.md'
+      - 'manuscript/CONOSPERMUM_2026_CLUSTER_RECOVERY_RESULT.md'
+      - 'manuscript/CONOSPERMUM_2026_EXPOSURE_AUDIT.md'
+      - 'evidence/meta_extraction/PS011_conospermum_2026_matrix_class_v1.csv'
+      - 'evidence/meta_extraction/PS011_conospermum_2026_extraction_v1.csv'
+      - 'evidence/meta_extraction/multilayer_cluster_registry_v1.csv'
+      - '.github/workflows/conospermum-2026-exposure-audit.yml'
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Audit ordinary public Dryad preview for 2019 population variables
+        run: python scripts/audit_conospermum_2019_public_preview.py
+      - name: Enforce corrected ML005 exposure and reopening gates
+        run: python scripts/check_conospermum_2026_exposure_contract.py
