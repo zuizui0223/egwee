@@ -1,0 +1,31 @@
+name: Magnolia ML011 closure
+
+on:
+  pull_request:
+    paths:
+      - 'manuscript/MAGNOLIA_ML011_CLUSTER_RECOVERY_CONTRACT.md'
+      - 'manuscript/MAGNOLIA_ML011_CALCULATION_LOCK.md'
+      - 'manuscript/MAGNOLIA_ML011_CLUSTER_RECOVERY_RESULT.md'
+      - 'scripts/inspect_magnolia_ml011_supplement_schema.py'
+      - 'scripts/open_magnolia_ml011_supplement_rows.py'
+      - 'scripts/check_magnolia_ml011_closure.py'
+      - 'evidence/meta_extraction/multilayer_cluster_registry_v1.csv'
+      - '.github/workflows/magnolia-ml011-closure.yml'
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install document reader
+        run: python -m pip install --quiet python-docx
+      - name: Recheck supplement schema gate
+        run: python scripts/inspect_magnolia_ml011_supplement_schema.py
+      - name: Reopen numeric supplement rows under frozen calculation lock
+        run: python scripts/open_magnolia_ml011_supplement_rows.py
+      - name: Enforce terminal source-exposure closure
+        run: python scripts/check_magnolia_ml011_closure.py
