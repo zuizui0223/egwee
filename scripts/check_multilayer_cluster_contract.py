@@ -126,11 +126,14 @@ def main() -> None:
     assert set(by_cluster["ML003"]["admissible_primary_layers"].split(";")) == {"C", "G_adult", "G_offspring"}
     assert int(by_cluster["ML003"]["n_admissible_primary_effects"]) == 4
     assert by_cluster["ML003"]["covariance_status"] == "proxy_pairwise_low_rank_from_five_sites"
-    assert by_cluster["ML006"]["cluster_status"] == "recover_common_landscape_exposure"
+    assert by_cluster["ML006"]["cluster_status"] == "common_population_values_not_recoverable"
+    assert by_cluster["ML006"]["fragmentation_contrast"] == "forest_cover_1000m"
+    assert by_cluster["ML006"]["covariance_status"] == "blocked_before_effect_calculation"
+    assert int(by_cluster["ML006"]["n_admissible_primary_effects"]) == 0
 
     print(
         "EGWEE multilayer cluster contract: PASS; "
-        "3 independent clusters / 9 primary effects; ML003 adds dependent adult/juvenile/seed H_O with low-rank pairwise covariance rather than fake independence"
+        "3 independent clusters / 9 primary effects; ML003 adds dependent adult/juvenile/seed H_O with low-rank pairwise covariance; ML006 closed before effect calculation because exact common-population G/I/F values are not publicly recoverable"
     )
 
 
