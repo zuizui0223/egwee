@@ -19,6 +19,8 @@ MAGNOLIA = ROOT / "evidence/meta_extraction/PS002_magnolia_extraction_v1.csv"
 PRIMULA = ROOT / "evidence/meta_extraction/PS016_primula_2025_extraction_v1.csv"
 SERAPIAS_GRADIENT = ROOT / "evidence/meta_extraction/PS003_serapias_gradient_effects_v1.csv"
 SERAPIAS_BINARY = ROOT / "evidence/meta_extraction/PS003_serapias_binary_effects_v1.csv"
+WANDOO = ROOT / "evidence/meta_extraction/PS019_eucalyptus_wandoo_2018_population_table_v1.csv"
+WANDOO_COV = ROOT / "evidence/meta_extraction/PS019_eucalyptus_wandoo_2018_primary_covariance_v1.csv"
 CLUSTERS = ROOT / "evidence/meta_extraction/multilayer_cluster_registry_v1.csv"
 
 
@@ -31,18 +33,19 @@ def main() -> None:
     for path in (
         PRIMARY, CANDIDATES, QUEUE, STATUS, SPONDIAS, SPONDIAS_SITE, BROSIMUM, HULTING,
         CONOSPERMUM_2026, CONOSPERMUM_2020, TILLANDSIA, MAGNOLIA, PRIMULA,
-        SERAPIAS_GRADIENT, SERAPIAS_BINARY, CLUSTERS,
+        SERAPIAS_GRADIENT, SERAPIAS_BINARY, WANDOO, WANDOO_COV, CLUSTERS,
     ):
         assert path.is_file(), path
 
     primary = rows(PRIMARY)
     candidates = rows(CANDIDATES)
     queue = rows(QUEUE)
-    assert len(primary) >= 16
+    assert len(primary) >= 17
     assert len(candidates) >= 19
     assert len(queue) >= 9
     assert len({r["study_id"] for r in primary}) == len(primary)
     assert {r["study_id"] for r in queue} <= {r["study_id"] for r in primary}
+    assert any(r["study_id"] == "PS019" and r["doi"] == "10.3389/fevo.2018.00039" for r in primary)
 
     ps015 = next(r for r in primary if r["study_id"] == "PS015")
     assert ps015["doi"] == "10.1016/j.biocon.2020.108824"
@@ -62,6 +65,8 @@ def main() -> None:
     prim = rows(PRIMULA)
     ser_gradient = rows(SERAPIAS_GRADIENT)
     ser_binary = rows(SERAPIAS_BINARY)
+    wandoo = rows(WANDOO)
+    wandoo_cov = rows(WANDOO_COV)
     clusters = rows(CLUSTERS)
 
     assert len(spondias) == 13
@@ -75,6 +80,8 @@ def main() -> None:
     assert len(prim) == 6
     assert len(ser_gradient) == 2
     assert len(ser_binary) == 4
+    assert len(wandoo) == 19
+    assert len(wandoo_cov) == 9
 
     # ML003: four co-primary outcomes, all on the same five-site frame.
     s_primary = [r for r in spondias_site if r["analysis_role"] == "primary"]
@@ -92,7 +99,7 @@ def main() -> None:
         "Gadult_Fis", "Gjuvenile_Fis", "Gseed_Fis"
     }
 
-    # I/F remain blocked; supplementary genetics did not create site-level I/F data.
+    # I/F remain blocked for Spondias.
     by_spondias = {r["endpoint_id"]: r for r in spondias}
     assert {by_spondias[e]["effect_unit_status"] for e in ("I_visitation", "F_fruit_production", "F_fruit_set")} == {"model_contrast_pending_standardisation"}
     assert by_spondias["C_pollen_distance"]["effect_unit_status"] == "raw_reanalysis_required"
@@ -121,31 +128,35 @@ def main() -> None:
 
     by_cluster = {r["cluster_id"]: r for r in clusters}
     admissible = [r for r in clusters if r["cluster_status"] == "admissible_multilayer_cluster"]
-    assert {r["cluster_id"] for r in admissible} == {"ML001", "ML002", "ML003"}
+    assert {r["cluster_id"] for r in admissible} == {"ML001", "ML002", "ML003", "ML015"}
     assert set(by_cluster["ML001"]["admissible_primary_layers"].split(";")) == {"C", "F", "G_adult"}
     assert set(by_cluster["ML002"]["admissible_primary_layers"].split(";")) == {"C", "F"}
     assert set(by_cluster["ML003"]["admissible_primary_layers"].split(";")) == {"C", "G_adult", "G_offspring"}
     assert int(by_cluster["ML003"]["n_admissible_primary_effects"]) == 4
     assert by_cluster["ML003"]["covariance_status"] == "proxy_pairwise_low_rank_from_five_sites"
-    assert sum(int(r["n_admissible_primary_effects"]) for r in admissible) == 9
+    assert set(by_cluster["ML015"]["admissible_primary_layers"].split(";")) == {"I", "F", "G_adult"}
+    assert int(by_cluster["ML015"]["n_admissible_primary_effects"]) == 3
+    assert by_cluster["ML015"]["covariance_status"] == "paired_population_bootstrap_10000"
+    assert sum(int(r["n_admissible_primary_effects"]) for r in admissible) == 12
 
     status = STATUS.read_text(encoding="utf-8")
     for token in (
-        "independent admissible multilayer clusters: **3**",
-        "primary admissible effects inside those clusters: **9**",
+        "independent admissible multilayer clusters: **4**",
+        "primary admissible effects inside those clusters: **12**",
         "adult `H_O`: `g = -0.94088153`",
         "juvenile `H_O`: `g = -3.18133069`",
         "seed `H_O`: `g = -1.11790599`",
         "cohort-lag candidate",
         "not site-level visitation or reproductive-function values",
         "ML004 Conospermum 2020",
+        "ML015 / PS019",
     ):
         assert token in status, token
 
     print(
         "EGWEE extraction progress: PASS; "
         f"{len(primary)} verified studies, {len(candidates)} candidates, {len(queue)} queued; "
-        "3 independent clusters, 9 primary effects; ML003 now carries dependent adult/juvenile/seed genetics without inflating the cluster count"
+        "4 independent clusters, 12 primary effects; ML015 supplies an 11-population positive-definite I/F/G_adult dependence block"
     )
 
 
