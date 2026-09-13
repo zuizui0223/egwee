@@ -1,0 +1,23 @@
+name: Eucalyptus wandoo 2018 cluster recovery
+
+on:
+  pull_request:
+    paths:
+      - 'manuscript/EUCALYPTUS_WANDOO_2018_CLUSTER_RECOVERY_CONTRACT.md'
+      - 'evidence/meta_extraction/PS019_eucalyptus_wandoo_2018_population_table_v1.csv'
+      - 'scripts/recover_eucalyptus_wandoo_2018_cluster.py'
+      - '.github/workflows/eucalyptus-wandoo-2018-cluster.yml'
+  workflow_dispatch:
+
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install numerical dependency
+        run: python -m pip install --quiet numpy
+      - name: Run locked ML015 recovery once
+        run: python scripts/recover_eucalyptus_wandoo_2018_cluster.py
