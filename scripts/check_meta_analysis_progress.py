@@ -83,11 +83,8 @@ def main() -> None:
     assert len(wandoo) == 19
     assert len(wandoo_cov) == 9
 
-    # ML003: four co-primary outcomes, all on the same five-site frame.
     s_primary = [r for r in spondias_site if r["analysis_role"] == "primary"]
-    assert {r["endpoint_id"] for r in s_primary} == {
-        "C_paternity_correlation", "Gadult_Ho", "Gjuvenile_Ho", "Gseed_Ho"
-    }
+    assert {r["endpoint_id"] for r in s_primary} == {"C_paternity_correlation", "Gadult_Ho", "Gjuvenile_Ho", "Gseed_Ho"}
     assert all(r["effect_unit_status"] == "g_admissible" for r in s_primary)
     assert all(r["independent_unit"] == "site" for r in s_primary)
     assert abs(float(next(r for r in s_primary if r["endpoint_id"] == "C_paternity_correlation")["oriented_effect"]) + 0.254746780651) < 1e-9
@@ -95,30 +92,24 @@ def main() -> None:
     assert abs(float(next(r for r in s_primary if r["endpoint_id"] == "Gjuvenile_Ho")["oriented_effect"]) + 3.181330686725) < 1e-9
     assert abs(float(next(r for r in s_primary if r["endpoint_id"] == "Gseed_Ho")["oriented_effect"]) + 1.117905988897) < 1e-9
     assert next(r for r in spondias_site if r["endpoint_id"] == "Gadult_Sp")["analysis_role"] == "sensitivity_structure"
-    assert {r["endpoint_id"] for r in spondias_site if r["analysis_role"] == "sensitivity_metric"} == {
-        "Gadult_Fis", "Gjuvenile_Fis", "Gseed_Fis"
-    }
+    assert {r["endpoint_id"] for r in spondias_site if r["analysis_role"] == "sensitivity_metric"} == {"Gadult_Fis", "Gjuvenile_Fis", "Gseed_Fis"}
 
-    # I/F remain blocked for Spondias.
     by_spondias = {r["endpoint_id"]: r for r in spondias}
     assert {by_spondias[e]["effect_unit_status"] for e in ("I_visitation", "F_fruit_production", "F_fruit_set")} == {"model_contrast_pending_standardisation"}
     assert by_spondias["C_pollen_distance"]["effect_unit_status"] == "raw_reanalysis_required"
     assert by_spondias["C_effective_sires"]["effect_unit_status"] == "descriptive_only"
 
-    # ML002 remains C/F only.
     b_g = [r for r in brosimum if r["effect_unit_status"] == "g_admissible"]
     assert {r["endpoint_id"] for r in b_g} == {"C_paternity_rp", "F_progeny_vigour"}
     assert abs(float(next(r for r in b_g if r["endpoint_id"] == "C_paternity_rp")["oriented_effect"]) + 2.3215376099) < 1e-9
     assert abs(float(next(r for r in b_g if r["endpoint_id"] == "F_progeny_vigour")["oriented_effect"]) + 1.286939644908) < 1e-9
 
-    # ML001 remains C/F/G_adult with FIS sensitivity.
     ser_primary = [r for r in ser_binary if r["primary_or_sensitivity"] == "primary"]
     assert len(ser_primary) == 3
     assert {r["layer"] for r in ser_primary} == {"C", "F", "G_adult"}
     assert next(r for r in ser_binary if r["primary_or_sensitivity"] == "sensitivity")["endpoint"] == "fixation_index_FIS"
     assert all(r["effect_unit_status"] == "fisher_z_admissible" for r in ser_gradient)
 
-    # Unreconstructed systems stay closed.
     assert not any(r["effect_unit_status"] in {"g_admissible", "fisher_z_admissible"} for r in mag)
     assert not any(r["effect_unit_status"] in {"g_admissible", "fisher_z_admissible"} for r in prim)
     assert not any(r["effect_unit_status"] in {"g_admissible", "fisher_z_admissible"} for r in cono20)
@@ -127,8 +118,10 @@ def main() -> None:
     assert next(r for r in cono26 if r["endpoint_id"] == "Gadult_context")["effect_unit_status"] == "descriptive_only"
 
     by_cluster = {r["cluster_id"]: r for r in clusters}
-    admissible = [r for r in clusters if r["cluster_status"] == "admissible_multilayer_cluster"]
-    assert {r["cluster_id"] for r in admissible} == {"ML001", "ML002", "ML003", "ML015"}
+    binary = [r for r in clusters if r["cluster_status"] == "admissible_multilayer_cluster"]
+    gradient = [r for r in clusters if r["cluster_status"] == "admissible_gradient_multilayer_cluster"]
+    assert {r["cluster_id"] for r in binary} == {"ML001", "ML002", "ML003"}
+    assert {r["cluster_id"] for r in gradient} == {"ML015"}
     assert set(by_cluster["ML001"]["admissible_primary_layers"].split(";")) == {"C", "F", "G_adult"}
     assert set(by_cluster["ML002"]["admissible_primary_layers"].split(";")) == {"C", "F"}
     assert set(by_cluster["ML003"]["admissible_primary_layers"].split(";")) == {"C", "G_adult", "G_offspring"}
@@ -137,7 +130,7 @@ def main() -> None:
     assert set(by_cluster["ML015"]["admissible_primary_layers"].split(";")) == {"I", "F", "G_adult"}
     assert int(by_cluster["ML015"]["n_admissible_primary_effects"]) == 3
     assert by_cluster["ML015"]["covariance_status"] == "paired_population_bootstrap_10000"
-    assert sum(int(r["n_admissible_primary_effects"]) for r in admissible) == 12
+    assert sum(int(r["n_admissible_primary_effects"]) for r in binary + gradient) == 12
 
     status = STATUS.read_text(encoding="utf-8")
     for token in (
@@ -156,7 +149,7 @@ def main() -> None:
     print(
         "EGWEE extraction progress: PASS; "
         f"{len(primary)} verified studies, {len(candidates)} candidates, {len(queue)} queued; "
-        "4 independent clusters, 12 primary effects; ML015 supplies an 11-population positive-definite I/F/G_adult dependence block"
+        "legacy binary family 3 clusters / 9 effects + ML015 gradient family 1 cluster / 3 effects = 4 independent clusters / 12 primary effects"
     )
 
 
