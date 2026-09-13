@@ -5,13 +5,15 @@ import io
 import subprocess
 import tempfile
 from pathlib import Path
+from urllib.parse import quote
 
 from openpyxl import load_workbook
 
-# File IDs are locked to the source versions qualified by
-# probe_conospermum_2026_sources.py:
-#   PS011 Dryad version 436023 (v3)
-#   2019 exposure-provenance Dryad version 32609 (v1)
+# File IDs and DOI/version identities are locked by the source-qualification probe.
+PUBLIC_DOIS = {
+    "paternity_2026": "10.5061/dryad.95x69p907",
+    "reproduction_2019": "10.5061/dryad.4cg374r",
+}
 PUBLIC_FILES = {
     "paternity_2026": {
         "Paternity_dataset_unformatted.xlsx": 4702034,
@@ -21,26 +23,6 @@ PUBLIC_FILES = {
         "fruit_and_seed_set.csv": 155093,
     },
 }
-
-
-def curl_bytes(url: str) -> bytes:
-    proc = subprocess.run(
-        [
-            "curl", "-L", "--fail", "--silent", "--show-error",
-            "--retry", "2", "--retry-delay", "1",
-            "-A", "Mozilla/5.0 egwee-conospermum-2026-audit/1.0",
-            url,
-        ],
-        check=False,
-        capture_output=True,
-    )
-    if proc.returncode != 0:
-        print(
-            f"CONO2026_DOWNLOAD_FAIL url={url!r} rc={proc.returncode} "
-            f"stderr={proc.stderr.decode('utf-8', errors='replace')!r}"
-        )
-        return b""
-    return proc.stdout
 
 
 def payload_looks_real(name: str, payload: bytes) -> bool:
@@ -54,21 +36,59 @@ def payload_looks_real(name: str, payload: bytes) -> bool:
     return True
 
 
-def download_bytes(name: str, file_id: int) -> bytes:
-    candidates = [
-        f"https://datadryad.org/downloads/file_stream/{file_id}",
-        f"https://datadryad.org/stash/downloads/file_stream/{file_id}",
-    ]
-    for url in candidates:
-        payload = curl_bytes(url)
-        print(
-            f"CONO2026_PUBLIC_DOWNLOAD_TRY file_id={file_id} url={url!r} "
-            f"bytes={len(payload)} magic={payload[:24].hex()!r}"
+def download_bytes(label: str, name: str, file_id: int) -> bytes:
+    doi = PUBLIC_DOIS[label]
+    landing = f"https://datadryad.org/dataset/{quote(f'doi:{doi}', safe='')}"
+    stream = f"https://datadryad.org/downloads/file_stream/{file_id}"
+    with tempfile.TemporaryDirectory() as tmp:
+        jar = str(Path(tmp) / "cookies.txt")
+        # Establish the same landing-page session used by a browser before
+        # following the exact href printed in the public dataset HTML.
+        landing_proc = subprocess.run(
+            [
+                "curl", "-L", "--fail", "--silent", "--show-error",
+                "-A", "Mozilla/5.0 egwee-conospermum-2026-audit/1.0",
+                "-c", jar,
+                landing,
+            ],
+            check=False,
+            capture_output=True,
         )
-        if payload_looks_real(name, payload):
-            print(f"CONO2026_PUBLIC_DOWNLOAD_OK file_id={file_id} url={url!r} bytes={len(payload)}")
-            return payload
-    raise RuntimeError(f"No public file-stream route yielded the expected file for {name} (id={file_id})")
+        if landing_proc.returncode != 0:
+            raise RuntimeError(
+                f"Dryad landing session failed label={label} rc={landing_proc.returncode} "
+                f"stderr={landing_proc.stderr.decode('utf-8', errors='replace')}"
+            )
+        proc = subprocess.run(
+            [
+                "curl", "-L", "--fail", "--silent", "--show-error",
+                "--retry", "2", "--retry-delay", "1",
+                "-A", "Mozilla/5.0 egwee-conospermum-2026-audit/1.0",
+                "-e", landing,
+                "-b", jar,
+                "-c", jar,
+                stream,
+            ],
+            check=False,
+            capture_output=True,
+        )
+        if proc.returncode != 0:
+            raise RuntimeError(
+                f"Dryad browser-session download failed label={label} file_id={file_id} "
+                f"rc={proc.returncode} stderr={proc.stderr.decode('utf-8', errors='replace')}"
+            )
+        payload = proc.stdout
+    print(
+        f"CONO2026_SESSION_DOWNLOAD label={label!r} file_id={file_id} "
+        f"bytes={len(payload)} magic={payload[:24].hex()!r}"
+    )
+    if not payload_looks_real(name, payload):
+        prefix = payload[:500].decode("utf-8", errors="replace")
+        raise RuntimeError(
+            f"Dryad public href returned non-file content for {name} (id={file_id}); "
+            f"prefix={prefix!r}"
+        )
+    return payload
 
 
 def inspect_xlsx(label: str, name: str, payload: bytes) -> None:
@@ -116,7 +136,7 @@ def inspect_csv(label: str, name: str, payload: bytes) -> None:
 def main() -> None:
     for label, files in PUBLIC_FILES.items():
         for name, file_id in files.items():
-            payload = download_bytes(name, file_id)
+            payload = download_bytes(label, name, file_id)
             if name.lower().endswith(".xlsx"):
                 inspect_xlsx(label, name, payload)
             elif name.lower().endswith(".csv"):
