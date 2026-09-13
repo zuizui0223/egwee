@@ -6,6 +6,7 @@ on:
       - 'manuscript/CONOSPERMUM_2020_CLUSTER_RECOVERY_CONTRACT.md'
       - 'scripts/probe_conospermum_2020_sources.py'
       - 'scripts/inspect_conospermum_2020_supplement.py'
+      - 'scripts/probe_conospermum_thesis_download.py'
       - '.github/workflows/conospermum-2020-source-probe.yml'
   workflow_dispatch:
 
@@ -23,3 +24,5 @@ jobs:
         run: python scripts/probe_conospermum_2020_sources.py
       - name: Inspect locked supplementary document
         run: python scripts/inspect_conospermum_2020_supplement.py
+      - name: Resolve thesis download candidates
+        run: python scripts/probe_conospermum_thesis_download.py
