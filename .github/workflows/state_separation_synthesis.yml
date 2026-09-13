@@ -4,7 +4,10 @@ on:
   pull_request:
     paths:
       - 'scripts/synthesize_state_separation.py'
+      - 'scripts/check_state_separation_family_boundary.py'
       - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-13_STATE_SEPARATION_SYNTHESIS.md'
+      - 'manuscript/STATE_SEPARATION_SYNTHESIS_RESULT_2026-09-13.md'
+      - 'manuscript/META_ANALYSIS_CLUSTER_STATUS_2026-09-12.md'
       - 'evidence/meta_extraction/**'
       - '.github/workflows/state_separation_synthesis.yml'
   workflow_dispatch:
@@ -17,7 +20,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Install numerical dependency
-        run: python -m pip install --quiet numpy
-      - name: Run locked retrospective synthesis
+      - name: Run corrected primary synthesis and separate gradient diagnostic
         run: python scripts/synthesize_state_separation.py
+      - name: Enforce primary-versus-gradient family boundary
+        run: python scripts/check_state_separation_family_boundary.py
