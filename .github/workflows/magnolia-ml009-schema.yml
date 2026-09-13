@@ -4,7 +4,9 @@ on:
   pull_request:
     paths:
       - 'manuscript/MAGNOLIA_ML009_CLUSTER_RECOVERY_CONTRACT.md'
+      - 'manuscript/MAGNOLIA_ML009_CALCULATION_LOCK.md'
       - 'scripts/inspect_magnolia_supplement_schema.py'
+      - 'scripts/open_magnolia_supplement_rows.py'
       - '.github/workflows/magnolia-ml009-schema.yml'
   workflow_dispatch:
 
@@ -20,3 +22,5 @@ jobs:
         run: python -m pip install --quiet python-docx
       - name: Inspect Magnolia supplement schema only
         run: python scripts/inspect_magnolia_supplement_schema.py
+      - name: Open numeric rows after calculation lock
+        run: python scripts/open_magnolia_supplement_rows.py
