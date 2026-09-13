@@ -1,0 +1,20 @@
+name: Conospermum 2026 Dryad schema gate
+
+on:
+  pull_request:
+    paths:
+      - 'manuscript/CONOSPERMUM_2026_CLUSTER_RECOVERY_CONTRACT.md'
+      - 'scripts/probe_conospermum_2026_dryad_schema.py'
+      - '.github/workflows/conospermum-2026-schema.yml'
+  workflow_dispatch:
+
+jobs:
+  schema:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Inspect Dryad metadata only
+        run: python scripts/probe_conospermum_2026_dryad_schema.py
