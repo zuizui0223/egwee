@@ -25,7 +25,7 @@ The published study reports strong, directionally concordant habitat summaries:
 
 These support the biological interpretation that donor diversity and offspring genetic diversity are lower under fragmentation even though long-distance pollen movement persists.
 
-They are **not** converted into primary Hedges-g effects because the fragmentation-level reference denominator is one population. Group-level maternal-tree or progeny sample sizes are not valid substitutes for independent habitat replication.
+These habitat summaries are not converted into primary Hedges-g effects because the fragmentation-level reference denominator is one population. Group-level maternal-tree or progeny sample sizes are not valid substitutes for independent habitat replication.
 
 ## Why this is not the same as a biological null
 
