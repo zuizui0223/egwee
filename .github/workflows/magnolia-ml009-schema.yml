@@ -1,0 +1,22 @@
+name: Magnolia ML009 supplement schema
+
+on:
+  pull_request:
+    paths:
+      - 'manuscript/MAGNOLIA_ML009_CLUSTER_RECOVERY_CONTRACT.md'
+      - 'scripts/inspect_magnolia_supplement_schema.py'
+      - '.github/workflows/magnolia-ml009-schema.yml'
+  workflow_dispatch:
+
+jobs:
+  schema:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install document reader
+        run: python -m pip install --quiet python-docx
+      - name: Inspect Magnolia supplement schema only
+        run: python scripts/inspect_magnolia_supplement_schema.py
