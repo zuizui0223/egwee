@@ -23,15 +23,11 @@ PUBLIC_FILES = {
 }
 
 
-def download_bytes(file_id: int) -> bytes:
-    url = f"https://datadryad.org/stash/downloads/file_stream/{file_id}"
-    # Dryad file_stream redirects to a signed object-store URL. curl preserves
-    # that redirect URL faithfully; urllib on hosted runners returned 403 after
-    # the redirect even though the public file_stream route itself resolved.
+def curl_bytes(url: str) -> bytes:
     proc = subprocess.run(
         [
             "curl", "-L", "--fail", "--silent", "--show-error",
-            "--retry", "3", "--retry-delay", "2",
+            "--retry", "2", "--retry-delay", "1",
             "-A", "Mozilla/5.0 egwee-conospermum-2026-audit/1.0",
             url,
         ],
@@ -39,14 +35,40 @@ def download_bytes(file_id: int) -> bytes:
         capture_output=True,
     )
     if proc.returncode != 0:
-        raise RuntimeError(
-            f"Dryad file_stream failed file_id={file_id} rc={proc.returncode} "
-            f"stderr={proc.stderr.decode('utf-8', errors='replace')}"
+        print(
+            f"CONO2026_DOWNLOAD_FAIL url={url!r} rc={proc.returncode} "
+            f"stderr={proc.stderr.decode('utf-8', errors='replace')!r}"
         )
-    payload = proc.stdout
-    assert payload, url
-    print(f"CONO2026_PUBLIC_DOWNLOAD file_id={file_id} bytes={len(payload)}")
-    return payload
+        return b""
+    return proc.stdout
+
+
+def payload_looks_real(name: str, payload: bytes) -> bool:
+    if not payload:
+        return False
+    if name.lower().endswith(".xlsx"):
+        return payload[:2] == b"PK"
+    if name.lower().endswith(".csv"):
+        prefix = payload[:256].lower()
+        return b"<html" not in prefix and b"<!doctype" not in prefix and b"," in prefix
+    return True
+
+
+def download_bytes(name: str, file_id: int) -> bytes:
+    candidates = [
+        f"https://datadryad.org/downloads/file_stream/{file_id}",
+        f"https://datadryad.org/stash/downloads/file_stream/{file_id}",
+    ]
+    for url in candidates:
+        payload = curl_bytes(url)
+        print(
+            f"CONO2026_PUBLIC_DOWNLOAD_TRY file_id={file_id} url={url!r} "
+            f"bytes={len(payload)} magic={payload[:24].hex()!r}"
+        )
+        if payload_looks_real(name, payload):
+            print(f"CONO2026_PUBLIC_DOWNLOAD_OK file_id={file_id} url={url!r} bytes={len(payload)}")
+            return payload
+    raise RuntimeError(f"No public file-stream route yielded the expected file for {name} (id={file_id})")
 
 
 def inspect_xlsx(label: str, name: str, payload: bytes) -> None:
@@ -94,7 +116,7 @@ def inspect_csv(label: str, name: str, payload: bytes) -> None:
 def main() -> None:
     for label, files in PUBLIC_FILES.items():
         for name, file_id in files.items():
-            payload = download_bytes(file_id)
+            payload = download_bytes(name, file_id)
             if name.lower().endswith(".xlsx"):
                 inspect_xlsx(label, name, payload)
             elif name.lower().endswith(".csv"):
