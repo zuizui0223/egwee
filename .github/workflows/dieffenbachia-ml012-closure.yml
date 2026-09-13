@@ -1,0 +1,24 @@
+name: Dieffenbachia ML012 closure
+
+on:
+  pull_request:
+    paths:
+      - 'manuscript/DIEFFENBACHIA_2010_CLUSTER_RECOVERY_CONTRACT.md'
+      - 'manuscript/DIEFFENBACHIA_2010_CLUSTER_RECOVERY_RESULT.md'
+      - 'evidence/meta_extraction/PS017_dieffenbachia_population_recovery_v1.csv'
+      - 'evidence/meta_extraction/PS017_dieffenbachia_effects_v1.csv'
+      - 'evidence/meta_extraction/multilayer_cluster_registry_v1.csv'
+      - 'scripts/check_dieffenbachia_ml012_closure.py'
+      - '.github/workflows/dieffenbachia-ml012-closure.yml'
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Enforce Dieffenbachia exact-C / missing-adjusted-Nep boundary
+        run: python scripts/check_dieffenbachia_ml012_closure.py
