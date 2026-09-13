@@ -1,0 +1,28 @@
+name: Hulting 2025 source gates
+
+on:
+  pull_request:
+    paths:
+      - 'manuscript/HULTING_2025_CLUSTER_RECOVERY_CONTRACT.md'
+      - 'scripts/probe_hulting_2025_dryad_schema.py'
+      - 'scripts/inspect_hulting_2025_raw_schema.py'
+      - 'scripts/inspect_hulting_2025_supplement.py'
+      - '.github/workflows/hulting-2025-schema.yml'
+  workflow_dispatch:
+
+jobs:
+  schema:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install document reader
+        run: python -m pip install --quiet python-docx
+      - name: Inspect Dryad metadata only
+        run: python scripts/probe_hulting_2025_dryad_schema.py
+      - name: Inspect raw hierarchy after exposure lock
+        run: python scripts/inspect_hulting_2025_raw_schema.py
+      - name: Inspect publisher supplementary model tables
+        run: python scripts/inspect_hulting_2025_supplement.py
