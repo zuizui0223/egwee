@@ -4,7 +4,11 @@ on:
   pull_request:
     paths:
       - 'manuscript/PENSTEMON_2019_ISOLATION_CLUSTER_RECOVERY_CONTRACT.md'
+      - 'manuscript/PENSTEMON_2019_ISOLATION_CLUSTER_RECOVERY_RESULT.md'
+      - 'evidence/meta_extraction/C07_penstemon_2019_schema_gate_v1.csv'
+      - 'evidence/meta_extraction/multilayer_cluster_registry_v1.csv'
       - 'scripts/probe_penstemon_2019_zenodo_schema.py'
+      - 'scripts/check_penstemon_2019_recovery_contract.py'
       - '.github/workflows/penstemon-2019-schema.yml'
   workflow_dispatch:
 
@@ -18,3 +22,5 @@ jobs:
           python-version: '3.11'
       - name: Inspect Zenodo metadata and CSV schema only
         run: python scripts/probe_penstemon_2019_zenodo_schema.py
+      - name: Enforce terminal multilayer recovery gate
+        run: python scripts/check_penstemon_2019_recovery_contract.py
