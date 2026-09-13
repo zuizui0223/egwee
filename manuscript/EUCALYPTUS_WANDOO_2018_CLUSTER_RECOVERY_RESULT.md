@@ -2,62 +2,72 @@
 
 ## Terminal state
 
-`ML015_admitted_I_F_Gadult_covariance_aware`
+`ML015_gradient_generalisation_I_F_Gadult_covariance_aware`
 
-ML015 is admitted as the fourth independent covariance-aware multilayer cluster.
+ML015 is retained as a three-layer **Fisher-z gradient generalisation cluster**. It is not a fourth primary Hedges-g cluster and does not increase the primary confirmatory denominator.
+
+## Why the tier changed
+
+The frozen meta-analysis protocol separates direct fragmented-versus-reference comparisons from continuous fragmentation gradients. The original ML015 recovery used standardized OLS slopes, which are not one of the frozen effect streams. In addition, the response-free PC1 is an EGWEE composite of three source fragmentation descriptors rather than a scalar contrast defined by the source.
+
+The recovery was therefore returned to the pre-existing `fisher_z_gradient` stream rather than relaxing the protocol after seeing the result.
 
 ## Locked frame
 
-- source populations defining exposure geometry: 19;
-- common response-complete populations: 11 (`J,K,F,C,E,G,B,I,A,H,D`);
-- independent unit: population;
-- exposure: response-free PC1 of source-defined fragmentation variables after fixed transforms `-log10(size)`, `sqrt(isolation)`, `log10(shape)`;
-- biological layers: pollen tubes (`I`), seeds/fruit y2 (`F`), adult unbiased expected heterozygosity `H_e` (`G_adult`).
+- 19 source populations define the exposure geometry;
+- 11 populations have all three response layers: `J,K,F,C,E,G,B,I,A,H,D`;
+- independent unit = population;
+- composite gradient = response-free PC1 of `-log10(size)`, `sqrt(isolation)`, `log10(shape)`;
+- layers = pollen tubes (`I`), seeds/fruit y2 (`F`), adult `H_e` (`G_adult`).
 
-The aggregate source tables were visible during candidate discovery, so this is not described as an outcome-blind preregistration. Predictor reduction nevertheless uses exposure values only and no endpoint-specific predictor selection.
+The public source tables were visible during candidate discovery; this analysis is transparently source-discovery-exposed rather than called an outcome-blind preregistration.
 
 ## Fragmentation PC
 
-PC1 loadings after severity orientation:
+Severity-oriented PC1 loadings are:
 
-- smallness `-log10(size)`: `+0.5873571692`;
-- `sqrt(isolation)`: `+0.4775526468`;
-- edge dominance `log10(shape)`: `+0.6534179561`.
+- smallness: `+0.5873571692`;
+- isolation: `+0.4775526468`;
+- edge dominance: `+0.6534179561`.
 
-PC1 eigenvalue: `1.8276073487`.
+PC1 eigenvalue = `1.8276073487`. Larger score therefore represents smaller, more isolated, more edge-dominated populations.
 
-Higher PC1 therefore means smaller, more isolated and more edge-dominated populations.
+## Canonical gradient effects
 
-## Layer effects
+Using the frozen Fisher-z effect representation on the common 11-population frame (`V(z)=1/(11-3)=0.125`):
 
-Each response was standardized once on the common 11-population frame. Effects are OLS slopes on fixed standardized fragmentation PC1. Negative means deterioration with stronger fragmentation; positive means an increase.
+- `I_pollination`: `r=+0.59816906`, `z=+0.69029123`;
+- `F_reproductive_function`: `r=-0.70437490`, `z=-0.87593080`;
+- `G_adult`: `r=-0.38946811`, `z=-0.41117288`.
 
-- `I_pollination`, pollen tubes at base of style: `+0.67475197`; bootstrap 95% CI `[+0.20780667, +1.93297843]`.
-- `F_reproductive_function`, seeds per fruit y2: `-0.79455522`; bootstrap 95% CI `[-1.42507278, -0.22907996]`.
-- `G_adult`, `H_e`: `-0.43933127`; bootstrap 95% CI `[-1.59705553, +0.22305372]`.
+The qualitative geometry from the initial slope calculation is unchanged: pollen quantity increases along this composite fragmentation gradient while realised seed production declines; adult standing heterozygosity is weaker but points in the same deterioration direction as F.
 
-The important state geometry is therefore discordant: pollination quantity rises along the fragmentation-severity axis while realised reproductive function falls; standing adult genetic diversity is weaker and uncertain in the same deterioration direction.
-
-This does not imply that more pollen is beneficial under fragmentation. The source itself argues that small populations can receive abundant pollen while seed set remains low, consistent with reduced pollen quality / increased self-pollen rather than pollen quantity limitation.
+The source independently reports the same biological tension: smaller populations received more pollen tubes while seed set was reduced, and the authors discuss pollen quality/self-pollen rather than pollen quantity as a plausible explanation.
 
 ## Dependence
 
-Paired population bootstrap: 10,000 draws, RNG seed `20260913`.
-
-Bootstrap covariance matrix in endpoint order `[I_pollen_tubes, F_seeds_per_fruit_y2, G_adult_He]`:
+The three effects share the same 11 populations. After fitting each raw endpoint on the fixed severity score, the residual-correlation proxy is:
 
 ```
-[[ 0.1934720631,  0.0209037444, -0.0911208842],
- [ 0.0209037444,  0.0867636966,  0.0404803321],
- [-0.0911208842,  0.0404803321,  0.2287153403]]
+[[ 1.0000000000,  0.1171782316, -0.3694768285],
+ [ 0.1171782316,  1.0000000000, -0.1025244764],
+ [-0.3694768285, -0.1025244764,  1.0000000000]]
 ```
 
-Eigenvalues: `[0.0568871989, 0.1466268969, 0.3054370042]`.
+Combining this with the three canonical Fisher-z marginal variances (`0.125`) gives the working covariance matrix:
 
-All are positive, so the covariance matrix is positive definite and the predeclared admission gate is passed.
+```
+[[ 0.1250000000,  0.0146472789, -0.0461846036],
+ [ 0.0146472789,  0.1250000000, -0.0128155595],
+ [-0.0461846036, -0.0128155595,  0.1250000000]]
+```
 
-## Claim ceiling
+Eigenvalues are `0.07877559, 0.11795799, 0.17826642`; the proxy matrix is positive definite.
 
-ML015 supports a natural-system state-separation claim: a common multidimensional fragmentation state does not force pollination quantity, reproductive function and standing genetic diversity to move as one deterioration coordinate.
+## Synthesis boundary
 
-It does not identify a single causal fragmentation component, because the primary exposure deliberately summarizes the three source-defined fragmentation variables without choosing among them based on endpoint results. Soil salinity and pollen quality remain mechanistic explanations discussed by the source rather than components of the primary fragmentation estimand.
+ML015 adds **zero primary Hedges-g effects**. The primary confirmatory denominator remains ML001–ML003, totaling 3 independent clusters / 9 primary effects.
+
+The three ML015 rows are `fisher_z_admissible` only in the separately analysed gradient/generalisation stream. Hedges g and Fisher z are not pooled on one effect scale.
+
+Thus ML015 strengthens the external/generalisation evidence for cross-layer state separation, but it is not used to claim that the primary replicated binary/contrast synthesis has grown from three to four systems.
