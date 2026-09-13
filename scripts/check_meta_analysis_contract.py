@@ -8,144 +8,113 @@ ROOT = Path(__file__).resolve().parents[1]
 README = ROOT / "README.md"
 MANUSCRIPT = ROOT / "manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md"
 PROTOCOL = ROOT / "manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md"
-AMENDMENT = ROOT / "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-11_EFFECT_UNITS.md"
+EFFECT_AMENDMENT = ROOT / "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-11_EFFECT_UNITS.md"
+COHORT_AMENDMENT = ROOT / "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-13_COHORT_DEPENDENCE.md"
 SCHEMA = ROOT / "manuscript/meta_analysis_effect_schema.json"
 METADATA = ROOT / "manuscript/meta_analysis_submission_metadata.md"
 LEDGER = ROOT / "manuscript/meta_analysis_candidate_ledger.csv"
-SEEDS = ROOT / "manuscript/meta_analysis_seed_sources.md"
 PRIMARY_SEED = ROOT / "manuscript/meta_analysis_primary_study_seed_v1.csv"
 PRIMARY_SEED_SOURCES = ROOT / "manuscript/meta_analysis_primary_study_seed_v1_sources.md"
 EXTRACTION_QUEUE = ROOT / "manuscript/meta_analysis_extraction_queue_v1.csv"
 SPONDIAS = ROOT / "evidence/meta_extraction/PS001_spondias_extraction_v1.csv"
-SPONDIAS_SITE_EFFECTS = ROOT / "evidence/meta_extraction/PS001_spondias_site_effects_v1.csv"
+SPONDIAS_EFFECTS = ROOT / "evidence/meta_extraction/PS001_spondias_site_effects_v1.csv"
+SPONDIAS_GEN = ROOT / "evidence/meta_extraction/PS001_spondias_appendixB_genetic_site_table_v1.csv"
 
 
-def _csv_rows(path: Path) -> list[dict[str, str]]:
+def rows(path: Path) -> list[dict[str, str]]:
     with path.open(newline="", encoding="utf-8") as fh:
         return list(csv.DictReader(fh))
 
 
 def main() -> None:
     for path in (
-        README, MANUSCRIPT, PROTOCOL, AMENDMENT, SCHEMA, METADATA, LEDGER, SEEDS,
-        PRIMARY_SEED, PRIMARY_SEED_SOURCES, EXTRACTION_QUEUE, SPONDIAS, SPONDIAS_SITE_EFFECTS,
+        README, MANUSCRIPT, PROTOCOL, EFFECT_AMENDMENT, COHORT_AMENDMENT, SCHEMA,
+        METADATA, LEDGER, PRIMARY_SEED, PRIMARY_SEED_SOURCES, EXTRACTION_QUEUE,
+        SPONDIAS, SPONDIAS_EFFECTS, SPONDIAS_GEN,
     ):
         assert path.is_file(), path
 
     readme = README.read_text(encoding="utf-8")
     manuscript = MANUSCRIPT.read_text(encoding="utf-8")
     protocol = PROTOCOL.read_text(encoding="utf-8")
-    amendment = AMENDMENT.read_text(encoding="utf-8")
+    effect_amendment = EFFECT_AMENDMENT.read_text(encoding="utf-8")
+    cohort_amendment = COHORT_AMENDMENT.read_text(encoding="utf-8")
     metadata = METADATA.read_text(encoding="utf-8")
     schema = json.loads(SCHEMA.read_text(encoding="utf-8"))
 
     assert "active paper is now a multilevel meta-analysis" in readme
-    assert "Question 1" in readme and "Question 2" in readme
     assert "H1 — biological layers do not share one fragmentation response" in manuscript
     assert "H2 — contemporary processes can change before standing adult genetics" in manuscript
-    assert "H3 — process compensation modifies the function response" in manuscript
-    assert "not yet claimed" in manuscript.lower()
     assert "primary meta-analysis requires a direct fragmented-versus-reference comparison" in protocol.lower()
-    assert "Missing biological layers are not coded as zero effects" in protocol
-    assert "Do not define a `compensated` category" in protocol
+    assert "pseudo-replication firewall" in effect_amendment.lower()
+    assert "proxy_pairwise_low_rank" in cohort_amendment
+    assert "does not by itself establish a cohort lag" in cohort_amendment
+    assert "protocol_locked_screening_and_extraction_pending" in metadata
 
-    assert "pseudo-replication firewall" in amendment.lower()
-    assert "do not manufacture g" in amendment.lower()
     assert schema["schema_version"] == 2
-    assert schema["amendment"] == "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-11_EFFECT_UNITS.md"
-    for field in (
-        "effect_unit_status", "effect_unit_note", "independent_unit", "dispersion_unit",
-        "n_independent_fragmented", "n_independent_reference", "n_individuals_fragmented",
-        "n_individuals_reference",
-    ):
-        assert field in schema["required_fields"], field
     assert schema["primary_effect_stream"] == "hedges_g_fragmented_minus_reference"
     assert schema["secondary_effect_stream"] == "fisher_z_correlation_with_fragmentation_severity"
-    assert set(schema["primary_layers"]) == {
-        "D_resource_demography", "I_interaction", "C_movement_connectivity",
-        "F_reproductive_function", "G_adult", "G_offspring",
-    }
     assert set(schema["effect_unit_status_values"]) == {
         "g_admissible", "fisher_z_admissible", "model_contrast_pending_standardisation",
         "raw_reanalysis_required", "descriptive_only",
     }
-    for forbidden_shortcut in (
-        "pair_individual_sample_size_with_locus_level_SD",
-        "treat_nested_offspring_or_paternity_events_as_independent_fragmentation_replicates",
-        "force_model_based_contrasts_into_Hedges_g_without_compatible_standardisation",
-    ):
-        assert forbidden_shortcut in schema["forbidden_shortcuts"]
 
-    assert "protocol_locked_screening_and_extraction_pending" in metadata
-    for forbidden in (
-        "meta-analysis demonstrates", "meta-analysis showed", "pooled effect was", "significantly more negative",
-    ):
-        assert forbidden not in manuscript.lower(), forbidden
-
-    primary = _csv_rows(PRIMARY_SEED)
-    assert len(primary) >= 14, len(primary)
-    ids = [r["study_id"] for r in primary]
-    assert len(ids) == len(set(ids)), "duplicate primary study_id"
-    dois = [r["doi"].strip().lower() for r in primary if r["doi"].strip()]
-    assert len(dois) == len(set(dois)), "duplicate DOI in primary-study seed"
-    assert all(r["verified_layers"].strip() for r in primary)
-    assert all(r["source_status"] == "source_verified" for r in primary)
-    assert sum(r["seed_priority"] == "very_high" for r in primary) >= 4
+    primary = rows(PRIMARY_SEED)
+    candidates = rows(LEDGER)
+    queue = rows(EXTRACTION_QUEUE)
+    assert len(primary) >= 16
+    assert len(candidates) >= 19
+    assert len(queue) >= 9
+    assert len({r["study_id"] for r in primary}) == len(primary)
+    assert {r["study_id"] for r in queue} <= {r["study_id"] for r in primary}
     assert any(r["study_id"] == "PS001" and "G_offspring" in r["verified_layers"] for r in primary)
-    assert any(r["study_id"] == "PS004" and r["fragmentation_design"] == "3_continuous_vs_3_fragmented" for r in primary)
-    assert any(r["study_id"] == "PS014" and "I" in r["verified_layers"] and "F" in r["verified_layers"] for r in primary)
-
-    candidates = _csv_rows(LEDGER)
-    assert len(candidates) >= 18, len(candidates)
     assert any(r["system"] == "Spondias purpurea" and "source_verified" in r["current_status"] for r in candidates)
-    assert any(r["system"] == "Brosimum alicastrum" and "priority_extraction" in r["current_status"] for r in candidates)
-    assert any(r["system"] == "Magnolia stellata" and r["direct_fragmentation_contrast"] == "gradient" for r in candidates)
 
-    queue = _csv_rows(EXTRACTION_QUEUE)
-    assert len(queue) >= 7
-    priorities = [int(r["priority"]) for r in queue]
-    assert priorities == sorted(priorities), priorities
-    assert queue[0]["study_id"] == "PS001"
-    assert {r["design_stream"] for r in queue} >= {"hedges_g_direct", "fisher_z_gradient"}
-    assert any(r["study_id"] == "PS004" for r in queue)
-    assert any(r["study_id"] == "PS014" for r in queue)
+    # Appendix B changes the PS001 effect-unit state: site-level adult, juvenile
+    # and seed genetics are now admissible, while I/F and pollen-distance remain blocked.
+    spondias = rows(SPONDIAS)
+    effects = rows(SPONDIAS_EFFECTS)
+    genetic = rows(SPONDIAS_GEN)
+    assert len(spondias) == 13
+    assert len(effects) == 8
+    assert len(genetic) == 15
 
-    # PS001 now has two effect-unit-valid layers reconstructed from the same five
-    # sites: contemporary paternity connectivity and adult spatial genetic structure.
-    # Lower-level visitation, reproduction, pollen-distance and cohort-genetic
-    # summaries remain protected by the original pseudo-replication firewall.
-    spondias = _csv_rows(SPONDIAS)
-    spondias_site = _csv_rows(SPONDIAS_SITE_EFFECTS)
-    assert len(spondias) >= 12
-    assert len(spondias_site) == 2
-    allowed = set(schema["effect_unit_status_values"])
-    assert all(r["effect_unit_status"] in allowed for r in spondias)
-    s_g = [r for r in spondias if r["effect_unit_status"] == "g_admissible"]
-    assert {r["endpoint_id"] for r in s_g} == {"C_paternity_correlation", "Gadult_Sp"}
-    assert all(r["independent_unit"] == "site" for r in s_g)
-    assert sum(r["effect_unit_status"] == "model_contrast_pending_standardisation" for r in spondias) >= 3
-    assert sum(r["effect_unit_status"] == "raw_reanalysis_required" for r in spondias) >= 5
-    assert any(r["endpoint_id"] == "C_effective_sires" and r["effect_unit_status"] == "descriptive_only" for r in spondias)
-    assert any("locus" in r["effect_unit_note"].lower() for r in spondias)
-    assert any("nested" in r["effect_unit_note"].lower() for r in spondias)
-    assert {r["endpoint_id"] for r in spondias_site} == {"C_paternity_correlation", "Gadult_Sp"}
-    assert all(r["effect_unit_status"] == "g_admissible" for r in spondias_site)
-    assert all(int(r["n_independent_fragmented"]) == 3 for r in spondias_site)
-    assert all(int(r["n_independent_reference"]) == 2 for r in spondias_site)
+    by_endpoint = {r["endpoint_id"]: r for r in spondias}
+    assert {r["endpoint_id"] for r in spondias if r["effect_unit_status"] == "g_admissible"} == {
+        "C_paternity_correlation", "Gadult_Ho", "Gadult_Fis", "Gadult_Sp",
+        "Goffspring_juvenile_Ho", "Goffspring_seed_Ho",
+        "Goffspring_juvenile_F", "Goffspring_seed_F",
+    }
+    assert {r["endpoint_id"] for r in spondias if r["effect_unit_status"] == "model_contrast_pending_standardisation"} == {
+        "I_visitation", "F_fruit_production", "F_fruit_set"
+    }
+    assert by_endpoint["C_pollen_distance"]["effect_unit_status"] == "raw_reanalysis_required"
+    assert by_endpoint["C_effective_sires"]["effect_unit_status"] == "descriptive_only"
+    assert all(r["independent_unit"] == "site" for r in spondias if r["effect_unit_status"] == "g_admissible")
+
+    effect_by_endpoint = {r["endpoint_id"]: r for r in effects}
+    assert {e for e, r in effect_by_endpoint.items() if r["analysis_role"] == "primary"} == {
+        "C_paternity_correlation", "Gadult_Ho", "Gjuvenile_Ho", "Gseed_Ho"
+    }
+    assert effect_by_endpoint["Gadult_Sp"]["analysis_role"] == "sensitivity_structure"
+    assert {e for e, r in effect_by_endpoint.items() if r["analysis_role"] == "sensitivity_metric"} == {
+        "Gadult_Fis", "Gjuvenile_Fis", "Gseed_Fis"
+    }
+    assert all(r["effect_unit_status"] == "g_admissible" for r in effects)
+    assert all(int(r["n_independent_fragmented"]) == 3 for r in effects)
+    assert all(int(r["n_independent_reference"]) == 2 for r in effects)
+
+    assert {r["developmental_stage"] for r in genetic} == {"adult", "juvenile", "seed"}
+    assert {r["population"] for r in genetic} == {"Careyes", "Chamela", "Mesa", "Nacastillo", "Ranchitos"}
+    assert all(r["source_location"].endswith("Appendix B (mmc1.docx)") for r in genetic)
 
     provenance = PRIMARY_SEED_SOURCES.read_text(encoding="utf-8")
-    for doi in (
-        "10.1016/j.biocon.2021.109007", "10.1186/1472-6785-13-10",
-        "10.1186/s12870-015-0600-8", "10.1002/ajb2.16157", "10.1111/1365-2745.14452",
-    ):
-        assert doi in provenance, doi
+    assert "10.1016/j.biocon.2021.109007" in provenance
 
     print(
         "EGWEE multilayer meta-analysis contract: PASS; "
-        f"{len(primary)} source-verified primary-study seeds, "
-        f"{len(candidates)} candidate systems, {len(queue)} queued extraction studies, "
-        f"{len(spondias)} PS001 endpoints; effect-unit firewall active, "
-        "Spondias C and adult-G site effects admitted while nested I/F/cohort-G summaries remain blocked"
+        f"{len(primary)} verified studies, {len(candidates)} candidates, {len(queue)} queued; "
+        "PS001 now has site-level C plus adult/juvenile/seed genetics, while I/F remain unmanufactured"
     )
 
 

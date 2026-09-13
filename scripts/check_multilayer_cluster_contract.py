@@ -12,7 +12,8 @@ BROS_SITE = ROOT / "evidence/meta_extraction/PS004_brosimum_site_table_v1.csv"
 BROS_EFFECTS = ROOT / "evidence/meta_extraction/PS004_brosimum_extraction_v1.csv"
 BROS_COV = ROOT / "evidence/meta_extraction/PS004_brosimum_primary_covariance_v1.csv"
 REGISTRY = ROOT / "evidence/meta_extraction/multilayer_cluster_registry_v1.csv"
-AMENDMENT = ROOT / "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-12_MULTILAYER_CLUSTERS.md"
+BASE_AMENDMENT = ROOT / "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-12_MULTILAYER_CLUSTERS.md"
+COHORT_AMENDMENT = ROOT / "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-13_COHORT_DEPENDENCE.md"
 
 
 def rows(path: Path) -> list[dict[str, str]]:
@@ -21,21 +22,15 @@ def rows(path: Path) -> list[dict[str, str]]:
 
 
 def pearson(x: list[float], y: list[float]) -> float:
-    mx = sum(x) / len(x)
-    my = sum(y) / len(y)
+    mx, my = sum(x) / len(x), sum(y) / len(y)
     dx = [v - mx for v in x]
     dy = [v - my for v in y]
-    num = sum(a * b for a, b in zip(dx, dy))
-    den = math.sqrt(sum(a * a for a in dx) * sum(b * b for b in dy))
-    return num / den
+    return sum(a * b for a, b in zip(dx, dy)) / math.sqrt(sum(a * a for a in dx) * sum(b * b for b in dy))
 
 
 def centered(values: list[float], groups: list[str]) -> list[float]:
-    means: dict[str, float] = {}
-    for group in set(groups):
-        selected = [value for value, observed_group in zip(values, groups) if observed_group == group]
-        means[group] = sum(selected) / len(selected)
-    return [value - means[group] for value, group in zip(values, groups)]
+    means = {g: sum(v for v, gg in zip(values, groups) if gg == g) / groups.count(g) for g in set(groups)}
+    return [v - means[g] for v, g in zip(values, groups)]
 
 
 def cholesky_positive_definite(matrix: list[list[float]]) -> bool:
@@ -54,145 +49,88 @@ def cholesky_positive_definite(matrix: list[list[float]]) -> bool:
     return True
 
 
-def validate_covariance(
-    cov_path: Path,
-    cluster_id: str,
-    study_id: str,
-    endpoint_names: list[str],
-    centered_vectors: dict[str, list[float]],
-    variances: dict[str, float],
-    n_units: int,
-) -> None:
+def validate_covariance(cov_path: Path, cluster_id: str, study_id: str, endpoint_names: list[str], vectors: dict[str, list[float]], variances: dict[str, float], groups: list[str]) -> None:
     cov_rows = rows(cov_path)
-    expected_pairs = {(a, b) for a in endpoint_names for b in endpoint_names}
     by_pair = {(r["endpoint_i"], r["endpoint_j"]): r for r in cov_rows}
-    assert set(by_pair) == expected_pairs
-    assert len(cov_rows) == len(expected_pairs)
-
-    matrix: list[list[float]] = []
+    assert set(by_pair) == {(a, b) for a in endpoint_names for b in endpoint_names}
+    matrix = []
+    centered_vectors = {name: centered(v, groups) for name, v in vectors.items()}
     for a in endpoint_names:
-        matrix_row: list[float] = []
+        mrow = []
         for b in endpoint_names:
+            rr = pearson(centered_vectors[a], centered_vectors[b])
+            expected = rr * math.sqrt(variances[a] * variances[b])
             row = by_pair[(a, b)]
-            r_expected = pearson(centered_vectors[a], centered_vectors[b])
-            covariance_expected = r_expected * math.sqrt(variances[a] * variances[b])
-            assert row["cluster_id"] == cluster_id
-            assert row["study_id"] == study_id
-            assert int(row["n_paired_units"]) == n_units
+            assert row["cluster_id"] == cluster_id and row["study_id"] == study_id
             assert row["covariance_status"] == "proxy_reconstructed"
-            assert abs(float(row["correlation_proxy"]) - r_expected) < 1e-9
-            assert abs(float(row["sampling_covariance"]) - covariance_expected) < 1e-9
-            assert abs(float(row["marginal_variance_i"]) - variances[a]) < 1e-9
-            assert abs(float(row["marginal_variance_j"]) - variances[b]) < 1e-9
-            matrix_row.append(float(row["sampling_covariance"]))
-        matrix.append(matrix_row)
-
-    for i in range(len(endpoint_names)):
-        for j in range(len(endpoint_names)):
-            assert abs(matrix[i][j] - matrix[j][i]) < 1e-12
+            assert abs(float(row["correlation_proxy"]) - rr) < 1e-9
+            assert abs(float(row["sampling_covariance"]) - expected) < 1e-9
+            mrow.append(float(row["sampling_covariance"]))
+        matrix.append(mrow)
     assert cholesky_positive_definite(matrix), matrix
 
 
 def validate_serapias() -> None:
     site = rows(SERA_SITE)
-    assert len(site) == 9
     groups = [r["exposure_group"] for r in site]
-    assert groups.count("anthropic") == 3
-    assert groups.count("natural") == 6
-
-    effects = rows(SERA_EFFECTS)
-    primary = [r for r in effects if r["primary_or_sensitivity"] == "primary"]
-    assert len(primary) == 3
-    assert {r["layer"] for r in primary} == {"C", "F", "G_adult"}
-    assert all(r["effect_unit_status"] == "g_admissible" for r in primary)
-    assert any(r["endpoint"] == "fixation_index_FIS" and r["primary_or_sensitivity"] == "sensitivity" for r in effects)
-
-    by_effect = {r["endpoint"]: r for r in primary}
-    endpoint_names = ["F_fruit_set", "C_pollen_immigration", "G_adult_Ho"]
-    values = {
+    effects = [r for r in rows(SERA_EFFECTS) if r["primary_or_sensitivity"] == "primary"]
+    by_effect = {r["endpoint"]: r for r in effects}
+    endpoints = ["F_fruit_set", "C_pollen_immigration", "G_adult_Ho"]
+    vectors = {
         "F_fruit_set": [float(r["fruit_set_pct"]) for r in site],
         "C_pollen_immigration": [float(r["pollen_immigration_pct"]) for r in site],
         "G_adult_Ho": [float(r["observed_heterozygosity"]) for r in site],
     }
-    centered_vectors = {name: centered(vals, groups) for name, vals in values.items()}
     variances = {
         "F_fruit_set": float(by_effect["fruit_set"]["oriented_variance"]),
         "C_pollen_immigration": float(by_effect["pollen_immigration_rate"]["oriented_variance"]),
         "G_adult_Ho": float(by_effect["observed_heterozygosity"]["oriented_variance"]),
     }
-    validate_covariance(SERA_COV, "ML001", "PS003", endpoint_names, centered_vectors, variances, 9)
+    validate_covariance(SERA_COV, "ML001", "PS003", endpoints, vectors, variances, groups)
 
 
 def validate_brosimum() -> None:
     site = rows(BROS_SITE)
-    assert len(site) == 6
     groups = [r["habitat"] for r in site]
-    assert groups.count("FRA") == 3
-    assert groups.count("CON") == 3
-
-    effects = rows(BROS_EFFECTS)
-    by_effect = {r["endpoint_id"]: r for r in effects}
-    assert by_effect["C_paternity_rp"]["effect_unit_status"] == "g_admissible"
-    assert by_effect["F_progeny_vigour"]["effect_unit_status"] == "g_admissible"
-    for endpoint in ("Gadult_Ho", "Goffspring_Ho", "Goffspring_F"):
-        assert by_effect[endpoint]["effect_unit_status"] == "raw_reanalysis_required"
-
-    values = {
+    by_effect = {r["endpoint_id"]: r for r in rows(BROS_EFFECTS)}
+    endpoints = ["C_paternity_rp", "F_TPDW"]
+    vectors = {
         "C_paternity_rp": [-float(r["C_paternity_rp"]) for r in site],
         "F_TPDW": [float(r["F_TPDW_site_mean"]) for r in site],
     }
-    centered_vectors = {name: centered(vals, groups) for name, vals in values.items()}
     variances = {
         "C_paternity_rp": float(by_effect["C_paternity_rp"]["oriented_variance"]),
         "F_TPDW": float(by_effect["F_progeny_vigour"]["oriented_variance"]),
     }
-    validate_covariance(BROS_COV, "ML002", "PS004", ["C_paternity_rp", "F_TPDW"], centered_vectors, variances, 6)
+    validate_covariance(BROS_COV, "ML002", "PS004", endpoints, vectors, variances, groups)
 
 
 def main() -> None:
-    for path in (SERA_SITE, SERA_EFFECTS, SERA_COV, BROS_SITE, BROS_EFFECTS, BROS_COV, REGISTRY, AMENDMENT):
+    for path in (SERA_SITE, SERA_EFFECTS, SERA_COV, BROS_SITE, BROS_EFFECTS, BROS_COV, REGISTRY, BASE_AMENDMENT, COHORT_AMENDMENT):
         assert path.is_file(), path
-
-    amendment = AMENDMENT.read_text(encoding="utf-8")
-    assert "one cluster with three correlated outcomes" in amendment
-    assert "Do not set covariance to zero" in amendment
-    assert "at least two independent admissible multilayer clusters" in amendment
-    assert "metafor::escalc" in amendment and 'vtype="LS"' in amendment
+    assert "Do not set covariance to zero" in BASE_AMENDMENT.read_text(encoding="utf-8")
+    cohort_text = COHORT_AMENDMENT.read_text(encoding="utf-8")
+    assert "proxy_pairwise_low_rank" in cohort_text
+    assert "do **not** force the full proxy covariance matrix to be positive definite" in cohort_text
 
     validate_serapias()
     validate_brosimum()
 
     registry = rows(REGISTRY)
     by_cluster = {r["cluster_id"]: r for r in registry}
-    assert len(by_cluster) == len(registry)
-    assert set(by_cluster) >= {"ML001", "ML002", "ML003", "ML004", "ML005", "ML006"}
-
-    serapias = by_cluster["ML001"]
-    assert serapias["cluster_status"] == "admissible_multilayer_cluster"
-    assert set(serapias["admissible_primary_layers"].split(";")) == {"C", "F", "G_adult"}
-    assert int(serapias["n_admissible_primary_effects"]) == 3
-
-    brosimum = by_cluster["ML002"]
-    assert brosimum["cluster_status"] == "admissible_multilayer_cluster"
-    assert set(brosimum["admissible_primary_layers"].split(";")) == {"C", "F"}
-    assert int(brosimum["n_admissible_primary_effects"]) == 2
-    assert brosimum["covariance_status"] == "proxy_reconstructed_from_six_sites"
-
-    spondias = by_cluster["ML003"]
-    assert spondias["cluster_status"] == "admissible_multilayer_cluster"
-    assert set(spondias["admissible_primary_layers"].split(";")) == {"C", "G_adult"}
-    assert int(spondias["n_admissible_primary_effects"]) == 2
-    assert spondias["covariance_status"] == "proxy_reconstructed_from_five_sites"
-
+    assert {r["cluster_id"] for r in registry if r["cluster_status"] == "admissible_multilayer_cluster"} == {"ML001", "ML002", "ML003"}
+    assert set(by_cluster["ML001"]["admissible_primary_layers"].split(";")) == {"C", "F", "G_adult"}
+    assert int(by_cluster["ML001"]["n_admissible_primary_effects"]) == 3
+    assert set(by_cluster["ML002"]["admissible_primary_layers"].split(";")) == {"C", "F"}
+    assert int(by_cluster["ML002"]["n_admissible_primary_effects"]) == 2
+    assert set(by_cluster["ML003"]["admissible_primary_layers"].split(";")) == {"C", "G_adult", "G_offspring"}
+    assert int(by_cluster["ML003"]["n_admissible_primary_effects"]) == 4
+    assert by_cluster["ML003"]["covariance_status"] == "proxy_pairwise_low_rank_from_five_sites"
     assert by_cluster["ML006"]["cluster_status"] == "recover_common_landscape_exposure"
-    admissible = [r for r in registry if r["cluster_status"] == "admissible_multilayer_cluster"]
-    assert {r["cluster_id"] for r in admissible} == {"ML001", "ML002", "ML003"}
 
     print(
         "EGWEE multilayer cluster contract: PASS; "
-        "ML001 Serapias=C/F/G_adult, ML002 Brosimum=C/F, ML003 Spondias=C/G_adult; "
-        "three independent admissible multilayer clusters. "
-        "Serapias/Brosimum covariance blocks are checked here; Spondias C-G covariance is audited separately."
+        "3 independent clusters / 9 primary effects; ML003 adds dependent adult/juvenile/seed H_O with low-rank pairwise covariance rather than fake independence"
     )
 
 

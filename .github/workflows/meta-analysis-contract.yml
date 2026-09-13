@@ -9,6 +9,7 @@ on:
       - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-11_EFFECT_UNITS.md'
       - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-11_GRADIENT_GEOMETRY.md'
       - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-12_MULTILAYER_CLUSTERS.md'
+      - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-13_COHORT_DEPENDENCE.md'
       - 'manuscript/META_ANALYSIS_EXTRACTION_STATUS_2026-09-11.md'
       - 'manuscript/META_ANALYSIS_CLUSTER_STATUS_2026-09-12.md'
       - 'manuscript/meta_analysis_effect_schema.json'
@@ -44,6 +45,7 @@ on:
       - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-11_EFFECT_UNITS.md'
       - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-11_GRADIENT_GEOMETRY.md'
       - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-12_MULTILAYER_CLUSTERS.md'
+      - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-13_COHORT_DEPENDENCE.md'
       - 'manuscript/META_ANALYSIS_EXTRACTION_STATUS_2026-09-11.md'
       - 'manuscript/META_ANALYSIS_CLUSTER_STATUS_2026-09-12.md'
       - 'manuscript/meta_analysis_effect_schema.json'
@@ -87,7 +89,7 @@ jobs:
         run: python scripts/check_meta_analysis_progress.py
       - name: Audit Spondias site-level paternity effect
         run: python scripts/check_spondias_paternity_effect.py
-      - name: Audit Spondias C-G multilayer cluster
+      - name: Audit Spondias cohort multilayer cluster
         run: python scripts/check_spondias_multilayer_cluster.py
       - name: Probe Spondias supplementary files
         run: python scripts/probe_spondias_supplement.py
