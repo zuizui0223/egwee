@@ -2,19 +2,19 @@
 
 **Updated:** 2026-09-13
 
-This ledger is the current cluster-first state. The unit of cross-system evidence is the multilayer cluster, not an extracted effect row.
+This ledger is the current cluster-first state. The unit of primary cross-system evidence is the multilayer cluster, not an extracted effect row.
 
 ## Corpus state
 
 - source-verified primary-study seeds: **17**
-- candidate systems/programmes: **19** plus one admitted post-seed expansion (`PS019 Eucalyptus wandoo`)
+- candidate systems/programmes: **19** plus one post-seed expansion (`PS019 Eucalyptus wandoo`)
 - priority extraction queue: **9 studies**
-- independent admissible multilayer clusters: **4**
-- primary admissible effects inside those clusters: **12** (`PS003`: C/F/G_adult; `PS004`: C/F; `PS001`: C/G_adult/G_offspring[juvenile]/G_offspring[seed]; `PS019`: I/F/G_adult)
+- independent **primary** admissible multilayer clusters: **3** (`ML001–ML003`)
+- primary admissible effects inside those clusters: **9** (`PS003`: C/F/G_adult; `PS004`: C/F; `PS001`: C/G_adult/G_offspring[juvenile]/G_offspring[seed])
 - standardized sensitivity effects retained outside the primary count: **5** (`PS003` adult `F_IS`; `PS001` adult `Sp` plus adult/juvenile/seed `F_IS`)
-- separate admissible gradient effects retained as an alternate design stream: **2** (`PS003` C/F Fisher-z effects against `-log(area)`)
+- separate admissible Fisher-z gradient effects: **5** (`PS003`: C/F against `-log(area)`; `PS019`: I/F/G_adult against the response-free fragmentation PC)
 
-No endpoint or developmental cohort increases the number of independent systems merely because it is another row.
+No endpoint or developmental cohort increases the number of independent systems merely because it is another row. Gradient/generalisation clusters do not increase the primary Hedges-g denominator.
 
 ## ML001 / PS003 — *Serapias lingua*
 
@@ -37,90 +37,99 @@ The paired C-F residual correlation is `r = 0.67083113`. Raw genotype reconstruc
 
 ## ML003 / PS001 — *Spondias purpurea*
 
-The same five sites define the third cluster: continuous `Careyes/Chamela` versus fragmented `Mesa/Nacastillo/Ranchitos`.
+The same five sites define the third primary cluster: continuous `Careyes/Chamela` versus fragmented `Mesa/Nacastillo/Ranchitos`.
 
 ### Primary effects
-
-Appendix B resolves site-specific genetic values by developmental stage, so the earlier habitat-summary effect-unit block is removed without using individual counts or locus SD as replication.
 
 - `C`, correlated paternity support: `g = -0.25474678`, variance `0.83982293`;
 - `G_adult`, adult `H_O`: `g = -0.94088153`, variance `0.92185914`;
 - `G_offspring`, juvenile `H_O`: `g = -3.18133069`, variance `1.84541983`;
 - `G_offspring`, seed `H_O`: `g = -1.11790599`, variance `0.95830471`.
 
-`H_O` is primary because the same rule was already used for Serapias. Adult `Sp` (`g = +0.50972995`) is retained as structural sensitivity, and adult/juvenile/seed `F_IS` are retained as alternate genetic sensitivities rather than additional independent G layers.
+`H_O` is primary. Adult `Sp` (`g = +0.50972995`) and adult/juvenile/seed `F_IS` remain alternate genetic sensitivities rather than additional independent G layers.
 
-### What changed biologically
+### Biological boundary
 
-The previous provisional interpretation based on adult `Sp` alone — contemporary C deteriorates while adult G does not — is too strong. Canonical adult `H_O` also declines under fragmentation. The defensible result is instead **representation- and cohort-dependent genetic response**.
-
-The point estimates suggest stronger juvenile than adult heterozygosity deterioration:
+The defensible result is **representation- and cohort-dependent genetic response**, not a confirmed cohort lag.
 
 - juvenile minus adult `H_O`: `delta = -2.24044916`, variance `1.60447392`, 95% CI `[-4.72309301, 0.24219469]`;
 - seed minus adult `H_O`: `delta = -0.17702446`, variance `2.44601474`, 95% CI `[-3.24235721, 2.88830829]`.
 
-Neither covariance-aware cohort contrast excludes zero with only five sites. Therefore Spondias is a **cohort-lag candidate**, not a confirmed cohort-lag result.
+Neither covariance-aware cohort contrast excludes zero with five sites.
 
 ### Dependence
 
-Four co-primary outcomes are retained on five sites: C, adult H_O, juvenile H_O and seed H_O. With two habitat groups, within-habitat residual dimension is only `5-2=3`, so the empirical 4x4 covariance proxy is structurally rank-deficient. Pairwise covariance terms are stored and audited; the singular 4x4 proxy is not forced to invert. Lower-dimensional cohort contrasts use their corresponding 2x2 covariance components, while any future full multivariate fit uses the declared cluster-robust fallback.
+Four co-primary outcomes are retained on five sites. With two habitat groups, the 4x4 empirical covariance proxy is structurally rank-deficient. Pairwise covariance terms are stored; the singular matrix is not forced to invert. Lower-dimensional contrasts use their corresponding components and any future full multivariate fit uses the declared cluster-robust fallback.
 
-Spondias supplementary material contains sex ratio (Appendix A) and site-by-cohort genetics (Appendix B), **not site-level visitation or reproductive-function values**. Public-source I/F recovery is closed unless author/raw data provide an effect-unit-valid five-site I/F vector or compatible model covariance.
+Public-source I/F recovery is closed because the supplement does not expose an effect-unit-valid five-site I/F vector or compatible model covariance.
 
-## ML015 / PS019 — *Eucalyptus wandoo*
+## ML015 / PS019 — *Eucalyptus wandoo* gradient generalisation
 
-This is the fourth independent admissible cluster and the first admitted common-gradient I/F/G_adult system.
+ML015 is **not** a fourth primary cluster. The study has no unfragmented/reference group, so the frozen protocol places it in the separate continuous-gradient Fisher-z stream.
 
-Nineteen populations define a response-free fragmentation PC from the three source fragmentation variables. The fixed severity-oriented transforms are `-log10(population size)`, `sqrt(isolation)` and `log10(shape)`. The response-complete common frame contains 11 populations (`J,K,F,C,E,G,B,I,A,H,D`).
+Nineteen populations define a response-free fragmentation PC from source descriptors using fixed transforms `-log10(population size)`, `sqrt(isolation)` and `log10(shape)`. The complete common I/F/G frame has 11 populations (`J,K,F,C,E,G,B,I,A,H,D`).
 
-Standardized slopes on fragmentation severity are:
+Canonical Fisher-z effects are:
 
-- `I`, pollen tubes at the base of the style: `+0.67475197`, bootstrap 95% CI `[+0.20780667, +1.93297843]`;
-- `F`, seeds per fruit y2: `-0.79455522`, bootstrap 95% CI `[-1.42507278, -0.22907996]`;
-- `G_adult`, unbiased expected heterozygosity `H_e`: `-0.43933127`, bootstrap 95% CI `[-1.59705553, +0.22305372]`.
+- `I`, pollen tubes: `r = +0.59816906`, `z = +0.69029123`;
+- `F`, seeds per fruit y2: `r = -0.70437490`, `z = -0.87593080`;
+- `G_adult`, `H_e`: `r = -0.38946811`, `z = -0.41117288`.
 
-The paired 10,000-draw population-bootstrap covariance is positive definite; eigenvalues are `0.05688720`, `0.14662690`, `0.30543700`.
+Each marginal variance is `1/(11-3)=0.125`. The paired residual-correlation covariance proxy is positive definite with eigenvalues approximately `0.07878`, `0.11796`, `0.17827`.
 
-This creates a direct natural-system state-separation result: stronger fragmentation is associated with **more pollen tubes but fewer seeds per fruit**, while standing adult genetic diversity has a weaker uncertain decline. Pollination quantity therefore cannot be treated as an interchangeable proxy for reproductive function in this system. The source likewise reports more pollen tubes in smaller populations while seed set increases with population size.
+The state geometry is strongly discordant: pollen quantity rises along the composite fragmentation gradient while realised seed production declines; adult heterozygosity shows a weaker decline. The within-ML015 Bonferroni state-separation diagnostic is `p_cluster = 0.00256953`, driven by the I-F contrast (`z = 3.33386`, two-sided `p = 0.00085651`).
 
-Because aggregate table values were visible during candidate discovery, ML015 is not labelled an outcome-blind preregistration. The exposure reduction itself is response-free and fixed from the three source fragmentation variables, and no endpoint-specific predictor was selected after seeing directions.
+This is generalisation evidence only. It contributes **zero primary Hedges-g effects** and is not combined with the primary cluster Fisher statistic.
 
-## Standardized-effect variance contract
+## Effect-family contract
 
-Binary Hedges-g effects use `metafor::escalc(measure="SMD", vtype="LS")`. ML015 is a separately declared standardized-gradient stream with paired population-bootstrap covariance and is not forced into the binary Hedges-g estimator.
+Binary/contrast primary effects use Hedges g with `metafor::escalc(measure="SMD", vtype="LS")` variance semantics.
 
-## Cross-system gates
+Continuous gradients use the separate `fisher_z_gradient` stream with variance `1/(n-3)` where applicable. Hedges g and Fisher z are never pooled or converted merely to enlarge the primary sample.
 
-The general multilayer comparison denominator is **4 independent clusters**, not 12 effects.
+## Primary cross-system gates
 
-Current primary layer coverage:
+The primary multilayer denominator is **3 independent clusters / 9 effects**:
 
 1. `ML001 Serapias`: C/F/G_adult;
 2. `ML002 Brosimum`: C/F;
-3. `ML003 Spondias`: C/G_adult/G_offspring;
-4. `ML015 Eucalyptus wandoo`: I/F/G_adult.
+3. `ML003 Spondias`: C/G_adult/G_offspring.
 
-The narrower C-F comparison remains `k=2` because neither Spondias nor Eucalyptus wandoo contributes the same C/F estimand. The original C-F pilot remains diagnostic rather than a stable pooled grand mean.
+The narrower C-F comparison remains `k=2`; the original C-F pooled estimate remains diagnostic rather than a stable grand mean.
 
-The important new cross-system conclusion is broader: the admitted systems no longer support a single scalar deterioration picture. Serapias and Brosimum show concordant C/F deterioration; Spondias exposes cohort- and representation-dependent genetic response; Eucalyptus wandoo shows direct I-F discordance under one common fragmentation gradient.
+ML015 provides a separate natural-system gradient test of I/F/G state separation but does not change the primary denominator.
 
-## Formal state-separation synthesis
+## Formal primary state-separation synthesis
 
-A cross-family formal synthesis is now closed without pooling Hedges-g and gradient-slope magnitudes. Within each cluster, all admitted endpoint pairs are compared with their stored covariance; the cluster p-value is the Bonferroni-corrected minimum pairwise p-value. The four independent cluster p-values are then combined with Fisher's method.
+The corrected formal synthesis tests only ML001–ML003. Within each cluster all admitted endpoint pairs are compared with stored covariance, and the cluster p-value is the Bonferroni-corrected minimum pairwise p-value.
 
-Cluster-level results are:
+Current cluster p-values are:
 
 - ML001 Serapias: `p_cluster = 0.00354530`;
 - ML002 Brosimum: `p_cluster = 0.19911670`;
-- ML003 Spondias: `p_cluster = 0.17406774`;
-- ML015 Eucalyptus wandoo: `p_cluster = 0.00786120`.
+- ML003 Spondias: `p_cluster = 0.17406774`.
 
-The independent-cluster Fisher synthesis gives `chi-square(8) = 27.70024526`, **`p = 0.0005347329`**. The terminal decision is `reject_general_layer_exchangeability`.
+Their Fisher combination is approximately `chi-square(6) = 18.0086`, **`p = 0.00621`**, giving `reject_primary_binary_layer_exchangeability`.
 
-The supported claim is therefore narrower and stronger than a pooled grand effect: **biological responses under fragmentation cannot generally be treated as exchangeable manifestations of one scalar deterioration state**. This does not imply a universal layer ordering, does not require every cluster to reject exchangeability individually, and does not validate the finite-model operator sequence in nature. The synthesis is retrospective and is recorded in `STATE_SEPARATION_SYNTHESIS_RESULT_2026-09-13.md`.
+The supported primary claim is therefore:
 
-## Closed recovery routes
+**across the three currently admitted replicated fragmented-versus-reference systems, biological response layers cannot generally be treated as exchangeable manifestations of one scalar fragmentation response.**
 
-`ML004 Conospermum 2020` is closed as `effect_unit_or_variance_not_reconstructable`; `ML005 Conospermum 2026` is blocked by source access/exposure recovery; `ML006 Primula` lacks a keyed common-population G/I/F table; and ML007–ML013 remain blocked by source access, incompatible estimands, insufficient independent landscape replication, or unreconstructable dependence as recorded in the canonical cluster registry.
+ML015 independently supports the same qualitative state-separation interpretation in the separate gradient tier. Its p-value is not included in the primary Fisher statistic.
 
-The next priority is no longer candidate accumulation. The four-cluster state-separation result is now formally closed; any further empirical work should target a genuinely prospective external test or an additional independent cluster under a predeclared admission rule, rather than re-optimizing the present corpus.
+## Correction provenance
+
+A superseded implementation counted ML015 as a fourth primary cluster using standardized OLS slopes and reported a four-cluster Fisher p-value of `0.0005347329`. That implementation violates the frozen separation between primary Hedges-g contrasts and continuous Fisher-z gradients and is no longer canonical.
+
+The corrected executable and result are `scripts/synthesize_state_separation.py` and `STATE_SEPARATION_SYNTHESIS_RESULT_2026-09-13.md`.
+
+## Closed recovery routes and next priority
+
+`ML004 Conospermum 2020` is closed as `effect_unit_or_variance_not_reconstructable`; `ML005 Conospermum 2026` is blocked by source access/exposure recovery; `ML006 Primula` lacks a keyed common-population G/I/F table; and ML007–ML013 remain blocked by source access, incompatible estimands, insufficient independent landscape replication, or unreconstructable dependence as recorded in the canonical registry.
+
+The next empirical upgrade is either:
+
+- a genuinely independent **fourth direct fragmented-versus-reference multilayer cluster** admitted under the existing rules; or
+- a prospective external validation of the state-separation prediction.
+
+Do not reclassify gradient or nested-unit evidence merely to increase the primary denominator.
