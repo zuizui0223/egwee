@@ -1,0 +1,35 @@
+name: Magnolia ML010 closure contract
+
+on:
+  pull_request:
+    paths:
+      - 'manuscript/MAGNOLIA_ML010_CLUSTER_RECOVERY_CONTRACT.md'
+      - 'manuscript/MAGNOLIA_ML010_CALCULATION_LOCK.md'
+      - 'manuscript/MAGNOLIA_ML010_CLUSTER_RECOVERY_RESULT.md'
+      - 'evidence/meta_extraction/multilayer_cluster_registry_v1.csv'
+      - 'scripts/inspect_magnolia_ml010_supplement_schema.py'
+      - 'scripts/audit_magnolia_ml010_supplement.py'
+      - 'scripts/check_magnolia_ml010_closure.py'
+      - '.github/workflows/magnolia-ml010-closure.yml'
+  workflow_dispatch:
+
+jobs:
+  closure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: python -m pip install --quiet openpyxl python-docx
+      - name: Validate existing meta-analysis contract
+        run: python scripts/check_meta_analysis_contract.py
+      - name: Validate existing extraction progress
+        run: python scripts/check_meta_analysis_progress.py
+      - name: Recheck publisher supplement schema
+        run: python scripts/inspect_magnolia_ml010_supplement_schema.py
+      - name: Audit source population-size column
+        run: python scripts/audit_magnolia_ml010_supplement.py
+      - name: Validate ML010 terminal closure
+        run: python scripts/check_magnolia_ml010_closure.py
