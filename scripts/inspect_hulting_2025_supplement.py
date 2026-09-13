@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import io
+import urllib.error
 import urllib.parse
 import urllib.request
 
@@ -9,7 +10,7 @@ from docx import Document
 DOI = "10.1111/1365-2745.14452"
 FILE = "jec14452-sup-0001-Supinfo.docx"
 URL = "https://onlinelibrary.wiley.com/action/downloadSupplement?doi=" + urllib.parse.quote(DOI, safe="") + "&file=" + FILE
-UA = "Mozilla/5.0 egwee-hulting-2025-supplement/1.0"
+UA = "Mozilla/5.0 egwee-hulting-2025-supplement/1.1"
 
 
 def clean(x: str) -> str:
@@ -18,8 +19,14 @@ def clean(x: str) -> str:
 
 def main() -> None:
     req = urllib.request.Request(URL, headers={"User-Agent": UA, "Accept": "application/vnd.openxmlformats-officedocument.wordprocessingml.document,*/*"})
-    with urllib.request.urlopen(req, timeout=60) as response:
-        payload = response.read()
+    try:
+        with urllib.request.urlopen(req, timeout=60) as response:
+            payload = response.read()
+    except urllib.error.HTTPError as exc:
+        if exc.code in {401, 403}:
+            print(f"HULTING_2025_SUPP_GATE SOURCE_ACCESS_BLOCKED http_status={exc.code} url={URL!r}; no_bypass_attempted")
+            return
+        raise
     if not payload.startswith(b"PK"):
         prefix = payload[:120].decode("utf-8", errors="replace")
         raise RuntimeError(f"supplement did not return docx bytes: {prefix!r}")
