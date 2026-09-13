@@ -6,7 +6,8 @@ import urllib.request
 
 DOI = "10.5061/dryad.95x69p907"
 ROOT = "https://datadryad.org/api/v2"
-UA = "egwee-conospermum-2026-schema/1.0"
+UA = "egwee-conospermum-2026-schema/1.1"
+TARGETS = {"Seedlings_scoring.xlsx", "Paternity_dataset.xlsx", "README.md"}
 
 
 def get_json(url: str) -> dict:
@@ -45,16 +46,27 @@ def main() -> None:
     page = get_json(files_url)
     items = page.get("_embedded", {}).get("stash:files", page.get("files", []))
     out = []
+    link_debug = []
     for item in items:
+        path = item.get("path") or item.get("name")
         out.append({
-            "path": item.get("path") or item.get("name"),
+            "path": path,
             "size": item.get("size"),
             "mimeType": item.get("mimeType"),
             "digest": item.get("digest"),
             "id": item.get("id"),
         })
+        if path in TARGETS:
+            link_debug.append({
+                "path": path,
+                "top_level_keys": sorted(item.keys()),
+                "links": item.get("_links", {}),
+                "downloadUrl": item.get("downloadUrl"),
+                "storageStatus": item.get("storageStatus"),
+            })
     print("CONOSPERMUM_2026_DRYAD_SCHEMA " + json.dumps({"doi": DOI, "n_files": len(out), "files": out}, sort_keys=True))
-    print("CONOSPERMUM_2026_SCHEMA_BOUNDARY filenames_sizes_mime_digest_only_no_file_bytes_opened")
+    print("CONOSPERMUM_2026_DRYAD_LINK_DEBUG " + json.dumps(link_debug, sort_keys=True))
+    print("CONOSPERMUM_2026_SCHEMA_BOUNDARY metadata_links_only_no_file_bytes_opened")
 
 
 if __name__ == "__main__":
