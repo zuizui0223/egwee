@@ -1,0 +1,10 @@
+endpoint_i,endpoint_j,sampling_covariance
+I_pollen_tubes,I_pollen_tubes,0.1934720630783265
+I_pollen_tubes,F_seeds_per_fruit_y2,0.020903744426488707
+I_pollen_tubes,G_adult_He,-0.09112088417234869
+F_seeds_per_fruit_y2,I_pollen_tubes,0.020903744426488707
+F_seeds_per_fruit_y2,F_seeds_per_fruit_y2,0.08676369662116536
+F_seeds_per_fruit_y2,G_adult_He,0.04048033209611235
+G_adult_He,I_pollen_tubes,-0.09112088417234869
+G_adult_He,F_seeds_per_fruit_y2,0.04048033209611235
+G_adult_He,G_adult_He,0.228715340280459
