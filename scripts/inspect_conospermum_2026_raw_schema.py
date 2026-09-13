@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import http.cookiejar
 import io
-import json
 import re
 import urllib.parse
 import urllib.request
@@ -27,6 +26,7 @@ def href(obj: dict, *keys: str) -> str | None:
 
 
 def get_json(opener: urllib.request.OpenerDirector, url: str) -> dict:
+    import json
     req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "application/json"})
     with opener.open(req, timeout=60) as r:
         return json.loads(r.read().decode("utf-8"))
@@ -83,6 +83,11 @@ def download(opener: urllib.request.OpenerDirector, item: dict, referer: str) ->
         return r.read()
 
 
+def is_anubis_challenge(payload: bytes) -> bool:
+    head = payload[:8192].decode("utf-8", errors="ignore").lower()
+    return "anubis_challenge" in head or "proof-of-work" in head or "protected by" in head and "anubis" in head
+
+
 def main() -> None:
     jar = http.cookiejar.CookieJar()
     opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(jar))
@@ -99,11 +104,19 @@ def main() -> None:
     referer = prime_browser_session(opener)
     print(f"CONOSPERMUM_2026_BROWSER_SESSION landing={referer!r} cookies={len(list(jar))}")
 
-    readme = download(opener, selected["README.md"], referer).decode("utf-8", errors="replace")
-    print("CONOSPERMUM_2026_README " + json.dumps(readme, ensure_ascii=False))
+    probe = download(opener, selected["README.md"], referer)
+    if is_anubis_challenge(probe):
+        print("CONOSPERMUM_2026_RAW_SCHEMA_GATE SOURCE_ACCESS_BLOCKED anubis_javascript_proof_of_work; metadata_and_index_schema_only; no_bypass_attempted")
+        return
+
+    readme = probe.decode("utf-8", errors="replace")
+    print(f"CONOSPERMUM_2026_README_BYTES bytes={len(probe)} first_line={readme.splitlines()[0] if readme.splitlines() else ''!r}")
 
     for name in ("Seedlings_scoring.xlsx", "Paternity_dataset.xlsx"):
         workbook_bytes = download(opener, selected[name], referer)
+        if is_anubis_challenge(workbook_bytes):
+            print(f"CONOSPERMUM_2026_RAW_SCHEMA_GATE SOURCE_ACCESS_BLOCKED workbook={name!r} anubis_javascript_proof_of_work; no_bypass_attempted")
+            return
         wb = load_workbook(io.BytesIO(workbook_bytes), read_only=True, data_only=True)
         print(f"CONOSPERMUM_2026_WORKBOOK name={name!r} sheets={wb.sheetnames!r} bytes={len(workbook_bytes)}")
         for ws in wb.worksheets:
