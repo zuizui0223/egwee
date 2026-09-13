@@ -61,6 +61,11 @@ def main() -> None:
     }
 
     effects = {r["endpoint"]: r for r in rows(EFFECTS)}
+    effect_row_key = {
+        "I_pollen_tubes": "pollen_tubes_at_base_of_style",
+        "F_seeds_per_fruit_y2": "seeds_per_fruit_y2",
+        "G_adult_He": "unbiased_expected_heterozygosity_He",
+    }
     expected_layers = {
         "I_pollen_tubes": "I",
         "F_seeds_per_fruit_y2": "F",
@@ -71,7 +76,7 @@ def main() -> None:
     for endpoint, y in endpoint_values.items():
         r = float(np.corrcoef(x, y)[0, 1])
         fz = float(np.arctanh(r))
-        row = effects[endpoint]
+        row = effects[effect_row_key[endpoint]]
         assert row["layer"] == expected_layers[endpoint]
         assert row["effect_stream"] == "fisher_z_gradient"
         assert row["effect_unit_status"] == "fisher_z_admissible"
