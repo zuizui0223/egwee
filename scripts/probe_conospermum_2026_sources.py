@@ -17,146 +17,70 @@ def get_json(url: str) -> dict:
         return json.load(response)
 
 
-def dataset_json(doi: str) -> tuple[str, dict]:
+def dataset_url(doi: str) -> str:
     encoded = urllib.parse.quote(f"doi:{doi}", safe="")
-    candidates = [
-        f"{BASE}/api/v2/datasets/{encoded}",
-        f"{BASE}/api/v2/datasets/doi:{doi}",
-    ]
-    errors: list[str] = []
-    for url in candidates:
-        try:
-            return url, get_json(url)
-        except Exception as exc:
-            errors.append(f"{url} -> {type(exc).__name__}: {exc}")
-    raise RuntimeError("; ".join(errors))
+    return f"{BASE}/api/v2/datasets/{encoded}"
 
 
-def normalize_link(value: str) -> str | None:
+def dataset_json(doi: str) -> tuple[str, dict]:
+    url = dataset_url(doi)
+    return url, get_json(url)
+
+
+def normalize_link(value: str) -> str:
     if value.startswith("http://") or value.startswith("https://"):
         return value
     if value.startswith("/api/"):
         return BASE + value
-    return None
+    raise ValueError(value)
 
 
-def walk_links(obj: object, path: str = "") -> list[tuple[str, str]]:
-    found: list[tuple[str, str]] = []
-    if isinstance(obj, dict):
-        for key, value in obj.items():
-            child = f"{path}.{key}" if path else key
-            if isinstance(value, str):
-                normalized = normalize_link(value)
-                if normalized is not None:
-                    found.append((child, normalized))
-                    continue
-            found.extend(walk_links(value, child))
-    elif isinstance(obj, list):
-        for i, value in enumerate(obj):
-            found.extend(walk_links(value, f"{path}[{i}]"))
-    return found
+def relation(payload: dict, key: str) -> str:
+    links = payload.get("_links")
+    assert isinstance(links, dict), sorted(payload)
+    value = links.get(key)
+    assert isinstance(value, dict) and isinstance(value.get("href"), str), (key, links)
+    return normalize_link(value["href"])
+
+
+def embedded_files(payload: dict) -> list[dict]:
+    embedded = payload.get("_embedded")
+    assert isinstance(embedded, dict), payload
+    for key in ("stash:files", "files"):
+        items = embedded.get(key)
+        if isinstance(items, list):
+            return [item for item in items if isinstance(item, dict)]
+    raise AssertionError((sorted(embedded), payload))
 
 
 def item_name(item: dict) -> str:
     return str(item.get("path") or item.get("name") or item.get("fileName") or item.get("filename") or "")
 
 
-def is_file_item(item: dict) -> bool:
-    name = item_name(item).lower()
-    return any(name.endswith(ext) for ext in (".xlsx", ".csv", ".txt", ".zip", ".md"))
-
-
-def is_json_relation(url: str) -> bool:
-    return "api/v2" in url and not url.lower().split("?", 1)[0].endswith("/download")
-
-
-def find_file_payload(dataset: dict) -> list[dict]:
-    """Resolve Dryad file metadata through returned dataset/version relations.
-
-    Dataset ids and version ids are distinct. Binary download relations are not
-    opened as JSON here; the schema inspector uses the public full-dataset ZIP.
-    """
-    urls: list[str] = []
-    for path, url in walk_links(dataset):
-        low = f"{path} {url}".lower()
-        if is_json_relation(url) and any(token in low for token in ("version", "file")):
-            urls.append(url)
-
-    dataset_id = dataset.get("id")
-    if isinstance(dataset_id, int) or (isinstance(dataset_id, str) and dataset_id.isdigit()):
-        urls.append(f"{BASE}/api/v2/datasets/{dataset_id}/versions")
-
-    print(f"DRYAD_DATASET_LINKS links={walk_links(dataset)!r}")
-
-    visited: set[str] = set()
-    queue = list(dict.fromkeys(urls))
-    files: list[dict] = []
-    file_keys: set[str] = set()
-
-    while queue and len(visited) < 50:
-        url = queue.pop(0)
-        if url in visited or not is_json_relation(url):
-            continue
-        visited.add(url)
-        try:
-            payload = get_json(url)
-        except Exception as exc:
-            print(f"DRYAD_FOLLOW_FAIL url={url!r} error={type(exc).__name__}:{exc}")
-            continue
-
-        print(f"DRYAD_FOLLOW_OK url={url!r} keys={sorted(payload) if isinstance(payload, dict) else type(payload).__name__!r}")
-
-        for _, link in walk_links(payload):
-            if is_json_relation(link) and any(t in link.lower() for t in ("version", "file")) and link not in visited:
-                queue.append(link)
-
-        containers: list[object] = []
-        if isinstance(payload, dict):
-            embedded = payload.get("_embedded")
-            if isinstance(embedded, dict):
-                containers.extend(embedded.values())
-            for key in ("files", "stash:files", "versions", "stash:versions"):
-                if key in payload:
-                    containers.append(payload[key])
-
-            version_id = payload.get("id")
-            if "version" in url.lower() and not url.lower().endswith("/files"):
-                if isinstance(version_id, int) or (isinstance(version_id, str) and str(version_id).isdigit()):
-                    queue.append(f"{BASE}/api/v2/versions/{version_id}/files")
-
-        for container in containers:
-            items = container if isinstance(container, list) else [container]
-            for item in items:
-                if not isinstance(item, dict):
-                    continue
-                if is_file_item(item):
-                    key = str(item.get("id") or item_name(item))
-                    if key not in file_keys:
-                        files.append(item)
-                        file_keys.add(key)
-                    continue
-                item_id = item.get("id")
-                if "versions" in url.lower() and not url.lower().endswith("/files"):
-                    if isinstance(item_id, int) or (isinstance(item_id, str) and str(item_id).isdigit()):
-                        queue.append(f"{BASE}/api/v2/versions/{item_id}/files")
-                for _, link in walk_links(item):
-                    if is_json_relation(link) and link not in visited:
-                        queue.append(link)
-
-    return files
+def source_snapshot(doi: str) -> tuple[dict, dict, list[dict]]:
+    """Three JSON requests max: dataset -> current version -> current files."""
+    _, dataset = dataset_json(doi)
+    version_url = relation(dataset, "stash:version")
+    version = get_json(version_url)
+    files_url = relation(version, "stash:files")
+    files_payload = get_json(files_url)
+    files = embedded_files(files_payload)
+    return dataset, version, files
 
 
 def main() -> None:
     for label, doi in DATASETS.items():
-        url, dataset = dataset_json(doi)
-        print(f"DRYAD_DATASET label={label!r} doi={doi!r} api_url={url!r}")
-        print(f"DRYAD_DATASET_KEYS label={label!r} keys={sorted(dataset)!r}")
-        files = find_file_payload(dataset)
-        print(f"DRYAD_FILES label={label!r} n={len(files)}")
+        dataset, version, files = source_snapshot(doi)
+        print(
+            f"DRYAD_SOURCE label={label!r} doi={doi!r} dataset_id={dataset.get('id')!r} "
+            f"version_number={version.get('versionNumber')!r} version_link={relation(dataset, 'stash:version')!r}"
+        )
+        print(f"DRYAD_FILES label={label!r} n={len(files)} names={[item_name(item) for item in files]!r}")
         for item in files:
+            links = item.get("_links") if isinstance(item.get("_links"), dict) else {}
             print(
-                f"DRYAD_FILE label={label!r} name={item_name(item)!r} "
-                f"size={item.get('size')!r} links={walk_links(item)!r}"
+                f"DRYAD_FILE label={label!r} name={item_name(item)!r} size={item.get('size')!r} "
+                f"mime={item.get('mimeType')!r} download={links.get('stash:download')!r}"
             )
 
         expected = (
