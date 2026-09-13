@@ -149,7 +149,7 @@ def main() -> None:
         "adult `H_O`: `g = -0.94088153`",
         "juvenile `H_O`: `g = -3.18133069`",
         "seed `H_O`: `g = -1.11790599`",
-        "cohort-lag candidate",
+        "not a confirmed cohort lag",
         "ML004 Conospermum 2020",
         "ML015 is **not** a fourth primary cluster",
         "chi-square(6) = 18.0086",
