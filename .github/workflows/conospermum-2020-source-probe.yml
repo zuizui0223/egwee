@@ -1,0 +1,20 @@
+name: Conospermum 2020 source probe
+
+on:
+  pull_request:
+    paths:
+      - 'manuscript/CONOSPERMUM_2020_CLUSTER_RECOVERY_CONTRACT.md'
+      - 'scripts/probe_conospermum_2020_sources.py'
+      - '.github/workflows/conospermum-2020-source-probe.yml'
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Probe locked source routes without effect extraction
+        run: python scripts/probe_conospermum_2020_sources.py
