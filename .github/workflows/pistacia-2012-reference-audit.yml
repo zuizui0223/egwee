@@ -1,0 +1,22 @@
+name: Pistacia 2012 reference audit
+
+on:
+  pull_request:
+    paths:
+      - 'manuscript/PISTACIA_2012_REFERENCE_AUDIT.md'
+      - 'evidence/meta_extraction/PS013_pistacia_reference_audit_v1.csv'
+      - 'evidence/meta_extraction/multilayer_cluster_registry_v1.csv'
+      - 'scripts/check_pistacia_reference_contract.py'
+      - '.github/workflows/pistacia-2012-reference-audit.yml'
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Enforce Pistacia fragmentation-unit boundary
+        run: python scripts/check_pistacia_reference_contract.py
