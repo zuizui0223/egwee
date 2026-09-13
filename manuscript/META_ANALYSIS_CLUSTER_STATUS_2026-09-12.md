@@ -85,14 +85,15 @@ The narrower C-F comparison remains `k=2` because Spondias still lacks effect-un
 
 The C-G_adult overlap is now also `k=2` (Serapias and Spondias) on the same canonical `H_O` representation. Given extreme between-system magnitude differences and small cluster count, it is suitable for diagnostic geometry, not a stable pooled grand mean.
 
-## Remaining recovery queue
+## Closed recovery routes and next queue
 
-Spondias supplementary material contains sex ratio (Appendix A) and site-by-cohort genetics (Appendix B), **not site-level visitation or reproductive-function values**. I/F therefore remain pending rather than inferred from significance statistics.
+Spondias supplementary material contains sex ratio (Appendix A) and site-by-cohort genetics (Appendix B), **not site-level visitation or reproductive-function values**. Public-source I/F recovery is therefore closed at the current representation boundary; reopen only if author/raw data provide an effect-unit-valid five-site I/F vector or compatible model covariance. Missing I/F are not inferred from significance statistics.
+
+`ML004 Conospermum 2020` is also closed as `effect_unit_or_variance_not_reconstructable` after the Elsevier supplement and thesis/repository audit. Its biological directions remain source-supported, but no same-exposure population/model effect pair with compatible uncertainty/covariance is publicly recoverable; the 2019 reproductive dataset is not imported as a synchronized rescue.
 
 The next independent-cluster priority is now:
 
-1. `ML004 Conospermum 2020`: recover a common fragmentation/isolation predictor across I/F;
-2. `ML005 Conospermum 2026`: recover population-aware C/G_offspring under one predeclared landscape predictor without duplicating the historical adult cohort;
-3. `ML006 Primula`: recover one common landscape exposure before G/I/F can become one fragmentation cluster.
+1. `ML005 Conospermum 2026`: use public Dryad adult/seedling microsatellite data plus the source-defined landscape/matrix context to attempt a population-aware `C/G_offspring` cluster without duplicating the historical adult cohort;
+2. `ML006 Primula`: recover one common landscape exposure before G/I/F can become one fragmentation cluster.
 
 The main cross-system question is now sharper: **which biological layers deteriorate synchronously, which decouple, and when do apparent lags depend on genetic metric or developmental cohort?**
