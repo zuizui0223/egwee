@@ -57,23 +57,29 @@ def walk_links(obj: object, path: str = "") -> list[tuple[str, str]]:
     return found
 
 
+def item_name(item: dict) -> str:
+    return str(item.get("path") or item.get("name") or item.get("fileName") or item.get("filename") or "")
+
+
 def is_file_item(item: dict) -> bool:
-    text = json.dumps(item).lower()
-    return any(ext in text for ext in (".xlsx", ".csv", ".txt", ".zip", ".md"))
+    name = item_name(item).lower()
+    return any(name.endswith(ext) for ext in (".xlsx", ".csv", ".txt", ".zip", ".md"))
+
+
+def is_json_relation(url: str) -> bool:
+    return "api/v2" in url and not url.lower().split("?", 1)[0].endswith("/download")
 
 
 def find_file_payload(dataset: dict) -> list[dict]:
-    """Resolve file metadata through Dryad's returned relations.
+    """Resolve Dryad file metadata through returned dataset/version relations.
 
-    Dataset ids and version ids are distinct. We may derive the dataset->versions
-    collection from the dataset id, but we never assume that dataset id is a
-    version id. Version->files routes are derived only from returned version ids
-    or returned links.
+    Dataset ids and version ids are distinct. Binary download relations are not
+    opened as JSON here; the schema inspector uses the public full-dataset ZIP.
     """
     urls: list[str] = []
     for path, url in walk_links(dataset):
         low = f"{path} {url}".lower()
-        if any(token in low for token in ("version", "file")):
+        if is_json_relation(url) and any(token in low for token in ("version", "file")):
             urls.append(url)
 
     dataset_id = dataset.get("id")
@@ -89,7 +95,7 @@ def find_file_payload(dataset: dict) -> list[dict]:
 
     while queue and len(visited) < 50:
         url = queue.pop(0)
-        if url in visited:
+        if url in visited or not is_json_relation(url):
             continue
         visited.add(url)
         try:
@@ -98,14 +104,10 @@ def find_file_payload(dataset: dict) -> list[dict]:
             print(f"DRYAD_FOLLOW_FAIL url={url!r} error={type(exc).__name__}:{exc}")
             continue
 
-        print(
-            f"DRYAD_FOLLOW_OK url={url!r} "
-            f"keys={sorted(payload) if isinstance(payload, dict) else type(payload).__name__!r}"
-        )
+        print(f"DRYAD_FOLLOW_OK url={url!r} keys={sorted(payload) if isinstance(payload, dict) else type(payload).__name__!r}")
 
-        # Returned relations are authoritative; relative /api links are normalized.
         for _, link in walk_links(payload):
-            if "api/v2" in link and any(t in link.lower() for t in ("version", "file")) and link not in visited:
+            if is_json_relation(link) and any(t in link.lower() for t in ("version", "file")) and link not in visited:
                 queue.append(link)
 
         containers: list[object] = []
@@ -117,8 +119,6 @@ def find_file_payload(dataset: dict) -> list[dict]:
                 if key in payload:
                     containers.append(payload[key])
 
-            # When this is a returned version object, use that version id to form
-            # the documented version->files route. This is never the dataset id.
             version_id = payload.get("id")
             if "version" in url.lower() and not url.lower().endswith("/files"):
                 if isinstance(version_id, int) or (isinstance(version_id, str) and str(version_id).isdigit()):
@@ -130,20 +130,17 @@ def find_file_payload(dataset: dict) -> list[dict]:
                 if not isinstance(item, dict):
                     continue
                 if is_file_item(item):
-                    key = str(item.get("id") or item.get("path") or item.get("name") or item)
+                    key = str(item.get("id") or item_name(item))
                     if key not in file_keys:
                         files.append(item)
                         file_keys.add(key)
                     continue
-
-                # Items returned by a versions collection may not expose links;
-                # a returned version id is sufficient to address its files route.
                 item_id = item.get("id")
                 if "versions" in url.lower() and not url.lower().endswith("/files"):
                     if isinstance(item_id, int) or (isinstance(item_id, str) and str(item_id).isdigit()):
                         queue.append(f"{BASE}/api/v2/versions/{item_id}/files")
                 for _, link in walk_links(item):
-                    if "api/v2" in link and link not in visited:
+                    if is_json_relation(link) and link not in visited:
                         queue.append(link)
 
     return files
@@ -157,20 +154,17 @@ def main() -> None:
         files = find_file_payload(dataset)
         print(f"DRYAD_FILES label={label!r} n={len(files)}")
         for item in files:
-            name = item.get("path") or item.get("name") or item.get("fileName") or item.get("filename")
-            size = item.get("size") or item.get("filesize") or item.get("fileSize")
-            links = walk_links(item)
-            print(f"DRYAD_FILE label={label!r} name={name!r} size={size!r} id={item.get('id')!r} links={links!r}")
+            print(
+                f"DRYAD_FILE label={label!r} name={item_name(item)!r} "
+                f"size={item.get('size')!r} links={walk_links(item)!r}"
+            )
 
         expected = (
             {"Paternity_dataset_unformatted.xlsx", "Seedlings_scoring_unformatted.xlsx"}
             if label == "paternity_2026"
             else {"fruit_and_seed_set.csv"}
         )
-        names = {
-            str(item.get("path") or item.get("name") or item.get("fileName") or item.get("filename"))
-            for item in files
-        }
+        names = {item_name(item) for item in files}
         missing = expected - names
         assert not missing, (label, missing, names)
 
