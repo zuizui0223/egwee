@@ -5,6 +5,7 @@ on:
     paths:
       - 'manuscript/HULTING_2025_CLUSTER_RECOVERY_CONTRACT.md'
       - 'scripts/probe_hulting_2025_dryad_schema.py'
+      - 'scripts/inspect_hulting_2025_raw_schema.py'
       - '.github/workflows/hulting-2025-schema.yml'
   workflow_dispatch:
 
@@ -18,3 +19,5 @@ jobs:
           python-version: '3.11'
       - name: Inspect Dryad metadata only
         run: python scripts/probe_hulting_2025_dryad_schema.py
+      - name: Inspect raw hierarchy after exposure lock
+        run: python scripts/inspect_hulting_2025_raw_schema.py
