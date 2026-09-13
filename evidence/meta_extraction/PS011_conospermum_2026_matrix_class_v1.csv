@@ -1,0 +1,7 @@
+population,matrix_class,source_basis,admission_note
+A,permeable,"Large population; focal sampling area surrounded by hundreds of unsampled local plants in intact reserve context","Non-barrier reference; no nearest-unsampled distance because surrounding local source pool is continuous at focal scale"
+B,permeable,"Large population; focal sampling area surrounded by hundreds of unsampled local plants","Non-barrier reference at focal scale; retained with A as large-population permeable context"
+C,urban_barrier,"Urban remnant; nearest unsampled plants 1680 m; source discussion contrasts urban built-up separation with permeable rural D","Primary barrier class fixed before offspring H_E values are opened"
+D,permeable,"Source explicitly states ~650 m separation through cleared rural land and significant pollen immigration; pollen movement interpreted as possible through vegetated/rural matrix","Canonical permeable fragmented site"
+E,urban_barrier,"Urban remnant; nearest unsampled plants 570 m but no pollen immigration; source discussion states closer fragments separated by built-up residential areas are isolated","Primary barrier class fixed before offspring H_E values are opened"
+F,urban_barrier,"Small urban remnant; nearest unsampled plants 600 m and no pollen immigration; treated with built-up urban-remnant barrier class","Only three seedlings; retained only if G_offspring state is reconstructable and uncertainty finite"
