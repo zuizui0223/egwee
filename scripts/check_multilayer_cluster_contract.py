@@ -135,7 +135,10 @@ def main() -> None:
 
     registry = rows(REGISTRY)
     by_cluster = {r["cluster_id"]: r for r in registry}
-    assert {r["cluster_id"] for r in registry if r["cluster_status"] == "admissible_multilayer_cluster"} == {"ML001", "ML002", "ML003", "ML015"}
+    binary = [r for r in registry if r["cluster_status"] == "admissible_multilayer_cluster"]
+    gradient = [r for r in registry if r["cluster_status"] == "admissible_gradient_multilayer_cluster"]
+    assert {r["cluster_id"] for r in binary} == {"ML001", "ML002", "ML003"}
+    assert {r["cluster_id"] for r in gradient} == {"ML015"}
     assert set(by_cluster["ML001"]["admissible_primary_layers"].split(";")) == {"C", "F", "G_adult"}
     assert int(by_cluster["ML001"]["n_admissible_primary_effects"]) == 3
     assert set(by_cluster["ML002"]["admissible_primary_layers"].split(";")) == {"C", "F"}
@@ -148,10 +151,12 @@ def main() -> None:
     assert by_cluster["ML015"]["covariance_status"] == "paired_population_bootstrap_10000"
     assert by_cluster["ML006"]["cluster_status"] == "common_population_values_not_recoverable"
     assert int(by_cluster["ML006"]["n_admissible_primary_effects"]) == 0
+    assert len(binary) + len(gradient) == 4
+    assert sum(int(r["n_admissible_primary_effects"]) for r in binary + gradient) == 12
 
     print(
         "EGWEE multilayer cluster contract: PASS; "
-        "4 independent clusters / 12 primary effects; ML015 adds a positive-definite paired-population I/F/G_adult covariance block with discordant fragmentation responses"
+        "legacy binary family remains 3 clusters / 9 effects; ML015 adds one separately typed gradient cluster / 3 effects; general denominator = 4 clusters / 12 effects"
     )
 
 
