@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import csv
 import io
+import subprocess
 import tempfile
-import urllib.request
 from pathlib import Path
 
 from openpyxl import load_workbook
@@ -12,8 +12,6 @@ from openpyxl import load_workbook
 # probe_conospermum_2026_sources.py:
 #   PS011 Dryad version 436023 (v3)
 #   2019 exposure-provenance Dryad version 32609 (v1)
-# The public Dryad UI serves published files through file_stream; this avoids
-# authenticated /api/v2/files/{id}/download routes and avoids a second API walk.
 PUBLIC_FILES = {
     "paternity_2026": {
         "Paternity_dataset_unformatted.xlsx": 4702034,
@@ -27,12 +25,27 @@ PUBLIC_FILES = {
 
 def download_bytes(file_id: int) -> bytes:
     url = f"https://datadryad.org/stash/downloads/file_stream/{file_id}"
-    req = urllib.request.Request(url, headers={"User-Agent": "egwee-conospermum-2026-audit/1.0"})
-    with urllib.request.urlopen(req, timeout=120) as response:
-        payload = response.read()
-        final_url = response.geturl()
+    # Dryad file_stream redirects to a signed object-store URL. curl preserves
+    # that redirect URL faithfully; urllib on hosted runners returned 403 after
+    # the redirect even though the public file_stream route itself resolved.
+    proc = subprocess.run(
+        [
+            "curl", "-L", "--fail", "--silent", "--show-error",
+            "--retry", "3", "--retry-delay", "2",
+            "-A", "Mozilla/5.0 egwee-conospermum-2026-audit/1.0",
+            url,
+        ],
+        check=False,
+        capture_output=True,
+    )
+    if proc.returncode != 0:
+        raise RuntimeError(
+            f"Dryad file_stream failed file_id={file_id} rc={proc.returncode} "
+            f"stderr={proc.stderr.decode('utf-8', errors='replace')}"
+        )
+    payload = proc.stdout
     assert payload, url
-    print(f"CONO2026_PUBLIC_DOWNLOAD file_id={file_id} bytes={len(payload)} final_url={final_url!r}")
+    print(f"CONO2026_PUBLIC_DOWNLOAD file_id={file_id} bytes={len(payload)}")
     return payload
 
 
@@ -75,9 +88,6 @@ def inspect_csv(label: str, name: str, payload: bytes) -> None:
         f"CONO2026_EXPOSURE_SCHEMA population_fields={population_fields!r} "
         f"connectivity_fields={connectivity_fields!r}"
     )
-    # A population identifier is required for any reuse route. Absence of an
-    # explicit connectivity/isolation field is reported, not silently rescued
-    # with population size or another outcome-associated variable.
     assert population_fields, fields
 
 
