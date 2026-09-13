@@ -20,7 +20,8 @@ PRIMULA = ROOT / "evidence/meta_extraction/PS016_primula_2025_extraction_v1.csv"
 SERAPIAS_GRADIENT = ROOT / "evidence/meta_extraction/PS003_serapias_gradient_effects_v1.csv"
 SERAPIAS_BINARY = ROOT / "evidence/meta_extraction/PS003_serapias_binary_effects_v1.csv"
 WANDOO = ROOT / "evidence/meta_extraction/PS019_eucalyptus_wandoo_2018_population_table_v1.csv"
-WANDOO_COV = ROOT / "evidence/meta_extraction/PS019_eucalyptus_wandoo_2018_primary_covariance_v1.csv"
+WANDOO_EFFECTS = ROOT / "evidence/meta_extraction/PS019_eucalyptus_wandoo_2018_gradient_effects_v1.csv"
+WANDOO_COV = ROOT / "evidence/meta_extraction/PS019_eucalyptus_wandoo_2018_gradient_covariance_v1.csv"
 CLUSTERS = ROOT / "evidence/meta_extraction/multilayer_cluster_registry_v1.csv"
 
 
@@ -33,7 +34,7 @@ def main() -> None:
     for path in (
         PRIMARY, CANDIDATES, QUEUE, STATUS, SPONDIAS, SPONDIAS_SITE, BROSIMUM, HULTING,
         CONOSPERMUM_2026, CONOSPERMUM_2020, TILLANDSIA, MAGNOLIA, PRIMULA,
-        SERAPIAS_GRADIENT, SERAPIAS_BINARY, WANDOO, WANDOO_COV, CLUSTERS,
+        SERAPIAS_GRADIENT, SERAPIAS_BINARY, WANDOO, WANDOO_EFFECTS, WANDOO_COV, CLUSTERS,
     ):
         assert path.is_file(), path
 
@@ -66,6 +67,7 @@ def main() -> None:
     ser_gradient = rows(SERAPIAS_GRADIENT)
     ser_binary = rows(SERAPIAS_BINARY)
     wandoo = rows(WANDOO)
+    wandoo_effects = rows(WANDOO_EFFECTS)
     wandoo_cov = rows(WANDOO_COV)
     clusters = rows(CLUSTERS)
 
@@ -81,6 +83,7 @@ def main() -> None:
     assert len(ser_gradient) == 2
     assert len(ser_binary) == 4
     assert len(wandoo) == 19
+    assert len(wandoo_effects) == 3
     assert len(wandoo_cov) == 9
 
     s_primary = [r for r in spondias_site if r["analysis_role"] == "primary"]
@@ -117,9 +120,15 @@ def main() -> None:
     assert next(r for r in hulting if r["endpoint_id"] == "I_pollination_rate")["effect_unit_status"] == "model_contrast_pending_standardisation"
     assert next(r for r in cono26 if r["endpoint_id"] == "Gadult_context")["effect_unit_status"] == "descriptive_only"
 
+    assert {r["layer"] for r in wandoo_effects} == {"I", "F", "G_adult"}
+    assert all(r["effect_stream"] == "fisher_z_gradient" for r in wandoo_effects)
+    assert all(r["effect_unit_status"] == "fisher_z_admissible" for r in wandoo_effects)
+    assert all(abs(float(r["raw_variance"]) - 0.125) < 1e-12 for r in wandoo_effects)
+    assert all(r["covariance_status"] == "proxy_reconstructed_gradient_residual" for r in wandoo_cov)
+
     by_cluster = {r["cluster_id"]: r for r in clusters}
     binary = [r for r in clusters if r["cluster_status"] == "admissible_multilayer_cluster"]
-    gradient = [r for r in clusters if r["cluster_status"] == "admissible_gradient_multilayer_cluster"]
+    gradient = [r for r in clusters if r["cluster_status"] == "gradient_generalisation_multilayer_cluster"]
     assert {r["cluster_id"] for r in binary} == {"ML001", "ML002", "ML003"}
     assert {r["cluster_id"] for r in gradient} == {"ML015"}
     assert set(by_cluster["ML001"]["admissible_primary_layers"].split(";")) == {"C", "F", "G_adult"}
@@ -127,29 +136,30 @@ def main() -> None:
     assert set(by_cluster["ML003"]["admissible_primary_layers"].split(";")) == {"C", "G_adult", "G_offspring"}
     assert int(by_cluster["ML003"]["n_admissible_primary_effects"]) == 4
     assert by_cluster["ML003"]["covariance_status"] == "proxy_pairwise_low_rank_from_five_sites"
-    assert set(by_cluster["ML015"]["admissible_primary_layers"].split(";")) == {"I", "F", "G_adult"}
-    assert int(by_cluster["ML015"]["n_admissible_primary_effects"]) == 3
-    assert by_cluster["ML015"]["covariance_status"] == "paired_population_bootstrap_10000"
-    assert sum(int(r["n_admissible_primary_effects"]) for r in binary + gradient) == 12
+    assert by_cluster["ML015"]["admissible_primary_layers"] == ""
+    assert int(by_cluster["ML015"]["n_admissible_primary_effects"]) == 0
+    assert by_cluster["ML015"]["covariance_status"] == "proxy_reconstructed_gradient_residual"
+    assert sum(int(r["n_admissible_primary_effects"]) for r in binary) == 9
 
     status = STATUS.read_text(encoding="utf-8")
     for token in (
-        "independent admissible multilayer clusters: **4**",
-        "primary admissible effects inside those clusters: **12**",
+        "independent **primary** admissible multilayer clusters: **3**",
+        "primary admissible effects inside those clusters: **9**",
+        "separate admissible Fisher-z gradient effects: **5**",
         "adult `H_O`: `g = -0.94088153`",
         "juvenile `H_O`: `g = -3.18133069`",
         "seed `H_O`: `g = -1.11790599`",
         "cohort-lag candidate",
-        "not site-level visitation or reproductive-function values",
         "ML004 Conospermum 2020",
-        "ML015 / PS019",
+        "ML015 is **not** a fourth primary cluster",
+        "chi-square(6) = 18.0086",
     ):
         assert token in status, token
 
     print(
         "EGWEE extraction progress: PASS; "
         f"{len(primary)} verified studies, {len(candidates)} candidates, {len(queue)} queued; "
-        "legacy binary family 3 clusters / 9 effects + ML015 gradient family 1 cluster / 3 effects = 4 independent clusters / 12 primary effects"
+        "primary binary family = 3 clusters / 9 effects; ML015 = separate 3-effect Fisher-z gradient generalisation"
     )
 
 
