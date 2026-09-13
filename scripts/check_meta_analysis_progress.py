@@ -9,6 +9,7 @@ CANDIDATES = ROOT / "manuscript/meta_analysis_candidate_ledger.csv"
 QUEUE = ROOT / "manuscript/meta_analysis_extraction_queue_v1.csv"
 STATUS = ROOT / "manuscript/META_ANALYSIS_CLUSTER_STATUS_2026-09-12.md"
 SPONDIAS = ROOT / "evidence/meta_extraction/PS001_spondias_extraction_v1.csv"
+SPONDIAS_SITE = ROOT / "evidence/meta_extraction/PS001_spondias_site_effects_v1.csv"
 BROSIMUM = ROOT / "evidence/meta_extraction/PS004_brosimum_extraction_v1.csv"
 HULTING = ROOT / "evidence/meta_extraction/PS014_hulting_extraction_v1.csv"
 CONOSPERMUM_2026 = ROOT / "evidence/meta_extraction/PS011_conospermum_2026_extraction_v1.csv"
@@ -28,7 +29,7 @@ def rows(path: Path) -> list[dict[str, str]]:
 
 def main() -> None:
     files = (
-        PRIMARY, CANDIDATES, QUEUE, STATUS, SPONDIAS, BROSIMUM, HULTING,
+        PRIMARY, CANDIDATES, QUEUE, STATUS, SPONDIAS, SPONDIAS_SITE, BROSIMUM, HULTING,
         CONOSPERMUM_2026, CONOSPERMUM_2020, TILLANDSIA, MAGNOLIA, PRIMULA,
         SERAPIAS_GRADIENT, SERAPIAS_BINARY, CLUSTERS,
     )
@@ -70,6 +71,7 @@ def main() -> None:
     assert "source_verified" in c19["current_status"]
 
     spondias = rows(SPONDIAS)
+    spondias_site = rows(SPONDIAS_SITE)
     brosimum = rows(BROSIMUM)
     hulting = rows(HULTING)
     cono26 = rows(CONOSPERMUM_2026)
@@ -81,7 +83,8 @@ def main() -> None:
     ser_binary = rows(SERAPIAS_BINARY)
     clusters = rows(CLUSTERS)
 
-    assert len(spondias) >= 10
+    assert len(spondias) >= 12
+    assert len(spondias_site) == 2
     assert len(brosimum) >= 8
     assert len(hulting) >= 4
     assert len(cono26) >= 5
@@ -92,14 +95,28 @@ def main() -> None:
     assert len(ser_gradient) == 2
     assert len(ser_binary) == 4
 
-    # Effect-unit firewall remains active in systems not yet reconstructed.
-    assert not any(r["effect_unit_status"] == "g_admissible" for r in spondias)
+    # PS001 now has two effect-unit-valid layers from the same five sites.
+    s_g = [r for r in spondias if r["effect_unit_status"] == "g_admissible"]
+    assert {r["endpoint_id"] for r in s_g} == {"C_paternity_correlation", "Gadult_Sp"}
+    assert all(r["independent_unit"] == "site" for r in s_g)
+    assert {r["endpoint_id"] for r in spondias_site} == {"C_paternity_correlation", "Gadult_Sp"}
+    assert all(r["effect_unit_status"] == "g_admissible" for r in spondias_site)
+    s_c = next(r for r in spondias_site if r["endpoint_id"] == "C_paternity_correlation")
+    s_gadult = next(r for r in spondias_site if r["endpoint_id"] == "Gadult_Sp")
+    assert abs(float(s_c["oriented_effect"]) - (-0.254746780651)) < 1e-9
+    assert abs(float(s_gadult["oriented_effect"]) - 0.509729946523) < 1e-9
+    assert not any(
+        r["effect_unit_status"] == "g_admissible" and r["endpoint_id"] not in {"C_paternity_correlation", "Gadult_Sp"}
+        for r in spondias
+    )
+
+    # Effect-unit firewall remains active in other unreconstructed systems.
     assert not any(r["effect_unit_status"] in {"g_admissible", "fisher_z_admissible"} for r in mag)
     assert not any(r["effect_unit_status"] in {"g_admissible", "fisher_z_admissible"} for r in prim)
     assert not any(r["effect_unit_status"] in {"g_admissible", "fisher_z_admissible"} for r in cono20)
     assert not any(r["effect_unit_status"] == "g_admissible" for r in till)
 
-    # PS004 is now one admissible two-layer cluster, not two studies.
+    # PS004 is one admissible two-layer cluster, not two studies.
     b_g = [r for r in brosimum if r["effect_unit_status"] == "g_admissible"]
     assert {r["endpoint_id"] for r in b_g} == {"C_paternity_rp", "F_progeny_vigour"}
     b_c = next(r for r in b_g if r["endpoint_id"] == "C_paternity_rp")
@@ -141,35 +158,34 @@ def main() -> None:
 
     by_cluster = {r["cluster_id"]: r for r in clusters}
     admissible = [r for r in clusters if r["cluster_status"] == "admissible_multilayer_cluster"]
-    assert {r["cluster_id"] for r in admissible} == {"ML001", "ML002"}
+    assert {r["cluster_id"] for r in admissible} == {"ML001", "ML002", "ML003"}
     assert set(by_cluster["ML001"]["admissible_primary_layers"].split(";")) == {"C", "F", "G_adult"}
     assert set(by_cluster["ML002"]["admissible_primary_layers"].split(";")) == {"C", "F"}
+    assert set(by_cluster["ML003"]["admissible_primary_layers"].split(";")) == {"C", "G_adult"}
+    assert int(by_cluster["ML003"]["n_admissible_primary_effects"]) == 2
     primary_cluster_effects = sum(int(r["n_admissible_primary_effects"]) for r in admissible)
-    assert primary_cluster_effects == 5
+    assert primary_cluster_effects == 7
 
     status = STATUS.read_text(encoding="utf-8")
     for token in (
         "source-verified primary-study seeds: **16**",
         "candidate systems/programmes: **19**",
         "priority extraction queue: **9 studies**",
-        "independent admissible multilayer clusters: **2**",
-        "primary admissible effects inside those clusters: **5**",
-        "ML001 / PS003",
-        "ML002 / PS004",
-        "-10.09901484",
-        "-4.55409070",
-        "-26.07246637",
-        "-2.32153761",
-        "-1.28693964",
-        "comparison gate is open",
+        "independent admissible multilayer clusters: **3**",
+        "primary admissible effects inside those clusters: **7**",
+        "ML001 / PS003", "ML002 / PS004", "ML003 / PS001",
+        "-10.09901484", "-4.55409070", "-26.07246637", "-2.32153761", "-1.28693964",
+        "-0.25474678", "+0.50972995",
+        "general multilayer comparison gate is open at three independent clusters",
+        "C-F comparison remains a two-cluster analysis",
     ):
         assert token in status, token
 
     print(
         "EGWEE extraction progress: PASS; "
         f"{len(primary)} verified studies, {len(candidates)} candidates, {len(queue)} queued; "
-        "2 independent admissible multilayer clusters, 5 primary cluster effects; "
-        "1 sensitivity g + 2 alternate-geometry Fisher-z effects retained outside the cluster count"
+        "3 independent admissible multilayer clusters, 7 primary cluster effects; "
+        "C-F overlap remains 2 clusters while ML003 adds independent C/G_adult state separation"
     )
 
 

@@ -137,7 +137,6 @@ def validate_brosimum() -> None:
     for endpoint in ("Gadult_Ho", "Goffspring_Ho", "Goffspring_F"):
         assert by_effect[endpoint]["effect_unit_status"] == "raw_reanalysis_required"
 
-    # C is oriented so larger biological support = lower source rp.
     values = {
         "C_paternity_rp": [-float(r["C_paternity_rp"]) for r in site],
         "F_TPDW": [float(r["F_TPDW_site_mean"]) for r in site],
@@ -179,17 +178,21 @@ def main() -> None:
     assert int(brosimum["n_admissible_primary_effects"]) == 2
     assert brosimum["covariance_status"] == "proxy_reconstructed_from_six_sites"
 
-    assert by_cluster["ML003"]["cluster_status"] == "blocked_effect_unit_reconstruction"
-    assert int(by_cluster["ML003"]["n_admissible_primary_effects"]) == 0
-    assert by_cluster["ML006"]["cluster_status"] == "recover_common_landscape_exposure"
+    spondias = by_cluster["ML003"]
+    assert spondias["cluster_status"] == "admissible_multilayer_cluster"
+    assert set(spondias["admissible_primary_layers"].split(";")) == {"C", "G_adult"}
+    assert int(spondias["n_admissible_primary_effects"]) == 2
+    assert spondias["covariance_status"] == "proxy_reconstructed_from_five_sites"
 
+    assert by_cluster["ML006"]["cluster_status"] == "recover_common_landscape_exposure"
     admissible = [r for r in registry if r["cluster_status"] == "admissible_multilayer_cluster"]
-    assert {r["cluster_id"] for r in admissible} == {"ML001", "ML002"}
+    assert {r["cluster_id"] for r in admissible} == {"ML001", "ML002", "ML003"}
 
     print(
         "EGWEE multilayer cluster contract: PASS; "
-        "ML001 Serapias=3 correlated layers, ML002 Brosimum=2 correlated layers; "
-        "both V blocks positive definite; cross-system comparison gate OPEN at 2 independent clusters"
+        "ML001 Serapias=C/F/G_adult, ML002 Brosimum=C/F, ML003 Spondias=C/G_adult; "
+        "three independent admissible multilayer clusters. "
+        "Serapias/Brosimum covariance blocks are checked here; Spondias C-G covariance is audited separately."
     )
 
 

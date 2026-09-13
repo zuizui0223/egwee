@@ -21,6 +21,10 @@ on:
       - 'evidence/meta_extraction/**'
       - 'scripts/check_meta_analysis_contract.py'
       - 'scripts/check_meta_analysis_progress.py'
+      - 'scripts/check_spondias_paternity_effect.py'
+      - 'scripts/check_spondias_multilayer_cluster.py'
+      - 'scripts/probe_spondias_supplement.py'
+      - 'scripts/inspect_spondias_supplement.py'
       - 'scripts/check_brosimum_extraction.py'
       - 'scripts/probe_brosimum_figshare.py'
       - 'scripts/audit_brosimum_raw_workbook.py'
@@ -52,6 +56,10 @@ on:
       - 'evidence/meta_extraction/**'
       - 'scripts/check_meta_analysis_contract.py'
       - 'scripts/check_meta_analysis_progress.py'
+      - 'scripts/check_spondias_paternity_effect.py'
+      - 'scripts/check_spondias_multilayer_cluster.py'
+      - 'scripts/probe_spondias_supplement.py'
+      - 'scripts/inspect_spondias_supplement.py'
       - 'scripts/check_brosimum_extraction.py'
       - 'scripts/probe_brosimum_figshare.py'
       - 'scripts/audit_brosimum_raw_workbook.py'
@@ -77,7 +85,15 @@ jobs:
         run: python scripts/check_meta_analysis_contract.py
       - name: Validate corpus and extraction progress
         run: python scripts/check_meta_analysis_progress.py
-      - name: Audit first admissible site-level effect
+      - name: Audit Spondias site-level paternity effect
+        run: python scripts/check_spondias_paternity_effect.py
+      - name: Audit Spondias C-G multilayer cluster
+        run: python scripts/check_spondias_multilayer_cluster.py
+      - name: Probe Spondias supplementary files
+        run: python scripts/probe_spondias_supplement.py
+      - name: Inspect Spondias supplementary tables
+        run: python scripts/inspect_spondias_supplement.py
+      - name: Audit Brosimum site-level effects
         run: python scripts/check_brosimum_extraction.py
       - name: Probe Brosimum public raw-data package
         run: python scripts/probe_brosimum_figshare.py
