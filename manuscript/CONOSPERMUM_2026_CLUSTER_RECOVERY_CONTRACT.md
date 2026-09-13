@@ -19,14 +19,17 @@ The confirmatory overlap is limited to populations with both a contemporary seed
 
 ## Locked landscape exposure
 
-Primary exposure is the source-defined **urban matrix barrier / permeability class**, motivated by the paper's central landscape contrast:
+Primary exposure is the source-defined **modified incidence-function connectivity index** used in the 2026 Methods and explicitly linked there to the earlier Delnevo programme landscape definition. It is calculated from the spatial configuration/area of neighbouring populations and is defined independently of pollen-flow or genetic outcomes.
 
-- `permeable` = focal populations embedded in continuous/intact bushland or separated from potential pollen sources by non-urban cleared/rural matrix for which the source treats pollen movement as physically possible;
-- `urban_barrier` = remnant populations separated from potential source populations by built-up residential/urban matrix that the source identifies as a barrier to the specialist native pollinator.
+For the synthesis, fragmentation severity is the sign-reversed standardized connectivity value:
 
-Exact population-to-class mapping must be recovered from the paper/supplementary map or source metadata **before** offspring genotype values are summarized.
+`fragmentation_severity = -z(connectivity_index)`.
 
-Do not substitute straight-line distance as the primary predictor after seeing outcomes. Distance to nearest unsampled plants is retained only as a prespecified secondary continuous sensitivity because the source explicitly argues that matrix type modifies the meaning of distance.
+Exact population-specific connectivity/index values must be source-recoverable for the populations entering the common C/G_offspring frame **before** either effect is calculated.
+
+The previously assembled `urban_barrier / permeable` classes are retained only as descriptive landscape interpretation/sensitivity metadata. They are not the primary exposure. Some earlier class rationales mentioned realized pollen immigration; such outcome information cannot define the exposure for a C endpoint.
+
+Do not substitute population size, straight-line distance, area, floral display, or the binary matrix class if exact source connectivity values remain unavailable.
 
 ## C endpoint
 
@@ -38,7 +41,7 @@ Do not switch to the `m_p only` model or Cervus estimate because it gives a stro
 
 From the public seedling microsatellite data, derive one population-level offspring genetic-state summary without using adult genotypes as a new independent 2026 layer.
 
-Primary offspring metric = expected heterozygosity `H_E` calculated across seedling multilocus genotypes within each population, because it is a standard cohort genetic-diversity state and can be computed without parentage-model tuning.
+Primary offspring metric = expected heterozygosity `H_E` calculated across seedling multilocus genotypes within each population. This metric was frozen before raw genotype values were opened.
 
 If the raw archive does not contain population-linked seedling genotypes sufficient to calculate population `H_E`, terminate as `offspring_genetic_state_not_reconstructable` rather than switching to a favorable genetic metric.
 
@@ -46,19 +49,19 @@ Population-level uncertainty must be estimated by a fixed locus bootstrap (10,00
 
 ## Effect representation
 
-If both C and G_offspring are reconstructable on the common population frame:
+If exposure, C and G_offspring are all reconstructable on the common population frame:
 
-1. compute the population-level association with the locked binary matrix-barrier exposure using the same contrast orientation (`negative = worse support/state under urban barrier`);
+1. compute the population-level association of each endpoint with the locked `-z(connectivity_index)` fragmentation-severity exposure;
 2. preserve C source-model uncertainty and G locus-bootstrap uncertainty;
-3. reconstruct within-cluster dependence from the paired population-level C and G contributions / centered population values where mathematically possible;
-4. require the resulting working covariance block to be positive definite.
+3. reconstruct within-cluster dependence from paired population-level C/G contributions or centered population values where mathematically possible;
+4. require any working covariance block used for inversion to satisfy the declared dependence checks.
 
 No covariance is silently set to zero.
 
 ## Source opening order
 
-1. Dryad metadata / filenames / schema only;
-2. source paper/supplementary map to freeze exact population barrier classes;
+1. source paper/Methods to lock the connectivity-index definition;
+2. Dryad metadata / filenames / schema and earlier programme sources to recover exact population-specific connectivity values without opening outcomes;
 3. raw seedling genotype values;
 4. one-shot population-level G summary and covariance-aware C/G cluster calculation.
 
@@ -70,15 +73,25 @@ Do not:
 - treat seedlings, maternal plants or loci as independent fragmentation n;
 - code populations G/H with no progeny as G_offspring=0;
 - replace `m_p+s` by another paternity model after observing the contrast;
-- replace `H_E` with allelic richness, F_IS or another genetic metric after observing direction;
-- replace matrix barrier with geographic distance after observing results;
+- replace `H_E` with H_O, allelic richness, F_IS or another genetic metric after observing direction;
+- replace the source-defined connectivity index with population size, distance, area, floral display or matrix class because those data are easier to retrieve;
+- use realized pollen immigration to assign the primary landscape exposure;
 - combine PS010 adult genetic values into the covariance block as if contemporaneous offspring data;
 - use post-2017 genetic observations as the seedling cohort.
 
-Possible terminal outcomes:
+## Reopening requirements
+
+ML005 can proceed only when **both** of the following are satisfied through ordinary authorized/source-valid routes:
+
+1. exact population-specific values for the source-defined modified incidence-function connectivity index are recovered for the common analysis populations;
+2. the public/author-supplied seedling genotype bytes can be read without bypassing access controls.
+
+Recovering only one side does not authorize effect calculation.
+
+Possible terminal outcomes include:
 
 - `ML005_admitted_C_Goffspring_covariance_aware`;
-- `matrix_class_not_identifiable`;
+- `source_exposure_values_not_reconstructable`;
 - `offspring_genetic_state_not_reconstructable`;
 - `common_population_overlap_insufficient`;
 - `covariance_not_reconstructable`;
