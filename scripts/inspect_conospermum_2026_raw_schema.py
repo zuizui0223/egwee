@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import http.cookiejar
 import io
-import re
 import urllib.parse
 import urllib.request
 
@@ -49,28 +48,24 @@ def file_items(opener: urllib.request.OpenerDirector) -> list[dict]:
     return page.get("_embedded", {}).get("stash:files", page.get("files", []))
 
 
-def public_file_id(item: dict) -> str:
-    self_url = href(item, "self") or ""
-    m = re.search(r"/files/(\d+)$", self_url)
-    if not m:
-        raise RuntimeError(f"cannot derive public file id for {item.get('path')}: {self_url!r}")
-    return m.group(1)
-
-
 def prime_browser_session(opener: urllib.request.OpenerDirector) -> str:
     landing = f"{PUBLIC_ROOT}/dataset/doi%3A10.5061%2Fdryad.95x69p907"
-    req = urllib.request.Request(
-        landing,
-        headers={"User-Agent": UA, "Accept": "text/html,application/xhtml+xml"},
-    )
+    req = urllib.request.Request(landing, headers={"User-Agent": UA, "Accept": "text/html,application/xhtml+xml"})
     with opener.open(req, timeout=60) as r:
         r.read(1024)
         return r.geturl()
 
 
 def download(opener: urllib.request.OpenerDirector, item: dict, referer: str) -> bytes:
-    file_id = public_file_id(item)
-    url = f"{PUBLIC_ROOT}/downloads/file_stream/{file_id}"
+    url = href(item, "stash:download", "download")
+    if not url:
+        self_url = href(item, "self")
+        if not self_url:
+            raise RuntimeError(f"no download/self link for {item.get('path')}")
+        metadata = get_json(opener, self_url)
+        url = href(metadata, "stash:download", "download")
+    if not url:
+        raise RuntimeError(f"Dryad API supplied no public download link for {item.get('path')}")
     req = urllib.request.Request(
         url,
         headers={
@@ -85,7 +80,7 @@ def download(opener: urllib.request.OpenerDirector, item: dict, referer: str) ->
 
 def is_anubis_challenge(payload: bytes) -> bool:
     head = payload[:8192].decode("utf-8", errors="ignore").lower()
-    return "anubis_challenge" in head or "proof-of-work" in head or "protected by" in head and "anubis" in head
+    return "anubis_challenge" in head or "proof-of-work" in head or ("protected by" in head and "anubis" in head)
 
 
 def main() -> None:
@@ -108,7 +103,6 @@ def main() -> None:
     if is_anubis_challenge(probe):
         print("CONOSPERMUM_2026_RAW_SCHEMA_GATE SOURCE_ACCESS_BLOCKED anubis_javascript_proof_of_work; metadata_and_index_schema_only; no_bypass_attempted")
         return
-
     readme = probe.decode("utf-8", errors="replace")
     print(f"CONOSPERMUM_2026_README_BYTES bytes={len(probe)} first_line={readme.splitlines()[0] if readme.splitlines() else ''!r}")
 
