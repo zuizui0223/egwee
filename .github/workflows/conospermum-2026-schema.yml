@@ -4,7 +4,9 @@ on:
   pull_request:
     paths:
       - 'manuscript/CONOSPERMUM_2026_CLUSTER_RECOVERY_CONTRACT.md'
+      - 'evidence/meta_extraction/PS011_conospermum_2026_matrix_class_v1.csv'
       - 'scripts/probe_conospermum_2026_dryad_schema.py'
+      - 'scripts/inspect_conospermum_2026_raw_schema.py'
       - '.github/workflows/conospermum-2026-schema.yml'
   workflow_dispatch:
 
@@ -16,5 +18,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - name: Install workbook reader
+        run: python -m pip install --quiet openpyxl
       - name: Inspect Dryad metadata only
         run: python scripts/probe_conospermum_2026_dryad_schema.py
+      - name: Inspect raw workbook schema after matrix classes are frozen
+        run: python scripts/inspect_conospermum_2026_raw_schema.py
