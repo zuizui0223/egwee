@@ -1,0 +1,29 @@
+name: Magnolia ML009 closure contract
+
+on:
+  pull_request:
+    paths:
+      - 'manuscript/MAGNOLIA_ML009_CLUSTER_RECOVERY_RESULT.md'
+      - 'manuscript/MAGNOLIA_ML009_CLUSTER_RECOVERY_CONTRACT.md'
+      - 'manuscript/MAGNOLIA_ML009_CALCULATION_LOCK.md'
+      - 'evidence/meta_extraction/multilayer_cluster_registry_v1.csv'
+      - 'scripts/check_magnolia_ml009_closure.py'
+      - '.github/workflows/magnolia-ml009-closure.yml'
+  workflow_dispatch:
+
+jobs:
+  closure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install existing meta-analysis dependencies
+        run: python -m pip install --quiet openpyxl
+      - name: Validate existing meta-analysis contract
+        run: python scripts/check_meta_analysis_contract.py
+      - name: Validate existing extraction progress
+        run: python scripts/check_meta_analysis_progress.py
+      - name: Validate Magnolia ML009 terminal closure
+        run: python scripts/check_magnolia_ml009_closure.py
