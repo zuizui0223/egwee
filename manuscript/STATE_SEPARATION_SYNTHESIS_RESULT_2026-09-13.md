@@ -34,6 +34,18 @@ The canonical executable recomputes these values directly from the effect and co
 
 Therefore the currently admitted primary binary/contrast corpus rejects the layer-exchangeability null at the formal synthesis level.
 
+## Leave-one-primary-cluster-out sensitivity
+
+The corpus-level rejection is **not leave-one-cluster-out robust**. Recomputing the same Fisher synthesis after removing each primary cluster gives:
+
+| omitted primary cluster | retained clusters | Fisher statistic | df | combined p | reject at 0.05? |
+|---|---|---:|---:|---:|---|
+| ML001 *Serapias lingua* | ML002 + ML003 | 6.72435 | 4 | **0.15119** | no |
+| ML002 *Brosimum alicastrum* | ML001 + ML003 | 14.78089 | 4 | **0.00518** | yes |
+| ML003 *Spondias purpurea* | ML001 + ML002 | 14.51199 | 4 | **0.00583** | yes |
+
+Thus ML001 is an influential cluster for the primary cross-cluster rejection. The correct claim is that the **currently admitted three-cluster corpus rejects exchangeability**, not that the rejection is insensitive to any one natural system. This dependency is a precision boundary, not a reason to fold ML015 into the primary denominator: ML015 remains a separate gradient generalisation because its Fisher-z effect family is not commensurate with the primary Hedges-g contrasts.
+
 ## Separate ML015 gradient generalisation
 
 ML015 is analysed only on the frozen Fisher-z gradient scale:
@@ -57,16 +69,17 @@ This is strong independent gradient/generalisation evidence for state separation
 
 The supported primary statement is:
 
-> across the three currently admitted replicated fragmented-versus-reference systems, biological response layers cannot generally be treated as exchangeable manifestations of one scalar fragmentation response.
+> across the three currently admitted replicated fragmented-versus-reference systems, the corpus-level synthesis rejects exchangeability of biological response layers, with the primary Fisher result dependent on inclusion of ML001 *Serapias lingua*.
 
 ML015 separately shows that the same qualitative state-separation problem extends to a continuous-gradient natural system.
 
-This is stronger than noting heterogeneous effect sizes, because each primary cluster compares multiple layers within one system while preserving dependence. It is narrower than the superseded four-cluster claim because the gradient study is no longer promoted into the primary denominator.
+This is stronger than noting heterogeneous effect sizes, because each primary cluster compares multiple layers within one system while preserving dependence. It is narrower than the superseded four-cluster claim because the gradient study is no longer promoted into the primary denominator, and narrower than a robustness claim because omission of ML001 removes the primary cross-cluster rejection.
 
 ## What this does not mean
 
 - It does not establish a universal ordering of C, I, F or G.
 - It does not imply that every primary cluster individually rejects exchangeability.
+- It does not imply that the primary Fisher rejection is leave-one-cluster-out robust.
 - It does not pool Hedges g with Fisher z.
 - It does not combine the ML015 gradient p-value with the primary Fisher statistic.
 - It does not validate EGWE's finite-model operator ordering or strongest-refuge predictor in nature.
@@ -80,6 +93,6 @@ A superseded implementation treated ML015 standardized OLS slopes as a fourth pr
 
 Method boundary is fixed in `META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-13_STATE_SEPARATION_SYNTHESIS.md`.
 
-Canonical executable is `scripts/synthesize_state_separation.py`.
+Canonical executable is `scripts/synthesize_state_separation.py`, which now also emits the leave-one-primary-cluster-out sensitivity and influential-cluster dependency explicitly.
 
 `EUCALYPTUS_WANDOO_2018_CLUSTER_RECOVERY_RESULT.md` and the ML015 gradient checker independently enforce that ML015 contributes zero primary Hedges-g effects.
