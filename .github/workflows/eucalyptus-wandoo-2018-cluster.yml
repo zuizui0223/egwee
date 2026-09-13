@@ -1,11 +1,16 @@
-name: Eucalyptus wandoo 2018 cluster recovery
+name: Eucalyptus wandoo 2018 gradient recovery
 
 on:
   pull_request:
     paths:
       - 'manuscript/EUCALYPTUS_WANDOO_2018_CLUSTER_RECOVERY_CONTRACT.md'
+      - 'manuscript/EUCALYPTUS_WANDOO_2018_CLUSTER_RECOVERY_RESULT.md'
       - 'evidence/meta_extraction/PS019_eucalyptus_wandoo_2018_population_table_v1.csv'
+      - 'evidence/meta_extraction/PS019_eucalyptus_wandoo_2018_gradient_effects_v1.csv'
+      - 'evidence/meta_extraction/PS019_eucalyptus_wandoo_2018_gradient_covariance_v1.csv'
+      - 'evidence/meta_extraction/multilayer_cluster_registry_v1.csv'
       - 'scripts/recover_eucalyptus_wandoo_2018_cluster.py'
+      - 'scripts/check_eucalyptus_wandoo_gradient_contract.py'
       - '.github/workflows/eucalyptus-wandoo-2018-cluster.yml'
   workflow_dispatch:
 
@@ -19,5 +24,7 @@ jobs:
           python-version: '3.11'
       - name: Install numerical dependency
         run: python -m pip install --quiet numpy
-      - name: Run locked ML015 recovery once
+      - name: Recompute ML015 Fisher-z gradient geometry
         run: python scripts/recover_eucalyptus_wandoo_2018_cluster.py
+      - name: Enforce gradient-tier and primary-denominator boundary
+        run: python scripts/check_eucalyptus_wandoo_gradient_contract.py
