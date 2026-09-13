@@ -1,0 +1,21 @@
+name: Swietenia ML013 effect-unit audit
+
+on:
+  pull_request:
+    paths:
+      - 'manuscript/SWIETENIA_2011_EFFECT_UNIT_AUDIT.md'
+      - 'evidence/meta_extraction/multilayer_cluster_registry_v1.csv'
+      - 'scripts/check_swietenia_ml013_effect_unit.py'
+      - '.github/workflows/swietenia-ml013-effect-unit.yml'
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Enforce Swietenia single-reference effect-unit boundary
+        run: python scripts/check_swietenia_ml013_effect_unit.py
