@@ -6,11 +6,11 @@ This ledger is the current cluster-first state. The unit of cross-system evidenc
 
 ## Corpus state
 
-- source-verified primary-study seeds: **16**
-- candidate systems/programmes: **19**
+- source-verified primary-study seeds: **17**
+- candidate systems/programmes: **19** plus one admitted post-seed expansion (`PS019 Eucalyptus wandoo`)
 - priority extraction queue: **9 studies**
-- independent admissible multilayer clusters: **3**
-- primary admissible effects inside those clusters: **9** (`PS003`: C/F/G_adult; `PS004`: C/F; `PS001`: C/G_adult/G_offspring[juvenile]/G_offspring[seed])
+- independent admissible multilayer clusters: **4**
+- primary admissible effects inside those clusters: **12** (`PS003`: C/F/G_adult; `PS004`: C/F; `PS001`: C/G_adult/G_offspring[juvenile]/G_offspring[seed]; `PS019`: I/F/G_adult)
 - standardized sensitivity effects retained outside the primary count: **5** (`PS003` adult `F_IS`; `PS001` adult `Sp` plus adult/juvenile/seed `F_IS`)
 - separate admissible gradient effects retained as an alternate design stream: **2** (`PS003` C/F Fisher-z effects against `-log(area)`)
 
@@ -65,35 +65,47 @@ Neither covariance-aware cohort contrast excludes zero with only five sites. The
 
 Four co-primary outcomes are retained on five sites: C, adult H_O, juvenile H_O and seed H_O. With two habitat groups, within-habitat residual dimension is only `5-2=3`, so the empirical 4x4 covariance proxy is structurally rank-deficient. Pairwise covariance terms are stored and audited; the singular 4x4 proxy is not forced to invert. Lower-dimensional cohort contrasts use their corresponding 2x2 covariance components, while any future full multivariate fit uses the declared cluster-robust fallback.
 
+Spondias supplementary material contains sex ratio (Appendix A) and site-by-cohort genetics (Appendix B), **not site-level visitation or reproductive-function values**. Public-source I/F recovery is closed unless author/raw data provide an effect-unit-valid five-site I/F vector or compatible model covariance.
+
+## ML015 / PS019 — *Eucalyptus wandoo*
+
+This is the fourth independent admissible cluster and the first admitted common-gradient I/F/G_adult system.
+
+Nineteen populations define a response-free fragmentation PC from the three source fragmentation variables. The fixed severity-oriented transforms are `-log10(population size)`, `sqrt(isolation)` and `log10(shape)`. The response-complete common frame contains 11 populations (`J,K,F,C,E,G,B,I,A,H,D`).
+
+Standardized slopes on fragmentation severity are:
+
+- `I`, pollen tubes at the base of the style: `+0.67475197`, bootstrap 95% CI `[+0.20780667, +1.93297843]`;
+- `F`, seeds per fruit y2: `-0.79455522`, bootstrap 95% CI `[-1.42507278, -0.22907996]`;
+- `G_adult`, unbiased expected heterozygosity `H_e`: `-0.43933127`, bootstrap 95% CI `[-1.59705553, +0.22305372]`.
+
+The paired 10,000-draw population-bootstrap covariance is positive definite; eigenvalues are `0.05688720`, `0.14662690`, `0.30543700`.
+
+This creates a direct natural-system state-separation result: stronger fragmentation is associated with **more pollen tubes but fewer seeds per fruit**, while standing adult genetic diversity has a weaker uncertain decline. Pollination quantity therefore cannot be treated as an interchangeable proxy for reproductive function in this system. The source likewise reports more pollen tubes in smaller populations while seed set increases with population size.
+
+Because aggregate table values were visible during candidate discovery, ML015 is not labelled an outcome-blind preregistration. The exposure reduction itself is response-free and fixed from the three source fragmentation variables, and no endpoint-specific predictor was selected after seeing directions.
+
 ## Standardized-effect variance contract
 
-All admitted binary Hedges-g effects use `metafor::escalc(measure="SMD", vtype="LS")`:
-
-`V(g) = 1/n_fragmented + 1/n_reference + g^2 / [2(n_fragmented + n_reference)]`.
+Binary Hedges-g effects use `metafor::escalc(measure="SMD", vtype="LS")`. ML015 is a separately declared standardized-gradient stream with paired population-bootstrap covariance and is not forced into the binary Hedges-g estimator.
 
 ## Cross-system gates
 
-The general multilayer comparison denominator is **3 independent clusters**, not 9 effects.
+The general multilayer comparison denominator is **4 independent clusters**, not 12 effects.
 
-Current layer overlap is uneven:
+Current primary layer coverage:
 
 1. `ML001 Serapias`: C/F/G_adult;
 2. `ML002 Brosimum`: C/F;
-3. `ML003 Spondias`: C/G_adult/G_offspring.
+3. `ML003 Spondias`: C/G_adult/G_offspring;
+4. `ML015 Eucalyptus wandoo`: I/F/G_adult.
 
-The narrower C-F comparison remains `k=2` because Spondias still lacks effect-unit-valid site-level F. The C-F pilot is unchanged: both Serapias and Brosimum have C<0 and F<0, with C more negative than F; pooled numbers remain diagnostic at k=2.
+The narrower C-F comparison remains `k=2` because neither Spondias nor Eucalyptus wandoo contributes the same C/F estimand. The original C-F pilot remains diagnostic rather than a stable pooled grand mean.
 
-The C-G_adult overlap is now also `k=2` (Serapias and Spondias) on the same canonical `H_O` representation. Given extreme between-system magnitude differences and small cluster count, it is suitable for diagnostic geometry, not a stable pooled grand mean.
+The important new cross-system conclusion is broader: the admitted systems no longer support a single scalar deterioration picture. Serapias and Brosimum show concordant C/F deterioration; Spondias exposes cohort- and representation-dependent genetic response; Eucalyptus wandoo shows direct I-F discordance under one common fragmentation gradient.
 
-## Closed recovery routes and next queue
+## Closed recovery routes
 
-Spondias supplementary material contains sex ratio (Appendix A) and site-by-cohort genetics (Appendix B), **not site-level visitation or reproductive-function values**. Public-source I/F recovery is therefore closed at the current representation boundary; reopen only if author/raw data provide an effect-unit-valid five-site I/F vector or compatible model covariance. Missing I/F are not inferred from significance statistics.
+`ML004 Conospermum 2020` is closed as `effect_unit_or_variance_not_reconstructable`; `ML005 Conospermum 2026` is blocked by source access/exposure recovery; `ML006 Primula` lacks a keyed common-population G/I/F table; and ML007–ML013 remain blocked by source access, incompatible estimands, insufficient independent landscape replication, or unreconstructable dependence as recorded in the canonical cluster registry.
 
-`ML004 Conospermum 2020` is also closed as `effect_unit_or_variance_not_reconstructable` after the Elsevier supplement and thesis/repository audit. Its biological directions remain source-supported, but no same-exposure population/model effect pair with compatible uncertainty/covariance is publicly recoverable; the 2019 reproductive dataset is not imported as a synchronized rescue.
-
-The next independent-cluster priority is now:
-
-1. `ML005 Conospermum 2026`: use public Dryad adult/seedling microsatellite data plus the source-defined landscape/matrix context to attempt a population-aware `C/G_offspring` cluster without duplicating the historical adult cohort;
-2. `ML006 Primula`: recover one common landscape exposure before G/I/F can become one fragmentation cluster.
-
-The main cross-system question is now sharper: **which biological layers deteriorate synchronously, which decouple, and when do apparent lags depend on genetic metric or developmental cohort?**
+The next priority is no longer simply to increase candidate count. It is to test whether the four-cluster geometry supports a defensible cross-layer heterogeneity/state-separation synthesis without pretending that binary Hedges-g and standardized gradient slopes are one interchangeable effect-size family.
