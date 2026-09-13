@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import io
 import json
+import re
 import urllib.parse
 import urllib.request
 
@@ -9,7 +10,8 @@ from openpyxl import load_workbook
 
 DOI = "10.5061/dryad.95x69p907"
 ROOT = "https://datadryad.org/api/v2"
-UA = "egwee-conospermum-2026-raw-schema/1.0"
+PUBLIC_ROOT = "https://datadryad.org"
+UA = "egwee-conospermum-2026-raw-schema/1.1"
 TARGETS = {"Seedlings_scoring.xlsx", "Paternity_dataset.xlsx", "README.md"}
 
 
@@ -25,7 +27,7 @@ def href(obj: dict, *keys: str) -> str | None:
         v = links.get(key)
         if isinstance(v, dict) and v.get("href"):
             h = v["href"]
-            return "https://datadryad.org" + h if h.startswith("/") else h
+            return PUBLIC_ROOT + h if h.startswith("/") else h
     return None
 
 
@@ -48,15 +50,17 @@ def file_items() -> list[dict]:
     return page.get("_embedded", {}).get("stash:files", page.get("files", []))
 
 
+def public_file_id(item: dict) -> str:
+    self_url = href(item, "self") or ""
+    m = re.search(r"/files/(\d+)$", self_url)
+    if not m:
+        raise RuntimeError(f"cannot derive public file id for {item.get('path')}: {self_url!r}")
+    return m.group(1)
+
+
 def download(item: dict) -> bytes:
-    url = href(item, "stash:download", "download")
-    if not url:
-        self_url = href(item, "self")
-        if self_url:
-            detail = get_json(self_url)
-            url = href(detail, "stash:download", "download")
-    if not url:
-        raise RuntimeError(f"no download link for {item.get('path')}")
+    file_id = public_file_id(item)
+    url = f"{PUBLIC_ROOT}/downloads/file_stream/{file_id}"
     req = urllib.request.Request(url, headers={"User-Agent": UA})
     with urllib.request.urlopen(req, timeout=60) as r:
         return r.read()
