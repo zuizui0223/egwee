@@ -1,0 +1,5 @@
+population,habitat,phi_ft,thesis_unadjusted_nep,local_male_gamete_assignment,immigration_fraction,published_adjusted_nep,primary_status,note
+F1,fragmented,0.377,1.326,0.667,0.333,,C_exact_G_missing,"Immigration = 1 - local male-gamete assignment. Thesis N_ep is unadjusted 1/(2 PhiFT) and is not the locked published adjusted G_mating endpoint."
+F2,fragmented,0.372,1.344,0.712,0.288,,C_exact_G_missing,"Immigration = 1 - local male-gamete assignment. Thesis N_ep is unadjusted 1/(2 PhiFT) and is not the locked published adjusted G_mating endpoint."
+C1,continuous,0.340,1.470,0.813,0.187,,C_exact_G_missing,"Immigration = 1 - local male-gamete assignment. Published article states C1 has the high adjusted N_ep but the exact Table 2 cell is not exposed by accessible source text."
+C2,continuous,0.425,1.176,0.661,0.339,,C_exact_G_missing,"Immigration = 1 - local male-gamete assignment. Thesis N_ep is unadjusted 1/(2 PhiFT) and is not the locked published adjusted G_mating endpoint."
