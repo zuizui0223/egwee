@@ -48,7 +48,7 @@ The repository stores all pairwise covariance terms but does not invert the 4x4 
 
 ## 5. Claim boundary
 
-The Appendix B recovery supports site-level genetic effects without using individual sample size as fragmentation replication. It does **not** by itself establish a cohort lag.
+The Appendix B recovery supports site-level genetic effects without using individual sample size as fragmentation replication. It does not by itself establish a cohort lag.
 
 A cohort-lag claim requires the covariance-aware offspring-minus-adult contrast to be distinguishable from zero, or independent systems showing the same ordered geometry. Point-estimate ordering alone remains descriptive.
 
