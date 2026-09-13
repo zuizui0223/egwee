@@ -1,10 +1,11 @@
-name: Magnolia 2013 population schema gate
+name: Magnolia 2013 population recovery gate
 
 on:
   pull_request:
     paths:
       - 'manuscript/MAGNOLIA_2013_POPULATION_CLUSTER_RECOVERY_CONTRACT.md'
       - 'scripts/inspect_magnolia_2013_table1_schema.py'
+      - 'scripts/recover_magnolia_2013_population_cluster.py'
       - '.github/workflows/magnolia-2013-schema.yml'
   workflow_dispatch:
 
@@ -16,5 +17,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - name: Install table-analysis dependencies
+        run: python -m pip install --quiet pandas lxml numpy
       - name: Inspect open PMC Table 1 schema only
         run: python scripts/inspect_magnolia_2013_table1_schema.py
+      - name: Recover locked population C/F effects
+        run: python scripts/recover_magnolia_2013_population_cluster.py
