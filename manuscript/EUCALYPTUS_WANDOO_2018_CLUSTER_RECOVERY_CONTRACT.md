@@ -1,83 +1,88 @@
-# ML015 / Eucalyptus wandoo 2018 cluster-recovery contract
+# ML015 / Eucalyptus wandoo 2018 gradient-recovery contract
 
-## Goal
+## Goal and protocol tier
 
-Attempt a fourth independent covariance-aware multilayer cluster from Llorens et al. (2018), *Frontiers in Ecology and Evolution* 6:39, DOI `10.3389/fevo.2018.00039`.
+Recover the multilayer fragmentation-gradient geometry in Llorens et al. (2018), *Frontiers in Ecology and Evolution* 6:39, DOI `10.3389/fevo.2018.00039`, without promoting a continuous-gradient study into the frozen primary fragmented-versus-reference Hedges-g denominator.
 
-The source sampled 19 populations across a highly fragmented agricultural landscape and measured three source-defined fragmentation variables: population size, population isolation, and population shape/edge dominance. Pollination/reproduction were measured for a subset, and adult genetic diversity for all 19 populations.
+The source sampled 19 populations across a highly fragmented agricultural landscape and measured three fragmentation descriptors: population size, isolation and shape/edge dominance. It does not supply an unfragmented/reference group. Under `META_ANALYSIS_PROTOCOL_2026-09-11.md`, continuous gradients belong to the separate Fisher-z generalisation stream, not the primary Hedges-g stream.
+
+ML015 therefore cannot become the fourth primary Hedges-g cluster. It may contribute a three-layer gradient generalisation/sensitivity cluster if the quantitative and dependence gates below pass.
 
 ## Discovery-stage disclosure
 
-This candidate was identified by reading the public article tables. Aggregate source values and the qualitative directions of several source relationships were therefore visible before this ML015 recovery contract was written. ML015 is **not** described as an outcome-blind preregistration.
+This candidate was identified by reading the public article tables. Aggregate response values and qualitative directions were visible before this recovery contract was written. ML015 is not described as an outcome-blind preregistration.
 
-To prevent outcome-driven predictor selection despite that discovery exposure, the primary landscape axis is generated solely from the three source fragmentation variables, using all 19 populations and no biological response values. No single fragmentation variable is selected because it gives the strongest response.
+The composite severity axis is nevertheless constructed from exposure variables only. It is an EGWEE analysis construct from source-defined fragmentation descriptors, not a scalar exposure defined by the source. For that additional reason it is retained in the separate gradient-generalisation tier rather than used to enlarge the primary confirmatory denominator.
 
 ## Independent-unit frame
 
-Primary independent unit = population. Maternal plants, fruits, pollen tubes, loci, alleles and progeny are nested observations and cannot become fragmentation replicates.
+Independent unit = population. Maternal plants, fruits, pollen tubes, loci, alleles and progeny remain nested below population.
 
-The co-primary common frame is the intersection of populations with all three locked response layers below. Missing response populations are excluded only by that complete-case rule; no population is dropped because its direction is inconvenient.
+The paired multilayer frame is the intersection of populations with all three locked response layers. Missing populations are excluded only by that complete-case rule.
 
-## Locked fragmentation exposure
+## Locked fragmentation-gradient axis
 
-Construct an outcome-independent fragmentation-severity PC from the 19-population Table 1 exposure matrix.
+Construct one response-free severity PC from the 19-population Table 1 exposure matrix:
 
-Source-compatible transforms and orientations:
+1. `smallness = -log10(population_size)`;
+2. `isolation = sqrt(source_isolation)`;
+3. `edge = log10(population_shape)`.
 
-1. `smallness = -log10(population_size)`; smaller populations indicate greater fragmentation severity.
-2. `isolation = sqrt(source_isolation)`; source isolation is `1 / percentage remnant vegetation within 3 km`, so larger is more isolated.
-3. `edge = log10(population_shape)`; larger shape values indicate greater edge dominance/linearity.
+Standardize all three across all 19 populations with sample SD (`ddof=1`), perform ordinary PCA on their covariance matrix, choose PC1, and orient its sign so the sum of loadings on the three severity-oriented variables is positive. Standardize the resulting PC1 scores across all 19 populations. The PCA is never recomputed on the response-complete subset.
 
-Standardize the three transformed variables across all 19 populations with sample SD (`ddof=1`). Perform ordinary PCA on the 3x3 covariance matrix. Primary severity = PC1 score. Fix PC1 sign so the sum of its loadings on the three severity-oriented variables is positive. Standardize the final PC1 score across all 19 populations with sample SD.
-
-The PCA is never recomputed on the response-complete subset and is never rotated or replaced after response values are joined.
+Do not substitute population size alone, isolation alone, shape alone, soil EC/salinity, PLS or another response-optimized axis after outcomes are inspected.
 
 ## Locked biological layers
 
-Common-frame endpoints:
+Common-frame endpoints are:
 
-- `I_pollination`: mean number of pollen tubes at the base of the style, Table 6. Higher values mean greater pollen receipt.
-- `F_reproductive_function`: mean number of seeds per fruit in year 2 (`y2`), Table 6. Year 2 is locked because it shares the same Table 6 population frame with the pollen-tube endpoint and the source reports no significant overall year difference in mean seeds per fruit.
-- `G_adult`: unbiased expected heterozygosity `H_e`, Table 7. Higher values mean greater standing adult genetic diversity.
+- `I_pollination`: mean pollen tubes at the base of the style, Table 6;
+- `F_reproductive_function`: mean seeds per fruit in year 2, Table 6;
+- `G_adult`: unbiased expected heterozygosity `H_e`, Table 7.
 
-For comparability across scales, each endpoint is standardized once within the locked common complete-case population frame using its observed mean and sample SD. Do not restandardize inside bootstrap samples.
+Endpoint identities are not changed after effect calculation.
 
-Primary per-layer estimand = OLS slope of standardized endpoint on the fixed standardized fragmentation PC1. With severity increasing toward stronger fragmentation, negative slope means deterioration; positive slope means improvement/increase under fragmentation.
+## Frozen effect representation
 
-## Dependence and uncertainty
+The repository effect schema already fixes continuous gradients to `fisher_z_gradient`. For each endpoint on the same complete-case population frame:
 
-The three layer effects share the same populations. Preserve this dependence with a paired population bootstrap:
+1. calculate Pearson `r` between fixed fragmentation severity and the endpoint;
+2. calculate `z = atanh(r)`;
+3. use the canonical Fisher-z marginal sampling variance `1/(n-3)`;
+4. retain the existing orientation: larger severity = stronger fragmentation, so negative z means lower biological support/function with fragmentation and positive z means an increase.
 
-- resample the common-frame populations jointly with replacement;
-- 10,000 draws;
-- RNG seed `20260913`;
-- fixed PC1 scores and fixed endpoint standardizations from the observed data;
-- refit the three OLS slopes in every draw;
-- store the full 3x3 bootstrap covariance matrix and percentile 95% intervals.
+Do not use standardized OLS slopes as a new effect stream and do not convert these Fisher-z effects to Hedges g.
 
-The cluster is admissible only if all three effects are finite and the estimated covariance matrix is positive definite. Significance is **not** required for cluster admission.
+## Within-cluster dependence
+
+The three effects share the same populations. Follow the pre-existing covariance hierarchy rather than treating them as independent:
+
+1. fit an intercept plus the fixed severity score separately to each raw endpoint on the common population frame;
+2. retain the three population-level residual vectors;
+3. calculate their 3x3 residual-correlation matrix `R`;
+4. combine it with the audited marginal Fisher-z variances using `V_ij = R_ij * sqrt(v_i*v_j)`;
+5. require finite diagonals and a positive-definite working `V` matrix.
+
+This is an approximate reconstructed covariance proxy, not an exact sampling covariance. It is labelled accordingly. Covariance is never set to zero and no numerical ridge is added solely to obtain invertibility.
+
+## Admission labels
+
+If the Fisher-z effects and covariance are valid, ML015 is labelled `gradient_generalisation_multilayer_cluster`. This means:
+
+- the three `fisher_z_admissible` effects can be used in the separately analysed gradient/generalisation stream;
+- ML015 does **not** increment `admissible_primary_layers` or `n_admissible_primary_effects` in the primary Hedges-g denominator;
+- the primary confirmatory denominator remains the independently admitted binary/contrast clusters.
 
 ## No-rescue rules
 
-Do not:
-
-- choose population size, isolation or shape alone after observing outcomes;
-- use soil EC/salinity as the primary fragmentation exposure;
-- replace the exposure PC with a response-optimized PLS/canonical axis;
-- switch I to flower number or a mating-system endpoint after observing results;
-- switch F to fruit number, fruit:flower ratio, year 1 seed set or progeny performance after observing results;
-- switch G from `H_e` to `P_L`, allelic richness or `F_IS` after observing results;
-- use maternal-plant or locus counts as landscape n;
-- omit a complete-case population because it weakens a layer effect;
-- treat source nonsignificance as effect=0;
-- set within-cluster covariance to zero.
+Do not select a single fragmentation variable based on response direction, change endpoints, drop complete-case populations, treat source nonsignificance as zero, use lower-level observations as population n, mix Fisher z with Hedges g in one pooled effect scale, or relabel this discovery-exposed composite gradient as an outcome-blind primary contrast.
 
 ## Terminal outcomes
 
-- `ML015_admitted_I_F_Gadult_covariance_aware`;
+- `ML015_gradient_generalisation_I_F_Gadult_covariance_aware`;
 - `common_population_frame_insufficient`;
 - `fragmentation_pc_not_identifiable`;
-- `covariance_not_positive_definite`;
+- `gradient_covariance_not_positive_definite`;
 - `published_population_values_incomplete`.
 
 All outcomes are retained.
