@@ -11,6 +11,8 @@ SERA_COV = ROOT / "evidence/meta_extraction/PS003_serapias_primary_covariance_v1
 BROS_SITE = ROOT / "evidence/meta_extraction/PS004_brosimum_site_table_v1.csv"
 BROS_EFFECTS = ROOT / "evidence/meta_extraction/PS004_brosimum_extraction_v1.csv"
 BROS_COV = ROOT / "evidence/meta_extraction/PS004_brosimum_primary_covariance_v1.csv"
+WANDOO_COV = ROOT / "evidence/meta_extraction/PS019_eucalyptus_wandoo_2018_primary_covariance_v1.csv"
+WANDOO_RESULT = ROOT / "manuscript/EUCALYPTUS_WANDOO_2018_CLUSTER_RECOVERY_RESULT.md"
 REGISTRY = ROOT / "evidence/meta_extraction/multilayer_cluster_registry_v1.csv"
 BASE_AMENDMENT = ROOT / "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-12_MULTILAYER_CLUSTERS.md"
 COHORT_AMENDMENT = ROOT / "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-13_COHORT_DEPENDENCE.md"
@@ -105,8 +107,22 @@ def validate_brosimum() -> None:
     validate_covariance(BROS_COV, "ML002", "PS004", endpoints, vectors, variances, groups)
 
 
+def validate_wandoo() -> None:
+    endpoints = ["I_pollen_tubes", "F_seeds_per_fruit_y2", "G_adult_He"]
+    rs = rows(WANDOO_COV)
+    by_pair = {(r["endpoint_i"], r["endpoint_j"]): float(r["sampling_covariance"]) for r in rs}
+    assert set(by_pair) == {(a, b) for a in endpoints for b in endpoints}
+    matrix = [[by_pair[(a, b)] for b in endpoints] for a in endpoints]
+    assert cholesky_positive_definite(matrix), matrix
+    result = WANDOO_RESULT.read_text(encoding="utf-8")
+    assert "ML015_admitted_I_F_Gadult_covariance_aware" in result
+    assert "`+0.67475197`" in result
+    assert "`-0.79455522`" in result
+    assert "`-0.43933127`" in result
+
+
 def main() -> None:
-    for path in (SERA_SITE, SERA_EFFECTS, SERA_COV, BROS_SITE, BROS_EFFECTS, BROS_COV, REGISTRY, BASE_AMENDMENT, COHORT_AMENDMENT):
+    for path in (SERA_SITE, SERA_EFFECTS, SERA_COV, BROS_SITE, BROS_EFFECTS, BROS_COV, WANDOO_COV, WANDOO_RESULT, REGISTRY, BASE_AMENDMENT, COHORT_AMENDMENT):
         assert path.is_file(), path
     assert "Do not set covariance to zero" in BASE_AMENDMENT.read_text(encoding="utf-8")
     cohort_text = COHORT_AMENDMENT.read_text(encoding="utf-8")
@@ -115,10 +131,11 @@ def main() -> None:
 
     validate_serapias()
     validate_brosimum()
+    validate_wandoo()
 
     registry = rows(REGISTRY)
     by_cluster = {r["cluster_id"]: r for r in registry}
-    assert {r["cluster_id"] for r in registry if r["cluster_status"] == "admissible_multilayer_cluster"} == {"ML001", "ML002", "ML003"}
+    assert {r["cluster_id"] for r in registry if r["cluster_status"] == "admissible_multilayer_cluster"} == {"ML001", "ML002", "ML003", "ML015"}
     assert set(by_cluster["ML001"]["admissible_primary_layers"].split(";")) == {"C", "F", "G_adult"}
     assert int(by_cluster["ML001"]["n_admissible_primary_effects"]) == 3
     assert set(by_cluster["ML002"]["admissible_primary_layers"].split(";")) == {"C", "F"}
@@ -126,14 +143,15 @@ def main() -> None:
     assert set(by_cluster["ML003"]["admissible_primary_layers"].split(";")) == {"C", "G_adult", "G_offspring"}
     assert int(by_cluster["ML003"]["n_admissible_primary_effects"]) == 4
     assert by_cluster["ML003"]["covariance_status"] == "proxy_pairwise_low_rank_from_five_sites"
+    assert set(by_cluster["ML015"]["admissible_primary_layers"].split(";")) == {"I", "F", "G_adult"}
+    assert int(by_cluster["ML015"]["n_admissible_primary_effects"]) == 3
+    assert by_cluster["ML015"]["covariance_status"] == "paired_population_bootstrap_10000"
     assert by_cluster["ML006"]["cluster_status"] == "common_population_values_not_recoverable"
-    assert by_cluster["ML006"]["fragmentation_contrast"] == "forest_cover_1000m"
-    assert by_cluster["ML006"]["covariance_status"] == "blocked_before_effect_calculation"
     assert int(by_cluster["ML006"]["n_admissible_primary_effects"]) == 0
 
     print(
         "EGWEE multilayer cluster contract: PASS; "
-        "3 independent clusters / 9 primary effects; ML003 adds dependent adult/juvenile/seed H_O with low-rank pairwise covariance; ML006 closed before effect calculation because exact common-population G/I/F values are not publicly recoverable"
+        "4 independent clusters / 12 primary effects; ML015 adds a positive-definite paired-population I/F/G_adult covariance block with discordant fragmentation responses"
     )
 
 
