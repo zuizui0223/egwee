@@ -16,7 +16,7 @@ EXPECTED = {
     "ele0015-0444-SD2.doc",
     "ele0015-0444-SD3.doc",
 }
-UA = "Mozilla/5.0 egwee-swietenia-macrophylla-ml016-schema/1.0"
+UA = "Mozilla/5.0 egwee-swietenia-macrophylla-ml016-schema/1.1"
 
 
 def fetch(url: str) -> bytes:
@@ -31,10 +31,10 @@ def fetch(url: str) -> bytes:
 
 
 def redact_numbers(text: str) -> str:
-    # Schema audit only: do not surface numeric outcome rows in this first gate.
+    # Schema audit only: retain labels/row identities but mask numerical outcome values.
     text = re.sub(r"(?<![A-Za-z])[-+]?\d+(?:\.\d+)?(?:[Ee][-+]?\d+)?", "<NUM>", text)
     text = re.sub(r"\s+", " ", text).strip()
-    return text[:360]
+    return text[:500]
 
 
 def extract_doc_text(path: Path) -> str:
@@ -76,10 +76,11 @@ def candidate_schema_lines(text: str) -> list[tuple[int, str]]:
     return hits
 
 
-def family_pair_signature(text: str) -> dict[str, bool]:
+def signature(text: str) -> dict[str, bool]:
     low = text.lower()
     return {
         "has_family": "family" in low or "families" in low,
+        "has_population": "population" in low,
         "has_growth": "growth" in low,
         "has_rp_or_correlated_paternity": (
             "correlated paternity" in low
@@ -105,12 +106,14 @@ def main() -> None:
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
             signatures: dict[str, dict[str, bool]] = {}
+            texts: dict[str, str] = {}
             for expected in sorted(EXPECTED):
                 member = next(n for n in zf.namelist() if Path(n).name == expected)
                 out = root / expected
                 out.write_bytes(zf.read(member))
                 text = extract_doc_text(out)
-                sig = family_pair_signature(text)
+                texts[expected] = text
+                sig = signature(text)
                 signatures[expected] = sig
                 hits = candidate_schema_lines(text)
                 print(
@@ -124,21 +127,27 @@ def main() -> None:
                         f"file={expected!r} line={line_no} text={redact_numbers(line)!r}"
                     )
 
+            # SD3 is only 47 extracted text lines. Print its entire structure with all numerical
+            # values masked so we can distinguish family rows from population/group summaries
+            # without opening outcome values prematurely.
+            sd3 = texts["ele0015-0444-SD3.doc"]
+            for line_no, raw in enumerate(sd3.splitlines(), start=1):
+                line = re.sub(r"\s+", " ", raw).strip()
+                if line:
+                    print(
+                        "MACROPHYLLA_SD3_REDACTED "
+                        f"line={line_no} text={redact_numbers(line)!r}"
+                    )
+
     candidates = [
         name for name, sig in signatures.items()
         if sig["has_family"] and sig["has_growth"] and sig["has_rp_or_correlated_paternity"]
     ]
-    print(f"MACROPHYLLA_FAMILY_PAIR_CANDIDATES files={candidates!r}")
-    if candidates:
-        print(
-            "MACROPHYLLA_SCHEMA_GATE CANDIDATE_FAMILY_PAIR_REPRESENTATION_FOUND "
-            "numeric_family_rows_remain_uncommitted_until_exact_mapping_is_frozen"
-        )
-    else:
-        print(
-            "MACROPHYLLA_SCHEMA_GATE NO_FAMILY_PAIRED_RP_GROWTH_TABLE_DETECTED "
-            "do_not_backsolve_covariance_from_group_or_regression_summaries"
-        )
+    print(f"MACROPHYLLA_PAIR_REPRESENTATION_CANDIDATES files={candidates!r}")
+    print(
+        "MACROPHYLLA_SCHEMA_GATE STRUCTURE_EXPOSED_NUMERIC_VALUES_REDACTED "
+        "next_decision=family_or_population_common_frame_vs_dependence_block"
+    )
 
 
 if __name__ == "__main__":
