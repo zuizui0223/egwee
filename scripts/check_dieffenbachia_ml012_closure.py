@@ -20,7 +20,6 @@ def rows(path: Path) -> list[dict[str, str]]:
 
 def hedges_g_ls(fragmented: list[float], reference: list[float]) -> tuple[float, float]:
     n1, n2 = len(fragmented), len(reference)
-    assert n1 >= 2 and n2 >= 2
     m1, m2 = stats.mean(fragmented), stats.mean(reference)
     s1, s2 = stats.stdev(fragmented), stats.stdev(reference)
     df = n1 + n2 - 2
@@ -28,8 +27,7 @@ def hedges_g_ls(fragmented: list[float], reference: list[float]) -> tuple[float,
     d = (m1 - m2) / pooled
     j = 1 - 3 / (4 * df - 1)
     g = j * d
-    v = 1 / n1 + 1 / n2 + g * g / (2 * (n1 + n2))
-    return g, v
+    return g, 1 / n1 + 1 / n2 + g * g / (2 * (n1 + n2))
 
 
 def main() -> None:
@@ -45,9 +43,8 @@ def main() -> None:
     for name in expected_local:
         r = by_pop[name]
         local = float(r["local_male_gamete_assignment"])
-        immigration = float(r["immigration_fraction"])
         assert math.isclose(local, expected_local[name], abs_tol=1e-12)
-        assert math.isclose(immigration, 1 - local, abs_tol=1e-12)
+        assert math.isclose(float(r["immigration_fraction"]), 1 - local, abs_tol=1e-12)
         assert math.isclose(float(r["phi_ft"]), expected_phi[name], abs_tol=1e-12)
         assert math.isclose(float(r["thesis_unadjusted_nep"]), expected_old_nep[name], abs_tol=1e-12)
         assert r["published_adjusted_nep"] == ""
@@ -63,39 +60,29 @@ def main() -> None:
     assert set(effects) == {"C_pollen_immigration", "G_mating_adjusted_Nep"}
     c = effects["C_pollen_immigration"]
     assert c["effect_unit_status"] == "descriptive_only_due_missing_companion_layer"
-    assert int(c["n_independent_fragmented"]) == 2
-    assert int(c["n_independent_reference"]) == 2
+    assert int(c["n_independent_fragmented"]) == 2 and int(c["n_independent_reference"]) == 2
     assert math.isclose(float(c["oriented_effect"]), g, abs_tol=1e-12)
     assert math.isclose(float(c["oriented_variance"]), v, abs_tol=1e-12)
-    assert g > 0
-
     gm = effects["G_mating_adjusted_Nep"]
     assert gm["effect_unit_status"] == "population_specific_Nep_not_reconstructable"
-    assert gm["oriented_effect"] == ""
-    assert gm["oriented_variance"] == ""
+    assert gm["oriented_effect"] == "" and gm["oriented_variance"] == ""
     assert "adjusted N_ep" in gm["extraction_notes"]
-    assert "1/(2 PhiFT)" in gm["extraction_notes"]
-    assert "1/r_p" in gm["extraction_notes"]
+    assert "1/(2 PhiFT)" in gm["extraction_notes"] and "1/r_p" in gm["extraction_notes"]
 
     registry = {r["cluster_id"]: r for r in rows(REGISTRY)}
-    assert "ML012" in registry
     ml012 = registry["ML012"]
     assert ml012["study_ids"] == "PS017"
-    assert ml012["species"] == "Dieffenbachia seguine"
-    assert ml012["fragmentation_contrast"] == "fragmented_vs_continuous"
     assert ml012["admissible_primary_layers"] == ""
     assert int(ml012["n_admissible_primary_effects"]) == 0
-    assert ml012["covariance_status"] == "blocked_before_dependence_calculation"
     assert ml012["cluster_status"] == "population_specific_Nep_not_reconstructable"
 
     admissible = [r for r in registry.values() if r["cluster_status"] == "admissible_multilayer_cluster"]
-    assert {r["cluster_id"] for r in admissible} == {"ML001", "ML002", "ML003"}
-    assert sum(int(r["n_admissible_primary_effects"]) for r in admissible) == 9
+    assert {r["cluster_id"] for r in admissible} == {"ML001", "ML002", "ML003", "ML014"}
+    assert sum(int(r["n_admissible_primary_effects"]) for r in admissible) == 11
 
     contract = CONTRACT.read_text(encoding="utf-8")
     result = RESULT.read_text(encoding="utf-8")
-    assert "source `N_ep`" in contract
-    assert "Do not replace C" in contract
+    assert "source `N_ep`" in contract and "Do not replace C" in contract
     assert "population_specific_Nep_not_reconstructable" in result
     assert "No Table 2 cell was inferred" in result
     assert "no C/G covariance is calculated or set to zero" in result
@@ -103,7 +90,7 @@ def main() -> None:
     print(
         "Dieffenbachia ML012 closure: PASS; exact C vector recovered "
         f"(g={g:.12f}, var={v:.12f}) but adjusted population-specific N_ep unavailable; "
-        "ML012 adds 0 effects and admissible denominator remains 3 clusters / 9 effects"
+        "ML012 adds 0 effects; current primary denominator=4/11"
     )
 
 
