@@ -101,6 +101,13 @@ def ml003() -> dict:
     return cluster_test("ML003", effects, square_cov("evidence/meta_extraction/PS001_spondias_primary_pairwise_covariance_v2.csv"))
 
 
+def ml014() -> dict:
+    erows = rows("evidence/meta_extraction/PS020_eucalyptus_socialis_effects_v1.csv")
+    effects = {r["endpoint_id"]: float(r["oriented_effect"]) for r in erows}
+    assert set(effects) == {"Gmating_correlated_paternity_rp", "F_family_growth"}
+    return cluster_test("ML014", effects, square_cov("evidence/meta_extraction/PS020_eucalyptus_socialis_primary_covariance_v1.csv"))
+
+
 def ml015_gradient_generalisation() -> dict:
     erows = rows("evidence/meta_extraction/PS019_eucalyptus_wandoo_2018_gradient_effects_v1.csv")
     effect_name = {
@@ -122,13 +129,13 @@ def main() -> None:
         cid for cid, r in registry.items()
         if r["cluster_status"] == "admissible_multilayer_cluster"
     }
-    assert primary_ids == {"ML001", "ML002", "ML003"}
-    assert sum(int(registry[cid]["n_admissible_primary_effects"]) for cid in primary_ids) == 9
+    assert primary_ids == {"ML001", "ML002", "ML003", "ML014"}
+    assert sum(int(registry[cid]["n_admissible_primary_effects"]) for cid in primary_ids) == 11
     assert registry["ML015"]["cluster_status"] == "gradient_generalisation_multilayer_cluster"
     assert registry["ML015"]["admissible_primary_layers"] == ""
     assert int(registry["ML015"]["n_admissible_primary_effects"]) == 0
 
-    primary_clusters = [ml001(), ml002(), ml003()]
+    primary_clusters = [ml001(), ml002(), ml003(), ml014()]
     pvals = [c["cluster_p_bonferroni"] for c in primary_clusters]
     fisher_stat, fisher_df, combined_p = fisher_combine(pvals)
 
@@ -152,7 +159,7 @@ def main() -> None:
         "analysis_label": "retrospective_primary_binary_state_separation_with_separate_gradient_generalisation",
         "primary_null": "within each primary binary/contrast cluster all admitted layer effects are exchangeable/equal on that cluster's own Hedges-g scale",
         "n_primary_independent_clusters": len(primary_clusters),
-        "n_primary_effects": 9,
+        "n_primary_effects": 11,
         "primary_clusters": primary_clusters,
         "primary_fisher_statistic": fisher_stat,
         "primary_fisher_df": fisher_df,
@@ -173,7 +180,7 @@ def main() -> None:
         "gradient_generalisation": gradient,
         "gradient_combined_with_primary": False,
         "claim_ceiling": (
-            "primary inference uses ML001-ML003 only; ML015 is separate Fisher-z gradient generalisation evidence; "
+            "primary inference uses ML001-ML003 plus prospectively recovered ML014; ML015 is separate Fisher-z gradient generalisation evidence; "
             "no Hedges-g/Fisher-z cross-family Fisher combination is permitted; primary corpus-level rejection "
             "must be reported with its leave-one-cluster-out dependency"
         ),
