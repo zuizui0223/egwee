@@ -24,6 +24,7 @@ WANDOO_EFFECTS = ROOT / "evidence/meta_extraction/PS019_eucalyptus_wandoo_2018_g
 WANDOO_COV = ROOT / "evidence/meta_extraction/PS019_eucalyptus_wandoo_2018_gradient_covariance_v1.csv"
 SOCIALIS_EFFECTS = ROOT / "evidence/meta_extraction/PS020_eucalyptus_socialis_effects_v1.csv"
 SOCIALIS_COV = ROOT / "evidence/meta_extraction/PS020_eucalyptus_socialis_primary_covariance_v1.csv"
+MACROPHYLLA = ROOT / "evidence/meta_extraction/PS021_swietenia_macrophylla_summary_v1.csv"
 CLUSTERS = ROOT / "evidence/meta_extraction/multilayer_cluster_registry_v1.csv"
 
 
@@ -37,20 +38,21 @@ def main() -> None:
         PRIMARY, CANDIDATES, QUEUE, STATUS, SPONDIAS, SPONDIAS_SITE, BROSIMUM, HULTING,
         CONOSPERMUM_2026, CONOSPERMUM_2020, TILLANDSIA, MAGNOLIA, PRIMULA,
         SERAPIAS_GRADIENT, SERAPIAS_BINARY, WANDOO, WANDOO_EFFECTS, WANDOO_COV,
-        SOCIALIS_EFFECTS, SOCIALIS_COV, CLUSTERS,
+        SOCIALIS_EFFECTS, SOCIALIS_COV, MACROPHYLLA, CLUSTERS,
     ):
         assert path.is_file(), path
 
     primary = rows(PRIMARY)
     candidates = rows(CANDIDATES)
     queue = rows(QUEUE)
-    assert len(primary) >= 18
+    assert len(primary) >= 19
     assert len(candidates) >= 19
     assert len(queue) >= 9
     assert len({r["study_id"] for r in primary}) == len(primary)
     assert {r["study_id"] for r in queue} <= {r["study_id"] for r in primary}
     assert any(r["study_id"] == "PS019" and r["doi"] == "10.3389/fevo.2018.00039" for r in primary)
     assert any(r["study_id"] == "PS020" and r["doi"] == "10.1111/mec.12056" for r in primary)
+    assert any(r["study_id"] == "PS021" and r["doi"] == "10.1111/j.1461-0248.2012.01752.x" for r in primary)
 
     ps015 = next(r for r in primary if r["study_id"] == "PS015")
     assert ps015["doi"] == "10.1016/j.biocon.2020.108824"
@@ -59,6 +61,8 @@ def main() -> None:
     assert {"D", "I", "T", "F", "G_adult"} <= set(ps016["verified_layers"].split(";"))
     ps020 = next(r for r in primary if r["study_id"] == "PS020")
     assert {"G_mating", "F"} <= set(ps020["verified_layers"].split(";"))
+    ps021 = next(r for r in primary if r["study_id"] == "PS021")
+    assert {"G_mating", "F"} <= set(ps021["verified_layers"].split(";"))
 
     spondias = rows(SPONDIAS)
     spondias_site = rows(SPONDIAS_SITE)
@@ -76,6 +80,7 @@ def main() -> None:
     wandoo_cov = rows(WANDOO_COV)
     socialis = rows(SOCIALIS_EFFECTS)
     socialis_cov = rows(SOCIALIS_COV)
+    macrophylla = rows(MACROPHYLLA)
     clusters = rows(CLUSTERS)
 
     assert len(spondias) == 13 and len(spondias_site) == 8
@@ -85,6 +90,7 @@ def main() -> None:
     assert len(ser_gradient) == 2 and len(ser_binary) == 4
     assert len(wandoo) == 19 and len(wandoo_effects) == 3 and len(wandoo_cov) == 9
     assert len(socialis) == 2 and len(socialis_cov) == 4
+    assert len(macrophylla) == 12
 
     s_primary = [r for r in spondias_site if r["analysis_role"] == "primary"]
     assert {r["endpoint_id"] for r in s_primary} == {"C_paternity_correlation", "Gadult_Ho", "Gjuvenile_Ho", "Gseed_Ho"}
@@ -132,6 +138,14 @@ def main() -> None:
     assert abs(float(by_socialis["F_family_growth"]["oriented_effect"]) + 0.271808874814) < 1e-9
     assert any(abs(float(r["sampling_covariance"]) - 0.050108426040) < 1e-9 for r in socialis_cov if r["endpoint_i"] != r["endpoint_j"])
 
+    assert {r["layer"] for r in macrophylla} == {"G_mating", "F"}
+    assert all(r["effect_unit_status"] == "descriptive_only" for r in macrophylla)
+    assert not any(r["effect_unit_status"] == "g_admissible" for r in macrophylla)
+    macro_overall = {(r["layer"], r["context"]): r for r in macrophylla if r["provenance"] == "all"}
+    assert abs(float(macro_overall[("G_mating", "forest")]["mean"]) - 0.163) < 1e-12
+    assert abs(float(macro_overall[("G_mating", "isolated")]["mean"]) - 0.341) < 1e-12
+    assert macro_overall[("G_mating", "forest")]["sd_representation"] == "group_MLTR_parameter_family_bootstrap_uncertainty"
+
     by_cluster = {r["cluster_id"]: r for r in clusters}
     binary = [r for r in clusters if r["cluster_status"] == "admissible_multilayer_cluster"]
     gradient = [r for r in clusters if r["cluster_status"] == "gradient_generalisation_multilayer_cluster"]
@@ -142,16 +156,21 @@ def main() -> None:
     assert by_cluster["ML014"]["covariance_status"] == "proxy_reconstructed_from_paired_families"
     assert by_cluster["ML015"]["admissible_primary_layers"] == ""
     assert int(by_cluster["ML015"]["n_admissible_primary_effects"]) == 0
+    assert by_cluster["ML016"]["admissible_primary_layers"] == ""
+    assert int(by_cluster["ML016"]["n_admissible_primary_effects"]) == 0
+    assert by_cluster["ML016"]["cluster_status"] == "family_level_mating_effect_and_dependence_not_reconstructable"
+    assert by_cluster["ML016"]["covariance_status"] == "not_reconstructable_from_public_family_representation"
     assert sum(int(r["n_admissible_primary_effects"]) for r in binary) == 11
 
     status = STATUS.read_text(encoding="utf-8")
     for token in (
-        "source-verified primary-study seeds: **18**",
+        "source-verified primary-study seeds: **19**",
         "independent **primary** admissible multilayer clusters: **4**",
         "primary admissible effects inside those clusters: **11**",
         "separate admissible Fisher-z gradient effects: **5**",
         "ML014 / PS020",
-        "G_mating`, correlated-paternity support",
+        "ML016 / PS021",
+        "representation boundary, not a biological negative result",
         "chi-square(8) = 22.6477",
         "p = 0.07777",
         "ML001 remains influential",
@@ -161,7 +180,7 @@ def main() -> None:
     print(
         "EGWEE extraction progress: PASS; "
         f"{len(primary)} verified studies, {len(candidates)} candidates, {len(queue)} queued; "
-        "primary family = 4 clusters / 11 effects; ML015 = separate 3-effect Fisher-z gradient generalisation"
+        "primary family = 4 clusters / 11 effects; ML015 gradient-only; ML016 representation-blocked / 0 effects"
     )
 
 
