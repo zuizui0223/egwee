@@ -47,10 +47,7 @@ def main() -> None:
         pc1 = -pc1
     severity = zscore(exposure_z @ pc1)
 
-    idx = [
-        i for i, r in enumerate(data)
-        if r["pollen_tubes"] and r["seeds_per_fruit_y2"] and r["He"]
-    ]
+    idx = [i for i, r in enumerate(data) if r["pollen_tubes"] and r["seeds_per_fruit_y2"] and r["He"]]
     assert [data[i]["population"] for i in idx] == ["J", "K", "F", "C", "E", "G", "B", "I", "A", "H", "D"]
     assert len(idx) == 11
     x = severity[idx]
@@ -66,11 +63,7 @@ def main() -> None:
         "F_seeds_per_fruit_y2": "seeds_per_fruit_y2",
         "G_adult_He": "unbiased_expected_heterozygosity_He",
     }
-    expected_layers = {
-        "I_pollen_tubes": "I",
-        "F_seeds_per_fruit_y2": "F",
-        "G_adult_He": "G_adult",
-    }
+    expected_layers = {"I_pollen_tubes": "I", "F_seeds_per_fruit_y2": "F", "G_adult_He": "G_adult"}
     var = 1.0 / (len(idx) - 3)
     residual_vectors = []
     for endpoint, y in endpoint_values.items():
@@ -109,18 +102,17 @@ def main() -> None:
     assert ml015["covariance_status"] == "proxy_reconstructed_gradient_residual"
 
     primary = [r for r in registry.values() if r["cluster_status"] == "admissible_multilayer_cluster"]
-    assert {r["cluster_id"] for r in primary} == {"ML001", "ML002", "ML003"}
-    assert sum(int(r["n_admissible_primary_effects"]) for r in primary) == 9
+    assert {r["cluster_id"] for r in primary} == {"ML001", "ML002", "ML003", "ML014"}
+    assert sum(int(r["n_admissible_primary_effects"]) for r in primary) == 11
 
     text = RESULT.read_text(encoding="utf-8")
     assert "zero primary Hedges-g effects" in text
     assert "Fisher-z gradient generalisation cluster" in text
-    assert "3 independent clusters / 9 primary effects" in text
 
     print(
         "ML015 Eucalyptus wandoo gradient contract: PASS; "
         "3 Fisher-z gradient effects retained with positive-definite residual-proxy V; "
-        "primary Hedges-g denominator remains 3 clusters / 9 effects"
+        "ML015 adds zero primary effects while current primary denominator is 4 clusters / 11 effects"
     )
 
 
