@@ -6,8 +6,8 @@ This ledger is the current cluster-first state. The unit of primary cross-system
 
 ## Corpus state
 
-- source-verified primary-study seeds: **18**
-- candidate systems/programmes: **19** plus two post-seed expansions (`PS019 Eucalyptus wandoo`, `PS020 Eucalyptus socialis`)
+- source-verified primary-study seeds: **19**
+- candidate systems/programmes: **19** plus three post-seed expansions (`PS019 Eucalyptus wandoo`, `PS020 Eucalyptus socialis`, `PS021 Swietenia macrophylla`)
 - priority extraction queue: **9 studies**
 - independent **primary** admissible multilayer clusters: **4** (`ML001–ML003`, `ML014`)
 - primary admissible effects inside those clusters: **11** (`PS003`: C/F/G_adult; `PS004`: C/F; `PS001`: C/G_adult/G_offspring[juvenile]/G_offspring[seed]; `PS020`: G_mating/F)
@@ -70,6 +70,8 @@ Their group-centered paired-family correlation proxy is `rho = +0.32672987`, giv
 
 The within-ML014 G_mating-versus-F contrast is `delta=-0.75210501`, SE `0.45497620`, z `-1.65306`, two-sided/cluster `p=0.09831774`. Admission never depended on significance. Biologically this is concordant deterioration with a much stronger mating-support response than progeny-growth response.
 
+The effect-unit audit classifies ML014 as an **individual local-context observational design**, not a replicated landscape experiment. Maternal-family variance does not prove absence of all residual spatial correlation; Yookamurra remains excluded from the primary contrast.
+
 ## ML015 / PS019 — *Eucalyptus wandoo* gradient generalisation
 
 ML015 is **not** a primary cluster. It remains in the separate Fisher-z continuous-gradient stream.
@@ -82,20 +84,37 @@ Canonical effects:
 
 Each marginal variance is `0.125`. The gradient covariance proxy is positive definite. The within-ML015 Bonferroni diagnostic is `p_cluster = 0.00256953`, driven by I-F sign discordance. ML015 contributes zero primary Hedges-g effects and is not combined with the primary Fisher statistic.
 
+## ML016 / PS021 — *Swietenia macrophylla* representation closure
+
+ML016 is a source-verified fifth-cluster candidate but contributes **zero primary effects**.
+
+The source reports strong directional forest-versus-isolated summaries:
+
+- correlated paternity `r_p`: `0.163` forest versus `0.341` isolated;
+- five-year common-garden growth: `0.060` forest versus `0.048` isolated.
+
+The source methods state that group mating-system parameter uncertainty was obtained by bootstrapping maternal families. Thus the parenthetical `r_p` uncertainty in Table 1 is not a between-family sample SD that can be combined with `n_family=47/24` in the canonical Hedges-g formula.
+
+Appendix S3 was recovered through the public Europe PMC supplementary package and audited in CI. It contains family-level GLM slope-bootstrap summaries and population-level trend/correlation summaries, not a keyed family table with context, provenance, family `r_p`, and family growth. Therefore neither a valid family-level G_mating Hedges-g representation nor the prespecified paired G_mating/F covariance can be reconstructed from public sources.
+
+Terminal state: `family_level_mating_effect_and_dependence_not_reconstructable`.
+
+This is a **representation boundary, not a biological negative result**. Reopen only with a legitimate source family table containing family id, isolated/forest context, mesic/dry provenance, family `r_p`, and five-year growth. Do not back-solve covariance from regression summaries, digitize Figure 3, set covariance to zero, or treat provenance strata as separate systems.
+
 ## Effect-family contract
 
 Primary direct/contrast effects use Hedges g with `metafor::escalc(measure="SMD", vtype="LS")` variance semantics. Continuous gradients use the separate `fisher_z_gradient` stream. Hedges g and Fisher z are never pooled merely to enlarge the primary sample.
 
 ## Primary cross-system gates
 
-The primary multilayer denominator is **4 independent clusters / 11 effects**:
+The primary multilayer denominator remains **4 independent clusters / 11 effects**:
 
 1. `ML001 Serapias`: C/F/G_adult;
 2. `ML002 Brosimum`: C/F;
 3. `ML003 Spondias`: C/G_adult/G_offspring;
 4. `ML014 Eucalyptus socialis`: G_mating/F.
 
-The narrower C-F comparison remains `k=2`; ML014 has G_mating/F rather than C/F. ML015 remains separate gradient generalisation.
+The narrower C-F comparison remains `k=2`; ML014 has G_mating/F rather than C/F. ML015 remains separate gradient generalisation. ML016 is descriptive/source evidence only.
 
 ## Formal primary state-separation synthesis
 
@@ -115,13 +134,11 @@ Leave-one-primary-cluster-out sensitivity remains important:
 - omit ML003: `p = 0.00392`;
 - omit ML014: `p = 0.00621`.
 
-Thus ML014 broadens the primary evidence and improves the ML001-omission diagnostic relative to the prior three-cluster corpus, but **ML001 remains influential**. The result is not leave-one-cluster-out robust.
+Thus **ML001 remains influential**. The result is not leave-one-cluster-out robust. ML016 does not change this because it fails the representation/dependence gate before primary admission.
 
 Supported claim:
 
 **Across the four currently admitted direct fragmented-versus-reference systems, the current corpus rejects exchangeability of biological response layers, while the cross-cluster rejection remains dependent on inclusion of ML001 in leave-one-cluster-out sensitivity.**
-
-ML014 is a prospectively locked additional-cluster recovery under an already-fixed synthesis method; the overall meta-analysis remains retrospective. ML015 separately supports state separation in the gradient tier.
 
 ## Correction provenance
 
@@ -129,4 +146,4 @@ A superseded implementation counted ML015 as a fourth primary cluster and report
 
 ## Closed recovery routes and next priority
 
-ML004–ML013 remain blocked or closed for the recorded source/effect-unit reasons. ML014 is now admitted. The next empirical upgrade is an additional independent direct cluster or a genuinely prospective external validation; do not reclassify gradient or nested-unit evidence merely to increase the denominator.
+ML004–ML013 and ML016 are blocked or closed for their recorded source/effect-unit/representation reasons. ML014 is admitted; ML015 is gradient-only. The next empirical upgrade remains an additional independent direct cluster or a genuinely prospective external validation. Do not reclassify gradient, group-bootstrap uncertainty, or nested-unit evidence merely to increase the denominator.
