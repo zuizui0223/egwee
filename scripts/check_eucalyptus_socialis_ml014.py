@@ -75,7 +75,7 @@ def main() -> None:
         "fourth independent **primary Hedges-g multilayer cluster**",
         "`g = -1.02391388`",
         "`g = -0.27180887`",
-        "p=0.09831774",
+        "`0.09831774`",
         "4 independent clusters / 11 primary effects",
     ):
         assert token in text, token
