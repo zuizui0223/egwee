@@ -1,4 +1,4 @@
-name: Swietenia macrophylla ML016 schema gate
+name: Swietenia macrophylla ML016 closure
 
 on:
   push:
@@ -6,17 +6,31 @@ on:
       - 'agent/recover-swietenia-macrophylla-ml016'
     paths:
       - 'manuscript/SWIETENIA_MACROPHYLLA_2012_ML016_RECOVERY_CONTRACT.md'
+      - 'manuscript/SWIETENIA_MACROPHYLLA_2012_ML016_RECOVERY_RESULT.md'
+      - 'manuscript/META_ANALYSIS_CLUSTER_STATUS_2026-09-12.md'
+      - 'manuscript/meta_analysis_primary_study_seed_v1.csv'
+      - 'evidence/meta_extraction/PS021_swietenia_macrophylla_summary_v1.csv'
+      - 'evidence/meta_extraction/multilayer_cluster_registry_v1.csv'
       - 'scripts/probe_swietenia_macrophylla_2012_supplements.py'
+      - 'scripts/check_swietenia_macrophylla_ml016_closure.py'
+      - 'scripts/check_meta_analysis_progress.py'
       - '.github/workflows/swietenia-macrophylla-ml016-schema.yml'
   pull_request:
     paths:
       - 'manuscript/SWIETENIA_MACROPHYLLA_2012_ML016_RECOVERY_CONTRACT.md'
+      - 'manuscript/SWIETENIA_MACROPHYLLA_2012_ML016_RECOVERY_RESULT.md'
+      - 'manuscript/META_ANALYSIS_CLUSTER_STATUS_2026-09-12.md'
+      - 'manuscript/meta_analysis_primary_study_seed_v1.csv'
+      - 'evidence/meta_extraction/PS021_swietenia_macrophylla_summary_v1.csv'
+      - 'evidence/meta_extraction/multilayer_cluster_registry_v1.csv'
       - 'scripts/probe_swietenia_macrophylla_2012_supplements.py'
+      - 'scripts/check_swietenia_macrophylla_ml016_closure.py'
+      - 'scripts/check_meta_analysis_progress.py'
       - '.github/workflows/swietenia-macrophylla-ml016-schema.yml'
   workflow_dispatch:
 
 jobs:
-  schema:
+  closure:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -29,5 +43,9 @@ jobs:
             sudo apt-get update -qq
             sudo apt-get install -y antiword
           fi
-      - name: Inspect public supporting-information schema only
+      - name: Reconfirm public supporting-information representation
         run: python scripts/probe_swietenia_macrophylla_2012_supplements.py
+      - name: Enforce ML016 representation closure and primary denominator
+        run: python scripts/check_swietenia_macrophylla_ml016_closure.py
+      - name: Validate global extraction progress
+        run: python scripts/check_meta_analysis_progress.py
