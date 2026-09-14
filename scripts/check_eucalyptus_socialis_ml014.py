@@ -10,6 +10,7 @@ COV = ROOT / "evidence/meta_extraction/PS020_eucalyptus_socialis_primary_covaria
 REGISTRY = ROOT / "evidence/meta_extraction/multilayer_cluster_registry_v1.csv"
 SEED = ROOT / "manuscript/meta_analysis_primary_study_seed_v1.csv"
 RESULT = ROOT / "manuscript/EUCALYPTUS_SOCIALIS_2012_ML014_RECOVERY_RESULT.md"
+EFFECT_UNIT_AUDIT = ROOT / "manuscript/EUCALYPTUS_SOCIALIS_2012_EFFECT_UNIT_AUDIT.md"
 
 
 def rows(path: Path) -> list[dict[str, str]]:
@@ -18,7 +19,7 @@ def rows(path: Path) -> list[dict[str, str]]:
 
 
 def main() -> None:
-    for path in (EFFECTS, COV, REGISTRY, SEED, RESULT):
+    for path in (EFFECTS, COV, REGISTRY, SEED, RESULT, EFFECT_UNIT_AUDIT):
         assert path.is_file(), path
 
     effects = {r["endpoint_id"]: r for r in rows(EFFECTS)}
@@ -80,9 +81,22 @@ def main() -> None:
     ):
         assert token in text, token
 
+    audit = EFFECT_UNIT_AUDIT.read_text(encoding="utf-8")
+    for token in (
+        "individual local-context observational design",
+        "same broad landscape",
+        "near-neighbour mothers was explicitly avoided",
+        "Why this differs from ML009 Pistacia",
+        "not described as a replicated landscape experiment",
+        "does not prove absence of all residual spatial correlation",
+        "13 fragmented and 15 public complete-case reference families",
+    ):
+        assert token in audit, token
+
     print(
         "ML014 Eucalyptus socialis admission: PASS; 13 isolated-pasture + 15 small-remnant families; "
-        "G_mating g=-1.023914, F g=-0.271809, covariance-aware p=0.098318; primary denominator=4/11"
+        "G_mating g=-1.023914, F g=-0.271809, covariance-aware p=0.098318; "
+        "effect-unit audit confirms within-Monarto maternal-family local-context design; primary denominator=4/11"
     )
 
 
