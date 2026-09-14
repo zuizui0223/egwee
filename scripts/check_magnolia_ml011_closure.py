@@ -19,8 +19,8 @@ def main():
     assert m['covariance_status']=='blocked_before_effect_calculation'
     assert m['cluster_status']=='source_population_size_values_not_recoverable'
     adm=[r for r in rows if r['cluster_status']=='admissible_multilayer_cluster']
-    assert {r['cluster_id'] for r in adm}=={'ML001','ML002','ML003'}
-    assert sum(int(r['n_admissible_primary_effects']) for r in adm)==9
+    assert {r['cluster_id'] for r in adm}=={'ML001','ML002','ML003','ML014'}
+    assert sum(int(r['n_admissible_primary_effects']) for r in adm)==11
     req=urllib.request.Request(URL,headers={'User-Agent':'Mozilla/5.0 egwee-magnolia-ml011-audit/1.0'})
     with urllib.request.urlopen(req,timeout=60) as r: payload=r.read()
     doc=Document(io.BytesIO(payload)); assert len(doc.tables)==1
@@ -33,5 +33,5 @@ def main():
     text=RES.read_text(encoding='utf-8')
     assert 'No C/F effect or covariance was calculated' in text
     assert '85, 97, 46, 16, 23, 4' in text
-    print('Magnolia ML011 closure: PASS; source exposure mismatch audited; ML009 Pistacia and ML010 Penstemon preserved; admissible state remains 3 clusters / 9 effects')
+    print('Magnolia ML011 closure: PASS; source exposure mismatch audited; ML011 adds 0 effects; current primary denominator=4/11')
 if __name__=='__main__': main()
