@@ -1,0 +1,33 @@
+name: Swietenia macrophylla ML016 schema gate
+
+on:
+  push:
+    branches:
+      - 'agent/recover-swietenia-macrophylla-ml016'
+    paths:
+      - 'manuscript/SWIETENIA_MACROPHYLLA_2012_ML016_RECOVERY_CONTRACT.md'
+      - 'scripts/probe_swietenia_macrophylla_2012_supplements.py'
+      - '.github/workflows/swietenia-macrophylla-ml016-schema.yml'
+  pull_request:
+    paths:
+      - 'manuscript/SWIETENIA_MACROPHYLLA_2012_ML016_RECOVERY_CONTRACT.md'
+      - 'scripts/probe_swietenia_macrophylla_2012_supplements.py'
+      - '.github/workflows/swietenia-macrophylla-ml016-schema.yml'
+  workflow_dispatch:
+
+jobs:
+  schema:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install legacy Word reader
+        run: |
+          if ! command -v antiword >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y antiword
+          fi
+      - name: Inspect public supporting-information schema only
+        run: python scripts/probe_swietenia_macrophylla_2012_supplements.py
