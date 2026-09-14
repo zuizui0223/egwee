@@ -1,0 +1,34 @@
+name: Eucalyptus socialis ML014 recovery
+
+# rerun marker: previous push ended in GitHub Actions startup_failure before any job ran
+on:
+  push:
+    branches:
+      - 'agent/recover-eucalyptus-socialis-ml014'
+    paths:
+      - 'manuscript/EUCALYPTUS_SOCIALIS_2012_ML014_RECOVERY_CONTRACT.md'
+      - 'scripts/probe_eucalyptus_socialis_dryad_schema.py'
+      - 'scripts/probe_eucalyptus_socialis_tern_schema.py'
+      - 'scripts/recover_eucalyptus_socialis_ml014.py'
+      - '.github/workflows/eucalyptus-socialis-ml014-schema.yml'
+  pull_request:
+    paths:
+      - 'manuscript/EUCALYPTUS_SOCIALIS_2012_ML014_RECOVERY_CONTRACT.md'
+      - 'scripts/probe_eucalyptus_socialis_dryad_schema.py'
+      - 'scripts/probe_eucalyptus_socialis_tern_schema.py'
+      - 'scripts/recover_eucalyptus_socialis_ml014.py'
+      - '.github/workflows/eucalyptus-socialis-ml014-schema.yml'
+  workflow_dispatch:
+
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Confirm public family/progeny schema
+        run: python scripts/probe_eucalyptus_socialis_dryad_schema.py || python scripts/probe_eucalyptus_socialis_tern_schema.py
+      - name: Run locked Monarto family-level quantitative recovery
+        run: python scripts/recover_eucalyptus_socialis_ml014.py
