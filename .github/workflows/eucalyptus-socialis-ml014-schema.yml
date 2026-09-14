@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - 'agent/recover-eucalyptus-socialis-ml014'
+      - 'agent/audit-ml014-effect-unit'
     paths:
       - 'manuscript/EUCALYPTUS_SOCIALIS_2012_ML014_RECOVERY_CONTRACT.md'
       - 'manuscript/EUCALYPTUS_SOCIALIS_2012_ML014_RECOVERY_RESULT.md'
+      - 'manuscript/EUCALYPTUS_SOCIALIS_2012_EFFECT_UNIT_AUDIT.md'
       - 'manuscript/meta_analysis_primary_study_seed_v1.csv'
       - 'evidence/meta_extraction/PS020_eucalyptus_socialis_effects_v1.csv'
       - 'evidence/meta_extraction/PS020_eucalyptus_socialis_primary_covariance_v1.csv'
@@ -20,6 +22,7 @@ on:
     paths:
       - 'manuscript/EUCALYPTUS_SOCIALIS_2012_ML014_RECOVERY_CONTRACT.md'
       - 'manuscript/EUCALYPTUS_SOCIALIS_2012_ML014_RECOVERY_RESULT.md'
+      - 'manuscript/EUCALYPTUS_SOCIALIS_2012_EFFECT_UNIT_AUDIT.md'
       - 'manuscript/meta_analysis_primary_study_seed_v1.csv'
       - 'evidence/meta_extraction/PS020_eucalyptus_socialis_effects_v1.csv'
       - 'evidence/meta_extraction/PS020_eucalyptus_socialis_primary_covariance_v1.csv'
@@ -43,5 +46,5 @@ jobs:
         run: python scripts/probe_eucalyptus_socialis_dryad_schema.py || python scripts/probe_eucalyptus_socialis_tern_schema.py
       - name: Recompute locked Monarto family-level recovery
         run: python scripts/recover_eucalyptus_socialis_ml014.py
-      - name: Enforce committed ML014 effects, covariance and denominator
+      - name: Enforce committed ML014 effects, covariance, effect unit and denominator
         run: python scripts/check_eucalyptus_socialis_ml014.py
