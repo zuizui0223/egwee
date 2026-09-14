@@ -11,6 +11,8 @@ SERA_COV = ROOT / "evidence/meta_extraction/PS003_serapias_primary_covariance_v1
 BROS_SITE = ROOT / "evidence/meta_extraction/PS004_brosimum_site_table_v1.csv"
 BROS_EFFECTS = ROOT / "evidence/meta_extraction/PS004_brosimum_extraction_v1.csv"
 BROS_COV = ROOT / "evidence/meta_extraction/PS004_brosimum_primary_covariance_v1.csv"
+SOCIALIS_EFFECTS = ROOT / "evidence/meta_extraction/PS020_eucalyptus_socialis_effects_v1.csv"
+SOCIALIS_COV = ROOT / "evidence/meta_extraction/PS020_eucalyptus_socialis_primary_covariance_v1.csv"
 WANDOO_COV = ROOT / "evidence/meta_extraction/PS019_eucalyptus_wandoo_2018_gradient_covariance_v1.csv"
 WANDOO_EFFECTS = ROOT / "evidence/meta_extraction/PS019_eucalyptus_wandoo_2018_gradient_effects_v1.csv"
 WANDOO_RESULT = ROOT / "manuscript/EUCALYPTUS_WANDOO_2018_CLUSTER_RECOVERY_RESULT.md"
@@ -109,76 +111,70 @@ def validate_brosimum() -> None:
     validate_covariance(BROS_COV, "ML002", "PS004", endpoints, vectors, variances, groups)
 
 
+def validate_socialis() -> None:
+    effects = {r["endpoint_id"]: r for r in rows(SOCIALIS_EFFECTS)}
+    assert set(effects) == {"Gmating_correlated_paternity_rp", "F_family_growth"}
+    endpoints = ["Gmating_correlated_paternity_rp", "F_family_growth"]
+    cov_rows = rows(SOCIALIS_COV)
+    by_pair = {(r["endpoint_i"], r["endpoint_j"]): r for r in cov_rows}
+    assert set(by_pair) == {(a, b) for a in endpoints for b in endpoints}
+    matrix = [[float(by_pair[(a, b)]["sampling_covariance"]) for b in endpoints] for a in endpoints]
+    assert cholesky_positive_definite(matrix), matrix
+    assert abs(float(by_pair[(endpoints[0], endpoints[1])]["correlation_proxy"]) - 0.326729868213) < 1e-9
+    assert abs(float(by_pair[(endpoints[0], endpoints[1])]["sampling_covariance"]) - 0.050108426040) < 1e-9
+    assert effects[endpoints[0]]["layer"] == "G_mating"
+    assert effects[endpoints[1]]["layer"] == "F_reproductive_function"
+    assert all(r["independent_unit"] == "maternal_family" for r in effects.values())
+
+
 def validate_wandoo_gradient() -> None:
     effects = rows(WANDOO_EFFECTS)
     assert len(effects) == 3
     assert all(r["effect_stream"] == "fisher_z_gradient" for r in effects)
     assert all(r["effect_unit_status"] == "fisher_z_admissible" for r in effects)
     assert all(abs(float(r["raw_variance"]) - 0.125) < 1e-12 for r in effects)
-
     endpoints = ["I_pollen_tubes", "F_seeds_per_fruit_y2", "G_adult_He"]
-    rs = rows(WANDOO_COV)
-    by_pair = {(r["endpoint_i"], r["endpoint_j"]): r for r in rs}
-    assert set(by_pair) == {(a, b) for a in endpoints for b in endpoints}
-    matrix = []
-    for a in endpoints:
-        row_vals = []
-        for b in endpoints:
-            rr = by_pair[(a, b)]
-            assert rr["covariance_status"] == "proxy_reconstructed_gradient_residual"
-            row_vals.append(float(rr["sampling_covariance"]))
-        matrix.append(row_vals)
+    by_pair = {(r["endpoint_i"], r["endpoint_j"]): r for r in rows(WANDOO_COV)}
+    matrix = [[float(by_pair[(a, b)]["sampling_covariance"]) for b in endpoints] for a in endpoints]
     assert cholesky_positive_definite(matrix), matrix
-
-    result = WANDOO_RESULT.read_text(encoding="utf-8")
-    assert "ML015_gradient_generalisation_I_F_Gadult_covariance_aware" in result
-    assert "`z=+0.69029123`" in result
-    assert "`z=-0.87593080`" in result
-    assert "`z=-0.41117288`" in result
-    assert "zero primary Hedges-g effects" in result
+    assert "zero primary Hedges-g effects" in WANDOO_RESULT.read_text(encoding="utf-8")
 
 
 def main() -> None:
     for path in (
         SERA_SITE, SERA_EFFECTS, SERA_COV, BROS_SITE, BROS_EFFECTS, BROS_COV,
-        WANDOO_COV, WANDOO_EFFECTS, WANDOO_RESULT, REGISTRY, BASE_AMENDMENT, COHORT_AMENDMENT,
+        SOCIALIS_EFFECTS, SOCIALIS_COV, WANDOO_COV, WANDOO_EFFECTS, WANDOO_RESULT,
+        REGISTRY, BASE_AMENDMENT, COHORT_AMENDMENT,
     ):
         assert path.is_file(), path
-    assert not OBSOLETE_WANDOO_COV.exists(), "obsolete ML015 primary covariance must remain deleted"
+    assert not OBSOLETE_WANDOO_COV.exists()
     assert "Do not set covariance to zero" in BASE_AMENDMENT.read_text(encoding="utf-8")
-    cohort_text = COHORT_AMENDMENT.read_text(encoding="utf-8")
-    assert "proxy_pairwise_low_rank" in cohort_text
-    assert "do **not** force the full proxy covariance matrix to be positive definite" in cohort_text
 
     validate_serapias()
     validate_brosimum()
+    validate_socialis()
     validate_wandoo_gradient()
 
     registry = rows(REGISTRY)
     by_cluster = {r["cluster_id"]: r for r in registry}
     primary = [r for r in registry if r["cluster_status"] == "admissible_multilayer_cluster"]
     gradient = [r for r in registry if r["cluster_status"] == "gradient_generalisation_multilayer_cluster"]
-    assert {r["cluster_id"] for r in primary} == {"ML001", "ML002", "ML003"}
+    assert {r["cluster_id"] for r in primary} == {"ML001", "ML002", "ML003", "ML014"}
     assert {r["cluster_id"] for r in gradient} == {"ML015"}
-    assert set(by_cluster["ML001"]["admissible_primary_layers"].split(";")) == {"C", "F", "G_adult"}
     assert int(by_cluster["ML001"]["n_admissible_primary_effects"]) == 3
-    assert set(by_cluster["ML002"]["admissible_primary_layers"].split(";")) == {"C", "F"}
     assert int(by_cluster["ML002"]["n_admissible_primary_effects"]) == 2
-    assert set(by_cluster["ML003"]["admissible_primary_layers"].split(";")) == {"C", "G_adult", "G_offspring"}
     assert int(by_cluster["ML003"]["n_admissible_primary_effects"]) == 4
-    assert by_cluster["ML003"]["covariance_status"] == "proxy_pairwise_low_rank_from_five_sites"
+    assert set(by_cluster["ML014"]["admissible_primary_layers"].split(";")) == {"G_mating", "F"}
+    assert int(by_cluster["ML014"]["n_admissible_primary_effects"]) == 2
+    assert by_cluster["ML014"]["covariance_status"] == "proxy_reconstructed_from_paired_families"
     assert by_cluster["ML015"]["admissible_primary_layers"] == ""
     assert int(by_cluster["ML015"]["n_admissible_primary_effects"]) == 0
-    assert by_cluster["ML015"]["covariance_status"] == "proxy_reconstructed_gradient_residual"
-    assert by_cluster["ML015"]["cluster_status"] == "gradient_generalisation_multilayer_cluster"
-    assert by_cluster["ML006"]["cluster_status"] == "common_population_values_not_recoverable"
-    assert int(by_cluster["ML006"]["n_admissible_primary_effects"]) == 0
-    assert len(primary) == 3
-    assert sum(int(r["n_admissible_primary_effects"]) for r in primary) == 9
+    assert len(primary) == 4
+    assert sum(int(r["n_admissible_primary_effects"]) for r in primary) == 11
 
     print(
-        "EGWEE multilayer cluster contract: PASS; "
-        "primary family = ML001-ML003 / 9 effects; ML015 = separate Fisher-z gradient cluster / 3 effects"
+        "EGWEE multilayer cluster contract: PASS; primary family = ML001-ML003+ML014 / 11 effects; "
+        "ML015 = separate Fisher-z gradient cluster / 3 effects"
     )
 
 

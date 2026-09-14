@@ -1,0 +1,47 @@
+name: Eucalyptus socialis ML014 recovery
+
+on:
+  push:
+    branches:
+      - 'agent/recover-eucalyptus-socialis-ml014'
+    paths:
+      - 'manuscript/EUCALYPTUS_SOCIALIS_2012_ML014_RECOVERY_CONTRACT.md'
+      - 'manuscript/EUCALYPTUS_SOCIALIS_2012_ML014_RECOVERY_RESULT.md'
+      - 'manuscript/meta_analysis_primary_study_seed_v1.csv'
+      - 'evidence/meta_extraction/PS020_eucalyptus_socialis_effects_v1.csv'
+      - 'evidence/meta_extraction/PS020_eucalyptus_socialis_primary_covariance_v1.csv'
+      - 'evidence/meta_extraction/multilayer_cluster_registry_v1.csv'
+      - 'scripts/probe_eucalyptus_socialis_dryad_schema.py'
+      - 'scripts/probe_eucalyptus_socialis_tern_schema.py'
+      - 'scripts/recover_eucalyptus_socialis_ml014.py'
+      - 'scripts/check_eucalyptus_socialis_ml014.py'
+      - '.github/workflows/eucalyptus-socialis-ml014-schema.yml'
+  pull_request:
+    paths:
+      - 'manuscript/EUCALYPTUS_SOCIALIS_2012_ML014_RECOVERY_CONTRACT.md'
+      - 'manuscript/EUCALYPTUS_SOCIALIS_2012_ML014_RECOVERY_RESULT.md'
+      - 'manuscript/meta_analysis_primary_study_seed_v1.csv'
+      - 'evidence/meta_extraction/PS020_eucalyptus_socialis_effects_v1.csv'
+      - 'evidence/meta_extraction/PS020_eucalyptus_socialis_primary_covariance_v1.csv'
+      - 'evidence/meta_extraction/multilayer_cluster_registry_v1.csv'
+      - 'scripts/probe_eucalyptus_socialis_dryad_schema.py'
+      - 'scripts/probe_eucalyptus_socialis_tern_schema.py'
+      - 'scripts/recover_eucalyptus_socialis_ml014.py'
+      - 'scripts/check_eucalyptus_socialis_ml014.py'
+      - '.github/workflows/eucalyptus-socialis-ml014-schema.yml'
+  workflow_dispatch:
+
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Confirm public family/progeny schema
+        run: python scripts/probe_eucalyptus_socialis_dryad_schema.py || python scripts/probe_eucalyptus_socialis_tern_schema.py
+      - name: Recompute locked Monarto family-level recovery
+        run: python scripts/recover_eucalyptus_socialis_ml014.py
+      - name: Enforce committed ML014 effects, covariance and denominator
+        run: python scripts/check_eucalyptus_socialis_ml014.py
