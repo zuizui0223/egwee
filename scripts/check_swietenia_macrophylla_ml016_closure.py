@@ -65,7 +65,8 @@ def main() -> None:
         "zero primary effects",
         "4 independent clusters / 11 primary effects",
         "not a between-family sample SD",
-        "representation boundary, not a biological negative result",
+        "representation boundary",
+        "not a biological negative result",
         "Do not redesign the estimand after opening it",
     ):
         assert token in result, token
