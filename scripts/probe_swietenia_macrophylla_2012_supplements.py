@@ -8,6 +8,7 @@ import tempfile
 import urllib.request
 import zipfile
 from pathlib import Path
+import xml.etree.ElementTree as ET
 
 PMCID = "PMC3489046"
 SUPP_URL = f"https://www.ebi.ac.uk/europepmc/webservices/rest/{PMCID}/supplementaryFiles"
@@ -16,7 +17,7 @@ EXPECTED = {
     "ele0015-0444-SD2.doc",
     "ele0015-0444-SD3.doc",
 }
-UA = "Mozilla/5.0 egwee-swietenia-macrophylla-ml016-schema/1.1"
+UA = "Mozilla/5.0 egwee-swietenia-macrophylla-ml016-schema/1.2"
 
 
 def fetch(url: str) -> bytes:
@@ -31,17 +32,16 @@ def fetch(url: str) -> bytes:
 
 
 def redact_numbers(text: str) -> str:
-    # Schema audit only: retain labels/row identities but mask numerical outcome values.
     text = re.sub(r"(?<![A-Za-z])[-+]?\d+(?:\.\d+)?(?:[Ee][-+]?\d+)?", "<NUM>", text)
     text = re.sub(r"\s+", " ", text).strip()
-    return text[:500]
+    return text[:700]
 
 
-def extract_doc_text(path: Path) -> str:
+def antiword(path: Path, *args: str) -> str:
     if shutil.which("antiword") is None:
         raise RuntimeError("antiword is required for legacy .doc schema inspection")
     proc = subprocess.run(
-        ["antiword", str(path)],
+        ["antiword", *args, str(path)],
         check=True,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
@@ -53,25 +53,14 @@ def extract_doc_text(path: Path) -> str:
 
 def candidate_schema_lines(text: str) -> list[tuple[int, str]]:
     terms = (
-        "family",
-        "families",
-        "population",
-        "provenance",
-        "isolated",
-        "forest",
-        "growth",
-        "correlated paternity",
-        "paternity",
-        "r p",
-        "rp",
-        "outcross",
+        "family", "families", "population", "provenance", "isolated", "forest",
+        "growth", "correlated paternity", "paternity", "r p", "rp", "outcross",
     )
     hits: list[tuple[int, str]] = []
     for i, raw in enumerate(text.splitlines(), start=1):
         line = re.sub(r"\s+", " ", raw).strip()
         low = line.lower()
-        n = sum(term in low for term in terms)
-        if n >= 2:
+        if sum(term in low for term in terms) >= 2:
             hits.append((i, line))
     return hits
 
@@ -83,12 +72,29 @@ def signature(text: str) -> dict[str, bool]:
         "has_population": "population" in low,
         "has_growth": "growth" in low,
         "has_rp_or_correlated_paternity": (
-            "correlated paternity" in low
-            or bool(re.search(r"\br\s*[_ ]?p\b", low))
+            "correlated paternity" in low or bool(re.search(r"\br\s*[_ ]?p\b", low))
         ),
         "has_context": "isolated" in low and "forest" in low,
         "has_provenance": "provenance" in low,
     }
+
+
+def docbook_rows(xml_text: str) -> list[list[str]]:
+    # antiword -x db emits a DocBook document. Namespace handling varies by package,
+    # so parse all row/entry tags by local-name.
+    root = ET.fromstring(xml_text)
+    rows: list[list[str]] = []
+    for elem in root.iter():
+        if elem.tag.split("}")[-1].lower() != "row":
+            continue
+        cells: list[str] = []
+        for child in elem.iter():
+            if child.tag.split("}")[-1].lower() == "entry":
+                text = " ".join(t.strip() for t in child.itertext() if t.strip())
+                cells.append(re.sub(r"\s+", " ", text).strip())
+        if cells:
+            rows.append(cells)
+    return rows
 
 
 def main() -> None:
@@ -107,11 +113,13 @@ def main() -> None:
             root = Path(td)
             signatures: dict[str, dict[str, bool]] = {}
             texts: dict[str, str] = {}
+            paths: dict[str, Path] = {}
             for expected in sorted(EXPECTED):
                 member = next(n for n in zf.namelist() if Path(n).name == expected)
                 out = root / expected
                 out.write_bytes(zf.read(member))
-                text = extract_doc_text(out)
+                paths[expected] = out
+                text = antiword(out)
                 texts[expected] = text
                 sig = signature(text)
                 signatures[expected] = sig
@@ -127,9 +135,6 @@ def main() -> None:
                         f"file={expected!r} line={line_no} text={redact_numbers(line)!r}"
                     )
 
-            # SD3 is only 47 extracted text lines. Print its entire structure with all numerical
-            # values masked so we can distinguish family rows from population/group summaries
-            # without opening outcome values prematurely.
             sd3 = texts["ele0015-0444-SD3.doc"]
             for line_no, raw in enumerate(sd3.splitlines(), start=1):
                 line = re.sub(r"\s+", " ", raw).strip()
@@ -138,6 +143,20 @@ def main() -> None:
                         "MACROPHYLLA_SD3_REDACTED "
                         f"line={line_no} text={redact_numbers(line)!r}"
                     )
+
+            # Preserve actual table cell boundaries. All numerical values remain redacted.
+            try:
+                db = antiword(paths["ele0015-0444-SD3.doc"], "-x", "db")
+                rows = docbook_rows(db)
+            except Exception as exc:
+                print(f"MACROPHYLLA_DOCBOOK_ERROR type={type(exc).__name__!r} message={str(exc)!r}")
+                rows = []
+            print(f"MACROPHYLLA_SD3_DOCBOOK_ROWS n={len(rows)}")
+            for i, cells in enumerate(rows, start=1):
+                print(
+                    "MACROPHYLLA_SD3_TABLE_ROW "
+                    f"row={i} cells={[redact_numbers(c) for c in cells]!r}"
+                )
 
     candidates = [
         name for name, sig in signatures.items()
