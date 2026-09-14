@@ -25,7 +25,7 @@ The source also estimates mating-system quantities at family level and analyses 
 
 ## Admission decision
 
-Retain ML014 as an `admissible_multilayer_cluster` with maternal family as the independent **observational** unit for this within-landscape local-context contrast.
+Retain ML014 as an `admissible_multilayer_cluster`. It is an **individual local-context observational design** within one broad Monarto landscape, with maternal family as the independent observational unit for the source-defined local-context contrast.
 
 This admission is conditional on the following claim ceiling:
 
