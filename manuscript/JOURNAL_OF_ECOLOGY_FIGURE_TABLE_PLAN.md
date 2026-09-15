@@ -62,10 +62,20 @@ One row per independent primary programme/study cluster. Columns:
 
 ML020 appears once, with its three species described as dependent subsystems. ML015 is excluded from Table 1 and described separately as gradient generalisation evidence.
 
-## Supplementary display
+## Supplementary Table S3 — All 17 primary marginal effects
 
-A complete 17-effect forest-style table/figure may be supplied as Supplementary Information, where the extreme ML001 magnitudes can be shown without forcing the main narrative onto a visually compressed common axis. The main text should not hide those effects; it should simply avoid making the visual design depend on them.
+**Purpose:** expose every admitted marginal Hedges-g effect, including the influential extreme standardized ML001 effects, without treating the 17 rows as independent meta-analytic replicates.
+
+For every admitted effect report the cluster/subsystem, biological layer, endpoint, source-defined fragmentation contrast, independent unit, independent group sizes, Hedges g, sampling variance, standard error and marginal 95% confidence interval. The table is regenerated and checked directly against the canonical effect CSVs. Marginal confidence intervals describe individual standardized fragmentation effects; they are not substitutes for the covariance-aware within-cluster layer-separation tests.
+
+## Supplementary Figure S1 — Forest display of all 17 primary marginal effects
+
+**Purpose:** make the complete effect geometry visually inspectable while preventing the extreme ML001 standardized magnitudes from collapsing the display of all other systems.
+
+ML001 *Serapias lingua* uses an explicitly labelled separate horizontal Hedges-g scale. ML002, ML003, ML014 and ML020 share a second scale. Both panels show zero-reference lines, point estimates and marginal 95% confidence intervals. The dual scale is declared in the figure itself and caption; it is a display choice only and does not alter any effect or statistical test.
 
 ## Generation contract
 
 `scripts/build_journal_of_ecology_figures.py` is the deterministic source for Figures 1–3 and Table 1. It reads the canonical registry/effect files plus `scripts/synthesize_state_separation.py`, and must fail if the five-cluster result or ML020 values drift from the canonical synthesis.
+
+`scripts/check_primary_effect_supplement.py` independently reconstructs Supplementary Table S3 from the source effect CSVs and checks all 17 effects, variances, independent-unit counts, standard errors and 95% confidence intervals. `scripts/build_primary_effect_forest.py` then builds Supplementary Figure S1 only from the checked S3 table.
