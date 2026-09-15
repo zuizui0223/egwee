@@ -15,3 +15,7 @@ Fragmentation effects on pollen-tube interaction support (`I`) versus fruit set 
 ## Table 1. Admitted primary direct-effect clusters
 
 Independent programme/study clusters contributing to the primary Hedges-g state-separation synthesis. For each cluster the table reports the biological system, independent fragmentation unit, source-defined direct contrast, admitted primary layers, number of marginal effects, within-cluster dependence treatment, cluster-level p-value and interpretation. ML020 appears once because its three plant species share the same four landscape programmes and are dependent subsystems. The separate ML015 *Eucalyptus wandoo* Fisher-z gradient analysis is not included in the primary table or Fisher statistic.
+
+## Supplementary Table S1. Registered multilayer cluster recovery flow
+
+Terminal status of all 16 formally registered multilayer cluster attempts. Five clusters satisfy the direct Hedges-g primary admission contract, ML015 is retained only as separate Fisher-z gradient generalisation evidence, eight attempts are closed because the required same-frame exposure/effect/variance/covariance or public source data cannot be reconstructed under the frozen effect-unit rules, and two attempts are closed because one condition is represented by only a single independent landscape/reference population. Closed or inaccessible systems are not coded as zero biological effects. The table documents why the final five-cluster primary denominator is determined by estimand and effect-unit validity rather than statistical significance.
