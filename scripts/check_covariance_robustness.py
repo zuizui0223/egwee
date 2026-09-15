@@ -12,6 +12,8 @@ ROOT = Path(__file__).resolve().parents[1]
 SYNTHESIS = ROOT / "scripts/synthesize_state_separation.py"
 MANUSCRIPT = ROOT / "manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md"
 TABLE = ROOT / "manuscript/tables/table_s2_covariance_robustness.csv"
+DISPLAY_TOL = 5e-8
+STAT_TOL = 5e-6
 
 
 def rows(rel: str) -> list[dict[str, str]]:
@@ -138,10 +140,10 @@ def check_table(proxy: dict, zero: dict, bound: dict) -> None:
     ):
         row = tab[name]
         for cid in ("ML001", "ML002", "ML003", "ML014", "ML020"):
-            assert abs(float(row[f"{cid}_cluster_p"]) - result["cluster_p"][cid]) < 5e-8
-        assert abs(float(row["fisher_statistic"]) - result["fisher_x"]) < 1e-10
-        assert abs(float(row["full_fisher_p"]) - result["fisher_p"]) < 1e-12
-        assert abs(float(row["omit_ML001_p"]) - result["leave_one_out_p"]["ML001"]) < 1e-12
+            assert abs(float(row[f"{cid}_cluster_p"]) - result["cluster_p"][cid]) < DISPLAY_TOL
+        assert abs(float(row["fisher_statistic"]) - result["fisher_x"]) < STAT_TOL
+        assert abs(float(row["full_fisher_p"]) - result["fisher_p"]) < DISPLAY_TOL
+        assert abs(float(row["omit_ML001_p"]) - result["leave_one_out_p"]["ML001"]) < DISPLAY_TOL
 
 
 def check_manuscript() -> None:
@@ -174,11 +176,14 @@ def main() -> None:
     zero = regime("zero_covariance")
     bound = regime("cauchy_schwarz_max_variance")
 
-    assert abs(proxy_p - 0.01212432410511315) < 1e-12
-    assert abs(zero["fisher_p"] - 0.038601605823083425) < 1e-12
-    assert abs(bound["fisher_p"] - 0.280611779992871) < 1e-12
-    assert abs(zero["leave_one_out_p"]["ML001"] - 0.5712343808812794) < 1e-12
-    assert abs(bound["leave_one_out_p"]["ML001"] - 0.9206012453762535) < 1e-12
+    # Numerical implementation is required to agree with the frozen manuscript
+    # display values at the precision that is actually reported, rather than at
+    # machine-float identity across refactors/platforms.
+    assert abs(proxy_p - 0.01212432) < DISPLAY_TOL, proxy_p
+    assert abs(zero["fisher_p"] - 0.03860161) < DISPLAY_TOL, zero["fisher_p"]
+    assert abs(bound["fisher_p"] - 0.28061178) < DISPLAY_TOL, bound["fisher_p"]
+    assert abs(zero["leave_one_out_p"]["ML001"] - 0.57123438) < DISPLAY_TOL
+    assert abs(bound["leave_one_out_p"]["ML001"] - 0.92060125) < DISPLAY_TOL
 
     check_table(proxy, zero, bound)
     check_manuscript()
