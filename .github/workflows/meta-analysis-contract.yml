@@ -36,6 +36,7 @@ on:
       - 'scripts/check_cross_system_cf_pilot.py'
       - 'scripts/check_magnolia_extraction.py'
       - 'scripts/check_manuscript_claim_sync.py'
+      - 'scripts/check_journal_of_ecology_submission_shape.py'
       - '.github/workflows/meta-analysis-contract.yml'
   push:
     branches: [main]
@@ -73,6 +74,7 @@ on:
       - 'scripts/check_cross_system_cf_pilot.py'
       - 'scripts/check_magnolia_extraction.py'
       - 'scripts/check_manuscript_claim_sync.py'
+      - 'scripts/check_journal_of_ecology_submission_shape.py'
       - '.github/workflows/meta-analysis-contract.yml'
 
 jobs:
@@ -117,3 +119,5 @@ jobs:
         run: python scripts/check_magnolia_extraction.py
       - name: Check manuscript claim sync
         run: python scripts/check_manuscript_claim_sync.py
+      - name: Check Journal of Ecology submission shape
+        run: python scripts/check_journal_of_ecology_submission_shape.py
