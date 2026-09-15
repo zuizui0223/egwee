@@ -29,7 +29,7 @@ All effects are small-fragment minus continuous-forest and are oriented so negat
 - `I_pollen_tubes`: `g=-0.71203322`, `v=0.53168696`;
 - `F_fruit_set`: `g=-1.00369234`, `v=0.56296240`;
 - group-centered `rho=-0.19170473`, covariance `-0.10488190`;
-- `I-F=+0.29165912`, `SE=1.14210995`, `z=0.25536888`, `p=0.79843820`.
+- `I-F=+0.29165912`, `SE=1.14210908`, `z=0.25536888`, `p=0.79843820`.
 
 ### *Cercidium australe* (1990)
 
@@ -43,7 +43,7 @@ All effects are small-fragment minus continuous-forest and are oriented so negat
 - `I_pollen_tubes`: `g=-0.48005270`, `v=0.51440316`;
 - `F_fruit_set`: `g=-1.13427121`, `v=0.58041070`;
 - group-centered `rho=-0.13799123`, covariance `-0.07539994`;
-- `I-F=+0.65421850`, `SE=1.11517431`, `z=0.58618018`, `p=0.55775444`.
+- `I-F=+0.65421850`, `SE=1.11607067`, `z=0.58618018`, `p=0.55775444`.
 
 Each 2x2 working covariance is positive definite and each I-F contrast variance is positive.
 
