@@ -35,6 +35,7 @@ on:
       - 'scripts/check_multilayer_cluster_contract.py'
       - 'scripts/check_cross_system_cf_pilot.py'
       - 'scripts/check_magnolia_extraction.py'
+      - 'scripts/check_manuscript_claim_sync.py'
       - '.github/workflows/meta-analysis-contract.yml'
   push:
     branches: [main]
@@ -71,6 +72,7 @@ on:
       - 'scripts/check_multilayer_cluster_contract.py'
       - 'scripts/check_cross_system_cf_pilot.py'
       - 'scripts/check_magnolia_extraction.py'
+      - 'scripts/check_manuscript_claim_sync.py'
       - '.github/workflows/meta-analysis-contract.yml'
 
 jobs:
@@ -113,3 +115,5 @@ jobs:
         run: python scripts/check_cross_system_cf_pilot.py
       - name: Audit Magnolia native-scale model extraction
         run: python scripts/check_magnolia_extraction.py
+      - name: Check manuscript claim sync
+        run: python scripts/check_manuscript_claim_sync.py
