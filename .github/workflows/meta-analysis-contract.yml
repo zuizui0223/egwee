@@ -44,6 +44,7 @@ on:
       - 'scripts/check_magnolia_extraction.py'
       - 'scripts/check_manuscript_claim_sync.py'
       - 'scripts/check_study_flow_transparency.py'
+      - 'scripts/check_statistical_estimand_contract.py'
       - 'scripts/check_journal_of_ecology_submission_shape.py'
       - 'scripts/check_double_anonymous_submission.py'
       - 'scripts/build_journal_of_ecology_figures.py'
@@ -89,6 +90,7 @@ on:
       - 'scripts/check_magnolia_extraction.py'
       - 'scripts/check_manuscript_claim_sync.py'
       - 'scripts/check_study_flow_transparency.py'
+      - 'scripts/check_statistical_estimand_contract.py'
       - 'scripts/check_journal_of_ecology_submission_shape.py'
       - 'scripts/check_double_anonymous_submission.py'
       - 'scripts/build_journal_of_ecology_figures.py'
@@ -139,6 +141,8 @@ jobs:
         run: python scripts/check_manuscript_claim_sync.py
       - name: Check study recovery and admission flow
         run: python scripts/check_study_flow_transparency.py
+      - name: Check statistical estimand and Fisher interpretation
+        run: python scripts/check_statistical_estimand_contract.py
       - name: Check Journal of Ecology submission shape
         run: python scripts/check_journal_of_ecology_submission_shape.py
       - name: Check double-anonymous manuscript
