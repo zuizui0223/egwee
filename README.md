@@ -57,7 +57,7 @@ Primary direct clusters:
 
 Separate generalisation evidence:
 
-- `ML015` *Eucalyptus wandoo`: I / F / G_adult on a Fisher-z continuous-gradient scale; it is never pooled into the primary Hedges-g Fisher statistic.
+- `ML015` *Eucalyptus wandoo*: I / F / G_adult on a Fisher-z continuous-gradient scale; it is never pooled into the primary Hedges-g Fisher statistic.
 
 The canonical current-state documents are:
 
