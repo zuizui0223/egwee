@@ -43,19 +43,20 @@
 - [x] Journal of Ecology cover-letter draft prepared.
 - [x] CI guards added for canonical-claim sync, study-flow counts, statistical estimand, covariance robustness, all-17-effect auditing, Journal of Ecology submission shape and double-anonymous manuscript state.
 
-## Pending automated verification
+## Automated verification completed
 
-- [ ] Study-flow transparency check passes: 20 candidates, 19 verified studies, 16 attempts, 5 primary, 1 gradient, 10 closures (8 recoverability + 2 replication).
-- [ ] Statistical-estimand contract passes: effect-size, covariance, Bonferroni and Fisher formulas/interpretation remain synchronized with the implementation.
-- [ ] Covariance-robustness check reproduces canonical `p=0.01212432`, zero-covariance `p=0.03860161`, covariance-free bound `p=0.28061178`, and the corresponding omit-ML001 results.
-- [ ] Primary-effect supplement audit reconstructs exactly 17 effects across five clusters and reproduces every variance, SE and marginal 95% CI in Supplementary Table S3.
-- [ ] Supplementary Figure S1 regenerates from Supplementary Table S3 with an explicit separate ML001 scale and a shared scale for ML002/ML003/ML014/ML020.
-- [ ] Journal of Ecology shape check passes: abstract <=350 words, <=8 keywords, IMRaD order, main text <=8000 words.
-- [ ] Existing meta-analysis contract and canonical claim-sync checks pass.
-- [ ] Double-anonymous manuscript audit passes.
-- [ ] Figure 1–3 and Table 1 regenerate from canonical source files.
-- [ ] Anonymous reviewer package reproduces the five-cluster synthesis, covariance robustness, all 17 primary effects and figures, and contains Supplementary Tables S1–S3 plus Supplementary Figure S1.
-- [ ] Anonymous-review ZIP is archived by CI and manually spot-checked.
+- [x] Study-flow transparency check passed: 20 candidates, 19 verified studies, 16 attempts, 5 primary, 1 gradient, 10 closures (8 recoverability + 2 replication).
+- [x] Statistical-estimand contract passed: effect-size, covariance, Bonferroni and Fisher formulas/interpretation are synchronized with the implementation.
+- [x] Covariance-robustness check reproduced canonical `p=0.01212432`, zero-covariance `p=0.03860161`, covariance-free bound `p=0.28061178`, and the corresponding omit-ML001 results at the declared reporting precision.
+- [x] Primary-effect supplement audit reconstructed exactly 17 effects across five clusters and reproduced every variance, SE and marginal 95% CI in Supplementary Table S3.
+- [x] Supplementary Figure S1 regenerated from Supplementary Table S3 with an explicit separate ML001 scale and a shared scale for ML002/ML003/ML014/ML020.
+- [x] Journal of Ecology shape check passed: abstract 215 words, 8 keywords, IMRaD order, main text 4261 words.
+- [x] Existing meta-analysis contract and canonical claim-sync checks passed.
+- [x] Double-anonymous manuscript audit passed.
+- [x] Figure 1–3 and Table 1 regenerated from canonical source files.
+- [x] Anonymous reviewer package reproduced the five-cluster synthesis, covariance robustness, all 17 primary effects and figures, and contains Supplementary Tables S1–S3 plus Supplementary Figure S1.
+- [x] Anonymous-review artifact archived successfully in GitHub Actions.
+- [x] Downloaded artifact spot-check passed: outer artifact SHA-256 matched GitHub's digest; inner reviewer ZIP contained 32 files; identity scan passed; every manifest hash verified; S3, covariance robustness and Supplementary Figure S1 were re-executed successfully from the downloaded package.
 
 ## Pending user/author metadata
 
@@ -70,7 +71,7 @@ These cannot be completed reliably without the final author-approved information
 - [ ] Replace the administrative confirmation placeholders in the cover letter.
 - [ ] All authors/institutions approve the exact submitted version.
 
-## Final production step after CI
+## Final production step
 
 - [ ] Generate the final double-spaced, continuously line- and page-numbered submission document with Figure 1–3, Table 1, Supplementary Tables S1–S3, Supplementary Figure S1 and captions embedded or uploaded as the journal submission system requires.
 
