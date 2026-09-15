@@ -88,11 +88,11 @@ Common endpoints:
 - `I`, pollen tubes (`PT`);
 - `F`, fruit set (`FS`).
 
-Marginal Hedges-g effects:
+Marginal Hedges-g effects use the same canonical small-sample correction as the existing primary scripts, `J = 1 - 3/(4df - 1)`:
 
-- *Atamisquea*: I `g=-0.71203322`; F `g=-1.00369234`; covariance-aware I-F `p=0.79843820`;
-- *Cercidium*: I `g=-0.63664333`; F `g=-1.13729930`; I-F `p=0.61865159`;
-- *Prosopis*: I `g=-0.48005270`; F `g=-1.13427121`; I-F `p=0.55775444`.
+- *Atamisquea*: I `g=-0.71280256`; F `g=-1.00477681`; covariance-aware I-F `p=0.79824355`;
+- *Cercidium*: I `g=-0.63733120`; F `g=-1.13852812`; I-F `p=0.61830903`;
+- *Prosopis*: I `g=-0.48057139`; F `g=-1.13549676`; I-F `p=0.55736567`.
 
 The three species share landscapes and therefore are not three independent Fisher inputs. The frozen programme gate is Bonferroni across the three species-specific I-F tests, giving **`p_ML020=1.0`**. Admission did not depend on significance. Ecologically, ML020 shows fragmentation-associated deterioration in both interaction and reproductive-function layers without detectable separation between their effect magnitudes.
 
