@@ -18,6 +18,10 @@
 - [x] Candidate/admission flow made explicit: 20 candidate system/program entries -> 19 source-verified primary-study records -> 16 formal cluster attempts -> 5 primary + 1 gradient generalisation + 10 closed.
 - [x] The 10 closures are partitioned into eight recoverability/dependence/source limitations and two independent-replication failures; inaccessible or closed systems are not coded as zero biological effects.
 - [x] Supplementary Table S1 records every formal cluster attempt and terminal status.
+- [x] Direct Hedges-g estimand made explicit, including pooled independent-unit SD, small-sample correction and sampling-variance formula.
+- [x] Within-cluster covariance-aware contrast and Bonferroni cluster p-value equations made explicit.
+- [x] Fisher combination defined as a global intersection-null test rather than a common-effect estimate; non-significant cluster tests are explicitly not treated as proof of exchangeability.
+- [x] Direct Hedges-g and continuous Fisher-z effect families remain formally separated.
 - [x] Internal project labels and identity-bearing manuscript status text removed from the reviewer-facing manuscript.
 - [x] Double-anonymous manuscript audit added.
 - [x] Separate identity-bearing title-page template created.
@@ -27,11 +31,12 @@
 - [x] Anonymous reviewer code/data package builder added and configured to include Supplementary Table S1.
 - [x] Anonymous package is designed to reproduce the synthesis and figures without Git history or public-account metadata.
 - [x] Journal of Ecology cover-letter draft prepared.
-- [x] CI guards added for canonical-claim sync, study-flow counts, Journal of Ecology submission shape and double-anonymous manuscript state.
+- [x] CI guards added for canonical-claim sync, study-flow counts, statistical estimand, Journal of Ecology submission shape and double-anonymous manuscript state.
 
 ## Pending automated verification
 
 - [ ] Study-flow transparency check passes: 20 candidates, 19 verified studies, 16 attempts, 5 primary, 1 gradient, 10 closures (8 recoverability + 2 replication).
+- [ ] Statistical-estimand contract passes: effect-size, covariance, Bonferroni and Fisher formulas/interpretation remain synchronized with the implementation.
 - [ ] Journal of Ecology shape check passes: abstract <=350 words, <=8 keywords, IMRaD order, main text <=8000 words.
 - [ ] Existing meta-analysis contract and canonical claim-sync checks pass.
 - [ ] Double-anonymous manuscript audit passes.
