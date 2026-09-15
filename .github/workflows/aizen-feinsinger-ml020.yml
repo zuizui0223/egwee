@@ -1,0 +1,40 @@
+name: Aizen-Feinsinger ML020 recovery
+
+on:
+  push:
+    paths:
+      - 'evidence/meta_extraction/PS022_aizen_feinsinger_*.csv'
+      - 'scripts/recover_ml020_aizen_feinsinger_v2.py'
+      - 'scripts/check_ml020_*.py'
+      - 'scripts/synthesize_state_separation_ml020.py'
+      - 'manuscript/AIZEN_FEINSINGER_1994_*.md'
+      - 'manuscript/ML020_*.md'
+      - '.github/workflows/aizen-feinsinger-ml020.yml'
+  pull_request:
+    paths:
+      - 'evidence/meta_extraction/PS022_aizen_feinsinger_*.csv'
+      - 'scripts/recover_ml020_aizen_feinsinger_v2.py'
+      - 'scripts/check_ml020_*.py'
+      - 'scripts/synthesize_state_separation_ml020.py'
+      - 'manuscript/AIZEN_FEINSINGER_1994_*.md'
+      - 'manuscript/ML020_*.md'
+      - '.github/workflows/aizen-feinsinger-ml020.yml'
+
+jobs:
+  ml020:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate source rows
+        run: python scripts/check_ml020_source_rows.py
+      - name: Validate LS Hedges-g variance semantics
+        run: python scripts/check_ml020_variance_semantics.py
+      - name: Recover ML020 and validate programme gate
+        run: python scripts/check_ml020_programme_gate.py
+      - name: Validate expected fifth-cluster synthesis
+        run: python scripts/check_ml020_expected.py
+      - name: Emit five-cluster synthesis
+        run: python scripts/synthesize_state_separation_ml020.py
