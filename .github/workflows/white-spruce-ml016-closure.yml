@@ -1,0 +1,26 @@
+name: White spruce ML016 closure
+
+on:
+  pull_request:
+    paths:
+      - 'manuscript/WHITE_SPRUCE_2006_ML016_RECOVERY_CONTRACT.md'
+      - 'manuscript/WHITE_SPRUCE_2006_ML016_RECOVERY_RESULT.md'
+      - 'manuscript/meta_analysis_primary_study_seed_v1.csv'
+      - 'manuscript/meta_analysis_candidate_ledger.csv'
+      - 'evidence/meta_extraction/PS021_white_spruce_1994_stand_table_v1.csv'
+      - 'evidence/meta_extraction/PS021_white_spruce_effects_v1.csv'
+      - 'evidence/meta_extraction/multilayer_cluster_registry_v1.csv'
+      - 'scripts/check_white_spruce_ml016_closure.py'
+      - '.github/workflows/white-spruce-ml016-closure.yml'
+  workflow_dispatch:
+
+jobs:
+  closure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Recompute stand-level mating effect and enforce F representation stop
+        run: python scripts/check_white_spruce_ml016_closure.py
