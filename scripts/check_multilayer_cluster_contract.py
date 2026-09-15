@@ -13,11 +13,14 @@ BROS_EFFECTS = ROOT / "evidence/meta_extraction/PS004_brosimum_extraction_v1.csv
 BROS_COV = ROOT / "evidence/meta_extraction/PS004_brosimum_primary_covariance_v1.csv"
 SOCIALIS_EFFECTS = ROOT / "evidence/meta_extraction/PS020_eucalyptus_socialis_effects_v1.csv"
 SOCIALIS_COV = ROOT / "evidence/meta_extraction/PS020_eucalyptus_socialis_primary_covariance_v1.csv"
+ML020_EFFECTS = ROOT / "evidence/meta_extraction/PS022_aizen_feinsinger_effects_v1.csv"
+ML020_COV = ROOT / "evidence/meta_extraction/PS022_aizen_feinsinger_covariance_v1.csv"
 WANDOO_COV = ROOT / "evidence/meta_extraction/PS019_eucalyptus_wandoo_2018_gradient_covariance_v1.csv"
 WANDOO_EFFECTS = ROOT / "evidence/meta_extraction/PS019_eucalyptus_wandoo_2018_gradient_effects_v1.csv"
 WANDOO_RESULT = ROOT / "manuscript/EUCALYPTUS_WANDOO_2018_CLUSTER_RECOVERY_RESULT.md"
 OBSOLETE_WANDOO_COV = ROOT / "evidence/meta_extraction/PS019_eucalyptus_wandoo_2018_primary_covariance_v1.csv"
 REGISTRY = ROOT / "evidence/meta_extraction/multilayer_cluster_registry_v1.csv"
+REGISTRY_ML020 = ROOT / "evidence/meta_extraction/multilayer_cluster_registry_extension_ml020.csv"
 BASE_AMENDMENT = ROOT / "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-12_MULTILAYER_CLUSTERS.md"
 COHORT_AMENDMENT = ROOT / "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-13_COHORT_DEPENDENCE.md"
 
@@ -127,6 +130,26 @@ def validate_socialis() -> None:
     assert all(r["independent_unit"] == "maternal_family" for r in effects.values())
 
 
+def validate_ml020() -> None:
+    effects = rows(ML020_EFFECTS)
+    cov_rows = rows(ML020_COV)
+    species = {r["species"] for r in effects}
+    assert species == {"Atamisquea emarginata", "Cercidium australe", "Prosopis nigra"}
+    assert len(effects) == 6 and len(cov_rows) == 12
+    for sp in species:
+        sr = [r for r in effects if r["species"] == sp]
+        assert {r["endpoint_id"] for r in sr} == {"I_pollen_tubes", "F_fruit_set"}
+        assert all(int(r["n_fragmented"]) == 4 and int(r["n_reference"]) == 4 for r in sr)
+        endpoints = ["I_pollen_tubes", "F_fruit_set"]
+        by_pair = {
+            (r["endpoint_i"], r["endpoint_j"]): r
+            for r in cov_rows if r["species"] == sp
+        }
+        assert set(by_pair) == {(a, b) for a in endpoints for b in endpoints}
+        matrix = [[float(by_pair[(a, b)]["sampling_covariance"]) for b in endpoints] for a in endpoints]
+        assert cholesky_positive_definite(matrix), (sp, matrix)
+
+
 def validate_wandoo_gradient() -> None:
     effects = rows(WANDOO_EFFECTS)
     assert len(effects) == 3
@@ -143,8 +166,9 @@ def validate_wandoo_gradient() -> None:
 def main() -> None:
     for path in (
         SERA_SITE, SERA_EFFECTS, SERA_COV, BROS_SITE, BROS_EFFECTS, BROS_COV,
-        SOCIALIS_EFFECTS, SOCIALIS_COV, WANDOO_COV, WANDOO_EFFECTS, WANDOO_RESULT,
-        REGISTRY, BASE_AMENDMENT, COHORT_AMENDMENT,
+        SOCIALIS_EFFECTS, SOCIALIS_COV, ML020_EFFECTS, ML020_COV,
+        WANDOO_COV, WANDOO_EFFECTS, WANDOO_RESULT,
+        REGISTRY, REGISTRY_ML020, BASE_AMENDMENT, COHORT_AMENDMENT,
     ):
         assert path.is_file(), path
     assert not OBSOLETE_WANDOO_COV.exists()
@@ -153,13 +177,15 @@ def main() -> None:
     validate_serapias()
     validate_brosimum()
     validate_socialis()
+    validate_ml020()
     validate_wandoo_gradient()
 
-    registry = rows(REGISTRY)
+    registry = rows(REGISTRY) + rows(REGISTRY_ML020)
     by_cluster = {r["cluster_id"]: r for r in registry}
+    assert len(by_cluster) == len(registry)
     primary = [r for r in registry if r["cluster_status"] == "admissible_multilayer_cluster"]
     gradient = [r for r in registry if r["cluster_status"] == "gradient_generalisation_multilayer_cluster"]
-    assert {r["cluster_id"] for r in primary} == {"ML001", "ML002", "ML003", "ML014"}
+    assert {r["cluster_id"] for r in primary} == {"ML001", "ML002", "ML003", "ML014", "ML020"}
     assert {r["cluster_id"] for r in gradient} == {"ML015"}
     assert int(by_cluster["ML001"]["n_admissible_primary_effects"]) == 3
     assert int(by_cluster["ML002"]["n_admissible_primary_effects"]) == 2
@@ -167,14 +193,16 @@ def main() -> None:
     assert set(by_cluster["ML014"]["admissible_primary_layers"].split(";")) == {"G_mating", "F"}
     assert int(by_cluster["ML014"]["n_admissible_primary_effects"]) == 2
     assert by_cluster["ML014"]["covariance_status"] == "proxy_reconstructed_from_paired_families"
+    assert set(by_cluster["ML020"]["admissible_primary_layers"].split(";")) == {"I", "F"}
+    assert int(by_cluster["ML020"]["n_admissible_primary_effects"]) == 6
     assert by_cluster["ML015"]["admissible_primary_layers"] == ""
     assert int(by_cluster["ML015"]["n_admissible_primary_effects"]) == 0
-    assert len(primary) == 4
-    assert sum(int(r["n_admissible_primary_effects"]) for r in primary) == 11
+    assert len(primary) == 5
+    assert sum(int(r["n_admissible_primary_effects"]) for r in primary) == 17
 
     print(
-        "EGWEE multilayer cluster contract: PASS; primary family = ML001-ML003+ML014 / 11 effects; "
-        "ML015 = separate Fisher-z gradient cluster / 3 effects"
+        "EGWEE multilayer cluster contract: PASS; primary family = ML001-ML003+ML014+ML020 / 17 marginal effects / 5 clusters; "
+        "ML020 counts once despite 3 dependent species; ML015 = separate Fisher-z gradient cluster / 3 effects"
     )
 
 
