@@ -46,11 +46,13 @@ def require_claim_sync(path: Path, result: dict) -> None:
         "17 marginal effects",
         "ML020",
         "Serapias",
-        "sixth cluster",
     ]
     for token in required:
         if token not in text:
             raise AssertionError(f"{path}: missing canonical claim token {token!r}")
+
+    if "sixth cluster" not in text and "sixth-cluster" not in text:
+        raise AssertionError(f"{path}: significance-repair search stop is not represented")
 
     if float(ml020["cluster_p_bonferroni"]) != 1.0:
         raise AssertionError("unexpected canonical ML020 programme p")
