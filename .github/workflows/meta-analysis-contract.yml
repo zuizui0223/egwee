@@ -1,5 +1,9 @@
 name: Multilayer meta-analysis contract
 
+concurrency:
+  group: meta-analysis-contract-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 on:
   pull_request:
     paths:
