@@ -28,6 +28,7 @@ on:
       - 'manuscript/meta_analysis_submission_metadata.md'
       - 'manuscript/tables/table_s1_cluster_recovery_flow.csv'
       - 'manuscript/tables/table_s2_covariance_robustness.csv'
+      - 'manuscript/tables/table_s3_primary_marginal_effects.csv'
       - 'evidence/meta_extraction/**'
       - 'scripts/check_meta_analysis_contract.py'
       - 'scripts/check_meta_analysis_progress.py'
@@ -48,6 +49,8 @@ on:
       - 'scripts/check_study_flow_transparency.py'
       - 'scripts/check_statistical_estimand_contract.py'
       - 'scripts/check_covariance_robustness.py'
+      - 'scripts/check_primary_effect_supplement.py'
+      - 'scripts/build_primary_effect_forest.py'
       - 'scripts/check_journal_of_ecology_submission_shape.py'
       - 'scripts/check_double_anonymous_submission.py'
       - 'scripts/build_journal_of_ecology_figures.py'
@@ -77,6 +80,7 @@ on:
       - 'manuscript/meta_analysis_submission_metadata.md'
       - 'manuscript/tables/table_s1_cluster_recovery_flow.csv'
       - 'manuscript/tables/table_s2_covariance_robustness.csv'
+      - 'manuscript/tables/table_s3_primary_marginal_effects.csv'
       - 'evidence/meta_extraction/**'
       - 'scripts/check_meta_analysis_contract.py'
       - 'scripts/check_meta_analysis_progress.py'
@@ -97,6 +101,8 @@ on:
       - 'scripts/check_study_flow_transparency.py'
       - 'scripts/check_statistical_estimand_contract.py'
       - 'scripts/check_covariance_robustness.py'
+      - 'scripts/check_primary_effect_supplement.py'
+      - 'scripts/build_primary_effect_forest.py'
       - 'scripts/check_journal_of_ecology_submission_shape.py'
       - 'scripts/check_double_anonymous_submission.py'
       - 'scripts/build_journal_of_ecology_figures.py'
@@ -151,6 +157,10 @@ jobs:
         run: python scripts/check_statistical_estimand_contract.py
       - name: Check covariance robustness and certification boundary
         run: python scripts/check_covariance_robustness.py
+      - name: Audit all 17 primary marginal effects
+        run: python scripts/check_primary_effect_supplement.py
+      - name: Build supplementary primary-effect forest
+        run: python scripts/build_primary_effect_forest.py
       - name: Check Journal of Ecology submission shape
         run: python scripts/check_journal_of_ecology_submission_shape.py
       - name: Check double-anonymous manuscript
