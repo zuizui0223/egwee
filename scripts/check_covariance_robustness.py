@@ -25,7 +25,6 @@ def fisher_sf_even_df(pvalues: list[float]) -> tuple[float, float]:
     if not pvalues or any(p <= 0.0 or p > 1.0 for p in pvalues):
         raise ValueError(pvalues)
     x = -2.0 * sum(math.log(p) for p in pvalues)
-    # For df=2K, chi-square survival is the finite gamma-series below.
     k = len(pvalues)
     t = x / 2.0
     sf = math.exp(-t) * sum((t**j) / math.factorial(j) for j in range(k))
@@ -104,7 +103,10 @@ def canonical_proxy() -> dict[str, float]:
     if line is None:
         raise AssertionError(proc.stdout)
     result = json.loads(line.split(" ", 1)[1])
-    return {r["cluster_id"]: float(r["cluster_p"]) for r in result["primary_clusters"]}
+    return {
+        r["cluster_id"]: float(r["cluster_p_bonferroni"])
+        for r in result["primary_clusters"]
+    }
 
 
 def regime(mode: str) -> dict:
