@@ -42,14 +42,21 @@ def main() -> None:
     metadata = METADATA.read_text(encoding="utf-8")
     schema = json.loads(SCHEMA.read_text(encoding="utf-8"))
 
-    assert "active paper is now a multilevel meta-analysis" in readme
-    assert "H1 — biological layers do not share one fragmentation response" in manuscript
-    assert "H2 — contemporary processes can change before standing adult genetics" in manuscript
+    # The repository is now results-bearing. Guard the current conditional
+    # conclusion rather than obsolete protocol-only wording.
+    assert "active paper is a cluster-first empirical synthesis" in readme
+    assert "five independent programme/study clusters / 17 marginal effects" in readme
+    assert "not Serapias-independent" in readme
+    assert "Primary hypothesis — response layers are not universally exchangeable" in manuscript
+    assert "The pooled rejection is not leave-one-cluster-out robust" in manuscript
+    assert "Status of the original H2 and H3 extensions" in manuscript
     assert "primary meta-analysis requires a direct fragmented-versus-reference comparison" in protocol.lower()
     assert "pseudo-replication firewall" in effect_amendment.lower()
     assert "proxy_pairwise_low_rank" in cohort_amendment
     assert "does not by itself establish a cohort lag" in cohort_amendment
-    assert "protocol_locked_screening_and_extraction_pending" in metadata
+    assert "results_bearing_conditional_state_separation" in metadata
+    assert "p = 0.01212432" in metadata
+    assert "p = 0.18194353" in metadata
 
     assert schema["schema_version"] == 2
     assert schema["primary_effect_stream"] == "hedges_g_fragmented_minus_reference"
@@ -114,7 +121,7 @@ def main() -> None:
     print(
         "EGWEE multilayer meta-analysis contract: PASS; "
         f"{len(primary)} verified studies, {len(candidates)} candidates, {len(queue)} queued; "
-        "PS001 now has site-level C plus adult/juvenile/seed genetics, while I/F remain unmanufactured"
+        "active paper is results-bearing with conditional state separation and locked claim sync"
     )
 
 
