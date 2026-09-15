@@ -31,11 +31,12 @@ def pearson(x: list[float], y: list[float]) -> float:
 
 
 def hedges_j(df: int) -> float:
-    return math.exp(math.lgamma(df / 2.0) - 0.5 * math.log(df / 2.0) - math.lgamma((df - 1.0) / 2.0))
+    # Canonical EGWEE primary scripts use the standard small-sample approximation.
+    return 1.0 - 3.0 / (4.0 * df - 1.0)
 
 
 def ls_smd_variance(g: float, n1: int, n2: int) -> float:
-    # Matches metafor::escalc(measure="SMD", vtype="LS") and the canonical ML014 value.
+    # Matches the canonical primary direct-cluster variance implementation.
     return (n1 + n2) / (n1 * n2) + (g * g) / (2.0 * (n1 + n2))
 
 
@@ -113,8 +114,10 @@ def species_result(rows: list[dict[str, str]], species: str) -> dict:
 
 
 def main() -> None:
-    # Regression check against canonical ML014.
+    # Regression check against canonical ML014 variance semantics.
     assert abs(ls_smd_variance(-1.02391388, 13, 15) - 0.16231117) < 1e-8
+    # Regression check against the correction used by existing primary scripts.
+    assert abs(hedges_j(6) - (1 - 3 / 23)) < 1e-15
 
     rows = read_rows()
     species = ["Atamisquea emarginata", "Cercidium australe", "Prosopis nigra"]
