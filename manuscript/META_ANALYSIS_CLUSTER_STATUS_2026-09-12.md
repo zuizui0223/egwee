@@ -2,19 +2,19 @@
 
 **Updated:** 2026-09-15
 
-This ledger is the current cluster-first state. The unit of primary cross-system evidence is the multilayer cluster, not an extracted effect row.
+This ledger is the current cluster-first state. The unit of primary cross-system evidence is the multilayer programme/study cluster, not an extracted effect row.
 
 ## Corpus state
 
-- source-verified primary-study seeds: **18**
-- candidate systems/programmes: **19** plus two post-seed expansions (`PS019 Eucalyptus wandoo`, `PS020 Eucalyptus socialis`)
+- source-verified primary-study seeds: **19**
+- candidate systems/programmes: **20** plus two post-seed expansions (`PS019 Eucalyptus wandoo`, `PS020 Eucalyptus socialis`)
 - priority extraction queue: **9 studies**
-- independent **primary** admissible multilayer clusters: **4** (`ML001–ML003`, `ML014`)
-- primary admissible effects inside those clusters: **11** (`PS003`: C/F/G_adult; `PS004`: C/F; `PS001`: C/G_adult/G_offspring[juvenile]/G_offspring[seed]; `PS020`: G_mating/F)
+- independent **primary** admissible multilayer clusters: **5** (`ML001–ML003`, `ML014`, `ML020`)
+- primary admissible marginal effects inside those clusters: **17** (`PS003`: C/F/G_adult; `PS004`: C/F; `PS001`: C/G_adult/G_offspring[juvenile]/G_offspring[seed]; `PS020`: G_mating/F; `PS022`: three dependent species × I/F)
 - standardized sensitivity effects retained outside the primary count: **5** (`PS003` adult `F_IS`; `PS001` adult `Sp` plus adult/juvenile/seed `F_IS`)
 - separate admissible Fisher-z gradient effects: **5** (`PS003`: C/F against `-log(area)`; `PS019`: I/F/G_adult against the response-free fragmentation PC)
 
-No endpoint or developmental cohort increases the number of independent systems merely because it is another row. Gradient/generalisation clusters do not increase the primary Hedges-g denominator.
+No endpoint, developmental cohort, or species sharing the same programme landscapes increases the number of independent systems merely because it is another row. Gradient/generalisation clusters do not increase the primary Hedges-g denominator.
 
 ## ML001 / PS003 — *Serapias lingua*
 
@@ -59,16 +59,42 @@ Primary source-defined Monarto contrast:
 - Yookamurra is source context/sensitivity only and excluded from the primary contrast;
 - public complete-case frame = 13 fragmented + 15 reference families.
 
-The source estimates family-level mating parameters and models family-level pollen diversity against family growth. Nearby maternal trees were avoided in source sampling; progeny, loci and repeated growth records remain nested below family. The public family table has 15 rather than the paper's 16 small-remnant mothers; the missing family is not back-filled.
-
 Primary effects:
 
 - `G_mating`, correlated-paternity support (`-r_p`): `g = -1.02391388`, variance `0.16231117`;
 - `F`, family mean progeny growth: `g = -0.27180887`, variance `0.14490903`.
 
-Their group-centered paired-family correlation proxy is `rho = +0.32672987`, giving covariance `+0.05010843`; the 2x2 working V is positive definite.
+Their group-centered paired-family correlation proxy is `rho = +0.32672987`, giving covariance `+0.05010843`; the 2x2 working V is positive definite. The within-ML014 G_mating-versus-F cluster p is `0.09831774`.
 
-The within-ML014 G_mating-versus-F contrast is `delta=-0.75210501`, SE `0.45497620`, z `-1.65306`, two-sided/cluster `p=0.09831774`. Admission never depended on significance. Biologically this is concordant deterioration with a much stronger mating-support response than progeny-growth response.
+## ML020 / PS022 — Aizen–Feinsinger Chaco programme
+
+ML020 is the fifth primary direct Hedges-g programme cluster. It is biologically independent of ML001–ML003/ML014 but was recovered retrospectively: the public Appendix I values were visible during candidate discovery.
+
+The source explicitly replicated three habitat treatments across four Chaco study sites for three species. To avoid selecting a favorable species after seeing results, **all three source-explicit fully replicated species are retained as dependent subsystems inside one programme cluster**:
+
+- *Atamisquea emarginata*;
+- *Cercidium australe* (1990 four-site frame);
+- *Prosopis nigra* (1990 four-site frame).
+
+Primary contrast and unit:
+
+- fragmented = small forest fragment `<1 ha`;
+- reference = continuous forest;
+- independent observations for each species/endpoint = four site-specific habitat-unit means per condition;
+- plant/flower/fruit counts are nested and are not used as fragmentation replication.
+
+Common endpoints:
+
+- `I`, pollen tubes (`PT`);
+- `F`, fruit set (`FS`).
+
+Marginal Hedges-g effects:
+
+- *Atamisquea*: I `g=-0.71203322`; F `g=-1.00369234`; covariance-aware I-F `p=0.79843820`;
+- *Cercidium*: I `g=-0.63664333`; F `g=-1.13729930`; I-F `p=0.61865159`;
+- *Prosopis*: I `g=-0.48005270`; F `g=-1.13427121`; I-F `p=0.55775444`.
+
+The three species share landscapes and therefore are not three independent Fisher inputs. The frozen programme gate is Bonferroni across the three species-specific I-F tests, giving **`p_ML020=1.0`**. Admission did not depend on significance. Ecologically, ML020 shows fragmentation-associated deterioration in both interaction and reproductive-function layers without detectable separation between their effect magnitudes.
 
 ## ML015 / PS019 — *Eucalyptus wandoo* gradient generalisation
 
@@ -88,45 +114,46 @@ Primary direct/contrast effects use Hedges g with `metafor::escalc(measure="SMD"
 
 ## Primary cross-system gates
 
-The primary multilayer denominator is **4 independent clusters / 11 effects**:
+The primary multilayer denominator is **5 independent clusters / 17 marginal effects**:
 
 1. `ML001 Serapias`: C/F/G_adult;
 2. `ML002 Brosimum`: C/F;
 3. `ML003 Spondias`: C/G_adult/G_offspring;
-4. `ML014 Eucalyptus socialis`: G_mating/F.
+4. `ML014 Eucalyptus socialis`: G_mating/F;
+5. `ML020 Aizen–Feinsinger Chaco programme`: three dependent species × I/F, counted once.
 
-The narrower C-F comparison remains `k=2`; ML014 has G_mating/F rather than C/F. ML015 remains separate gradient generalisation.
+ML015 remains separate gradient generalisation.
 
 ## Formal primary state-separation synthesis
 
-Cluster-level Bonferroni p-values are:
+Cluster-level p-values are:
 
 - ML001 Serapias: `0.00354530`;
 - ML002 Brosimum: `0.19911670`;
 - ML003 Spondias: `0.17406774`;
-- ML014 Eucalyptus socialis: `0.09831774`.
+- ML014 Eucalyptus socialis: `0.09831774`;
+- ML020 Chaco programme: `1.00000000`.
 
-Their Fisher combination is `chi-square(8) = 22.6477`, **`p = 0.003847`**, giving `reject_primary_binary_layer_exchangeability`.
+Their Fisher combination is `chi-square(10) = 22.64771647`, **`p = 0.01212432`**, giving `reject_primary_binary_layer_exchangeability` at 0.05.
 
-Leave-one-primary-cluster-out sensitivity remains important:
+Leave-one-primary-cluster-out sensitivity is decisive for the claim ceiling:
 
-- omit ML001: `p = 0.07777` — no rejection;
-- omit ML002: `p = 0.00351`;
-- omit ML003: `p = 0.00392`;
-- omit ML014: `p = 0.00621`.
+- omit ML001: `p = 0.18194353` — **no rejection**;
+- omit ML002: `p = 0.01276794` — rejection;
+- omit ML003: `p = 0.01407214` — rejection;
+- omit ML014: `p = 0.02116199` — rejection;
+- omit ML020: `p = 0.00384724` — rejection, recovering the prior four-cluster result.
 
-Thus ML014 broadens the primary evidence and improves the ML001-omission diagnostic relative to the prior three-cluster corpus, but **ML001 remains influential**. The result is not leave-one-cluster-out robust.
+Thus the fifth same-effect-family independent programme answers the targeted robustness question negatively: **the cross-cluster rejection remains materially dependent on inclusion of ML001 Serapias**. ML020 does not reproduce response-layer separation; excluding it because of that result would violate the admission logic.
 
 Supported claim:
 
-**Across the four currently admitted direct fragmented-versus-reference systems, the current corpus rejects exchangeability of biological response layers, while the cross-cluster rejection remains dependent on inclusion of ML001 in leave-one-cluster-out sensitivity.**
+**Across five admitted direct fragmentation programme/study clusters, the current corpus rejects exchangeability of biological response layers overall, but that conclusion is not Serapias-independent: omission of ML001 removes the rejection even after admission of a fifth independent same-effect-family programme.**
 
-ML014 is a prospectively locked additional-cluster recovery under an already-fixed synthesis method; the overall meta-analysis remains retrospective. ML015 separately supports state separation in the gradient tier.
+ML014 remains the prospectively locked recovery; ML020 is a retrospective external recovery retained regardless of its non-significant programme result. ML015 separately supports state separation in the gradient tier.
 
-## Correction provenance
+## Correction provenance and search stop
 
-A superseded implementation counted ML015 as a fourth primary cluster and reported p `0.0005347329`; that remains non-canonical. The present fourth primary cluster is ML014, which uses the same direct Hedges-g effect family as ML001–ML003.
+A superseded implementation counted ML015 as a fourth primary cluster and reported p `0.0005347329`; that remains non-canonical. ML014 is the valid fourth direct Hedges-g cluster. ML020 is the valid fifth direct Hedges-g programme cluster and counts once despite three dependent species subsystems.
 
-## Closed recovery routes and next priority
-
-ML004–ML013 remain blocked or closed for the recorded source/effect-unit reasons. ML014 is now admitted. The next empirical upgrade is an additional independent direct cluster or a genuinely prospective external validation; do not reclassify gradient or nested-unit evidence merely to increase the denominator.
+The requested fifth-cluster robustness test is now complete. A sixth-cluster search is **not** triggered by the fact that omit-ML001 remains non-significant; any future expansion must be justified by a separately declared coverage goal rather than significance repair.
