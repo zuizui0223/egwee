@@ -6,6 +6,7 @@ on:
       - 'README.md'
       - 'manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md'
       - 'manuscript/JOURNAL_OF_ECOLOGY_FIGURE_TABLE_PLAN.md'
+      - 'manuscript/JOURNAL_OF_ECOLOGY_TITLE_PAGE_TEMPLATE.md'
       - 'manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md'
       - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-11_EFFECT_UNITS.md'
       - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-11_GRADIENT_GEOMETRY.md'
@@ -38,7 +39,9 @@ on:
       - 'scripts/check_magnolia_extraction.py'
       - 'scripts/check_manuscript_claim_sync.py'
       - 'scripts/check_journal_of_ecology_submission_shape.py'
+      - 'scripts/check_double_anonymous_submission.py'
       - 'scripts/build_journal_of_ecology_figures.py'
+      - 'scripts/build_anonymous_review_package.py'
       - '.github/workflows/meta-analysis-contract.yml'
   push:
     branches: [main]
@@ -46,6 +49,7 @@ on:
       - 'README.md'
       - 'manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md'
       - 'manuscript/JOURNAL_OF_ECOLOGY_FIGURE_TABLE_PLAN.md'
+      - 'manuscript/JOURNAL_OF_ECOLOGY_TITLE_PAGE_TEMPLATE.md'
       - 'manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md'
       - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-11_EFFECT_UNITS.md'
       - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-11_GRADIENT_GEOMETRY.md'
@@ -78,7 +82,9 @@ on:
       - 'scripts/check_magnolia_extraction.py'
       - 'scripts/check_manuscript_claim_sync.py'
       - 'scripts/check_journal_of_ecology_submission_shape.py'
+      - 'scripts/check_double_anonymous_submission.py'
       - 'scripts/build_journal_of_ecology_figures.py'
+      - 'scripts/build_anonymous_review_package.py'
       - '.github/workflows/meta-analysis-contract.yml'
 
 jobs:
@@ -125,5 +131,15 @@ jobs:
         run: python scripts/check_manuscript_claim_sync.py
       - name: Check Journal of Ecology submission shape
         run: python scripts/check_journal_of_ecology_submission_shape.py
+      - name: Check double-anonymous manuscript
+        run: python scripts/check_double_anonymous_submission.py
       - name: Build Journal of Ecology figures and Table 1
         run: python scripts/build_journal_of_ecology_figures.py
+      - name: Build anonymous reviewer code and data package
+        run: python scripts/build_anonymous_review_package.py
+      - name: Archive anonymous review package
+        uses: actions/upload-artifact@v4
+        with:
+          name: anonymous-review-package
+          path: build/anonymous_review_package.zip
+          if-no-files-found: error
