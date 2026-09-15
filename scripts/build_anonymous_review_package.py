@@ -15,6 +15,7 @@ ZIP = BUILD / "anonymous_review_package.zip"
 FILES = [
     "manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md",
     "manuscript/JOURNAL_OF_ECOLOGY_FIGURE_TABLE_PLAN.md",
+    "manuscript/tables/table_s1_cluster_recovery_flow.csv",
     "scripts/synthesize_state_separation.py",
     "scripts/build_journal_of_ecology_figures.py",
     "evidence/meta_extraction/PS003_serapias_binary_effects_v1.csv",
@@ -54,8 +55,6 @@ def sha256(path: Path) -> str:
 
 
 def scrub_text(text: str) -> str:
-    # Remove internal project labels from reviewer-facing executable output while
-    # preserving all numerical and methodological semantics.
     text = text.replace("EGWEE_STATE_SEPARATION", "STATE_SEPARATION")
     text = text.replace("EGWEE_ML020", "ML020_RESULT")
     text = text.replace("EGWEE", "SYNTHESIS")
@@ -76,7 +75,7 @@ def copy_scrubbed(rel: str) -> None:
 
 
 def write_readme() -> None:
-    text = """# Anonymous review package\n\nThis package contains the analysis-ready tables and minimal code needed to reproduce the five-cluster direct state-separation synthesis, the separate continuous-gradient generalisation, and the three main submission figures. It intentionally excludes version-control history, author metadata and identity-bearing title-page material.\n\n## Reproduce the synthesis\n\n```bash\npython scripts/synthesize_state_separation.py\n```\n\nThe command prints a machine-readable `STATE_SEPARATION` record containing the primary five-cluster Fisher result and leave-one-cluster-out diagnostics.\n\n## Reproduce the figures and Table 1\n\n```bash\npython scripts/build_journal_of_ecology_figures.py\n```\n\nOutputs are written under `manuscript/figures/` and `manuscript/tables/`.\n\n## Scope\n\nThe package contains analysis-ready evidence rather than every raw source file from the original publications. Source studies and DOIs are documented in the anonymous manuscript and evidence tables.\n"""
+    text = """# Anonymous review package\n\nThis package contains the analysis-ready tables and minimal code needed to reproduce the five-cluster direct state-separation synthesis, the separate continuous-gradient generalisation, the three main submission figures, and the complete registered-cluster recovery flow. It intentionally excludes version-control history, author metadata and identity-bearing title-page material.\n\n## Reproduce the synthesis\n\n```bash\npython scripts/synthesize_state_separation.py\n```\n\nThe command prints a machine-readable `STATE_SEPARATION` record containing the primary five-cluster Fisher result and leave-one-cluster-out diagnostics.\n\n## Reproduce the figures and Table 1\n\n```bash\npython scripts/build_journal_of_ecology_figures.py\n```\n\nOutputs are written under `manuscript/figures/` and `manuscript/tables/`. Supplementary Table S1 (`manuscript/tables/table_s1_cluster_recovery_flow.csv`) records all 16 formal cluster attempts and their terminal admission/closure status.\n\n## Scope\n\nThe package contains analysis-ready evidence rather than every raw source file from the original publications. Source studies and DOIs are documented in the anonymous manuscript and evidence tables.\n"""
     (PKG / "README_REVIEW_PACKAGE.md").write_text(text, encoding="utf-8")
 
 
@@ -87,8 +86,6 @@ def patch_anonymous_scripts() -> None:
     ftext = figures.read_text(encoding="utf-8")
     if "EGWEE_STATE_SEPARATION" in stext or "EGWEE_STATE_SEPARATION" in ftext:
         raise AssertionError("internal synthesis prefix survived scrub")
-    # The figure builder in the source repository parses the internal output
-    # prefix; convert that parser to the anonymous prefix too.
     ftext = ftext.replace('x.startswith("EGWEE_STATE_SEPARATION ")', 'x.startswith("STATE_SEPARATION ")')
     figures.write_text(ftext, encoding="utf-8")
 
@@ -129,10 +126,11 @@ def verify_reproduction() -> None:
         "manuscript/figures/figure2_leave_one_out_influence.svg",
         "manuscript/figures/figure3_ml020_concordant_decline.svg",
         "manuscript/tables/table1_primary_cluster_summary.csv",
+        "manuscript/tables/table_s1_cluster_recovery_flow.csv",
     ):
         path = PKG / rel
         if not path.is_file() or path.stat().st_size == 0:
-            raise AssertionError(f"missing reproduced output: {rel}")
+            raise AssertionError(f"missing reproduced/review output: {rel}")
 
 
 def write_manifest() -> None:
