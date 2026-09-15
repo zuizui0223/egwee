@@ -4,7 +4,19 @@
 
 ## Abstract
 
-Habitat fragmentation is known to affect pollination, movement, reproduction and genetic state, but these responses are usually analysed separately. We asked whether multiple biological layers measured within the same fragmented plant systems can be treated as one exchangeable deterioration state. We retained five independent direct fragmented-versus-reference programme/study clusters comprising 17 Hedges-g marginal effects, with within-system dependence handled explicitly. The five-cluster Fisher synthesis rejected complete layer exchangeability (`chi-square(10)=22.65`, `p=0.0121`), but this result was not robust to removal of the influential *Serapias lingua* cluster (`p=0.1819`). A fifth independent replicated Chaco programme provided a direct robustness test: across three dependent species subsystems, fragmentation reduced both pollen-tube interaction support and fruit set, but their effect magnitudes were not detectably separated (`p_programme=1.0`). A separate continuous-gradient *Eucalyptus wandoo* system showed strong layer discordance but remained outside the primary Hedges-g synthesis. These results show that multi-layer deterioration and state separation are distinct ecological outcomes. Fragmented plant systems can exhibit either separated or concordant response regimes, and the available evidence does not support a universal fragmentation state-separation syndrome. The next empirical problem is therefore to identify the biological conditions that determine which regime occurs.
+1. Habitat fragmentation affects pollination, movement, reproduction and genetic state, but these responses are usually analysed separately. We asked whether multiple biological layers measured within the same fragmented plant systems can be treated as one exchangeable deterioration state.
+
+2. We retained five independent direct fragmented-versus-reference programme/study clusters comprising 17 Hedges-g marginal effects, explicitly preserving within-system dependence and excluding incompatible continuous-gradient effects from the primary synthesis.
+
+3. The five-cluster Fisher synthesis rejected complete layer exchangeability (`chi-square(10)=22.65`, `p=0.0121`), but the result did not survive removal of the influential *Serapias lingua* cluster (`p=0.1819`). Thus the pooled direct-effect result is not leave-one-cluster-out robust.
+
+4. A fifth independent replicated Chaco programme provided a direct robustness test. Across three dependent species subsystems, fragmentation reduced both pollen-tube interaction support and fruit set, but their effect magnitudes were not detectably separated (`p_programme=1.0`). A separate continuous-gradient *Eucalyptus wandoo* system showed strong layer discordance but remained outside the primary Hedges-g synthesis.
+
+5. **Synthesis.** Multi-layer deterioration and state separation are distinct ecological outcomes. Fragmented plant systems can exhibit either separated or concordant response regimes, and the current evidence does not support a universal fragmentation state-separation syndrome. The next empirical problem is to identify the biological conditions that determine which response geometry occurs.
+
+## Keywords
+
+eco-genetics; forest fragmentation; genetic diversity; meta-analysis; plant-pollinator interactions; reproductive function; response heterogeneity; state separation
 
 ## Central empirical question
 
