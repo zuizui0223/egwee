@@ -6,8 +6,24 @@
 - **Source manuscript:** `manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md`
 - **Protocol:** `manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md`
 - **Submission state:** `results_bearing_conditional_state_separation`
-- **Article type:** research synthesis / cluster-first multilevel meta-analysis
-- **Target journal:** not yet fixed; venue selection follows claim stabilization rather than further significance-seeking expansion.
+- **Article type:** Research Article / empirical research synthesis
+- **Primary target journal:** **Journal of Ecology**
+- **Fallback venues:** Ecology (Article or Concepts & Synthesis, if reframed for broader ecological generality); Oikos (Meta-analysis)
+
+## Venue rationale
+
+Journal of Ecology is the best current fit because plants and plant–animal interactions are central, while the manuscript asks a general plant-ecology question rather than claiming a universal cross-taxon law. The current evidence is a results-bearing quantitative synthesis with substantial empirical data, which fits the journal's Research Article route better than a Review.
+
+Current Journal of Ecology shaping constraints:
+
+- research articles are typically about 8000 words;
+- initial-submission abstract <=350 words;
+- abstract uses clear numbered statements;
+- the final abstract statement is headed **Synthesis** and states the general ecological advance;
+- research-article main sections ultimately need Introduction, Materials and Methods, Results and Discussion;
+- up to eight keywords/short phrases.
+
+The manuscript abstract and keywords have been reformatted to these requirements. Full IMRaD restructuring, word-count control and the final figure package remain to be completed.
 
 ## Paper role relative to NEE
 
@@ -61,8 +77,12 @@ Not authorised:
 - [x] leave-one-primary-cluster-out influence analysis computed;
 - [x] fifth independent same-effect-family robustness test completed;
 - [x] quantitative manuscript conclusion rewritten to match the canonical synthesis;
-- [ ] final venue selected;
-- [ ] journal-specific abstract/word-count/figure package completed;
+- [x] primary venue selected: Journal of Ecology;
+- [x] journal-specific abstract and keywords shaped;
+- [ ] main text converted to Journal of Ecology IMRaD structure;
+- [ ] main-text word count audited against the ~8000-word research-article target;
+- [ ] final figure/table package completed;
+- [ ] double-anonymous submission package checked;
 - [ ] author/declaration metadata approved.
 
 Secondary cohort-lag and compensation analyses remain optional future extensions only if independently justified coverage becomes sufficient; they are not submission blockers for the present conditional-state-separation paper.
