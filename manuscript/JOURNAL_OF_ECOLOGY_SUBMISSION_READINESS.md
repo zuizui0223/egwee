@@ -15,24 +15,28 @@
 - [x] Abstract converted to five numbered statements with final **Synthesis** point.
 - [x] Eight alphabetical keywords supplied.
 - [x] Primary, seed and admitted-system references added to the anonymous main manuscript.
+- [x] Candidate/admission flow made explicit: 20 candidate system/program entries -> 19 source-verified primary-study records -> 16 formal cluster attempts -> 5 primary + 1 gradient generalisation + 10 closed.
+- [x] The 10 closures are partitioned into eight recoverability/dependence/source limitations and two independent-replication failures; inaccessible or closed systems are not coded as zero biological effects.
+- [x] Supplementary Table S1 records every formal cluster attempt and terminal status.
 - [x] Internal project labels and identity-bearing manuscript status text removed from the reviewer-facing manuscript.
 - [x] Double-anonymous manuscript audit added.
 - [x] Separate identity-bearing title-page template created.
-- [x] Figure/table package frozen: coverage matrix, leave-one-out influence, ML020 I–F geometry, primary-cluster table.
-- [x] Final Figure 1–3 and Table 1 captions drafted.
+- [x] Figure/table package frozen: coverage matrix, leave-one-out influence, ML020 I–F geometry, primary-cluster table, cluster-recovery supplement.
+- [x] Final Figure 1–3, Table 1 and Supplementary Table S1 captions drafted.
 - [x] Deterministic SVG/Table 1 builder added.
-- [x] Anonymous reviewer code/data package builder added.
+- [x] Anonymous reviewer code/data package builder added and configured to include Supplementary Table S1.
 - [x] Anonymous package is designed to reproduce the synthesis and figures without Git history or public-account metadata.
 - [x] Journal of Ecology cover-letter draft prepared.
-- [x] CI guards added for canonical-claim sync, Journal of Ecology submission shape and double-anonymous manuscript state.
+- [x] CI guards added for canonical-claim sync, study-flow counts, Journal of Ecology submission shape and double-anonymous manuscript state.
 
 ## Pending automated verification
 
+- [ ] Study-flow transparency check passes: 20 candidates, 19 verified studies, 16 attempts, 5 primary, 1 gradient, 10 closures (8 recoverability + 2 replication).
 - [ ] Journal of Ecology shape check passes: abstract <=350 words, <=8 keywords, IMRaD order, main text <=8000 words.
 - [ ] Existing meta-analysis contract and canonical claim-sync checks pass.
 - [ ] Double-anonymous manuscript audit passes.
 - [ ] Figure 1–3 and Table 1 regenerate from canonical source files.
-- [ ] Anonymous reviewer package reproduces the five-cluster synthesis and figures.
+- [ ] Anonymous reviewer package reproduces the five-cluster synthesis and figures and contains Supplementary Table S1.
 - [ ] Anonymous-review ZIP is archived by CI and manually spot-checked.
 
 ## Pending user/author metadata
@@ -50,7 +54,7 @@ These cannot be completed reliably without the final author-approved information
 
 ## Final production step after CI
 
-- [ ] Generate the final double-spaced, continuously line- and page-numbered submission document with Figure 1–3, Table 1 and captions embedded or uploaded as the journal submission system requires.
+- [ ] Generate the final double-spaced, continuously line- and page-numbered submission document with Figure 1–3, Table 1, Supplementary Table S1 and captions embedded or uploaded as the journal submission system requires.
 
 ## Hard stop
 
