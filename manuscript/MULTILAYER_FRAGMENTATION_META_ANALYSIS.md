@@ -4,7 +4,7 @@
 
 1. Habitat fragmentation affects pollination, movement, reproduction and genetic state, but these responses are usually analysed separately. We asked whether multiple biological layers measured within the same fragmented plant systems can be treated as one exchangeable deterioration state.
 
-2. We retained five independent direct fragmented-versus-reference programme/study clusters comprising 17 Hedges-g marginal effects, explicitly preserving within-system dependence and excluding incompatible continuous-gradient effects from the primary synthesis.
+2. A protocol-first recovery workflow began from 20 named system/program candidates and 19 source-verified primary-study records, and materialised 16 formal multilayer cluster attempts. Five independent direct fragmented-versus-reference clusters comprising 17 Hedges-g marginal effects met the primary admission contract; one additional continuous-gradient cluster was retained separately.
 
 3. The five-cluster Fisher synthesis rejected complete layer exchangeability (`chi-square(10)=22.65`, `p=0.0121`), but the result did not survive removal of the influential *Serapias lingua* cluster (`p=0.1819`). Thus the pooled direct-effect result is not leave-one-cluster-out robust.
 
@@ -39,6 +39,14 @@ The meta-analysis protocol was frozen on 11 September 2026 before the current sy
 The primary target population comprised flowering-plant studies with a direct fragmented-versus-reference comparison or an equivalent source-defined two-group fragmentation contrast. Continuous-only fragmentation gradients were retained in a separate correlation-effect stream and were not converted into the direct primary effect family merely to enlarge sample size.
 
 A study/programme entered the primary state-separation synthesis only when at least two predeclared biological layers could be represented under the same fragmentation comparison with valid independent units and recoverable sampling uncertainty. Nested plants, flowers, fruits, progeny, loci or repeated observations were not promoted to fragmentation replicates. Duplicate reports and shared biological observations were linked at the programme/study level.
+
+### Candidate recovery and cluster admission flow
+
+This was a targeted, protocol-first evidence-recovery synthesis rather than a claim of exhaustive database coverage of every fragmentation paper. The auditable working candidate ledger contained 20 named system/program entries. Source verification materialised 19 primary-study records, including linked campaigns that were retained separately when their exposure windows or biological cohorts did not align. A candidate advanced to a formal quantitative cluster attempt only when at least two response layers could in principle share a defensible exposure and independent-unit frame.
+
+Sixteen multilayer cluster attempts were formally registered (`ML001`–`ML015` plus `ML020`; Supplementary Table S1). Five ultimately met the direct Hedges-g primary admission contract (`ML001`, `ML002`, `ML003`, `ML014`, `ML020`). One additional system (`ML015`) met a common-population continuous-gradient contract and was retained as Fisher-z generalisation evidence rather than converted into a direct binary effect. Ten registered attempts were closed without primary admission. Eight closures reflected inability to reconstruct the required same-frame exposure, signed effect, sampling variance/covariance, or source data from the public material under the frozen effect-unit rules. Two closures (`ML009`, `ML013`) were structural non-identifiability cases because only one independent landscape/reference population represented one condition, so lower-level mothers, progeny or loci could not supply fragmentation-level replication.
+
+A closure due to inaccessible or non-reconstructable data was never interpreted as a biological null. Likewise, a non-significant published endpoint was never entered as a zero effect. This admission flow fixes the denominator by estimand and effect-unit validity rather than by whether a candidate supports state separation.
 
 ### Response layers and effect orientation
 
@@ -81,6 +89,12 @@ The *Eucalyptus wandoo* programme of Llorens et al. (2018; `ML015`) was retained
 The fifth same-effect-family robustness test was treated as a terminal test of the current claim. A sixth cluster was not sought merely because removal of ML001 remained non-significant. Any future corpus expansion must be justified by a separately declared coverage or moderator goal before candidate outcomes are inspected.
 
 ## Results
+
+### Candidate recovery and cluster admission
+
+The audit therefore progressed from 20 candidate system/program entries and 19 source-verified primary-study records to 16 formally registered multilayer cluster attempts. Five were admitted to the direct Hedges-g primary family, one was retained in the separate Fisher-z gradient generalisation stream, and ten were closed before primary admission. Of those ten closures, eight were caused by source/recoverability/dependence limitations under the frozen effect-unit contract, while two failed because one habitat condition had only a single independent landscape/reference population. No closed cluster contributed a zero or imputed effect.
+
+This flow matters for interpretation of the final denominator. The five primary clusters were not the five systems with the strongest state-separation results: ML020 entered despite a programme p-value of 1.0, whereas several biologically suggestive systems remained excluded because their fragmentation-level effect or covariance could not be reconstructed without pseudo-replication or an exposure substitution. Supplementary Table S1 records each registered attempt and its terminal status.
 
 ### Primary direct-effect synthesis
 
@@ -151,6 +165,8 @@ The natural evidence supports that premise conditionally: separated and concorda
 ### Limitations
 
 The primary direct-effect denominator is five independent programme/study clusters. That is sufficient for the declared cluster-first synthesis and influence test, but insufficient for stable cross-system moderator estimation. The admitted clusters also differ in which biological layers are jointly represented, so the current synthesis tests non-exchangeability within systems rather than estimating one fully crossed layer-by-layer meta-regression across all taxa.
+
+The evidence-recovery universe was targeted rather than an exhaustive all-database systematic review. The candidate and primary-study ledgers make the audited search path explicit, and the cluster registry records every formal quantitative recovery attempt, but unseeded literature may still exist outside that universe. This limits claims about prevalence: the present analysis can establish that separated and concordant response geometries both occur among the audited systems, but it cannot estimate their global frequencies.
 
 The overall meta-analysis is retrospective. ML014 was recovered under a prospectively locked additional-cluster contract, whereas ML020 was an external retrospective recovery whose Appendix I values were visible during discovery. The ML020 analysis therefore retained all source-explicit four-site species and a common endpoint pair to reduce within-paper selection, but it is not presented as an outcome-blind prospective validation.
 
