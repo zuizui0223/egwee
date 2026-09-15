@@ -1,6 +1,6 @@
 # Testing whether fragmentation acts as a single biological state: a cluster-first synthesis of plant interaction, reproduction and genetic responses
 
-**Status:** active results-bearing manuscript spine. The primary direct-effect synthesis is closed at five admitted programme/study clusters for the current claim. The fifth-cluster robustness test has been completed; additional systems are not sought to repair significance.
+**Status:** active results-bearing manuscript. The primary direct-effect synthesis is closed at five admitted programme/study clusters for the current claim. The fifth-cluster robustness test has been completed; additional systems are not sought to repair significance.
 
 ## Abstract
 
@@ -18,26 +18,45 @@
 
 eco-genetics; forest fragmentation; genetic diversity; meta-analysis; plant-pollinator interactions; reproductive function; response heterogeneity; state separation
 
-## Central empirical question
+## Introduction
 
-Habitat fragmentation is usually analysed endpoint by endpoint: pollination, gene flow, reproduction, adult genetic diversity, or offspring genetic state. The empirical question here is different:
+Habitat fragmentation can alter plant density, pollinator visitation, pollen and seed movement, reproductive output, mating patterns and genetic diversity. Those responses are commonly synthesized one endpoint class at a time. Existing quantitative reviews have documented fragmentation effects on pollination and reproductive success, plant genetic diversity, progeny genetic and performance responses, fine-scale genetic structure and pollinator abundance (Aguilar et al., 2006, 2008, 2019; Méndez-Rojas et al., 2023; Olhnuud et al., 2025). This literature establishes that fragmentation is often detrimental. It does not, by itself, establish whether the affected biological layers behave as one common deterioration state within the same systems.
 
-> **Within the same fragmented plant systems, can those biological responses be treated as one exchangeable deterioration state, or do response layers change by different magnitudes?**
+That distinction matters because a decline in multiple endpoints is not equivalent to equal decline across endpoints. A fragmented population could experience strong disruption of interaction or mating processes while adult standing genetic diversity remains relatively buffered by demographic and generation-time lags. Conversely, interaction and reproductive-function layers could deteriorate together at similar magnitudes. Treating these alternatives as one phenomenon can obscure which biological state has actually changed and which ecological function remains buffered.
 
-The paper therefore distinguishes two propositions that are often conflated:
+EGWEE therefore asks a stricter within-system question: when multiple biological layers are measured under the same fragmentation contrast, are their standardized responses exchangeable, or do they separate? The focal layers are demographic/resource support (`D`), realised interaction or pollen receipt (`I`), movement or mating connectivity (`C`), reproductive function (`F`), adult standing genetic state (`G_adult`) and offspring or juvenile genetic/mating state (`G_offspring`). The paper distinguishes two propositions that are often conflated: fragmentation can affect multiple biological layers, and fragmentation can separate those layers so that effect magnitudes differ beyond sampling uncertainty. The second proposition is stronger.
 
-1. fragmentation affects multiple biological layers;
-2. fragmentation separates those layers, so their effect magnitudes are not exchangeable.
+### Primary hypothesis — response layers are not universally exchangeable
 
-The second proposition is stronger and is the primary target of EGWEE.
+Our primary hypothesis was that biological layers need not share one fragmentation response. We therefore tested equality of admitted layer effects within each study/programme cluster and then asked whether evidence against exchangeability persisted across independent systems. Importantly, leave-one-cluster-out influence was treated as part of the claim rather than as an optional robustness appendix.
 
-## Primary evidence architecture
+The current evidence also motivated two extensions: cohort/history lag between adult and offspring genetics, and process compensation linking movement or interaction responses to reproductive function. However, those extensions require more independently replicated same-frame systems than are currently available. They are retained as secondary hypotheses rather than used to enlarge the present conclusion.
 
-The primary stream contains only direct fragmented-versus-reference contrasts represented in the same Hedges-g effect family. Effects are oriented so negative values indicate reduced biological support/function under fragmentation. Continuous fragmentation gradients remain in a separate Fisher-z stream and are never pooled into the primary Fisher statistic.
+## Materials and Methods
 
-The independent denominator is the **programme/study cluster**, not the number of extracted rows, species, endpoints, plants, flowers, progeny, or loci.
+### Protocol and study universe
 
-The current primary denominator is **five independent clusters / 17 marginal effects**:
+The active meta-analysis protocol was frozen on 11 September 2026 before the current synthesis. Screening started from major prior quantitative syntheses of plant pollination/reproduction, plant genetics, progeny responses, fine-scale genetic structure and pollinator responses to fragmentation, then extended backward and forward through the primary literature. Previously audited EGWEE systems were used as search seeds rather than automatic inclusions.
+
+The primary target population comprised flowering-plant studies with a direct fragmented-versus-reference comparison or an equivalent source-defined two-group fragmentation contrast. Continuous-only fragmentation gradients were retained in a separate correlation-effect stream and were not converted into the direct primary effect family merely to enlarge sample size.
+
+A study/programme entered the primary state-separation synthesis only when at least two predeclared biological layers could be represented under the same fragmentation comparison with valid independent units and recoverable sampling uncertainty. Nested plants, flowers, fruits, progeny, loci or repeated observations were not promoted to fragmentation replicates. Duplicate reports and shared biological observations were linked at the programme/study level.
+
+### Response layers and effect orientation
+
+Eligible endpoints were assigned before quantitative synthesis to the following biological layers: `D_resource_demography`, `I_interaction`, `C_movement_connectivity`, `F_reproductive_function`, `G_adult` and `G_offspring`. A measured endpoint was not moved between layers after its effect size was known.
+
+The primary effect family was Hedges' `g` for fragmented minus reference conditions. Effects were oriented so that negative values indicate lower biological support or function under fragmentation. For deterioration metrics where larger raw values indicate poorer state, the sign was reversed only after preserving the raw direction and an explicit orientation rule. Sampling variances followed the canonical large-sample Hedges-g semantics already used across the direct EGWEE primary stream.
+
+Continuous-gradient studies were analysed separately using Fisher-transformed correlations where an effect could be reconstructed without strong transformation assumptions. Hedges-g and Fisher-z effects were never pooled into one primary statistic.
+
+### Cluster-first dependence handling
+
+The independent denominator was the programme/study fragmentation cluster, not the number of extracted endpoints. Multiple layers from the same system were retained as dependent effects. When paired unit-level information was available, within-cluster covariance was reconstructed from aligned observations. Low-rank or pairwise covariance components were retained rather than forcing singular full matrices to invert.
+
+For each direct cluster, covariance-aware pairwise contrasts were used to test equality of retained layer effects. Where a cluster contained more than one pairwise comparison, the cluster-level p-value used the declared within-cluster multiplicity correction. Each study/programme contributed one cluster-level p-value to the cross-system synthesis.
+
+The five currently admitted direct clusters were:
 
 1. `ML001` *Serapias lingua*: C / F / G_adult;
 2. `ML002` *Brosimum alicastrum*: C / F;
@@ -45,13 +64,29 @@ The current primary denominator is **five independent clusters / 17 marginal eff
 4. `ML014` *Eucalyptus socialis*: G_mating / F;
 5. `ML020` Aizen–Feinsinger Chaco programme: three dependent species × I / F, counted once.
 
-Within-cluster dependence is reconstructed where possible. Missing layers are not coded as zero and incompatible effect families are not converted merely to enlarge the denominator.
+Together they contain 17 marginal effects. ML020 contains three plant species sharing the same four Chaco landscapes and therefore contributes one programme cluster, not three independent systems.
 
-## Primary hypothesis — response layers are not universally exchangeable
+### Cross-cluster state-separation test
 
-For each admitted cluster, EGWEE tests whether the retained biological-layer effects can be treated as equal on that cluster's own Hedges-g scale. Cluster-level p-values are then combined with Fisher's method, with leave-one-cluster-out sensitivity reported as part of the claim rather than as an optional diagnostic.
+Cluster-level p-values were combined using Fisher's method. The primary null was that within each direct cluster the admitted layer effects were exchangeable/equal on that cluster's Hedges-g scale. A pooled rejection was interpreted only together with leave-one-primary-cluster-out sensitivity.
 
-Current cluster-level p-values are:
+After the four-cluster synthesis identified ML001 *Serapias* as influential, the scientific target for a fifth same-effect-family cluster was fixed as a robustness question: does the conclusion survive removal of ML001 after adding one independent admissible system? This was not a search for a smaller full-corpus p-value. The eventual ML020 Aizen–Feinsinger programme was discovered retrospectively because its public Appendix I values were visible during recovery. To prevent within-paper selection, all three species explicitly identified by the source as having the complete four-site replicated habitat frame were retained, with the same endpoint pair (pollen tubes as I and fruit set as F) for each species.
+
+For ML020, each species used four small-fragment habitat-unit means and four continuous-forest habitat-unit means. Within-species I/F covariance was reconstructed from group-centred paired site values. The three dependent species-specific I–F tests were combined only through an internal Bonferroni programme gate, and the resulting ML020 programme p-value entered the primary Fisher synthesis once.
+
+### Separate continuous-gradient generalisation
+
+`ML015 Eucalyptus wandoo` was retained as a separate Fisher-z gradient generalisation cluster. It included interaction, reproductive-function and adult-genetic effects against a response-free fragmentation geometry, but it contributed zero direct Hedges-g primary effects and was never combined with the primary Fisher statistic.
+
+### Search-stop rule
+
+The fifth same-effect-family robustness test was treated as a terminal test of the current claim. A sixth cluster was not sought merely because removal of ML001 remained non-significant. Any future corpus expansion must be justified by a separately declared coverage or moderator goal before candidate outcomes are inspected.
+
+## Results
+
+### Primary direct-effect synthesis
+
+The five admitted direct clusters produced the following cluster-level p-values:
 
 - ML001 *Serapias*: `0.00354530`;
 - ML002 *Brosimum*: `0.19911670`;
@@ -59,119 +94,72 @@ Current cluster-level p-values are:
 - ML014 *Eucalyptus socialis*: `0.09831774`;
 - ML020 Chaco programme: `1.00000000`.
 
-The five-cluster Fisher combination is:
+Combining the five cluster p-values gave `chi-square(10)=22.64771647`, **`p = 0.01212432`**. The pooled direct-effect corpus therefore rejected complete exchangeability of biological response layers at the 0.05 level.
 
-- `chi-square(10) = 22.64771647`;
-- **`p = 0.01212432`**.
+### Influence of ML001 Serapias
 
-Thus the current primary corpus rejects complete exchangeability of biological response layers **as a pooled five-cluster statement**.
+The pooled rejection is not leave-one-cluster-out robust. Removing ML001 after admission of the fifth cluster retained ML002, ML003, ML014 and ML020 and gave `chi-square(8)=11.36345148`, **`p = 0.18194353`**. Thus the direct cross-system rejection did not survive removal of *Serapias*.
 
-## The decisive robustness result — the pooled rejection is Serapias-dependent
+The other leave-one-cluster-out analyses retained rejection: omit ML002, `p=0.01276794`; omit ML003, `p=0.01407214`; omit ML014, `p=0.02116199`; omit ML020, `p=0.00384724`. The last value recovers the previous four-cluster synthesis.
 
-The pooled rejection is not leave-one-cluster-out robust. The key sensitivity test was defined before admitting a fifth independent same-effect-family programme: does the conclusion survive removal of `ML001 Serapias`?
+### Independent fifth-cluster test: concordant I and F deterioration
 
-It does not.
+ML020 provided the independent same-effect-family robustness test using the replicated Aizen–Feinsinger Chaco programme. Fragmentation reduced both pollen-tube interaction support and fruit set in all three retained species, but their effect magnitudes were not detectably separated.
 
-After adding ML020 and omitting ML001:
+For *Atamisquea emarginata*, I was `g=-0.71280256` and F was `g=-1.00477681`, with covariance-aware I–F `p=0.79824355`. For *Cercidium australe*, I was `g=-0.63733120` and F was `g=-1.13852812`, with `p=0.61830903`. For *Prosopis nigra*, I was `g=-0.48057139` and F was `g=-1.13549676`, with `p=0.55736567`.
 
-- retained clusters: ML002 + ML003 + ML014 + ML020;
-- `chi-square(8) = 11.36345148`;
-- **`p = 0.18194353`**;
-- do not reject layer exchangeability.
+The frozen within-programme Bonferroni gate was therefore **`p_ML020=1.0`**. ML020 was admitted regardless of significance. Its result shows fragmentation-associated multi-layer deterioration without detectable state separation between the focal I and F layers.
 
-Other leave-one-cluster-out analyses retain rejection:
+### Separate gradient evidence
 
-- omit ML002: `p = 0.01276794`;
-- omit ML003: `p = 0.01407214`;
-- omit ML014: `p = 0.02116199`;
-- omit ML020: `p = 0.00384724`.
+ML015 *Eucalyptus wandoo* showed strong discordance on the separate Fisher-z gradient scale. The canonical effects were I pollen tubes `z=+0.69029123`, F seeds per fruit `z=-0.87593080` and G_adult H_e `z=-0.41117288`. The strongest I–F contrast had `z=3.33386`, two-sided `p=0.00085651`; Bonferroni correction across the three endpoint pairs gave `p_cluster=0.00256953`.
 
-The paper therefore **must not claim robust general cross-system state separation**. The defensible result is narrower: the present corpus contains clear state separation, but the cross-system rejection is materially driven by the strongest *Serapias* system.
+This gradient result provides independent evidence that strong layer discordance occurs in nature, but because its exposure representation and effect family differ from the primary direct stream it was treated as generalisation evidence rather than a sixth primary replicate.
 
-## Independent fifth-cluster test — fragmentation can depress I and F together
+## Discussion
 
-ML020 provides the requested independent same-effect-family test using the replicated Aizen–Feinsinger Chaco programme. The source has four study landscapes and three source-explicit species with the habitat treatments replicated on the common four-site frame. All three species were retained as dependent subsystems inside one programme cluster rather than selecting the species with the strongest contrast.
+### Conditional state separation, not a universal syndrome
 
-The primary comparison is small fragment versus continuous forest, using one site-specific habitat-unit mean per site and condition. Plant, flower, fruit and pollen-tube counts are nested and are not promoted to fragmentation replication.
+The primary synthesis separates two ecological statements that are easy to conflate. Fragmentation can affect multiple biological layers, yet those layers need not differ from one another in effect magnitude. Across the five direct clusters, the pooled Fisher test rejected complete exchangeability, showing that the current corpus contains genuine cross-layer separation. However, that result was materially dependent on ML001 *Serapias*. Once *Serapias* was removed, the pooled rejection disappeared even after admission of a fifth independent same-effect-family programme.
 
-For all three retained species, fragmentation reduced both pollen-tube interaction support and fruit set, but the magnitudes were not detectably separated:
+The defensible conclusion is therefore conditional state separation. The available systems do not support a universal single deterioration axis, because some clusters show strong layer discordance. They also do not support a robust universal state-separation syndrome, because the independent Chaco programme showed interaction and reproductive function declining together without detectable separation and because the pooled result failed the key leave-*Serapias*-out test.
 
-- *Atamisquea emarginata*: I `g=-0.71280256`, F `g=-1.00477681`, I–F `p=0.79824355`;
-- *Cercidium australe*: I `g=-0.63733120`, F `g=-1.13852812`, I–F `p=0.61830903`;
-- *Prosopis nigra*: I `g=-0.48057139`, F `g=-1.13549676`, I–F `p=0.55736567`.
+### Multi-layer deterioration is not state separation
 
-The frozen within-programme Bonferroni gate is therefore **`p_ML020=1.0`**.
+ML020 is especially informative because it was not excluded when it failed to reproduce layer separation. In all three Chaco species, both pollen-tube support and fruit set were lower in small fragments than in continuous forest. If the analysis had been based only on whether each endpoint declined, the system would have appeared to support a generic multi-layer fragmentation syndrome. The within-system comparison shows something different: the two layers declined at statistically similar magnitudes.
 
-This negative result is biologically informative. It shows that **multi-layer deterioration is not equivalent to state separation**: interaction and reproductive-function layers can decline together under fragmentation without statistically distinguishable effect magnitudes.
+This distinction matters for ecological interpretation. A system in which interaction and reproductive function fall together may require different mechanistic explanations and monitoring priorities from a system in which interaction, movement, reproduction and genetic state decouple. Endpoint-specific syntheses can establish average vulnerability; a cluster-first synthesis is needed to ask whether the response geometry itself is concordant or separated.
 
-## Separate continuous-gradient generalisation
+### Why the influential-system result is scientifically useful
 
-`ML015 Eucalyptus wandoo` remains a separate Fisher-z gradient cluster and is not combined with the primary Hedges-g statistic.
+The loss of significance after removing *Serapias* is not simply a weakness to be hidden by adding more studies until the p-value changes sign. It defines the current claim boundary. The five-cluster corpus is small and heterogeneous in which layer pairs are represented. Under those conditions, a statistically significant pooled result can coexist with substantial influence from one system. Reporting that influence explicitly prevents the synthesis from being presented as a general mechanistic law that the data do not support.
 
-Its canonical effects are:
+The result also reframes the next empirical question. Rather than asking whether fragmentation always separates biological states, future work should ask which system properties determine separation versus concordant decline. Candidate moderators include mating system, reproductive assurance, pollination mode, life history, fragmentation age and the distinction between standing adult genetic state and contemporary process measures. Those moderators should be tested only after sufficient independent same-frame systems accumulate.
 
-- I pollen tubes: `z=+0.69029123`;
-- F seeds per fruit: `z=-0.87593080`;
-- G_adult H_e: `z=-0.41117288`.
+### Status of the original H2 and H3 extensions
 
-The strongest I–F contrast has `z=3.33386`, two-sided `p=0.00085651`; the within-cluster Bonferroni value is `p=0.00256953`.
+Adult-versus-offspring genetic differences remain biologically motivated, especially in *Spondias* and *Conospermum*, but the current admissible primary corpus does not support a sufficiently replicated cross-system cohort-lag test for a headline conclusion. In *Spondias*, adult–juvenile and adult–seed covariance-aware contrasts cross zero. Cohort/history lag therefore remains a secondary hypothesis rather than a current paper-level result.
 
-This supports the existence of strong layer discordance in an additional natural system, but because it is a different effect family and exposure representation it is **generalisation evidence, not a sixth primary replicate**.
+Likewise, the original plan proposed C–F and I–F cross-system relationships to test whether movement or interaction responses predict reproductive function. The number of independent same-frame paired clusters is currently too small for a stable moderator model. Mechanistic systems such as Miyake *Camellia–Zosterops* and *Crepis* remain useful interpretation anchors, but they do not yet support a fitted general compensation law.
 
-## What the current evidence supports
+Neither extension is used to inflate the present conclusion.
 
-The strongest paper-level interpretation is:
+### Relationship to the NEE theory programme
 
-> **Fragmentation responses cannot yet be summarized as either a universal single deterioration axis or a robust universal pattern of state separation. The current corpus contains strong cross-layer separation in some systems, but an independent replicated programme shows concordant interaction and reproductive decline, and the pooled direct-effect rejection does not survive removal of the influential Serapias cluster.**
+EGWEE was motivated as a natural-data counterpart to a theoretical programme in which fragmentation can reorganize multiple ecological and genetic states. The present synthesis does not validate those finite-model operators in nature. Instead, it tests the more basic empirical premise that biological response layers need not behave as one state under fragmentation.
 
-That result changes the ecological question. Rather than asking whether fragmentation always separates biological states, the next biological target is **which system properties determine separation versus concordant decline**.
+The natural evidence supports that premise conditionally: separated and concordant regimes both occur. That result is more informative for theory than an unconditional confirmation would be, because it implies that any useful mechanistic framework must explain not only why states can separate, but also why they sometimes remain concordant.
 
-The present data are sufficient to establish that both regimes occur. They are not yet sufficient to estimate a stable moderator model explaining the regime boundary.
+### Limitations
 
-## Status of the original H2 and H3 extensions
+The primary direct-effect denominator is five independent programme/study clusters. That is sufficient for the declared cluster-first synthesis and influence test, but insufficient for stable cross-system moderator estimation. The admitted clusters also differ in which biological layers are jointly represented, so the current synthesis tests non-exchangeability within systems rather than estimating one fully crossed layer-by-layer meta-regression across all taxa.
 
-### Cohort/history lag
+The overall meta-analysis is retrospective. ML014 was recovered under a prospectively locked additional-cluster contract, whereas ML020 was an external retrospective recovery whose Appendix I values were visible during discovery. The ML020 analysis therefore retained all source-explicit four-site species and a common endpoint pair to reduce within-paper selection, but it is not presented as an outcome-blind prospective validation.
 
-Adult-versus-offspring genetic differences remain biologically motivated, especially in *Spondias* and *Conospermum*, but the current admissible primary corpus does not support a sufficiently replicated cross-system cohort-lag test for a headline conclusion. The *Spondias* adult–juvenile and adult–seed contrasts cross zero. Cohort lag therefore remains a secondary hypothesis rather than a current paper-level result.
+Finally, the strong ML015 gradient result is deliberately kept outside the primary Hedges-g synthesis. Its concordance with the broader state-separation concept strengthens generalisation, but mixing effect families would create a larger denominator at the cost of a less defensible estimand.
 
-### Process compensation
+## Conclusion
 
-The original plan proposed C–F and I–F meta-regressions to test whether movement or interaction responses predict reproductive-function responses. The current number of independent same-frame paired clusters is too small for a stable cross-system moderator claim. Mechanistic systems such as Miyake *Camellia–Zosterops* and *Crepis* remain useful interpretation anchors, not evidence for a fitted general compensation law.
+Habitat fragmentation affects multiple biological layers, but the available natural systems do not support a single universal response geometry. Some systems show strong separation among interaction, movement, reproductive and genetic responses, whereas a replicated Chaco programme shows interaction and reproductive function declining together. The pooled direct-effect synthesis rejects layer exchangeability, but that rejection disappears when the influential *Serapias* system is removed. The empirical result is therefore conditional state separation, not a universal fragmentation syndrome.
 
-Neither extension should be used to inflate the present conclusion.
-
-## Why this remains a useful synthesis
-
-Existing fragmentation meta-analyses mainly ask whether a given endpoint declines on average. EGWEE instead enforces a harder unit of comparison: multiple biological layers measured within the same system under a common exposure and valid independent unit.
-
-That architecture exposes three things that endpoint-specific syntheses cannot show as clearly:
-
-1. a system can exhibit genuine cross-layer separation;
-2. a system can show concordant deterioration across layers;
-3. a pooled separation result can be statistically significant yet fail an influential-system robustness test.
-
-The third result is especially important because it prevents a small heterogeneous literature from being presented as a universal mechanistic law.
-
-## Claim ceiling
-
-The current manuscript may claim:
-
-- five direct same-effect-family programme/study clusters have been admitted under explicit effect-unit rules;
-- the pooled five-cluster Fisher test rejects layer exchangeability at `p=0.01212432`;
-- that rejection is not Serapias-independent (`p=0.18194353` after omitting ML001);
-- ML020 independently demonstrates concordant I/F deterioration without detectable state separation;
-- ML015 independently demonstrates strong discordance in a separate continuous-gradient effect family;
-- natural systems therefore include both separated and concordant response regimes.
-
-It may **not** claim:
-
-- robust universal state separation across fragmented plant systems;
-- a universal ordering of I, C, F, G_adult and G_offspring;
-- a confirmed cross-system cohort lag;
-- a general causal compensation mechanism;
-- that the finite NEE operators have been directly validated in nature;
-- that a sixth cluster should be sought merely to restore Serapias-independent significance.
-
-## Current paper-level conclusion
-
-> **Habitat fragmentation affects multiple biological layers, but the available natural systems do not support a single universal response geometry. Some systems show strong separation among interaction, movement, reproductive and genetic responses, whereas a replicated Chaco programme shows interaction and reproductive function declining together. The pooled direct-effect synthesis rejects layer exchangeability, but that rejection disappears when the influential Serapias system is removed. The empirical result is therefore conditional state separation, not a universal fragmentation syndrome.**
+The current manuscript may claim five admitted direct same-effect-family programme/study clusters, a pooled Fisher rejection at `p = 0.01212432`, loss of that rejection after omitting ML001 at `p = 0.18194353`, an independent ML020 concordant-decline result with `p_ML020=1.0`, and separate ML015 gradient discordance. It may not claim robust universal state separation, a universal layer ordering, a confirmed cohort lag, a general compensation mechanism, direct validation of the NEE operators, or that a sixth cluster should be sought merely to restore Serapias-independent significance.
