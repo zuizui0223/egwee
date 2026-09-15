@@ -10,6 +10,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SYNTHESIS = ROOT / "scripts/synthesize_state_separation.py"
+MANUSCRIPT = ROOT / "manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md"
+TABLE = ROOT / "manuscript/tables/table_s2_covariance_robustness.csv"
 
 
 def rows(rel: str) -> list[dict[str, str]]:
@@ -35,8 +37,6 @@ def pair_p(e1: float, v1: float, e2: float, v2: float, mode: str) -> float:
     if mode == "zero_covariance":
         cov = 0.0
     elif mode == "cauchy_schwarz_max_variance":
-        # Cauchy-Schwarz gives Cov >= -sqrt(V1 V2). The lower covariance bound
-        # maximises Var(e1-e2), hence maximises the two-sided p-value for this pair.
         cov = -math.sqrt(v1 * v2)
     else:
         raise ValueError(mode)
@@ -123,14 +123,53 @@ def regime(mode: str) -> dict:
     return {"cluster_p": cluster_ps, "fisher_x": x, "fisher_p": p, "leave_one_out_p": loo}
 
 
+def check_table(proxy: dict, zero: dict, bound: dict) -> None:
+    with TABLE.open(newline="", encoding="utf-8") as fh:
+        tab = {r["regime"]: r for r in csv.DictReader(fh)}
+    assert set(tab) == {
+        "frozen_paired_covariance_proxy",
+        "zero_covariance",
+        "cauchy_schwarz_certification_bound",
+    }
+    for name, result in (
+        ("frozen_paired_covariance_proxy", proxy),
+        ("zero_covariance", zero),
+        ("cauchy_schwarz_certification_bound", bound),
+    ):
+        row = tab[name]
+        for cid in ("ML001", "ML002", "ML003", "ML014", "ML020"):
+            assert abs(float(row[f"{cid}_cluster_p"]) - result["cluster_p"][cid]) < 5e-8
+        assert abs(float(row["fisher_statistic"]) - result["fisher_x"]) < 1e-10
+        assert abs(float(row["full_fisher_p"]) - result["fisher_p"]) < 1e-12
+        assert abs(float(row["omit_ML001_p"]) - result["leave_one_out_p"]["ML001"]) < 1e-12
+
+
+def check_manuscript() -> None:
+    text = MANUSCRIPT.read_text(encoding="utf-8")
+    for token in (
+        "### Dependence sensitivity and covariance-free certification boundary",
+        "Supplementary Table S2",
+        "p=0.03860161",
+        "p=0.28061178",
+        "p=0.57123438",
+        "p=0.92060125",
+        "cannot be certified from marginal effects alone",
+        "not an alternative biological covariance model",
+        "Standardized effects also depend on endpoint-specific between-unit dispersion",
+        "It may not claim covariance-free global rejection",
+    ):
+        assert token in text, token
+
+
 def main() -> None:
-    proxy = canonical_proxy()
+    proxy_ps = canonical_proxy()
     order = ["ML001", "ML002", "ML003", "ML014", "ML020"]
-    proxy_x, proxy_p = fisher_sf_even_df([proxy[c] for c in order])
+    proxy_x, proxy_p = fisher_sf_even_df([proxy_ps[c] for c in order])
     proxy_loo = {}
     for drop in order:
-        _, p = fisher_sf_even_df([proxy[c] for c in order if c != drop])
+        _, p = fisher_sf_even_df([proxy_ps[c] for c in order if c != drop])
         proxy_loo[drop] = p
+    proxy = {"cluster_p": proxy_ps, "fisher_x": proxy_x, "fisher_p": proxy_p, "leave_one_out_p": proxy_loo}
 
     zero = regime("zero_covariance")
     bound = regime("cauchy_schwarz_max_variance")
@@ -141,8 +180,11 @@ def main() -> None:
     assert abs(zero["leave_one_out_p"]["ML001"] - 0.5712343808812794) < 1e-12
     assert abs(bound["leave_one_out_p"]["ML001"] - 0.9206012453762535) < 1e-12
 
+    check_table(proxy, zero, bound)
+    check_manuscript()
+
     out = {
-        "primary_proxy": {"cluster_p": proxy, "fisher_x": proxy_x, "fisher_p": proxy_p, "leave_one_out_p": proxy_loo},
+        "primary_proxy": proxy,
         "zero_covariance": zero,
         "cauchy_schwarz_certification_bound": bound,
         "interpretation": (
