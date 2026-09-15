@@ -43,12 +43,12 @@ def main() -> None:
     schema = json.loads(SCHEMA.read_text(encoding="utf-8"))
 
     # The repository is now results-bearing. Guard the current conditional
-    # conclusion rather than obsolete protocol-only wording.
+    # conclusion semantically rather than coupling CI to one exact sentence.
     assert "active paper is a cluster-first empirical synthesis" in readme
     assert "five independent programme/study clusters / 17 marginal effects" in readme
     assert "not Serapias-independent" in readme
     assert "Primary hypothesis — response layers are not universally exchangeable" in manuscript
-    assert "The pooled rejection is not leave-one-cluster-out robust" in manuscript
+    assert "not leave-one-cluster-out robust" in manuscript
     assert "Status of the original H2 and H3 extensions" in manuscript
     assert "primary meta-analysis requires a direct fragmented-versus-reference comparison" in protocol.lower()
     assert "pseudo-replication firewall" in effect_amendment.lower()
