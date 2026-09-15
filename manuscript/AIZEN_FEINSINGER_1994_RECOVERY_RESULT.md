@@ -22,28 +22,28 @@ Discovery was retrospective: the public Appendix I numeric table was visible dur
 
 ## Marginal Hedges-g effects
 
-All effects are small-fragment minus continuous-forest and are oriented so negative values indicate reduced support/function under fragmentation.
+All effects are small-fragment minus continuous-forest and are oriented so negative values indicate reduced support/function under fragmentation. Hedges' small-sample correction is the same canonical approximation used by the existing primary EGWEE scripts, `J = 1 - 3/(4df - 1)`.
 
 ### *Atamisquea emarginata*
 
-- `I_pollen_tubes`: `g=-0.71203322`, `v=0.53168696`;
-- `F_fruit_set`: `g=-1.00369234`, `v=0.56296240`;
-- group-centered `rho=-0.19170473`, covariance `-0.10488190`;
-- `I-F=+0.29165912`, `SE=1.14210908`, `z=0.25536888`, `p=0.79843820`.
+- `I_pollen_tubes`: `g=-0.71280256`, `v=0.53175547`;
+- `F_fruit_set`: `g=-1.00477681`, `v=0.56309853`;
+- group-centered `rho=-0.19170473`, covariance `-0.10490134`;
+- `I-F=+0.29197425`, `SE=1.14221568`, `z=0.25562094`, `p=0.79824355`.
 
 ### *Cercidium australe* (1990)
 
-- `I_pollen_tubes`: `g=-0.63664333`, `v=0.52533217`;
-- `F_fruit_set`: `g=-1.13729930`, `v=0.58084061`;
-- group-centered `rho=+0.08554857`, covariance `+0.04725614`;
-- `I-F=+0.50065597`, `SE=1.00581335`, `z=0.49776231`, `p=0.61865159`.
+- `I_pollen_tubes`: `g=-0.63733120`, `v=0.52538694`;
+- `F_fruit_set`: `g=-1.13852812`, `v=0.58101539`;
+- group-centered `rho=+0.08554857`, covariance `+0.04726571`;
+- `I-F=+0.50119692`, `SE=1.00591794`, `z=0.49824831`, `p=0.61830903`.
 
 ### *Prosopis nigra* (1990)
 
-- `I_pollen_tubes`: `g=-0.48005270`, `v=0.51440316`;
-- `F_fruit_set`: `g=-1.13427121`, `v=0.58041070`;
-- group-centered `rho=-0.13799123`, covariance `-0.07539994`;
-- `I-F=+0.65421850`, `SE=1.11607067`, `z=0.58618018`, `p=0.55775444`.
+- `I_pollen_tubes`: `g=-0.48057139`, `v=0.51443430`;
+- `F_fruit_set`: `g=-1.13549676`, `v=0.58058456`;
+- group-centered `rho=-0.13799123`, covariance `-0.07541351`;
+- `I-F=+0.65492537`, `SE=1.11617467`, `z=0.58675886`, `p=0.55736567`.
 
 Each 2x2 working covariance is positive definite and each I-F contrast variance is positive.
 
@@ -51,7 +51,7 @@ Each 2x2 working covariance is positive definite and each I-F contrast variance 
 
 The three species share the same four landscapes and are treated as dependent subsystems inside ML020. Per the recovery contract, the programme-level p-value is the Bonferroni gate across the three species-specific I-F tests:
 
-`p_ML020 = min(1, 3 * min(0.79843820, 0.61865159, 0.55775444)) = 1.0`.
+`p_ML020 = min(1, 3 * min(0.79824355, 0.61830903, 0.55736567)) = 1.0`.
 
 This is not a failed admission. It is an admitted cluster with **no evidence that the fragmentation effect differs between I and F** under the frozen within-programme test. Both layers generally deteriorate in the same direction.
 
