@@ -23,7 +23,7 @@ Current Journal of Ecology shaping constraints:
 - research-article main sections ultimately need Introduction, Materials and Methods, Results and Discussion;
 - up to eight keywords/short phrases.
 
-The manuscript abstract and keywords have been reformatted to these requirements. Full IMRaD restructuring, word-count control and the final figure package remain to be completed.
+The manuscript abstract and keywords have been reformatted to these requirements, and the main text has been converted to Introduction, Materials and Methods, Results and Discussion. Automated word-count and submission-shape checks are used before the remaining figure and anonymous-submission package work.
 
 ## Paper role relative to NEE
 
@@ -79,7 +79,7 @@ Not authorised:
 - [x] quantitative manuscript conclusion rewritten to match the canonical synthesis;
 - [x] primary venue selected: Journal of Ecology;
 - [x] journal-specific abstract and keywords shaped;
-- [ ] main text converted to Journal of Ecology IMRaD structure;
+- [x] main text converted to Journal of Ecology IMRaD structure;
 - [ ] main-text word count audited against the ~8000-word research-article target;
 - [ ] final figure/table package completed;
 - [ ] double-anonymous submission package checked;
