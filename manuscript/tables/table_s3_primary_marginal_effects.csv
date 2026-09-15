@@ -1,0 +1,18 @@
+cluster_id,system_or_subsystem,layer,endpoint,fragmentation_contrast,independent_unit,n_fragmented,n_reference,hedges_g,sampling_variance,se,ci95_lower,ci95_upper
+ML001,Serapias lingua,C,pollen immigration rate,predefined anthropic populations vs natural populations,population,3,6,-10.099014842641,6.166116710660,2.483166669932,-14.966021515707,-5.232008169575
+ML001,Serapias lingua,F,fruit set,predefined anthropic populations vs natural populations,population,3,6,-4.554090700612,1.652207894967,1.285382392507,-7.073440189926,-2.034741211298
+ML001,Serapias lingua,G_adult,observed heterozygosity,predefined anthropic populations vs natural populations,population,3,6,-26.072466369633,38.265194588647,6.185886726141,-38.196804352869,-13.948128386397
+ML002,Brosimum alicastrum,C,multilocus correlated paternity support,fragmented forest vs continuous forest,site/population,3,3,-2.321537609900,1.115794739516,1.056311857131,-4.391908849877,-0.251166369923
+ML002,Brosimum alicastrum,F,one-year total dry mass,fragmented forest vs continuous forest,site/population,3,3,-1.286939644908,0.804684470803,0.897042067466,-3.045142097141,0.471262807325
+ML003,Spondias purpurea,C,multilocus correlated paternity support,fragmented forest vs continuous forest,site,3,2,-0.254746780651,0.839822925559,0.916418531872,-2.050927103121,1.541433541819
+ML003,Spondias purpurea,G_adult,adult observed heterozygosity,fragmented forest vs continuous forest,site,3,2,-0.940881526358,0.921859137997,0.960134958220,-2.822746044470,0.940982991754
+ML003,Spondias purpurea,G_offspring,juvenile observed heterozygosity,fragmented forest vs continuous forest,site,3,2,-3.181330686725,1.845419827163,1.358462302445,-5.843916799516,-0.518744573934
+ML003,Spondias purpurea,G_offspring,seed observed heterozygosity,fragmented forest vs continuous forest,site,3,2,-1.117905988897,0.958304713335,0.978930392487,-3.036609558172,0.800797580378
+ML014,Eucalyptus socialis,G_mating,family multilocus correlated paternity support,MONLOW isolated-pasture fragments vs MONHIGH small-remnant reference,maternal family,13,15,-1.023913881040,0.162311165657,0.402878599155,-1.813555935384,-0.234271826696
+ML014,Eucalyptus socialis,F,family mean progeny height,MONLOW isolated-pasture fragments vs MONHIGH small-remnant reference,maternal family,13,15,-0.271808874814,0.144909030455,0.380669187688,-1.017920482682,0.474302733054
+ML020,Atamisquea emarginata,I,pollen tubes,small forest fragment vs continuous forest,site-specific habitat unit,4,4,-0.712802558110,0.531755467928,0.729215652553,-2.142065237114,0.716460120893
+ML020,Atamisquea emarginata,F,fruit set,small forest fragment vs continuous forest,site-specific habitat unit,4,4,-1.004776808504,0.563098527182,0.750398912034,-2.475558676090,0.466005059083
+ML020,Cercidium australe,I,pollen tubes,small forest fragment vs continuous forest,site-specific habitat unit,4,4,-0.637331203988,0.525386941474,0.724835803112,-2.058009378088,0.783346970112
+ML020,Cercidium australe,F,fruit set,small forest fragment vs continuous forest,site-specific habitat unit,4,4,-1.138528122970,0.581015392925,0.762243657189,-2.632525691061,0.355469445120
+ML020,Prosopis nigra,I,pollen tubes,small forest fragment vs continuous forest,site-specific habitat unit,4,4,-0.480571386641,0.514434303604,0.717240757071,-1.886363270500,0.925220497218
+ML020,Prosopis nigra,F,fruit set,small forest fragment vs continuous forest,site-specific habitat unit,4,4,-1.135496758044,0.580584555471,0.761960993405,-2.628940305118,0.357946789029
