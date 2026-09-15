@@ -78,6 +78,14 @@ The five currently admitted direct clusters were:
 
 Together they contain 17 marginal effects. ML020 contains three plant species sharing the same four Chaco landscapes and therefore contributes one programme cluster, not three independent systems. Within ML020, the three species-specific I–F tests are dependent subsystems and are first reduced to one programme-level Bonferroni gate before ML020 enters the cross-system synthesis.
 
+### Dependence sensitivity and covariance-free certification boundary
+
+The reconstructed paired-unit covariance proxies above define the canonical primary analysis. We added two fixed secondary calculations that leave every marginal effect and variance unchanged and alter only the off-diagonal covariance used in each layer contrast (Supplementary Table S2).
+
+First, a zero-covariance working sensitivity set every off-diagonal `Cov_ij` to zero and repeated the identical pairwise, Bonferroni and Fisher procedures. This asks whether the full rejection requires the fitted covariance proxies themselves to be non-zero.
+
+Second, we calculated a covariance-free certification bound from the Cauchy–Schwarz constraint `Cov_ij >= -sqrt(V_i V_j)`. For each endpoint pair, setting `Cov_ij = -sqrt(V_i V_j)` maximises `V(g_i-g_j)` and therefore maximises that pair's two-sided p-value. We propagated these pairwise p-value upper bounds through the unchanged Bonferroni and Fisher rules. Because the separately maximising pairwise covariance bounds need not constitute one jointly realisable full covariance matrix, this calculation is not an alternative biological covariance model. It is a conservative certification question: can rejection be guaranteed from the marginal effects and variances alone when dependence is otherwise unknown?
+
 ### Cross-cluster state-separation test and estimand
 
 The five admitted primary clusters are distinct study/programme systems, so only their single cluster-level p-values were treated as cross-cluster inputs. We combined them using Fisher's statistic `X = -2 sum_k log(p_k)`. Under the global null with independent uniform cluster-level p-values, `X` has a chi-square reference distribution with `2K` degrees of freedom (`K=5` in the final primary synthesis). Because the within-cluster Bonferroni p-values can be conservative rather than exactly uniform, the chi-square calibration is correspondingly conservative relative to ideal uniform inputs.
@@ -116,11 +124,19 @@ The five admitted direct clusters produced the following cluster-level p-values:
 
 Combining the five cluster p-values gave `chi-square(10)=22.64771647`, **`p = 0.01212432`**. The pooled direct-effect corpus therefore rejected the global null that all five admitted systems satisfy within-system layer exchangeability. This rejection is a global test of discordance somewhere in the corpus, not an estimate of a common layer effect or a claim that each cluster individually separates.
 
+### Dependence sensitivity
+
+The full conclusion was not restricted to the fitted non-zero covariance proxies. With all within-cluster off-diagonal covariances set to zero, the five-cluster statistic was `X=19.13332192` and remained below the 0.05 threshold (**`p=0.03860161`**). Thus the full rejection does not require the reconstructed covariance proxies to have their observed non-zero values.
+
+The stronger covariance-free certification question did not reject. Using the pairwise Cauchy–Schwarz maximum-contrast-variance bounds produced `X=12.06678382`, **`p=0.28061178`**. Marginal effects and variances alone therefore do not certify rejection for every dependence structure allowed by their variances. This bound is deliberately more adversarial than a realised covariance sensitivity and should not be interpreted as a fitted alternative covariance matrix.
+
+The Serapias dependence strengthened under both calculations. Omitting ML001 gave **`p=0.57123438`** with zero covariance and a covariance-free certification bound of **`p=0.92060125`**. Full and cluster-specific values are reported in Supplementary Table S2.
+
 ### Influence of ML001 Serapias
 
-The pooled rejection is not leave-one-cluster-out robust. Removing ML001 after admission of the fifth cluster retained ML002, ML003, ML014 and ML020 and gave `chi-square(8)=11.36345148`, **`p = 0.18194353`**. Thus the direct cross-system rejection did not survive removal of *Serapias*.
+The canonical paired-covariance rejection is not leave-one-cluster-out robust. Removing ML001 after admission of the fifth cluster retained ML002, ML003, ML014 and ML020 and gave `chi-square(8)=11.36345148`, **`p = 0.18194353`**. Thus the direct cross-system rejection did not survive removal of *Serapias*.
 
-The other leave-one-cluster-out analyses retained rejection: omit ML002, `p=0.01276794`; omit ML003, `p=0.01407214`; omit ML014, `p=0.02116199`; omit ML020, `p=0.00384724`. The last value recovers the previous four-cluster synthesis.
+The other canonical leave-one-cluster-out analyses retained rejection: omit ML002, `p=0.01276794`; omit ML003, `p=0.01407214`; omit ML014, `p=0.02116199`; omit ML020, `p=0.00384724`. The last value recovers the previous four-cluster synthesis.
 
 ### Independent fifth-cluster test: concordant I and F deterioration
 
@@ -140,9 +156,9 @@ This gradient result provides independent evidence that strong layer discordance
 
 ### Conditional state separation, not a universal syndrome
 
-The primary synthesis separates two ecological statements that are easy to conflate. Fragmentation can affect multiple biological layers, yet those layers need not differ from one another in effect magnitude. Across the five direct clusters, the pooled Fisher test rejected complete exchangeability, showing that the current corpus contains genuine cross-layer separation. However, that result was materially dependent on ML001 *Serapias*. Once *Serapias* was removed, the pooled rejection disappeared even after admission of a fifth independent same-effect-family programme.
+The primary synthesis separates two ecological statements that are easy to conflate. Fragmentation can affect multiple biological layers, yet those layers need not differ from one another in effect magnitude. Under the frozen paired-unit covariance reconstruction, the five-cluster Fisher test rejected complete exchangeability; the rejection also survived the simpler zero-covariance sensitivity. However, the result was materially dependent on ML001 *Serapias*, and it could not be certified from marginal effects alone when within-cluster covariance was treated as entirely unknown. Once *Serapias* was removed, no dependence regime examined supported the cross-system rejection.
 
-The defensible conclusion is therefore conditional state separation. The available systems do not support a universal single deterioration axis, because some clusters show strong layer discordance. They also do not support a robust universal state-separation syndrome, because the independent Chaco programme showed interaction and reproductive function declining together without detectable separation and because the pooled result failed the key leave-*Serapias*-out test.
+The defensible conclusion is therefore conditional state separation. The available systems do not support a universal single deterioration axis, because some clusters show strong layer discordance. They also do not support a robust universal state-separation syndrome, because the independent Chaco programme showed interaction and reproductive function declining together without detectable separation, the canonical pooled result failed the key leave-*Serapias*-out test, and the strongest full-corpus rejection uses paired dependence information that is absent from a marginal-only certification analysis.
 
 ### Multi-layer deterioration is not state separation
 
@@ -176,7 +192,9 @@ The primary direct-effect denominator is five independent programme/study cluste
 
 The evidence-recovery universe was targeted rather than an exhaustive all-database systematic review. The candidate and primary-study ledgers make the audited search path explicit, and the cluster registry records every formal quantitative recovery attempt, but unseeded literature may still exist outside that universe. This limits claims about prevalence: the present analysis can establish that separated and concordant response geometries both occur among the audited systems, but it cannot estimate their global frequencies.
 
-The primary Fisher statistic combines valid cluster-level evidence but has no common-effect parameter attached to it. It should not be read as a meta-analytic estimate of the magnitude or frequency of state separation. Moreover, the cluster p-values are based on covariance proxies reconstructed from the available aligned independent units rather than known design-based sampling covariances. The analysis therefore prioritizes a conservative test of detectable within-system discordance; uncertainty in those covariance proxies is not itself separately propagated as another variance component.
+The primary Fisher statistic combines valid cluster-level evidence but has no common-effect parameter attached to it. It should not be read as a meta-analytic estimate of the magnitude or frequency of state separation. The paired-unit covariance proxies are reconstructed from available aligned independent units rather than known design-based sampling covariances. The zero-covariance sensitivity shows that the full rejection does not require the fitted off-diagonal values themselves, but the Cauchy–Schwarz certification analysis shows that rejection cannot be guaranteed from marginal effects and variances alone. Consequently, the strongest global rejection is conditional on using source-supported paired dependence information; uncertainty in those covariance proxies is not separately estimated as another variance component.
+
+Standardized effects also depend on endpoint-specific between-unit dispersion. An extreme Hedges-g magnitude can therefore reflect a small standardizing SD as well as a large raw biological contrast. This is especially relevant to ML001 *Serapias*, whose adult heterozygosity effect is standardized by very small between-population SD within the source-defined habitat groups. Full sampling variances are retained, and the primary interpretation is therefore based on cluster tests plus explicit influence analyses rather than ranking raw Hedges-g magnitudes as a common scale of biological severity.
 
 The overall meta-analysis is retrospective. ML014 was recovered under a prospectively locked additional-cluster contract, whereas ML020 was an external retrospective recovery whose Appendix I values were visible during discovery. The ML020 analysis therefore retained all source-explicit four-site species and a common endpoint pair to reduce within-paper selection, but it is not presented as an outcome-blind prospective validation.
 
@@ -184,9 +202,9 @@ Finally, the strong *Eucalyptus wandoo* gradient result is deliberately kept out
 
 ## Conclusion
 
-Habitat fragmentation affects multiple biological layers, but the available natural systems do not support a single universal response geometry. Some systems show strong separation among interaction, movement, reproductive and genetic responses, whereas a replicated Chaco programme shows interaction and reproductive function declining together without detectable separation. The pooled direct-effect synthesis rejects the global null of layer exchangeability across the admitted systems, but that rejection disappears when the influential *Serapias* system is removed. The empirical result is therefore conditional state separation, not a universal fragmentation syndrome.
+Habitat fragmentation affects multiple biological layers, but the available natural systems do not support a single universal response geometry. Under the source-supported paired covariance reconstruction, the pooled direct-effect synthesis rejects the global null of layer exchangeability, and that rejection also survives a zero-covariance sensitivity. It does not survive removal of the influential *Serapias* system and cannot be certified from marginal effects alone when within-cluster covariance is left entirely unknown. The empirical result is therefore conditional state separation, not a universal fragmentation syndrome.
 
-The current manuscript may claim five admitted direct same-effect-family programme/study clusters, a pooled Fisher rejection at `p = 0.01212432`, loss of that rejection after omitting ML001 at `p = 0.18194353`, an independent ML020 concordant-decline result with `p_ML020=1.0`, and separate gradient discordance. It may not claim robust universal state separation, a universal layer ordering, a confirmed cohort lag, a general compensation mechanism, direct validation of a specific finite eco-genetic model, or that a sixth cluster should be sought merely to restore Serapias-independent significance.
+The current manuscript may claim five admitted direct same-effect-family programme/study clusters, a canonical paired-covariance Fisher rejection at `p = 0.01212432`, a zero-covariance full sensitivity at `p=0.03860161`, a covariance-free certification bound of `p=0.28061178`, loss of the canonical rejection after omitting ML001 at `p = 0.18194353`, an independent ML020 concordant-decline result with `p_ML020=1.0`, and separate gradient discordance. It may not claim covariance-free global rejection, robust universal state separation, a universal layer ordering, a confirmed cohort lag, a general compensation mechanism, direct validation of a specific finite eco-genetic model, or that a sixth cluster should be sought merely to restore Serapias-independent significance.
 
 ## References
 
