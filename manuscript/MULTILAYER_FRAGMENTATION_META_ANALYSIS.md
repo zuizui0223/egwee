@@ -48,19 +48,25 @@ Sixteen multilayer cluster attempts were formally registered (`ML001`–`ML015` 
 
 A closure due to inaccessible or non-reconstructable data was never interpreted as a biological null. Likewise, a non-significant published endpoint was never entered as a zero effect. This admission flow fixes the denominator by estimand and effect-unit validity rather than by whether a candidate supports state separation.
 
-### Response layers and effect orientation
+### Response layers, effect orientation and the direct-effect estimand
 
 Eligible endpoints were assigned before quantitative synthesis to the following biological layers: `D_resource_demography`, `I_interaction`, `C_movement_connectivity`, `F_reproductive_function`, `G_adult` and `G_offspring`. A measured endpoint was not moved between layers after its effect size was known.
 
-The primary effect family was Hedges' `g` for fragmented minus reference conditions. Effects were oriented so that negative values indicate lower biological support or function under fragmentation. For deterioration metrics where larger raw values indicate poorer state, the sign was reversed only after preserving the raw direction and an explicit orientation rule. Sampling variances followed the same declared large-sample Hedges-g convention throughout the direct primary stream.
+For a direct fragmented-versus-reference endpoint, the standardized raw contrast was `d = (M_frag - M_ref) / s_p`, where `s_p = sqrt(((n_frag-1)s_frag^2 + (n_ref-1)s_ref^2) / df)` and `df = n_frag + n_ref - 2`. The primary Hedges effect was `g = J d`, using the fixed small-sample approximation `J = 1 - 3/(4df - 1)`. Its sampling variance used the same large-sample standardized-mean-difference convention for every admitted direct endpoint: `V(g) = (n_frag+n_ref)/(n_frag n_ref) + g^2/[2(n_frag+n_ref)]`. Here `n_frag` and `n_ref` are counts of the source-supported independent fragmentation units (for example populations, sites or maternal families), never nested flowers, progeny, loci or repeated measurements.
+
+Effects were oriented after the raw contrast was stored so that negative values consistently indicate lower biological support or function under fragmentation. For metrics such as correlated paternity or inbreeding where larger raw values represent poorer state, an explicit orientation multiplier of `-1` was applied; this changes the sign of `g` but not its marginal sampling variance.
+
+The estimand is therefore endpoint-specific standardized change under the same source-defined fragmentation contrast within a biological system. We do not interpret numerical equality of Hedges g across different response variables as equality on their raw biological scales; rather, the within-system test asks whether their standardized fragmentation effects can be distinguished given their sampling dependence.
 
 Continuous-gradient studies were analysed separately using Fisher-transformed correlations where an effect could be reconstructed without strong transformation assumptions. Hedges-g and Fisher-z effects were never pooled into one primary statistic.
 
-### Cluster-first dependence handling
+### Within-cluster dependence and layer-separation tests
 
-The independent denominator was the programme/study fragmentation cluster, not the number of extracted endpoints. Multiple layers from the same system were retained as dependent effects. When paired unit-level information was available, within-cluster covariance was reconstructed from aligned observations. Low-rank or pairwise covariance components were retained rather than forcing singular full matrices to invert.
+The independent denominator was the programme/study fragmentation cluster, not the number of extracted endpoints. Multiple layers from the same system were retained as dependent effects. When aligned independent-unit values were available, the working sampling covariance between endpoints `i` and `j` was represented as `Cov_ij = rho_ij sqrt(V_i V_j)`, with `rho_ij` reconstructed from the aligned population/site/family frame under the cluster-specific frozen dependence rule. These covariance proxies preserve observed cross-endpoint dependence; they are not extra biological replicates. Where the full covariance proxy was structurally low-rank, as in ML003, pairwise covariance entries were retained rather than forcing a singular matrix inversion.
 
-For each direct cluster, covariance-aware pairwise contrasts were used to test equality of retained layer effects. Where a cluster contained more than one pairwise comparison, the cluster-level p-value used the declared within-cluster multiplicity correction. Each study/programme contributed one cluster-level p-value to the cross-system synthesis.
+For every unordered pair of admitted endpoint effects within a cluster, we tested `H0: g_i = g_j` with `d_ij = g_i - g_j`, `V(d_ij) = V_i + V_j - 2Cov_ij`, and `z_ij = d_ij / sqrt(V(d_ij))`. Two-sided pairwise p-values came from the standard normal distribution. All predeclared endpoint pairs were retained; no pair was selected because its difference was large.
+
+If a cluster contained `m` unordered endpoint pairs, its single contribution to the cross-system synthesis was the Bonferroni union-bound p-value `p_cluster = min(1, m min(p_ij))`. This choice remains valid under dependence among pairwise contrasts and avoids requiring inversion of the singular four-endpoint ML003 covariance proxy. A large or unit cluster p-value is interpreted only as absence of detected layer separation under this test; it is not affirmative evidence that biological layers are exchangeable.
 
 The five currently admitted direct clusters were:
 
@@ -70,11 +76,13 @@ The five currently admitted direct clusters were:
 4. `ML014` *Eucalyptus socialis*: G_mating / F (Breed et al., 2012);
 5. `ML020` Aizen–Feinsinger Chaco programme: three dependent species × I / F, counted once (Aizen & Feinsinger, 1994).
 
-Together they contain 17 marginal effects. ML020 contains three plant species sharing the same four Chaco landscapes and therefore contributes one programme cluster, not three independent systems.
+Together they contain 17 marginal effects. ML020 contains three plant species sharing the same four Chaco landscapes and therefore contributes one programme cluster, not three independent systems. Within ML020, the three species-specific I–F tests are dependent subsystems and are first reduced to one programme-level Bonferroni gate before ML020 enters the cross-system synthesis.
 
-### Cross-cluster state-separation test
+### Cross-cluster state-separation test and estimand
 
-Cluster-level p-values were combined using Fisher's method. The primary null was that within each direct cluster the admitted layer effects were exchangeable/equal on that cluster's Hedges-g scale. A pooled rejection was interpreted only together with leave-one-primary-cluster-out sensitivity.
+The five admitted primary clusters are distinct study/programme systems, so only their single cluster-level p-values were treated as cross-cluster inputs. We combined them using Fisher's statistic `X = -2 sum_k log(p_k)`. Under the global null with independent uniform cluster-level p-values, `X` has a chi-square reference distribution with `2K` degrees of freedom (`K=5` in the final primary synthesis). Because the within-cluster Bonferroni p-values can be conservative rather than exactly uniform, the chi-square calibration is correspondingly conservative relative to ideal uniform inputs.
+
+The cross-cluster null is the intersection null that every admitted primary cluster satisfies its own within-system layer-equality null. Fisher's statistic therefore tests whether the corpus contains evidence against complete layer exchangeability; it does **not** estimate a common mean layer difference, a common standardized effect, the proportion of systems with separation, or a universal ordering of I/C/F/G responses. A small combined p-value can be driven disproportionately by one influential cluster, which is why the same fixed Fisher rule was recomputed after omitting each primary cluster once and the leave-one-cluster-out results were treated as part of the claim ceiling rather than a model-selection device.
 
 After the four-cluster synthesis identified ML001 *Serapias* as influential, the scientific target for a fifth same-effect-family cluster was fixed as a robustness question: does the conclusion survive removal of ML001 after adding one independent admissible system? This was not a search for a smaller full-corpus p-value. The eventual Aizen–Feinsinger programme was discovered retrospectively because its public Appendix I values were visible during recovery. To prevent within-paper selection, all three species explicitly identified by the source as having the complete four-site replicated habitat frame were retained, with the same endpoint pair (pollen tubes as I and fruit set as F) for each species.
 
@@ -82,7 +90,7 @@ For ML020, each species used four small-fragment habitat-unit means and four con
 
 ### Separate continuous-gradient generalisation
 
-The *Eucalyptus wandoo* programme of Llorens et al. (2018; `ML015`) was retained as a separate Fisher-z gradient generalisation cluster. It included interaction, reproductive-function and adult-genetic effects against a response-free fragmentation geometry, but it contributed zero direct Hedges-g primary effects and was never combined with the primary Fisher statistic.
+The *Eucalyptus wandoo* programme of Llorens et al. (2018; `ML015`) was retained as a separate Fisher-z gradient generalisation cluster. It included interaction, reproductive-function and adult-genetic effects against a response-free fragmentation geometry. Pairwise endpoint differences and the same Bonferroni cluster rule were computed on the Fisher-z scale using its paired-population covariance proxy, but ML015 contributed zero direct Hedges-g primary effects and its p-value was never combined with the primary Fisher statistic.
 
 ### Search-stop rule
 
@@ -106,7 +114,7 @@ The five admitted direct clusters produced the following cluster-level p-values:
 - ML014 *Eucalyptus socialis*: `0.09831774`;
 - ML020 Chaco programme: `1.00000000`.
 
-Combining the five cluster p-values gave `chi-square(10)=22.64771647`, **`p = 0.01212432`**. The pooled direct-effect corpus therefore rejected complete exchangeability of biological response layers at the 0.05 level.
+Combining the five cluster p-values gave `chi-square(10)=22.64771647`, **`p = 0.01212432`**. The pooled direct-effect corpus therefore rejected the global null that all five admitted systems satisfy within-system layer exchangeability. This rejection is a global test of discordance somewhere in the corpus, not an estimate of a common layer effect or a claim that each cluster individually separates.
 
 ### Influence of ML001 Serapias
 
@@ -120,7 +128,7 @@ ML020 provided the independent same-effect-family robustness test using the repl
 
 For *Atamisquea emarginata*, I was `g=-0.71280256` and F was `g=-1.00477681`, with covariance-aware I–F `p=0.79824355`. For *Cercidium australe*, I was `g=-0.63733120` and F was `g=-1.13852812`, with `p=0.61830903`. For *Prosopis nigra*, I was `g=-0.48057139` and F was `g=-1.13549676`, with `p=0.55736567`.
 
-The frozen within-programme Bonferroni gate was therefore **`p_ML020=1.0`**. ML020 was admitted regardless of significance. Its result shows fragmentation-associated multi-layer deterioration without detectable state separation between the focal I and F layers.
+The frozen within-programme Bonferroni gate was therefore **`p_ML020=1.0`**. ML020 was admitted regardless of significance. Its result provides no detected I–F separation under the frozen test while both layers generally deteriorate in the same direction; it is not evidence that their true fragmentation effects are exactly equal.
 
 ### Separate gradient evidence
 
@@ -138,7 +146,7 @@ The defensible conclusion is therefore conditional state separation. The availab
 
 ### Multi-layer deterioration is not state separation
 
-ML020 is especially informative because it was not excluded when it failed to reproduce layer separation. In all three Chaco species, both pollen-tube support and fruit set were lower in small fragments than in continuous forest. If the analysis had been based only on whether each endpoint declined, the system would have appeared to support a generic multi-layer fragmentation syndrome. The within-system comparison shows something different: the two layers declined at statistically similar magnitudes.
+ML020 is especially informative because it was not excluded when it failed to reproduce layer separation. In all three Chaco species, both pollen-tube support and fruit set were lower in small fragments than in continuous forest. If the analysis had been based only on whether each endpoint declined, the system would have appeared to support a generic multi-layer fragmentation syndrome. The within-system comparison shows something different: the data do not resolve an I–F difference under the frozen covariance-aware test.
 
 This distinction matters for ecological interpretation. A system in which interaction and reproductive function fall together may require different mechanistic explanations and monitoring priorities from a system in which interaction, movement, reproduction and genetic state decouple. Endpoint-specific syntheses can establish average vulnerability; a cluster-first synthesis is needed to ask whether the response geometry itself is concordant or separated.
 
@@ -164,9 +172,11 @@ The natural evidence supports that premise conditionally: separated and concorda
 
 ### Limitations
 
-The primary direct-effect denominator is five independent programme/study clusters. That is sufficient for the declared cluster-first synthesis and influence test, but insufficient for stable cross-system moderator estimation. The admitted clusters also differ in which biological layers are jointly represented, so the current synthesis tests non-exchangeability within systems rather than estimating one fully crossed layer-by-layer meta-regression across all taxa.
+The primary direct-effect denominator is five independent programme/study clusters. That is sufficient for the declared cluster-first global test and influence analysis, but insufficient for stable cross-system moderator estimation. The admitted clusters also differ in which biological layers are jointly represented, so the current synthesis tests non-exchangeability within systems rather than estimating one fully crossed layer-by-layer meta-regression across all taxa.
 
 The evidence-recovery universe was targeted rather than an exhaustive all-database systematic review. The candidate and primary-study ledgers make the audited search path explicit, and the cluster registry records every formal quantitative recovery attempt, but unseeded literature may still exist outside that universe. This limits claims about prevalence: the present analysis can establish that separated and concordant response geometries both occur among the audited systems, but it cannot estimate their global frequencies.
+
+The primary Fisher statistic combines valid cluster-level evidence but has no common-effect parameter attached to it. It should not be read as a meta-analytic estimate of the magnitude or frequency of state separation. Moreover, the cluster p-values are based on covariance proxies reconstructed from the available aligned independent units rather than known design-based sampling covariances. The analysis therefore prioritizes a conservative test of detectable within-system discordance; uncertainty in those covariance proxies is not itself separately propagated as another variance component.
 
 The overall meta-analysis is retrospective. ML014 was recovered under a prospectively locked additional-cluster contract, whereas ML020 was an external retrospective recovery whose Appendix I values were visible during discovery. The ML020 analysis therefore retained all source-explicit four-site species and a common endpoint pair to reduce within-paper selection, but it is not presented as an outcome-blind prospective validation.
 
@@ -174,7 +184,7 @@ Finally, the strong *Eucalyptus wandoo* gradient result is deliberately kept out
 
 ## Conclusion
 
-Habitat fragmentation affects multiple biological layers, but the available natural systems do not support a single universal response geometry. Some systems show strong separation among interaction, movement, reproductive and genetic responses, whereas a replicated Chaco programme shows interaction and reproductive function declining together. The pooled direct-effect synthesis rejects layer exchangeability, but that rejection disappears when the influential *Serapias* system is removed. The empirical result is therefore conditional state separation, not a universal fragmentation syndrome.
+Habitat fragmentation affects multiple biological layers, but the available natural systems do not support a single universal response geometry. Some systems show strong separation among interaction, movement, reproductive and genetic responses, whereas a replicated Chaco programme shows interaction and reproductive function declining together without detectable separation. The pooled direct-effect synthesis rejects the global null of layer exchangeability across the admitted systems, but that rejection disappears when the influential *Serapias* system is removed. The empirical result is therefore conditional state separation, not a universal fragmentation syndrome.
 
 The current manuscript may claim five admitted direct same-effect-family programme/study clusters, a pooled Fisher rejection at `p = 0.01212432`, loss of that rejection after omitting ML001 at `p = 0.18194353`, an independent ML020 concordant-decline result with `p_ML020=1.0`, and separate gradient discordance. It may not claim robust universal state separation, a universal layer ordering, a confirmed cohort lag, a general compensation mechanism, direct validation of a specific finite eco-genetic model, or that a sixth cluster should be sought merely to restore Serapias-independent significance.
 
