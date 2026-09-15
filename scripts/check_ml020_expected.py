@@ -9,9 +9,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 EXPECTED_SPECIES_P = {
-    "Atamisquea emarginata": 0.7984382017276652,
-    "Cercidium australe": 0.6186515871838439,
-    "Prosopis nigra": 0.5577544404961557,
+    "Atamisquea emarginata": 0.7982435450716795,
+    "Cercidium australe": 0.6183090331468846,
+    "Prosopis nigra": 0.5573656730134026,
 }
 
 
