@@ -1,0 +1,13 @@
+cluster_id,species,endpoint_i,endpoint_j,sampling_covariance,rho_group_centered
+ML020,Atamisquea emarginata,I_pollen_tubes,I_pollen_tubes,0.5316869569956715,1.0
+ML020,Atamisquea emarginata,I_pollen_tubes,F_fruit_set,-0.10488189734958446,-0.19170473469046473
+ML020,Atamisquea emarginata,F_fruit_set,I_pollen_tubes,-0.10488189734958446,-0.19170473469046473
+ML020,Atamisquea emarginata,F_fruit_set,F_fruit_set,0.5629623950693211,1.0
+ML020,Cercidium australe,I_pollen_tubes,I_pollen_tubes,0.5253321703382542,1.0
+ML020,Cercidium australe,I_pollen_tubes,F_fruit_set,0.04725613941206744,0.08554857024265539
+ML020,Cercidium australe,F_fruit_set,I_pollen_tubes,0.04725613941206744,0.08554857024265539
+ML020,Cercidium australe,F_fruit_set,F_fruit_set,0.5808406060149308,1.0
+ML020,Prosopis nigra,I_pollen_tubes,I_pollen_tubes,0.5144031622707598,1.0
+ML020,Prosopis nigra,I_pollen_tubes,F_fruit_set,-0.07539994045646228,-0.1379912293295014
+ML020,Prosopis nigra,F_fruit_set,I_pollen_tubes,-0.07539994045646228,-0.1379912293295014
+ML020,Prosopis nigra,F_fruit_set,F_fruit_set,0.5804106980724628,1.0
