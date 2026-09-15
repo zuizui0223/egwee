@@ -15,8 +15,11 @@ ZIP = BUILD / "anonymous_review_package.zip"
 FILES = [
     "manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md",
     "manuscript/JOURNAL_OF_ECOLOGY_FIGURE_TABLE_PLAN.md",
+    "manuscript/COVARIANCE_ROBUSTNESS_RESULT.md",
     "manuscript/tables/table_s1_cluster_recovery_flow.csv",
+    "manuscript/tables/table_s2_covariance_robustness.csv",
     "scripts/synthesize_state_separation.py",
+    "scripts/check_covariance_robustness.py",
     "scripts/build_journal_of_ecology_figures.py",
     "evidence/meta_extraction/PS003_serapias_binary_effects_v1.csv",
     "evidence/meta_extraction/PS003_serapias_primary_covariance_v1.csv",
@@ -75,7 +78,7 @@ def copy_scrubbed(rel: str) -> None:
 
 
 def write_readme() -> None:
-    text = """# Anonymous review package\n\nThis package contains the analysis-ready tables and minimal code needed to reproduce the five-cluster direct state-separation synthesis, the separate continuous-gradient generalisation, the three main submission figures, and the complete registered-cluster recovery flow. It intentionally excludes version-control history, author metadata and identity-bearing title-page material.\n\n## Reproduce the synthesis\n\n```bash\npython scripts/synthesize_state_separation.py\n```\n\nThe command prints a machine-readable `STATE_SEPARATION` record containing the primary five-cluster Fisher result and leave-one-cluster-out diagnostics.\n\n## Reproduce the figures and Table 1\n\n```bash\npython scripts/build_journal_of_ecology_figures.py\n```\n\nOutputs are written under `manuscript/figures/` and `manuscript/tables/`. Supplementary Table S1 (`manuscript/tables/table_s1_cluster_recovery_flow.csv`) records all 16 formal cluster attempts and their terminal admission/closure status.\n\n## Scope\n\nThe package contains analysis-ready evidence rather than every raw source file from the original publications. Source studies and DOIs are documented in the anonymous manuscript and evidence tables.\n"""
+    text = """# Anonymous review package\n\nThis package contains the analysis-ready tables and minimal code needed to reproduce the five-cluster direct state-separation synthesis, covariance sensitivity/certification analysis, separate continuous-gradient generalisation, the three main submission figures, and the complete registered-cluster recovery flow. It intentionally excludes version-control history, author metadata and identity-bearing title-page material.\n\n## Reproduce the synthesis\n\n```bash\npython scripts/synthesize_state_separation.py\n```\n\nThe command prints a machine-readable `STATE_SEPARATION` record containing the primary five-cluster Fisher result and leave-one-cluster-out diagnostics.\n\n## Reproduce the covariance sensitivity\n\n```bash\npython scripts/check_covariance_robustness.py\n```\n\nThis verifies the frozen paired-covariance result, the zero-covariance working sensitivity and the pairwise Cauchy–Schwarz covariance-free certification bound against Supplementary Table S2 and the manuscript.\n\n## Reproduce the figures and Table 1\n\n```bash\npython scripts/build_journal_of_ecology_figures.py\n```\n\nOutputs are written under `manuscript/figures/` and `manuscript/tables/`. Supplementary Table S1 (`manuscript/tables/table_s1_cluster_recovery_flow.csv`) records all 16 formal cluster attempts and their terminal admission/closure status. Supplementary Table S2 (`manuscript/tables/table_s2_covariance_robustness.csv`) records the three dependence regimes.\n\n## Scope\n\nThe package contains analysis-ready evidence rather than every raw source file from the original publications. Source studies and DOIs are documented in the anonymous manuscript and evidence tables.\n"""
     (PKG / "README_REVIEW_PACKAGE.md").write_text(text, encoding="utf-8")
 
 
@@ -114,6 +117,16 @@ def verify_reproduction() -> None:
     if '"n_primary_independent_clusters": 5' not in line:
         raise AssertionError("anonymous package synthesis did not recover five primary clusters")
 
+    cov = subprocess.run(
+        [sys.executable, "scripts/check_covariance_robustness.py"],
+        cwd=PKG,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    if "COVARIANCE_ROBUSTNESS " not in cov.stdout:
+        raise AssertionError(cov.stdout)
+
     subprocess.run(
         [sys.executable, "scripts/build_journal_of_ecology_figures.py"],
         cwd=PKG,
@@ -127,6 +140,7 @@ def verify_reproduction() -> None:
         "manuscript/figures/figure3_ml020_concordant_decline.svg",
         "manuscript/tables/table1_primary_cluster_summary.csv",
         "manuscript/tables/table_s1_cluster_recovery_flow.csv",
+        "manuscript/tables/table_s2_covariance_robustness.csv",
     ):
         path = PKG / rel
         if not path.is_file() or path.stat().st_size == 0:
