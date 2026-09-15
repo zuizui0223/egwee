@@ -14,30 +14,43 @@
 - [x] Manuscript converted to Introduction / Materials and Methods / Results / Discussion / Conclusion.
 - [x] Abstract converted to five numbered statements with final **Synthesis** point.
 - [x] Eight alphabetical keywords supplied.
-- [x] Primary and seed references added to the anonymous main manuscript.
+- [x] Primary, seed and admitted-system references added to the anonymous main manuscript.
 - [x] Internal project labels and identity-bearing manuscript status text removed from the reviewer-facing manuscript.
+- [x] Double-anonymous manuscript audit added.
 - [x] Separate identity-bearing title-page template created.
 - [x] Figure/table package frozen: coverage matrix, leave-one-out influence, ML020 I–F geometry, primary-cluster table.
+- [x] Final Figure 1–3 and Table 1 captions drafted.
 - [x] Deterministic SVG/Table 1 builder added.
 - [x] Anonymous reviewer code/data package builder added.
+- [x] Anonymous package is designed to reproduce the synthesis and figures without Git history or public-account metadata.
+- [x] Journal of Ecology cover-letter draft prepared.
 - [x] CI guards added for canonical-claim sync, Journal of Ecology submission shape and double-anonymous manuscript state.
 
 ## Pending automated verification
 
 - [ ] Journal of Ecology shape check passes: abstract <=350 words, <=8 keywords, IMRaD order, main text <=8000 words.
 - [ ] Existing meta-analysis contract and canonical claim-sync checks pass.
+- [ ] Double-anonymous manuscript audit passes.
 - [ ] Figure 1–3 and Table 1 regenerate from canonical source files.
 - [ ] Anonymous reviewer package reproduces the five-cluster synthesis and figures.
 - [ ] Anonymous-review ZIP is archived by CI and manually spot-checked.
 
-## Pending submission materials
+## Pending user/author metadata
 
-- [ ] Add final figure/table captions to the reviewer-facing manuscript or submission bundle.
-- [ ] Complete title page with the approved author list, affiliations, corresponding-author details, acknowledgements/funding, contributions and conflict-of-interest statement.
-- [ ] Finalise Data Availability wording and permanent public archive strategy for an accepted version.
-- [ ] Prepare Journal of Ecology cover letter.
-- [ ] Generate the final double-spaced, continuously line- and page-numbered submission document.
+These cannot be completed reliably without the final author-approved information:
+
+- [ ] Complete title page with the approved author list and affiliations.
+- [ ] Supply corresponding-author postal address and e-mail.
+- [ ] Finalise acknowledgements, funding and any permit statements.
+- [ ] Finalise author-contribution statement.
+- [ ] Finalise conflict-of-interest statement.
+- [ ] Confirm the exact Data Availability wording and permanent public archive strategy for an accepted version.
+- [ ] Replace the administrative confirmation placeholders in the cover letter.
 - [ ] All authors/institutions approve the exact submitted version.
+
+## Final production step after CI
+
+- [ ] Generate the final double-spaced, continuously line- and page-numbered submission document with Figure 1–3, Table 1 and captions embedded or uploaded as the journal submission system requires.
 
 ## Hard stop
 
