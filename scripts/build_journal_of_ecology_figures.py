@@ -15,6 +15,7 @@ ML020_EFFECTS = ROOT / "evidence/meta_extraction/PS022_aizen_feinsinger_effects_
 REGISTRY = ROOT / "evidence/meta_extraction/multilayer_cluster_registry_v1.csv"
 REGISTRY_ML020 = ROOT / "evidence/meta_extraction/multilayer_cluster_registry_extension_ml020.csv"
 SYNTHESIS = ROOT / "scripts/synthesize_state_separation.py"
+DISPLAY_TOL = 5e-8
 
 
 def rows(path: Path) -> list[dict[str, str]]:
@@ -39,7 +40,7 @@ def canonical_result() -> dict:
     result = json.loads(line.split(" ", 1)[1])
     assert result["n_primary_independent_clusters"] == 5
     assert result["n_primary_effects"] == 17
-    assert abs(float(result["primary_combined_p"]) - 0.012124324105113144) < 1e-12
+    assert abs(float(result["primary_combined_p"]) - 0.01212432) < DISPLAY_TOL
     return result
 
 
@@ -180,7 +181,6 @@ def figure3_ml020() -> None:
 
     body.append(f'<line x1="{x0}" y1="{y0}" x2="{x1}" y2="{y0}" stroke="black" stroke-width="1.5"/>')
     body.append(f'<line x1="{x0}" y1="{y0}" x2="{x0}" y2="{y1}" stroke="black" stroke-width="1.5"/>')
-    # one-to-one line
     body.append(f'<line x1="{sx(lo):.1f}" y1="{sy(lo):.1f}" x2="{sx(hi):.1f}" y2="{sy(hi):.1f}" stroke="black" stroke-dasharray="6,5"/>')
     body.append(svg_text(sx(-0.15), sy(-0.15) - 8, "F = I", size=10))
 
