@@ -1,0 +1,7 @@
+cluster_id,species,year,endpoint_id,layer,fragmented_condition,reference_condition,n_fragmented,n_reference,oriented_effect,sampling_variance,analysis_role
+ML020,Atamisquea emarginata,1989,I_pollen_tubes,I_interaction,small_fragment,continuous_forest,4,4,-0.7128025581104113,0.5317554679280466,primary
+ML020,Atamisquea emarginata,1989,F_fruit_set,F_reproductive_function,small_fragment,continuous_forest,4,4,-1.0047768085038826,0.5630985271817031,primary
+ML020,Cercidium australe,1990,I_pollen_tubes,I_interaction,small_fragment,continuous_forest,4,4,-0.6373312039880991,0.5253869414735575,primary
+ML020,Cercidium australe,1990,F_fruit_set,F_reproductive_function,small_fragment,continuous_forest,4,4,-1.1385281229703952,0.5810153929246558,primary
+ML020,Prosopis nigra,1990,I_pollen_tubes,I_interaction,small_fragment,continuous_forest,4,4,-0.48057138664148663,0.5144343036036576,primary
+ML020,Prosopis nigra,1990,F_fruit_set,F_reproductive_function,small_fragment,continuous_forest,4,4,-1.1354967580444535,0.5805845554705915,primary

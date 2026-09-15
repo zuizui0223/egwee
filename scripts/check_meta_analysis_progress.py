@@ -7,7 +7,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PRIMARY = ROOT / "manuscript/meta_analysis_primary_study_seed_v1.csv"
 CANDIDATES = ROOT / "manuscript/meta_analysis_candidate_ledger.csv"
 QUEUE = ROOT / "manuscript/meta_analysis_extraction_queue_v1.csv"
-STATUS = ROOT / "manuscript/META_ANALYSIS_CLUSTER_STATUS_2026-09-12.md"
+CURRENT = ROOT / "manuscript/ML020_CURRENT_STATE.md"
 SPONDIAS = ROOT / "evidence/meta_extraction/PS001_spondias_extraction_v1.csv"
 SPONDIAS_SITE = ROOT / "evidence/meta_extraction/PS001_spondias_site_effects_v1.csv"
 BROSIMUM = ROOT / "evidence/meta_extraction/PS004_brosimum_extraction_v1.csv"
@@ -24,7 +24,10 @@ WANDOO_EFFECTS = ROOT / "evidence/meta_extraction/PS019_eucalyptus_wandoo_2018_g
 WANDOO_COV = ROOT / "evidence/meta_extraction/PS019_eucalyptus_wandoo_2018_gradient_covariance_v1.csv"
 SOCIALIS_EFFECTS = ROOT / "evidence/meta_extraction/PS020_eucalyptus_socialis_effects_v1.csv"
 SOCIALIS_COV = ROOT / "evidence/meta_extraction/PS020_eucalyptus_socialis_primary_covariance_v1.csv"
+ML020_EFFECTS = ROOT / "evidence/meta_extraction/PS022_aizen_feinsinger_effects_v1.csv"
+ML020_COV = ROOT / "evidence/meta_extraction/PS022_aizen_feinsinger_covariance_v1.csv"
 CLUSTERS = ROOT / "evidence/meta_extraction/multilayer_cluster_registry_v1.csv"
+CLUSTERS_ML020 = ROOT / "evidence/meta_extraction/multilayer_cluster_registry_extension_ml020.csv"
 
 
 def rows(path: Path) -> list[dict[str, str]]:
@@ -34,23 +37,24 @@ def rows(path: Path) -> list[dict[str, str]]:
 
 def main() -> None:
     for path in (
-        PRIMARY, CANDIDATES, QUEUE, STATUS, SPONDIAS, SPONDIAS_SITE, BROSIMUM, HULTING,
+        PRIMARY, CANDIDATES, QUEUE, CURRENT, SPONDIAS, SPONDIAS_SITE, BROSIMUM, HULTING,
         CONOSPERMUM_2026, CONOSPERMUM_2020, TILLANDSIA, MAGNOLIA, PRIMULA,
         SERAPIAS_GRADIENT, SERAPIAS_BINARY, WANDOO, WANDOO_EFFECTS, WANDOO_COV,
-        SOCIALIS_EFFECTS, SOCIALIS_COV, CLUSTERS,
+        SOCIALIS_EFFECTS, SOCIALIS_COV, ML020_EFFECTS, ML020_COV, CLUSTERS, CLUSTERS_ML020,
     ):
         assert path.is_file(), path
 
     primary = rows(PRIMARY)
     candidates = rows(CANDIDATES)
     queue = rows(QUEUE)
-    assert len(primary) >= 18
-    assert len(candidates) >= 19
+    assert len(primary) >= 19
+    assert len(candidates) >= 20
     assert len(queue) >= 9
     assert len({r["study_id"] for r in primary}) == len(primary)
     assert {r["study_id"] for r in queue} <= {r["study_id"] for r in primary}
     assert any(r["study_id"] == "PS019" and r["doi"] == "10.3389/fevo.2018.00039" for r in primary)
     assert any(r["study_id"] == "PS020" and r["doi"] == "10.1111/mec.12056" for r in primary)
+    assert any(r["study_id"] == "PS022" and r["doi"] == "10.2307/1939538" for r in primary)
 
     ps015 = next(r for r in primary if r["study_id"] == "PS015")
     assert ps015["doi"] == "10.1016/j.biocon.2020.108824"
@@ -59,6 +63,9 @@ def main() -> None:
     assert {"D", "I", "T", "F", "G_adult"} <= set(ps016["verified_layers"].split(";"))
     ps020 = next(r for r in primary if r["study_id"] == "PS020")
     assert {"G_mating", "F"} <= set(ps020["verified_layers"].split(";"))
+    ps022 = next(r for r in primary if r["study_id"] == "PS022")
+    assert set(ps022["verified_layers"].split(";")) == {"I", "F"}
+    assert ps022["paired_multilayer_same_study"] == "yes"
 
     spondias = rows(SPONDIAS)
     spondias_site = rows(SPONDIAS_SITE)
@@ -76,7 +83,9 @@ def main() -> None:
     wandoo_cov = rows(WANDOO_COV)
     socialis = rows(SOCIALIS_EFFECTS)
     socialis_cov = rows(SOCIALIS_COV)
-    clusters = rows(CLUSTERS)
+    ml020_effects = rows(ML020_EFFECTS)
+    ml020_cov = rows(ML020_COV)
+    clusters = rows(CLUSTERS) + rows(CLUSTERS_ML020)
 
     assert len(spondias) == 13 and len(spondias_site) == 8
     assert len(brosimum) >= 8 and len(hulting) >= 4
@@ -85,6 +94,7 @@ def main() -> None:
     assert len(ser_gradient) == 2 and len(ser_binary) == 4
     assert len(wandoo) == 19 and len(wandoo_effects) == 3 and len(wandoo_cov) == 9
     assert len(socialis) == 2 and len(socialis_cov) == 4
+    assert len(ml020_effects) == 6 and len(ml020_cov) == 12
 
     s_primary = [r for r in spondias_site if r["analysis_role"] == "primary"]
     assert {r["endpoint_id"] for r in s_primary} == {"C_paternity_correlation", "Gadult_Ho", "Gjuvenile_Ho", "Gseed_Ho"}
@@ -132,36 +142,40 @@ def main() -> None:
     assert abs(float(by_socialis["F_family_growth"]["oriented_effect"]) + 0.271808874814) < 1e-9
     assert any(abs(float(r["sampling_covariance"]) - 0.050108426040) < 1e-9 for r in socialis_cov if r["endpoint_i"] != r["endpoint_j"])
 
+    assert {r["species"] for r in ml020_effects} == {"Atamisquea emarginata", "Cercidium australe", "Prosopis nigra"}
+    assert {r["layer"] for r in ml020_effects} == {"I_interaction", "F_reproductive_function"}
+    assert all(r["analysis_role"] == "primary" for r in ml020_effects)
+    assert all(int(r["n_fragmented"]) == 4 and int(r["n_reference"]) == 4 for r in ml020_effects)
+
     by_cluster = {r["cluster_id"]: r for r in clusters}
+    assert len(by_cluster) == len(clusters)
     binary = [r for r in clusters if r["cluster_status"] == "admissible_multilayer_cluster"]
     gradient = [r for r in clusters if r["cluster_status"] == "gradient_generalisation_multilayer_cluster"]
-    assert {r["cluster_id"] for r in binary} == {"ML001", "ML002", "ML003", "ML014"}
+    assert {r["cluster_id"] for r in binary} == {"ML001", "ML002", "ML003", "ML014", "ML020"}
     assert {r["cluster_id"] for r in gradient} == {"ML015"}
     assert set(by_cluster["ML014"]["admissible_primary_layers"].split(";")) == {"G_mating", "F"}
     assert int(by_cluster["ML014"]["n_admissible_primary_effects"]) == 2
     assert by_cluster["ML014"]["covariance_status"] == "proxy_reconstructed_from_paired_families"
+    assert set(by_cluster["ML020"]["admissible_primary_layers"].split(";")) == {"I", "F"}
+    assert int(by_cluster["ML020"]["n_admissible_primary_effects"]) == 6
     assert by_cluster["ML015"]["admissible_primary_layers"] == ""
     assert int(by_cluster["ML015"]["n_admissible_primary_effects"]) == 0
-    assert sum(int(r["n_admissible_primary_effects"]) for r in binary) == 11
+    assert sum(int(r["n_admissible_primary_effects"]) for r in binary) == 17
 
-    status = STATUS.read_text(encoding="utf-8")
+    current = CURRENT.read_text(encoding="utf-8")
     for token in (
-        "source-verified primary-study seeds: **18**",
-        "independent **primary** admissible multilayer clusters: **4**",
-        "primary admissible effects inside those clusters: **11**",
-        "separate admissible Fisher-z gradient effects: **5**",
-        "ML014 / PS020",
-        "G_mating`, correlated-paternity support",
-        "chi-square(8) = 22.6477",
-        "p = 0.07777",
-        "ML001 remains influential",
+        "ML020 admission: yes",
+        "Five-cluster Fisher: p=0.0121243241",
+        "Key omit-ML001 Fisher: p=0.1819435288, no rejection",
+        "full rejection remains Serapias-dependent",
     ):
-        assert token in status, token
+        assert token in current, token
 
     print(
         "EGWEE extraction progress: PASS; "
         f"{len(primary)} verified studies, {len(candidates)} candidates, {len(queue)} queued; "
-        "primary family = 4 clusters / 11 effects; ML015 = separate 3-effect Fisher-z gradient generalisation"
+        "primary family = 5 clusters / 17 marginal effects; ML020 counts once; "
+        "ML015 = separate 3-effect Fisher-z gradient generalisation"
     )
 
 
