@@ -10,6 +10,10 @@ MANUSCRIPT = ROOT / "manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md"
 PROTOCOL = ROOT / "manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md"
 EFFECT_AMENDMENT = ROOT / "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-11_EFFECT_UNITS.md"
 COHORT_AMENDMENT = ROOT / "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-13_COHORT_DEPENDENCE.md"
+COVERAGE_AMENDMENT = ROOT / "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-17_COVERAGE_MODERATORS.md"
+COVERAGE_CONTRACT = ROOT / "manuscript/meta_analysis_coverage_contract.json"
+PAIR_COVERAGE = ROOT / "evidence/meta_extraction/coverage_expansion_pair_coverage_v1.csv"
+RECOVERY_PRIORITY = ROOT / "evidence/meta_extraction/coverage_expansion_recovery_priority_v1.csv"
 SCHEMA = ROOT / "manuscript/meta_analysis_effect_schema.json"
 METADATA = ROOT / "manuscript/meta_analysis_submission_metadata.md"
 LEDGER = ROOT / "manuscript/meta_analysis_candidate_ledger.csv"
@@ -28,8 +32,9 @@ def rows(path: Path) -> list[dict[str, str]]:
 
 def main() -> None:
     for path in (
-        README, MANUSCRIPT, PROTOCOL, EFFECT_AMENDMENT, COHORT_AMENDMENT, SCHEMA,
-        METADATA, LEDGER, PRIMARY_SEED, PRIMARY_SEED_SOURCES, EXTRACTION_QUEUE,
+        README, MANUSCRIPT, PROTOCOL, EFFECT_AMENDMENT, COHORT_AMENDMENT,
+        COVERAGE_AMENDMENT, COVERAGE_CONTRACT, PAIR_COVERAGE, RECOVERY_PRIORITY,
+        SCHEMA, METADATA, LEDGER, PRIMARY_SEED, PRIMARY_SEED_SOURCES, EXTRACTION_QUEUE,
         SPONDIAS, SPONDIAS_EFFECTS, SPONDIAS_GEN,
     ):
         assert path.is_file(), path
@@ -39,6 +44,8 @@ def main() -> None:
     protocol = PROTOCOL.read_text(encoding="utf-8")
     effect_amendment = EFFECT_AMENDMENT.read_text(encoding="utf-8")
     cohort_amendment = COHORT_AMENDMENT.read_text(encoding="utf-8")
+    coverage_amendment = COVERAGE_AMENDMENT.read_text(encoding="utf-8")
+    coverage_contract = json.loads(COVERAGE_CONTRACT.read_text(encoding="utf-8"))
     metadata = METADATA.read_text(encoding="utf-8")
     schema = json.loads(SCHEMA.read_text(encoding="utf-8"))
 
@@ -54,17 +61,39 @@ def main() -> None:
     assert "pseudo-replication firewall" in effect_amendment.lower()
     assert "proxy_pairwise_low_rank" in cohort_amendment
     assert "does not by itself establish a cohort lag" in cohort_amendment
+    assert "systematic coverage and moderator recovery" in coverage_amendment
+    assert "does not justify searching for a sixth direct cluster" in coverage_amendment
+    assert coverage_contract["purpose"] == "systematic_coverage_and_moderator_expansion_not_significance_repair"
+    assert coverage_contract["baseline"]["n_primary_clusters"] == 5
+    assert coverage_contract["baseline"]["n_primary_effects"] == 17
     assert "results_bearing_conditional_state_separation" in metadata
     assert "p = 0.01212432" in metadata
     assert "p = 0.18194353" in metadata
 
-    assert schema["schema_version"] == 2
+    assert schema["schema_version"] == 3
     assert schema["primary_effect_stream"] == "hedges_g_fragmented_minus_reference"
     assert schema["secondary_effect_stream"] == "fisher_z_correlation_with_fragmentation_severity"
+    assert schema["coverage_amendment"] == "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-17_COVERAGE_MODERATORS.md"
     assert set(schema["effect_unit_status_values"]) == {
         "g_admissible", "fisher_z_admissible", "model_contrast_pending_standardisation",
         "raw_reanalysis_required", "descriptive_only",
     }
+    assert set(schema["moderator_fields"]) == {
+        "self_compatibility", "autonomous_reproductive_assurance", "life_form",
+        "longevity_class", "fragmentation_age_years", "pollination_vector",
+        "fragmentation_component", "direct_process_measurement", "cohort",
+    }
+
+    pair_coverage = rows(PAIR_COVERAGE)
+    recovery_priority = rows(RECOVERY_PRIORITY)
+    assert {r["pair_id"] for r in pair_coverage} == {
+        "I-F", "C-F", "G_adult-G_offspring", "G_adult-mean(I,F)"
+    }
+    assert {r["cluster_id"] for r in recovery_priority} >= {
+        "ML004", "ML005", "ML006", "ML007", "ML008", "ML009", "ML010", "ML011", "ML012", "ML013"
+    }
+    assert next(r for r in recovery_priority if r["cluster_id"] == "ML009")["reopen_allowed"] == "no_without_new_independent_replication"
+    assert next(r for r in recovery_priority if r["cluster_id"] == "ML013")["reopen_allowed"] == "no_without_new_independent_replication"
 
     primary = rows(PRIMARY_SEED)
     candidates = rows(LEDGER)
@@ -121,7 +150,8 @@ def main() -> None:
     print(
         "EGWEE multilayer meta-analysis contract: PASS; "
         f"{len(primary)} verified studies, {len(candidates)} candidates, {len(queue)} queued; "
-        "active paper is results-bearing with conditional state separation and locked claim sync"
+        "active paper is results-bearing with conditional state separation and locked claim sync; "
+        "systematic coverage/moderator expansion is frozen separately"
     )
 
 
