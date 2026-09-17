@@ -1,0 +1,36 @@
+name: Meta-analysis Phase 2 contract
+
+on:
+  pull_request:
+    paths:
+      - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-17_SYSTEMATIC_COVERAGE_MODERATORS.md'
+      - 'manuscript/meta_analysis_phase2_contract.json'
+      - 'manuscript/meta_analysis_coverage_frame_v2.csv'
+      - 'manuscript/meta_analysis_moderator_schema_v1.csv'
+      - 'manuscript/meta_analysis_recovery_priority_v2.csv'
+      - 'scripts/check_systematic_coverage_expansion_contract.py'
+      - 'scripts/synthesize_state_separation.py'
+      - 'scripts/check_covariance_robustness.py'
+      - '.github/workflows/meta-analysis-phase2-contract.yml'
+  push:
+    paths:
+      - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-17_SYSTEMATIC_COVERAGE_MODERATORS.md'
+      - 'manuscript/meta_analysis_phase2_contract.json'
+      - 'manuscript/meta_analysis_coverage_frame_v2.csv'
+      - 'manuscript/meta_analysis_moderator_schema_v1.csv'
+      - 'manuscript/meta_analysis_recovery_priority_v2.csv'
+      - 'scripts/check_systematic_coverage_expansion_contract.py'
+      - 'scripts/synthesize_state_separation.py'
+      - 'scripts/check_covariance_robustness.py'
+      - '.github/workflows/meta-analysis-phase2-contract.yml'
+
+jobs:
+  phase2-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate systematic coverage and moderator expansion contract
+        run: python scripts/check_systematic_coverage_expansion_contract.py
