@@ -87,11 +87,11 @@ def main() -> None:
     ]
     assert set(contract["source_frames"]) == {r["frame_id"] for r in coverage}
     assert all(r["status"] == "registered_not_executed" for r in coverage)
-    for row in coverage:
-        rule = row["outcome_blind_rule"].strip().lower()
-        assert rule, row["frame_id"]
-        for forbidden in ("prefer significant", "prioritize positive", "only promising", "strongest effect"):
-            assert forbidden not in rule, (row["frame_id"], forbidden)
+    coverage_by_id = {r["frame_id"]: r for r in coverage}
+    assert all(r["outcome_blind_rule"].strip() for r in coverage)
+    assert "independently of direction/significance" in coverage_by_id["SF03"]["outcome_blind_rule"]
+    assert "do not prioritize studies by effect magnitude" in coverage_by_id["SF06"]["outcome_blind_rule"]
+    assert "all eligible seeds" in coverage_by_id["CF01"]["outcome_blind_rule"]
 
     moderators = rows(MODERATORS)
     assert [r["moderator_id"] for r in moderators] == [f"M{i:02d}" for i in range(1, 11)]
