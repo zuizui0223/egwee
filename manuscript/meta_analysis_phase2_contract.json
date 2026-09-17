@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "frozen_on": "2026-09-17",
+  "parent_protocol": "manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md",
+  "amendment": "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-17_SYSTEMATIC_COVERAGE_MODERATORS.md",
+  "frozen_scientific_base": "16308cf6d6e4aec274504ba81bbf6e71be465099",
+  "phase1_reference": {
+    "n_primary_clusters": 5,
+    "n_primary_marginal_effects": 17,
+    "canonical_p": 0.01212432,
+    "omit_ML001_p": 0.18194353,
+    "zero_covariance_p": 0.03860161,
+    "covariance_free_bound_p": 0.28061178,
+    "optimization_target": false,
+    "search_for_sixth_cluster_to_repair_significance": false
+  },
+  "phase2_purpose": "systematic_coverage_and_moderator_inference_not_significance_repair",
+  "primary_estimands": [
+    "I_minus_F",
+    "C_minus_F",
+    "Gadult_minus_Goffspring",
+    "Gadult_minus_mean_I_F_when_jointly_estimable"
+  ],
+  "secondary_estimand_family": "layer_specific_mean_fragmentation_response_g_oriented",
+  "effect_family_boundaries": {
+    "direct": "Hedges_g_fragmented_minus_reference",
+    "gradient": "Fisher_z_separate_generalisation",
+    "cross_family_pooling_allowed": false
+  },
+  "source_frames": ["SF01", "SF02", "SF03", "SF04", "SF05", "SF06", "SF07", "CF01"],
+  "source_frame_registry": "manuscript/meta_analysis_coverage_frame_v2.csv",
+  "moderator_schema": "manuscript/meta_analysis_moderator_schema_v1.csv",
+  "recovery_priority_registry": "manuscript/meta_analysis_recovery_priority_v2.csv",
+  "moderator_gates": {
+    "univariable_min_independent_clusters": 10,
+    "categorical_min_clusters_per_level": 4,
+    "continuous_min_independent_clusters": 10,
+    "multivariable_min_independent_clusters": 20,
+    "multivariable_min_clusters_per_df": 10
+  },
+  "promotion_gate": {
+    "requires_systematic_frame_complete": true,
+    "qualifying_information_conditions": [
+      "at_least_two_primary_layer_pair_families_each_have_at_least_5_independent_clusters",
+      "at_least_one_moderator_reaches_frozen_model_opening_gate",
+      "completed_systematic_frame_makes_targeted_recovery_description_inaccurate"
+    ],
+    "depends_on_smaller_phase1_p_value": false
+  },
+  "hard_no_rescue_rules": [
+    "no_sixth_cluster_search_for_omit_ML001_significance",
+    "no_outcome_based_study_retention",
+    "no_null_as_zero",
+    "no_outcome_derived_compensation_moderator",
+    "no_nested_units_as_fragmentation_replicates",
+    "no_postoutcome_moderator_gate_relaxation",
+    "no_covariance_method_selection_by_p_value",
+    "no_NEE_operator_validation_claim"
+  ]
+}
