@@ -1,0 +1,5 @@
+pair_id,layer_a,layer_b,current_independent_direct_systems,current_system_ids,priority_rank,analysis_opening_gate,gate_interpretation,note
+I-F,I_interaction,F_reproductive_function,1,ML020,1,10_independent_informative_systems,"analysis-opening threshold, not a significance target","ML020 is one programme cluster despite three dependent species subsystems."
+G_adult-G_offspring,G_adult,G_offspring,1,ML003,2,10_independent_informative_systems,"analysis-opening threshold, not a significance target","Adult/juvenile/seed endpoints in ML003 are dependent outcomes within one system."
+C-F,C_movement_connectivity,F_reproductive_function,2,"ML001;ML002",3,10_independent_informative_systems,"analysis-opening threshold, not a significance target","Same-system direct Hedges-g contrasts only."
+G_adult-mean(I,F),G_adult,"mean(I_interaction,F_reproductive_function)",0,"",4,10_independent_informative_systems,"analysis-opening threshold, not a significance target","Requires G_adult, I and F jointly estimable on a defensible same-system frame; no current direct cluster satisfies this."
