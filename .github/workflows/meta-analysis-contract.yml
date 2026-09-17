@@ -17,9 +17,11 @@ on:
       - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-11_GRADIENT_GEOMETRY.md'
       - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-12_MULTILAYER_CLUSTERS.md'
       - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-13_COHORT_DEPENDENCE.md'
+      - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-17_COVERAGE_MODERATORS.md'
       - 'manuscript/META_ANALYSIS_EXTRACTION_STATUS_2026-09-11.md'
       - 'manuscript/META_ANALYSIS_CLUSTER_STATUS_2026-09-12.md'
       - 'manuscript/meta_analysis_effect_schema.json'
+      - 'manuscript/meta_analysis_coverage_contract.json'
       - 'manuscript/meta_analysis_seed_sources.md'
       - 'manuscript/meta_analysis_candidate_ledger.csv'
       - 'manuscript/meta_analysis_primary_study_seed_v1.csv'
@@ -31,6 +33,7 @@ on:
       - 'manuscript/tables/table_s3_primary_marginal_effects.csv'
       - 'evidence/meta_extraction/**'
       - 'scripts/check_meta_analysis_contract.py'
+      - 'scripts/check_coverage_expansion_contract.py'
       - 'scripts/check_meta_analysis_progress.py'
       - 'scripts/check_spondias_paternity_effect.py'
       - 'scripts/check_spondias_multilayer_cluster.py'
@@ -55,6 +58,8 @@ on:
       - 'scripts/check_double_anonymous_submission.py'
       - 'scripts/build_journal_of_ecology_figures.py'
       - 'scripts/build_anonymous_review_package.py'
+      - 'docs/superpowers/specs/2026-09-17-egwee-systematic-coverage-moderator-expansion-design.md'
+      - 'docs/superpowers/plans/2026-09-17-egwee-systematic-coverage-moderator-expansion.md'
       - '.github/workflows/meta-analysis-contract.yml'
   push:
     branches: [main]
@@ -69,9 +74,11 @@ on:
       - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-11_GRADIENT_GEOMETRY.md'
       - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-12_MULTILAYER_CLUSTERS.md'
       - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-13_COHORT_DEPENDENCE.md'
+      - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-17_COVERAGE_MODERATORS.md'
       - 'manuscript/META_ANALYSIS_EXTRACTION_STATUS_2026-09-11.md'
       - 'manuscript/META_ANALYSIS_CLUSTER_STATUS_2026-09-12.md'
       - 'manuscript/meta_analysis_effect_schema.json'
+      - 'manuscript/meta_analysis_coverage_contract.json'
       - 'manuscript/meta_analysis_seed_sources.md'
       - 'manuscript/meta_analysis_candidate_ledger.csv'
       - 'manuscript/meta_analysis_primary_study_seed_v1.csv'
@@ -83,6 +90,7 @@ on:
       - 'manuscript/tables/table_s3_primary_marginal_effects.csv'
       - 'evidence/meta_extraction/**'
       - 'scripts/check_meta_analysis_contract.py'
+      - 'scripts/check_coverage_expansion_contract.py'
       - 'scripts/check_meta_analysis_progress.py'
       - 'scripts/check_spondias_paternity_effect.py'
       - 'scripts/check_spondias_multilayer_cluster.py'
@@ -107,6 +115,8 @@ on:
       - 'scripts/check_double_anonymous_submission.py'
       - 'scripts/build_journal_of_ecology_figures.py'
       - 'scripts/build_anonymous_review_package.py'
+      - 'docs/superpowers/specs/2026-09-17-egwee-systematic-coverage-moderator-expansion-design.md'
+      - 'docs/superpowers/plans/2026-09-17-egwee-systematic-coverage-moderator-expansion.md'
       - '.github/workflows/meta-analysis-contract.yml'
 
 jobs:
@@ -121,6 +131,8 @@ jobs:
         run: python -m pip install --quiet openpyxl
       - name: Validate protocol-first meta-analysis state
         run: python scripts/check_meta_analysis_contract.py
+      - name: Validate systematic coverage and moderator expansion
+        run: python scripts/check_coverage_expansion_contract.py
       - name: Validate corpus and extraction progress
         run: python scripts/check_meta_analysis_progress.py
       - name: Audit Spondias site-level paternity effect
