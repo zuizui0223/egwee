@@ -87,7 +87,11 @@ def main() -> None:
     ]
     assert set(contract["source_frames"]) == {r["frame_id"] for r in coverage}
     assert all(r["status"] == "registered_not_executed" for r in coverage)
-    assert all("outcome" in r["outcome_blind_rule"].lower() or "effect" in r["outcome_blind_rule"].lower() or "screen" in r["outcome_blind_rule"].lower() for r in coverage)
+    for row in coverage:
+        rule = row["outcome_blind_rule"].strip().lower()
+        assert rule, row["frame_id"]
+        for forbidden in ("prefer significant", "prioritize positive", "only promising", "strongest effect"):
+            assert forbidden not in rule, (row["frame_id"], forbidden)
 
     moderators = rows(MODERATORS)
     assert [r["moderator_id"] for r in moderators] == [f"M{i:02d}" for i in range(1, 11)]
