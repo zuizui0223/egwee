@@ -10,6 +10,7 @@ CONTRACT = ROOT / "manuscript/meta_analysis_coverage_contract.json"
 SCHEMA = ROOT / "manuscript/meta_analysis_effect_schema.json"
 PAIR_COVERAGE = ROOT / "evidence/meta_extraction/coverage_expansion_pair_coverage_v1.csv"
 RECOVERY_PRIORITY = ROOT / "evidence/meta_extraction/coverage_expansion_recovery_priority_v1.csv"
+SEED_SOURCES = ROOT / "evidence/meta_extraction/systematic_search_seed_sources_v1.csv"
 REGISTRY = ROOT / "evidence/meta_extraction/multilayer_cluster_registry_v1.csv"
 REGISTRY_ML020 = ROOT / "evidence/meta_extraction/multilayer_cluster_registry_extension_ml020.csv"
 ROBUSTNESS = ROOT / "manuscript/tables/table_s2_covariance_robustness.csv"
@@ -29,6 +30,7 @@ def main() -> None:
         SCHEMA,
         PAIR_COVERAGE,
         RECOVERY_PRIORITY,
+        SEED_SOURCES,
         REGISTRY,
         REGISTRY_ML020,
         ROBUSTNESS,
@@ -70,6 +72,19 @@ def main() -> None:
     assert len(search["seed_domains"]) == 6
     assert search["rolling_inclusion_after_cutoff"] is False
     assert "terminal_state" in search["completion_rule"]
+
+    seed_rows = rows(SEED_SOURCES)
+    assert len(seed_rows) == 6
+    assert [r["seed_id"] for r in seed_rows] == ["SS001", "SS002", "SS003", "SS004", "SS005", "SS006"]
+    by_seed = {r["seed_id"]: r for r in seed_rows}
+    assert by_seed["SS001"]["doi_or_dataset"] == "10.1111/j.1461-0248.2006.00927.x"
+    assert by_seed["SS002"]["doi_or_dataset"] == "10.1111/j.1365-294X.2008.03971.x"
+    assert by_seed["SS003"]["doi_or_dataset"] == "10.1111/ele.13272"
+    assert by_seed["SS004"]["doi_or_dataset"] == "10.1093/aobpla/plad019"
+    assert by_seed["SS005"]["doi_or_dataset"] == "10.1093/aob/mcae076"
+    assert "10.1111/1365-2664.70161" in by_seed["SS006"]["doi_or_dataset"]
+    assert "10.5061/dryad.dz08kps9p" in by_seed["SS006"]["doi_or_dataset"]
+    assert all(r["candidate_use"] for r in seed_rows)
 
     expected_pairs = {"I-F", "C-F", "G_adult-G_offspring", "G_adult-mean(I,F)"}
     assert set(contract["priority_pair_cells"]) == expected_pairs
