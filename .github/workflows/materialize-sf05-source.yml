@@ -1,6 +1,7 @@
 name: Materialize SF05 source universe
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - meta/systematic-coverage-moderator-expansion-2026-09-16
