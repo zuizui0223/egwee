@@ -134,10 +134,11 @@ To prevent unstable moderator fitting, analyses open only after the following co
 
 ### 7.1 Pair-specific meta-analysis gate
 
-A prespecified layer-pair contrast is promoted from descriptive reporting to a random-effects/meta-regression estimate only with:
+A prespecified layer-pair contrast is promoted from descriptive reporting to a random-effects/meta-analytic estimate only with:
 
-- at least **5 independent programme/study clusters**, and
-- at least **3 independent clusters contributing to each level** of any categorical moderator used in that pair-specific model.
+- at least **5 independent programme/study clusters**.
+
+No moderator interaction is fitted merely because this five-programme pair gate is met. Any categorical or continuous moderator term must satisfy the separate moderator gate below.
 
 ### 7.2 Moderator gate
 
@@ -209,3 +210,11 @@ It may not claim:
 - that missing/inaccessible layers are biological zeros;
 - that added systems “rescue” or “repair” the original Serapias-dependent Fisher result.
 
+
+## 12. Relation to NEE and claim ownership
+
+NEE remains the theory/mechanism paper. It owns the constructive representation result and the finite sorting, buffering, recoupling, density-gate and reserve mechanisms.
+
+EGWEE owns natural-system evidence: layer-specific fragmentation responses, repeated within-system layer contrasts, concordant versus decoupled response geometry, cohort/history-lag tests, process-function coupling, moderator associations, and their dependence/influence boundaries.
+
+The two papers must not use the same natural synthesis as duplicated load-bearing evidence. EGWEE results may be mentioned in NEE only as bounded external-consistency context; they do not validate the finite NEE operators.
