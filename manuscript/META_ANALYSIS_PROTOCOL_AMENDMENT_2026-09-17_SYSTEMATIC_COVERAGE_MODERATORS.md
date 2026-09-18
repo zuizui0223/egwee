@@ -1,3 +1,7 @@
+# SUPERSEDED DRAFT — historical Phase-2 design only
+
+> Prospective decisions after 2026-09-18 are governed by `manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-18_SYSTEMATIC_COVERAGE_MODERATORS.md` and `manuscript/meta_analysis_phase2_contract.json`. Do not use thresholds or search cutoffs in this draft as active gates.
+
 # Protocol amendment — systematic coverage and moderator expansion
 
 **Date frozen:** 2026-09-17
