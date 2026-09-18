@@ -4,7 +4,7 @@
 
 The five-cluster Journal of Ecology manuscript remains a **frozen submission-valid baseline**.
 
-A separate expansion phase is now opened under `META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-18_SYSTEMATIC_COVERAGE_MODERATORS.md`. Its purpose is not to improve the original Fisher p-value. It reactivates the broader multilevel/layer-contrast programme that was already specified in the 2026-09-11 parent protocol but was underpowered in the first recovered corpus.
+A separate expansion phase is now opened under `META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-18_SYSTEMATIC_COVERAGE_MODERATORS.md`. Its canonical machine contract is `meta_analysis_phase2_contract.json`. Its purpose is not to improve the original Fisher p-value. It reactivates the broader multilevel/layer-contrast programme that was already specified in the 2026-09-11 parent protocol but was underpowered in the first recovered corpus.
 
 ## Expansion target
 
@@ -24,15 +24,17 @@ Primary development outputs are:
 
 Coverage-driven priority:
 
-- **A:** ML006 *Primula*, ML007 replicated edge experiment, ML008 *Tillandsia*, ML010 *Penstemon*, ML012 *Dieffenbachia*;
-- **B:** ML004 *Conospermum* 2020, ML005 *Conospermum* 2026, ML011 *Magnolia*;
-- **HARD CLOSE under current data:** ML009 *Pistacia*, ML013 *Swietenia*.
+- **P1:** ML006 *Primula*, ML007 replicated edge experiment, ML008 *Tillandsia*, ML012 *Dieffenbachia*;
+- **P2:** ML010 *Penstemon*, ML004 *Conospermum* 2020, ML005 *Conospermum* 2026, ML011 *Magnolia*;
+- **HARD CLOSED under current data:** ML009 *Pistacia*, ML013 *Swietenia*.
+
+The canonical priority registry is `manuscript/meta_analysis_recovery_priority_v2.csv`.
 
 Priority uses prospective layer/moderator coverage and recoverability, not published direction or significance.
 
 ## Quantitative gates
 
-- pair-specific meta-analysis: >=5 independent clusters for that pair;
+- pair-specific meta-analysis: >=5 independent programme/study clusters for that pair;
 - categorical moderator interaction: >=10 independent clusters overall and >=4 per modeled category;
 - adult-vs-offspring cohort-lag meta-analysis: >=5 same-exposure clusters;
 - continuous moderator interaction: >=10 independent clusters plus dispersion safeguards.
