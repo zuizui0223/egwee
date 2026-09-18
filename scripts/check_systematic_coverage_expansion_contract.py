@@ -98,6 +98,8 @@ def main() -> None:
     assert set(contract["source_frames"]) == {r["frame_id"] for r in coverage}
     seed_frames = [r for r in coverage if r["frame_id"].startswith("SF")]
     assert all(r["status"].startswith("source_verified_") for r in seed_frames)
+    sf05 = next(r for r in coverage if r["frame_id"] == "SF05")
+    assert sf05["status"] == "source_verified_row_materialized_source_selected_subset_frame_incomplete"
     cf01 = next(r for r in coverage if r["frame_id"] == "CF01")
     assert cf01["status"] == "registered_not_executed"
     assert cf01["doi_or_dataset"] == "cutoff 2026-09-18"
@@ -174,6 +176,20 @@ def main() -> None:
         "no_covariance_method_selection_by_p_value",
         "no_NEE_operator_validation_claim",
     } <= no_rescue
+
+    sf05_summary = ROOT / "evidence/meta_extraction/phase2_sf05_source_frame_summary_v1.json"
+    sf05_gap = ROOT / "evidence/meta_extraction/phase2_sf05_source_frame_gap_v1.csv"
+    sf05_universe = ROOT / "evidence/meta_extraction/phase2_sf05_primary_study_universe_v1.csv"
+    for p in (sf05_summary, sf05_gap, sf05_universe):
+        assert p.is_file(), p
+    s5 = json.loads(sf05_summary.read_text(encoding="utf-8"))
+    assert s5["materialized"]["population_rows"] == 177
+    assert s5["materialized"]["unique_source_selected_studies"] == 65
+    assert s5["materialized"]["unique_source_meta_analysis_studies"] == 31
+    assert s5["materialized"]["title_method_multilayer_screen_hints"] == 25
+    assert s5["minimum_missing_identity_count"] == 9
+    assert s5["denominator_status"] == "incomplete_outcome_blind_source_frame"
+    assert s5["effect_outcomes_opened_for_egwee_phase2"] is False
 
     audit = ROOT / "manuscript/META_ANALYSIS_PHASE2_SOURCE_FRAME_AUDIT_2026-09-18.md"
     assert audit.is_file()
