@@ -4,8 +4,9 @@ on:
   pull_request:
     paths:
       - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-18_SYSTEMATIC_COVERAGE_MODERATORS.md'
+      - 'manuscript/META_ANALYSIS_PHASE2_SOURCE_FRAME_AUDIT_2026-09-18.md'
       - 'manuscript/meta_analysis_phase2_contract.json'
-      - 'manuscript/meta_analysis_coverage_frame_v2.csv'      - 'manuscript/META_ANALYSIS_PHASE2_SOURCE_FRAME_AUDIT_2026-09-18.md'
+      - 'manuscript/meta_analysis_coverage_frame_v2.csv'
       - 'manuscript/meta_analysis_seed_sources.md'
       - 'evidence/meta_extraction/coverage_expansion_pair_coverage_v1.csv'
       - 'manuscript/meta_analysis_moderator_schema_v1.csv'
@@ -17,8 +18,10 @@ on:
   push:
     paths:
       - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-18_SYSTEMATIC_COVERAGE_MODERATORS.md'
+      - 'manuscript/META_ANALYSIS_PHASE2_SOURCE_FRAME_AUDIT_2026-09-18.md'
       - 'manuscript/meta_analysis_phase2_contract.json'
       - 'manuscript/meta_analysis_coverage_frame_v2.csv'
+      - 'manuscript/meta_analysis_seed_sources.md'
       - 'evidence/meta_extraction/coverage_expansion_pair_coverage_v1.csv'
       - 'manuscript/meta_analysis_moderator_schema_v1.csv'
       - 'manuscript/meta_analysis_recovery_priority_v2.csv'
