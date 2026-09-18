@@ -13,6 +13,8 @@ COVERAGE = ROOT / "manuscript/meta_analysis_coverage_frame_v2.csv"
 PAIR_COVERAGE = ROOT / "evidence/meta_extraction/coverage_expansion_pair_coverage_v1.csv"
 MODERATORS = ROOT / "manuscript/meta_analysis_moderator_schema_v1.csv"
 RECOVERY = ROOT / "manuscript/meta_analysis_recovery_priority_v2.csv"
+SF05_SCREEN = ROOT / "evidence/meta_extraction/phase2_sf05_multilayer_screen_v1.csv"
+SF05_SCREEN_STATUS = ROOT / "manuscript/PHASE2_SF05_MULTILAYER_SCREEN_STATUS_2026-09-19.md"
 SCHEMA = ROOT / "manuscript/meta_analysis_effect_schema.json"
 SYNTHESIS = ROOT / "scripts/synthesize_state_separation.py"
 COVARIANCE = ROOT / "scripts/check_covariance_robustness.py"
@@ -40,7 +42,7 @@ def emitted_json(command: list[str], prefix: str) -> dict:
 
 
 def main() -> None:
-    for path in (CONTRACT, AMENDMENT, COVERAGE, PAIR_COVERAGE, MODERATORS, RECOVERY, SCHEMA):
+    for path in (CONTRACT, AMENDMENT, COVERAGE, PAIR_COVERAGE, MODERATORS, RECOVERY, SF05_SCREEN, SF05_SCREEN_STATUS, SCHEMA):
         assert path.is_file(), path
 
     contract = json.loads(CONTRACT.read_text(encoding="utf-8"))
@@ -191,6 +193,37 @@ def main() -> None:
     assert s5["denominator_status"] == "incomplete_outcome_blind_source_frame"
     assert s5["effect_outcomes_opened_for_egwee_phase2"] is False
 
+    screen_rows = rows(SF05_SCREEN)
+    assert {r["source_paper_id"] for r in screen_rows} == {"2", "42", "66", "96"}
+    assert all(r["source_frame"] == "SF05" for r in screen_rows)
+    assert all(r["screen_wave"] == "1" for r in screen_rows)
+    assert all(r["screen_basis"] == "design_and_methods_only" for r in screen_rows)
+    assert all(r["outcome_opened"] == "no" for r in screen_rows)
+    assert all(r["outcome_blind_confirmation"] == "yes" for r in screen_rows)
+    decisions = {r["source_paper_id"]: r["screen_decision"] for r in screen_rows}
+    assert decisions == {
+        "2": "closed_no_fragmentation_reference_contrast",
+        "42": "advance_full_text_quantitative_screen",
+        "66": "closed_fragment_only_no_reference",
+        "96": "closed_nonfragmentation_single_population_disturbance",
+    }
+    assert sum(r["screen_decision"].startswith("advance_") for r in screen_rows) == 1
+    forbidden_reason_tokens = ("significance", "p-value", "effect direction", "effect magnitude")
+    assert all(
+        not any(token in r["decision_reason"].lower() for token in forbidden_reason_tokens)
+        for r in screen_rows
+    )
+
+    screen_status = SF05_SCREEN_STATUS.read_text(encoding="utf-8")
+    for token in (
+        "screened in wave 1: **4**",
+        "advance to quantitative full-text screen: **1**",
+        "closed on design geometry: **3**",
+        "flagged candidates still pending: **21**",
+        "newly admitted Phase-2 effects/clusters: **0**",
+    ):
+        assert token in screen_status, token
+
     audit = ROOT / "manuscript/META_ANALYSIS_PHASE2_SOURCE_FRAME_AUDIT_2026-09-18.md"
     assert audit.is_file()
     audit_text = audit.read_text(encoding="utf-8")
@@ -202,7 +235,8 @@ def main() -> None:
         f"frames={len(coverage)} source_verified={len(seed_frames)} pair_gate={pair_gate['min_independent_programmes']} "
         f"moderators={len(moderators)} "
         f"recovery_targets={sum(r['phase2_status']=='registered_recovery_target' for r in recovery)} "
-        f"hard_closed={sum(r['phase2_status']=='structural_closed' for r in recovery)}"
+        f"hard_closed={sum(r['phase2_status']=='structural_closed' for r in recovery)} "
+        f"sf05_screened={len(screen_rows)} sf05_advance={sum(r['screen_decision'].startswith('advance_') for r in screen_rows)}"
     )
 
 
