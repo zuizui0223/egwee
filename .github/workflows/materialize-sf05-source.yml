@@ -1,0 +1,43 @@
+name: Materialize SF05 source universe
+
+on:
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - 'scripts/materialize_sf05_table_s1.py'
+      - '.github/workflows/materialize-sf05-source.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Download public SF05 supporting table
+        env:
+          SF05_URL: "https://oup.silverchair-cdn.com/oup/backfile/Content_public/Journal/aobpla/15/3/10.1093_aobpla_plad019/1/plad019_suppl_supplementary_table_s1.xlsx?Expires=2147483647&Key-Pair-Id=APKAIE5G5CRDK6RD3PGA&Signature=3Lkjqv23Ziw6z~8wFXMCJMJAujpFlcxGtuBhBm9b-vYxxtiabO~Xxj4Yhd5~u5u6m4KFvg1uroh~zKFSFf0PEVyvKdzzJF6phb0Wh0XeyMLlvn-eBi4Vraio5HnibtEVOOrOCYPjbrm1VcQEG3rdDq29GNtSB4WulLiIbi87fC~rPGkgD6bXaNmxfLtaYDDLm2QsRM5ptOfcvP7orbobWryVcDHPcB2dTpr4iRtr3XyquyB0zlG72KwmsK4YO14aP6wVhj7VN~YVgIpeSwP3YOy5AgjoqgY2-wNs9eMPv-l0p~MtX64Vfyd9v761dGmM5ZeNoJ6raNBMt4TybEW3-w__"
+        run: |
+          curl --fail --location --retry 3 --retry-delay 2 "$SF05_URL" -o /tmp/sf05_table_s1.xlsx
+          test -s /tmp/sf05_table_s1.xlsx
+          file /tmp/sf05_table_s1.xlsx
+      - name: Materialize workbook sheets without opening effect-size outcomes
+        run: |
+          rm -f evidence/meta_extraction/phase2_sf05_table_s1_sheet*.csv
+          python scripts/materialize_sf05_table_s1.py /tmp/sf05_table_s1.xlsx evidence/meta_extraction
+          test -s evidence/meta_extraction/phase2_sf05_table_s1_manifest.json
+      - name: Commit source materialization
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add evidence/meta_extraction/phase2_sf05_table_s1_manifest.json evidence/meta_extraction/phase2_sf05_table_s1_sheet*.csv
+          if git diff --cached --quiet; then
+            echo "No materialization changes"
+          else
+            git commit -m 'Materialize SF05 supporting study universe'
+            git push origin HEAD:meta/systematic-coverage-moderator-expansion-2026-09-16
+          fi
