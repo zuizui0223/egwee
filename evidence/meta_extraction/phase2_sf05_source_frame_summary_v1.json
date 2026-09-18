@@ -1,0 +1,29 @@
+{
+  "source_frame": "SF05",
+  "source_article": "Miguel-Penaloza et al. 2023 AoB PLANTS plad019",
+  "source_doi": "10.1093/aobpla/plad019",
+  "source_reported_flow": {
+    "database_hits": 343,
+    "nonduplicate": 243,
+    "source_eligible": 200,
+    "habitat_status_plus_Sp": 74,
+    "source_outcome_excluded_non_significant_FSGS": 6,
+    "source_outcome_excluded_outlier_Sp": 3,
+    "published_systematic_review_subset": 65,
+    "published_meta_analysis_subset": 31
+  },
+  "materialized": {
+    "population_rows": 177,
+    "unique_source_selected_studies": 65,
+    "unique_source_meta_analysis_studies": 31,
+    "raw_sys_rev_meta_flag_paper_ids": 32,
+    "meta_membership_rule": "deduplicated meta.references sheet; raw sys.rev meta flag retained separately",
+    "title_method_multilayer_screen_hints": 25,
+    "linked_existing_egwee_seed_studies": 1
+  },
+  "denominator_status": "incomplete_outcome_blind_source_frame",
+  "minimum_missing_identity_count": 9,
+  "reason": "published Table S1 begins after six non-significant-FSGS and three outlier-Sp exclusions",
+  "source_internal_audit_note": "sys.rev meta=Y marks 32 Paper IDs, whereas meta.references contains 31 citations and the article reports 31 studies; meta.references is used for membership and the raw flag is preserved",
+  "effect_outcomes_opened_for_egwee_phase2": false
+}
