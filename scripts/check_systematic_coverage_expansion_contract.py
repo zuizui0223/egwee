@@ -155,7 +155,7 @@ def main() -> None:
         "does not reduce each cluster to one p-value. it retains effect magnitudes.",
         "cohort/history lag",
         "reproductive assurance",
-        "search stop",
+        "search and extraction stop rules",
         "at least **5 independent programme/study clusters**",
         "at least **10 independent programme/study clusters**",
         "must not use the same natural synthesis as duplicated load-bearing evidence",
