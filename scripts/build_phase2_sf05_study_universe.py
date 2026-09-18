@@ -8,6 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "evidence/meta_extraction/phase2_sf05_table_s1_sheet02_sys_rev.csv"
+META_REFS = ROOT / "evidence/meta_extraction/phase2_sf05_table_s1_sheet01_meta_references.csv"
 SEEDS = ROOT / "manuscript/meta_analysis_primary_study_seed_v1.csv"
 OUT = ROOT / "evidence/meta_extraction/phase2_sf05_primary_study_universe_v1.csv"
 GAP = ROOT / "evidence/meta_extraction/phase2_sf05_source_frame_gap_v1.csv"
@@ -57,7 +58,11 @@ def hint_layers(reference: str) -> list[str]:
 
 def main() -> None:
     src = rows(SRC)
+    meta_refs = rows(META_REFS)
     seeds = rows(SEEDS)
+    assert len(meta_refs) == 31, f"expected 31 rows in meta.references, got {len(meta_refs)}"
+    meta_citations = {r["Citation"].strip() for r in meta_refs if r["Citation"].strip()}
+    meta_dois = {norm_doi(r["Reference"]) for r in meta_refs if norm_doi(r["Reference"])}
     seed_by_doi = {norm_doi(r["doi"]): r["study_id"] for r in seeds if norm_doi(r["doi"])}
 
     grouped: dict[str, list[dict[str, str]]] = defaultdict(list)
@@ -72,7 +77,7 @@ def main() -> None:
     fields = [
         "source_frame", "source_paper_id", "citation", "year", "first_author",
         "reference", "doi", "species", "n_species", "n_population_rows",
-        "source_selected_systematic_review_65", "source_meta_analysis_31",
+        "source_selected_systematic_review_65", "source_meta_analysis_31", "source_meta_flag_raw",
         "source_outcome_filter_status", "existing_egwee_study_ids",
         "countries", "biomes", "life_forms", "life_cycles", "mating_systems",
         "self_incompatibility", "pollination_classes", "pollination_vectors",
@@ -93,7 +98,8 @@ def main() -> None:
         authors = uniq(r["first.author"] for r in rs)
         dois = uniq(norm_doi(x) for x in references)
         species = uniq(r["species"] for r in rs)
-        meta = any((r["meta"] or "").strip().upper() == "Y" for r in rs)
+        raw_meta = any((r["meta"] or "").strip().upper() == "Y" for r in rs)
+        meta = any(x in meta_citations for x in citations) or any(d in meta_dois for d in dois)
         if meta:
             n_meta += 1
         hints = hint_layers(" ".join(references))
@@ -117,6 +123,7 @@ def main() -> None:
             "n_population_rows": str(len(rs)),
             "source_selected_systematic_review_65": "yes",
             "source_meta_analysis_31": "yes" if meta else "no",
+            "source_meta_flag_raw": "yes" if raw_meta else "no",
             "source_outcome_filter_status": "retained_after_source_FSGS_significance_and_outlier_filters",
             "existing_egwee_study_ids": ";".join(existing),
             "countries": ";".join(uniq(r["country"] for r in rs)),
@@ -139,7 +146,11 @@ def main() -> None:
             "screening_note": "Hints are title/method metadata only; no C/I/F/G_offspring effect eligibility or direction has been opened.",
         })
 
-    assert n_meta == 31, f"expected 31 source meta-analysis studies, got {n_meta}"
+    assert n_meta == 31, f"expected 31 studies matched to meta.references, got {n_meta}"
+    raw_meta_n = sum(
+        1 for rs in grouped.values()
+        if any((r["meta"] or "").strip().upper() == "Y" for r in rs)
+    )
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
     with OUT.open("w", newline="", encoding="utf-8") as fh:
@@ -181,12 +192,15 @@ def main() -> None:
             "population_rows": len(src),
             "unique_source_selected_studies": len(out_rows),
             "unique_source_meta_analysis_studies": n_meta,
+            "raw_sys_rev_meta_flag_paper_ids": raw_meta_n,
+            "meta_membership_rule": "deduplicated meta.references sheet; raw sys.rev meta flag retained separately",
             "title_method_multilayer_screen_hints": n_hints,
             "linked_existing_egwee_seed_studies": n_linked,
         },
         "denominator_status": "incomplete_outcome_blind_source_frame",
         "minimum_missing_identity_count": 9,
         "reason": "published Table S1 begins after six non-significant-FSGS and three outlier-Sp exclusions",
+        "source_internal_audit_note": "sys.rev meta=Y marks 32 Paper IDs, whereas meta.references contains 31 citations and the article reports 31 studies; meta.references is used for membership and the raw flag is preserved",
         "effect_outcomes_opened_for_egwee_phase2": False,
     }
     SUMMARY.write_text(json.dumps(summary, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
