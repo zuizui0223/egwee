@@ -98,7 +98,7 @@ def main() -> None:
     assert set(contract["source_frames"]) == {r["frame_id"] for r in coverage}
     assert all(r["status"] == "registered_not_executed" for r in coverage)
     cf01 = next(r for r in coverage if r["frame_id"] == "CF01")
-    assert "2026-09-18" in cf01["scope"]
+    assert cf01["doi_or_dataset"] == "cutoff 2026-09-18"
 
     pair_rows = rows(PAIR_COVERAGE)
     assert {r["pair_id"] for r in pair_rows} == {
