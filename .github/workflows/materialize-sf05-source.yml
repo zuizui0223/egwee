@@ -6,6 +6,7 @@ on:
       - meta/systematic-coverage-moderator-expansion-2026-09-16
     paths:
       - 'scripts/materialize_sf05_table_s1.py'
+      - 'scripts/build_phase2_sf05_study_universe.py'
       - '.github/workflows/materialize-sf05-source.yml'
 
 permissions:
@@ -30,11 +31,19 @@ jobs:
           rm -f evidence/meta_extraction/phase2_sf05_table_s1_sheet*.csv
           python scripts/materialize_sf05_table_s1.py /tmp/sf05_table_s1.xlsx evidence/meta_extraction
           test -s evidence/meta_extraction/phase2_sf05_table_s1_manifest.json
+      - name: Build study-level SF05 candidate universe
+        run: |
+          python scripts/build_phase2_sf05_study_universe.py
+          test -s evidence/meta_extraction/phase2_sf05_primary_study_universe_v1.csv
+          test -s evidence/meta_extraction/phase2_sf05_source_frame_gap_v1.csv
+          test -s evidence/meta_extraction/phase2_sf05_source_frame_summary_v1.json
+          test -s manuscript/PHASE2_SF05_MATERIALIZATION_2026-09-18.md
+
       - name: Commit source materialization
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add evidence/meta_extraction/phase2_sf05_table_s1_manifest.json evidence/meta_extraction/phase2_sf05_table_s1_sheet*.csv
+          git add evidence/meta_extraction/phase2_sf05_table_s1_manifest.json evidence/meta_extraction/phase2_sf05_table_s1_sheet*.csv evidence/meta_extraction/phase2_sf05_primary_study_universe_v1.csv evidence/meta_extraction/phase2_sf05_source_frame_gap_v1.csv evidence/meta_extraction/phase2_sf05_source_frame_summary_v1.json manuscript/PHASE2_SF05_MATERIALIZATION_2026-09-18.md
           if git diff --cached --quiet; then
             echo "No materialization changes"
           else
