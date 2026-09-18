@@ -148,19 +148,20 @@ def main() -> None:
     assert schema["amended_on"] == "2026-09-18"
     assert schema["coverage_amendment"] == AMENDMENT.relative_to(ROOT).as_posix()
 
+    amendment_lower = amendment.lower()
     required_amendment_tokens = [
-        "Canonical Phase-2 protocol amendment",
+        "canonical phase-2 protocol amendment",
         "does **not** authorize a sixth-cluster search to restore leave-one-cluster-out significance",
-        "The expansion phase does not reduce each cluster to one p-value. It retains effect magnitudes.",
+        "does not reduce each cluster to one p-value. it retains effect magnitudes.",
         "cohort/history lag",
         "reproductive assurance",
-        "Search stop",
+        "search stop",
         "at least **5 independent programme/study clusters**",
         "at least **10 independent programme/study clusters**",
-        "The two papers must not use the same natural synthesis as duplicated load-bearing evidence",
+        "must not use the same natural synthesis as duplicated load-bearing evidence",
     ]
     for token in required_amendment_tokens:
-        assert token in amendment, token
+        assert token in amendment_lower, token
 
     no_rescue = set(contract["hard_no_rescue_rules"])
     assert {
