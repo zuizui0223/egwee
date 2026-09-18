@@ -3,9 +3,10 @@ name: Meta-analysis Phase 2 contract
 on:
   pull_request:
     paths:
-      - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-17_SYSTEMATIC_COVERAGE_MODERATORS.md'
+      - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-18_SYSTEMATIC_COVERAGE_MODERATORS.md'
       - 'manuscript/meta_analysis_phase2_contract.json'
       - 'manuscript/meta_analysis_coverage_frame_v2.csv'
+      - 'evidence/meta_extraction/coverage_expansion_pair_coverage_v1.csv'
       - 'manuscript/meta_analysis_moderator_schema_v1.csv'
       - 'manuscript/meta_analysis_recovery_priority_v2.csv'
       - 'scripts/check_systematic_coverage_expansion_contract.py'
@@ -14,9 +15,10 @@ on:
       - '.github/workflows/meta-analysis-phase2-contract.yml'
   push:
     paths:
-      - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-17_SYSTEMATIC_COVERAGE_MODERATORS.md'
+      - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-18_SYSTEMATIC_COVERAGE_MODERATORS.md'
       - 'manuscript/meta_analysis_phase2_contract.json'
       - 'manuscript/meta_analysis_coverage_frame_v2.csv'
+      - 'evidence/meta_extraction/coverage_expansion_pair_coverage_v1.csv'
       - 'manuscript/meta_analysis_moderator_schema_v1.csv'
       - 'manuscript/meta_analysis_recovery_priority_v2.csv'
       - 'scripts/check_systematic_coverage_expansion_contract.py'
