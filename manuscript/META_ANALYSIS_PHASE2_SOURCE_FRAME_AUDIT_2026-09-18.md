@@ -12,7 +12,7 @@ The seven seed syntheses have now been source-verified at the frame level. This 
 | SF02 | Aguilar et al. 2008 Appendix S1 | 101 publications / 102 unique plant species | materialize Appendix S1 rows |
 | SF03 | Aguilar et al. 2019 Supporting Information | 179 plant species | materialize primary-study bibliography and crosswalk G_offspring/F |
 | SF04 | González et al. 2019 Figshare dataset | public dataset verified; exact deduplicated study denominator still to be materialized | materialize publication/species rows from dataset |
-| SF05 | Miguel-Peñaloza et al. 2023 Table S1 | 65 systematic-review studies / 31 complete-meta-analysis studies | screen all 65 reviewed studies, not only the 31 analysed |
+| SF05 | Miguel-Peñaloza et al. 2023 Table S1 | **materialized: 177 population rows / 65 source-selected studies / 31 meta subset / 25 title-method multilayer hints**; source flow implies **9 outcome-excluded identities are missing** | restore the missing 9 if identifiable and reconstruct the broader outcome-blind 243/200 frame before declaring SF05 complete |
 | SF06 | Aguilar et al. 2024/2025 Supplementary Table S1 | 235 female-fitness publications / 79 male-fitness publications; 83 pollination effects from 75 species | materialize Table S1 and crosswalk repeated systems |
 | SF07 | Olhnuud et al. 2025 Dryad | 80-study global dataset; abundance file: 78 observations from 40 publications | materialize publication identifiers; use only as discovery unless an eligible plant response links independently |
 | CF01 | citation expansion | cutoff fixed at 2026-09-18 | execute only after source-frame rows are materialized |
@@ -62,3 +62,8 @@ The next Phase-2 milestone is **row materialization**, not model fitting:
 5. only then open new numerical effects.
 
 Until that milestone is complete, the five-cluster Journal of Ecology manuscript remains the valid baseline submission.
+
+
+## SF05 row-materialization result
+
+SF05 is now the first row-materialized Phase-2 source frame. Its published Table S1 yielded 177 population rows grouped into 65 source-selected studies; 31 match the source meta-analysis membership, 25 carry title/method multilayer-screening hints, and one DOI links to an already registered EGWEE seed. The source article reports 74 studies at the habitat-status + Sp stage but Table S1 contains only 65 because six non-significant FSGS studies and three outlier-Sp studies were removed. Consequently SF05 remains **outcome-blind-frame incomplete** and is not counted as systematic-frame complete.
