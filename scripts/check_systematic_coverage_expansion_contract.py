@@ -26,6 +26,7 @@ HELICONIA_STATUS = ROOT / "manuscript/PHASE2_SF05_71_HELICONIA_RECOVERY_2026-09-
 HELICONIA_CONTRACT = ROOT / "manuscript/SF05_71_HELICONIA_PHASE2_RECOVERY_CONTRACT.md"
 QUANT_GATE = ROOT / "evidence/meta_extraction/phase2_sf05_quantitative_gate_v1.csv"
 CASTANOPSIS_STATUS = ROOT / "manuscript/PHASE2_SF05_32_CASTANOPSIS_GATE_2026-09-19.md"
+OENOCARPUS_STATUS = ROOT / "manuscript/PHASE2_SF05_83_OENOCARPUS_GATE_2026-09-19.md"
 
 DISPLAY_TOL = 5e-8
 
@@ -50,7 +51,7 @@ def emitted_json(command: list[str], prefix: str) -> dict:
 
 
 def main() -> None:
-    for path in (CONTRACT, AMENDMENT, COVERAGE, PAIR_COVERAGE, MODERATORS, RECOVERY, SF05_SCREEN, SF05_SCREEN_STATUS, PARKIA_CHECK, PARKIA_STATUS, PARKIA_CONTRACT, HELICONIA_CHECK, HELICONIA_STATUS, HELICONIA_CONTRACT, QUANT_GATE, CASTANOPSIS_STATUS, SCHEMA):
+    for path in (CONTRACT, AMENDMENT, COVERAGE, PAIR_COVERAGE, MODERATORS, RECOVERY, SF05_SCREEN, SF05_SCREEN_STATUS, PARKIA_CHECK, PARKIA_STATUS, PARKIA_CONTRACT, HELICONIA_CHECK, HELICONIA_STATUS, HELICONIA_CONTRACT, QUANT_GATE, CASTANOPSIS_STATUS, OENOCARPUS_STATUS, SCHEMA):
         assert path.is_file(), path
 
     contract = json.loads(CONTRACT.read_text(encoding="utf-8"))
@@ -173,11 +174,17 @@ def main() -> None:
     assert qby["93"]["gate_status"] == "recovered_pair_admissible"
     assert qby["71"]["gate_status"] == "recovered_full_three_layer_covariance_admissible"
     assert qby["32"]["gate_status"] == "closed_insufficient_fragmentation_unit_replication"
-    assert {pid for pid, r in qby.items() if r["gate_status"] == "pending_full_text_quantitative_gate"} == {"83", "42", "4"}
+    assert qby["83"]["gate_status"] == "closed_no_prespecified_pair_and_reference_nonindependence"
+    assert {pid for pid, r in qby.items() if r["gate_status"] == "pending_full_text_quantitative_gate"} == {"42", "4"}
     assert sum(r["effect_calculation_opened"] == "yes" for r in qrows) == 2
     cast_status = CASTANOPSIS_STATUS.read_text(encoding="utf-8")
     assert "closed for quantitative Phase-2 admission" in cast_status
     assert "six cohorts cannot" not in cast_status.lower() or "fragmentation-level independent unit remains the site" in cast_status
+
+    oeno_status = OENOCARPUS_STATUS.read_text(encoding="utf-8")
+    assert "closed for the current prespecified Phase-2 pair families" in oeno_status
+    assert "do not create 10 independent continuous-forest landscapes" not in oeno_status.lower() or "one large continuous-forest reserve" in oeno_status
+    assert "No primary Phase-2 pair count changes." in oeno_status
 
     moderators = rows(MODERATORS)
     assert [r["moderator_id"] for r in moderators] == [f"M{i:02d}" for i in range(1, 11)]
