@@ -194,20 +194,47 @@ def main() -> None:
     assert s5["effect_outcomes_opened_for_egwee_phase2"] is False
 
     screen_rows = rows(SF05_SCREEN)
-    assert {r["source_paper_id"] for r in screen_rows} == {"2", "42", "66", "96"}
+    expected_screen_decisions = {
+        "1": "closed_no_fragmentation_reference_contrast",
+        "2": "closed_no_fragmentation_reference_contrast",
+        "4": "advance_full_text_quantitative_screen",
+        "8": "closed_no_fragmentation_reference_contrast",
+        "10": "closed_no_fragmentation_reference_contrast",
+        "11": "advance_full_text_exposure_screen",
+        "15": "closed_no_fragmentation_reference_contrast",
+        "20": "advance_full_text_exposure_screen",
+        "24": "closed_nonfragmentation_single_population_disturbance",
+        "25": "closed_no_fragmentation_reference_contrast",
+        "32": "advance_full_text_quantitative_screen",
+        "42": "advance_full_text_quantitative_screen",
+        "46": "closed_single_fragmented_unit",
+        "49": "closed_existing_structural_hard_stop",
+        "51": "closed_fragment_only_no_reference",
+        "66": "closed_fragment_only_no_reference",
+        "68": "closed_fragment_only_no_reference",
+        "69": "closed_nonfragmentation_exposure",
+        "71": "advance_full_text_quantitative_screen",
+        "76": "advance_full_text_exposure_screen",
+        "83": "advance_full_text_quantitative_screen",
+        "85": "closed_no_fragmentation_reference_contrast",
+        "86": "advance_full_text_exposure_screen",
+        "93": "advance_full_text_quantitative_screen",
+        "96": "closed_nonfragmentation_single_population_disturbance",
+    }
+    assert len(screen_rows) == s5["materialized"]["title_method_multilayer_screen_hints"] == 25
+    assert {r["source_paper_id"] for r in screen_rows} == set(expected_screen_decisions)
     assert all(r["source_frame"] == "SF05" for r in screen_rows)
-    assert all(r["screen_wave"] == "1" for r in screen_rows)
+    assert {r["screen_wave"] for r in screen_rows} == {"1", "2"}
+    assert sum(r["screen_wave"] == "1" for r in screen_rows) == 4
+    assert sum(r["screen_wave"] == "2" for r in screen_rows) == 21
     assert all(r["screen_basis"] == "design_and_methods_only" for r in screen_rows)
     assert all(r["outcome_opened"] == "no" for r in screen_rows)
     assert all(r["outcome_blind_confirmation"] == "yes" for r in screen_rows)
     decisions = {r["source_paper_id"]: r["screen_decision"] for r in screen_rows}
-    assert decisions == {
-        "2": "closed_no_fragmentation_reference_contrast",
-        "42": "advance_full_text_quantitative_screen",
-        "66": "closed_fragment_only_no_reference",
-        "96": "closed_nonfragmentation_single_population_disturbance",
-    }
-    assert sum(r["screen_decision"].startswith("advance_") for r in screen_rows) == 1
+    assert decisions == expected_screen_decisions
+    assert sum(r["screen_decision"] == "advance_full_text_quantitative_screen" for r in screen_rows) == 6
+    assert sum(r["screen_decision"] == "advance_full_text_exposure_screen" for r in screen_rows) == 4
+    assert sum(r["screen_decision"].startswith("closed_") for r in screen_rows) == 15
     forbidden_reason_tokens = ("significance", "p-value", "effect direction", "effect magnitude")
     assert all(
         not any(token in r["decision_reason"].lower() for token in forbidden_reason_tokens)
@@ -216,11 +243,16 @@ def main() -> None:
 
     screen_status = SF05_SCREEN_STATUS.read_text(encoding="utf-8")
     for token in (
-        "screened in wave 1: **4**",
-        "advance to quantitative full-text screen: **1**",
-        "closed on design geometry: **3**",
-        "flagged candidates still pending: **21**",
+        "design-screened: **25**",
+        "advance to quantitative full-text screen: **6**",
+        "advance to exposure/layer verification: **4**",
+        "closed on design geometry: **15**",
+        "flagged candidates still pending design screen: **0**",
         "newly admitted Phase-2 effects/clusters: **0**",
+        "SF05-93 Parkia biglobosa",
+        "SF05-32 Castanopsis sclerophylla",
+        "SF05-71 Heliconia acuminata",
+        "SF05-83 Oenocarpus bataua",
     ):
         assert token in screen_status, token
 
