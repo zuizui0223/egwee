@@ -96,8 +96,10 @@ def main() -> None:
         "SF01", "SF02", "SF03", "SF04", "SF05", "SF06", "SF07", "CF01"
     ]
     assert set(contract["source_frames"]) == {r["frame_id"] for r in coverage}
-    assert all(r["status"] == "registered_not_executed" for r in coverage)
+    seed_frames = [r for r in coverage if r["frame_id"].startswith("SF")]
+    assert all(r["status"].startswith("source_verified_") for r in seed_frames)
     cf01 = next(r for r in coverage if r["frame_id"] == "CF01")
+    assert cf01["status"] == "registered_not_executed"
     assert cf01["doi_or_dataset"] == "cutoff 2026-09-18"
 
     pair_rows = rows(PAIR_COVERAGE)
@@ -173,9 +175,15 @@ def main() -> None:
         "no_NEE_operator_validation_claim",
     } <= no_rescue
 
+    audit = ROOT / "manuscript/META_ANALYSIS_PHASE2_SOURCE_FRAME_AUDIT_2026-09-18.md"
+    assert audit.is_file()
+    audit_text = audit.read_text(encoding="utf-8")
+    for token in ("SF01", "SF02", "SF03", "SF04", "SF05", "SF06", "SF07", "row materialization"):
+        assert token in audit_text, token
+
     print(
         "SYSTEMATIC_COVERAGE_EXPANSION_CONTRACT_OK "
-        f"frames={len(coverage)} pair_gate={pair_gate['min_independent_programmes']} "
+        f"frames={len(coverage)} source_verified={len(seed_frames)} pair_gate={pair_gate['min_independent_programmes']} "
         f"moderators={len(moderators)} "
         f"recovery_targets={sum(r['phase2_status']=='registered_recovery_target' for r in recovery)} "
         f"hard_closed={sum(r['phase2_status']=='structural_closed' for r in recovery)}"
