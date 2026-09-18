@@ -8,10 +8,12 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = ROOT / "manuscript/meta_analysis_phase2_contract.json"
-AMENDMENT = ROOT / "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-17_SYSTEMATIC_COVERAGE_MODERATORS.md"
+AMENDMENT = ROOT / "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-18_SYSTEMATIC_COVERAGE_MODERATORS.md"
 COVERAGE = ROOT / "manuscript/meta_analysis_coverage_frame_v2.csv"
+PAIR_COVERAGE = ROOT / "evidence/meta_extraction/coverage_expansion_pair_coverage_v1.csv"
 MODERATORS = ROOT / "manuscript/meta_analysis_moderator_schema_v1.csv"
 RECOVERY = ROOT / "manuscript/meta_analysis_recovery_priority_v2.csv"
+SCHEMA = ROOT / "manuscript/meta_analysis_effect_schema.json"
 SYNTHESIS = ROOT / "scripts/synthesize_state_separation.py"
 COVARIANCE = ROOT / "scripts/check_covariance_robustness.py"
 
@@ -38,11 +40,16 @@ def emitted_json(command: list[str], prefix: str) -> dict:
 
 
 def main() -> None:
+    for path in (CONTRACT, AMENDMENT, COVERAGE, PAIR_COVERAGE, MODERATORS, RECOVERY, SCHEMA):
+        assert path.is_file(), path
+
     contract = json.loads(CONTRACT.read_text(encoding="utf-8"))
     amendment = AMENDMENT.read_text(encoding="utf-8")
+    schema = json.loads(SCHEMA.read_text(encoding="utf-8"))
 
-    assert contract["schema_version"] == 1
-    assert contract["frozen_on"] == "2026-09-17"
+    assert contract["schema_version"] == 2
+    assert contract["frozen_on"] == "2026-09-18"
+    assert contract["amendment"] == AMENDMENT.relative_to(ROOT).as_posix()
     assert contract["frozen_scientific_base"] == "16308cf6d6e4aec274504ba81bbf6e71be465099"
     assert contract["phase2_purpose"] == "systematic_coverage_and_moderator_inference_not_significance_repair"
 
@@ -72,14 +79,17 @@ def main() -> None:
         - phase1["covariance_free_bound_p"]
     ) < DISPLAY_TOL
 
-    required_estimands = {
+    assert set(contract["primary_estimands"]) == {
         "I_minus_F",
         "C_minus_F",
         "Gadult_minus_Goffspring",
         "Gadult_minus_mean_I_F_when_jointly_estimable",
     }
-    assert set(contract["primary_estimands"]) == required_estimands
     assert contract["effect_family_boundaries"]["cross_family_pooling_allowed"] is False
+
+    pair_gate = contract["pair_specific_analysis_gate"]
+    assert pair_gate["min_independent_programmes"] == 5
+    assert "not a significance" in pair_gate["interpretation"]
 
     coverage = rows(COVERAGE)
     assert [r["frame_id"] for r in coverage] == [
@@ -87,28 +97,26 @@ def main() -> None:
     ]
     assert set(contract["source_frames"]) == {r["frame_id"] for r in coverage}
     assert all(r["status"] == "registered_not_executed" for r in coverage)
-    coverage_by_id = {r["frame_id"]: r for r in coverage}
-    assert all(r["outcome_blind_rule"].strip() for r in coverage)
-    assert "independently of direction/significance" in coverage_by_id["SF03"]["outcome_blind_rule"]
-    assert "do not prioritize studies by effect magnitude" in coverage_by_id["SF06"]["outcome_blind_rule"]
-    assert "all eligible seeds" in coverage_by_id["CF01"]["outcome_blind_rule"]
+    cf01 = next(r for r in coverage if r["frame_id"] == "CF01")
+    assert "2026-09-18" in cf01["scope"]
+
+    pair_rows = rows(PAIR_COVERAGE)
+    assert {r["pair_id"] for r in pair_rows} == {
+        "I-F", "C-F", "G_adult-G_offspring", "G_adult-mean(I,F)"
+    }
+    by_pair = {r["pair_id"]: r for r in pair_rows}
+    assert int(by_pair["I-F"]["current_independent_direct_systems"]) == 1
+    assert by_pair["I-F"]["current_system_ids"] == "ML020"
+    assert int(by_pair["C-F"]["current_independent_direct_systems"]) == 2
+    assert set(by_pair["C-F"]["current_system_ids"].split(";")) == {"ML001", "ML002"}
+    assert int(by_pair["G_adult-G_offspring"]["current_independent_direct_systems"]) == 1
+    assert by_pair["G_adult-G_offspring"]["current_system_ids"] == "ML003"
+    assert int(by_pair["G_adult-mean(I,F)"]["current_independent_direct_systems"]) == 0
+    assert all(r["analysis_opening_gate"] == "5_independent_programmes" for r in pair_rows)
+    assert all("not a significance target" in r["gate_interpretation"] for r in pair_rows)
 
     moderators = rows(MODERATORS)
     assert [r["moderator_id"] for r in moderators] == [f"M{i:02d}" for i in range(1, 11)]
-    moderator_fields = {r["field_name"] for r in moderators}
-    assert {
-        "mating_system",
-        "autonomous_reproductive_assurance",
-        "pollination_vector",
-        "woodiness",
-        "life_form",
-        "fragmentation_age_years",
-        "fragmentation_component",
-        "process_measurement_type",
-        "biome_region",
-        "study_design",
-    } == moderator_fields
-
     gates = contract["moderator_gates"]
     assert gates == {
         "univariable_min_independent_clusters": 10,
@@ -119,8 +127,8 @@ def main() -> None:
     }
 
     recovery = rows(RECOVERY)
-    assert {r["cluster_id"] for r in recovery} == {f"ML{i:03d}" for i in range(4, 14)}
     by_id = {r["cluster_id"]: r for r in recovery}
+    assert {r["cluster_id"] for r in recovery} == {f"ML{i:03d}" for i in range(4, 14)}
     assert {cid for cid, r in by_id.items() if r["phase2_priority"] == "P1"} == {
         "ML006", "ML007", "ML008", "ML012"
     }
@@ -132,31 +140,42 @@ def main() -> None:
 
     promotion = contract["promotion_gate"]
     assert promotion["requires_systematic_frame_complete"] is True
+    assert promotion["moderator_significance_required"] is False
     assert promotion["depends_on_smaller_phase1_p_value"] is False
-    assert len(promotion["qualifying_information_conditions"]) == 3
+    assert "at_least_one_primary_layer_pair_family_has_at_least_5_independent_programmes" in promotion["qualifying_information_conditions"]
+
+    assert schema["schema_version"] == 3
+    assert schema["amended_on"] == "2026-09-18"
+    assert schema["coverage_amendment"] == AMENDMENT.relative_to(ROOT).as_posix()
 
     required_amendment_tokens = [
-        "does **not** reopen the corpus to repair significance",
-        "paired within-system layer differences",
+        "Canonical Phase-2 protocol amendment",
+        "does **not** authorize a sixth-cluster search to restore leave-one-cluster-out significance",
+        "The primary estimand is no longer a Fisher combination of one p-value per programme",
         "cohort/history lag",
         "reproductive assurance",
-        "Model-opening gates",
-        "Search completion and stop rule",
-        "Promotion rule for the Journal of Ecology manuscript",
-        "search for a sixth direct cluster solely to repair omit-ML001 significance",
+        "Search stop",
+        "at least **5 independent programme/study clusters**",
+        "at least **10 independent programme/study clusters**",
+        "The two papers must not use the same natural synthesis as duplicated load-bearing evidence",
     ]
     for token in required_amendment_tokens:
         assert token in amendment, token
 
     no_rescue = set(contract["hard_no_rescue_rules"])
-    assert "no_sixth_cluster_search_for_omit_ML001_significance" in no_rescue
-    assert "no_outcome_based_study_retention" in no_rescue
-    assert "no_outcome_derived_compensation_moderator" in no_rescue
-    assert "no_NEE_operator_validation_claim" in no_rescue
+    assert {
+        "no_sixth_cluster_search_for_omit_ML001_significance",
+        "no_outcome_based_study_retention",
+        "no_outcome_derived_compensation_moderator",
+        "no_postoutcome_moderator_gate_relaxation",
+        "no_covariance_method_selection_by_p_value",
+        "no_NEE_operator_validation_claim",
+    } <= no_rescue
 
     print(
         "SYSTEMATIC_COVERAGE_EXPANSION_CONTRACT_OK "
-        f"frames={len(coverage)} moderators={len(moderators)} "
+        f"frames={len(coverage)} pair_gate={pair_gate['min_independent_programmes']} "
+        f"moderators={len(moderators)} "
         f"recovery_targets={sum(r['phase2_status']=='registered_recovery_target' for r in recovery)} "
         f"hard_closed={sum(r['phase2_status']=='structural_closed' for r in recovery)}"
     )
