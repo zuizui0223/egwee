@@ -151,7 +151,7 @@ def main() -> None:
     required_amendment_tokens = [
         "Canonical Phase-2 protocol amendment",
         "does **not** authorize a sixth-cluster search to restore leave-one-cluster-out significance",
-        "The primary estimand is no longer a Fisher combination of one p-value per programme",
+        "The expansion phase does not reduce each cluster to one p-value. It retains effect magnitudes.",
         "cohort/history lag",
         "reproductive assurance",
         "Search stop",
