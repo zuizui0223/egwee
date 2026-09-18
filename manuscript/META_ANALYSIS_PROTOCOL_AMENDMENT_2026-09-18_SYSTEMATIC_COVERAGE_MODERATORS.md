@@ -4,6 +4,8 @@
 **Parent protocol:** `manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md`  
 **Frozen baseline manuscript:** `manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md`
 
+**Canonical Phase-2 protocol amendment:** this file supersedes the two 2026-09-17 coverage/moderator draft amendments for all prospective decisions after 2026-09-18. The canonical machine contract is `manuscript/meta_analysis_phase2_contract.json`; `manuscript/meta_analysis_coverage_frame_v2.csv`, `manuscript/meta_analysis_moderator_schema_v1.csv`, `manuscript/meta_analysis_recovery_priority_v2.csv` and `evidence/meta_extraction/coverage_expansion_pair_coverage_v1.csv` are its registries.
+
 ## 1. Purpose and non-significance-repair firewall
 
 The completed five-cluster synthesis is retained as a frozen baseline. It established a bounded result: natural plant fragmentation systems can show either cross-layer separation or concordant deterioration, but the five-cluster Fisher rejection is materially ML001-*Serapias* dependent and is not covariance-free certified.
