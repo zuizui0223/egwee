@@ -21,6 +21,11 @@ COVARIANCE = ROOT / "scripts/check_covariance_robustness.py"
 PARKIA_CHECK = ROOT / "scripts/check_phase2_sf05_93_parkia.py"
 PARKIA_STATUS = ROOT / "manuscript/PHASE2_SF05_93_PARKIA_RECOVERY_2026-09-19.md"
 PARKIA_CONTRACT = ROOT / "manuscript/SF05_93_PARKIA_PHASE2_RECOVERY_CONTRACT.md"
+HELICONIA_CHECK = ROOT / "scripts/check_phase2_sf05_71_heliconia.py"
+HELICONIA_STATUS = ROOT / "manuscript/PHASE2_SF05_71_HELICONIA_RECOVERY_2026-09-19.md"
+HELICONIA_CONTRACT = ROOT / "manuscript/SF05_71_HELICONIA_PHASE2_RECOVERY_CONTRACT.md"
+QUANT_GATE = ROOT / "evidence/meta_extraction/phase2_sf05_quantitative_gate_v1.csv"
+CASTANOPSIS_STATUS = ROOT / "manuscript/PHASE2_SF05_32_CASTANOPSIS_GATE_2026-09-19.md"
 
 DISPLAY_TOL = 5e-8
 
@@ -45,7 +50,7 @@ def emitted_json(command: list[str], prefix: str) -> dict:
 
 
 def main() -> None:
-    for path in (CONTRACT, AMENDMENT, COVERAGE, PAIR_COVERAGE, MODERATORS, RECOVERY, SF05_SCREEN, SF05_SCREEN_STATUS, PARKIA_CHECK, PARKIA_STATUS, PARKIA_CONTRACT, SCHEMA):
+    for path in (CONTRACT, AMENDMENT, COVERAGE, PAIR_COVERAGE, MODERATORS, RECOVERY, SF05_SCREEN, SF05_SCREEN_STATUS, PARKIA_CHECK, PARKIA_STATUS, PARKIA_CONTRACT, HELICONIA_CHECK, HELICONIA_STATUS, HELICONIA_CONTRACT, QUANT_GATE, CASTANOPSIS_STATUS, SCHEMA):
         assert path.is_file(), path
 
     contract = json.loads(CONTRACT.read_text(encoding="utf-8"))
@@ -118,8 +123,8 @@ def main() -> None:
     assert by_pair["I-F"]["current_system_ids"] == "ML020"
     assert int(by_pair["C-F"]["current_independent_direct_systems"]) == 2
     assert set(by_pair["C-F"]["current_system_ids"].split(";")) == {"ML001", "ML002"}
-    assert int(by_pair["G_adult-G_offspring"]["current_independent_direct_systems"]) == 2
-    assert set(by_pair["G_adult-G_offspring"]["current_system_ids"].split(";")) == {"ML003", "P2_SF05_93"}
+    assert int(by_pair["G_adult-G_offspring"]["current_independent_direct_systems"]) == 3
+    assert set(by_pair["G_adult-G_offspring"]["current_system_ids"].split(";")) == {"ML003", "P2_SF05_93", "P2_SF05_71"}
     assert int(by_pair["G_adult-mean(I,F)"]["current_independent_direct_systems"]) == 0
     assert all(r["analysis_opening_gate"] == "5_independent_programmes" for r in pair_rows)
     assert all("not a significance target" in r["gate_interpretation"] for r in pair_rows)
@@ -142,6 +147,37 @@ def main() -> None:
         "does **not** enter the frozen Phase-1 five-cluster Fisher synthesis",
     ):
         assert token in parkia_status, token
+
+    heliconia_proc = subprocess.run(
+        [sys.executable, str(HELICONIA_CHECK)],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    assert "PHASE2_SF05_71_HELICONIA_OK" in heliconia_proc.stdout
+    assert "full3_covariance=PD" in heliconia_proc.stdout
+    assert "pair_covariance=PD" in heliconia_proc.stdout
+    heliconia_status = HELICONIA_STATUS.read_text(encoding="utf-8")
+    for token in (
+        "full covariance-aware three-layer Phase-2 cluster",
+        "increases from 2 to **3 independent programmes**",
+        "below the quantitative meta-analysis gate at 3/5",
+        "does **not** enter or alter the frozen Phase-1 five-cluster Fisher synthesis",
+    ):
+        assert token in heliconia_status, token
+
+    qrows = rows(QUANT_GATE)
+    qby = {r["source_paper_id"]: r for r in qrows}
+    assert set(qby) == {"93", "32", "71", "83", "42", "4"}
+    assert qby["93"]["gate_status"] == "recovered_pair_admissible"
+    assert qby["71"]["gate_status"] == "recovered_full_three_layer_covariance_admissible"
+    assert qby["32"]["gate_status"] == "closed_insufficient_fragmentation_unit_replication"
+    assert {pid for pid, r in qby.items() if r["gate_status"] == "pending_full_text_quantitative_gate"} == {"83", "42", "4"}
+    assert sum(r["effect_calculation_opened"] == "yes" for r in qrows) == 2
+    cast_status = CASTANOPSIS_STATUS.read_text(encoding="utf-8")
+    assert "closed for quantitative Phase-2 admission" in cast_status
+    assert "six cohorts cannot" not in cast_status.lower() or "fragmentation-level independent unit remains the site" in cast_status
 
     moderators = rows(MODERATORS)
     assert [r["moderator_id"] for r in moderators] == [f"M{i:02d}" for i in range(1, 11)]
