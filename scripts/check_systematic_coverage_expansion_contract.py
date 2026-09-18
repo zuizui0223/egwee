@@ -18,6 +18,9 @@ SF05_SCREEN_STATUS = ROOT / "manuscript/PHASE2_SF05_MULTILAYER_SCREEN_STATUS_202
 SCHEMA = ROOT / "manuscript/meta_analysis_effect_schema.json"
 SYNTHESIS = ROOT / "scripts/synthesize_state_separation.py"
 COVARIANCE = ROOT / "scripts/check_covariance_robustness.py"
+PARKIA_CHECK = ROOT / "scripts/check_phase2_sf05_93_parkia.py"
+PARKIA_STATUS = ROOT / "manuscript/PHASE2_SF05_93_PARKIA_RECOVERY_2026-09-19.md"
+PARKIA_CONTRACT = ROOT / "manuscript/SF05_93_PARKIA_PHASE2_RECOVERY_CONTRACT.md"
 
 DISPLAY_TOL = 5e-8
 
@@ -42,7 +45,7 @@ def emitted_json(command: list[str], prefix: str) -> dict:
 
 
 def main() -> None:
-    for path in (CONTRACT, AMENDMENT, COVERAGE, PAIR_COVERAGE, MODERATORS, RECOVERY, SF05_SCREEN, SF05_SCREEN_STATUS, SCHEMA):
+    for path in (CONTRACT, AMENDMENT, COVERAGE, PAIR_COVERAGE, MODERATORS, RECOVERY, SF05_SCREEN, SF05_SCREEN_STATUS, PARKIA_CHECK, PARKIA_STATUS, PARKIA_CONTRACT, SCHEMA):
         assert path.is_file(), path
 
     contract = json.loads(CONTRACT.read_text(encoding="utf-8"))
@@ -115,11 +118,30 @@ def main() -> None:
     assert by_pair["I-F"]["current_system_ids"] == "ML020"
     assert int(by_pair["C-F"]["current_independent_direct_systems"]) == 2
     assert set(by_pair["C-F"]["current_system_ids"].split(";")) == {"ML001", "ML002"}
-    assert int(by_pair["G_adult-G_offspring"]["current_independent_direct_systems"]) == 1
-    assert by_pair["G_adult-G_offspring"]["current_system_ids"] == "ML003"
+    assert int(by_pair["G_adult-G_offspring"]["current_independent_direct_systems"]) == 2
+    assert set(by_pair["G_adult-G_offspring"]["current_system_ids"].split(";")) == {"ML003", "P2_SF05_93"}
     assert int(by_pair["G_adult-mean(I,F)"]["current_independent_direct_systems"]) == 0
     assert all(r["analysis_opening_gate"] == "5_independent_programmes" for r in pair_rows)
     assert all("not a significance target" in r["gate_interpretation"] for r in pair_rows)
+
+    parkia_proc = subprocess.run(
+        [sys.executable, str(PARKIA_CHECK)],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    assert "PHASE2_SF05_93_PARKIA_OK" in parkia_proc.stdout
+    assert "pair_covariance=PD" in parkia_proc.stdout
+    assert "full3=rank_deficient" in parkia_proc.stdout
+    parkia_status = PARKIA_STATUS.read_text(encoding="utf-8")
+    for token in (
+        "pair-specific covariance-aware Phase-2 cluster",
+        "**2 independent programmes:** ML003 + P2_SF05_93",
+        "analysis-opening gate remains **5 independent programmes**",
+        "does **not** enter the frozen Phase-1 five-cluster Fisher synthesis",
+    ):
+        assert token in parkia_status, token
 
     moderators = rows(MODERATORS)
     assert [r["moderator_id"] for r in moderators] == [f"M{i:02d}" for i in range(1, 11)]
