@@ -11,6 +11,12 @@ on:
       - 'evidence/meta_extraction/coverage_expansion_pair_coverage_v1.csv'
       - 'evidence/meta_extraction/phase2_sf05_multilayer_screen_v1.csv'
       - 'manuscript/PHASE2_SF05_MULTILAYER_SCREEN_STATUS_2026-09-19.md'
+      - 'manuscript/SF05_93_PARKIA_PHASE2_RECOVERY_CONTRACT.md'
+      - 'manuscript/PHASE2_SF05_93_PARKIA_RECOVERY_2026-09-19.md'
+      - 'evidence/meta_extraction/phase2_sf05_93_parkia_population_values_v1.csv'
+      - 'evidence/meta_extraction/phase2_sf05_93_parkia_effects_v1.csv'
+      - 'evidence/meta_extraction/phase2_sf05_93_parkia_covariance_v1.json'
+      - 'scripts/check_phase2_sf05_93_parkia.py'
       - 'manuscript/meta_analysis_moderator_schema_v1.csv'
       - 'manuscript/meta_analysis_recovery_priority_v2.csv'
       - 'scripts/check_systematic_coverage_expansion_contract.py'
@@ -27,6 +33,12 @@ on:
       - 'evidence/meta_extraction/coverage_expansion_pair_coverage_v1.csv'
       - 'evidence/meta_extraction/phase2_sf05_multilayer_screen_v1.csv'
       - 'manuscript/PHASE2_SF05_MULTILAYER_SCREEN_STATUS_2026-09-19.md'
+      - 'manuscript/SF05_93_PARKIA_PHASE2_RECOVERY_CONTRACT.md'
+      - 'manuscript/PHASE2_SF05_93_PARKIA_RECOVERY_2026-09-19.md'
+      - 'evidence/meta_extraction/phase2_sf05_93_parkia_population_values_v1.csv'
+      - 'evidence/meta_extraction/phase2_sf05_93_parkia_effects_v1.csv'
+      - 'evidence/meta_extraction/phase2_sf05_93_parkia_covariance_v1.json'
+      - 'scripts/check_phase2_sf05_93_parkia.py'
       - 'manuscript/meta_analysis_moderator_schema_v1.csv'
       - 'manuscript/meta_analysis_recovery_priority_v2.csv'
       - 'scripts/check_systematic_coverage_expansion_contract.py'
@@ -42,5 +54,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Validate Parkia Phase-2 pair recovery
+        run: python scripts/check_phase2_sf05_93_parkia.py
       - name: Validate systematic coverage and moderator expansion contract
         run: python scripts/check_systematic_coverage_expansion_contract.py
