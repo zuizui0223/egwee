@@ -27,6 +27,8 @@ HELICONIA_CONTRACT = ROOT / "manuscript/SF05_71_HELICONIA_PHASE2_RECOVERY_CONTRA
 QUANT_GATE = ROOT / "evidence/meta_extraction/phase2_sf05_quantitative_gate_v1.csv"
 CASTANOPSIS_STATUS = ROOT / "manuscript/PHASE2_SF05_32_CASTANOPSIS_GATE_2026-09-19.md"
 OENOCARPUS_STATUS = ROOT / "manuscript/PHASE2_SF05_83_OENOCARPUS_GATE_2026-09-19.md"
+PRIMULA_STATUS = ROOT / "manuscript/PHASE2_SF05_42_PRIMULA_GATE_2026-09-19.md"
+MILICIA_STATUS = ROOT / "manuscript/PHASE2_SF05_4_MILICIA_GATE_2026-09-19.md"
 
 DISPLAY_TOL = 5e-8
 
@@ -51,7 +53,7 @@ def emitted_json(command: list[str], prefix: str) -> dict:
 
 
 def main() -> None:
-    for path in (CONTRACT, AMENDMENT, COVERAGE, PAIR_COVERAGE, MODERATORS, RECOVERY, SF05_SCREEN, SF05_SCREEN_STATUS, PARKIA_CHECK, PARKIA_STATUS, PARKIA_CONTRACT, HELICONIA_CHECK, HELICONIA_STATUS, HELICONIA_CONTRACT, QUANT_GATE, CASTANOPSIS_STATUS, OENOCARPUS_STATUS, SCHEMA):
+    for path in (CONTRACT, AMENDMENT, COVERAGE, PAIR_COVERAGE, MODERATORS, RECOVERY, SF05_SCREEN, SF05_SCREEN_STATUS, PARKIA_CHECK, PARKIA_STATUS, PARKIA_CONTRACT, HELICONIA_CHECK, HELICONIA_STATUS, HELICONIA_CONTRACT, QUANT_GATE, CASTANOPSIS_STATUS, OENOCARPUS_STATUS, PRIMULA_STATUS, MILICIA_STATUS, SCHEMA):
         assert path.is_file(), path
 
     contract = json.loads(CONTRACT.read_text(encoding="utf-8"))
@@ -175,7 +177,9 @@ def main() -> None:
     assert qby["71"]["gate_status"] == "recovered_full_three_layer_covariance_admissible"
     assert qby["32"]["gate_status"] == "closed_insufficient_fragmentation_unit_replication"
     assert qby["83"]["gate_status"] == "closed_no_prespecified_pair_and_reference_nonindependence"
-    assert {pid for pid, r in qby.items() if r["gate_status"] == "pending_full_text_quantitative_gate"} == {"42", "4"}
+    assert qby["42"]["gate_status"] == "closed_no_prespecified_pair_common_frame"
+    assert qby["4"]["gate_status"] == "closed_exposure_not_common_fragmentation_and_no_prespecified_pair"
+    assert {pid for pid, r in qby.items() if r["gate_status"] == "pending_full_text_quantitative_gate"} == set()
     assert sum(r["effect_calculation_opened"] == "yes" for r in qrows) == 2
     cast_status = CASTANOPSIS_STATUS.read_text(encoding="utf-8")
     assert "closed for quantitative Phase-2 admission" in cast_status
@@ -185,6 +189,16 @@ def main() -> None:
     assert "closed for the current prespecified Phase-2 pair families" in oeno_status
     assert "do not create 10 independent continuous-forest landscapes" not in oeno_status.lower() or "one large continuous-forest reserve" in oeno_status
     assert "No primary Phase-2 pair count changes." in oeno_status
+
+    primula_status = PRIMULA_STATUS.read_text(encoding="utf-8")
+    assert "closed for the current prespecified Phase-2 pair families" in primula_status
+    assert "G_adult-F" in primula_status
+    assert "It does not change any pair-specific programme count." in primula_status
+
+    milicia_status = MILICIA_STATUS.read_text(encoding="utf-8")
+    assert "closed for the current prespecified Phase-2 pair families" in milicia_status
+    assert "Indirect gene-dispersal distance is estimable only for Mindourou and Djoum" in milicia_status
+    assert "no new pair family is created after source inspection" in milicia_status
 
     moderators = rows(MODERATORS)
     assert [r["moderator_id"] for r in moderators] == [f"M{i:02d}" for i in range(1, 11)]
