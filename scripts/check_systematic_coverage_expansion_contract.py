@@ -27,6 +27,9 @@ HELICONIA_CONTRACT = ROOT / "manuscript/SF05_71_HELICONIA_PHASE2_RECOVERY_CONTRA
 PRUNUS_CHECK = ROOT / "scripts/check_phase2_cf01_prunus_2014.py"
 PRUNUS_STATUS = ROOT / "manuscript/PHASE2_CF01_PRUNUS_2014_RECOVERY_2026-09-19.md"
 PRUNUS_CONTRACT = ROOT / "manuscript/CF01_GPAIR_002_PRUNUS_2014_PHASE2_RECOVERY_CONTRACT.md"
+KAKAMEGA_CHECK = ROOT / "scripts/check_phase2_cf01_prunus_kakamega_2008.py"
+KAKAMEGA_STATUS = ROOT / "manuscript/PHASE2_CF01_PRUNUS_KAKAMEGA_2008_RECOVERY_2026-09-19.md"
+KAKAMEGA_CONTRACT = ROOT / "manuscript/CF01_GPAIR_003_PRUNUS_KAKAMEGA_2008_PHASE2_RECOVERY_CONTRACT.md"
 QUANT_GATE = ROOT / "evidence/meta_extraction/phase2_sf05_quantitative_gate_v1.csv"
 CASTANOPSIS_STATUS = ROOT / "manuscript/PHASE2_SF05_32_CASTANOPSIS_GATE_2026-09-19.md"
 OENOCARPUS_STATUS = ROOT / "manuscript/PHASE2_SF05_83_OENOCARPUS_GATE_2026-09-19.md"
@@ -57,7 +60,7 @@ def emitted_json(command: list[str], prefix: str) -> dict:
 
 
 def main() -> None:
-    for path in (CONTRACT, AMENDMENT, COVERAGE, PAIR_COVERAGE, MODERATORS, RECOVERY, SF05_SCREEN, SF05_SCREEN_STATUS, PARKIA_CHECK, PARKIA_STATUS, PARKIA_CONTRACT, HELICONIA_CHECK, HELICONIA_STATUS, HELICONIA_CONTRACT, PRUNUS_CHECK, PRUNUS_STATUS, PRUNUS_CONTRACT, QUANT_GATE, CASTANOPSIS_STATUS, OENOCARPUS_STATUS, PRIMULA_STATUS, MILICIA_STATUS, BROSIMUM_GPAIR_STATUS, SCHEMA):
+    for path in (CONTRACT, AMENDMENT, COVERAGE, PAIR_COVERAGE, MODERATORS, RECOVERY, SF05_SCREEN, SF05_SCREEN_STATUS, PARKIA_CHECK, PARKIA_STATUS, PARKIA_CONTRACT, HELICONIA_CHECK, HELICONIA_STATUS, HELICONIA_CONTRACT, PRUNUS_CHECK, PRUNUS_STATUS, PRUNUS_CONTRACT, KAKAMEGA_CHECK, KAKAMEGA_STATUS, KAKAMEGA_CONTRACT, QUANT_GATE, CASTANOPSIS_STATUS, OENOCARPUS_STATUS, PRIMULA_STATUS, MILICIA_STATUS, BROSIMUM_GPAIR_STATUS, SCHEMA):
         assert path.is_file(), path
 
     contract = json.loads(CONTRACT.read_text(encoding="utf-8"))
@@ -130,8 +133,8 @@ def main() -> None:
     assert by_pair["I-F"]["current_system_ids"] == "ML020"
     assert int(by_pair["C-F"]["current_independent_direct_systems"]) == 2
     assert set(by_pair["C-F"]["current_system_ids"].split(";")) == {"ML001", "ML002"}
-    assert int(by_pair["G_adult-G_offspring"]["current_independent_direct_systems"]) == 4
-    assert set(by_pair["G_adult-G_offspring"]["current_system_ids"].split(";")) == {"ML003", "P2_SF05_93", "P2_SF05_71", "P2_CF01_GPAIR_002"}
+    assert int(by_pair["G_adult-G_offspring"]["current_independent_direct_systems"]) == 5
+    assert set(by_pair["G_adult-G_offspring"]["current_system_ids"].split(";")) == {"ML003", "P2_SF05_93", "P2_SF05_71", "P2_CF01_GPAIR_002", "P2_CF01_GPAIR_003"}
     assert int(by_pair["G_adult-mean(I,F)"]["current_independent_direct_systems"]) == 0
     assert all(r["analysis_opening_gate"] == "5_independent_programmes" for r in pair_rows)
     assert all("not a significance target" in r["gate_interpretation"] for r in pair_rows)
@@ -191,6 +194,25 @@ def main() -> None:
         "Afrocarpus remains a registered prospective candidate",
     ):
         assert token in prunus_status, token
+
+    kakamega_proc = subprocess.run(
+        [sys.executable, str(KAKAMEGA_CHECK)],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    assert "PHASE2_CF01_PRUNUS_KAKAMEGA_2008_OK" in kakamega_proc.stdout
+    assert "pair_covariance=PD" in kakamega_proc.stdout
+    assert "gate=5/5" in kakamega_proc.stdout
+    kakamega_status = KAKAMEGA_STATUS.read_text(encoding="utf-8")
+    for token in (
+        "pair-specific covariance-aware Phase-2 cluster",
+        "5 independent programmes",
+        "5-programme analysis-opening gate is now met",
+        "does **not** enter or alter the frozen Phase-1 five-cluster Fisher synthesis",
+    ):
+        assert token in kakamega_status, token
 
     qrows = rows(QUANT_GATE)
     qby = {r["source_paper_id"]: r for r in qrows}
