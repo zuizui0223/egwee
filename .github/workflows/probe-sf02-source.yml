@@ -14,9 +14,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Download public SF02 Appendix S1
+        env:
+          LANDING: 'https://onlinelibrary.wiley.com/doi/full/10.1111/j.1365-294X.2008.03971.x'
+          SUPP: 'https://onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1111%2Fj.1365-294X.2008.03971.x&file=MEC_3971_sm_AppendixS1.doc'
+          USER_AGENT: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36'
         run: |
-          URL='https://onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1111%2Fj.1365-294X.2008.03971.x&file=MEC_3971_sm_AppendixS1.doc'
-          curl --fail --location --retry 3 --retry-delay 2             --user-agent 'Mozilla/5.0' "$URL" -o /tmp/sf02_appendix.doc
+          curl --location --retry 2 --retry-delay 2             --user-agent "$USER_AGENT"             --cookie-jar /tmp/wiley.cookies             "$LANDING" -o /tmp/sf02_landing.html || true
+          curl --fail --location --retry 3 --retry-delay 2             --user-agent "$USER_AGENT"             --referer "$LANDING"             --cookie /tmp/wiley.cookies             "$SUPP" -o /tmp/sf02_appendix.doc
           test -s /tmp/sf02_appendix.doc
           file /tmp/sf02_appendix.doc
       - name: Convert reference-only DOC to text
