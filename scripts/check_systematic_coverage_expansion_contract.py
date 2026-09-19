@@ -30,6 +30,9 @@ PRUNUS_CONTRACT = ROOT / "manuscript/CF01_GPAIR_002_PRUNUS_2014_PHASE2_RECOVERY_
 KAKAMEGA_CHECK = ROOT / "scripts/check_phase2_cf01_prunus_kakamega_2008.py"
 KAKAMEGA_STATUS = ROOT / "manuscript/PHASE2_CF01_PRUNUS_KAKAMEGA_2008_RECOVERY_2026-09-19.md"
 KAKAMEGA_CONTRACT = ROOT / "manuscript/CF01_GPAIR_003_PRUNUS_KAKAMEGA_2008_PHASE2_RECOVERY_CONTRACT.md"
+GPAIR_SYNTHESIS_CHECK = ROOT / "scripts/check_phase2_gpair_synthesis.py"
+GPAIR_SYNTHESIS_STATUS = ROOT / "manuscript/PHASE2_GPAIR_SYNTHESIS_2026-09-19.md"
+GPAIR_SYNTHESIS_AMENDMENT = ROOT / "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-19_GPAIR_SYNTHESIS.md"
 QUANT_GATE = ROOT / "evidence/meta_extraction/phase2_sf05_quantitative_gate_v1.csv"
 CASTANOPSIS_STATUS = ROOT / "manuscript/PHASE2_SF05_32_CASTANOPSIS_GATE_2026-09-19.md"
 OENOCARPUS_STATUS = ROOT / "manuscript/PHASE2_SF05_83_OENOCARPUS_GATE_2026-09-19.md"
@@ -60,7 +63,7 @@ def emitted_json(command: list[str], prefix: str) -> dict:
 
 
 def main() -> None:
-    for path in (CONTRACT, AMENDMENT, COVERAGE, PAIR_COVERAGE, MODERATORS, RECOVERY, SF05_SCREEN, SF05_SCREEN_STATUS, PARKIA_CHECK, PARKIA_STATUS, PARKIA_CONTRACT, HELICONIA_CHECK, HELICONIA_STATUS, HELICONIA_CONTRACT, PRUNUS_CHECK, PRUNUS_STATUS, PRUNUS_CONTRACT, KAKAMEGA_CHECK, KAKAMEGA_STATUS, KAKAMEGA_CONTRACT, QUANT_GATE, CASTANOPSIS_STATUS, OENOCARPUS_STATUS, PRIMULA_STATUS, MILICIA_STATUS, BROSIMUM_GPAIR_STATUS, SCHEMA):
+    for path in (CONTRACT, AMENDMENT, COVERAGE, PAIR_COVERAGE, MODERATORS, RECOVERY, SF05_SCREEN, SF05_SCREEN_STATUS, PARKIA_CHECK, PARKIA_STATUS, PARKIA_CONTRACT, HELICONIA_CHECK, HELICONIA_STATUS, HELICONIA_CONTRACT, PRUNUS_CHECK, PRUNUS_STATUS, PRUNUS_CONTRACT, KAKAMEGA_CHECK, KAKAMEGA_STATUS, KAKAMEGA_CONTRACT, GPAIR_SYNTHESIS_CHECK, GPAIR_SYNTHESIS_STATUS, GPAIR_SYNTHESIS_AMENDMENT, QUANT_GATE, CASTANOPSIS_STATUS, OENOCARPUS_STATUS, PRIMULA_STATUS, MILICIA_STATUS, BROSIMUM_GPAIR_STATUS, SCHEMA):
         assert path.is_file(), path
 
     contract = json.loads(CONTRACT.read_text(encoding="utf-8"))
@@ -213,6 +216,25 @@ def main() -> None:
         "does **not** enter or alter the frozen Phase-1 five-cluster Fisher synthesis",
     ):
         assert token in kakamega_status, token
+
+    gpair_proc = subprocess.run(
+        [sys.executable, str(GPAIR_SYNTHESIS_CHECK)],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    assert "PHASE2_GPAIR_SYNTHESIS_OK" in gpair_proc.stdout
+    assert "K=5" in gpair_proc.stdout
+    assert "directional_lag=false" in gpair_proc.stdout
+    gpair_status = GPAIR_SYNTHESIS_STATUS.read_text(encoding="utf-8")
+    for token in (
+        "mean contrast = +0.129",
+        "does **not** resolve a common directional cohort lag",
+        "Moderator models remain closed at K=5",
+        "systematic search universe is not yet complete",
+    ):
+        assert token in gpair_status, token
 
     qrows = rows(QUANT_GATE)
     qby = {r["source_paper_id"]: r for r in qrows}
