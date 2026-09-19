@@ -19,14 +19,27 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Download public KNB/DataONE Table S1 object
+      - name: Resolve and download public KNB/DataONE Table S1 object
         run: |
           set -e
-          PRIMARY='https://cn.dataone.org/cn/v2/resolve/bowdish.796.1'
-          FALLBACK='https://knb.ecoinformatics.org/knb/metacat/bowdish.796.1/knb'
-          if ! curl --fail --location --retry 3 --retry-delay 2 "$PRIMARY" -o /tmp/sf01_table.tsv; then
-            curl --fail --location --retry 3 --retry-delay 2 "$FALLBACK" -o /tmp/sf01_table.tsv
-          fi
+          QUERY='https://cn.dataone.org/cn/v2/query/solr/?q=id%3A%22bowdish.796.1%22&fl=id%2CdataUrl%2CformatType%2Csize&wt=json'
+          curl --fail --location --retry 3 --retry-delay 2 "$QUERY" -o /tmp/sf01_solr.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data = json.loads(Path('/tmp/sf01_solr.json').read_text())
+          docs = data.get('response', {}).get('docs', [])
+          assert len(docs) == 1, docs
+          doc = docs[0]
+          assert doc.get('id') == 'bowdish.796.1', doc
+          assert doc.get('formatType') == 'DATA', doc
+          url = doc.get('dataUrl')
+          assert url, doc
+          Path('/tmp/sf01_data_url.txt').write_text(url)
+          print('SF01_DATAONE_RESOLVED', doc)
+          PY
+          DATA_URL="$(cat /tmp/sf01_data_url.txt)"
+          curl --fail --location --retry 3 --retry-delay 2 "$DATA_URL" -o /tmp/sf01_table.tsv
           test -s /tmp/sf01_table.tsv
       - name: Build outcome-blind SF01 publication universe
         run: |
