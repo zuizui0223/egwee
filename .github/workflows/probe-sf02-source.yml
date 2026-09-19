@@ -2,11 +2,6 @@ name: Probe SF02 Wiley source
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - meta/systematic-coverage-moderator-expansion-2026-09-16
-    paths:
-      - '.github/workflows/probe-sf02-source.yml'
 
 jobs:
   probe:
