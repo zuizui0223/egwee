@@ -1,0 +1,30 @@
+name: Probe SF02 Wiley source
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - '.github/workflows/probe-sf02-source.yml'
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download public SF02 Appendix S1
+        run: |
+          URL='https://onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1111%2Fj.1365-294X.2008.03971.x&file=MEC_3971_sm_AppendixS1.doc'
+          curl --fail --location --retry 3 --retry-delay 2             --user-agent 'Mozilla/5.0' "$URL" -o /tmp/sf02_appendix.doc
+          test -s /tmp/sf02_appendix.doc
+          file /tmp/sf02_appendix.doc
+      - name: Convert reference-only DOC to text
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq antiword
+          antiword /tmp/sf02_appendix.doc > /tmp/sf02_appendix.txt
+          test -s /tmp/sf02_appendix.txt
+          echo SF02_TEXT_LINES "$(grep -cve '^\s*$' /tmp/sf02_appendix.txt)"
+          echo SF02_FIRST_LINES
+          grep -ve '^\s*$' /tmp/sf02_appendix.txt | head -n 12
