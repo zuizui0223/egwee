@@ -1,0 +1,35 @@
+name: Probe SF04 Figshare source
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - '.github/workflows/probe-sf04-source.yml'
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect public Figshare article metadata only
+        run: |
+          curl --fail --location --retry 3 --retry-delay 2             'https://api.figshare.com/v2/articles/7520456'             -o /tmp/sf04_figshare.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data=json.loads(Path('/tmp/sf04_figshare.json').read_text())
+          print('SF04_FIGSHARE_TITLE', data.get('title'))
+          print('SF04_FIGSHARE_DOI', data.get('doi'))
+          print('SF04_FIGSHARE_URL', data.get('url_public_api'))
+          for f in data.get('files', []):
+              print(
+                  'SF04_FILE',
+                  'id='+str(f.get('id')),
+                  'name='+str(f.get('name')),
+                  'size='+str(f.get('size')),
+                  'md5='+str(f.get('computed_md5')),
+                  'download_url='+str(f.get('download_url')),
+              )
+          PY
