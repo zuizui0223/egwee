@@ -2,12 +2,6 @@ name: Materialize SF01 source universe
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - meta/systematic-coverage-moderator-expansion-2026-09-16
-    paths:
-      - 'scripts/build_phase2_sf01_study_universe.py'
-      - '.github/workflows/materialize-sf01-source.yml'
 
 permissions:
   contents: write
