@@ -1,0 +1,54 @@
+name: Materialize SF07 source universe
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - 'scripts/build_phase2_sf07_study_universe.py'
+      - '.github/workflows/materialize-sf07-source.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Download public SF07 Dryad CSVs
+        run: |
+          curl --fail --location --retry 3 --retry-delay 2 \
+            'https://datadryad.org/downloads/file_stream/4257014' \
+            -o /tmp/Abundance_20250630.csv
+          curl --fail --location --retry 3 --retry-delay 2 \
+            'https://datadryad.org/downloads/file_stream/4257013' \
+            -o /tmp/Richness_20250627.csv
+          test -s /tmp/Abundance_20250630.csv
+          test -s /tmp/Richness_20250627.csv
+      - name: Build outcome-blind SF07 publication universe
+        run: |
+          python scripts/build_phase2_sf07_study_universe.py \
+            /tmp/Abundance_20250630.csv \
+            /tmp/Richness_20250627.csv \
+            evidence/meta_extraction
+          test -s evidence/meta_extraction/phase2_sf07_publication_universe_v1.csv
+          test -s evidence/meta_extraction/phase2_sf07_source_frame_summary_v1.json
+          test -s manuscript/PHASE2_SF07_MATERIALIZATION_2026-09-20.md
+      - name: Commit SF07 materialization
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            evidence/meta_extraction/phase2_sf07_publication_universe_v1.csv \
+            evidence/meta_extraction/phase2_sf07_source_frame_summary_v1.json \
+            manuscript/PHASE2_SF07_MATERIALIZATION_2026-09-20.md
+          if git diff --cached --quiet; then
+            echo 'No SF07 materialization changes'
+          else
+            git commit -m 'Materialize SF07 publication universe'
+            git push origin HEAD:meta/systematic-coverage-moderator-expansion-2026-09-16
+          fi
