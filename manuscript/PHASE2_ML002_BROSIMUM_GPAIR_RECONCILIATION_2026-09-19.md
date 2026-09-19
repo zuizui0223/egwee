@@ -6,7 +6,7 @@ The existing ML002 *Brosimum alicastrum* programme remains **blocked from the Ph
 
 The study design itself is adequate for a direct pair: three continuous-forest populations and three fragmented populations, with adult and progeny genotypes from the same six populations. The blocker is reproducibility of the published genetic-state endpoint from the public genotype workbook, not fragmentation-level replication.
 
-No Phase-1 result changes, and the Phase-2 G-pair coverage remains **4/5**.
+No Phase-1 result changes. At the time this reconciliation closed, Phase-2 G-pair coverage was **4/5**; it later reached **5/5** through the independent Kakamega Prunus programme, not through Brosimum.
 
 ## First audit: observed heterozygosity H_O
 
@@ -61,8 +61,9 @@ It cannot be reopened by choosing a genetic estimator because it produces a conv
 ## Phase-2 consequence
 
 - G_adult-G_offspring programme increment from Brosimum: **0**
-- current G_adult-G_offspring coverage: **4/5**
-- current systems remain: ML003, P2_SF05_93, P2_SF05_71, P2_CF01_GPAIR_002
+- Brosimum-audit coverage state: **4/5** before the independent fifth programme was added
+- current G_adult-G_offspring coverage: **5/5** after P2_CF01_GPAIR_003
+- current systems: ML003, P2_SF05_93, P2_SF05_71, P2_CF01_GPAIR_002, P2_CF01_GPAIR_003
 - no pair-specific meta-analysis is opened from Brosimum
 - frozen Phase-1 ML002 C/F effects and the five-cluster synthesis remain untouched
 
