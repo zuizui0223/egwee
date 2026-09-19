@@ -228,7 +228,7 @@ def main() -> None:
     for token in (
         "blocked_publication_raw_genotype_reconciliation",
         "0/4 predeclared estimators reproduce all four publication cells",
-        "current G_adult-G_offspring coverage: **4/5**",
+        "current G_adult-G_offspring coverage: **5/5**",
         "programme increment from Brosimum: **0**",
         "frozen Phase-1 ML002 C/F effects",
     ):
@@ -236,7 +236,7 @@ def main() -> None:
 
     print(
         "BROSIMUM_GPAIR_RECONCILIATION_BLOCKED "
-        "he_estimators_matching=0 coverage_increment=0 current_pair_coverage=4/5"
+        "he_estimators_matching=0 coverage_increment=0 audit_pair_coverage=4/5 current_pair_coverage=5/5"
     )
 
 
