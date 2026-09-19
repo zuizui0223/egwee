@@ -334,6 +334,25 @@ def main() -> None:
         "no_NEE_operator_validation_claim",
     } <= no_rescue
 
+    sf04_summary = ROOT / "evidence/meta_extraction/phase2_sf04_source_frame_summary_v1.json"
+    sf04_universe = ROOT / "evidence/meta_extraction/phase2_sf04_publication_universe_v1.csv"
+    sf04_status = ROOT / "manuscript/PHASE2_SF04_MATERIALIZATION_2026-09-20.md"
+    for p in (sf04_summary, sf04_universe, sf04_status):
+        assert p.is_file(), p
+    s4 = json.loads(sf04_summary.read_text(encoding="utf-8"))
+    assert s4["materialized"]["deduplicated_source_publications"] == 38
+    assert s4["materialized"]["unique_species"] == 38
+    assert s4["materialized"]["total_source_case_rows"] == 92
+    assert s4["materialized"]["allelic_case_rows"] == 42
+    assert s4["materialized"]["heterozygosity_case_rows"] == 50
+    assert s4["outcome_fields_materialized"] is False
+    assert s4["excluded_source_columns"] == ["Xe", "Se", "Ne", "Xc", "Sc", "Nc"]
+    s4rows = rows(sf04_universe)
+    assert len(s4rows) == 38
+    assert all(r["source_frame"] == "SF04" for r in s4rows)
+    assert all(r["outcome_opened"] == "no" for r in s4rows)
+    assert all(r["multilayer_screen_status"] == "pending_title_abstract_methods_screen" for r in s4rows)
+
     sf05_summary = ROOT / "evidence/meta_extraction/phase2_sf05_source_frame_summary_v1.json"
     sf05_gap = ROOT / "evidence/meta_extraction/phase2_sf05_source_frame_gap_v1.csv"
     sf05_universe = ROOT / "evidence/meta_extraction/phase2_sf05_primary_study_universe_v1.csv"
