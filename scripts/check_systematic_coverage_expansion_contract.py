@@ -32,6 +32,7 @@ CASTANOPSIS_STATUS = ROOT / "manuscript/PHASE2_SF05_32_CASTANOPSIS_GATE_2026-09-
 OENOCARPUS_STATUS = ROOT / "manuscript/PHASE2_SF05_83_OENOCARPUS_GATE_2026-09-19.md"
 PRIMULA_STATUS = ROOT / "manuscript/PHASE2_SF05_42_PRIMULA_GATE_2026-09-19.md"
 MILICIA_STATUS = ROOT / "manuscript/PHASE2_SF05_4_MILICIA_GATE_2026-09-19.md"
+BROSIMUM_GPAIR_STATUS = ROOT / "manuscript/PHASE2_ML002_BROSIMUM_GPAIR_RECONCILIATION_2026-09-19.md"
 
 DISPLAY_TOL = 5e-8
 
@@ -56,7 +57,7 @@ def emitted_json(command: list[str], prefix: str) -> dict:
 
 
 def main() -> None:
-    for path in (CONTRACT, AMENDMENT, COVERAGE, PAIR_COVERAGE, MODERATORS, RECOVERY, SF05_SCREEN, SF05_SCREEN_STATUS, PARKIA_CHECK, PARKIA_STATUS, PARKIA_CONTRACT, HELICONIA_CHECK, HELICONIA_STATUS, HELICONIA_CONTRACT, PRUNUS_CHECK, PRUNUS_STATUS, PRUNUS_CONTRACT, QUANT_GATE, CASTANOPSIS_STATUS, OENOCARPUS_STATUS, PRIMULA_STATUS, MILICIA_STATUS, SCHEMA):
+    for path in (CONTRACT, AMENDMENT, COVERAGE, PAIR_COVERAGE, MODERATORS, RECOVERY, SF05_SCREEN, SF05_SCREEN_STATUS, PARKIA_CHECK, PARKIA_STATUS, PARKIA_CONTRACT, HELICONIA_CHECK, HELICONIA_STATUS, HELICONIA_CONTRACT, PRUNUS_CHECK, PRUNUS_STATUS, PRUNUS_CONTRACT, QUANT_GATE, CASTANOPSIS_STATUS, OENOCARPUS_STATUS, PRIMULA_STATUS, MILICIA_STATUS, BROSIMUM_GPAIR_STATUS, SCHEMA):
         assert path.is_file(), path
 
     contract = json.loads(CONTRACT.read_text(encoding="utf-8"))
@@ -220,6 +221,16 @@ def main() -> None:
     assert "closed for the current prespecified Phase-2 pair families" in milicia_status
     assert "Indirect gene-dispersal distance is estimable only for Mindourou and Djoum" in milicia_status
     assert "no new pair family is created after source inspection" in milicia_status
+
+    brosimum_gpair_status = BROSIMUM_GPAIR_STATUS.read_text(encoding="utf-8")
+    for token in (
+        "blocked_publication_raw_genotype_reconciliation",
+        "current G_adult-G_offspring coverage: **4/5**",
+        "programme increment from Brosimum: **0**",
+        "0/4 predeclared estimators reproduce all four publication cells",
+    ):
+        assert token in brosimum_gpair_status, token
+    assert "ML002" not in set(by_pair["G_adult-G_offspring"]["current_system_ids"].split(";"))
 
     moderators = rows(MODERATORS)
     assert [r["moderator_id"] for r in moderators] == [f"M{i:02d}" for i in range(1, 11)]
