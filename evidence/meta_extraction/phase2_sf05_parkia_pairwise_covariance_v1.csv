@@ -1,0 +1,10 @@
+programme_id,endpoint_i,endpoint_j,n_paired_populations,residual_df,correlation_proxy,sampling_covariance,marginal_variance_i,marginal_variance_j,covariance_status
+PH2_PARKIA_2020,C_mp,C_mp,4,2,1.000000000000,1.004987531172,1.004987531172,1.004987531172,proxy_pairwise_low_rank
+PH2_PARKIA_2020,C_mp,Gadult_Ho,4,2,-0.670913323969,-0.774649762171,1.004987531172,1.326530612245,proxy_pairwise_low_rank
+PH2_PARKIA_2020,C_mp,Goffspring_Ho,4,2,-0.998752338878,-1.056475907131,1.004987531172,1.113378684807,proxy_pairwise_low_rank
+PH2_PARKIA_2020,Gadult_Ho,C_mp,4,2,-0.670913323969,-0.774649762171,1.326530612245,1.004987531172,proxy_pairwise_low_rank
+PH2_PARKIA_2020,Gadult_Ho,Gadult_Ho,4,2,1.000000000000,1.326530612245,1.326530612245,1.326530612245,proxy_pairwise_low_rank
+PH2_PARKIA_2020,Gadult_Ho,Goffspring_Ho,4,2,0.707106781187,0.859340127196,1.326530612245,1.113378684807,proxy_pairwise_low_rank
+PH2_PARKIA_2020,Goffspring_Ho,C_mp,4,2,-0.998752338878,-1.056475907131,1.113378684807,1.004987531172,proxy_pairwise_low_rank
+PH2_PARKIA_2020,Goffspring_Ho,Gadult_Ho,4,2,0.707106781187,0.859340127196,1.113378684807,1.326530612245,proxy_pairwise_low_rank
+PH2_PARKIA_2020,Goffspring_Ho,Goffspring_Ho,4,2,1.000000000000,1.113378684807,1.113378684807,1.113378684807,proxy_pairwise_low_rank
