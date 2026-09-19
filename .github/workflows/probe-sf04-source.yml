@@ -32,23 +32,19 @@ jobs:
                   'md5='+str(f.get('computed_md5')),
                   'download_url='+str(f.get('download_url')),
               )
-          python - <<'PY'
-          import json
-          from pathlib import Path
-          data=json.loads(Path('/tmp/sf04_figshare.json').read_text())
-          by_name={f['name']: f['download_url'] for f in data.get('files', [])}
-          Path('/tmp/sf04_urls.env').write_text(
-              '\n'.join(f"{name}={url}" for name,url in by_name.items())+'\n'
-          )
           PY
       - name: Inspect source schemas without opening outcome values
         run: |
           python - <<'PY'
-          import json, urllib.request
+          import json
+          import urllib.request
           from pathlib import Path
           data=json.loads(Path('/tmp/sf04_figshare.json').read_text())
-          for f in data['files']:
-              req=urllib.request.Request(f['download_url'], headers={'User-Agent':'egwee-sf04-schema-probe/1.0'})
+          for f in data.get('files', []):
+              req=urllib.request.Request(
+                  f['download_url'],
+                  headers={'User-Agent':'egwee-sf04-schema-probe/1.0'},
+              )
               body=urllib.request.urlopen(req, timeout=30).read()
               Path('/tmp/'+f['name']).write_bytes(body)
           PY
