@@ -124,7 +124,7 @@ def main() -> None:
     sf05 = next(r for r in coverage if r["frame_id"] == "SF05")
     assert sf05["status"] == "source_verified_row_materialized_source_selected_subset_frame_incomplete"
     cf01 = next(r for r in coverage if r["frame_id"] == "CF01")
-    assert cf01["status"] == "registered_not_executed"
+    assert cf01["status"] == "partial_targeted_citation_expansion_executed_full_frame_incomplete"
     assert cf01["doi_or_dataset"] == "cutoff 2026-09-18"
 
     pair_rows = rows(PAIR_COVERAGE)
