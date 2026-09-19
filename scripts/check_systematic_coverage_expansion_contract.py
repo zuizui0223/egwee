@@ -247,7 +247,7 @@ def main() -> None:
     brosimum_gpair_status = BROSIMUM_GPAIR_STATUS.read_text(encoding="utf-8")
     for token in (
         "blocked_publication_raw_genotype_reconciliation",
-        "current G_adult-G_offspring coverage: **4/5**",
+        "current G_adult-G_offspring coverage: **5/5**",
         "programme increment from Brosimum: **0**",
         "0/4 predeclared estimators reproduce all four publication cells",
     ):
