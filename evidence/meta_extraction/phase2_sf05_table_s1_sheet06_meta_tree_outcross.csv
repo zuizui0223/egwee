@@ -1,0 +1,24 @@
+dist.c,Paper,Registro,ID,dist.code,prom.cohorte,species,family,form,cohort,mating.sys,pol.c,pol.v,disp.c,disp.v,marker,n,Me,Se,Mc,Sc
+,,,U,U,,,,,,,,,,,,12,1.8506249999999998E-2,1.2907439999999999E-2,1.8506249999999998E-2,1.2907439999999999E-2
+,,,D,D,,,,,,,,,,,,10,1.205556E-2,1.3421473E-2,1.8506249999999998E-2,1.2907439999999999E-2
+,,,FL,FL,,,,,,,,,,,,13,1.285333E-2,7.1475230000000002E-3,1.8506249999999998E-2,1.2907439999999999E-2
+,,,FM,FM,,,,,,,,,,,,10,1.7774999999999999E-2,2.1623348000000001E-2,1.8506249999999998E-2,1.2907439999999999E-2
+,,,FH,FH,,,,,,,,,,,,8,2.574444E-2,1.9964589000000001E-2,1.8506249999999998E-2,1.2907439999999999E-2
+U,17,28,P17-Sp1,P17-Sp1-U,N,Fagus sylvatica,Fagaceae,tree/shrub,non-adult,m.out,Ab,Wi,Ab-s,Gr,AFLP,4,1.3525000000000001E-2,7.2761600000000003E-3,1.8506249999999998E-2,1.2907439999999999E-2
+U,75,99,P75-Sp1,P75-Sp1-U,N,Syagrus romanzoffiana,Arecaceae,tree/shrub,non-adult,m.out,Bs,In,Mix-l,Un,microsatellites,3,1.4333333E-2,1.0115994E-2,1.8506249999999998E-2,1.2907439999999999E-2
+U,80,104,P80-Sp1,P80-Sp1-U,N,Prunus avium,Rosaceae,tree/shrub,adult,m.out,Bs,In,Mix-l,"Bi, MMa",microsatellites,2,3.7499999999999999E-2,1.0606602E-2,1.8506249999999998E-2,1.2907439999999999E-2
+U,82,106,P82-Sp1,P82-Sp1-U,N,Lodoicea maldivica,Arecaeae,tree/shrub,adult,m.out,Bmx,Re,Ab-s,Gr,microsatellites,3,8.6666669999999994E-3,2.5166110000000002E-3,1.8506249999999998E-2,1.2907439999999999E-2
+D,19,30,P19-Sp1,P19-Sp1-D,N,Adansonia digitata,Malvaceae,tree/shrub,non-defined mixed,m.out,Bmx,Ba,Mix-l,Ba,AFLP,5,2.7400000000000001E-2,1.8635987E-2,1.8506249999999998E-2,1.2907439999999999E-2
+D,73,97,P73-Sp1,P73-Sp1-D,N,Prunus serotina,Rosaceae,tree/shrub,adult,m.out,Bs,In,Mix-l,Bi,microsatellites,3,6.2666670000000001E-3,7.57188E-4,1.8506249999999998E-2,1.2907439999999999E-2
+D,93,117,P93-Sp1,P93-Sp1-D,N,Parkia biglobosa,Fabaceae,tree/shrub,adult,m.out,Bmx,"Ba,In",Mix-l,"Bi,Pr,Ro",microsatellites,2,2.5000000000000001E-3,7.07107E-4,1.8506249999999998E-2,1.2907439999999999E-2
+FL,13,14,P13-Sp1,P13-Sp1-FL,N,Manikara maxima,Sapotaceae,tree/shrub,adult,m.out,Bs,In,Mix-l,"Ba,Bi,Pr",microsatellites,2,8.9999999999999993E-3,1.2727921999999999E-2,1.8506249999999998E-2,1.2907439999999999E-2
+FL,21,32,P21-Sp1,P21-Sp1-FL,N,Quercus rubra,Fagaceae,tree/shrub,non-defined mixed,m.out,Ab,Wi,Ab-s,Gr,microsatellites,3,5.6666670000000002E-3,3.5118850000000002E-3,1.8506249999999998E-2,1.2907439999999999E-2
+FL,25,37,P25-Sp1,P25-Sp1-FL,N,Fagus sylvatica,Fagaceae,tree/shrub,adult,m.out,Ab,Wi,Ab-s,Gr,microsatellites,3,2.1966666999999999E-2,1.335078E-2,1.8506249999999998E-2,1.2907439999999999E-2
+FL,46,70,P46-Sp1,P46-Sp1-FL,N,Aucoumea klaineana,Burseraceae,tree/shrub,non-adult,m.out,Bs,In,Ab-l,Wi,microsatellites,5,1.478E-2,2.1730159999999998E-3,1.8506249999999998E-2,1.2907439999999999E-2
+FM,4,4,P4-Sp1,P4-Sp1-FM,N,Milicia excelsa,Moraceae,tree/shrub,non-defined mixed,m.out,Ab,Wi,Mix-l,Ba,microsatellites,2,5.1000000000000004E-3,1.697056E-3,1.8506249999999998E-2,1.2907439999999999E-2
+FM,21,32,P21-Sp1,P21-Sp1-FM,N,Quercus rubra,Fagaceae,tree/shrub,non-defined mixed,m.out,Ab,Wi,Ab-s,Gr,microsatellites,2,5.4999999999999997E-3,2.1213199999999999E-3,1.8506249999999998E-2,1.2907439999999999E-2
+FM,21,33,P21-Sp2,P21-Sp2-FM,N,Quercus ellipsoidalis,Fagaceae,tree/shrub,non-defined mixed,m.out,Ab,Wi,Ab-s,Gr,microsatellites,4,1.0500000000000001E-2,5.9160799999999998E-3,1.8506249999999998E-2,1.2907439999999999E-2
+FM,57,81,P57-Sp1,P57-Sp1-FM,N,Pyrus bourgaeana,Rosaceae,tree/shrub,adult,m.out,Bs,In,Mix-l,"MMa, Un",microsatellites,2,0.05,4.2426406999999999E-2,1.8506249999999998E-2,1.2907439999999999E-2
+FH,32,49,P32-Sp1,P32-Sp1-FH,Y,Castanopsis sclerophylla,Fagaceae,tree/shrub,defined mixed,m.out,Ab,Wi,Ab-s,Gr,microsatellites,2,6.8999999999999999E-3,2.1213199999999999E-3,1.8506249999999998E-2,1.2907439999999999E-2
+FH,75,99,P75-Sp1,P75-Sp1-FH,N,Syagrus romanzoffiana,Arecaceae,tree/shrub,non-adult,m.out,Bs,In,Mix-l,Un,microsatellites,3,2.3666666999999999E-2,1.3576941E-2,1.8506249999999998E-2,1.2907439999999999E-2
+FH,79,103,P79-Sp1,P79-Sp1-FH,N,Acacia aroma,Fabaceae,tree/shrub,adult,m.out,Bs,In,Mix-l,Un,AFLP,3,4.6666667000000002E-2,2.5166114999999999E-2,1.8506249999999998E-2,1.2907439999999999E-2

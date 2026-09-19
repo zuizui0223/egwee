@@ -1,0 +1,44 @@
+dist.c,Paper,Registro,ID,dist.code,prom.cohorte,species,family,life.form,cohort,marker,mating.sys,pol.c,pol.v,disp.c,disp.v,n,Me,Se,Mc,Sc
+,,,U,U,,,,,,,,,,,,22,2.5541669999999999E-2,2.7761603999999999E-2,2.5541669999999999E-2,2.7761603999999999E-2
+,,,D,D,,,,,,,,,,,,28,1.5759260000000001E-2,8.9162229999999992E-3,2.5541669999999999E-2,2.7761603999999999E-2
+,,,FL,FL,,,,,,,,,,,,17,3.462722E-2,3.4586411999999997E-2,2.5541669999999999E-2,2.7761603999999999E-2
+,,,FM,FM,,,,,,,,,,,,20,2.145E-2,1.7489434000000002E-2,2.5541669999999999E-2,2.7761603999999999E-2
+,,,FH,FH,,,,,,,,,,,,29,3.4468520000000002E-2,2.2074709000000001E-2,2.5541669999999999E-2,2.7761603999999999E-2
+U,11,12,P11-Sp1,P11-Sp1-U,N,Erythrophleum suaveolens,Fabaceae,tree/shrub,adult,microsatellites,mixed,Bs,In,Ab-s,Gr,2,5.7000000000000002E-3,5.6568500000000002E-4,2.5541669999999999E-2,2.7761603999999999E-2
+U,15,25,P15-Sp10,P15-Sp10-U,N,Vouacapoua americana,Fabaceae,tree/shrub,non-defined mixed,microsatellites,NA,Bs,In,T-s,Ro,2,3.15E-2,2.7577164000000001E-2,2.5541669999999999E-2,2.7761603999999999E-2
+U,17,28,P17-Sp1,P17-Sp1-U,N,Fagus sylvatica,Fagaceae,tree/shrub,non-adult,AFLP,m.out,Ab,Wi,Ab-s,Gr,4,1.3525000000000001E-2,7.2761600000000003E-3,2.5541669999999999E-2,2.7761603999999999E-2
+U,65,89,P65-Sp1,P65-Sp1-U,N,Orchis mascula,Orchidaceae,herb,adult,AFLP,m.out,Bs,In,Ab-l,Wi,2,1.115E-2,2.3334520000000002E-3,2.5541669999999999E-2,2.7761603999999999E-2
+U,75,99,P75-Sp1,P75-Sp1-U,N,Syagrus romanzoffiana,Arecaceae,tree/shrub,non-adult,microsatellites,m.out,Bs,In,Mix-l,Un,3,1.4333333E-2,1.0115994E-2,2.5541669999999999E-2,2.7761603999999999E-2
+U,77,101,P77-Sp1,P77-Sp1-U,N,Thuja occidentalis,Cupressaceae,tree/shrub,non-defined mixed,microsatellites,mixed,Ab,Wi,Ab-l,Wi,2,1.35E-2,6.3639609999999996E-3,2.5541669999999999E-2,2.7761603999999999E-2
+U,80,104,P80-Sp1,P80-Sp1-U,N,Prunus avium,Rosaceae,tree/shrub,adult,microsatellites,m.out,Bs,In,Mix-l,"Bi, MMa",2,3.7499999999999999E-2,1.0606602E-2,2.5541669999999999E-2,2.7761603999999999E-2
+U,82,106,P82-Sp1,P82-Sp1-U,N,Lodoicea maldivica,Arecaeae,tree/shrub,adult,microsatellites,m.out,Bmx,Re,Ab-s,Gr,3,8.6666669999999994E-3,2.5166110000000002E-3,2.5541669999999999E-2,2.7761603999999999E-2
+U,91,115,P91-Sp1,P91-Sp1-U,N,Mercurialis perennis,Euphorbiaceae,herb,non-defined mixed,AFLP,m.out,Ab,Wi,T-s,An,2,9.4E-2,8.4852810000000008E-3,2.5541669999999999E-2,2.7761603999999999E-2
+D,9,10,P9-Sp1,P9-Sp1-D,N,Notholithocarpus densiflorus,Fagaceae,tree/shrub,non-defined mixed,microsatellites,m.out,Bs,In,Ab-s,Gr,4,1.15E-2,3.1091259999999998E-3,2.5541669999999999E-2,2.7761603999999999E-2
+D,19,30,P19-Sp1,P19-Sp1-D,N,Adansonia digitata,Malvaceae,tree/shrub,non-defined mixed,AFLP,m.out,Bmx,Ba,Mix-l,Ba,5,2.7400000000000001E-2,1.8635987E-2,2.5541669999999999E-2,2.7761603999999999E-2
+D,23,35,P23-Sp1,P23-Sp1-D,N,Polygala reinii,Polygalaceae,herb,non-defined mixed,Allozymes,m.out,Bs,In,T-s,An,2,2.5499999999999998E-2,7.07107E-4,2.5541669999999999E-2,2.7761603999999999E-2
+D,31,48,P31-Sp1,P31-Sp1-D,N,Ceratiola ericoides,Empetraceae,tree/shrub,defined mixed,Allozymes,m.out,Ab,Wi,Ab-s,"Bi, Gr",2,2.2450000000000001E-2,2.6375083000000001E-2,2.5541669999999999E-2,2.7761603999999999E-2
+D,54,78,P54-Sp1-micros,P54-Sp1-D-micros,N,Pinus halepensis,Pinaceae,tree/shrub,adult,microsatellites,NA,Ab,Wi,Ab-l,Wi,2,1.3899999999999999E-2,4.2426410000000001E-3,2.5541669999999999E-2,2.7761603999999999E-2
+D,54,78,P54-Sp1-SNP,P54-Sp1-D-SNP,N,Pinus halepensis,Pinaceae,tree/shrub,adult,SNP,NA,Ab,Wi,Ab-l,Wi,6,1.0116666999999999E-2,5.1038869999999997E-3,2.5541669999999999E-2,2.7761603999999999E-2
+D,64,88,P64-Sp1,P64-Sp1-D,N,Orchis purpurea,Orchidaceae,herb,adult,AFLP,m.out,Bs,In,Ab-l,Wi,2,2.2200000000000001E-2,3.818377E-3,2.5541669999999999E-2,2.7761603999999999E-2
+D,73,97,P73-Sp1,P73-Sp1-D,N,Prunus serotina,Rosaceae,tree/shrub,adult,microsatellites,m.out,Bs,In,Mix-l,Bi,3,6.2666670000000001E-3,7.57188E-4,2.5541669999999999E-2,2.7761603999999999E-2
+D,93,117,P93-Sp1,P93-Sp1-D,N,Parkia biglobosa,Fabaceae,tree/shrub,adult,microsatellites,m.out,Bmx,"Ba,In",Mix-l,"Bi, Pr, Ro",2,2.5000000000000001E-3,7.07107E-4,2.5541669999999999E-2,2.7761603999999999E-2
+FL,13,14,P13-Sp1,P13-Sp1-FL,N,Manikara maxima,Sapotaceae,tree/shrub,adult,microsatellites,m.out,Bs,In,Mix-l,"Ba, Bi, Pr",2,8.9999999999999993E-3,1.2727921999999999E-2,2.5541669999999999E-2,2.7761603999999999E-2
+FL,21,32,P21-Sp1,P21-Sp1-FL,N,Quercus rubra,Fagaceae,tree/shrub,non-defined mixed,microsatellites,m.out,Ab,Wi,Ab-s,Gr,3,5.6666670000000002E-3,3.5118850000000002E-3,2.5541669999999999E-2,2.7761603999999999E-2
+FL,25,37,P25-Sp1,P25-Sp1-FL,N,Fagus sylvatica,Fagaceae,tree/shrub,adult,microsatellites,m.out,Ab,Wi,Ab-s,Gr,3,2.1966666999999999E-2,1.335078E-2,2.5541669999999999E-2,2.7761603999999999E-2
+FL,46,70,P46-Sp1,P46-Sp1-FL,N,Aucoumea klaineana,Burseraceae,tree/shrub,non-adult,microsatellites,m.out,Bs,In,Ab-l,Wi,5,1.478E-2,2.1730159999999998E-3,2.5541669999999999E-2,2.7761603999999999E-2
+FL,91,115,P91-Sp1,P91-Sp1-FL,N,Mercurialis perennis,Euphorbiaceae,herb,non-defined mixed,AFLP,m.out,Ab,Wi,T-s,An,2,8.6499999999999994E-2,1.6263455999999999E-2,2.5541669999999999E-2,2.7761603999999999E-2
+FL,92,116,P92-Sp1,P92-Sp1-FL,N,Glycine soja,Fabaceae,herb,non-defined mixed,ISSR,m.self,Bs,In,Ab-s,Au,2,6.9849999999999995E-2,7.5660429999999997E-3,2.5541669999999999E-2,2.7761603999999999E-2
+FM,4,4,P4-Sp1,P4-Sp1-FM,N,Milicia excelsa,Moraceae,tree/shrub,non-defined mixed,microsatellites,m.out,Ab,Wi,Mix-l,Ba,2,5.1000000000000004E-3,1.697056E-3,2.5541669999999999E-2,2.7761603999999999E-2
+FM,21,32,P21-Sp1,P21-Sp1-FM,N,Quercus rubra,Fagaceae,tree/shrub,non-defined mixed,microsatellites,m.out,Ab,Wi,Ab-s,Gr,2,5.4999999999999997E-3,2.1213199999999999E-3,2.5541669999999999E-2,2.7761603999999999E-2
+FM,21,33,P21-Sp2,P21-Sp2-FM,N,Quercus ellipsoidalis,Fagaceae,tree/shrub,non-defined mixed,microsatellites,m.out,Ab,Wi,Ab-s,Gr,4,1.0500000000000001E-2,5.9160799999999998E-3,2.5541669999999999E-2,2.7761603999999999E-2
+FM,42,64,P42-Sp1,P42-Sp1-FM,N,Primula vulgaris,Primulaceae,herb,adult,Allozymes,m.out,Bs,In,Ab-s,Au,3,1.3666667E-2,2.0816659999999998E-3,2.5541669999999999E-2,2.7761603999999999E-2
+FM,44,66,P44-Sp1,P44-Sp1-FM,N,Primula veris,Primulaceae,herb,adult,Allozymes,m.out,Bs,In,Ab-s,Au,3,1.7333332999999999E-2,9.4516310000000003E-3,2.5541669999999999E-2,2.7761603999999999E-2
+FM,57,81,P57-Sp1,P57-Sp1-FM,N,Pyrus bourgaeana,Rosaceae,tree/shrub,adult,microsatellites,m.out,Bs,In,Mix-l,"MMa, Un",2,0.05,4.2426406999999999E-2,2.5541669999999999E-2,2.7761603999999999E-2
+FM,77,101,P77-Sp1,P77-Sp1-FM,N,Thuja occidentalis,Cupressaceae,tree/shrub,non-defined mixed,microsatellites,mixed,Ab,Wi,Ab-l,Wi,2,2.35E-2,1.0606602E-2,2.5541669999999999E-2,2.7761603999999999E-2
+FM,91,115,P91-Sp1,P91-Sp1-FM,N,Mercurialis perennis,Euphorbiaceae,herb,non-defined mixed,AFLP,m.out,Ab,Wi,T-s,An,2,4.5999999999999999E-2,8.4852810000000008E-3,2.5541669999999999E-2,2.7761603999999999E-2
+FH,20,31,P20-Sp1,P20-Sp1-FH,N,Schinus molle,Anacardiaceae,tree/shrub,adult,AFLP,NA,Bs,In,Mix-l,"Bi, MMa",9,2.1244444000000001E-2,1.4329524999999999E-2,2.5541669999999999E-2,2.7761603999999999E-2
+FH,32,49,P32-Sp1,P32-Sp1-FH,Y,Castanopsis sclerophylla,Fagaceae,tree/shrub,defined mixed,microsatellites,m.out,Ab,Wi,Ab-s,Gr,2,6.8999999999999999E-3,2.1213199999999999E-3,2.5541669999999999E-2,2.7761603999999999E-2
+FH,75,99,P75-Sp1,P75-Sp1-FH,N,Syagrus romanzoffiana,Arecaceae,tree/shrub,non-adult,microsatellites,m.out,Bs,In,Mix-l,Un,3,2.3666666999999999E-2,1.3576941E-2,2.5541669999999999E-2,2.7761603999999999E-2
+FH,79,103,P79-Sp1,P79-Sp1-FH,N,Acacia aroma,Fabaceae,tree/shrub,adult,AFLP,m.out,Bs,In,Mix-l,Un,3,4.6666667000000002E-2,2.5166114999999999E-2,2.5541669999999999E-2,2.7761603999999999E-2
+FH,81,105,P81-Sp1,P81-Sp1-FH,N,Glycine soja,Fabaceae,tree/shrub,adult,microsatellites,m.self,Bs,In,Ab-s,Au,3,6.9333332999999997E-2,5.0964040000000002E-2,2.5541669999999999E-2,2.7761603999999999E-2
+FH,86,110,P86-Sp1,P86-Sp1-FH,N,Menyanthes trifoliata,Menyanthaceae,herb,adult,microsatellites,m.out,Bs,In,Ab-l,Wa,9,3.9E-2,2.0892582E-2,2.5541669999999999E-2,2.7761603999999999E-2

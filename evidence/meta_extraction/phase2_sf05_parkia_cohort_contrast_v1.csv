@@ -1,0 +1,2 @@
+programme_id,contrast,endpoint_a,endpoint_b,delta_a_minus_b,covariance,delta_variance,delta_se,z,p_two_sided,ci95_low,ci95_high,interpretation
+PH2_PARKIA_2020,Gadult_minus_Goffspring,Gadult_Ho,Goffspring_Ho,0.663863118903,0.859340127196,0.721229042661,0.849252048959,0.781703287871,0.434388968976,-1.000640310853,2.328366548658,"adult-versus-embryo fragmentation-response separation is not resolved; interval crosses zero"
