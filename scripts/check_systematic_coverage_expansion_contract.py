@@ -353,6 +353,28 @@ def main() -> None:
     assert all(r["outcome_opened"] == "no" for r in s4rows)
     assert all(r["multilayer_screen_status"] == "pending_title_abstract_methods_screen" for r in s4rows)
 
+    sf06_summary = ROOT / "evidence/meta_extraction/phase2_sf06_source_frame_summary_v1.json"
+    sf06_universe = ROOT / "evidence/meta_extraction/phase2_sf06_publication_universe_v1.csv"
+    sf06_status = ROOT / "manuscript/PHASE2_SF06_MATERIALIZATION_2026-09-20.md"
+    for p in (sf06_summary, sf06_universe, sf06_status):
+        assert p.is_file(), p
+    s6 = json.loads(sf06_summary.read_text(encoding="utf-8"))
+    assert s6["materialized"]["source_effect_rows"] == 426
+    assert s6["materialized"]["deduplicated_source_publications"] == 255
+    assert s6["materialized"]["unique_species"] == 261
+    assert s6["materialized"]["response_row_counts"] == {
+        "Female fitness": 267,
+        "Pollination": 71,
+        "Male fitness": 88,
+    }
+    assert s6["outcome_fields_materialized"] is False
+    assert s6["excluded_source_fields"] == ["Hedges_d", "V(d)"]
+    s6rows = rows(sf06_universe)
+    assert len(s6rows) == 255
+    assert all(r["source_frame"] == "SF06" for r in s6rows)
+    assert all(r["outcome_opened"] == "no" for r in s6rows)
+    assert all(r["multilayer_screen_status"] == "pending_title_abstract_methods_screen" for r in s6rows)
+
     sf05_summary = ROOT / "evidence/meta_extraction/phase2_sf05_source_frame_summary_v1.json"
     sf05_gap = ROOT / "evidence/meta_extraction/phase2_sf05_source_frame_gap_v1.csv"
     sf05_universe = ROOT / "evidence/meta_extraction/phase2_sf05_primary_study_universe_v1.csv"
