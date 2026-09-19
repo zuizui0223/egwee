@@ -50,3 +50,34 @@ jobs:
               max_cols=max((len(r.findall('./'+q('tc'))) for r in rows), default=0)
               print('SF06_TABLE', 'index='+str(idx), 'rows='+str(len(rows)), 'max_cols='+str(max_cols), 'header='+repr(header))
           PY
+          python - <<'PY'
+          import zipfile
+          from xml.etree import ElementTree as ET
+
+          NS='http://schemas.openxmlformats.org/wordprocessingml/2006/main'
+          q=lambda tag: f'{{{NS}}}{tag}'
+          with zipfile.ZipFile('/tmp/sf06_table_s1.docx') as zf:
+              root=ET.fromstring(zf.read('word/document.xml'))
+          tables=root.findall('.//'+q('tbl'))
+
+          def cell_info(cell):
+              text=' '.join(
+                  (t.text or '').strip()
+                  for t in cell.iter(q('t'))
+                  if (t.text or '').strip()
+              )
+              tcpr=cell.find('./'+q('tcPr'))
+              span=1
+              if tcpr is not None:
+                  gs=tcpr.find('./'+q('gridSpan'))
+                  if gs is not None:
+                      span=int(gs.attrib.get(q('val'),'1'))
+              return ' '.join(text.split()), span
+
+          for ti in (0,1,5,6):
+              table=tables[ti]
+              rows=table.findall('./'+q('tr'))
+              for ri in range(min(2,len(rows))):
+                  vals=[cell_info(c) for c in rows[ri].findall('./'+q('tc'))]
+                  print('SF06_STRUCT', 'table='+str(ti+1), 'row='+str(ri+1), repr(vals))
+          PY
