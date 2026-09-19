@@ -22,7 +22,7 @@ jobs:
       - name: Download public KNB/DataONE Table S1 object
         run: |
           set -e
-          PRIMARY='https://knb.ecoinformatics.org/knb/d1/mn/v2/object/bowdish.796.1'
+          PRIMARY='https://cn.dataone.org/cn/v2/resolve/bowdish.796.1'
           FALLBACK='https://knb.ecoinformatics.org/knb/metacat/bowdish.796.1/knb'
           if ! curl --fail --location --retry 3 --retry-delay 2 "$PRIMARY" -o /tmp/sf01_table.tsv; then
             curl --fail --location --retry 3 --retry-delay 2 "$FALLBACK" -o /tmp/sf01_table.tsv
