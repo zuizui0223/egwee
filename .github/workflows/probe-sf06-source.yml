@@ -2,11 +2,6 @@ name: Probe SF06 OUP source
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - meta/systematic-coverage-moderator-expansion-2026-09-16
-    paths:
-      - '.github/workflows/probe-sf06-source.yml'
 
 jobs:
   probe:
