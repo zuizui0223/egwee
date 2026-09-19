@@ -15,6 +15,7 @@ ARTICLE_ID = 22130177
 TARGET = "Datos-Brosimum.xlsx"
 API = f"https://api.figshare.com/v2/articles/{ARTICLE_ID}"
 RULE = ROOT / "manuscript/BROSIMUM_GPAIR_RECONCILIATION_RULE_2026-09-19.md"
+STATUS = ROOT / "manuscript/PHASE2_ML002_BROSIMUM_GPAIR_RECONCILIATION_2026-09-19.md"
 VALID_HABITATS = {"CON", "FRA"}
 STAGES = ("AD", "PR")
 
@@ -217,45 +218,25 @@ def main() -> None:
             matching.append(name)
 
     print(f"BROSIMUM_HE_MATCHING estimators={matching!r}")
-    assert matching, "No predeclared H_E estimator reproduces all four Table-2 cells."
+    assert matching == [], (
+        "Brosimum reconciliation state changed: a predeclared H_E estimator now "
+        "reproduces all four Table-2 cells. Re-audit prospectively before any effect calculation."
+    )
 
-    # Simplest matching estimator is selected by the frozen hierarchy, not by effect size.
-    preference = ["pooled_HE", "mean_site_HE", "pooled_uHE", "mean_site_uHE"]
-    selected = next(name for name in preference if name in matching)
-    assert selected in {"pooled_HE", "mean_site_HE", "pooled_uHE", "mean_site_uHE"}
-    use_unbiased = selected in {"pooled_uHE", "mean_site_uHE"}
-    sites = site_uhe if use_unbiased else site_he
+    assert STATUS.is_file(), STATUS
+    status = STATUS.read_text(encoding="utf-8")
+    for token in (
+        "blocked_publication_raw_genotype_reconciliation",
+        "0/4 predeclared estimators reproduce all four publication cells",
+        "current G_adult-G_offspring coverage: **4/5**",
+        "programme increment from Brosimum: **0**",
+        "frozen Phase-1 ML002 C/F effects",
+    ):
+        assert token in status, token
 
-    adult = {p: sites[(p, "AD")] for p in pops}
-    progeny = {p: sites[(p, "PR")] for p in pops}
-    fra = [p for p in pops if habitat_by_pop[p] == "FRA"]
-    con = [p for p in pops if habitat_by_pop[p] == "CON"]
-
-    ga, va = hedges_g([adult[p] for p in fra], [adult[p] for p in con])
-    gp, vp = hedges_g([progeny[p] for p in fra], [progeny[p] for p in con])
-    rho = pearson(centered(adult, habitat_by_pop, pops), centered(progeny, habitat_by_pop, pops))
-    cov = rho * math.sqrt(va * vp)
-    delta = ga - gp
-    dvar = va + vp - 2 * cov
-    assert dvar > 0
-    se = math.sqrt(dvar)
-    z = delta / se
-    p = math.erfc(abs(z) / math.sqrt(2))
-
-    for pop in pops:
-        print(
-            "BROSIMUM_HE_SITE "
-            f"pop={pop} habitat={habitat_by_pop[pop]} "
-            f"adult={adult[pop]:.12f} progeny={progeny[pop]:.12f} "
-            f"n_adult={len(individuals[(habitat_by_pop[pop],pop,'AD')])} "
-            f"n_progeny={len(individuals[(habitat_by_pop[pop],pop,'PR')])}"
-        )
     print(
-        "BROSIMUM_HE_GPAIR_OK "
-        f"selected={selected} Gadult={ga:.12f} var_adult={va:.12f} "
-        f"Goffspring={gp:.12f} var_offspring={vp:.12f} "
-        f"rho={rho:.12f} covariance={cov:.12f} "
-        f"delta={delta:.12f} delta_var={dvar:.12f} p={p:.12f}"
+        "BROSIMUM_GPAIR_RECONCILIATION_BLOCKED "
+        "he_estimators_matching=0 coverage_increment=0 current_pair_coverage=4/5"
     )
 
 
