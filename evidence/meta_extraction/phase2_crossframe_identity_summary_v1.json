@@ -14,23 +14,28 @@
   "unique_author_year_keys": 336,
   "cross_frame_candidate_groups": 10,
   "cross_frame_candidate_rows": 20,
-  "probable_same_publication_groups": 6,
-  "ambiguous_author_year_collision_groups": 4,
-  "probable_group_keys": [
+  "heuristic_probable_same_publication_groups": 6,
+  "heuristic_ambiguous_author_year_collision_groups": 4,
+  "confirmed_same_publication_groups": 7,
+  "confirmed_distinct_collision_groups": 3,
+  "confirmed_duplicate_group_keys": [
     "bartlewicz|2015",
     "browne|2015",
     "collevatti|2014",
     "giombini|2017",
     "lompo|2020",
-    "pellegrino|2015"
-  ],
-  "ambiguous_group_keys": [
-    "chung|2007",
-    "jacquemyn|2006",
-    "jacquemyn|2009",
+    "pellegrino|2015",
     "zhao|2009"
   ],
-  "existing_egwee_linked_rows": 7,
-  "deduplication_policy": "DOI/full-citation confirmation required before collapsing; author-year is candidate discovery only",
+  "confirmed_distinct_group_keys": [
+    "chung|2007",
+    "jacquemyn|2006",
+    "jacquemyn|2009"
+  ],
+  "unique_screening_identity_units": 351,
+  "existing_egwee_linked_source_rows": 7,
+  "existing_egwee_identity_units": 5,
+  "not_yet_linked_screening_identity_units": 346,
+  "deduplication_policy": "author-year discovers candidates; full citation/journal-volume-pages/DOI and species metadata resolve identity before collapsing",
   "effect_outcomes_opened": false
 }

@@ -22,21 +22,25 @@ Across the 358 rows:
 
 - unique first-author/year keys: **336**;
 - cross-frame author/year candidate groups: **10** containing **20** rows;
-- probable same-publication groups after species-name agreement/tiny spelling tolerance: **6**;
-- ambiguous same-author/year groups with discordant species: **4**.
+- heuristic same-publication candidates from species agreement: **6**;
+- heuristic ambiguous author/year collisions: **4**;
+- after full source-citation resolution: **7 confirmed duplicate groups** and **3 confirmed distinct collisions**.
 
-The six probable duplicate groups are:
+Confirmed cross-frame duplicates are:
 
 - Bartlewicz 2015;
 - Collevatti 2014;
 - Browne 2015;
 - Giombini 2017;
 - Pellegrino 2015;
-- Lompo 2020.
+- Lompo 2020;
+- Zhao 2009.
 
-They are **not yet collapsed automatically**. Full citation/DOI confirmation remains required.
+Zhao 2009 is important: the source-frame species labels disagree (`Glycine soja` versus `Glycine_max`), but both records identify the same *American Journal of Botany* 96:1138–1147 publication. Citation identity therefore overrides the species-field discrepancy.
 
-The four ambiguous collisions (Chung 2007, Jacquemyn 2006, Jacquemyn 2009, Zhao 2009) remain separate unless later source metadata proves identity.
+The three confirmed distinct same-author/year collisions are Chung 2007, Jacquemyn 2006 and Jacquemyn 2009; their journals/species/source citations differ and they remain separate.
+
+Collapsing only the seven confirmed duplicate pairs reduces **358 source-frame rows to 351 screening identity units**. Of those, **5** are already linked to known EGWEE programmes, leaving **346** identities not yet linked under the current firewall.
 
 ## Existing EGWEE firewall
 
@@ -52,4 +56,4 @@ The identity ledger therefore advances systematic coverage by separating **new s
 
 ## Next operation
 
-Resolve the six probable cross-frame duplicate groups by full citation/DOI, then apply the same existing-programme crosswalk to all 358 rows. After identity resolution, title/abstract/method screening can proceed on unique programmes rather than duplicated source-frame rows.
+Use the 351 canonical identity units—not 358 source-frame rows—as the denominator for the next title/abstract/method screen. Expand the existing-programme crosswalk before any new effect extraction, then screen unresolved identities for prespecified multilayer geometry.
