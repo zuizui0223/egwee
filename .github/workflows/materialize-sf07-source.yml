@@ -2,6 +2,12 @@ name: Materialize SF07 source universe
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - 'scripts/build_phase2_sf07_study_universe.py'
+      - '.github/workflows/materialize-sf07-source.yml'
 
 permissions:
   contents: write
