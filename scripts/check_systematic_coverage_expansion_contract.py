@@ -48,6 +48,7 @@ METADATA_SCREEN_SUMMARY = ROOT / "evidence/meta_extraction/phase2_metadata_scree
 IF_SCREEN_QUEUE = ROOT / "evidence/meta_extraction/phase2_if_fragmentation_screen_queue_v1.csv"
 IF_DESIGN_SCREEN = ROOT / "evidence/meta_extraction/phase2_if_design_screen_v1.csv"
 IF_WAVE1_STATUS = ROOT / "manuscript/PHASE2_IF_DESIGN_SCREEN_WAVE1_2026-09-20.md"
+IF_WAVE2_STATUS = ROOT / "manuscript/PHASE2_IF_DESIGN_SCREEN_WAVE2_2026-09-20.md"
 
 DISPLAY_TOL = 5e-8
 
@@ -72,7 +73,7 @@ def emitted_json(command: list[str], prefix: str) -> dict:
 
 
 def main() -> None:
-    for path in (CONTRACT, AMENDMENT, COVERAGE, PAIR_COVERAGE, MODERATORS, RECOVERY, SF05_SCREEN, SF05_SCREEN_STATUS, PARKIA_CHECK, PARKIA_STATUS, PARKIA_CONTRACT, HELICONIA_CHECK, HELICONIA_STATUS, HELICONIA_CONTRACT, PRUNUS_CHECK, PRUNUS_STATUS, PRUNUS_CONTRACT, KAKAMEGA_CHECK, KAKAMEGA_STATUS, KAKAMEGA_CONTRACT, GPAIR_SYNTHESIS_CHECK, GPAIR_SYNTHESIS_STATUS, GPAIR_SYNTHESIS_AMENDMENT, QUANT_GATE, CASTANOPSIS_STATUS, OENOCARPUS_STATUS, PRIMULA_STATUS, MILICIA_STATUS, BROSIMUM_GPAIR_STATUS, CROSSFRAME_IDENTITY, CROSSFRAME_DUPLICATES, CROSSFRAME_SUMMARY, CROSSFRAME_STATUS, SF03_BLOCKER, METADATA_SCREEN_SUMMARY, IF_SCREEN_QUEUE, IF_DESIGN_SCREEN, IF_WAVE1_STATUS, SCHEMA):
+    for path in (CONTRACT, AMENDMENT, COVERAGE, PAIR_COVERAGE, MODERATORS, RECOVERY, SF05_SCREEN, SF05_SCREEN_STATUS, PARKIA_CHECK, PARKIA_STATUS, PARKIA_CONTRACT, HELICONIA_CHECK, HELICONIA_STATUS, HELICONIA_CONTRACT, PRUNUS_CHECK, PRUNUS_STATUS, PRUNUS_CONTRACT, KAKAMEGA_CHECK, KAKAMEGA_STATUS, KAKAMEGA_CONTRACT, GPAIR_SYNTHESIS_CHECK, GPAIR_SYNTHESIS_STATUS, GPAIR_SYNTHESIS_AMENDMENT, QUANT_GATE, CASTANOPSIS_STATUS, OENOCARPUS_STATUS, PRIMULA_STATUS, MILICIA_STATUS, BROSIMUM_GPAIR_STATUS, CROSSFRAME_IDENTITY, CROSSFRAME_DUPLICATES, CROSSFRAME_SUMMARY, CROSSFRAME_STATUS, SF03_BLOCKER, METADATA_SCREEN_SUMMARY, IF_SCREEN_QUEUE, IF_DESIGN_SCREEN, IF_WAVE1_STATUS, IF_WAVE2_STATUS, SCHEMA):
         assert path.is_file(), path
 
     contract = json.loads(CONTRACT.read_text(encoding="utf-8"))
@@ -446,9 +447,11 @@ def main() -> None:
     assert all(r["outcome_opened"] == "no" for r in if_queue)
 
     if_screen = rows(IF_DESIGN_SCREEN)
-    assert len(if_screen) == 8
-    assert [r["queue_id"] for r in if_screen] == [f"IFQ{i:03d}" for i in range(1, 9)]
-    assert all(r["screen_wave"] == "1" for r in if_screen)
+    assert len(if_screen) == 16
+    assert [r["queue_id"] for r in if_screen] == [f"IFQ{i:03d}" for i in range(1, 17)]
+    assert {r["screen_wave"] for r in if_screen} == {"1", "2"}
+    assert sum(r["screen_wave"] == "1" for r in if_screen) == 8
+    assert sum(r["screen_wave"] == "2" for r in if_screen) == 8
     assert all(r["screen_basis"] == "title_abstract_methods_only" for r in if_screen)
     assert all(r["outcome_opened"] == "no" for r in if_screen)
     assert all(r["outcome_blind_confirmation"] == "yes" for r in if_screen)
@@ -462,9 +465,17 @@ def main() -> None:
         "IFQ006": "advance_full_text_quantitative_screen",
         "IFQ007": "advance_full_text_quantitative_screen",
         "IFQ008": "advance_full_text_quantitative_screen",
+        "IFQ009": "closed_no_source_defined_fragmentation_contrast",
+        "IFQ010": "closed_gradient_only_no_reference",
+        "IFQ011": "closed_no_source_defined_fragmentation_contrast",
+        "IFQ012": "closed_no_source_defined_fragmentation_contrast",
+        "IFQ013": "closed_gradient_only_no_reference",
+        "IFQ014": "closed_gradient_only_no_reference",
+        "IFQ015": "advance_full_text_quantitative_screen",
+        "IFQ016": "closed_gradient_only_no_reference",
     }
-    assert sum(r["screen_decision"] == "advance_full_text_quantitative_screen" for r in if_screen) == 4
-    assert sum(r["screen_decision"].startswith("closed_") for r in if_screen) == 3
+    assert sum(r["screen_decision"] == "advance_full_text_quantitative_screen" for r in if_screen) == 5
+    assert sum(r["screen_decision"].startswith("closed_") for r in if_screen) == 10
     assert sum(r["screen_decision"] == "advance_programme_decomposition_screen" for r in if_screen) == 1
 
     if_status = IF_WAVE1_STATUS.read_text(encoding="utf-8")
@@ -477,6 +488,19 @@ def main() -> None:
         "newly admitted quantitative I-F programmes: **0**",
     ):
         assert token in if_status, token
+
+    if_status2 = IF_WAVE2_STATUS.read_text(encoding="utf-8")
+    for token in (
+        "screened in wave 2: **8**",
+        "advance to quantitative full-text screen: **1**",
+        "design-screened: **16 / 32**",
+        "direct quantitative candidates: **5**",
+        "closed from direct pair family: **10**",
+        "pending design screen: **16**",
+        "admitted new direct I-F programmes: **0**",
+        "IFQ015 Myrtus",
+    ):
+        assert token in if_status2, token
 
     sf03_blocker = SF03_BLOCKER.read_text(encoding="utf-8")
     for token in (
