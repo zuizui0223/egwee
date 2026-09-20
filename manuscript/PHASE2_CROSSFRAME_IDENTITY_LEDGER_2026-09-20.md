@@ -40,7 +40,7 @@ Zhao 2009 is important: the source-frame species labels disagree (`Glycine soja`
 
 The three confirmed distinct same-author/year collisions are Chung 2007, Jacquemyn 2006 and Jacquemyn 2009; their journals/species/source citations differ and they remain separate.
 
-Collapsing only the seven confirmed duplicate pairs reduces **358 source-frame rows to 351 screening identity units**. Of those, **5** are already linked to known EGWEE programmes, leaving **346** identities not yet linked under the current firewall.
+Collapsing only the seven confirmed duplicate pairs reduces **358 source-frame rows to 351 screening identity units**. Of those, **10** are already linked to known EGWEE programmes, leaving **341** identities not yet linked under the current firewall.
 
 ## Existing EGWEE firewall
 
@@ -50,7 +50,12 @@ Known records already belonging to an admitted or declared Phase-2 programme are
 - Pellegrino et al. 2015 → `ML001`;
 - Aizen & Feinsinger 1994 → `ML020`;
 - Cristóbal-Pérez et al. 2021 → `ML003`;
-- Lompo et al. 2020 → `P2_SF05_93`.
+- Lompo et al. 2020 → `P2_SF05_93`;
+- Delnevo et al. 2019 → existing Conospermum programme (`PS009`);
+- Sáyago et al. 2018 → `ML008`;
+- Albaladejo et al. 2012 → structurally closed `ML009/PS013`;
+- Llorens et al. 2018 → gradient `ML015`;
+- Breed et al. 2012 (*Eucalyptus socialis*) → `ML014`.
 
 The identity ledger therefore advances systematic coverage by separating **new screening records** from **known-programme rediscoveries** before effect extraction.
 
