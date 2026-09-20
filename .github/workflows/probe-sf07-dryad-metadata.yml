@@ -51,3 +51,14 @@ jobs:
             TYPE="$(file -b /tmp/probe.bin 2>/dev/null || true)"
             echo "SF07_RICHNESS_ROUTE code=$CODE size=$SIZE type=$TYPE url=$URL"
           done
+      - name: Inspect linked Zenodo analysis code
+        run: |
+          set -euxo pipefail
+          curl --fail --location --silent --show-error \
+            'https://zenodo.org/records/16903422/files/Habitat_fragmentation_2025.R?download=1' \
+            -o /tmp/Habitat_fragmentation_2025.R
+          test -s /tmp/Habitat_fragmentation_2025.R
+          wc -c /tmp/Habitat_fragmentation_2025.R
+          grep -nEi 'read[._]?csv|read\.table|Richness_20250627|Abundance_20250630|dryad|zenodo|Publication|Reference|Title' \
+            /tmp/Habitat_fragmentation_2025.R || true
+
