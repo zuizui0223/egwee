@@ -44,6 +44,10 @@ CROSSFRAME_DUPLICATES = ROOT / "evidence/meta_extraction/phase2_crossframe_candi
 CROSSFRAME_SUMMARY = ROOT / "evidence/meta_extraction/phase2_crossframe_identity_summary_v1.json"
 CROSSFRAME_STATUS = ROOT / "manuscript/PHASE2_CROSSFRAME_IDENTITY_LEDGER_2026-09-20.md"
 SF03_BLOCKER = ROOT / "manuscript/PHASE2_SF03_WILEY_BLOCKER_2026-09-20.md"
+METADATA_SCREEN_SUMMARY = ROOT / "evidence/meta_extraction/phase2_metadata_screen_summary_v1.json"
+IF_SCREEN_QUEUE = ROOT / "evidence/meta_extraction/phase2_if_fragmentation_screen_queue_v1.csv"
+IF_DESIGN_SCREEN = ROOT / "evidence/meta_extraction/phase2_if_design_screen_v1.csv"
+IF_WAVE1_STATUS = ROOT / "manuscript/PHASE2_IF_DESIGN_SCREEN_WAVE1_2026-09-20.md"
 
 DISPLAY_TOL = 5e-8
 
@@ -68,7 +72,7 @@ def emitted_json(command: list[str], prefix: str) -> dict:
 
 
 def main() -> None:
-    for path in (CONTRACT, AMENDMENT, COVERAGE, PAIR_COVERAGE, MODERATORS, RECOVERY, SF05_SCREEN, SF05_SCREEN_STATUS, PARKIA_CHECK, PARKIA_STATUS, PARKIA_CONTRACT, HELICONIA_CHECK, HELICONIA_STATUS, HELICONIA_CONTRACT, PRUNUS_CHECK, PRUNUS_STATUS, PRUNUS_CONTRACT, KAKAMEGA_CHECK, KAKAMEGA_STATUS, KAKAMEGA_CONTRACT, GPAIR_SYNTHESIS_CHECK, GPAIR_SYNTHESIS_STATUS, GPAIR_SYNTHESIS_AMENDMENT, QUANT_GATE, CASTANOPSIS_STATUS, OENOCARPUS_STATUS, PRIMULA_STATUS, MILICIA_STATUS, BROSIMUM_GPAIR_STATUS, CROSSFRAME_IDENTITY, CROSSFRAME_DUPLICATES, CROSSFRAME_SUMMARY, CROSSFRAME_STATUS, SF03_BLOCKER, SCHEMA):
+    for path in (CONTRACT, AMENDMENT, COVERAGE, PAIR_COVERAGE, MODERATORS, RECOVERY, SF05_SCREEN, SF05_SCREEN_STATUS, PARKIA_CHECK, PARKIA_STATUS, PARKIA_CONTRACT, HELICONIA_CHECK, HELICONIA_STATUS, HELICONIA_CONTRACT, PRUNUS_CHECK, PRUNUS_STATUS, PRUNUS_CONTRACT, KAKAMEGA_CHECK, KAKAMEGA_STATUS, KAKAMEGA_CONTRACT, GPAIR_SYNTHESIS_CHECK, GPAIR_SYNTHESIS_STATUS, GPAIR_SYNTHESIS_AMENDMENT, QUANT_GATE, CASTANOPSIS_STATUS, OENOCARPUS_STATUS, PRIMULA_STATUS, MILICIA_STATUS, BROSIMUM_GPAIR_STATUS, CROSSFRAME_IDENTITY, CROSSFRAME_DUPLICATES, CROSSFRAME_SUMMARY, CROSSFRAME_STATUS, SF03_BLOCKER, METADATA_SCREEN_SUMMARY, IF_SCREEN_QUEUE, IF_DESIGN_SCREEN, IF_WAVE1_STATUS, SCHEMA):
         assert path.is_file(), path
 
     contract = json.loads(CONTRACT.read_text(encoding="utf-8"))
@@ -420,6 +424,59 @@ def main() -> None:
         "Zhao 2009",
     ):
         assert token in cross_status, token
+
+    metadata_summary = json.loads(METADATA_SCREEN_SUMMARY.read_text(encoding="utf-8"))
+    assert metadata_summary["counts"] == {
+        "canonical_identity_units": 351,
+        "existing_egwee_programmes": 10,
+        "unresolved_identity_units": 341,
+        "unresolved_multilayer_metadata_hints": 61,
+        "unresolved_IF_metadata_hints": 36,
+        "primary_IF_fragmentation_design_queue": 32,
+        "secondary_IF_nonfragmentation": 4,
+        "other_multilayer_metadata_hints": 25,
+        "single_layer_or_no_pair_hint": 280,
+    }
+    assert metadata_summary["effect_outcomes_opened"] is False
+
+    if_queue = rows(IF_SCREEN_QUEUE)
+    assert len(if_queue) == 32
+    assert [r["queue_id"] for r in if_queue] == [f"IFQ{i:03d}" for i in range(1, 33)]
+    assert all(r["screening_status"] == "pending_title_abstract_methods_design_screen" for r in if_queue)
+    assert all(r["outcome_opened"] == "no" for r in if_queue)
+
+    if_screen = rows(IF_DESIGN_SCREEN)
+    assert len(if_screen) == 8
+    assert [r["queue_id"] for r in if_screen] == [f"IFQ{i:03d}" for i in range(1, 9)]
+    assert all(r["screen_wave"] == "1" for r in if_screen)
+    assert all(r["screen_basis"] == "title_abstract_methods_only" for r in if_screen)
+    assert all(r["outcome_opened"] == "no" for r in if_screen)
+    assert all(r["outcome_blind_confirmation"] == "yes" for r in if_screen)
+    if_decisions = {r["queue_id"]: r["screen_decision"] for r in if_screen}
+    assert if_decisions == {
+        "IFQ001": "closed_no_source_defined_fragmentation_contrast",
+        "IFQ002": "advance_programme_decomposition_screen",
+        "IFQ003": "advance_full_text_quantitative_screen",
+        "IFQ004": "closed_single_fragment_edge_interior_pseudoreplication",
+        "IFQ005": "closed_reference_landscape_nonindependence",
+        "IFQ006": "advance_full_text_quantitative_screen",
+        "IFQ007": "advance_full_text_quantitative_screen",
+        "IFQ008": "advance_full_text_quantitative_screen",
+    }
+    assert sum(r["screen_decision"] == "advance_full_text_quantitative_screen" for r in if_screen) == 4
+    assert sum(r["screen_decision"].startswith("closed_") for r in if_screen) == 3
+    assert sum(r["screen_decision"] == "advance_programme_decomposition_screen" for r in if_screen) == 1
+
+    if_status = IF_WAVE1_STATUS.read_text(encoding="utf-8")
+    for token in (
+        "screened in wave 1: **8**",
+        "advance to quantitative full-text screen: **4**",
+        "advance to programme decomposition/crosswalk: **1**",
+        "closed on design geometry/exposure: **3**",
+        "pending primary I-F design screen: **24**",
+        "newly admitted quantitative I-F programmes: **0**",
+    ):
+        assert token in if_status, token
 
     sf03_blocker = SF03_BLOCKER.read_text(encoding="utf-8")
     for token in (
