@@ -49,6 +49,10 @@ IF_SCREEN_QUEUE = ROOT / "evidence/meta_extraction/phase2_if_fragmentation_scree
 IF_DESIGN_SCREEN = ROOT / "evidence/meta_extraction/phase2_if_design_screen_v1.csv"
 IF_WAVE1_STATUS = ROOT / "manuscript/PHASE2_IF_DESIGN_SCREEN_WAVE1_2026-09-20.md"
 IF_WAVE2_STATUS = ROOT / "manuscript/PHASE2_IF_DESIGN_SCREEN_WAVE2_2026-09-20.md"
+IF_WAVE3_STATUS = ROOT / "manuscript/PHASE2_IF_DESIGN_SCREEN_WAVE3_2026-09-20.md"
+IF_WAVE4_STATUS = ROOT / "manuscript/PHASE2_IF_DESIGN_SCREEN_WAVE4_2026-09-20.md"
+IF_QUANT_GATE = ROOT / "evidence/meta_extraction/phase2_if_quantitative_gate_v1.csv"
+IF_QUANT_STATUS = ROOT / "manuscript/PHASE2_IF_QUANTITATIVE_GATE_2026-09-20.md"
 
 DISPLAY_TOL = 5e-8
 
@@ -73,7 +77,7 @@ def emitted_json(command: list[str], prefix: str) -> dict:
 
 
 def main() -> None:
-    for path in (CONTRACT, AMENDMENT, COVERAGE, PAIR_COVERAGE, MODERATORS, RECOVERY, SF05_SCREEN, SF05_SCREEN_STATUS, PARKIA_CHECK, PARKIA_STATUS, PARKIA_CONTRACT, HELICONIA_CHECK, HELICONIA_STATUS, HELICONIA_CONTRACT, PRUNUS_CHECK, PRUNUS_STATUS, PRUNUS_CONTRACT, KAKAMEGA_CHECK, KAKAMEGA_STATUS, KAKAMEGA_CONTRACT, GPAIR_SYNTHESIS_CHECK, GPAIR_SYNTHESIS_STATUS, GPAIR_SYNTHESIS_AMENDMENT, QUANT_GATE, CASTANOPSIS_STATUS, OENOCARPUS_STATUS, PRIMULA_STATUS, MILICIA_STATUS, BROSIMUM_GPAIR_STATUS, CROSSFRAME_IDENTITY, CROSSFRAME_DUPLICATES, CROSSFRAME_SUMMARY, CROSSFRAME_STATUS, SF03_BLOCKER, METADATA_SCREEN_SUMMARY, IF_SCREEN_QUEUE, IF_DESIGN_SCREEN, IF_WAVE1_STATUS, IF_WAVE2_STATUS, SCHEMA):
+    for path in (CONTRACT, AMENDMENT, COVERAGE, PAIR_COVERAGE, MODERATORS, RECOVERY, SF05_SCREEN, SF05_SCREEN_STATUS, PARKIA_CHECK, PARKIA_STATUS, PARKIA_CONTRACT, HELICONIA_CHECK, HELICONIA_STATUS, HELICONIA_CONTRACT, PRUNUS_CHECK, PRUNUS_STATUS, PRUNUS_CONTRACT, KAKAMEGA_CHECK, KAKAMEGA_STATUS, KAKAMEGA_CONTRACT, GPAIR_SYNTHESIS_CHECK, GPAIR_SYNTHESIS_STATUS, GPAIR_SYNTHESIS_AMENDMENT, QUANT_GATE, CASTANOPSIS_STATUS, OENOCARPUS_STATUS, PRIMULA_STATUS, MILICIA_STATUS, BROSIMUM_GPAIR_STATUS, CROSSFRAME_IDENTITY, CROSSFRAME_DUPLICATES, CROSSFRAME_SUMMARY, CROSSFRAME_STATUS, SF03_BLOCKER, METADATA_SCREEN_SUMMARY, IF_SCREEN_QUEUE, IF_DESIGN_SCREEN, IF_WAVE1_STATUS, IF_WAVE2_STATUS, IF_WAVE3_STATUS, IF_WAVE4_STATUS, IF_QUANT_GATE, IF_QUANT_STATUS, SCHEMA):
         assert path.is_file(), path
 
     contract = json.loads(CONTRACT.read_text(encoding="utf-8"))
@@ -447,16 +451,16 @@ def main() -> None:
     assert all(r["outcome_opened"] == "no" for r in if_queue)
 
     if_screen = rows(IF_DESIGN_SCREEN)
-    assert len(if_screen) == 16
-    assert [r["queue_id"] for r in if_screen] == [f"IFQ{i:03d}" for i in range(1, 17)]
-    assert {r["screen_wave"] for r in if_screen} == {"1", "2"}
-    assert sum(r["screen_wave"] == "1" for r in if_screen) == 8
-    assert sum(r["screen_wave"] == "2" for r in if_screen) == 8
+    assert len(if_screen) == 32
+    assert [r["queue_id"] for r in if_screen] == [f"IFQ{i:03d}" for i in range(1, 33)]
+    assert {r["screen_wave"] for r in if_screen} == {"1", "2", "3", "4"}
+    assert all(sum(r["screen_wave"] == str(wave) for r in if_screen) == 8 for wave in range(1, 5))
     assert all(r["screen_basis"] == "title_abstract_methods_only" for r in if_screen)
     assert all(r["outcome_opened"] == "no" for r in if_screen)
     assert all(r["outcome_blind_confirmation"] == "yes" for r in if_screen)
+
     if_decisions = {r["queue_id"]: r["screen_decision"] for r in if_screen}
-    assert if_decisions == {
+    expected_if_decisions = {
         "IFQ001": "closed_no_source_defined_fragmentation_contrast",
         "IFQ002": "advance_programme_decomposition_screen",
         "IFQ003": "advance_full_text_quantitative_screen",
@@ -473,34 +477,84 @@ def main() -> None:
         "IFQ014": "closed_gradient_only_no_reference",
         "IFQ015": "advance_full_text_quantitative_screen",
         "IFQ016": "closed_gradient_only_no_reference",
+        "IFQ017": "closed_single_reference_unit",
+        "IFQ018": "closed_no_source_defined_fragmentation_contrast",
+        "IFQ019": "closed_gradient_only_no_reference",
+        "IFQ020": "advance_full_text_quantitative_screen",
+        "IFQ021": "closed_no_source_defined_fragmentation_contrast",
+        "IFQ022": "advance_full_text_quantitative_screen",
+        "IFQ023": "closed_gradient_only_no_reference",
+        "IFQ024": "closed_gradient_only_no_reference",
+        "IFQ025": "closed_no_source_defined_fragmentation_contrast",
+        "IFQ026": "closed_gradient_only_no_reference",
+        "IFQ027": "closed_gradient_only_no_reference",
+        "IFQ028": "closed_gradient_only_no_reference",
+        "IFQ029": "closed_single_fragmented_landscape_no_reference",
+        "IFQ030": "closed_gradient_only_no_reference",
+        "IFQ031": "closed_no_source_defined_fragmentation_contrast",
+        "IFQ032": "closed_no_common_IF_frame_and_no_fragmentation_contrast",
     }
-    assert sum(r["screen_decision"] == "advance_full_text_quantitative_screen" for r in if_screen) == 5
-    assert sum(r["screen_decision"].startswith("closed_") for r in if_screen) == 10
+    assert if_decisions == expected_if_decisions
+    assert sum(r["screen_decision"] == "advance_full_text_quantitative_screen" for r in if_screen) == 7
+    assert sum(r["screen_decision"].startswith("closed_") for r in if_screen) == 24
     assert sum(r["screen_decision"] == "advance_programme_decomposition_screen" for r in if_screen) == 1
 
-    if_status = IF_WAVE1_STATUS.read_text(encoding="utf-8")
-    for token in (
-        "screened in wave 1: **8**",
-        "advance to quantitative full-text screen: **4**",
-        "advance to programme decomposition/crosswalk: **1**",
-        "closed on design geometry/exposure: **3**",
-        "pending primary I-F design screen: **24**",
-        "newly admitted quantitative I-F programmes: **0**",
+    for status_path, tokens in (
+        (IF_WAVE1_STATUS, (
+            "screened in wave 1: **8**",
+            "advance to quantitative full-text screen: **4**",
+            "advance to programme decomposition/crosswalk: **1**",
+            "closed on design geometry/exposure: **3**",
+        )),
+        (IF_WAVE2_STATUS, (
+            "screened in wave 2: **8**",
+            "advance to quantitative full-text screen: **1**",
+            "design-screened: **16 / 32**",
+        )),
+        (IF_WAVE3_STATUS, (
+            "screened in wave 3: **8**",
+            "advance to quantitative full-text screen: **2**",
+            "design-screened: **24 / 32**",
+            "pending design screen: **8**",
+        )),
+        (IF_WAVE4_STATUS, (
+            "screened in wave 4: **8**",
+            "design-screened: **32 / 32**",
+            "pending design screen: **0**",
+            "direct/factor-specific quantitative-design candidates: **7**",
+            "closed from direct I-F family on exposure/independent-unit/common-frame geometry: **24**",
+        )),
     ):
-        assert token in if_status, token
+        status_text = status_path.read_text(encoding="utf-8")
+        for token in tokens:
+            assert token in status_text, (status_path, token)
 
-    if_status2 = IF_WAVE2_STATUS.read_text(encoding="utf-8")
+    if_quant = rows(IF_QUANT_GATE)
+    assert [r["queue_id"] for r in if_quant] == ["IFQ003", "IFQ006", "IFQ007", "IFQ008", "IFQ015", "IFQ020", "IFQ022"]
+    assert all(r["design_screen_status"] == "design_passed" for r in if_quant)
+    assert all(r["effect_calculation_opened"] == "no" for r in if_quant)
+    assert all(r["pair_programme_admitted"] == "no" for r in if_quant)
+    assert all(int(r["pair_programme_increment"]) == 0 for r in if_quant)
+    qstatus = {r["queue_id"]: r["quantitative_gate_status"] for r in if_quant}
+    assert qstatus == {
+        "IFQ003": "pending_full_text_independent_unit_and_dispersion_recovery",
+        "IFQ006": "blocked_dispersion_unit_not_fragmentation_level_verified",
+        "IFQ007": "blocked_dispersion_unit_not_fragmentation_level_verified",
+        "IFQ008": "pending_full_text_site_count_and_common_frame_recovery",
+        "IFQ015": "closed_population_level_F_values_dispersion_not_recoverable_under_current_contract",
+        "IFQ020": "pending_factorial_replication_and_contrast_lock",
+        "IFQ022": "pending_site_allocation_and_contrast_lock",
+    }
+
+    if_quant_status = IF_QUANT_STATUS.read_text(encoding="utf-8")
     for token in (
-        "screened in wave 2: **8**",
-        "advance to quantitative full-text screen: **1**",
-        "design-screened: **16 / 32**",
-        "direct quantitative candidates: **5**",
-        "closed from direct pair family: **10**",
-        "pending design screen: **16**",
-        "admitted new direct I-F programmes: **0**",
-        "IFQ015 Myrtus",
+        "Seven records passed",
+        "None is yet quantitatively admitted",
+        "direct I-F programme coverage: **1/5**",
+        "effect calculations opened from unresolved dispersion: **0**",
+        "Design screening is complete at 32/32",
     ):
-        assert token in if_status2, token
+        assert token in if_quant_status, token
 
     sf03_blocker = SF03_BLOCKER.read_text(encoding="utf-8")
     for token in (
@@ -602,7 +656,9 @@ def main() -> None:
         f"hard_closed={sum(r['phase2_status']=='structural_closed' for r in recovery)} "
         f"sf05_screened={len(screen_rows)} sf05_advance={sum(r['screen_decision'].startswith('advance_') for r in screen_rows)} "
         f"crossframe_identity_units={cross_summary['unique_screening_identity_units']} "
-        f"crossframe_unlinked={cross_summary['not_yet_linked_screening_identity_units']}"
+        f"crossframe_unlinked={cross_summary['not_yet_linked_screening_identity_units']} "
+        f"if_screened={len(if_screen)} if_design_pass={sum(r['screen_decision']=='advance_full_text_quantitative_screen' for r in if_screen)} "
+        f"if_quant_admitted={sum(r['pair_programme_admitted']=='yes' for r in if_quant)}"
     )
 
 
