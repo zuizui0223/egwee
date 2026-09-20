@@ -39,6 +39,11 @@ OENOCARPUS_STATUS = ROOT / "manuscript/PHASE2_SF05_83_OENOCARPUS_GATE_2026-09-19
 PRIMULA_STATUS = ROOT / "manuscript/PHASE2_SF05_42_PRIMULA_GATE_2026-09-19.md"
 MILICIA_STATUS = ROOT / "manuscript/PHASE2_SF05_4_MILICIA_GATE_2026-09-19.md"
 BROSIMUM_GPAIR_STATUS = ROOT / "manuscript/PHASE2_ML002_BROSIMUM_GPAIR_RECONCILIATION_2026-09-19.md"
+CROSSFRAME_IDENTITY = ROOT / "evidence/meta_extraction/phase2_crossframe_publication_identity_v1.csv"
+CROSSFRAME_DUPLICATES = ROOT / "evidence/meta_extraction/phase2_crossframe_candidate_duplicates_v1.csv"
+CROSSFRAME_SUMMARY = ROOT / "evidence/meta_extraction/phase2_crossframe_identity_summary_v1.json"
+CROSSFRAME_STATUS = ROOT / "manuscript/PHASE2_CROSSFRAME_IDENTITY_LEDGER_2026-09-20.md"
+SF03_BLOCKER = ROOT / "manuscript/PHASE2_SF03_WILEY_BLOCKER_2026-09-20.md"
 
 DISPLAY_TOL = 5e-8
 
@@ -63,7 +68,7 @@ def emitted_json(command: list[str], prefix: str) -> dict:
 
 
 def main() -> None:
-    for path in (CONTRACT, AMENDMENT, COVERAGE, PAIR_COVERAGE, MODERATORS, RECOVERY, SF05_SCREEN, SF05_SCREEN_STATUS, PARKIA_CHECK, PARKIA_STATUS, PARKIA_CONTRACT, HELICONIA_CHECK, HELICONIA_STATUS, HELICONIA_CONTRACT, PRUNUS_CHECK, PRUNUS_STATUS, PRUNUS_CONTRACT, KAKAMEGA_CHECK, KAKAMEGA_STATUS, KAKAMEGA_CONTRACT, GPAIR_SYNTHESIS_CHECK, GPAIR_SYNTHESIS_STATUS, GPAIR_SYNTHESIS_AMENDMENT, QUANT_GATE, CASTANOPSIS_STATUS, OENOCARPUS_STATUS, PRIMULA_STATUS, MILICIA_STATUS, BROSIMUM_GPAIR_STATUS, SCHEMA):
+    for path in (CONTRACT, AMENDMENT, COVERAGE, PAIR_COVERAGE, MODERATORS, RECOVERY, SF05_SCREEN, SF05_SCREEN_STATUS, PARKIA_CHECK, PARKIA_STATUS, PARKIA_CONTRACT, HELICONIA_CHECK, HELICONIA_STATUS, HELICONIA_CONTRACT, PRUNUS_CHECK, PRUNUS_STATUS, PRUNUS_CONTRACT, KAKAMEGA_CHECK, KAKAMEGA_STATUS, KAKAMEGA_CONTRACT, GPAIR_SYNTHESIS_CHECK, GPAIR_SYNTHESIS_STATUS, GPAIR_SYNTHESIS_AMENDMENT, QUANT_GATE, CASTANOPSIS_STATUS, OENOCARPUS_STATUS, PRIMULA_STATUS, MILICIA_STATUS, BROSIMUM_GPAIR_STATUS, CROSSFRAME_IDENTITY, CROSSFRAME_DUPLICATES, CROSSFRAME_SUMMARY, CROSSFRAME_STATUS, SF03_BLOCKER, SCHEMA):
         assert path.is_file(), path
 
     contract = json.loads(CONTRACT.read_text(encoding="utf-8"))
@@ -375,6 +380,56 @@ def main() -> None:
     assert all(r["outcome_opened"] == "no" for r in s6rows)
     assert all(r["multilayer_screen_status"] == "pending_title_abstract_methods_screen" for r in s6rows)
 
+    cross_summary = json.loads(CROSSFRAME_SUMMARY.read_text(encoding="utf-8"))
+    assert cross_summary["input_rows"] == {"SF04": 38, "SF05": 65, "SF06": 255, "total": 358}
+    assert cross_summary["cross_frame_candidate_groups"] == 10
+    assert cross_summary["confirmed_same_publication_groups"] == 7
+    assert cross_summary["confirmed_distinct_collision_groups"] == 3
+    assert cross_summary["unique_screening_identity_units"] == 351
+    assert cross_summary["existing_egwee_linked_source_rows"] == 12
+    assert cross_summary["existing_egwee_identity_units"] == 10
+    assert cross_summary["not_yet_linked_screening_identity_units"] == 341
+    assert cross_summary["effect_outcomes_opened"] is False
+    assert set(cross_summary["confirmed_duplicate_group_keys"]) == {
+        "bartlewicz|2015", "browne|2015", "collevatti|2014", "giombini|2017",
+        "lompo|2020", "pellegrino|2015", "zhao|2009",
+    }
+    assert set(cross_summary["confirmed_distinct_group_keys"]) == {
+        "chung|2007", "jacquemyn|2006", "jacquemyn|2009",
+    }
+
+    cross_rows = rows(CROSSFRAME_IDENTITY)
+    assert len(cross_rows) == 358
+    assert len({r["canonical_identity_key"] for r in cross_rows}) == 351
+    assert all(r["outcome_opened"] == "no" for r in cross_rows)
+    assert len({r["canonical_identity_key"] for r in cross_rows if r["existing_egwee_programme"]}) == 10
+    assert all(
+        r["identity_action"] == "link_existing_egwee_programme_do_not_recruit_as_new"
+        for r in cross_rows if r["existing_egwee_programme"]
+    )
+    dup_rows = rows(CROSSFRAME_DUPLICATES)
+    assert len(dup_rows) == 10
+    assert sum(r["group_status"] == "confirmed_same_publication" for r in dup_rows) == 7
+    assert sum(r["group_status"] == "confirmed_distinct_publications" for r in dup_rows) == 3
+
+    cross_status = CROSSFRAME_STATUS.read_text(encoding="utf-8")
+    for token in (
+        "358 source-frame rows to 351 screening identity units",
+        "**10** are already linked to known EGWEE programmes",
+        "**341** identities not yet linked",
+        "Zhao 2009",
+    ):
+        assert token in cross_status, token
+
+    sf03_blocker = SF03_BLOCKER.read_text(encoding="utf-8")
+    for token in (
+        "source verified but row-materialization access-blocked",
+        "Suppinfo.pdf",
+        "AppendixS1.pdf",
+        "HTTP 403",
+    ):
+        assert token in sf03_blocker, token
+
     sf05_summary = ROOT / "evidence/meta_extraction/phase2_sf05_source_frame_summary_v1.json"
     sf05_gap = ROOT / "evidence/meta_extraction/phase2_sf05_source_frame_gap_v1.csv"
     sf05_universe = ROOT / "evidence/meta_extraction/phase2_sf05_primary_study_universe_v1.csv"
@@ -464,7 +519,9 @@ def main() -> None:
         f"moderators={len(moderators)} "
         f"recovery_targets={sum(r['phase2_status']=='registered_recovery_target' for r in recovery)} "
         f"hard_closed={sum(r['phase2_status']=='structural_closed' for r in recovery)} "
-        f"sf05_screened={len(screen_rows)} sf05_advance={sum(r['screen_decision'].startswith('advance_') for r in screen_rows)}"
+        f"sf05_screened={len(screen_rows)} sf05_advance={sum(r['screen_decision'].startswith('advance_') for r in screen_rows)} "
+        f"crossframe_identity_units={cross_summary['unique_screening_identity_units']} "
+        f"crossframe_unlinked={cross_summary['not_yet_linked_screening_identity_units']}"
     )
 
 
