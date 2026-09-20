@@ -26,6 +26,22 @@ EXISTING_LINKS = {
     ("SF05", "93"): "P2_SF05_93",
 }
 
+CONFIRMED_DUPLICATE_KEYS = {
+    "bartlewicz|2015",
+    "browne|2015",
+    "collevatti|2014",
+    "giombini|2017",
+    "lompo|2020",
+    "pellegrino|2015",
+    "zhao|2009",
+}
+
+CONFIRMED_FALSE_COLLISION_KEYS = {
+    "chung|2007",
+    "jacquemyn|2006",
+    "jacquemyn|2009",
+}
+
 
 def rows(path: Path) -> list[dict[str, str]]:
     with path.open(newline="", encoding="utf-8") as fh:
@@ -165,34 +181,64 @@ def main() -> None:
         "lompo|2020",
     }
     assert ambiguous == {"chung|2007", "jacquemyn|2006", "jacquemyn|2009", "zhao|2009"}
+    assert CONFIRMED_DUPLICATE_KEYS | CONFIRMED_FALSE_COLLISION_KEYS == set(candidate_groups)
+    assert not (CONFIRMED_DUPLICATE_KEYS & CONFIRMED_FALSE_COLLISION_KEYS)
+
+    group_existing_links: dict[str, str] = {}
+    for key, rr in candidate_groups.items():
+        links = {
+            EXISTING_LINKS.get((r["source_frame"], r["source_id"]), "")
+            for r in rr
+            if EXISTING_LINKS.get((r["source_frame"], r["source_id"]), "")
+        }
+        assert len(links) <= 1, (key, links)
+        if links:
+            group_existing_links[key] = next(iter(links))
 
     out_fields = [
         "source_frame", "source_id", "citation", "doi", "species",
         "author_norm", "year", "author_year_key",
-        "cross_frame_group_status", "existing_egwee_programme",
-        "identity_action", "outcome_opened",
+        "cross_frame_group_status", "identity_resolution", "canonical_identity_key",
+        "existing_egwee_programme", "identity_action", "outcome_opened",
     ]
     out_rows = []
     for r in source_rows:
         key = r["author_year_key"]
-        if key in probable:
-            group_status = "probable_same_publication_needs_identity_confirmation"
-            action = "review_once_cross_frame_do_not_double_count"
-        elif key in ambiguous:
-            group_status = "author_year_collision_species_disagree"
-            action = "keep_separate_unless_full_citation_or_doi_proves_identity"
+        if key in CONFIRMED_DUPLICATE_KEYS:
+            group_status = "cross_frame_candidate_resolved"
+            resolution = "confirmed_same_publication"
+            canonical_key = f"duplicate:{key}"
+            action = "collapse_for_screening_do_not_double_count"
+            link = group_existing_links.get(key, "") or EXISTING_LINKS.get((r["source_frame"], r["source_id"]), "")
+        elif key in CONFIRMED_FALSE_COLLISION_KEYS:
+            group_status = "cross_frame_candidate_resolved"
+            resolution = "confirmed_distinct_publications"
+            canonical_key = f"{r['source_frame']}:{r['source_id']}"
+            action = "keep_separate_publications"
+            link = EXISTING_LINKS.get((r["source_frame"], r["source_id"]), "")
         else:
             group_status = "no_cross_frame_author_year_collision"
+            resolution = "unique_within_current_materialized_frames"
+            canonical_key = f"{r['source_frame']}:{r['source_id']}"
             action = "screen_as_source_frame_record"
-        link = EXISTING_LINKS.get((r["source_frame"], r["source_id"]), "")
+            link = EXISTING_LINKS.get((r["source_frame"], r["source_id"]), "")
         if link:
             action = "link_existing_egwee_programme_do_not_recruit_as_new"
         out_rows.append({
             **r,
             "cross_frame_group_status": group_status,
+            "identity_resolution": resolution,
+            "canonical_identity_key": canonical_key,
             "existing_egwee_programme": link,
             "identity_action": action,
         })
+
+    unique_identity_units = len({r["canonical_identity_key"] for r in out_rows})
+    existing_identity_units = len({
+        r["canonical_identity_key"] for r in out_rows if r["existing_egwee_programme"]
+    })
+    assert unique_identity_units == 351
+    assert existing_identity_units == 5
 
     with OUT.open("w", newline="", encoding="utf-8") as fh:
         w = csv.DictWriter(fh, fieldnames=out_fields)
@@ -206,7 +252,7 @@ def main() -> None:
     dup_rows = []
     for key in sorted(candidate_groups):
         rr = candidate_groups[key]
-        status = "probable_same_publication" if key in probable else "ambiguous_author_year_collision"
+        status = "confirmed_same_publication" if key in CONFIRMED_DUPLICATE_KEYS else "confirmed_distinct_publications"
         dup_rows.append({
             "author_year_key": key,
             "group_status": status,
@@ -220,9 +266,9 @@ def main() -> None:
                 if EXISTING_LINKS.get((r["source_frame"], r["source_id"]), "")
             })),
             "resolution_rule": (
-                "confirm by full citation/DOI before collapsing"
-                if key in probable
-                else "keep separate unless full citation/DOI later proves identity"
+                "collapse to one screening identity; preserve both source-frame provenance rows"
+                if key in CONFIRMED_DUPLICATE_KEYS
+                else "keep as separate screening identities"
             ),
         })
 
@@ -238,12 +284,17 @@ def main() -> None:
         "unique_author_year_keys": len(by_key),
         "cross_frame_candidate_groups": len(candidate_groups),
         "cross_frame_candidate_rows": sum(len(v) for v in candidate_groups.values()),
-        "probable_same_publication_groups": len(probable),
-        "ambiguous_author_year_collision_groups": len(ambiguous),
-        "probable_group_keys": sorted(probable),
-        "ambiguous_group_keys": sorted(ambiguous),
-        "existing_egwee_linked_rows": sum(bool(EXISTING_LINKS.get((r["source_frame"], r["source_id"]), "")) for r in source_rows),
-        "deduplication_policy": "DOI/full-citation confirmation required before collapsing; author-year is candidate discovery only",
+        "heuristic_probable_same_publication_groups": len(probable),
+        "heuristic_ambiguous_author_year_collision_groups": len(ambiguous),
+        "confirmed_same_publication_groups": len(CONFIRMED_DUPLICATE_KEYS),
+        "confirmed_distinct_collision_groups": len(CONFIRMED_FALSE_COLLISION_KEYS),
+        "confirmed_duplicate_group_keys": sorted(CONFIRMED_DUPLICATE_KEYS),
+        "confirmed_distinct_group_keys": sorted(CONFIRMED_FALSE_COLLISION_KEYS),
+        "unique_screening_identity_units": unique_identity_units,
+        "existing_egwee_linked_source_rows": sum(bool(r["existing_egwee_programme"]) for r in out_rows),
+        "existing_egwee_identity_units": existing_identity_units,
+        "not_yet_linked_screening_identity_units": unique_identity_units - existing_identity_units,
+        "deduplication_policy": "author-year discovers candidates; full citation/journal-volume-pages/DOI and species metadata resolve identity before collapsing",
         "effect_outcomes_opened": False,
     }
     SUMMARY.write_text(json.dumps(summary, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
@@ -273,21 +324,25 @@ Across the 358 rows:
 
 - unique first-author/year keys: **{len(by_key)}**;
 - cross-frame author/year candidate groups: **{len(candidate_groups)}** containing **{sum(len(v) for v in candidate_groups.values())}** rows;
-- probable same-publication groups after species-name agreement/tiny spelling tolerance: **{len(probable)}**;
-- ambiguous same-author/year groups with discordant species: **{len(ambiguous)}**.
+- heuristic same-publication candidates from species agreement: **{len(probable)}**;
+- heuristic ambiguous author/year collisions: **{len(ambiguous)}**;
+- after full source-citation resolution: **{len(CONFIRMED_DUPLICATE_KEYS)} confirmed duplicate groups** and **{len(CONFIRMED_FALSE_COLLISION_KEYS)} confirmed distinct collisions**.
 
-The six probable duplicate groups are:
+Confirmed cross-frame duplicates are:
 
 - Bartlewicz 2015;
 - Collevatti 2014;
 - Browne 2015;
 - Giombini 2017;
 - Pellegrino 2015;
-- Lompo 2020.
+- Lompo 2020;
+- Zhao 2009.
 
-They are **not yet collapsed automatically**. Full citation/DOI confirmation remains required.
+Zhao 2009 is important: the source-frame species labels disagree (`Glycine soja` versus `Glycine_max`), but both records identify the same *American Journal of Botany* 96:1138–1147 publication. Citation identity therefore overrides the species-field discrepancy.
 
-The four ambiguous collisions (Chung 2007, Jacquemyn 2006, Jacquemyn 2009, Zhao 2009) remain separate unless later source metadata proves identity.
+The three confirmed distinct same-author/year collisions are Chung 2007, Jacquemyn 2006 and Jacquemyn 2009; their journals/species/source citations differ and they remain separate.
+
+Collapsing only the seven confirmed duplicate pairs reduces **358 source-frame rows to {unique_identity_units} screening identity units**. Of those, **{existing_identity_units}** are already linked to known EGWEE programmes, leaving **{unique_identity_units-existing_identity_units}** identities not yet linked under the current firewall.
 
 ## Existing EGWEE firewall
 
@@ -303,7 +358,7 @@ The identity ledger therefore advances systematic coverage by separating **new s
 
 ## Next operation
 
-Resolve the six probable cross-frame duplicate groups by full citation/DOI, then apply the same existing-programme crosswalk to all 358 rows. After identity resolution, title/abstract/method screening can proceed on unique programmes rather than duplicated source-frame rows.
+Use the {unique_identity_units} canonical identity units—not 358 source-frame rows—as the denominator for the next title/abstract/method screen. Expand the existing-programme crosswalk before any new effect extraction, then screen unresolved identities for prespecified multilayer geometry.
 """,
         encoding="utf-8",
     )
@@ -311,8 +366,8 @@ Resolve the six probable cross-frame duplicate groups by full citation/DOI, then
     print(
         "PHASE2_CROSSFRAME_IDENTITY_OK "
         f"rows={len(source_rows)} author_year={len(by_key)} cross_groups={len(candidate_groups)} "
-        f"probable={len(probable)} ambiguous={len(ambiguous)} "
-        f"existing_links={summary['existing_egwee_linked_rows']} outcomes_opened=false"
+        f"confirmed_duplicates={len(CONFIRMED_DUPLICATE_KEYS)} false_collisions={len(CONFIRMED_FALSE_COLLISION_KEYS)} "
+        f"identity_units={unique_identity_units} existing_units={existing_identity_units} outcomes_opened=false"
     )
 
 
