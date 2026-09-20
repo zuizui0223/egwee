@@ -1,0 +1,61 @@
+name: Probe SF07 Dryad metadata
+
+on:
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - '.github/workflows/probe-sf07-dryad-metadata.yml'
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch public dataset metadata
+        run: |
+          set -euxo pipefail
+          DATASET='https://datadryad.org/api/v2/datasets/doi%3A10.5061%2Fdryad.dz08kps9p'
+          curl --fail --location --silent --show-error \
+            --header 'Accept: application/json' \
+            "$DATASET" -o /tmp/dataset.json
+          cat /tmp/dataset.json
+          echo
+          curl --fail --location --silent --show-error \
+            --header 'Accept: application/json' \
+            "$DATASET/versions" -o /tmp/versions.json
+          cat /tmp/versions.json
+          echo
+          VERSION_ID="$(python - <<'PY'
+import json
+obj=json.load(open('/tmp/versions.json'))
+items=obj.get('_embedded',{}).get('stash:versions') or obj.get('versions') or []
+assert items, obj
+def vid(x):
+    return int(x.get('id') or str(x.get('_links',{}).get('self',{}).get('href','')).rstrip('/').split('/')[-1])
+print(max(vid(x) for x in items))
+PY
+)"
+          echo "VERSION_ID=$VERSION_ID"
+          curl --fail --location --silent --show-error \
+            --header 'Accept: application/json' \
+            "https://datadryad.org/api/v2/versions/$VERSION_ID/files" \
+            -o /tmp/files.json
+          cat /tmp/files.json
+          echo
+          python - <<'PY'
+import json
+obj=json.load(open('/tmp/files.json'))
+items=obj.get('_embedded',{}).get('stash:files') or obj.get('files') or []
+print('SF07_FILE_LIST_START')
+for x in items:
+    print({
+        'id': x.get('id'),
+        'path': x.get('path'),
+        'size': x.get('size'),
+        'mimeType': x.get('mimeType'),
+        'download': x.get('_links',{}).get('stash:download',{}).get('href') or x.get('_links',{}).get('download',{}).get('href'),
+        'self': x.get('_links',{}).get('self',{}).get('href'),
+    })
+print('SF07_FILE_LIST_END')
+PY
