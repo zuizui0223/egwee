@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "built_from": [
+    "phase2_crossframe_publication_identity_v1.csv",
+    "phase2_sf04_publication_universe_v1.csv",
+    "phase2_sf05_primary_study_universe_v1.csv",
+    "phase2_sf06_publication_universe_v1.csv"
+  ],
+  "counts": {
+    "canonical_identity_units": 351,
+    "existing_egwee_programmes": 10,
+    "unresolved_identity_units": 341,
+    "unresolved_multilayer_metadata_hints": 61,
+    "unresolved_IF_metadata_hints": 36,
+    "primary_IF_fragmentation_design_queue": 32,
+    "secondary_IF_nonfragmentation": 4,
+    "other_multilayer_metadata_hints": 25,
+    "single_layer_or_no_pair_hint": 280
+  },
+  "primary_pair_priority": "I-F because current independent direct coverage is 1/5",
+  "IF_queue_rule": "unlinked canonical identity with SF06 Pollination plus Female/Male fitness metadata and source land-use factor explicitly containing fragmentation",
+  "forbidden_selection_inputs": [
+    "effect_direction",
+    "Hedges_d",
+    "sampling_variance",
+    "p_value",
+    "reported_significance"
+  ],
+  "effect_outcomes_opened": false
+}
