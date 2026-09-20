@@ -28,3 +28,26 @@ jobs:
           cat /tmp/files.json
           echo
           python -c "import json; o=json.load(open('/tmp/files.json')); xs=o.get('_embedded',{}).get('stash:files') or o.get('files') or []; print('SF07_FILE_LIST_START'); [print({'id':x.get('id'),'path':x.get('path'),'size':x.get('size'),'mimeType':x.get('mimeType'),'download':x.get('_links',{}).get('stash:download',{}).get('href') or x.get('_links',{}).get('download',{}).get('href'),'self':x.get('_links',{}).get('self',{}).get('href')}) for x in xs]; print('SF07_FILE_LIST_END')"
+      - name: Probe public Richness download routes
+        run: |
+          set -u
+          LANDING='https://datadryad.org/dataset/doi:10.5061/dryad.dz08kps9p'
+          UA='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36'
+          curl --location --silent --show-error --user-agent "$UA" --cookie-jar /tmp/dryad.cookies "$LANDING" -o /tmp/landing.html
+          for URL in \
+            'https://datadryad.org/api/v2/files/4257013/download' \
+            'https://datadryad.org/downloads/file_stream/4257013' \
+            'https://datadryad.org/stash/downloads/file_stream/4257013'
+          do
+            rm -f /tmp/probe.bin
+            CODE="$(curl --location --silent --show-error \
+              --user-agent "$UA" \
+              --referer "$LANDING" \
+              --cookie /tmp/dryad.cookies \
+              --output /tmp/probe.bin \
+              --write-out '%{http_code}' \
+              "$URL" || true)"
+            SIZE="$(wc -c < /tmp/probe.bin 2>/dev/null || echo 0)"
+            TYPE="$(file -b /tmp/probe.bin 2>/dev/null || true)"
+            echo "SF07_RICHNESS_ROUTE code=$CODE size=$SIZE type=$TYPE url=$URL"
+          done
