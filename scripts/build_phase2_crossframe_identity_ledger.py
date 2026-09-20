@@ -24,6 +24,11 @@ EXISTING_LINKS = {
     ("SF06", "SF06P138"): "P2_SF05_93",
     ("SF06", "SF06P175"): "ML001",
     ("SF05", "93"): "P2_SF05_93",
+    ("SF06", "SF06P062"): "PS009_CONOSPERMUM",
+    ("SF06", "SF06P210"): "ML008",
+    ("SF05", "49"): "ML009_PS013",
+    ("SF06", "SF06P137"): "ML015",
+    ("SF06", "SF06P021"): "ML014",
 }
 
 CONFIRMED_DUPLICATE_KEYS = {
@@ -238,7 +243,7 @@ def main() -> None:
         r["canonical_identity_key"] for r in out_rows if r["existing_egwee_programme"]
     })
     assert unique_identity_units == 351
-    assert existing_identity_units == 5
+    assert existing_identity_units == 10
 
     with OUT.open("w", newline="", encoding="utf-8") as fh:
         w = csv.DictWriter(fh, fieldnames=out_fields)
@@ -352,7 +357,12 @@ Known records already belonging to an admitted or declared Phase-2 programme are
 - Pellegrino et al. 2015 → `ML001`;
 - Aizen & Feinsinger 1994 → `ML020`;
 - Cristóbal-Pérez et al. 2021 → `ML003`;
-- Lompo et al. 2020 → `P2_SF05_93`.
+- Lompo et al. 2020 → `P2_SF05_93`;
+- Delnevo et al. 2019 → existing Conospermum programme (`PS009`);
+- Sáyago et al. 2018 → `ML008`;
+- Albaladejo et al. 2012 → structurally closed `ML009/PS013`;
+- Llorens et al. 2018 → gradient `ML015`;
+- Breed et al. 2012 (*Eucalyptus socialis*) → `ML014`.
 
 The identity ledger therefore advances systematic coverage by separating **new screening records** from **known-programme rediscoveries** before effect extraction.
 
