@@ -53,6 +53,12 @@ IF_WAVE3_STATUS = ROOT / "manuscript/PHASE2_IF_DESIGN_SCREEN_WAVE3_2026-09-20.md
 IF_WAVE4_STATUS = ROOT / "manuscript/PHASE2_IF_DESIGN_SCREEN_WAVE4_2026-09-20.md"
 IF_QUANT_GATE = ROOT / "evidence/meta_extraction/phase2_if_quantitative_gate_v1.csv"
 IF_QUANT_STATUS = ROOT / "manuscript/PHASE2_IF_QUANTITATIVE_GATE_2026-09-20.md"
+CF_SCREEN_QUEUE = ROOT / "evidence/meta_extraction/phase2_cf_fragmentation_screen_queue_v1.csv"
+CF_SCREEN_SUMMARY = ROOT / "evidence/meta_extraction/phase2_cf_screen_summary_v1.json"
+CF_QUEUE_STATUS = ROOT / "manuscript/PHASE2_CF_SCREEN_QUEUE_2026-09-21.md"
+CF_DESIGN_SCREEN = ROOT / "evidence/meta_extraction/phase2_cf_design_screen_v1.csv"
+CF_WAVE1_STATUS = ROOT / "manuscript/PHASE2_CF_DESIGN_SCREEN_WAVE1_2026-09-21.md"
+CF_WAVE2_STATUS = ROOT / "manuscript/PHASE2_CF_DESIGN_SCREEN_WAVE2_2026-09-21.md"
 
 DISPLAY_TOL = 5e-8
 
@@ -77,7 +83,7 @@ def emitted_json(command: list[str], prefix: str) -> dict:
 
 
 def main() -> None:
-    for path in (CONTRACT, AMENDMENT, COVERAGE, PAIR_COVERAGE, MODERATORS, RECOVERY, SF05_SCREEN, SF05_SCREEN_STATUS, PARKIA_CHECK, PARKIA_STATUS, PARKIA_CONTRACT, HELICONIA_CHECK, HELICONIA_STATUS, HELICONIA_CONTRACT, PRUNUS_CHECK, PRUNUS_STATUS, PRUNUS_CONTRACT, KAKAMEGA_CHECK, KAKAMEGA_STATUS, KAKAMEGA_CONTRACT, GPAIR_SYNTHESIS_CHECK, GPAIR_SYNTHESIS_STATUS, GPAIR_SYNTHESIS_AMENDMENT, QUANT_GATE, CASTANOPSIS_STATUS, OENOCARPUS_STATUS, PRIMULA_STATUS, MILICIA_STATUS, BROSIMUM_GPAIR_STATUS, CROSSFRAME_IDENTITY, CROSSFRAME_DUPLICATES, CROSSFRAME_SUMMARY, CROSSFRAME_STATUS, SF03_BLOCKER, METADATA_SCREEN_SUMMARY, IF_SCREEN_QUEUE, IF_DESIGN_SCREEN, IF_WAVE1_STATUS, IF_WAVE2_STATUS, IF_WAVE3_STATUS, IF_WAVE4_STATUS, IF_QUANT_GATE, IF_QUANT_STATUS, SCHEMA):
+    for path in (CONTRACT, AMENDMENT, COVERAGE, PAIR_COVERAGE, MODERATORS, RECOVERY, SF05_SCREEN, SF05_SCREEN_STATUS, PARKIA_CHECK, PARKIA_STATUS, PARKIA_CONTRACT, HELICONIA_CHECK, HELICONIA_STATUS, HELICONIA_CONTRACT, PRUNUS_CHECK, PRUNUS_STATUS, PRUNUS_CONTRACT, KAKAMEGA_CHECK, KAKAMEGA_STATUS, KAKAMEGA_CONTRACT, GPAIR_SYNTHESIS_CHECK, GPAIR_SYNTHESIS_STATUS, GPAIR_SYNTHESIS_AMENDMENT, QUANT_GATE, CASTANOPSIS_STATUS, OENOCARPUS_STATUS, PRIMULA_STATUS, MILICIA_STATUS, BROSIMUM_GPAIR_STATUS, CROSSFRAME_IDENTITY, CROSSFRAME_DUPLICATES, CROSSFRAME_SUMMARY, CROSSFRAME_STATUS, SF03_BLOCKER, METADATA_SCREEN_SUMMARY, IF_SCREEN_QUEUE, IF_DESIGN_SCREEN, IF_WAVE1_STATUS, IF_WAVE2_STATUS, IF_WAVE3_STATUS, IF_WAVE4_STATUS, IF_QUANT_GATE, IF_QUANT_STATUS, CF_SCREEN_QUEUE, CF_SCREEN_SUMMARY, CF_QUEUE_STATUS, CF_DESIGN_SCREEN, CF_WAVE1_STATUS, CF_WAVE2_STATUS, SCHEMA):
         assert path.is_file(), path
 
     contract = json.loads(CONTRACT.read_text(encoding="utf-8"))
@@ -444,6 +450,15 @@ def main() -> None:
     }
     assert metadata_summary["effect_outcomes_opened"] is False
 
+    metadata_rows = rows(ROOT / "evidence/meta_extraction/phase2_metadata_screen_queue_v1.csv")
+    unresolved_gif = [
+        r for r in metadata_rows
+        if not r["existing_egwee_programmes"]
+        and {"G_adult", "I", "F"} <= set(x for x in r["metadata_layers"].split(";") if x)
+    ]
+    assert unresolved_gif == []
+
+
     if_queue = rows(IF_SCREEN_QUEUE)
     assert len(if_queue) == 32
     assert [r["queue_id"] for r in if_queue] == [f"IFQ{i:03d}" for i in range(1, 33)]
@@ -562,6 +577,60 @@ def main() -> None:
     ):
         assert token in if_quant_status, token
 
+    cf_summary = json.loads(CF_SCREEN_SUMMARY.read_text(encoding="utf-8"))
+    assert cf_summary["candidate_count"] == 16
+    assert cf_summary["current_CF_direct_coverage"] == 2
+    assert cf_summary["pair_gate"] == 5
+    assert cf_summary["effect_outcomes_opened"] is False
+
+    cf_queue = rows(CF_SCREEN_QUEUE)
+    assert len(cf_queue) == 16
+    assert [r["queue_id"] for r in cf_queue] == [f"CFQ{i:03d}" for i in range(1, 17)]
+    assert all("C_screen" in r["C_metadata_basis"] for r in cf_queue)
+    assert all(r["screening_status"] == "pending_CF_title_abstract_methods_screen" for r in cf_queue)
+    assert all(r["outcome_opened"] == "no" for r in cf_queue)
+    assert "71" not in {r["source_paper_id"] for r in cf_queue}
+
+    cf_screen = rows(CF_DESIGN_SCREEN)
+    assert len(cf_screen) == 16
+    assert [r["queue_id"] for r in cf_screen] == [f"CFQ{i:03d}" for i in range(1, 17)]
+    assert {r["screen_wave"] for r in cf_screen} == {"1", "2"}
+    assert sum(r["screen_wave"] == "1" for r in cf_screen) == 8
+    assert sum(r["screen_wave"] == "2" for r in cf_screen) == 8
+    assert all(r["screen_basis"] == "title_abstract_methods_only" for r in cf_screen)
+    assert all(r["outcome_opened"] == "no" for r in cf_screen)
+    assert all(r["outcome_blind_confirmation"] == "yes" for r in cf_screen)
+    assert all(r["screen_decision"].startswith("closed_") for r in cf_screen)
+    assert sum(r["screen_decision"].startswith("closed_") for r in cf_screen) == 16
+
+    cf_queue_status = CF_QUEUE_STATUS.read_text(encoding="utf-8")
+    for token in (
+        "Direct `C-F` coverage is **2/5**",
+        "**16",
+        "Effect direction, magnitude, significance",
+    ):
+        assert token in cf_queue_status, token
+
+    cf_w1 = CF_WAVE1_STATUS.read_text(encoding="utf-8")
+    for token in (
+        "screened in wave 1: **8**",
+        "advance to quantitative C-F recovery: **0**",
+        "closed for the direct C-F family: **8**",
+        "newly admitted C-F programmes: **0**",
+    ):
+        assert token in cf_w1, token
+
+    cf_w2 = CF_WAVE2_STATUS.read_text(encoding="utf-8")
+    for token in (
+        "screened in wave 2: **8**",
+        "design-screened: **16 / 16**",
+        "pending design screen: **0**",
+        "advance to quantitative C-F recovery: **0**",
+        "closed because no same-programme eligible F",
+        "Direct C-F coverage therefore remains **2/5",
+    ):
+        assert token in cf_w2, token
+
     sf03_blocker = SF03_BLOCKER.read_text(encoding="utf-8")
     for token in (
         "source verified but row-materialization access-blocked",
@@ -664,7 +733,9 @@ def main() -> None:
         f"crossframe_identity_units={cross_summary['unique_screening_identity_units']} "
         f"crossframe_unlinked={cross_summary['not_yet_linked_screening_identity_units']} "
         f"if_screened={len(if_screen)} if_design_pass={sum(r['screen_decision']=='advance_full_text_quantitative_screen' for r in if_screen)} "
-        f"if_quant_admitted={sum(r['pair_programme_admitted']=='yes' for r in if_quant)}"
+        f"if_quant_admitted={sum(r['pair_programme_admitted']=='yes' for r in if_quant)} "
+        f"cf_screened={len(cf_screen)} cf_advance={sum(not r['screen_decision'].startswith('closed_') for r in cf_screen)} "
+        f"gif_direct={len(unresolved_gif)}"
     )
 
 
