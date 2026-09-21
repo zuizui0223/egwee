@@ -40,7 +40,7 @@ Zhao 2009 is important: the source-frame species labels disagree (`Glycine soja`
 
 The three confirmed distinct same-author/year collisions are Chung 2007, Jacquemyn 2006 and Jacquemyn 2009; their journals/species/source citations differ and they remain separate.
 
-Collapsing only the seven confirmed duplicate pairs reduces **358 source-frame rows to 351 screening identity units**. Of those, **10** are already linked to known EGWEE programmes, leaving **341** identities not yet linked under the current firewall.
+Collapsing only the seven confirmed duplicate pairs reduces **358 source-frame rows to 351 screening identity units**. Of those, **11** are already linked to known EGWEE programmes, leaving **340** identities not yet linked under the current firewall.
 
 ## Existing EGWEE firewall
 

@@ -33,9 +33,9 @@
     "jacquemyn|2009"
   ],
   "unique_screening_identity_units": 351,
-  "existing_egwee_linked_source_rows": 12,
-  "existing_egwee_identity_units": 10,
-  "not_yet_linked_screening_identity_units": 341,
+  "existing_egwee_linked_source_rows": 13,
+  "existing_egwee_identity_units": 11,
+  "not_yet_linked_screening_identity_units": 340,
   "deduplication_policy": "author-year discovers candidates; full citation/journal-volume-pages/DOI and species metadata resolve identity before collapsing",
   "effect_outcomes_opened": false
 }
