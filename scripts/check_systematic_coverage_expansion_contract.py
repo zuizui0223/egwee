@@ -537,13 +537,13 @@ def main() -> None:
     assert all(int(r["pair_programme_increment"]) == 0 for r in if_quant)
     qstatus = {r["queue_id"]: r["quantitative_gate_status"] for r in if_quant}
     assert qstatus == {
-        "IFQ003": "pending_full_text_independent_unit_and_dispersion_recovery",
+        "IFQ003": "closed_patch_level_IF_values_not_tabulated_no_preregistered_digitization",
         "IFQ006": "blocked_dispersion_unit_not_fragmentation_level_verified",
         "IFQ007": "blocked_dispersion_unit_not_fragmentation_level_verified",
         "IFQ008": "pending_full_text_site_count_and_common_frame_recovery",
         "IFQ015": "closed_population_level_F_values_dispersion_not_recoverable_under_current_contract",
-        "IFQ020": "pending_factorial_replication_and_contrast_lock",
-        "IFQ022": "pending_site_allocation_and_contrast_lock",
+        "IFQ020": "blocked_factorial_cell_replication_and_between_population_dispersion_not_recovered_publicly",
+        "IFQ022": "blocked_site_allocation_and_site_level_dispersion_not_recovered_publicly",
     }
 
     if_quant_status = IF_QUANT_STATUS.read_text(encoding="utf-8")
@@ -553,6 +553,9 @@ def main() -> None:
         "direct I-F programme coverage: **1/5**",
         "effect calculations opened from unresolved dispersion: **0**",
         "Design screening is complete at 32/32",
+        "20 forest patches",
+        "Erica, Myrtus, Phyteuma and Psychotria are now fail-closed",
+        "Lithraea is the remaining unresolved direct candidate",
     ):
         assert token in if_quant_status, token
 
