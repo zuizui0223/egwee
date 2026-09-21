@@ -59,6 +59,9 @@ CF_QUEUE_STATUS = ROOT / "manuscript/PHASE2_CF_SCREEN_QUEUE_2026-09-21.md"
 CF_DESIGN_SCREEN = ROOT / "evidence/meta_extraction/phase2_cf_design_screen_v1.csv"
 CF_WAVE1_STATUS = ROOT / "manuscript/PHASE2_CF_DESIGN_SCREEN_WAVE1_2026-09-21.md"
 CF_WAVE2_STATUS = ROOT / "manuscript/PHASE2_CF_DESIGN_SCREEN_WAVE2_2026-09-21.md"
+CF01_SEED_MANIFEST = ROOT / "evidence/meta_extraction/phase2_cf01_seed_manifest_v1.csv"
+CF01_SEED_SUMMARY = ROOT / "evidence/meta_extraction/phase2_cf01_seed_manifest_summary_v1.json"
+CF01_SEED_STATUS = ROOT / "manuscript/PHASE2_CF01_SEED_MANIFEST_2026-09-21.md"
 
 DISPLAY_TOL = 5e-8
 
@@ -83,7 +86,7 @@ def emitted_json(command: list[str], prefix: str) -> dict:
 
 
 def main() -> None:
-    for path in (CONTRACT, AMENDMENT, COVERAGE, PAIR_COVERAGE, MODERATORS, RECOVERY, SF05_SCREEN, SF05_SCREEN_STATUS, PARKIA_CHECK, PARKIA_STATUS, PARKIA_CONTRACT, HELICONIA_CHECK, HELICONIA_STATUS, HELICONIA_CONTRACT, PRUNUS_CHECK, PRUNUS_STATUS, PRUNUS_CONTRACT, KAKAMEGA_CHECK, KAKAMEGA_STATUS, KAKAMEGA_CONTRACT, GPAIR_SYNTHESIS_CHECK, GPAIR_SYNTHESIS_STATUS, GPAIR_SYNTHESIS_AMENDMENT, QUANT_GATE, CASTANOPSIS_STATUS, OENOCARPUS_STATUS, PRIMULA_STATUS, MILICIA_STATUS, BROSIMUM_GPAIR_STATUS, CROSSFRAME_IDENTITY, CROSSFRAME_DUPLICATES, CROSSFRAME_SUMMARY, CROSSFRAME_STATUS, SF03_BLOCKER, METADATA_SCREEN_SUMMARY, IF_SCREEN_QUEUE, IF_DESIGN_SCREEN, IF_WAVE1_STATUS, IF_WAVE2_STATUS, IF_WAVE3_STATUS, IF_WAVE4_STATUS, IF_QUANT_GATE, IF_QUANT_STATUS, CF_SCREEN_QUEUE, CF_SCREEN_SUMMARY, CF_QUEUE_STATUS, CF_DESIGN_SCREEN, CF_WAVE1_STATUS, CF_WAVE2_STATUS, SCHEMA):
+    for path in (CONTRACT, AMENDMENT, COVERAGE, PAIR_COVERAGE, MODERATORS, RECOVERY, SF05_SCREEN, SF05_SCREEN_STATUS, PARKIA_CHECK, PARKIA_STATUS, PARKIA_CONTRACT, HELICONIA_CHECK, HELICONIA_STATUS, HELICONIA_CONTRACT, PRUNUS_CHECK, PRUNUS_STATUS, PRUNUS_CONTRACT, KAKAMEGA_CHECK, KAKAMEGA_STATUS, KAKAMEGA_CONTRACT, GPAIR_SYNTHESIS_CHECK, GPAIR_SYNTHESIS_STATUS, GPAIR_SYNTHESIS_AMENDMENT, QUANT_GATE, CASTANOPSIS_STATUS, OENOCARPUS_STATUS, PRIMULA_STATUS, MILICIA_STATUS, BROSIMUM_GPAIR_STATUS, CROSSFRAME_IDENTITY, CROSSFRAME_DUPLICATES, CROSSFRAME_SUMMARY, CROSSFRAME_STATUS, SF03_BLOCKER, METADATA_SCREEN_SUMMARY, IF_SCREEN_QUEUE, IF_DESIGN_SCREEN, IF_WAVE1_STATUS, IF_WAVE2_STATUS, IF_WAVE3_STATUS, IF_WAVE4_STATUS, IF_QUANT_GATE, IF_QUANT_STATUS, CF_SCREEN_QUEUE, CF_SCREEN_SUMMARY, CF_QUEUE_STATUS, CF_DESIGN_SCREEN, CF_WAVE1_STATUS, CF_WAVE2_STATUS, CF01_SEED_MANIFEST, CF01_SEED_SUMMARY, CF01_SEED_STATUS, SCHEMA):
         assert path.is_file(), path
 
     contract = json.loads(CONTRACT.read_text(encoding="utf-8"))
@@ -144,8 +147,45 @@ def main() -> None:
     sf05 = next(r for r in coverage if r["frame_id"] == "SF05")
     assert sf05["status"] == "source_verified_row_materialized_source_selected_subset_frame_incomplete"
     cf01 = next(r for r in coverage if r["frame_id"] == "CF01")
-    assert cf01["status"] == "partial_targeted_citation_expansion_executed_full_frame_incomplete"
+    assert cf01["status"] == "partial_cf01_seed_manifest_363_bibliographic_resolution_in_progress_full_frame_incomplete"
     assert cf01["doi_or_dataset"] == "cutoff 2026-09-18"
+
+    cf01_seed = rows(CF01_SEED_MANIFEST)
+    assert len(cf01_seed) == 363
+    assert len({r["canonical_search_key"] for r in cf01_seed}) == 363
+    assert sum(bool(r["doi"]) for r in cf01_seed) == 83
+    assert sum(not bool(r["doi"]) for r in cf01_seed) == 280
+    assert all(r["citation_expansion_cutoff"] == "2026-09-18" for r in cf01_seed)
+    assert all(r["backward_citation_status"] == "pending" for r in cf01_seed)
+    assert all(r["forward_citation_status"] == "pending" for r in cf01_seed)
+    assert all(r["outcome_opened"] == "no" for r in cf01_seed)
+
+    cf01_seed_summary = json.loads(CF01_SEED_SUMMARY.read_text(encoding="utf-8"))
+    assert cf01_seed_summary == {
+        "schema_version": 1,
+        "cutoff": "2026-09-18",
+        "materialized_crossframe_identity_units": 351,
+        "primary_seed_records": 19,
+        "primary_seed_crosslinked_to_crossframe": 8,
+        "primary_seed_added_search_units": 11,
+        "declared_cf01_extra_search_units": 1,
+        "canonical_search_units": 363,
+        "search_units_with_doi": 83,
+        "search_units_needing_citation_resolution": 280,
+        "blocked_seed_frames_not_yet_row_materialized": ["SF01", "SF02", "SF03", "SF07"],
+        "manifest_status": "partial_CF01_seed_manifest_materialized_frames_plus_declared_primary_seeds",
+        "effect_outcomes_opened": False,
+    }
+    cf01_seed_status = CF01_SEED_STATUS.read_text(encoding="utf-8")
+    for token in (
+        "resulting canonical CF01 search units: **363**",
+        "units already carrying a DOI: **83**",
+        "units requiring bibliographic citation resolution before expansion: **280**",
+        "partial CF01 seed manifest",
+        "numerical outcome fields opened: **0**",
+    ):
+        assert token in cf01_seed_status, token
+
 
     pair_rows = rows(PAIR_COVERAGE)
     assert {r["pair_id"] for r in pair_rows} == {
@@ -735,7 +775,7 @@ def main() -> None:
         f"if_screened={len(if_screen)} if_design_pass={sum(r['screen_decision']=='advance_full_text_quantitative_screen' for r in if_screen)} "
         f"if_quant_admitted={sum(r['pair_programme_admitted']=='yes' for r in if_quant)} "
         f"cf_screened={len(cf_screen)} cf_advance={sum(not r['screen_decision'].startswith('closed_') for r in cf_screen)} "
-        f"gif_direct={len(unresolved_gif)}"
+        f"gif_direct={len(unresolved_gif)} cf01_seeds={len(cf01_seed)} cf01_doi={sum(bool(r['doi']) for r in cf01_seed)}"
     )
 
 
