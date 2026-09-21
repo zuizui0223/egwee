@@ -8,13 +8,13 @@ The distinction is deliberate: a good ecological design is not sufficient if the
 
 | candidate | design | quantitative gate |
 |---|---|---|
-| IFQ003 *Erica discolor* | patch fragmentation design | pending exact patch n + patch-level dispersion |
+| IFQ003 *Erica discolor* | 20 patches: 17 small + 3 large | closed: patch-level I/F values needed for dispersion are graphical only; no preregistered digitization |
 | IFQ006 *Haloxylon ammodendron* | 6 fragmented + 6 natural plots | blocked: dispersion unit not verified as between plots |
 | IFQ007 *Caragana korshinskii* | 6 fragmented + 6 natural plots | blocked: dispersion unit not verified as between plots |
 | IFQ008 *Lithraea molleoides* | continuous vs fragmented forest system | pending exact site n + common frame |
 | IFQ015 *Myrtus communis* | 3 Large + 3 Small patches | closed under current extraction contract: population-level F dispersion not recoverable |
-| IFQ020 *Phyteuma spicatum* | common-source size × isolation factorial experiment | pending experimental-cell replication + factor-specific contrast lock |
-| IFQ022 *Psychotria suterella* | non-fragmented / connected / isolated categories across 10 sites | pending site allocation + fragmentation-category contrast lock |
+| IFQ020 *Phyteuma spicatum* | common-source size × isolation factorial experiment | blocked: exact 2×2 cell replication + between-population I/F dispersion not recovered from current public route |
+| IFQ022 *Psychotria suterella* | non-fragmented / connected / isolated categories across 10 sites | blocked: exact category allocation + site-level I/F dispersion not recovered from current public route |
 
 ## Myrtus audit
 
@@ -34,6 +34,14 @@ The current contract therefore forbids two shortcuts:
 
 Myrtus is consequently **closed for direct quantitative I-F admission under the current source-recovery route**, while remaining in the systematic/design evidence ledger.
 
+## Erica audit
+
+The thesis/full-method recovery materially strengthens the **design** diagnosis for *Erica discolor*: the fragmentation-level frame contains **20 forest patches**, with **17 small patches (<100 ha)** and **3 large patches (>240 ha)**. Pollinator visitation is modeled with patch identity as a random intercept, and seed-set sampling is aggregated by patch.
+
+That resolves the independent-unit geometry but not the quantitative effect. The exact patch-level I and F response values needed to estimate between-patch dispersion are presented graphically rather than as a recoverable table. The present contract does not preregister figure digitization, and plant/fruit-level variability cannot be substituted for patch-level variability.
+
+IFQ003 is therefore **closed for direct quantitative I-F admission under the current recovery route**. It remains a design-valid fragmentation system in the systematic ledger.
+
 ## Caragana and Haloxylon audit
 
 Both studies explicitly replicate six fragmented and six natural plots. That solves the independent-unit **count**, but not automatically the standardising dispersion.
@@ -42,9 +50,9 @@ Until the accessible source establishes that the reported SD/SE for the locked I
 
 ## Phyteuma and Psychotria audit
 
-**Phyteuma spicatum** advances because its common-source experiment manipulates population size and isolation rather than merely observing a natural correlation. Quantitative recovery must preserve the factorial experimental-population unit and predeclare factor-specific contrasts; size versus isolation cannot be selected after outcomes are calculated.
+**Phyteuma spicatum** remains design-valid because its common-source experiment prospectively manipulates population size and isolation. However, the current legitimate public routes do not recover the exact 2×2 cell replication together with between-experimental-population I and F dispersion. Reported outcome direction is not a substitute for those missing quantities, so the programme is quantitatively blocked.
 
-**Psychotria suterella** advances because the source explicitly defines non-fragmented habitat, corridor-connected fragments and isolated fragments across ten sites while measuring pollinator/pollination and reproductive outputs. Quantitative recovery must first restore site allocation and freeze how the two fragment categories are represented in the direct contrast.
+**Psychotria suterella** remains design-valid because the source explicitly defines non-fragmented habitat, corridor-connected fragments and isolated fragments across ten sites. The current public route verifies the ten-site design but does not recover the exact site allocation among categories plus site-level I/F values or defensible between-site dispersion. Abstract-level result direction is not used to construct or choose the contrast, so the programme is quantitatively blocked.
 
 ## Consequence
 
@@ -53,4 +61,4 @@ Until the accessible source establishes that the reported SD/SE for the locked I
 - direct I-F programme coverage: **1/5** (ML020 only)
 - effect calculations opened from unresolved dispersion: **0**
 
-Design screening is complete at 32/32. The next line is quantitative recovery of Erica, Lithraea, Phyteuma and Psychotria under the locked unit/contrast rules, while Haloxylon and Caragana remain blocked on dispersion and Myrtus remains closed.
+Design screening is complete at 32/32. Erica, Myrtus, Phyteuma and Psychotria are now fail-closed under the current public recovery routes; Haloxylon and Caragana remain blocked on fragmentation-level dispersion. Lithraea is the remaining unresolved direct candidate and is the next quantitative-recovery target.
