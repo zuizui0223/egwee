@@ -34,12 +34,12 @@ def main() -> None:
             continue
         if ident["existing_egwee_programme"]:
             continue
-        candidates.append((r, ident))
+        candidates.append((r, ident, hints))
 
-    assert len(candidates) == 17
+    assert len(candidates) == 16
 
     out = []
-    for i, (r, ident) in enumerate(candidates, start=1):
+    for i, (r, ident, hints) in enumerate(candidates, start=1):
         out.append({
             "queue_id": f"CFQ{i:03d}",
             "canonical_identity_key": ident["canonical_identity_key"],
@@ -61,6 +61,8 @@ def main() -> None:
             "screening_status": "pending_CF_title_abstract_methods_screen",
             "outcome_opened": "no",
         })
+
+    assert all("C_screen" in r["C_metadata_basis"] for r in out)
 
     with QUEUE.open("w", newline="", encoding="utf-8") as fh:
         w = csv.DictWriter(fh, fieldnames=list(out[0]))
@@ -97,7 +99,7 @@ identity already tagged with both C and F. Therefore the next outcome-blind
 screen starts from SF05 records whose bibliographic/title-method metadata
 independently indicate a movement/connectivity (`C`) layer.
 
-After removing records already linked to existing EGWEE programmes, **17
+After removing records already linked to existing EGWEE programmes, **16
 publication identities** remain.
 
 ## Screening rule
@@ -119,7 +121,7 @@ Machine-readable queue:
 
 ## Next operation
 
-Screen the 17 identities for same-programme C + F geometry. Close records that
+Screen the 16 identities for same-programme C + F geometry. Close records that
 contain C but no reproductive function before any numerical effect is opened.
 """,
         encoding="utf-8",
