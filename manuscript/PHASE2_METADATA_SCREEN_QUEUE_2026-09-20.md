@@ -4,9 +4,9 @@
 
 The resolved cross-frame ledger contains **351 canonical publication identities** across the currently materialized SF04/SF05/SF06 frames.
 
-- already linked to existing EGWEE programmes: **10**;
-- unresolved identities: **341**;
-- unresolved identities with at least two metadata-level biological layers: **61**.
+- already linked to existing EGWEE programmes: **11**;
+- unresolved identities: **340**;
+- unresolved identities with at least two metadata-level biological layers: **60**.
 
 No effect direction, Hedges d, variance, p-value or significance field is used in this queue.
 
@@ -33,7 +33,7 @@ Each record must pass the same design gate before quantitative extraction:
 
 ## Other unresolved metadata geometry
 
-- other multilayer hints outside the immediate I-F queue: **25**;
+- other multilayer hints outside the immediate I-F queue: **24**;
 - single-layer/no-pair immediate hints: **280**.
 
 They remain in the systematic universe and are not discarded. The I-F lane is processed first because its preregistered pair coverage is currently the sparsest opened target, not because any candidate result is favorable.
