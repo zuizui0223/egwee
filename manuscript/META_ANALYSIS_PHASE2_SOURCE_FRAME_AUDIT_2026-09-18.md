@@ -24,7 +24,7 @@ This quantitative result alone does **not** permit Phase-2 supersession. The sys
 | SF05 | Miguel-Peñaloza et al. 2023 Table S1 | **materialized: 177 population rows / 65 source-selected studies / 31 meta subset; 25 multilayer hints fully design-screened** | restore at least 9 outcome-excluded identities and reconstruct broader outcome-blind frame |
 | SF06 | Aguilar et al. 2024/2025 Supplementary Table S1 | **materialized: 426 source rows / 255 publications / 261 species; outcome fields excluded** | screen publication rows and crosswalk repeated I/F/C systems |
 | SF07 | Olhnuud et al. 2025 Dryad; 80-study source denominator; version 384447 and file IDs verified by public API | source verified; Abundance API download works but Richness returns 401 and UI file routes return HTML; linked Zenodo code contains no data mirror | revisit only through a working official machine-readable Richness route |
-| CF01 | backward/forward citation expansion through 2026-09-18 | **partially executed** for targeted G-pair recovery; full all-seed expansion remains incomplete | execute systematically after the source-frame candidate ledgers are complete enough for uniform citation expansion |
+| CF01 | backward/forward citation expansion through 2026-09-18 | **partial seed manifest frozen: 363 canonical search units; 83 DOI-bearing + 280 citation-only; OpenAlex fail-closed resolver implemented** | resolve bibliography uniformly, then materialize backward/forward citations for every resolvable seed; blocked source frames remain to be added later |
 
 ## Completed quantitative development
 
@@ -101,7 +101,7 @@ Completed or partially materialized:
 2. **SF05** — complete for the published 65-study source-selected subset, but the source itself removed at least nine identities using outcome-related FSGS rules, so its outcome-blind denominator remains incomplete.
 3. **SF06** — outcome-blind publication ledger materialized: 426 source rows, 255 deduplicated publications and 261 species. `Hedges_d` and `V(d)` were excluded from the bibliographic ledger.
 4. **Cross-frame identity firewall** — SF04+SF05+SF06 collapse to 351 canonical publication identities; **11** are already linked to known EGWEE programmes and **340** remain unresolved. The outcome-blind metadata queue contains **60** unresolved multilayer hints after the Heliconia link.
-5. **CF01** — targeted citation expansion has been used for declared G-pair recovery, but the full all-seed backward/forward search has not been completed.
+5. **CF01** — the targeted G-pair recovery is now supplemented by a canonical partial all-seed manifest: 363 search units, of which 83 already carry DOI and 280 require citation resolution. The manifest is outcome-blind and retains blocked-frame incompleteness explicitly.
 
 Access blockers:
 
@@ -114,8 +114,8 @@ Access blockers:
 
 The main line is now:
 
-1. freeze a canonical CF01 seed manifest from the 351 deduplicated SF04/SF05/SF06 identities plus declared eligible primary programmes;
-2. execute one reproducible bibliographic resolution/citation-expansion route uniformly across that seed manifest through the frozen 2026-09-18 cutoff;
+1. complete fail-closed bibliographic resolution of the frozen 363-unit partial CF01 seed manifest through the OpenAlex route;
+2. materialize backward/forward citations uniformly for every resolved seed through the frozen 2026-09-18 cutoff;
 3. restore the missing SF05 outcome-excluded identities where legitimately recoverable;
 4. revisit SF01/SF02/SF03/SF07 only through stable legitimate public object routes rather than repeated blocked-download variants;
 5. deduplicate the expanded records to programme identities and complete title/abstract/method screening before numerical extraction;
