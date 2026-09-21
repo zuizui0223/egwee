@@ -24,6 +24,7 @@ EXISTING_LINKS = {
     ("SF06", "SF06P138"): "P2_SF05_93",
     ("SF06", "SF06P175"): "ML001",
     ("SF05", "93"): "P2_SF05_93",
+    ("SF05", "71"): "P2_SF05_71",
     ("SF06", "SF06P062"): "PS009_CONOSPERMUM",
     ("SF06", "SF06P210"): "ML008",
     ("SF05", "49"): "ML009_PS013",
@@ -243,7 +244,7 @@ def main() -> None:
         r["canonical_identity_key"] for r in out_rows if r["existing_egwee_programme"]
     })
     assert unique_identity_units == 351
-    assert existing_identity_units == 10
+    assert existing_identity_units == 11
 
     with OUT.open("w", newline="", encoding="utf-8") as fh:
         w = csv.DictWriter(fh, fieldnames=out_fields)
