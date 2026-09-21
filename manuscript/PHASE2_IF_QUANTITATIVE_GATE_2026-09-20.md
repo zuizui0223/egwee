@@ -11,10 +11,25 @@ The distinction is deliberate: a good ecological design is not sufficient if the
 | IFQ003 *Erica discolor* | 20 patches: 17 small + 3 large | closed: patch-level I/F values needed for dispersion are graphical only; no preregistered digitization |
 | IFQ006 *Haloxylon ammodendron* | 6 fragmented + 6 natural plots | blocked: dispersion unit not verified as between plots |
 | IFQ007 *Caragana korshinskii* | 6 fragmented + 6 natural plots | blocked: dispersion unit not verified as between plots |
-| IFQ008 *Lithraea molleoides* | continuous vs fragmented forest system | pending exact site n + common frame |
+| IFQ008 *Lithraea molleoides* | 3 fragmented + 3 continuous forest sites | closed: site-level I/F dispersion not tabulated; GLMM contrast cannot be forced into Hedges g |
 | IFQ015 *Myrtus communis* | 3 Large + 3 Small patches | closed under current extraction contract: population-level F dispersion not recoverable |
 | IFQ020 *Phyteuma spicatum* | common-source size × isolation factorial experiment | blocked: exact 2×2 cell replication + between-population I/F dispersion not recovered from current public route |
 | IFQ022 *Psychotria suterella* | non-fragmented / connected / isolated categories across 10 sites | blocked: exact category allocation + site-level I/F dispersion not recovered from current public route |
+
+## Lithraea audit
+
+The dissertation/full-method record resolves the fragmentation geometry that was previously missing:
+
+- **3 fragmented forest sites**;
+- **3 continuous forest sites**;
+- fruit-production sampling used **5–7 female trees per site (38 trees total)**;
+- the fruit-production GLMM treats **site** and **maternal tree nested within site** as random effects.
+
+Pollinator information is reported as landscape-condition assemblage/visitation summaries, including pooled condition-level counts, rather than a recoverable six-site I table. Fruit production is likewise analyzed through the mixed model rather than tabulated as six site-level response values with between-site dispersion.
+
+This means the independent-unit design is valid but the primary Phase-2 Hedges-g effect is not reproducible at the site level. The effect schema explicitly forbids forcing model-based contrasts into Hedges g without compatible standardisation.
+
+IFQ008 is therefore **closed for direct quantitative I-F admission under the current public recovery route**. No result direction or significance is used in that closure.
 
 ## Myrtus audit
 
@@ -59,6 +74,7 @@ Until the accessible source establishes that the reported SD/SE for the locked I
 - design-passing direct/factor-specific I-F candidates examined quantitatively: **7**
 - quantitatively admitted new I-F programmes: **0**
 - direct I-F programme coverage: **1/5** (ML020 only)
+- design-passing candidates with unresolved admission status: **0**
 - effect calculations opened from unresolved dispersion: **0**
 
-Design screening is complete at 32/32. Erica, Myrtus, Phyteuma and Psychotria are now fail-closed under the current public recovery routes; Haloxylon and Caragana remain blocked on fragmentation-level dispersion. Lithraea is the remaining unresolved direct candidate and is the next quantitative-recovery target.
+Design screening is complete at 32/32. Erica, Lithraea, Myrtus, Phyteuma and Psychotria are fail-closed under the current public recovery routes; Haloxylon and Caragana remain blocked because fragmentation-level dispersion has not been verified. All seven design-passing I-F candidates are now quantitatively resolved as closed or blocked, with **0 new admitted programmes**.
