@@ -54,12 +54,42 @@ Brosimum is not used to inflate the pair denominator: its public genotype recons
 
 ## Current pair coverage
 
-- `I-F`: **1/5** independent direct programme;
-- `C-F`: **2/5**;
+- `I-F`: **1/5** independent direct programme; the 32-record outcome-blind SF06 fragmentation screen is complete and yielded 7 design-passing candidates, but all 7 are quantitatively closed/blocked under the current independent-unit/dispersion contract;
+- `C-F`: **2/5**; the corrected 16-record SF05 C-enriched screen is complete and all 16 close because no same-programme eligible F and/or admissible fragmentation geometry is present;
 - `G_adult-G_offspring`: **5/5 — analysis opened and completed**;
-- `G_adult-mean(I,F)`: **0/5**.
+- `G_adult-mean(I,F)`: **0/5**; among the currently materialized unresolved canonical identities, metadata expose **0** records already carrying G_adult + I + F together.
 
 These are information thresholds, never recruitment targets for statistical significance. Every eligible programme in the completed search universe must remain in the corresponding analysis regardless of direction.
+
+## Pair-specific coverage screens completed
+
+### I-F
+
+The SF06-derived metadata firewall identified 32 unresolved publication identities with pollination/interaction, reproductive fitness and source-labelled habitat fragmentation.
+
+All **32/32** have now completed outcome-blind design screening.
+
+- 7 passed the design geometry gate;
+- 24 closed on exposure/independent-unit/common-frame geometry;
+- 1 thesis-level source was routed to programme decomposition;
+- all 7 design-passing candidates were then audited for quantitative recoverability;
+- **0** new I-F programmes were admitted.
+
+The quantitative failures are methodological rather than outcome-based: missing fragmentation-level dispersion, graphical-only patch responses without preregistered digitization, model contrasts without compatible Hedges-g standardisation, or unrecovered site/cell allocation. Direct I-F coverage therefore remains **1/5**.
+
+### C-F
+
+The SF05 C-enriched lane was rebuilt after linking the already-admitted Heliconia programme and fixing a queue-provenance bug. The corrected queue contains **16** unresolved identities.
+
+All **16/16** have completed design screening and **0** advance to quantitative C-F recovery. The dominant reason is biological/evidentiary separation: papers measure pollen/seed movement, mating and genetic state in detail but do not measure an eligible direct reproductive-function endpoint on the same fragmentation exposure.
+
+Direct C-F coverage therefore remains **2/5**.
+
+### G_adult-mean(I,F)
+
+The current materialized SF04/SF05/SF06 cross-frame metadata contain **0 unresolved canonical identities** already tagged with G_adult + I + F together. This is a current-frame observation, not a global absence claim, because SF01/SF02/SF03/SF07 and full citation expansion remain incomplete.
+
+These completed negative screens are stopping evidence, not prompts to relax pair definitions or search until the denominator reaches five.
 
 ## Row materialization progress
 
@@ -70,7 +100,8 @@ Completed or partially materialized:
 1. **SF04** — complete public Figshare publication identity ledger: 38 publications, 38 species, 92 source case rows. Treatment/control means, SDs and sample sizes were intentionally excluded from the Phase-2 bibliography ledger.
 2. **SF05** — complete for the published 65-study source-selected subset, but the source itself removed at least nine identities using outcome-related FSGS rules, so its outcome-blind denominator remains incomplete.
 3. **SF06** — outcome-blind publication ledger materialized: 426 source rows, 255 deduplicated publications and 261 species. `Hedges_d` and `V(d)` were excluded from the bibliographic ledger.
-4. **CF01** — targeted citation expansion has been used for declared G-pair recovery, but the full all-seed backward/forward search has not been completed.
+4. **Cross-frame identity firewall** — SF04+SF05+SF06 collapse to 351 canonical publication identities; **11** are already linked to known EGWEE programmes and **340** remain unresolved. The outcome-blind metadata queue contains **60** unresolved multilayer hints after the Heliconia link.
+5. **CF01** — targeted citation expansion has been used for declared G-pair recovery, but the full all-seed backward/forward search has not been completed.
 
 Access blockers:
 
@@ -83,11 +114,11 @@ Access blockers:
 
 The main line is now:
 
-1. construct an outcome-blind cross-frame identity ledger from the already materialized SF04 + SF05 + SF06 records;
-2. screen/crosswalk duplicated programmes before opening any additional outcome values;
+1. freeze a canonical CF01 seed manifest from the 351 deduplicated SF04/SF05/SF06 identities plus declared eligible primary programmes;
+2. execute one reproducible bibliographic resolution/citation-expansion route uniformly across that seed manifest through the frozen 2026-09-18 cutoff;
 3. restore the missing SF05 outcome-excluded identities where legitimately recoverable;
 4. revisit SF01/SF02/SF03/SF07 only through stable legitimate public object routes rather than repeated blocked-download variants;
-5. complete uniform backward/forward citation expansion through the frozen 2026-09-18 cutoff;
+5. deduplicate the expanded records to programme identities and complete title/abstract/method screening before numerical extraction;
 6. only then evaluate whether the systematic-frame completion gate is satisfied.
 
 Until that is complete, the frozen five-cluster Journal of Ecology manuscript remains the submission-valid baseline even though the adult-versus-offspring pair has reached 5/5 and has a valid Phase-2 estimate.
