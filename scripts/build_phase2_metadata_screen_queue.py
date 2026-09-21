@@ -214,13 +214,13 @@ def main() -> None:
     }
     assert counts == {
         "canonical_identity_units": 351,
-        "existing_egwee_programmes": 10,
-        "unresolved_identity_units": 341,
-        "unresolved_multilayer_metadata_hints": 61,
+        "existing_egwee_programmes": 11,
+        "unresolved_identity_units": 340,
+        "unresolved_multilayer_metadata_hints": 60,
         "unresolved_IF_metadata_hints": 36,
         "primary_IF_fragmentation_design_queue": 32,
         "secondary_IF_nonfragmentation": 4,
-        "other_multilayer_metadata_hints": 25,
+        "other_multilayer_metadata_hints": 24,
         "single_layer_or_no_pair_hint": 280,
     }, counts
 
