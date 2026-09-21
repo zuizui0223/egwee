@@ -395,9 +395,9 @@ def main() -> None:
     assert cross_summary["confirmed_same_publication_groups"] == 7
     assert cross_summary["confirmed_distinct_collision_groups"] == 3
     assert cross_summary["unique_screening_identity_units"] == 351
-    assert cross_summary["existing_egwee_linked_source_rows"] == 12
-    assert cross_summary["existing_egwee_identity_units"] == 10
-    assert cross_summary["not_yet_linked_screening_identity_units"] == 341
+    assert cross_summary["existing_egwee_linked_source_rows"] == 13
+    assert cross_summary["existing_egwee_identity_units"] == 11
+    assert cross_summary["not_yet_linked_screening_identity_units"] == 340
     assert cross_summary["effect_outcomes_opened"] is False
     assert set(cross_summary["confirmed_duplicate_group_keys"]) == {
         "bartlewicz|2015", "browne|2015", "collevatti|2014", "giombini|2017",
@@ -424,8 +424,8 @@ def main() -> None:
     cross_status = CROSSFRAME_STATUS.read_text(encoding="utf-8")
     for token in (
         "358 source-frame rows to 351 screening identity units",
-        "**10** are already linked to known EGWEE programmes",
-        "**341** identities not yet linked",
+        "**11** are already linked to known EGWEE programmes",
+        "**340** identities not yet linked",
         "Zhao 2009",
     ):
         assert token in cross_status, token
@@ -433,13 +433,13 @@ def main() -> None:
     metadata_summary = json.loads(METADATA_SCREEN_SUMMARY.read_text(encoding="utf-8"))
     assert metadata_summary["counts"] == {
         "canonical_identity_units": 351,
-        "existing_egwee_programmes": 10,
-        "unresolved_identity_units": 341,
-        "unresolved_multilayer_metadata_hints": 61,
+        "existing_egwee_programmes": 11,
+        "unresolved_identity_units": 340,
+        "unresolved_multilayer_metadata_hints": 60,
         "unresolved_IF_metadata_hints": 36,
         "primary_IF_fragmentation_design_queue": 32,
         "secondary_IF_nonfragmentation": 4,
-        "other_multilayer_metadata_hints": 25,
+        "other_multilayer_metadata_hints": 24,
         "single_layer_or_no_pair_hint": 280,
     }
     assert metadata_summary["effect_outcomes_opened"] is False
