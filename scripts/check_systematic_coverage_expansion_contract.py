@@ -540,7 +540,7 @@ def main() -> None:
         "IFQ003": "closed_patch_level_IF_values_not_tabulated_no_preregistered_digitization",
         "IFQ006": "blocked_dispersion_unit_not_fragmentation_level_verified",
         "IFQ007": "blocked_dispersion_unit_not_fragmentation_level_verified",
-        "IFQ008": "pending_full_text_site_count_and_common_frame_recovery",
+        "IFQ008": "closed_site_level_IF_dispersion_not_recoverable_model_contrast_not_force_standardised",
         "IFQ015": "closed_population_level_F_values_dispersion_not_recoverable_under_current_contract",
         "IFQ020": "blocked_factorial_cell_replication_and_between_population_dispersion_not_recovered_publicly",
         "IFQ022": "blocked_site_allocation_and_site_level_dispersion_not_recovered_publicly",
@@ -555,7 +555,10 @@ def main() -> None:
         "Design screening is complete at 32/32",
         "20 forest patches",
         "Erica, Myrtus, Phyteuma and Psychotria are now fail-closed",
-        "Lithraea is the remaining unresolved direct candidate",
+        "All seven design-passing I-F candidates are now quantitatively resolved as closed or blocked",
+        "design-passing candidates with unresolved admission status: **0**",
+        "3 fragmented forest sites",
+        "3 continuous forest sites",
     ):
         assert token in if_quant_status, token
 
