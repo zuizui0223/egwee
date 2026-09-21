@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "source": "SF05 outcome-blind bibliographic/title-method layer hints",
-  "candidate_count": 17,
+  "candidate_count": 16,
   "selection_rule": "C_screen present in SF05 metadata and canonical identity not already linked to an existing EGWEE programme",
   "current_CF_direct_coverage": 2,
   "pair_gate": 5,
