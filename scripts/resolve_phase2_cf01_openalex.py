@@ -17,6 +17,7 @@ SUMMARY = ROOT / "evidence/meta_extraction/phase2_cf01_bibliographic_resolution_
 STATUS = ROOT / "manuscript/PHASE2_CF01_BIBLIOGRAPHIC_RESOLUTION_2026-09-21.md"
 
 OPENALEX = "https://api.openalex.org"
+CROSSREF = "https://api.crossref.org"
 USER_AGENT = "EGWEE-Phase2-CF01/1.0"
 SLEEP_SECONDS = 0.16
 
@@ -168,6 +169,106 @@ def resolve_citation(seed: dict[str, str]) -> tuple[dict | None, float, float, d
     return (top if accepted else None), top_score, margin, details, ("" if accepted else "ambiguous_or_low_confidence")
 
 
+
+def crossref_first_author(item: dict) -> str:
+    authors = item.get("author") or []
+    if not authors:
+        return ""
+    return norm((authors[0].get("family") or "").strip())
+
+
+def crossref_year(item: dict) -> int | None:
+    for key in ("published-print", "published-online", "published", "issued"):
+        parts = ((item.get(key) or {}).get("date-parts") or [])
+        if parts and parts[0]:
+            try:
+                return int(parts[0][0])
+            except (TypeError, ValueError):
+                pass
+    return None
+
+
+def score_crossref_candidate(seed: dict[str, str], item: dict) -> tuple[float, dict]:
+    y = year_hint(seed)
+    author = first_author_hint(seed["citation"])
+    volume, page = volume_page_hint(seed["citation"])
+
+    cy = crossref_year(item)
+    cauthor = crossref_first_author(item)
+    cvolume = str(item.get("volume") or "")
+    cpage = str(item.get("page") or "").split("-", 1)[0].strip()
+    titles = item.get("title") or []
+    ctitle = titles[0] if titles else ""
+
+    year_match = y is not None and cy == y
+    author_match = bool(author and cauthor and author == cauthor)
+    volume_match = bool(volume and cvolume and volume == cvolume)
+    page_match = bool(page and cpage and page == cpage)
+    tsim = title_similarity(seed["title"], ctitle) if seed["title"] else 0.0
+
+    score = 0.0
+    score += 3.0 if year_match else 0.0
+    score += 3.0 if author_match else 0.0
+    score += 1.0 if volume_match else 0.0
+    score += 2.0 if page_match else 0.0
+    score += min(4.0, 4.0 * tsim)
+
+    return score, {
+        "year_match": year_match,
+        "author_match": author_match,
+        "volume_match": volume_match,
+        "page_match": page_match,
+        "title_similarity": round(tsim, 6),
+        "crossref_title": ctitle,
+        "crossref_doi": (item.get("DOI") or "").lower(),
+    }
+
+
+def resolve_citation_crossref_to_openalex(
+    seed: dict[str, str],
+) -> tuple[dict | None, float, float, dict, str]:
+    query = seed["citation"] or seed["title"]
+    params = urllib.parse.urlencode({"query.bibliographic": query, "rows": 5})
+    try:
+        obj = get_json(f"{CROSSREF}/works?{params}")
+    except urllib.error.HTTPError as exc:
+        return None, 0.0, 0.0, {}, f"crossref_http_{exc.code}"
+    except Exception as exc:
+        return None, 0.0, 0.0, {}, f"crossref_{type(exc).__name__}"
+
+    items = (((obj.get("message") or {}).get("items")) or [])
+    ranked = []
+    for item in items:
+        score, details = score_crossref_candidate(seed, item)
+        ranked.append((score, item, details))
+    ranked.sort(key=lambda x: x[0], reverse=True)
+    if not ranked:
+        return None, 0.0, 0.0, {}, "crossref_no_results"
+
+    top_score, top, details = ranked[0]
+    second = ranked[1][0] if len(ranked) > 1 else 0.0
+    margin = top_score - second
+    structural_ok = details["author_match"] and details["year_match"]
+    evidence_ok = (
+        details["page_match"]
+        or details["title_similarity"] >= 0.45
+        or (details["volume_match"] and margin >= 1.0)
+    )
+    accepted = structural_ok and evidence_ok and top_score >= 7.0 and margin >= 0.5
+    if not accepted:
+        return None, top_score, margin, details, "crossref_ambiguous_or_low_confidence"
+
+    doi = (top.get("DOI") or "").strip().lower()
+    if not doi:
+        return None, top_score, margin, details, "crossref_match_without_doi"
+
+    work, error = resolve_doi(doi)
+    if work is None:
+        return None, top_score, margin, details, f"crossref_doi_openalex_{error}"
+
+    return work, top_score, margin, details, ""
+
+
 def main() -> None:
     seeds = rows(MANIFEST)
     assert len(seeds) == 363
@@ -190,8 +291,8 @@ def main() -> None:
                 margin = 100.0
                 details = {"doi_exact": True}
         else:
-            work, score, margin, details, error = resolve_citation(seed)
-            method = "openalex_citation_search_fail_closed"
+            work, score, margin, details, error = resolve_citation_crossref_to_openalex(seed)
+            method = "crossref_bibliographic_to_openalex_doi"
 
         if work is None:
             status = "unresolved"
@@ -249,10 +350,15 @@ def main() -> None:
         r["resolution_status"] == "resolved" and r["resolution_method"] == "openalex_doi_exact"
         for r in out
     )
-    resolved_citation = sum(
+    resolved_openalex_citation = sum(
         r["resolution_status"] == "resolved" and r["resolution_method"] == "openalex_citation_search_fail_closed"
         for r in out
     )
+    resolved_crossref_citation = sum(
+        r["resolution_status"] == "resolved" and r["resolution_method"] == "crossref_bibliographic_to_openalex_doi"
+        for r in out
+    )
+    resolved_citation = resolved_openalex_citation + resolved_crossref_citation
 
     summary = {
         "schema_version": 1,
@@ -264,6 +370,8 @@ def main() -> None:
         "resolved_units": len(resolved),
         "resolved_by_exact_doi": resolved_doi,
         "resolved_by_fail_closed_citation_search": resolved_citation,
+        "resolved_by_openalex_citation_search": resolved_openalex_citation,
+        "resolved_by_crossref_bibliographic_to_openalex_doi": resolved_crossref_citation,
         "unresolved_units": len(unresolved),
         "resolution_rate": round(len(resolved) / len(seeds), 6),
         "acceptance_rule": (
@@ -289,7 +397,7 @@ No effect-size or significance field is queried or used.
 - citation-only seeds: **{len(citation_only)}**;
 - resolved total: **{len(resolved)}**;
 - resolved by exact DOI: **{resolved_doi}**;
-- resolved by fail-closed citation search: **{resolved_citation}**;
+- resolved by fail-closed citation search: **{resolved_citation}**;\n- resolved through Crossref bibliographic match → OpenAlex exact DOI: **{resolved_crossref_citation}**;
 - unresolved: **{len(unresolved)}**;
 - resolution rate: **{len(resolved)/len(seeds):.1%}**.
 
@@ -297,7 +405,7 @@ No effect-size or significance field is queried or used.
 
 DOI-bearing seeds are resolved only through exact DOI lookup.
 
-Citation-only seeds require:
+Citation-only seeds use Crossref bibliographic lookup and then require an exact DOI handoff to OpenAlex. They require:
 
 1. exact first-author surname;
 2. exact publication year;
@@ -315,7 +423,7 @@ Only resolved units are eligible for automated backward/forward citation materia
     print(
         "PHASE2_CF01_BIBLIOGRAPHIC_RESOLUTION_OK "
         f"seeds={len(seeds)} resolved={len(resolved)} doi={resolved_doi} "
-        f"citation={resolved_citation} unresolved={len(unresolved)} outcomes_opened=false"
+        f"citation={resolved_citation} crossref={resolved_crossref_citation} unresolved={len(unresolved)} outcomes_opened=false"
     )
 
 
