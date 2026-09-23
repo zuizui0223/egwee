@@ -1,13 +1,6 @@
 name: Resolve Phase-2 CF01 bibliography
 
 on:
-  push:
-    branches:
-      - meta/systematic-coverage-moderator-expansion-2026-09-16
-    paths:
-      - 'scripts/resolve_phase2_cf01_openalex.py'
-      - '.github/workflows/resolve-phase2-cf01-openalex.yml'
-      - 'evidence/meta_extraction/phase2_cf01_seed_manifest_v1.csv'
   workflow_dispatch:
 
 permissions:
@@ -38,5 +31,6 @@ jobs:
             echo 'No CF01 bibliographic changes'
           else
             git commit -m 'Resolve Phase-2 CF01 bibliography'
+            git pull --rebase origin meta/systematic-coverage-moderator-expansion-2026-09-16
             git push origin HEAD:meta/systematic-coverage-moderator-expansion-2026-09-16
           fi
