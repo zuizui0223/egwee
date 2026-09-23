@@ -147,28 +147,41 @@ def main() -> None:
     unresolved = [r for r in resolutions if r["resolution_status"] != "resolved"]
     assert resolved, "bibliographic resolution produced no resolved seeds"
 
-    resolved_seed_openalex = {
-        short_id(r["openalex_id"]) for r in resolved if r["openalex_id"]
+    seed_ids_by_openalex: dict[str, list[str]] = defaultdict(list)
+    for r in resolved:
+        oa = short_id(r["openalex_id"])
+        assert oa, r
+        seed_ids_by_openalex[oa].append(r["cf01_seed_id"])
+    resolved_seed_openalex = set(seed_ids_by_openalex)
+    duplicate_resolved_work_groups = {
+        oa: sorted(seed_ids)
+        for oa, seed_ids in seed_ids_by_openalex.items()
+        if len(seed_ids) > 1
     }
-    assert len(resolved_seed_openalex) == len(resolved), (
-        len(resolved_seed_openalex), len(resolved)
-    )
 
-    # Fetch each seed once. This gives the complete outgoing reference list.
-    seed_work: dict[str, dict] = {}
+    # Fetch each unique resolved OpenAlex work once. Multiple manifest seeds
+    # may resolve to the same publication; preserve all seed IDs as provenance
+    # without duplicating API calls or pretending they are distinct works.
+    work_by_openalex: dict[str, dict] = {}
     all_backward_ids: set[str] = set()
     seed_fetch_failures: list[tuple[str, str]] = []
-    for idx, r in enumerate(resolved, start=1):
-        sid = r["cf01_seed_id"]
+    unique_openalex_items = sorted(resolved_seed_openalex)
+    for idx, oa in enumerate(unique_openalex_items, start=1):
         try:
-            work = fetch_seed_work(r["openalex_id"])
+            work = fetch_seed_work(oa)
         except Exception as exc:
-            seed_fetch_failures.append((sid, type(exc).__name__))
+            for sid in seed_ids_by_openalex[oa]:
+                seed_fetch_failures.append((sid, type(exc).__name__))
             continue
-        seed_work[sid] = work
+        work_by_openalex[oa] = work
         all_backward_ids.update(work.get("referenced_works") or [])
-        if idx < len(resolved):
+        if idx < len(unique_openalex_items):
             time.sleep(SLEEP_SECONDS)
+
+    seed_work: dict[str, dict] = {}
+    for oa, work in work_by_openalex.items():
+        for sid in seed_ids_by_openalex[oa]:
+            seed_work[sid] = work
 
     # Resolve outgoing-reference metadata in batches.
     backward_meta = fetch_backward_metadata(all_backward_ids)
@@ -188,23 +201,24 @@ def main() -> None:
             if cand in backward_meta:
                 candidate_meta[cand] = backward_meta[cand]
 
-    # Forward citations: no ranking-based selection. Cursor through all works
-    # OpenAlex reports as citing each resolved seed.
-    for idx, r in enumerate(resolved, start=1):
-        sid = r["cf01_seed_id"]
+    # Forward citations: query each unique resolved work once, then attach the
+    # complete citing-work set to every manifest seed that maps to that work.
+    resolved_oa_list = sorted(resolved_seed_openalex)
+    for idx, seed_oa in enumerate(resolved_oa_list, start=1):
         try:
-            citing = fetch_forward(r["openalex_id"])
+            citing = fetch_forward(seed_oa)
         except Exception as exc:
-            forward_query_failures.append((sid, type(exc).__name__))
+            for sid in seed_ids_by_openalex[seed_oa]:
+                forward_query_failures.append((sid, type(exc).__name__))
             continue
-        seed_oa = short_id(r["openalex_id"])
         for work in citing:
             cand = short_id(work.get("id") or "")
             if not cand or cand == seed_oa:
                 continue
-            links.add((sid, "forward_citation", cand))
             candidate_meta[cand] = work
-        if idx < len(resolved):
+            for sid in seed_ids_by_openalex[seed_oa]:
+                links.add((sid, "forward_citation", cand))
+        if idx < len(resolved_oa_list):
             time.sleep(SLEEP_SECONDS)
 
     # Keep unresolved metadata edges visible rather than silently dropping them.
@@ -316,6 +330,10 @@ def main() -> None:
         "cutoff": CUTOFF.isoformat(),
         "seed_manifest_units": len(seeds),
         "resolved_seed_units": len(resolved),
+        "unique_resolved_seed_works": len(resolved_seed_openalex),
+        "duplicate_resolved_work_groups": len(duplicate_resolved_work_groups),
+        "duplicate_resolved_seed_units": sum(len(v) - 1 for v in duplicate_resolved_work_groups.values()),
+        "duplicate_resolved_work_seed_ids": duplicate_resolved_work_groups,
         "unresolved_seed_units_not_expanded": len(unresolved),
         "seed_work_fetch_failures": len(seed_fetch_failures),
         "forward_query_failures": len(forward_query_failures),
@@ -353,7 +371,7 @@ Every bibliographically resolved CF01 seed is expanded uniformly through the Ope
 ## Current materialization
 
 - seed manifest units: **{len(seeds)}**;
-- bibliographically resolved seeds expanded: **{len(resolved)}**;
+- bibliographically resolved seed units: **{len(resolved)}**;\n- unique resolved OpenAlex works expanded: **{len(resolved_seed_openalex)}**;\n- duplicate resolved-work groups retained as shared provenance: **{len(duplicate_resolved_work_groups)}**;
 - unresolved seeds retained but not expanded: **{len(unresolved)}**;
 - unique discovered candidate works: **{len(candidate_rows)}**;
 - citation edges: **{len(edge_rows)}**;
@@ -374,7 +392,7 @@ Deduplicate the eligible new candidate works against the current 363-seed manife
 
     print(
         "PHASE2_CF01_CITATION_EXPANSION_OK "
-        f"resolved_seeds={len(resolved)} candidates={len(candidate_rows)} "
+        f"resolved_seeds={len(resolved)} unique_seed_works={len(resolved_seed_openalex)} duplicate_groups={len(duplicate_resolved_work_groups)} candidates={len(candidate_rows)} "
         f"eligible_new={len(eligible_new)} edges={len(edge_rows)} "
         f"date_pending={len(date_pending)} outcomes_opened=false"
     )
