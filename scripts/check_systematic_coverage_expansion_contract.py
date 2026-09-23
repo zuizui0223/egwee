@@ -609,7 +609,7 @@ def main() -> None:
         "effect calculations opened from unresolved dispersion: **0**",
         "Design screening is complete at 32/32",
         "20 forest patches",
-        "Erica, Myrtus, Phyteuma and Psychotria are now fail-closed",
+        "Erica, Lithraea, Myrtus, Phyteuma and Psychotria are fail-closed",
         "All seven design-passing I-F candidates are now quantitatively resolved as closed or blocked",
         "design-passing candidates with unresolved admission status: **0**",
         "3 fragmented forest sites",
