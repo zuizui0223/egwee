@@ -67,7 +67,7 @@ def main() -> None:
         if r["resolution_status"] == "resolved" and r["openalex_id"]
     }
     seed_dois = {r["doi"].strip().lower() for r in seeds if r["doi"].strip()}
-    seed_titles = {norm(r["title"]) for r in seeds if norm(r["title"])}
+    seed_title_year = {(norm(r["title"]), r["year"].strip()) for r in seeds if norm(r["title"]) and r["year"].strip()}
 
     unresolved_author_year: dict[tuple[str, str], set[str]] = defaultdict(set)
     for seed in seeds:
@@ -92,8 +92,8 @@ def main() -> None:
             exact_reasons.append("openalex_id")
         if doi and doi in seed_dois:
             exact_reasons.append("doi")
-        if title_key and title_key in seed_titles:
-            exact_reasons.append("normalized_title")
+        if title_key and year and (title_key, year) in seed_title_year:
+            exact_reasons.append("normalized_title_plus_year")
 
         unresolved_collision_ids = sorted(unresolved_author_year.get((author, year), set()))
 
@@ -153,7 +153,7 @@ def main() -> None:
         "unresolved_seed_author_year_keys": len(unresolved_author_year),
         "screening_status_counts": dict(sorted(counts.items())),
         "deduplication_rule": (
-            "exact OpenAlex ID, DOI, or normalized title => existing seed; "
+            "exact OpenAlex ID, DOI, or normalized title + publication year => existing seed; "
             "author-year collision with unresolved seed => adjudicate, never auto-collapse; "
             "only cutoff-eligible candidates with no detected seed collision enter title/abstract/method screening"
         ),
@@ -181,7 +181,7 @@ A discovered candidate is treated as an existing seed when it matches a seed by:
 
 - exact OpenAlex work ID;
 - exact DOI; or
-- exact normalized title.
+- exact normalized title plus publication year.
 
 A candidate that only shares first-author surname + publication year with a still-unresolved
 seed is not auto-collapsed and is not sent directly to ecological screening. It enters
