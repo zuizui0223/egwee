@@ -457,7 +457,7 @@ def main() -> None:
     assert len(cross_rows) == 358
     assert len({r["canonical_identity_key"] for r in cross_rows}) == 351
     assert all(r["outcome_opened"] == "no" for r in cross_rows)
-    assert len({r["canonical_identity_key"] for r in cross_rows if r["existing_egwee_programme"]}) == 10
+    assert len({r["canonical_identity_key"] for r in cross_rows if r["existing_egwee_programme"]}) == 11
     assert all(
         r["identity_action"] == "link_existing_egwee_programme_do_not_recruit_as_new"
         for r in cross_rows if r["existing_egwee_programme"]
