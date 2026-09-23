@@ -6,9 +6,6 @@ on:
       - meta/systematic-coverage-moderator-expansion-2026-09-16
     paths:
       - 'evidence/meta_extraction/phase2_cf01_citation_candidate_universe_v1.csv'
-      - 'evidence/meta_extraction/phase2_cf01_bibliographic_resolution_v1.csv'
-      - 'scripts/build_phase2_cf01_candidate_queue.py'
-      - '.github/workflows/build-phase2-cf01-candidate-queue.yml'
   workflow_dispatch:
 
 permissions:
