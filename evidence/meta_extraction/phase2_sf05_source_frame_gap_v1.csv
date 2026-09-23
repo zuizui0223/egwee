@@ -3,7 +3,7 @@ SF05,database_search,343,0,source_reports_count_only,reconstruct outcome-blind s
 SF05,nonduplicate_records,243,0,source_reports_count_only,reconstruct before quantitative outcome screening
 SF05,source_eligible_records,200,0,source_reports_count_only,do not assume absence from Table S1 means EGWEE ineligibility
 SF05,habitat_status_plus_Sp,74,65,nine identities missing from published Table S1,recover at least the nine source-omitted identities before calling SF05 screening complete
-SF05,source_outcome_excluded_non_significant_FSGS,6,0,outcome_based_source_exclusion,must be restored to EGWEE candidate screening if identities are recovered
-SF05,source_outcome_excluded_outlier_Sp,3,0,outcome_based_source_exclusion,must be restored to EGWEE candidate screening if identities are recovered
+SF05,source_outcome_excluded_non_significant_FSGS,6,0,outcome_based_source_exclusion,"not recoverable from any of the six public workbook sheets; restore via CF01/broader outcome-blind bibliographic search if identities are independently recovered"
+SF05,source_outcome_excluded_outlier_Sp,3,0,outcome_based_source_exclusion,"not recoverable from any of the six public workbook sheets; restore via CF01/broader outcome-blind bibliographic search if identities are independently recovered"
 SF05,published_Table_S1_systematic_review_subset,65,65,complete_for_source_selected_subset_only,"use as bibliographic seed subset, not as the outcome-blind denominator"
 SF05,published_meta_analysis_subset,31,31,complete_for_source_meta_subset,retain source membership as metadata only
