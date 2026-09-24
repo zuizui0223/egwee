@@ -112,6 +112,12 @@ on:
       - 'evidence/meta_extraction/phase2_cf01_brassica_mendeley_manifest_v1.json'
       - 'manuscript/PHASE2_CF01_BRASSICA_MENDELEY_SCHEMA_2026-09-24.md'
       - 'manuscript/PHASE2_CF01_BRASSICA_QUANTITATIVE_GATE_2026-09-24.md'
+      - 'manuscript/CF01_CARDIOPETALUM_2012_GRADIENT_RECOVERY_RULE.md'
+      - 'evidence/meta_extraction/phase2_cf01_cardiopetalum_table1_v1.csv'
+      - 'evidence/meta_extraction/phase2_cf01_cardiopetalum_gradient_effects_v1.csv'
+      - 'evidence/meta_extraction/phase2_cf01_cardiopetalum_gradient_covariance_v1.json'
+      - 'manuscript/PHASE2_CF01_CARDIOPETALUM_GRADIENT_RECOVERY_2026-09-24.md'
+      - 'scripts/check_phase2_cf01_cardiopetalum_gradient.py'
       - 'scripts/check_phase2_cf01_target_pair_screen.py'
       - 'manuscript/meta_analysis_moderator_schema_v1.csv'
       - 'manuscript/meta_analysis_recovery_priority_v2.csv'
@@ -230,6 +236,12 @@ on:
       - 'evidence/meta_extraction/phase2_cf01_brassica_mendeley_manifest_v1.json'
       - 'manuscript/PHASE2_CF01_BRASSICA_MENDELEY_SCHEMA_2026-09-24.md'
       - 'manuscript/PHASE2_CF01_BRASSICA_QUANTITATIVE_GATE_2026-09-24.md'
+      - 'manuscript/CF01_CARDIOPETALUM_2012_GRADIENT_RECOVERY_RULE.md'
+      - 'evidence/meta_extraction/phase2_cf01_cardiopetalum_table1_v1.csv'
+      - 'evidence/meta_extraction/phase2_cf01_cardiopetalum_gradient_effects_v1.csv'
+      - 'evidence/meta_extraction/phase2_cf01_cardiopetalum_gradient_covariance_v1.json'
+      - 'manuscript/PHASE2_CF01_CARDIOPETALUM_GRADIENT_RECOVERY_2026-09-24.md'
+      - 'scripts/check_phase2_cf01_cardiopetalum_gradient.py'
       - 'scripts/check_phase2_cf01_target_pair_screen.py'
       - 'manuscript/meta_analysis_moderator_schema_v1.csv'
       - 'manuscript/meta_analysis_recovery_priority_v2.csv'
@@ -262,6 +274,8 @@ jobs:
         run: python scripts/check_phase2_cf01_milkweed_gradient.py
       - name: Validate Acer miyabei retrospective gradient programme
         run: python scripts/check_phase2_cf01_acer_miyabei_gradient.py
+      - name: Validate Cardiopetalum retrospective gradient programme
+        run: python scripts/check_phase2_cf01_cardiopetalum_gradient.py
       - name: Validate CF01 target-pair screen and Brassica gate
         run: python scripts/check_phase2_cf01_target_pair_screen.py
       - name: Validate systematic coverage and moderator expansion contract
