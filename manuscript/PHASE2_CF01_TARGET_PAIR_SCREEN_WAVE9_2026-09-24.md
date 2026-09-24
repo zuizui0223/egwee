@@ -15,11 +15,11 @@ Wave 9 screened CFTQ0081–CFTQ0090 under the frozen outcome-blind candidate-scr
 
 ### CFTQ0084 — western-European landscape configuration
 
-The source samples 229 agricultural landscapes across four western-European regions and uses source-defined field-border density as configurational heterogeneity. Wild-pollinator abundance/diversity and sentinel radish seed set are measured in the same landscape programme.
+The source samples **94 independent 1-km² agricultural landscapes** across four western-European regions, containing **229 focal fields** (1–3 per landscape), and uses landscape-level field-border density as configurational heterogeneity. Wild-pollinator abundance/diversity and sentinel radish seed set are measured in that nested landscape → field programme.
 
 This is a candidate for the registered **gradient/generalisation I-F stream**, not a binary fragmented-versus-reference Hedges-g programme. Full-text/data recovery must lock:
 
-1. the independent landscape unit and country/region hierarchy;
+1. **landscape (n=94), not focal field (n=229), as the independent exposure unit**, with fields nested within landscapes and landscapes grouped by country/region;
 2. one I endpoint before numerical extraction;
 3. radish seed set as F;
 4. the field-border-density exposure;
