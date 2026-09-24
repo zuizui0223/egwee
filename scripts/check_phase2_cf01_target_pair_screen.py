@@ -25,6 +25,9 @@ BRASSICA_CONTRACT = ROOT / "manuscript/CF01_BRASSICA_GUATEMALA_2024_RECOVERY_CON
 BRASSICA_MANIFEST = ROOT / "evidence/meta_extraction/phase2_cf01_brassica_mendeley_manifest_v1.json"
 BRASSICA_SCHEMA = ROOT / "manuscript/PHASE2_CF01_BRASSICA_MENDELEY_SCHEMA_2026-09-24.md"
 BRASSICA_GATE = ROOT / "manuscript/PHASE2_CF01_BRASSICA_QUANTITATIVE_GATE_2026-09-24.md"
+BDFFP_SCHEMA = ROOT / "evidence/meta_extraction/phase2_cf01_bdffp_dryad_schema_v1.json"
+BDFFP_STATUS = ROOT / "manuscript/PHASE2_CF01_BDFFP_DRYAD_SCHEMA_2026-09-24.md"
+HASS_CONTRACT = ROOT / "manuscript/CF01_HASS_WEUROPE_2018_GRADIENT_RECOVERY_CONTRACT.md"
 
 
 def rows(path: Path) -> list[dict[str, str]]:
@@ -35,7 +38,7 @@ def rows(path: Path) -> list[dict[str, str]]:
 def main() -> None:
     for p in (
         QUEUE, SCREEN, FULLTEXT, PAIR_COVERAGE, WAVE3, WAVE4, WAVE5, WAVE6, WAVE7, WAVE8, WAVE9, MILKWEED_CHECK,
-        BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE,
+        BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE, BDFFP_SCHEMA, BDFFP_STATUS, HASS_CONTRACT,
     ):
         assert p.is_file(), p
 
@@ -237,7 +240,7 @@ def main() -> None:
     assert "CFTQ0065" in fulltext
     bdffp = fulltext["CFTQ0065"]
     assert bdffp["programme_identity"] == "P2_CF01_BDFFP_SEED_RAIN_2020"
-    assert bdffp["quantitative_gate_status"] == "recovery_contract_frozen_public_plot_data_pending"
+    assert bdffp["quantitative_gate_status"] == "blocked_public_dryad_file_bytes_not_recoverable"
     assert int(bdffp["pair_programme_increment"]) == 0
     assert bdffp["effect_calculation_opened"] == "no"
 
@@ -261,6 +264,54 @@ def main() -> None:
     assert banksia["quantitative_gate_status"] == "close_no_common_IF_fragmentation_frame"
     assert int(banksia["pair_programme_increment"]) == 0
     assert banksia["effect_calculation_opened"] == "no"
+
+    assert "CFTQ0084" in fulltext
+    hass = fulltext["CFTQ0084"]
+    assert hass["programme_identity"] == "P2_CF01_HASS_WEUROPE_2018"
+    assert hass["quantitative_gate_status"] == "recovery_contract_frozen_public_supplement_pending"
+    assert "94 landscapes" in hass["independent_unit"]
+    assert "229 focal fields" in hass["independent_unit"]
+    assert int(hass["pair_programme_increment"]) == 0
+    assert hass["effect_calculation_opened"] == "no"
+
+    assert "CFTQ0088" in fulltext
+    aloe = fulltext["CFTQ0088"]
+    assert aloe["programme_identity"] == "P2_CF01_ALOE_THRASKII_2018"
+    assert aloe["quantitative_gate_status"] == "pending_fulltext_habitat_exposure_definition"
+    assert int(aloe["pair_programme_increment"]) == 0
+    assert aloe["effect_calculation_opened"] == "no"
+
+    bdffp_schema = json.loads(BDFFP_SCHEMA.read_text(encoding="utf-8"))
+    assert bdffp_schema["candidate"] == "CFTQ0065"
+    assert bdffp_schema["dataset_doi"] == "10.5061/dryad.612jm640h"
+    assert bdffp_schema["access_status"] == "public_metadata_visible_file_bytes_blocked"
+    assert set(bdffp_schema["indexed_files"]) == {
+        "density.rich.data.xlsx", "dispersed.matrix.xlsx",
+        "functional.diversity.xlsx", "undispersed.matrix.xlsx"
+    }
+    assert bdffp_schema["downloaded_files"] == {}
+    assert bdffp_schema["effect_outcomes_opened"] is False
+    assert bdffp_schema["numeric_effects_calculated"] is False
+
+    bdffp_status = BDFFP_STATUS.read_text(encoding="utf-8")
+    for token in (
+        "public file-byte access: **blocked**",
+        "access/recoverability",
+        "not an ecological null",
+        "authentication bypass",
+    ):
+        assert token in bdffp_status, token
+
+    hass_contract = HASS_CONTRACT.read_text(encoding="utf-8")
+    for token in (
+        "94 independent 1-km² agricultural landscapes",
+        "229 focal fields",
+        "independent EGWEE unit = landscape",
+        "Primary I = **wild-bee abundance**",
+        "Primary F = **mean radish seeds per pod**",
+        "fragmentation_severity = - field_border_density",
+    ):
+        assert token in hass_contract, token
 
     manifest = json.loads(BRASSICA_MANIFEST.read_text(encoding="utf-8"))
     assert manifest["dataset_id"] == "6jw833yrt4"
@@ -309,7 +360,7 @@ def main() -> None:
         "PHASE2_CF01_TARGET_PAIR_SCREEN_OK "
         "queue=360 screened=90 pending=270 wave3_advance=1 wave4_advance=0 wave5_advance=1 wave6_advance=2 wave7_advance=3 wave8_advance=1 wave9_advance=2 "
         "brassica_increment=0 milkweed_gradient_increment=1 phacelia_increment=0 hedysarum_increment=0 "
-        "bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=0 direct_IF=1/5 direct_CF=2/5"
+        "bdffp_access_stop=1 hass_pending=1 aloe_pending=1 bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=0 direct_IF=1/5 direct_CF=2/5"
     )
 
 
