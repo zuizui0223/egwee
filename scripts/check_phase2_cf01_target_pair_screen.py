@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import csv
 import json
+import subprocess
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -12,6 +14,8 @@ PAIR_COVERAGE = ROOT / "evidence/meta_extraction/coverage_expansion_pair_coverag
 
 WAVE3 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE3_2026-09-24.md"
 WAVE4 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE4_2026-09-24.md"
+WAVE5 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE5_2026-09-24.md"
+MILKWEED_CHECK = ROOT / "scripts/check_phase2_cf01_milkweed_gradient.py"
 
 BRASSICA_CONTRACT = ROOT / "manuscript/CF01_BRASSICA_GUATEMALA_2024_RECOVERY_CONTRACT.md"
 BRASSICA_MANIFEST = ROOT / "evidence/meta_extraction/phase2_cf01_brassica_mendeley_manifest_v1.json"
@@ -26,21 +30,21 @@ def rows(path: Path) -> list[dict[str, str]]:
 
 def main() -> None:
     for p in (
-        QUEUE, SCREEN, FULLTEXT, PAIR_COVERAGE, WAVE3, WAVE4,
+        QUEUE, SCREEN, FULLTEXT, PAIR_COVERAGE, WAVE3, WAVE4, WAVE5, MILKWEED_CHECK,
         BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE,
     ):
         assert p.is_file(), p
 
     queue = rows(QUEUE)
     assert len(queue) == 360
-    assert [r["queue_id"] for r in queue[:40]] == [f"CFTQ{i:04d}" for i in range(1, 41)]
+    assert [r["queue_id"] for r in queue[:50]] == [f"CFTQ{i:04d}" for i in range(1, 51)]
     assert all(r["outcome_opened"] == "no" for r in queue)
 
     screen = rows(SCREEN)
-    assert len(screen) == 40
-    assert [r["queue_id"] for r in screen] == [f"CFTQ{i:04d}" for i in range(1, 41)]
-    assert {r["screen_wave"] for r in screen} == {"1", "2", "3", "4"}
-    assert all(sum(r["screen_wave"] == str(w) for r in screen) == 10 for w in range(1, 5))
+    assert len(screen) == 50
+    assert [r["queue_id"] for r in screen] == [f"CFTQ{i:04d}" for i in range(1, 51)]
+    assert {r["screen_wave"] for r in screen} == {"1", "2", "3", "4", "5"}
+    assert all(sum(r["screen_wave"] == str(w) for r in screen) == 10 for w in range(1, 6))
     assert all(r["outcome_opened"] == "no" for r in screen)
     assert all(r["outcome_blind_confirmation"] == "yes" for r in screen)
 
@@ -57,6 +61,15 @@ def main() -> None:
     assert "CFTQ0032" in by_id["CFTQ0036"]["pair_frame_status"]
     assert by_id["CFTQ0034"]["screen_decision"] == "close_no_fragmentation_contrast"
     assert by_id["CFTQ0038"]["screen_decision"] == "close_no_habitat_fragmentation_exposure"
+
+    wave5 = [r for r in screen if r["screen_wave"] == "5"]
+    assert [r["queue_id"] for r in wave5] == [f"CFTQ{i:04d}" for i in range(41, 51)]
+    assert [r["queue_id"] for r in wave5 if r["screen_decision"] == "advance_full_text_design_screen"] == ["CFTQ0044"]
+    assert sum(r["screen_decision"].startswith("close_") for r in wave5) == 9
+    assert by_id["CFTQ0043"]["screen_decision"] == "close_duplicate_publication"
+    assert "CFTQ0039" in by_id["CFTQ0043"]["pair_frame_status"]
+    assert by_id["CFTQ0049"]["screen_decision"] == "close_no_direct_F"
+    assert by_id["CFTQ0050"]["screen_decision"] == "close_nonprimary_modelled_fragmentation"
 
     w3 = WAVE3.read_text(encoding="utf-8")
     for token in (
@@ -79,6 +92,17 @@ def main() -> None:
     ):
         assert token in w4, token
 
+    w5 = WAVE5.read_text(encoding="utf-8")
+    for token in (
+        "screened in wave 5: **10**",
+        "advance to full-text design/quantitative recovery: **1**",
+        "cumulative target-pair screen: **50 / 360**",
+        "pending target-pair screen: **310**",
+        "CFTQ0044",
+        "10.1007/s11252-022-01278-9",
+    ):
+        assert token in w5, token
+
     fulltext = {r["queue_id"]: r for r in rows(FULLTEXT)}
     assert "CFTQ0030" in fulltext
     b = fulltext["CFTQ0030"]
@@ -86,6 +110,27 @@ def main() -> None:
     assert b["quantitative_gate_status"] == "blocked_primary_I_raw_not_publicly_recoverable_under_locked_contract"
     assert int(b["pair_programme_increment"]) == 0
     assert b["effect_calculation_opened"] == "no"
+
+    assert "CFTQ0044" in fulltext
+    m = fulltext["CFTQ0044"]
+    assert m["programme_identity"] == "P2_CF01_MILKWEED_URBAN_2023"
+    assert m["identity_status"] == "peer_reviewed_replacement_of_preprint"
+    assert m["quantitative_gate_status"] == "recovered_gradient_generalisation_multilayer_cluster"
+    assert int(m["pair_programme_increment"]) == 0
+    assert m["effect_calculation_opened"] == "yes"
+
+    milk_proc = subprocess.run(
+        [sys.executable, str(MILKWEED_CHECK)],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    assert "PHASE2_CF01_MILKWEED_CHECK_OK" in milk_proc.stdout
+    assert "primary_n=31" in milk_proc.stdout
+    assert "sensitivity_n=38" in milk_proc.stdout
+    assert "gradient_programmes=3" in milk_proc.stdout
+    assert "direct_IF=1/5" in milk_proc.stdout
 
     manifest = json.loads(BRASSICA_MANIFEST.read_text(encoding="utf-8"))
     assert manifest["dataset_id"] == "6jw833yrt4"
@@ -132,8 +177,8 @@ def main() -> None:
 
     print(
         "PHASE2_CF01_TARGET_PAIR_SCREEN_OK "
-        "queue=360 screened=40 pending=320 wave3_advance=1 wave4_advance=0 "
-        "brassica_increment=0 direct_IF=1/5"
+        "queue=360 screened=50 pending=310 wave3_advance=1 wave4_advance=0 wave5_advance=1 "
+        "brassica_increment=0 milkweed_gradient_increment=1 primary_IF_increment=0 direct_IF=1/5"
     )
 
 
