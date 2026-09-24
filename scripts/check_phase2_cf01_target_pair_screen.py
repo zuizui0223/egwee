@@ -25,6 +25,7 @@ WAVE12 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE12_2026-09-24.md"
 WAVE13 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE13_2026-09-24.md"
 WAVE14 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE14_2026-09-24.md"
 WAVE15 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE15_2026-09-24.md"
+WAVE16 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE16_2026-09-24.md"
 MILKWEED_CHECK = ROOT / "scripts/check_phase2_cf01_milkweed_gradient.py"
 
 BRASSICA_CONTRACT = ROOT / "manuscript/CF01_BRASSICA_GUATEMALA_2024_RECOVERY_CONTRACT.md"
@@ -45,6 +46,8 @@ PLECTRITIS_ACCESS = ROOT / "manuscript/PHASE2_CF01_PLECTRITIS_ACCESS_GATE_2026-0
 CABRALEA_ACCESS = ROOT / "manuscript/PHASE2_CF01_CABRALEA_ACCESS_GATE_2026-09-24.md"
 COMARUM_CONTRACT = ROOT / "manuscript/CF01_COMARUM_2014_GRADIENT_RECOVERY_CONTRACT.md"
 COMARUM_ACCESS = ROOT / "manuscript/PHASE2_CF01_COMARUM_ACCESS_GATE_2026-09-24.md"
+AEXTOXICON_ANCHOR = ROOT / "manuscript/PHASE2_CF01_AEXTOXICON_PROCESS_ANCHOR_2026-09-24.md"
+SCHUEPP_CONTRACT = ROOT / "manuscript/CF01_SCHUEPP_CHERRY_2014_GRADIENT_RECOVERY_CONTRACT.md"
 
 
 def rows(path: Path) -> list[dict[str, str]]:
@@ -54,21 +57,21 @@ def rows(path: Path) -> list[dict[str, str]]:
 
 def main() -> None:
     for p in (
-        QUEUE, SCREEN, FULLTEXT, PAIR_COVERAGE, WAVE3, WAVE4, WAVE5, WAVE6, WAVE7, WAVE8, WAVE9, WAVE10, WAVE11, WAVE12, WAVE13, WAVE14, WAVE15, MILKWEED_CHECK,
-        BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE, BDFFP_SCHEMA, BDFFP_STATUS, HASS_CONTRACT, HASS_SCHEMA, HASS_STATUS, THAI_ORCHARD_CONTRACT, THAI_ORCHARD_ACCESS, THAI_ORCHARD_STATUS, PLECTRITIS_CONTRACT, CABRALEA_CONTRACT, PLECTRITIS_ACCESS, CABRALEA_ACCESS, COMARUM_CONTRACT, COMARUM_ACCESS,
+        QUEUE, SCREEN, FULLTEXT, PAIR_COVERAGE, WAVE3, WAVE4, WAVE5, WAVE6, WAVE7, WAVE8, WAVE9, WAVE10, WAVE11, WAVE12, WAVE13, WAVE14, WAVE15, WAVE16, MILKWEED_CHECK,
+        BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE, BDFFP_SCHEMA, BDFFP_STATUS, HASS_CONTRACT, HASS_SCHEMA, HASS_STATUS, THAI_ORCHARD_CONTRACT, THAI_ORCHARD_ACCESS, THAI_ORCHARD_STATUS, PLECTRITIS_CONTRACT, CABRALEA_CONTRACT, PLECTRITIS_ACCESS, CABRALEA_ACCESS, COMARUM_CONTRACT, COMARUM_ACCESS, AEXTOXICON_ANCHOR, SCHUEPP_CONTRACT,
     ):
         assert p.is_file(), p
 
     queue = rows(QUEUE)
     assert len(queue) == 360
-    assert [r["queue_id"] for r in queue[:150]] == [f"CFTQ{i:04d}" for i in range(1, 151)]
+    assert [r["queue_id"] for r in queue[:160]] == [f"CFTQ{i:04d}" for i in range(1, 161)]
     assert all(r["outcome_opened"] == "no" for r in queue)
 
     screen = rows(SCREEN)
-    assert len(screen) == 150
-    assert [r["queue_id"] for r in screen] == [f"CFTQ{i:04d}" for i in range(1, 151)]
-    assert {r["screen_wave"] for r in screen} == {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"}
-    assert all(sum(r["screen_wave"] == str(w) for r in screen) == 10 for w in range(1, 16))
+    assert len(screen) == 160
+    assert [r["queue_id"] for r in screen] == [f"CFTQ{i:04d}" for i in range(1, 161)]
+    assert {r["screen_wave"] for r in screen} == {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"}
+    assert all(sum(r["screen_wave"] == str(w) for r in screen) == 10 for w in range(1, 17))
     assert all(r["outcome_opened"] == "no" for r in screen)
     assert all(r["outcome_blind_confirmation"] == "yes" for r in screen)
 
@@ -338,6 +341,29 @@ def main() -> None:
     ):
         assert token in w15, token
 
+    wave16 = [r for r in screen if r["screen_wave"] == "16"]
+    assert [r["queue_id"] for r in wave16] == [f"CFTQ{i:04d}" for i in range(151, 161)]
+    assert [r["queue_id"] for r in wave16 if r["screen_decision"] == "advance_full_text_design_screen"] == ["CFTQ0155", "CFTQ0156"]
+    assert sum(r["screen_decision"].startswith("close_") for r in wave16) == 8
+    assert by_id["CFTQ0154"]["screen_decision"] == "close_single_habitat_per_treatment_pseudoreplication"
+    assert by_id["CFTQ0158"]["screen_decision"] == "close_no_direct_F"
+    assert by_id["CFTQ0160"]["screen_decision"] == "close_no_source_defined_fragmentation_exposure"
+
+    w16 = WAVE16.read_text(encoding="utf-8")
+    for token in (
+        "screened in wave 16: **10**",
+        "advance to full-text / recovery gate: **2**",
+        "cumulative target-pair screen: **160 / 360**",
+        "pending target-pair screen: **200**",
+        "CFTQ0155",
+        "CFTQ0156",
+        "movement-compensation",
+        "gradient/generalisation registry remains **4 programmes**",
+        "primary direct I-F coverage remains **1/5",
+        "primary direct C-F coverage remains **2/5**",
+    ):
+        assert token in w16, token
+
     fulltext = {r["queue_id"]: r for r in rows(FULLTEXT)}
     assert "CFTQ0030" in fulltext
     b = fulltext["CFTQ0030"]
@@ -482,6 +508,21 @@ def main() -> None:
     assert "9 forests" in acer_m["independent_unit"]
     assert int(acer_m["pair_programme_increment"]) == 0
     assert acer_m["effect_calculation_opened"] == "yes"
+
+    assert "CFTQ0155" in fulltext
+    aext = fulltext["CFTQ0155"]
+    assert aext["programme_identity"] == "P2_CF01_AEXTOXICON_2013"
+    assert aext["quantitative_gate_status"] == "close_no_common_patch_level_C_effect_unit"
+    assert int(aext["pair_programme_increment"]) == 0
+    assert aext["effect_calculation_opened"] == "no"
+
+    assert "CFTQ0156" in fulltext
+    sch = fulltext["CFTQ0156"]
+    assert sch["programme_identity"] == "P2_CF01_SCHUEPP_CHERRY_2014"
+    assert sch["quantitative_gate_status"] == "recovery_contract_frozen_public_site_values_pending"
+    assert "30 maximum sites" in sch["independent_unit"]
+    assert int(sch["pair_programme_increment"]) == 0
+    assert sch["effect_calculation_opened"] == "no"
 
     bdffp_schema = json.loads(BDFFP_SCHEMA.read_text(encoding="utf-8"))
     assert bdffp_schema["candidate"] == "CFTQ0065"
@@ -631,6 +672,26 @@ def main() -> None:
     ):
         assert token in comarum_access, token
 
+    aextoxicon_anchor = AEXTOXICON_ANCHOR.read_text(encoding="utf-8")
+    for token in (
+        "close_no_common_patch_level_C_effect_unit",
+        "movement-compensation / source-limitation anchor",
+        "pooled small-patch immigrant-seed proportion is reported as 40%",
+        "Direct C-F programme increment: **0**",
+    ):
+        assert token in aextoxicon_anchor, token
+
+    schuepp_contract = SCHUEPP_CONTRACT.read_text(encoding="utf-8")
+    for token in (
+        "30 spatially separated landscape sectors",
+        "Independent unit = **landscape sector / experimental site**",
+        "Primary exposure = **distance to the nearest woody habitat**",
+        "Primary I = **site-level pollinator visitation rate to cherry flowers**",
+        "Primary F = **site-level open/control fruit set**",
+        "retrospective external recovery",
+    ):
+        assert token in schuepp_contract, token
+
     manifest = json.loads(BRASSICA_MANIFEST.read_text(encoding="utf-8"))
     assert manifest["dataset_id"] == "6jw833yrt4"
     assert manifest["version"] == 1
@@ -676,9 +737,9 @@ def main() -> None:
 
     print(
         "PHASE2_CF01_TARGET_PAIR_SCREEN_OK "
-        "queue=360 screened=150 pending=210 wave3_advance=1 wave4_advance=0 wave5_advance=1 wave6_advance=2 wave7_advance=3 wave8_advance=1 wave9_advance=2 wave10_advance=0 wave11_advance=1 wave12_advance=1 wave12_link_existing=1 wave13_advance=2 wave14_advance=1 wave15_advance=1 "
+        "queue=360 screened=160 pending=200 wave3_advance=1 wave4_advance=0 wave5_advance=1 wave6_advance=2 wave7_advance=3 wave8_advance=1 wave9_advance=2 wave10_advance=0 wave11_advance=1 wave12_advance=1 wave12_link_existing=1 wave13_advance=2 wave14_advance=1 wave15_advance=1 wave16_advance=2 "
         "brassica_increment=0 milkweed_gradient_increment=1 phacelia_increment=0 hedysarum_increment=0 "
-        "bdffp_access_stop=1 hass_access_stop=1 aloe_pending=1 thai_orchard_access_stop=1 brudvig_link_noK=1 acer_CF_increment=0 plectritis_access_stop=1 cabralea_access_stop=1 comarum_access_stop=1 acer_miyabei_gradient_admitted=1 bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=0 direct_IF=1/5 direct_CF=2/5"
+        "bdffp_access_stop=1 hass_access_stop=1 aloe_pending=1 thai_orchard_access_stop=1 brudvig_link_noK=1 acer_CF_increment=0 plectritis_access_stop=1 cabralea_access_stop=1 comarum_access_stop=1 acer_miyabei_gradient_admitted=1 aextoxicon_anchor_noK=1 schuepp_pending=1 bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=0 direct_IF=1/5 direct_CF=2/5"
     )
 
 
