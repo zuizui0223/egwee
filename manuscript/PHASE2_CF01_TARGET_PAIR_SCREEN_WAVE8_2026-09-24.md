@@ -27,6 +27,10 @@ Full-text admission is not automatic. The next gate must establish:
 
 No numerical EGWEE effect has been calculated.
 
+### Full-text resolution
+
+The subsequent full-text gate closes CFTQ0078 for paired I-F/C-F admission. Natural fruit set is measured across all nine populations, but the pollination-exclusion experiment is restricted to one population; the two layers therefore do not share a fragmentation-response unit/frame. Gene-flow statements refer to separate prior work rather than a current-study C endpoint. The nine-population F evidence and the single-population pollination mechanism remain useful separately.
+
 ## Wave-8 closures
 
 - **CFTQ0071 Foetidia:** strong gene-flow/mating-system evidence in fragmented forest, but no direct fecundity F endpoint and no common replicated fragmentation pair frame.
