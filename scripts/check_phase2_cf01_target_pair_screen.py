@@ -142,7 +142,7 @@ def main() -> None:
         "pending target-pair screen: **300**",
         "CFTQ0052",
         "CFTQ0060",
-        "primary direct I-F coverage remains **1/5**",
+        "primary direct I-F coverage remains **1/5",
     ):
         assert token in w6, token
 
@@ -184,7 +184,7 @@ def main() -> None:
         "cumulative target-pair screen: **80 / 360**",
         "pending target-pair screen: **280**",
         "CFTQ0078",
-        "primary direct I-F coverage remains **1/5**",
+        "primary direct I-F coverage remains **1/5",
         "primary direct C-F coverage remains **2/5**",
     ):
         assert token in w8, token
@@ -205,7 +205,7 @@ def main() -> None:
         "pending target-pair screen: **270**",
         "CFTQ0084",
         "CFTQ0088",
-        "primary direct I-F coverage remains **1/5**",
+        "primary direct I-F coverage remains **1/5",
         "primary direct C-F coverage remains **2/5**",
     ):
         assert token in w9, token
@@ -225,7 +225,7 @@ def main() -> None:
         "cumulative target-pair screen: **100 / 360**",
         "pending target-pair screen: **260**",
         "CFTQ0094",
-        "primary direct I-F coverage remains **1/5**",
+        "primary direct I-F coverage remains **1/5",
         "primary direct C-F coverage remains **2/5**",
     ):
         assert token in w10, token
@@ -245,7 +245,7 @@ def main() -> None:
         "cumulative target-pair screen: **110 / 360**",
         "pending target-pair screen: **250**",
         "CFTQ0103",
-        "primary direct I-F coverage remains **1/5**",
+        "primary direct I-F coverage remains **1/5",
         "primary direct C-F coverage remains **2/5**",
     ):
         assert token in w11, token
@@ -268,7 +268,7 @@ def main() -> None:
         "pending target-pair screen: **240**",
         "CFTQ0119",
         "CFTQ0117",
-        "primary direct I-F coverage remains **1/5**",
+        "primary direct I-F coverage remains **1/5",
         "primary direct C-F coverage remains **2/5**",
     ):
         assert token in w12, token
@@ -289,7 +289,7 @@ def main() -> None:
         "pending target-pair screen: **230**",
         "CFTQ0121",
         "CFTQ0124",
-        "primary direct I-F coverage remains **1/5**",
+        "primary direct I-F coverage remains **1/5",
         "primary direct C-F coverage remains **2/5**",
     ):
         assert token in w13, token
@@ -309,7 +309,7 @@ def main() -> None:
         "cumulative target-pair screen: **140 / 360**",
         "pending target-pair screen: **220**",
         "CFTQ0135",
-        "primary direct I-F coverage remains **1/5**",
+        "primary direct I-F coverage remains **1/5",
         "primary direct C-F coverage remains **2/5**",
     ):
         assert token in w14, token
