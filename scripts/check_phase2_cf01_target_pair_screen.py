@@ -122,11 +122,11 @@ def main() -> None:
 
     contract = BRASSICA_CONTRACT.read_text(encoding="utf-8")
     for token in (
-        "primary I = **total floral visitation rate to B. rapa experimental plots**",
-        "Primary F = **natural/open fruit set of B. rapa**",
+        "Primary I = **total floral visitation rate to B. rapa experimental plots**.",
+        "Primary F = **natural/open fruit set of B. rapa** in the experimental plots.",
         "Primary fragmentation-level independent unit = **site**",
-        "n_fragmented = 3",
-        "n_reference = 3",
+        "`n_fragmented = 3`;",
+        "`n_reference = 3`.",
     ):
         assert token in contract, token
 
