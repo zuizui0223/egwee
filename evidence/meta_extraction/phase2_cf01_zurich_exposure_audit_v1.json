@@ -1,0 +1,33 @@
+{
+  "candidate": "CFTQ0018",
+  "dataset_doi": "10.16904/envidat.676",
+  "searched_resources": [
+    "README.txt",
+    "data_description.xlsx (all cells)",
+    "raw_sampling_data.xlsx (all cells)",
+    "figure_1.R",
+    "figure_2.R",
+    "figure_3.R",
+    "figure_4.R",
+    "table_2.R",
+    "all CSV/XLSX schema field names"
+  ],
+  "searched_terms": [
+    "impervious",
+    "sealed",
+    "built",
+    "urban intensity",
+    "urbanisation",
+    "urbanization",
+    "500 m",
+    "500m",
+    "radius",
+    "land cover",
+    "landcover",
+    "habitat loss"
+  ],
+  "term_hits": {},
+  "impervious_surface_field_found": false,
+  "effect_outcomes_opened": false,
+  "decision": "article_exposure_not_materialized_in_this_archive"
+}

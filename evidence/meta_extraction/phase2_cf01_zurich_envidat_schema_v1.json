@@ -507,6 +507,7 @@
     "impervious_surface_term_present": false,
     "pollination_or_reproductive_response_terms_present": true
   },
+  "exposure_term_hits": {},
   "numeric_outcome_summaries_calculated": false,
   "effect_outcomes_opened": false,
   "next_gate": "identify exact garden key and 500m impervious-surface field, then verify that visitation and species seed/fruit records join at garden level before opening response values"
