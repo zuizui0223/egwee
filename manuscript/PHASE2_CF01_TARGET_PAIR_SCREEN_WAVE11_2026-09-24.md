@@ -58,15 +58,20 @@ No orchard-level effect has been calculated.
 
 ## Consequence
 
-Wave 11 increases the target-pair screen to **110/360** without changing a result denominator yet.
+Wave 11 increases the target-pair screen to **110/360** without changing a result denominator.
 
-- primary direct I-F coverage remains **1/5** pending CFTQ0103 recovery;
+The subsequent public-source audit closed CFTQ0103 at
+`design_valid_public_orchard_level_IF_data_not_recoverable`: the source design is eligible, but the
+complete orchard-level I/F vectors for the mandatory rambutan + durian + mango set are not
+reproducibly available from the audited public routes. No effect was calculated.
+
+- primary direct I-F coverage remains **1/5 (ML020 only)**;
 - primary direct C-F coverage remains **2/5**;
-- registered gradient/generalisation programmes remain **3**, with CFTQ0084 Hass under a frozen
-  recovery contract;
+- registered gradient/generalisation programmes remain **3**; CFTQ0084 Hass is likewise currently
+  blocked at public S3-workbook access;
 - CFTQ0065 BDFFP remains a design-valid C-F programme blocked at public file-byte access;
 - Phase-1 five-cluster synthesis remains frozen and unchanged.
 
-The next admissible action for CFTQ0103 is an orchard-level source/data-access gate under the frozen
-three-crop contract. Search completion, not significance or reaching K, remains the Phase-2 stopping
-rule.
+CFTQ0103 may be reopened only if an authoritative public or author-provided source exposes the
+orchard-level values required by the frozen three-crop contract. Search completion, not significance
+or reaching K, remains the Phase-2 stopping rule.
