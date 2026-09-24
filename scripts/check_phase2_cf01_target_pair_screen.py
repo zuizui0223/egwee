@@ -15,6 +15,7 @@ PAIR_COVERAGE = ROOT / "evidence/meta_extraction/coverage_expansion_pair_coverag
 WAVE3 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE3_2026-09-24.md"
 WAVE4 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE4_2026-09-24.md"
 WAVE5 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE5_2026-09-24.md"
+WAVE6 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE6_2026-09-24.md"
 MILKWEED_CHECK = ROOT / "scripts/check_phase2_cf01_milkweed_gradient.py"
 
 BRASSICA_CONTRACT = ROOT / "manuscript/CF01_BRASSICA_GUATEMALA_2024_RECOVERY_CONTRACT.md"
@@ -30,21 +31,21 @@ def rows(path: Path) -> list[dict[str, str]]:
 
 def main() -> None:
     for p in (
-        QUEUE, SCREEN, FULLTEXT, PAIR_COVERAGE, WAVE3, WAVE4, WAVE5, MILKWEED_CHECK,
+        QUEUE, SCREEN, FULLTEXT, PAIR_COVERAGE, WAVE3, WAVE4, WAVE5, WAVE6, MILKWEED_CHECK,
         BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE,
     ):
         assert p.is_file(), p
 
     queue = rows(QUEUE)
     assert len(queue) == 360
-    assert [r["queue_id"] for r in queue[:50]] == [f"CFTQ{i:04d}" for i in range(1, 51)]
+    assert [r["queue_id"] for r in queue[:60]] == [f"CFTQ{i:04d}" for i in range(1, 61)]
     assert all(r["outcome_opened"] == "no" for r in queue)
 
     screen = rows(SCREEN)
-    assert len(screen) == 50
-    assert [r["queue_id"] for r in screen] == [f"CFTQ{i:04d}" for i in range(1, 51)]
-    assert {r["screen_wave"] for r in screen} == {"1", "2", "3", "4", "5"}
-    assert all(sum(r["screen_wave"] == str(w) for r in screen) == 10 for w in range(1, 6))
+    assert len(screen) == 60
+    assert [r["queue_id"] for r in screen] == [f"CFTQ{i:04d}" for i in range(1, 61)]
+    assert {r["screen_wave"] for r in screen} == {"1", "2", "3", "4", "5", "6"}
+    assert all(sum(r["screen_wave"] == str(w) for r in screen) == 10 for w in range(1, 7))
     assert all(r["outcome_opened"] == "no" for r in screen)
     assert all(r["outcome_blind_confirmation"] == "yes" for r in screen)
 
@@ -103,6 +104,26 @@ def main() -> None:
     ):
         assert token in w5, token
 
+    wave6 = [r for r in screen if r["screen_wave"] == "6"]
+    assert [r["queue_id"] for r in wave6] == [f"CFTQ{i:04d}" for i in range(51, 61)]
+    assert [r["queue_id"] for r in wave6 if r["screen_decision"] == "advance_full_text_design_screen"] == ["CFTQ0052", "CFTQ0060"]
+    assert sum(r["screen_decision"].startswith("close_") for r in wave6) == 8
+    assert by_id["CFTQ0055"]["screen_decision"] == "close_single_fragment_edge_interior_pseudoreplication"
+    assert by_id["CFTQ0058"]["screen_decision"] == "close_single_fragmented_single_reference_landrace"
+    assert by_id["CFTQ0059"]["screen_decision"] == "close_no_direct_F"
+
+    w6 = WAVE6.read_text(encoding="utf-8")
+    for token in (
+        "screened in wave 6: **10**",
+        "advance to full-text design/quantitative gate: **2**",
+        "cumulative target-pair screen: **60 / 360**",
+        "pending target-pair screen: **300**",
+        "CFTQ0052",
+        "CFTQ0060",
+        "primary direct I-F coverage remains **1/5**",
+    ):
+        assert token in w6, token
+
     fulltext = {r["queue_id"]: r for r in rows(FULLTEXT)}
     assert "CFTQ0030" in fulltext
     b = fulltext["CFTQ0030"]
@@ -131,6 +152,20 @@ def main() -> None:
     assert "sensitivity_n=38" in milk_proc.stdout
     assert "gradient_programmes=3" in milk_proc.stdout
     assert "direct_IF=1/5" in milk_proc.stdout
+
+    assert "CFTQ0052" in fulltext
+    ph = fulltext["CFTQ0052"]
+    assert ph["programme_identity"] == "P2_CF01_PHACELIA_GRASSLAND_2021"
+    assert ph["quantitative_gate_status"] == "blocked_raw_common_IF_plot_data_not_publicly_recoverable"
+    assert int(ph["pair_programme_increment"]) == 0
+    assert ph["effect_calculation_opened"] == "no"
+
+    assert "CFTQ0060" in fulltext
+    he = fulltext["CFTQ0060"]
+    assert he["programme_identity"] == "P2_CF01_HEDYSARUM_2021"
+    assert he["quantitative_gate_status"] == "closed_single_habitat_per_treatment_pseudoreplication"
+    assert int(he["pair_programme_increment"]) == 0
+    assert he["effect_calculation_opened"] == "no"
 
     manifest = json.loads(BRASSICA_MANIFEST.read_text(encoding="utf-8"))
     assert manifest["dataset_id"] == "6jw833yrt4"
@@ -177,8 +212,8 @@ def main() -> None:
 
     print(
         "PHASE2_CF01_TARGET_PAIR_SCREEN_OK "
-        "queue=360 screened=50 pending=310 wave3_advance=1 wave4_advance=0 wave5_advance=1 "
-        "brassica_increment=0 milkweed_gradient_increment=1 primary_IF_increment=0 direct_IF=1/5"
+        "queue=360 screened=60 pending=300 wave3_advance=1 wave4_advance=0 wave5_advance=1 wave6_advance=2 "
+        "brassica_increment=0 milkweed_gradient_increment=1 phacelia_increment=0 hedysarum_increment=0 primary_IF_increment=0 direct_IF=1/5"
     )
 
 
