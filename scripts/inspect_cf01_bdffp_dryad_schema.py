@@ -203,10 +203,24 @@ def main() -> None:
     if missing:
         raise RuntimeError(f"missing expected Dryad files: {missing}; available={sorted(by_name)}")
 
+    indexed = {
+        short: {
+            "id": by_name[short].get("id"),
+            "path": by_name[short].get("path") or by_name[short].get("name") or short,
+            "size": by_name[short].get("size"),
+        }
+        for short in sorted(EXPECTED)
+    }
+
     inspected = {}
     download_urls = {}
+    access_errors = {}
     for short in sorted(EXPECTED):
-        url, raw = download_file(by_name[short])
+        try:
+            url, raw = download_file(by_name[short])
+        except Exception as exc:
+            access_errors[short] = f"{type(exc).__name__}: {exc}"
+            continue
         download_urls[short] = url
         inspected[short] = {
             "bytes": len(raw),
@@ -214,14 +228,15 @@ def main() -> None:
             "schema": workbook_schema(raw),
         }
 
+    access_blocked = bool(access_errors)
     schema_text = json.dumps(inspected, ensure_ascii=False).casefold()
     plot_hint = "plot" in schema_text
     fragment_hint = "fragment" in schema_text or "size" in schema_text
-    dispersed_hint = "dispers" in schema_text
-    undispersed_hint = "undispers" in schema_text
+    dispersed_hint = "dispers" in schema_text or "dispersed.matrix.xlsx" in indexed
+    undispersed_hint = "undispers" in schema_text or "undispersed.matrix.xlsx" in indexed
 
     result = {
-        "schema_version": 2,
+        "schema_version": 3,
         "candidate": "CFTQ0065",
         "programme_id": "P2_CF01_BDFFP_SEED_RAIN_2020",
         "dataset_doi": DOI,
@@ -229,8 +244,15 @@ def main() -> None:
         "dryad_dataset_id": dataset.get("id"),
         "dryad_version_id": version.get("id"),
         "dryad_version_number": version.get("versionNumber"),
-        "files": inspected,
+        "indexed_files": indexed,
+        "downloaded_files": inspected,
         "download_urls_used": download_urls,
+        "access_status": (
+            "public_metadata_visible_file_bytes_blocked"
+            if access_blocked
+            else "public_file_bytes_recoverable"
+        ),
+        "access_errors": access_errors,
         "schema_hints": {
             "plot_identifier_present": plot_hint,
             "fragment_exposure_present": fragment_hint,
@@ -240,6 +262,10 @@ def main() -> None:
         "effect_outcomes_opened": False,
         "numeric_effects_calculated": False,
         "next_gate": (
+            "reopen only if the public Dryad file bytes become reproducibly accessible or an "
+            "authoritative public mirror is identified; otherwise retain the design-valid access STOP"
+            if access_blocked
+            else
             "verify the eleven source plots and common dispersed/undispersed density frame, "
             "then execute the frozen direct C-F recovery contract"
         ),
@@ -265,33 +291,55 @@ def main() -> None:
         "## Archive result",
         "",
         f"- public files indexed: **{len(files)}**",
-        "- all four declared workbooks present: **yes**",
-        f"- plot identifier hint present: **{'yes' if plot_hint else 'no'}**",
-        f"- fragment exposure hint present: **{'yes' if fragment_hint else 'no'}**",
-        f"- dispersed-seed endpoint hint present: **{'yes' if dispersed_hint else 'no'}**",
-        f"- undispersed-seed endpoint hint present: **{'yes' if undispersed_hint else 'no'}**",
+        "- all four declared workbooks present in public metadata: **yes**",
+        f"- public file-byte access: **{'blocked' if access_blocked else 'recoverable'}**",
+        f"- plot identifier hint present in recovered schema: **{'yes' if plot_hint else 'not-yet-readable'}**",
+        f"- fragment exposure hint present in recovered schema: **{'yes' if fragment_hint else 'not-yet-readable'}**",
+        f"- dispersed-seed endpoint file indexed: **{'yes' if dispersed_hint else 'no'}**",
+        f"- undispersed-seed endpoint file indexed: **{'yes' if undispersed_hint else 'no'}**",
         "- numerical EGWEE effect calculation opened: **false**",
         "",
-        "## Workbook schemas",
-        "",
     ]
-    for short in sorted(inspected):
-        lines.append(f"### {short}")
-        lines.append("")
-        for sheet in inspected[short]["schema"]["sheets"]:
+    if access_blocked:
+        lines += [
+            "## Access STOP",
+            "",
+            "Dryad public metadata exposes the expected file identities, but the public byte-download",
+            "routes available to the workflow return access failures. This is an **access/recoverability",
+            "boundary, not an ecological null and not a failed C-F result**.",
+            "",
+            "No figure digitisation, published fold-change substitution, endpoint substitution,",
+            "authentication bypass, or lower-level pseudo-replication is used to rescue the programme.",
+            "Reopen only if Dryad public file bytes become reproducibly available or an authoritative",
+            "public mirror of the same deposited files is identified.",
+            "",
+            "## Indexed files",
+            "",
+        ]
+        for short in sorted(indexed):
+            meta = indexed[short]
             lines.append(
-                f"- sheet `{sheet['sheet']}`: rows={sheet['max_row']}; "
-                f"columns={', '.join(sheet['columns'])}"
+                f"- `{short}`: id={meta.get('id')}; declared bytes={meta.get('size')}"
             )
-            if sheet["structural_columns"]:
-                lines.append("- structural columns: " + ", ".join(sheet["structural_columns"]))
-                for col, vals in sheet["structural_values"].items():
-                    lines.append(f"- `{col}` structural values: {', '.join(vals)}")
-        lines.append("")
+        lines += ["", "## Gate", ""]
+    else:
+        lines += ["## Workbook schemas", ""]
+        for short in sorted(inspected):
+            lines.append(f"### {short}")
+            lines.append("")
+            for sheet in inspected[short]["schema"]["sheets"]:
+                lines.append(
+                    f"- sheet `{sheet['sheet']}`: rows={sheet['max_row']}; "
+                    f"columns={', '.join(sheet['columns'])}"
+                )
+                if sheet["structural_columns"]:
+                    lines.append("- structural columns: " + ", ".join(sheet["structural_columns"]))
+                    for col, vals in sheet["structural_values"].items():
+                        lines.append(f"- `{col}` structural values: {', '.join(vals)}")
+            lines.append("")
+        lines += ["## Gate", ""]
 
     lines += [
-        "## Gate",
-        "",
         "Proceed to numerical recovery only if the public workbooks support all of:",
         "",
         "1. exactly the source plot frame can be reconstructed without using traps as n;",
@@ -305,14 +353,21 @@ def main() -> None:
     ]
     STATUS.write_text("\n".join(lines), encoding="utf-8")
 
-    print(
-        "PHASE2_CF01_BDFFP_DRYAD_SCHEMA_OK "
-        f"indexed={len(files)} plot_hint={str(plot_hint).lower()} "
-        f"fragment_hint={str(fragment_hint).lower()} "
-        f"dispersed_hint={str(dispersed_hint).lower()} "
-        f"undispersed_hint={str(undispersed_hint).lower()} "
-        "effects_opened=false"
-    )
+    if access_blocked:
+        print(
+            "PHASE2_CF01_BDFFP_DRYAD_SCHEMA_STOP "
+            f"indexed={len(files)} blocked_files={len(access_errors)} "
+            "reason=public_file_bytes_not_recoverable effects_opened=false"
+        )
+    else:
+        print(
+            "PHASE2_CF01_BDFFP_DRYAD_SCHEMA_OK "
+            f"indexed={len(files)} plot_hint={str(plot_hint).lower()} "
+            f"fragment_hint={str(fragment_hint).lower()} "
+            f"dispersed_hint={str(dispersed_hint).lower()} "
+            f"undispersed_hint={str(undispersed_hint).lower()} "
+            "effects_opened=false"
+        )
 
 
 if __name__ == "__main__":
