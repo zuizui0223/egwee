@@ -31,6 +31,7 @@ WAVE18 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE18_2026-09-24.md"
 WAVE19 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE19_2026-09-25.md"
 WAVE20 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE20_2026-09-25.md"
 WAVE21 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE21_2026-09-25.md"
+WAVE22 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE22_2026-09-25.md"
 MILKWEED_CHECK = ROOT / "scripts/check_phase2_cf01_milkweed_gradient.py"
 
 BRASSICA_CONTRACT = ROOT / "manuscript/CF01_BRASSICA_GUATEMALA_2024_RECOVERY_CONTRACT.md"
@@ -64,6 +65,7 @@ MYRMECOPHILA_GATE = ROOT / "manuscript/PHASE2_CF01_MYRMECOphila_ESTIMAND_GATE_20
 BARTOMEUS_GATE = ROOT / "manuscript/PHASE2_CF01_BARTOMEUS_ESTIMAND_GATE_2026-09-25.md"
 HELICONIA_URIARTE_GATE = ROOT / "manuscript/PHASE2_CF01_HELICONIA_URIARTE_GATE_2026-09-25.md"
 BYRSONIMA_GATE = ROOT / "manuscript/PHASE2_CF01_BYRSONIMA_VARIANCE_GATE_2026-09-25.md"
+LEPTONYCHIA_GATE = ROOT / "manuscript/PHASE2_CF01_LEPTONYCHIA_LINKED_CAMPAIGN_GATE_2026-09-25.md"
 
 
 def rows(path: Path) -> list[dict[str, str]]:
@@ -73,21 +75,21 @@ def rows(path: Path) -> list[dict[str, str]]:
 
 def main() -> None:
     for p in (
-        QUEUE, SCREEN, FULLTEXT, PAIR_COVERAGE, WAVE3, WAVE4, WAVE5, WAVE6, WAVE7, WAVE8, WAVE9, WAVE10, WAVE11, WAVE12, WAVE13, WAVE14, WAVE15, WAVE16, WAVE17, WAVE18, WAVE19, WAVE20, WAVE21, MILKWEED_CHECK,
-        BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE, BDFFP_SCHEMA, BDFFP_STATUS, HASS_CONTRACT, HASS_SCHEMA, HASS_STATUS, THAI_ORCHARD_CONTRACT, THAI_ORCHARD_ACCESS, THAI_ORCHARD_STATUS, PLECTRITIS_CONTRACT, CABRALEA_CONTRACT, PLECTRITIS_ACCESS, CABRALEA_ACCESS, COMARUM_CONTRACT, COMARUM_ACCESS, AEXTOXICON_ANCHOR, SCHUEPP_CONTRACT, SCHUEPP_ACCESS, ANAXAGOREA_CONTRACT, ANAXAGOREA_ACCESS, CELTIS_GATE, ATTALEA_GATE, CARDIOPETALUM_RULE, CARDIOPETALUM_RESULT, MYRMECOPHILA_GATE, BARTOMEUS_GATE, HELICONIA_URIARTE_GATE, BYRSONIMA_GATE,
+        QUEUE, SCREEN, FULLTEXT, PAIR_COVERAGE, WAVE3, WAVE4, WAVE5, WAVE6, WAVE7, WAVE8, WAVE9, WAVE10, WAVE11, WAVE12, WAVE13, WAVE14, WAVE15, WAVE16, WAVE17, WAVE18, WAVE19, WAVE20, WAVE21, WAVE22, MILKWEED_CHECK,
+        BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE, BDFFP_SCHEMA, BDFFP_STATUS, HASS_CONTRACT, HASS_SCHEMA, HASS_STATUS, THAI_ORCHARD_CONTRACT, THAI_ORCHARD_ACCESS, THAI_ORCHARD_STATUS, PLECTRITIS_CONTRACT, CABRALEA_CONTRACT, PLECTRITIS_ACCESS, CABRALEA_ACCESS, COMARUM_CONTRACT, COMARUM_ACCESS, AEXTOXICON_ANCHOR, SCHUEPP_CONTRACT, SCHUEPP_ACCESS, ANAXAGOREA_CONTRACT, ANAXAGOREA_ACCESS, CELTIS_GATE, ATTALEA_GATE, CARDIOPETALUM_RULE, CARDIOPETALUM_RESULT, MYRMECOPHILA_GATE, BARTOMEUS_GATE, HELICONIA_URIARTE_GATE, BYRSONIMA_GATE, LEPTONYCHIA_GATE,
     ):
         assert p.is_file(), p
 
     queue = rows(QUEUE)
     assert len(queue) == 360
-    assert [r["queue_id"] for r in queue[:210]] == [f"CFTQ{i:04d}" for i in range(1, 211)]
+    assert [r["queue_id"] for r in queue[:220]] == [f"CFTQ{i:04d}" for i in range(1, 221)]
     assert all(r["outcome_opened"] == "no" for r in queue)
 
     screen = rows(SCREEN)
-    assert len(screen) == 210
-    assert [r["queue_id"] for r in screen] == [f"CFTQ{i:04d}" for i in range(1, 211)]
-    assert {r["screen_wave"] for r in screen} == {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21"}
-    assert all(sum(r["screen_wave"] == str(w) for r in screen) == 10 for w in range(1, 22))
+    assert len(screen) == 220
+    assert [r["queue_id"] for r in screen] == [f"CFTQ{i:04d}" for i in range(1, 221)]
+    assert {r["screen_wave"] for r in screen} == {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22"}
+    assert all(sum(r["screen_wave"] == str(w) for r in screen) == 10 for w in range(1, 23))
     assert all(r["outcome_opened"] == "no" for r in screen)
     assert all(r["outcome_blind_confirmation"] == "yes" for r in screen)
 
@@ -505,6 +507,30 @@ def main() -> None:
     ):
         assert token in w21, token
 
+    wave22 = [r for r in screen if r["screen_wave"] == "22"]
+    assert [r["queue_id"] for r in wave22] == [f"CFTQ{i:04d}" for i in range(211, 221)]
+    assert [r["queue_id"] for r in wave22 if r["screen_decision"] == "advance_full_text_design_screen"] == ["CFTQ0215"]
+    assert sum(r["screen_decision"].startswith("close_") for r in wave22) == 9
+    assert by_id["CFTQ0211"]["screen_decision"] == "close_no_direct_F"
+    assert by_id["CFTQ0213"]["screen_decision"] == "close_no_source_defined_fragmentation_exposure"
+    assert by_id["CFTQ0216"]["screen_decision"] == "close_nonprimary_review"
+    assert by_id["CFTQ0220"]["screen_decision"] == "close_no_source_defined_fragmentation_exposure"
+
+    w22 = WAVE22.read_text(encoding="utf-8")
+    for token in (
+        "screened in wave 22: **10**",
+        "advance to linked-publication/full-text gate: **1**",
+        "cumulative target-pair screen: **220 / 360**",
+        "pending target-pair screen: **140**",
+        "CFTQ0215",
+        "2, 9, 13 and 31 ha",
+        "pending_linked_2003_2009_site_and_campaign_alignment",
+        "gradient/generalisation registry remains **5 programmes / 17 primary Fisher-z effects**",
+        "primary direct I-F coverage remains **1/5**",
+        "primary direct C-F coverage remains **2/5**",
+    ):
+        assert token in w22, token
+
     fulltext = {r["queue_id"]: r for r in rows(FULLTEXT)}
     assert "CFTQ0030" in fulltext
     b = fulltext["CFTQ0030"]
@@ -739,6 +765,14 @@ def main() -> None:
     assert "six fragments total" in byr["independent_unit"]
     assert int(byr["pair_programme_increment"]) == 0
     assert byr["effect_calculation_opened"] == "no"
+
+    assert "CFTQ0215" in fulltext
+    lep = fulltext["CFTQ0215"]
+    assert lep["programme_identity"] == "P2_CF01_LEPTONYCHIA_2003_2009"
+    assert lep["quantitative_gate_status"] == "pending_linked_2003_2009_site_and_campaign_alignment"
+    assert "forest fragment / continuous-forest habitat unit" in lep["independent_unit"]
+    assert int(lep["pair_programme_increment"]) == 0
+    assert lep["effect_calculation_opened"] == "no"
 
     bdffp_schema = json.loads(BDFFP_SCHEMA.read_text(encoding="utf-8"))
     assert bdffp_schema["candidate"] == "CFTQ0065"
@@ -1031,6 +1065,17 @@ def main() -> None:
     ):
         assert token in byr_gate, token
 
+    lep_gate = LEPTONYCHIA_GATE.read_text(encoding="utf-8")
+    for token in (
+        "four small forest fragments",
+        "2, 9, 13 and 31 ha",
+        "diminished fecundity",
+        "Same species + same region + linked citations are not sufficient",
+        "linked-campaign",
+        "Direct C-F programme increment: **0**",
+    ):
+        assert token in lep_gate, token
+
     manifest = json.loads(BRASSICA_MANIFEST.read_text(encoding="utf-8"))
     assert manifest["dataset_id"] == "6jw833yrt4"
     assert manifest["version"] == 1
@@ -1076,9 +1121,9 @@ def main() -> None:
 
     print(
         "PHASE2_CF01_TARGET_PAIR_SCREEN_OK "
-        "queue=360 screened=210 pending=150 wave3_advance=1 wave4_advance=0 wave5_advance=1 wave6_advance=2 wave7_advance=3 wave8_advance=1 wave9_advance=2 wave10_advance=0 wave11_advance=1 wave12_advance=1 wave12_link_existing=1 wave13_advance=2 wave14_advance=1 wave15_advance=1 wave16_advance=2 wave17_advance=3 wave18_advance=1 wave19_advance=1 wave20_advance=0 wave21_advance=3 wave21_link_existing=1 "
+        "queue=360 screened=220 pending=140 wave3_advance=1 wave4_advance=0 wave5_advance=1 wave6_advance=2 wave7_advance=3 wave8_advance=1 wave9_advance=2 wave10_advance=0 wave11_advance=1 wave12_advance=1 wave12_link_existing=1 wave13_advance=2 wave14_advance=1 wave15_advance=1 wave16_advance=2 wave17_advance=3 wave18_advance=1 wave19_advance=1 wave20_advance=0 wave21_advance=3 wave21_link_existing=1 wave22_advance=1 "
         "brassica_increment=0 milkweed_gradient_increment=1 phacelia_increment=0 hedysarum_increment=0 "
-        "bdffp_access_stop=1 hass_access_stop=1 aloe_pending=1 thai_orchard_access_stop=1 brudvig_link_noK=1 acer_CF_increment=0 plectritis_access_stop=1 cabralea_access_stop=1 comarum_access_stop=1 acer_miyabei_gradient_admitted=1 aextoxicon_anchor_noK=1 schuepp_access_stop=1 celtis_estimand_stop=1 anaxagorea_access_stop=1 cardiopetalum_gradient_admitted=1 attalea_linked_stop=1 myrmecophila_estimand_pending=1 herrera_CD_anchor_noK=1 bartomeus_estimand_pending=1 uriarte_CD_anchor_noK=1 braun_umbrella_noK=1 byrsonima_variance_stop=1 bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=0 direct_IF=1/5 direct_CF=2/5"
+        "bdffp_access_stop=1 hass_access_stop=1 aloe_pending=1 thai_orchard_access_stop=1 brudvig_link_noK=1 acer_CF_increment=0 plectritis_access_stop=1 cabralea_access_stop=1 comarum_access_stop=1 acer_miyabei_gradient_admitted=1 aextoxicon_anchor_noK=1 schuepp_access_stop=1 celtis_estimand_stop=1 anaxagorea_access_stop=1 cardiopetalum_gradient_admitted=1 attalea_linked_stop=1 myrmecophila_estimand_pending=1 herrera_CD_anchor_noK=1 bartomeus_estimand_pending=1 uriarte_CD_anchor_noK=1 braun_umbrella_noK=1 byrsonima_variance_stop=1 leptonychia_linked_pending=1 bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=0 direct_IF=1/5 direct_CF=2/5"
     )
 
 
