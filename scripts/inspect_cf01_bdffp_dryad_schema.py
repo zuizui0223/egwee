@@ -98,11 +98,31 @@ def main() -> None:
                 "schema": workbook_schema(raw),
             }
 
-    schema_text = json.dumps(files, ensure_ascii=False).casefold()
-    dispersed_hint = "dispers" in schema_text
-    undispersed_hint = "undispers" in schema_text
-    plot_hint = "plot" in schema_text
-    fragment_hint = "fragment" in schema_text or "size" in schema_text
+    sheet_schemas = [
+        sheet
+        for file_info in files.values()
+        for sheet in file_info["schema"]["sheets"]
+    ]
+    column_text = " ".join(
+        [sheet["sheet"] for sheet in sheet_schemas]
+        + [col for sheet in sheet_schemas for col in sheet["columns"]]
+    ).casefold()
+    dispersed_hint = any(
+        "dispers" in col.casefold() and "undispers" not in col.casefold()
+        for sheet in sheet_schemas
+        for col in sheet["columns"]
+    )
+    undispersed_hint = any(
+        "undispers" in col.casefold()
+        for sheet in sheet_schemas
+        for col in sheet["columns"]
+    )
+    plot_hint = "plot" in column_text
+    fragment_hint = "fragment" in column_text or any(
+        "size" in col.casefold() or "treatment" in col.casefold()
+        for sheet in sheet_schemas
+        for col in sheet["columns"]
+    )
 
     result = {
         "schema_version": 1,
