@@ -31,6 +31,8 @@ BDFFP_SCHEMA = ROOT / "evidence/meta_extraction/phase2_cf01_bdffp_dryad_schema_v
 BDFFP_STATUS = ROOT / "manuscript/PHASE2_CF01_BDFFP_DRYAD_SCHEMA_2026-09-24.md"
 HASS_CONTRACT = ROOT / "manuscript/CF01_HASS_WEUROPE_2018_GRADIENT_RECOVERY_CONTRACT.md"
 THAI_ORCHARD_CONTRACT = ROOT / "manuscript/CF01_THAI_ORCHARD_2016_RECOVERY_CONTRACT.md"
+THAI_ORCHARD_ACCESS = ROOT / "evidence/meta_extraction/phase2_cf01_thai_orchard_access_v1.json"
+THAI_ORCHARD_STATUS = ROOT / "manuscript/PHASE2_CF01_THAI_ORCHARD_ACCESS_GATE_2026-09-24.md"
 
 
 def rows(path: Path) -> list[dict[str, str]]:
@@ -41,7 +43,7 @@ def rows(path: Path) -> list[dict[str, str]]:
 def main() -> None:
     for p in (
         QUEUE, SCREEN, FULLTEXT, PAIR_COVERAGE, WAVE3, WAVE4, WAVE5, WAVE6, WAVE7, WAVE8, WAVE9, WAVE10, WAVE11, MILKWEED_CHECK,
-        BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE, BDFFP_SCHEMA, BDFFP_STATUS, HASS_CONTRACT, THAI_ORCHARD_CONTRACT,
+        BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE, BDFFP_SCHEMA, BDFFP_STATUS, HASS_CONTRACT, THAI_ORCHARD_CONTRACT, THAI_ORCHARD_ACCESS, THAI_ORCHARD_STATUS,
     ):
         assert p.is_file(), p
 
@@ -327,7 +329,7 @@ def main() -> None:
     assert "CFTQ0103" in fulltext
     thai = fulltext["CFTQ0103"]
     assert thai["programme_identity"] == "P2_CF01_THAI_ORCHARD_FOREST_PROXIMITY_2016"
-    assert thai["quantitative_gate_status"] == "recovery_contract_frozen_public_orchard_values_pending"
+    assert thai["quantitative_gate_status"] == "blocked_public_orchard_level_IF_data_not_recoverable"
     assert "10 near + 10 far orchards" in thai["independent_unit"]
     assert int(thai["pair_programme_increment"]) == 0
     assert thai["effect_calculation_opened"] == "no"
@@ -379,6 +381,24 @@ def main() -> None:
     ):
         assert token in thai_contract, token
 
+    thai_access = json.loads(THAI_ORCHARD_ACCESS.read_text(encoding="utf-8"))
+    assert thai_access["candidate"] == "CFTQ0103"
+    assert thai_access["access_status"] == "design_valid_public_orchard_level_IF_data_not_recoverable"
+    assert thai_access["direct_IF_programme_increment"] == 0
+    assert thai_access["effect_outcomes_opened"] is False
+    assert thai_access["orchard_level_effects_calculated"] is False
+    assert len(thai_access["design"]["crops"]) == 3
+
+    thai_status = THAI_ORCHARD_STATUS.read_text(encoding="utf-8")
+    for token in (
+        "quantitatively blocked by orchard-level data recoverability",
+        "files are marked **restricted**",
+        "direct I-F programme increment: **0**",
+        "direct I-F coverage remains **1/5 (ML020 only)**",
+        "not an ecological null",
+    ):
+        assert token in thai_status, token
+
     manifest = json.loads(BRASSICA_MANIFEST.read_text(encoding="utf-8"))
     assert manifest["dataset_id"] == "6jw833yrt4"
     assert manifest["version"] == 1
@@ -426,7 +446,7 @@ def main() -> None:
         "PHASE2_CF01_TARGET_PAIR_SCREEN_OK "
         "queue=360 screened=110 pending=250 wave3_advance=1 wave4_advance=0 wave5_advance=1 wave6_advance=2 wave7_advance=3 wave8_advance=1 wave9_advance=2 wave10_advance=0 wave11_advance=1 "
         "brassica_increment=0 milkweed_gradient_increment=1 phacelia_increment=0 hedysarum_increment=0 "
-        "bdffp_access_stop=1 hass_pending=1 aloe_pending=1 thai_orchard_pending=1 bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=0 direct_IF=1/5 direct_CF=2/5"
+        "bdffp_access_stop=1 hass_pending=1 aloe_pending=1 thai_orchard_access_stop=1 bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=0 direct_IF=1/5 direct_CF=2/5"
     )
 
 
