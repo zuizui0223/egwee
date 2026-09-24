@@ -88,6 +88,14 @@ on:
       - 'manuscript/PHASE2_CF01_ZURICH_GRADIENT_RECOVERY_2026-09-24.md'
       - 'manuscript/PHASE2_GRADIENT_PROGRAMME_REGISTRY_2026-09-24.md'
       - 'scripts/check_phase2_cf01_zurich_gradient.py'
+      - 'manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE5_2026-09-24.md'
+      - 'manuscript/CF01_MILKWEED_URBAN_2023_GRADIENT_RECOVERY_CONTRACT.md'
+      - 'evidence/meta_extraction/phase2_cf01_milkweed_urban_source_manifest_v1.json'
+      - 'evidence/meta_extraction/phase2_cf01_milkweed_urban_population_values_v1.csv'
+      - 'evidence/meta_extraction/phase2_cf01_milkweed_urban_gradient_effects_v1.csv'
+      - 'evidence/meta_extraction/phase2_cf01_milkweed_urban_gradient_covariance_v1.json'
+      - 'manuscript/PHASE2_CF01_MILKWEED_URBAN_GRADIENT_RECOVERY_2026-09-24.md'
+      - 'scripts/check_phase2_cf01_milkweed_gradient.py'
       - 'evidence/meta_extraction/phase2_cf01_target_pair_queue_v1.csv'
       - 'evidence/meta_extraction/phase2_cf01_target_pair_design_screen_v1.csv'
       - 'evidence/meta_extraction/phase2_cf01_target_pair_fulltext_gate_v1.csv'
@@ -191,6 +199,14 @@ on:
       - 'manuscript/PHASE2_CF01_ZURICH_GRADIENT_RECOVERY_2026-09-24.md'
       - 'manuscript/PHASE2_GRADIENT_PROGRAMME_REGISTRY_2026-09-24.md'
       - 'scripts/check_phase2_cf01_zurich_gradient.py'
+      - 'manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE5_2026-09-24.md'
+      - 'manuscript/CF01_MILKWEED_URBAN_2023_GRADIENT_RECOVERY_CONTRACT.md'
+      - 'evidence/meta_extraction/phase2_cf01_milkweed_urban_source_manifest_v1.json'
+      - 'evidence/meta_extraction/phase2_cf01_milkweed_urban_population_values_v1.csv'
+      - 'evidence/meta_extraction/phase2_cf01_milkweed_urban_gradient_effects_v1.csv'
+      - 'evidence/meta_extraction/phase2_cf01_milkweed_urban_gradient_covariance_v1.json'
+      - 'manuscript/PHASE2_CF01_MILKWEED_URBAN_GRADIENT_RECOVERY_2026-09-24.md'
+      - 'scripts/check_phase2_cf01_milkweed_gradient.py'
       - 'evidence/meta_extraction/phase2_cf01_target_pair_queue_v1.csv'
       - 'evidence/meta_extraction/phase2_cf01_target_pair_design_screen_v1.csv'
       - 'evidence/meta_extraction/phase2_cf01_target_pair_fulltext_gate_v1.csv'
@@ -228,6 +244,8 @@ jobs:
         run: python scripts/check_phase2_gpair_synthesis.py
       - name: Validate Zurich Phase-2 gradient programme
         run: python scripts/check_phase2_cf01_zurich_gradient.py
+      - name: Validate milkweed Phase-2 gradient programme
+        run: python scripts/check_phase2_cf01_milkweed_gradient.py
       - name: Validate CF01 target-pair screen and Brassica gate
         run: python scripts/check_phase2_cf01_target_pair_screen.py
       - name: Validate systematic coverage and moderator expansion contract
