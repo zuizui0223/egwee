@@ -26,20 +26,28 @@ jobs:
           python-version: '3.12'
       - name: Install workbook reader
         run: python -m pip install --quiet openpyxl
-      - name: Download public Dryad files through file API
+      - name: Download public Dryad files through landing-page stream
         run: |
           mkdir -p /tmp/bdffp_dryad
           curl --fail --location --retry 3 --retry-delay 2 \
-            'https://datadryad.org/api/v2/files/243392/download' \
+            --user-agent 'Mozilla/5.0 (compatible; EGWEE reproducibility audit)' \
+            --referer 'https://datadryad.org/dataset/doi:10.5061/dryad.612jm640h' \
+            'https://datadryad.org/stash/downloads/file_stream/243392' \
             -o /tmp/bdffp_dryad/density.rich.data.xlsx
           curl --fail --location --retry 3 --retry-delay 2 \
-            'https://datadryad.org/api/v2/files/243394/download' \
+            --user-agent 'Mozilla/5.0 (compatible; EGWEE reproducibility audit)' \
+            --referer 'https://datadryad.org/dataset/doi:10.5061/dryad.612jm640h' \
+            'https://datadryad.org/stash/downloads/file_stream/243394' \
             -o /tmp/bdffp_dryad/dispersed.matrix.xlsx
           curl --fail --location --retry 3 --retry-delay 2 \
-            'https://datadryad.org/api/v2/files/243393/download' \
+            --user-agent 'Mozilla/5.0 (compatible; EGWEE reproducibility audit)' \
+            --referer 'https://datadryad.org/dataset/doi:10.5061/dryad.612jm640h' \
+            'https://datadryad.org/stash/downloads/file_stream/243393' \
             -o /tmp/bdffp_dryad/functional.diversity.xlsx
           curl --fail --location --retry 3 --retry-delay 2 \
-            'https://datadryad.org/api/v2/files/243395/download' \
+            --user-agent 'Mozilla/5.0 (compatible; EGWEE reproducibility audit)' \
+            --referer 'https://datadryad.org/dataset/doi:10.5061/dryad.612jm640h' \
+            'https://datadryad.org/stash/downloads/file_stream/243395' \
             -o /tmp/bdffp_dryad/undispersed.matrix.xlsx
           test -s /tmp/bdffp_dryad/density.rich.data.xlsx
           test -s /tmp/bdffp_dryad/dispersed.matrix.xlsx
