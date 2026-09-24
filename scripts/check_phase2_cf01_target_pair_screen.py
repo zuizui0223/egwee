@@ -584,7 +584,8 @@ def main() -> None:
         "reference: C1 + C2",
         "Primary I = **pollinator visit frequency: number of flower visits per 30 min**",
         "Primary F = **number of developed fruits per sampled tree**",
-        "tiny four-site covariance gate",
+        "very small 2+2 common denominator",
+        "only four paired site observations",
     ):
         assert token in cabralea_contract, token
 
