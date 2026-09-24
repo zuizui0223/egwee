@@ -30,6 +30,8 @@ BRASSICA_GATE = ROOT / "manuscript/PHASE2_CF01_BRASSICA_QUANTITATIVE_GATE_2026-0
 BDFFP_SCHEMA = ROOT / "evidence/meta_extraction/phase2_cf01_bdffp_dryad_schema_v1.json"
 BDFFP_STATUS = ROOT / "manuscript/PHASE2_CF01_BDFFP_DRYAD_SCHEMA_2026-09-24.md"
 HASS_CONTRACT = ROOT / "manuscript/CF01_HASS_WEUROPE_2018_GRADIENT_RECOVERY_CONTRACT.md"
+HASS_SCHEMA = ROOT / "evidence/meta_extraction/phase2_cf01_hass_supplement_schema_v1.json"
+HASS_STATUS = ROOT / "manuscript/PHASE2_CF01_HASS_SUPPLEMENT_SCHEMA_2026-09-24.md"
 THAI_ORCHARD_CONTRACT = ROOT / "manuscript/CF01_THAI_ORCHARD_2016_RECOVERY_CONTRACT.md"
 THAI_ORCHARD_ACCESS = ROOT / "evidence/meta_extraction/phase2_cf01_thai_orchard_access_v1.json"
 THAI_ORCHARD_STATUS = ROOT / "manuscript/PHASE2_CF01_THAI_ORCHARD_ACCESS_GATE_2026-09-24.md"
@@ -43,7 +45,7 @@ def rows(path: Path) -> list[dict[str, str]]:
 def main() -> None:
     for p in (
         QUEUE, SCREEN, FULLTEXT, PAIR_COVERAGE, WAVE3, WAVE4, WAVE5, WAVE6, WAVE7, WAVE8, WAVE9, WAVE10, WAVE11, MILKWEED_CHECK,
-        BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE, BDFFP_SCHEMA, BDFFP_STATUS, HASS_CONTRACT, THAI_ORCHARD_CONTRACT, THAI_ORCHARD_ACCESS, THAI_ORCHARD_STATUS,
+        BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE, BDFFP_SCHEMA, BDFFP_STATUS, HASS_CONTRACT, HASS_SCHEMA, HASS_STATUS, THAI_ORCHARD_CONTRACT, THAI_ORCHARD_ACCESS, THAI_ORCHARD_STATUS,
     ):
         assert p.is_file(), p
 
@@ -313,7 +315,7 @@ def main() -> None:
     assert "CFTQ0084" in fulltext
     hass = fulltext["CFTQ0084"]
     assert hass["programme_identity"] == "P2_CF01_HASS_WEUROPE_2018"
-    assert hass["quantitative_gate_status"] == "recovery_contract_frozen_public_supplement_pending"
+    assert hass["quantitative_gate_status"] == "blocked_public_S3_workbook_not_recoverable"
     assert "94 landscapes" in hass["independent_unit"]
     assert "229 focal fields" in hass["independent_unit"]
     assert int(hass["pair_programme_increment"]) == 0
@@ -365,6 +367,21 @@ def main() -> None:
         "fragmentation_severity = - field_border_density",
     ):
         assert token in hass_contract, token
+
+    hass_schema = json.loads(HASS_SCHEMA.read_text(encoding="utf-8"))
+    assert hass_schema["candidate"] == "CFTQ0084"
+    assert hass_schema["access_status"] == "public_s3_access_blocked"
+    assert hass_schema["effect_outcomes_opened"] is False
+    assert hass_schema["numeric_effects_calculated"] is False
+
+    hass_status = HASS_STATUS.read_text(encoding="utf-8")
+    for token in (
+        "public S3 access: **blocked**",
+        "access boundary, not an ecological result",
+        "Do not",
+        "digitised figures",
+    ):
+        assert token in hass_status, token
 
     thai_contract = THAI_ORCHARD_CONTRACT.read_text(encoding="utf-8")
     for token in (
@@ -446,7 +463,7 @@ def main() -> None:
         "PHASE2_CF01_TARGET_PAIR_SCREEN_OK "
         "queue=360 screened=110 pending=250 wave3_advance=1 wave4_advance=0 wave5_advance=1 wave6_advance=2 wave7_advance=3 wave8_advance=1 wave9_advance=2 wave10_advance=0 wave11_advance=1 "
         "brassica_increment=0 milkweed_gradient_increment=1 phacelia_increment=0 hedysarum_increment=0 "
-        "bdffp_access_stop=1 hass_pending=1 aloe_pending=1 thai_orchard_access_stop=1 bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=0 direct_IF=1/5 direct_CF=2/5"
+        "bdffp_access_stop=1 hass_access_stop=1 aloe_pending=1 thai_orchard_access_stop=1 bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=0 direct_IF=1/5 direct_CF=2/5"
     )
 
 
