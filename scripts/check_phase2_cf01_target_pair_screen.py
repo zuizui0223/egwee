@@ -169,6 +169,27 @@ def main() -> None:
     ):
         assert token in w8, token
 
+    wave9 = [r for r in screen if r["screen_wave"] == "9"]
+    assert [r["queue_id"] for r in wave9] == [f"CFTQ{i:04d}" for i in range(81, 91)]
+    assert [r["queue_id"] for r in wave9 if r["screen_decision"] == "advance_full_text_design_screen"] == ["CFTQ0084", "CFTQ0088"]
+    assert sum(r["screen_decision"].startswith("close_") for r in wave9) == 8
+    assert by_id["CFTQ0083"]["screen_decision"] == "close_single_fragment_no_fragmentation_contrast"
+    assert by_id["CFTQ0086"]["screen_decision"] == "close_nonprimary_synthesis"
+    assert by_id["CFTQ0090"]["screen_decision"] == "close_single_site_per_fragmentation_category_pseudoreplication"
+
+    w9 = WAVE9.read_text(encoding="utf-8")
+    for token in (
+        "screened in wave 9: **10**",
+        "advance to full-text design clarification: **2**",
+        "cumulative target-pair screen: **90 / 360**",
+        "pending target-pair screen: **270**",
+        "CFTQ0084",
+        "CFTQ0088",
+        "primary direct I-F coverage remains **1/5**",
+        "primary direct C-F coverage remains **2/5**",
+    ):
+        assert token in w9, token
+
     fulltext = {r["queue_id"]: r for r in rows(FULLTEXT)}
     assert "CFTQ0030" in fulltext
     b = fulltext["CFTQ0030"]
