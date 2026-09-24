@@ -23,6 +23,7 @@ WAVE10 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE10_2026-09-24.md"
 WAVE11 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE11_2026-09-24.md"
 WAVE12 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE12_2026-09-24.md"
 WAVE13 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE13_2026-09-24.md"
+WAVE14 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE14_2026-09-24.md"
 MILKWEED_CHECK = ROOT / "scripts/check_phase2_cf01_milkweed_gradient.py"
 
 BRASSICA_CONTRACT = ROOT / "manuscript/CF01_BRASSICA_GUATEMALA_2024_RECOVERY_CONTRACT.md"
@@ -41,6 +42,7 @@ PLECTRITIS_CONTRACT = ROOT / "manuscript/CF01_PLECTRITIS_2015_GRADIENT_RECOVERY_
 CABRALEA_CONTRACT = ROOT / "manuscript/CF01_CABRALEA_2015_DIRECT_IF_RECOVERY_CONTRACT.md"
 PLECTRITIS_ACCESS = ROOT / "manuscript/PHASE2_CF01_PLECTRITIS_ACCESS_GATE_2026-09-24.md"
 CABRALEA_ACCESS = ROOT / "manuscript/PHASE2_CF01_CABRALEA_ACCESS_GATE_2026-09-24.md"
+COMARUM_CONTRACT = ROOT / "manuscript/CF01_COMARUM_2014_GRADIENT_RECOVERY_CONTRACT.md"
 
 
 def rows(path: Path) -> list[dict[str, str]]:
@@ -50,21 +52,21 @@ def rows(path: Path) -> list[dict[str, str]]:
 
 def main() -> None:
     for p in (
-        QUEUE, SCREEN, FULLTEXT, PAIR_COVERAGE, WAVE3, WAVE4, WAVE5, WAVE6, WAVE7, WAVE8, WAVE9, WAVE10, WAVE11, WAVE12, WAVE13, MILKWEED_CHECK,
-        BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE, BDFFP_SCHEMA, BDFFP_STATUS, HASS_CONTRACT, HASS_SCHEMA, HASS_STATUS, THAI_ORCHARD_CONTRACT, THAI_ORCHARD_ACCESS, THAI_ORCHARD_STATUS, PLECTRITIS_CONTRACT, CABRALEA_CONTRACT, PLECTRITIS_ACCESS, CABRALEA_ACCESS,
+        QUEUE, SCREEN, FULLTEXT, PAIR_COVERAGE, WAVE3, WAVE4, WAVE5, WAVE6, WAVE7, WAVE8, WAVE9, WAVE10, WAVE11, WAVE12, WAVE13, WAVE14, MILKWEED_CHECK,
+        BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE, BDFFP_SCHEMA, BDFFP_STATUS, HASS_CONTRACT, HASS_SCHEMA, HASS_STATUS, THAI_ORCHARD_CONTRACT, THAI_ORCHARD_ACCESS, THAI_ORCHARD_STATUS, PLECTRITIS_CONTRACT, CABRALEA_CONTRACT, PLECTRITIS_ACCESS, CABRALEA_ACCESS, COMARUM_CONTRACT,
     ):
         assert p.is_file(), p
 
     queue = rows(QUEUE)
     assert len(queue) == 360
-    assert [r["queue_id"] for r in queue[:130]] == [f"CFTQ{i:04d}" for i in range(1, 131)]
+    assert [r["queue_id"] for r in queue[:140]] == [f"CFTQ{i:04d}" for i in range(1, 141)]
     assert all(r["outcome_opened"] == "no" for r in queue)
 
     screen = rows(SCREEN)
-    assert len(screen) == 130
-    assert [r["queue_id"] for r in screen] == [f"CFTQ{i:04d}" for i in range(1, 131)]
-    assert {r["screen_wave"] for r in screen} == {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"}
-    assert all(sum(r["screen_wave"] == str(w) for r in screen) == 10 for w in range(1, 14))
+    assert len(screen) == 140
+    assert [r["queue_id"] for r in screen] == [f"CFTQ{i:04d}" for i in range(1, 141)]
+    assert {r["screen_wave"] for r in screen} == {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"}
+    assert all(sum(r["screen_wave"] == str(w) for r in screen) == 10 for w in range(1, 15))
     assert all(r["outcome_opened"] == "no" for r in screen)
     assert all(r["outcome_blind_confirmation"] == "yes" for r in screen)
 
@@ -291,6 +293,26 @@ def main() -> None:
     ):
         assert token in w13, token
 
+    wave14 = [r for r in screen if r["screen_wave"] == "14"]
+    assert [r["queue_id"] for r in wave14] == [f"CFTQ{i:04d}" for i in range(131, 141)]
+    assert [r["queue_id"] for r in wave14 if r["screen_decision"] == "advance_full_text_design_screen"] == ["CFTQ0135"]
+    assert sum(r["screen_decision"].startswith("close_") for r in wave14) == 9
+    assert by_id["CFTQ0131"]["screen_decision"] == "close_nonprimary_modelled_fragmentation"
+    assert by_id["CFTQ0139"]["screen_decision"] == "close_no_direct_F"
+    assert by_id["CFTQ0140"]["screen_decision"] == "close_no_source_defined_fragmentation_exposure"
+
+    w14 = WAVE14.read_text(encoding="utf-8")
+    for token in (
+        "screened in wave 14: **10**",
+        "advance to full-text / recovery gate: **1**",
+        "cumulative target-pair screen: **140 / 360**",
+        "pending target-pair screen: **220**",
+        "CFTQ0135",
+        "primary direct I-F coverage remains **1/5**",
+        "primary direct C-F coverage remains **2/5**",
+    ):
+        assert token in w14, token
+
     fulltext = {r["queue_id"]: r for r in rows(FULLTEXT)}
     assert "CFTQ0030" in fulltext
     b = fulltext["CFTQ0030"]
@@ -419,6 +441,14 @@ def main() -> None:
     assert int(cabralea["pair_programme_increment"]) == 0
     assert cabralea["effect_calculation_opened"] == "no"
 
+    assert "CFTQ0135" in fulltext
+    comarum = fulltext["CFTQ0135"]
+    assert comarum["programme_identity"] == "P2_CF01_COMARUM_2014"
+    assert comarum["quantitative_gate_status"] == "recovery_contract_frozen_population_values_pending"
+    assert "14 Belgian populations" in comarum["independent_unit"]
+    assert int(comarum["pair_programme_increment"]) == 0
+    assert comarum["effect_calculation_opened"] == "no"
+
     bdffp_schema = json.loads(BDFFP_SCHEMA.read_text(encoding="utf-8"))
     assert bdffp_schema["candidate"] == "CFTQ0065"
     assert bdffp_schema["dataset_doi"] == "10.5061/dryad.612jm640h"
@@ -541,6 +571,17 @@ def main() -> None:
     ):
         assert token in cabralea_access, token
 
+    comarum_contract = COMARUM_CONTRACT.read_text(encoding="utf-8")
+    for token in (
+        "14 Belgian populations of Comarum palustre",
+        "Independent fragmentation unit = **population/site**",
+        "population isolation / landscape woody-area cover within",
+        "Primary I = **total direct pollinator visitation rate to C. palustre**",
+        "Primary F = **open-pollinated viable seed set**",
+        "population-year rows as independent fragmentation units",
+    ):
+        assert token in comarum_contract, token
+
     manifest = json.loads(BRASSICA_MANIFEST.read_text(encoding="utf-8"))
     assert manifest["dataset_id"] == "6jw833yrt4"
     assert manifest["version"] == 1
@@ -586,9 +627,9 @@ def main() -> None:
 
     print(
         "PHASE2_CF01_TARGET_PAIR_SCREEN_OK "
-        "queue=360 screened=130 pending=230 wave3_advance=1 wave4_advance=0 wave5_advance=1 wave6_advance=2 wave7_advance=3 wave8_advance=1 wave9_advance=2 wave10_advance=0 wave11_advance=1 wave12_advance=1 wave12_link_existing=1 wave13_advance=2 "
+        "queue=360 screened=140 pending=220 wave3_advance=1 wave4_advance=0 wave5_advance=1 wave6_advance=2 wave7_advance=3 wave8_advance=1 wave9_advance=2 wave10_advance=0 wave11_advance=1 wave12_advance=1 wave12_link_existing=1 wave13_advance=2 wave14_advance=1 "
         "brassica_increment=0 milkweed_gradient_increment=1 phacelia_increment=0 hedysarum_increment=0 "
-        "bdffp_access_stop=1 hass_access_stop=1 aloe_pending=1 thai_orchard_access_stop=1 brudvig_link_noK=1 acer_CF_increment=0 plectritis_access_stop=1 cabralea_access_stop=1 bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=0 direct_IF=1/5 direct_CF=2/5"
+        "bdffp_access_stop=1 hass_access_stop=1 aloe_pending=1 thai_orchard_access_stop=1 brudvig_link_noK=1 acer_CF_increment=0 plectritis_access_stop=1 cabralea_access_stop=1 comarum_pending=1 bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=0 direct_IF=1/5 direct_CF=2/5"
     )
 
 
