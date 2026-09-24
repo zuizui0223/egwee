@@ -7,19 +7,24 @@ Programme identity: `P2_CF01_PLECTRITIS_ISLAND_CONNECTIVITY_2015`.
 Primary source: Adderley & Vamosi (2015), *International Journal of Plant Sciences* 176:186–196,
 doi:10.1086/679617.
 
-The source sampled **12 Plectritis congesta populations/sites** across Vancouver Island and smaller
-Gulf Islands in endangered Garry-oak / maritime-meadow habitat. It measured habitat connectivity,
-floral visitors and seed production.
+The source maps/caption **12 Plectritis congesta sampling localities** across Vancouver Island and
+smaller Gulf Islands in endangered Garry-oak / maritime-meadow habitat. However, the published
+model table labels the visitation analysis **N = 13 sites**. That internal denominator discrepancy
+must be reconciled before any EGWEE numerical recovery.
 
 This is a retrospective external recovery. Published qualitative results are already visible, so
 the exposure, I endpoint and F endpoint are frozen here before EGWEE calculates any effect.
 
-## Independent unit
+## Independent unit and denominator reconciliation gate
 
 Independent unit = **Plectritis population/site**.
 
-The 12 source localities are the maximum fragmentation n. Flowers, plants, individual visitors,
-visitor taxa, observation bouts and seeds are nested below site and never increase n.
+The quantitative gate is closed until an authoritative source identifies the exact site set used
+jointly for connectivity, visitation and seed production. EGWEE does not choose 12 or 13 by
+convenience or by which denominator yields a preferred result.
+
+Flowers, plants, individual visitors, visitor taxa, observation bouts and seeds are nested below
+site and never increase n.
 
 ## Locked exposure
 
@@ -96,7 +101,8 @@ This is a reconstructed working dependence proxy, not an exact analytic covarian
 
 Admit one gradient/generalisation programme only if:
 
-- the exact source connectivity definition and 12 site identities are recoverable;
+- the 12-locality map versus N=13 visitation-model denominator is reconciled from an authoritative source;
+- the exact source connectivity definition and common site identities are recoverable;
 - a direct site-level total-visitation quantity is reproducible;
 - the direct site-level seed-production response is reproducible;
 - at least four common sites remain;
@@ -108,6 +114,7 @@ Admission depends on effect-unit validity, not significance.
 
 Do not:
 
+- choose 12 or 13 sites because one denominator produces a preferred effect;
 - substitute island identity or island area for the frozen 1-km connectivity metric;
 - select visitor phylogenetic diversity or solitary-bee visitation because it predicts seed production;
 - use visitor taxa or observation bouts as independent n;
@@ -119,6 +126,7 @@ Do not:
 ## Terminal outcomes
 
 - `plectritis_gradient_IF_covariance_aware`;
+- `plectritis_site_denominator_not_reconciled`;
 - `plectritis_connectivity_definition_not_recoverable`;
 - `plectritis_site_level_I_not_recoverable`;
 - `plectritis_site_level_F_not_recoverable`;
