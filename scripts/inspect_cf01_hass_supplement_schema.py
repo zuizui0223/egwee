@@ -60,6 +60,7 @@ def download_target() -> tuple[str | None, bytes | None, list[str]]:
         return hit[0], hit[1], errors
 
     urls = [
+        f"https://pmc.ncbi.nlm.nih.gov/articles/instance/5829195/bin/{TARGET}",
         f"https://pmc.ncbi.nlm.nih.gov/articles/PMC5829195/bin/{TARGET}",
         (
             "https://royalsocietypublishing.org/action/downloadSupplement"
