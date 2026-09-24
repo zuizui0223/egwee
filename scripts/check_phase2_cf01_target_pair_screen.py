@@ -360,6 +360,14 @@ def main() -> None:
     assert int(thai["pair_programme_increment"]) == 0
     assert thai["effect_calculation_opened"] == "no"
 
+    assert "CFTQ0117" in fulltext
+    brudvig = fulltext["CFTQ0117"]
+    assert brudvig["programme_identity"] == "PS014_ML007_HULTING_PROGRAMME"
+    assert brudvig["identity_status"] == "linked_existing_programme_same_Savannah_River_experiment"
+    assert brudvig["quantitative_gate_status"] == "linked_existing_programme_historical_IF_campaign_no_new_K"
+    assert int(brudvig["pair_programme_increment"]) == 0
+    assert brudvig["effect_calculation_opened"] == "no"
+
     assert "CFTQ0119" in fulltext
     acer = fulltext["CFTQ0119"]
     assert acer["programme_identity"] == "P2_CF01_ACER_MONO_2015"
@@ -495,7 +503,7 @@ def main() -> None:
         "PHASE2_CF01_TARGET_PAIR_SCREEN_OK "
         "queue=360 screened=120 pending=240 wave3_advance=1 wave4_advance=0 wave5_advance=1 wave6_advance=2 wave7_advance=3 wave8_advance=1 wave9_advance=2 wave10_advance=0 wave11_advance=1 wave12_advance=1 wave12_link_existing=1 "
         "brassica_increment=0 milkweed_gradient_increment=1 phacelia_increment=0 hedysarum_increment=0 "
-        "bdffp_access_stop=1 hass_access_stop=1 aloe_pending=1 thai_orchard_access_stop=1 acer_CF_increment=0 bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=0 direct_IF=1/5 direct_CF=2/5"
+        "bdffp_access_stop=1 hass_access_stop=1 aloe_pending=1 thai_orchard_access_stop=1 brudvig_link_noK=1 acer_CF_increment=0 bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=0 direct_IF=1/5 direct_CF=2/5"
     )
 
 
