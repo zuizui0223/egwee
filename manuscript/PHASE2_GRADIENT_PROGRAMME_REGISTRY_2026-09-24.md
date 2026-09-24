@@ -4,13 +4,14 @@
 
 Continuous fragmentation / landscape-alteration gradients remain separate from the primary fragmented-versus-reference Hedges-g family.
 
-The registry now contains **3 gradient/generalisation programmes**:
+The registry now contains **4 gradient/generalisation programmes**:
 
 1. **ML015 — Eucalyptus wandoo**: I/F/G_adult on the response-free fragmentation PC.
 2. **P2_CF01_ZURICH_2026 — Zurich BetterBlooms**: four dependent phytometer I/F panels against the source-defined Urban_500 impervious-surface gradient.
 3. **P2_CF01_MILKWEED_URBAN_2023 — common milkweed**: population-level I/F responses along the Greater Toronto urbanization gradient.
+4. **P2_CF01_ACER_MIYABEI_2014 — Acer miyabei**: retrospective forest-level C/F responses along the source Table-1 isolation gradient.
 
-Across the registry there are **13 Fisher-z admissible marginal effects**: 3 from ML015, 8 from Zurich, and 2 primary effects from common milkweed. Sensitivity analyses are not counted as additional marginal effects or programmes.
+Across the registry there are **15 primary Fisher-z admissible marginal effects**: 3 from ML015, 8 from Zurich, 2 from common milkweed, and 2 from Acer miyabei. Sensitivity analyses are not counted as additional marginal effects or programmes.
 
 ## Zurich admission
 
@@ -35,8 +36,21 @@ On the primary urbanization exposure (greater urbanization = negative distance t
 
 The sensitivity is an alternate analysis of the same programme, not a fourth programme.
 
+## Acer miyabei admission
+
+Acer miyabei contributes **2 primary Fisher-z marginal effects** inside one retrospective natural programme:
+
+- C: negative mean seed kinship, so higher values mean greater gene-flow support;
+- F: viable seed density, derived deterministically as source seed density × viable-seed proportion;
+- primary exposure: log distance to nearest forest;
+- common source-table frame: **9 forest fragments** with non-missing kinship and reproductive components.
+
+The covariance-aware C-F contrast is `+0.181` with 95% CI `[-0.543, +0.906]` and `p=0.624`, so this programme does not resolve a precise C-F separation. Source seed density and viable proportion show opposite endpoint-definition sensitivities and are retained without allowing either to replace the primary derived F post hoc.
+
+This is explicitly **retrospective generalisation evidence** because Table 1 values were visible before the deterministic recovery rule was written.
+
 ## Family boundary
 
 Current primary direct I-F coverage remains **1/5** (ML020 only).
 
-Zurich and common milkweed increase the explicitly recoverable gradient/generalisation multilayer programme set from **1 to 3 programmes** (ML015 + Zurich + milkweed). They contribute **0** to the primary Hedges-g programme denominator and do not alter the frozen Phase-1 state-separation synthesis.
+Zurich, common milkweed and Acer miyabei increase the explicitly recoverable gradient/generalisation multilayer programme set from **1 to 4 programmes** (ML015 + Zurich + milkweed + Acer miyabei). They contribute **0** to the primary Hedges-g programme denominator and do not alter the frozen Phase-1 state-separation synthesis.
