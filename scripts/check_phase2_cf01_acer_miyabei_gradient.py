@@ -134,6 +134,7 @@ def main() -> None:
         "P2_CF01_ZURICH_2026",
         "P2_CF01_MILKWEED_URBAN_2023",
         PROGRAMME,
+        "P2_CF01_CARDIOPETALUM_2012",
     }
     a = registry[PROGRAMME]
     assert a["independent_unit"] == "forest_fragment"
@@ -168,8 +169,8 @@ def main() -> None:
 
     status = REGISTRY_STATUS.read_text(encoding="utf-8")
     for token in (
-        "**4 gradient/generalisation programmes**",
-        "**15 primary Fisher-z admissible marginal effects**",
+        "**5 gradient/generalisation programmes**",
+        "**17 primary Fisher-z admissible marginal effects**",
         "**P2_CF01_ACER_MIYABEI_2014 — Acer miyabei**",
         "C-F contrast is `+0.181`",
         "retrospective generalisation evidence",
@@ -179,7 +180,7 @@ def main() -> None:
     print(
         "PHASE2_CF01_ACER_MIYABEI_CHECK_OK "
         f"n=9 C_z={cz:.8f} F_z={fz:.8f} delta={delta:.8f} "
-        f"p={p:.8f} gradient_programmes=4 direct_CF_increment=0 retrospective=true"
+        f"p={p:.8f} gradient_programmes=5 direct_CF_increment=0 retrospective=true"
     )
 
 
