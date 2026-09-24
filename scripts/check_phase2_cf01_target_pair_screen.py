@@ -773,7 +773,7 @@ def main() -> None:
     anaxagorea_contract = ANAXAGOREA_CONTRACT.read_text(encoding="utf-8")
     for token in (
         "three large Atlantic-rainforest fragments",
-        "three small fragments",
+        "fragments (6–14 ha)",
         "Independent unit = **forest fragment**",
         "Primary I = **pollinator abundance per flower**",
         "Primary F = **fruit set = fruits per flower**",
