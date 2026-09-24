@@ -565,8 +565,10 @@ def main() -> None:
 
     plectritis_contract = PLECTRITIS_CONTRACT.read_text(encoding="utf-8")
     for token in (
-        "12 Plectritis congesta populations/sites",
+        "12 Plectritis congesta sampling localities",
+        "N = 13 sites",
         "Independent unit = **Plectritis population/site**",
+        "12-locality map versus N=13 visitation-model denominator",
         "habitat connectivity within a 1-km radius",
         "Primary I = **total floral visitation rate to Plectritis congesta**",
         "Primary F = **Plectritis seed production / maternal female fitness**",
@@ -588,10 +590,12 @@ def main() -> None:
 
     plectritis_access = PLECTRITIS_ACCESS.read_text(encoding="utf-8")
     for token in (
-        "design-valid, quantitatively blocked by site-level effect-unit recoverability",
+        "design-valid, quantitatively blocked by site-denominator reconciliation and site-level effect-unit recoverability",
+        "12 named localities",
+        "N = 13 sites",
         "not an ecological null",
+        "choose 12 or 13 sites",
         "digitize figures",
-        "12-site vectors",
     ):
         assert token in plectritis_access, token
 
