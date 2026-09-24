@@ -8,6 +8,7 @@
   "access_status": "public_s3_access_blocked",
   "download_url_used": null,
   "download_errors": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/instance/5829195/bin/rspb20172242supp3.xlsx: non-workbook response bytes=1817",
     "https://pmc.ncbi.nlm.nih.gov/articles/PMC5829195/bin/rspb20172242supp3.xlsx: HTTPError: HTTP Error 404: Not Found",
     "https://royalsocietypublishing.org/action/downloadSupplement?doi=10.1098%2Frspb.2017.2242&file=rspb20172242supp3.xlsx: HTTPError: HTTP Error 403: Forbidden"
   ],
