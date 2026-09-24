@@ -1,0 +1,513 @@
+{
+  "schema_version": 1,
+  "candidate": "CFTQ0018",
+  "dataset_doi": "10.16904/envidat.676",
+  "article_doi": "10.1016/j.dib.2025.112013",
+  "archive_sha256": "b1ea0dc54d0c6e33bfacb44d7285377ec3e113807cc945fc2dfbfcc3e534bcc9",
+  "archive_bytes": 4995435,
+  "file_count": 22,
+  "expected_files_present": true,
+  "csv_files": {
+    "daucus_carota_seed_set.csv": {
+      "path": "07_pollination_success/daucus_carota_seed_set.csv",
+      "bytes": 8791,
+      "sha256": "cee11f1d80e386a478643381876491a03cb3ed9d1d828e3bf03f79425a3cc731",
+      "columns": [
+        "Id",
+        "plant_nr",
+        "plant_id",
+        "umbel_id",
+        "umbel_nr",
+        "n_umbels_assessed",
+        "n_seeds",
+        "exclude",
+        "comment"
+      ],
+      "data_rows": 284
+    },
+    "garden_site_coordinates.csv": {
+      "path": "03_site_data/garden_site_coordinates.csv",
+      "bytes": 520,
+      "sha256": "b39328000d2cd400286c8bdd0c98d16552a6f4327ea6b08ad1e253ec13d8a9b3",
+      "columns": [
+        "Id",
+        "latitude",
+        "longitude"
+      ],
+      "data_rows": 24
+    },
+    "individual_traits.csv": {
+      "path": "06_trait_data/individual_traits.csv",
+      "bytes": 533919,
+      "sha256": "3d98001803b115c94a98230fada9d3d089e3f0367c935c8bd540669909cc55ef",
+      "columns": [
+        "Id",
+        "capture_date",
+        "capture_window",
+        "phytometer_plant",
+        "taxon",
+        "nectar_robber",
+        "male",
+        "female",
+        "adult",
+        "intertegular_distance",
+        "fulcrum_length",
+        "prementum_length",
+        "labellum_lenght",
+        "forewing_length",
+        "proboscis_length",
+        "labellum_prementum_ratio",
+        "comment"
+      ],
+      "data_rows": 5794
+    },
+    "onobrychis_viciifolia_fruit_set.csv": {
+      "path": "07_pollination_success/onobrychis_viciifolia_fruit_set.csv",
+      "bytes": 1785,
+      "sha256": "d1507dc746f04fbbbe660feee1a096c4dfeb6f79d447bfe54fd188a57656197d",
+      "columns": [
+        "Id",
+        "plant_nr",
+        "plant_id",
+        "n_inflorescences_assessed",
+        "n_inflorescences_excluded",
+        "n_flowers_with_fruits",
+        "n_flowers_without_fruits",
+        "comment"
+      ],
+      "data_rows": 72
+    },
+    "raphanus_sativus_fruit_set.csv": {
+      "path": "07_pollination_success/raphanus_sativus_fruit_set.csv",
+      "bytes": 22873,
+      "sha256": "603f710ad60f76bb0130d7ccdeea8bb69953c3dd6ab3ac1ea62d6f82c13810ef",
+      "columns": [
+        "Id",
+        "plant_nr",
+        "plant_id",
+        "branch_nr",
+        "branch_id",
+        "n_flowers_with_fruits",
+        "n_flowers_without_fruits",
+        "comment"
+      ],
+      "data_rows": 786
+    },
+    "raphanus_sativus_seed_set.csv": {
+      "path": "07_pollination_success/raphanus_sativus_seed_set.csv",
+      "bytes": 184244,
+      "sha256": "49af7c68bbf5fb403f098440b1c675c71ebf0cee1a9591e96d25a54d570b5de6",
+      "columns": [
+        "Id",
+        "plant_nr",
+        "plant_id",
+        "fruit_nr",
+        "fruit_id",
+        "n_seeds",
+        "excluded",
+        "comment"
+      ],
+      "data_rows": 7016
+    },
+    "species_temporal_flower_visitation_matrix.csv": {
+      "path": "06_trait_data/species_temporal_flower_visitation_matrix.csv",
+      "bytes": 7579476,
+      "sha256": "063da6e17d1a85cd78e7204f4e0c7af56441d7071c4e8e42ff14375bba009da4",
+      "columns": [
+        "Id",
+        "phytometer_plant",
+        "capture_date",
+        "capture_window",
+        "Ancistrocerus_claripennis",
+        "Ancistrocerus_gazella",
+        "Andrena_agilissima",
+        "Andrena_bicolor",
+        "Andrena_chrysosceles",
+        "Andrena_dorsata",
+        "Andrena_minutula",
+        "Andrena_minutuloides",
+        "Andrena_ovatula",
+        "Andrena_subopaca",
+        "Anogcodes_rufiventris",
+        "Anoplius_nigerrimus",
+        "Anthaxia_nitidula",
+        "Anthidium_manicatum",
+        "Anthidium_oblongatum",
+        "Anthidium_punctatum",
+        "Anthidium_strigatum",
+        "Apis_mellifera",
+        "Arachnospila_spissa",
+        "Bombus_hortorum",
+        "Bombus_humilis",
+        "Bombus_hypnorum",
+        "Bombus_lapidarius",
+        "Bombus_pascuorum",
+        "Bombus_pratorum",
+        "Bombus_sp.",
+        "Bombus_terrestris-complex",
+        "Bombus_vestalis",
+        "Bombus_wurflenii",
+        "Ceratina_cyanea",
+        "Cerceris_quinquefasciata",
+        "Cerceris_rybyensis",
+        "Cheilosia_sp.",
+        "Chelostoma_campanularum",
+        "Chelostoma_rapunculi",
+        "Chrysididae",
+        "Chrysis_gracillima",
+        "Chrysis_viridula",
+        "Chrysogaster_solstitialis",
+        "Chrysotoxum_intermedium",
+        "Chrysotoxum_vernale",
+        "Clytra_laeviuscula",
+        "Clytus_arietis",
+        "Coleoptera",
+        "Colletes_daviesanus",
+        "Colletes_similis",
+        "Dasytes_plumbeus",
+        "Diptera",
+        "Dolichovespula_saxonica",
+        "Ectemnius_dives",
+        "Ectemnius_lituratus",
+        "Ectemnius_rubicola",
+        "Epistrophe_melanostoma",
+        "Episyrphus_balteatus",
+        "Eristalis_arbustorum",
+        "Eristalis_interrupta",
+        "Eristalis_pertinax",
+        "Eristalis_tenax",
+        "Eucera_nigrescens",
+        "Eupeodes_corollae",
+        "Eupeodes_latilunulatus",
+        "Eupeodes_luniger",
+        "Gorytes_quinquecinctus",
+        "Halictus_simplex-complex",
+        "Halictus_tumulorum",
+        "Hedychrum_gerstaeckeri",
+        "Helophilus_pendulus",
+        "Holopyga_generosa",
+        "Hoplia_philanthus",
+        "Hylaeus_brevicornis",
+        "Hylaeus_clypearis",
+        "Hylaeus_communis",
+        "Hylaeus_confusus",
+        "Hylaeus_cornutus",
+        "Hylaeus_difformis",
+        "Hylaeus_gibbus",
+        "Hylaeus_gredleri",
+        "Hylaeus_hyalinatus",
+        "Hylaeus_leptocephalus",
+        "Hylaeus_pictipes",
+        "Hylaeus_punctatus",
+        "Hylaeus_sinuatus",
+        "Hylaeus_sp.",
+        "Hylaeus_styriacus",
+        "Hylaeus_taeniolatus",
+        "Isodontia_mexicana",
+        "Lasioglossum_calceatum",
+        "Lasioglossum_fulvicorne",
+        "Lasioglossum_glabriusculum",
+        "Lasioglossum_laticeps",
+        "Lasioglossum_lativentre",
+        "Lasioglossum_leucozonium",
+        "Lasioglossum_malachurum",
+        "Lasioglossum_morio",
+        "Lasioglossum_nitidulum",
+        "Lasioglossum_pauxillum",
+        "Lasioglossum_politum",
+        "Lasioglossum_villosulum",
+        "Lasioglossum_zonulum",
+        "Lestica_clypeata",
+        "Malachius_bipustulatus",
+        "Megachile_centuncularis",
+        "Megachile_ericetorum",
+        "Megachile_willughbiella",
+        "Melangyna_auricollis",
+        "Melangyna_umbellatarum",
+        "Melanostoma_mellinum",
+        "Melanostoma_scalare",
+        "Meliscaeva_auricollis",
+        "Mimumesa_sp.",
+        "Mordella_sp.",
+        "Myathropa_florea",
+        "Oedemera_femorata",
+        "Oedemera_lurida",
+        "Oedemera_nobilis",
+        "Omalus_biaccinctus",
+        "Orthonevra_nobilis",
+        "Osmia_adunca",
+        "Osmia_bicornis",
+        "Osmia_brevicornis",
+        "Osmia_caerulescens",
+        "Osmia_leucomelana",
+        "Oxybelus_bipunctatus",
+        "Oxybelus_sp.",
+        "Oxybelus_trispinosus",
+        "Oxythyrea_funesta",
+        "Paragus_albifrons",
+        "Paragus_haemorrhous",
+        "Paragus_sp.",
+        "Passaloceus_sp.",
+        "Passaloecus_borealis",
+        "Pipiza_sp.",
+        "Pipizella_sp.",
+        "Pipizella_viduata",
+        "Pipizella_virens",
+        "Platycheirus_albimanus",
+        "Platycheirus_scutatus",
+        "Platycheirus_sp.",
+        "Polistes_dominulus",
+        "Psenulus_pallipes",
+        "Pseudomalus_auratus",
+        "Pseudomalus_pusillus",
+        "Rutpela_maculata",
+        "Sapygina_decemguttata",
+        "Scaeva_pyrastri",
+        "Scaeva_selenitica",
+        "Sphaerophoria_interrupta",
+        "Sphaerophoria_scripta",
+        "Sphaerophoria_sp.",
+        "Sphaerophoria_taeniata",
+        "Sphecodes_niger",
+        "Sphecodes_sp.",
+        "Spilomena_sp.",
+        "Stenurella_melanura",
+        "Stictoleptura_rubra",
+        "Syritta_pipiens",
+        "Syrphidae",
+        "Syrphus_ribesii",
+        "Syrphus_torvus",
+        "Syrphus_vitripennis",
+        "Trichius_fasciatus",
+        "Trichodes_alvearius",
+        "Trichodes_apiarius",
+        "Trypoxylon_minus",
+        "Variimorda_sp.",
+        "Vespula_vulgaris",
+        "Volucella_zonaria"
+      ],
+      "data_rows": 21120
+    },
+    "symphytum_officinale_fruit_set.csv": {
+      "path": "07_pollination_success/symphytum_officinale_fruit_set.csv",
+      "bytes": 4893,
+      "sha256": "a0130ec9e20675d24962c4c20e177346c02b8e93e797cf9adf1262880cd2c451",
+      "columns": [
+        "Id",
+        "plant_nr",
+        "plant_id",
+        "branch_n",
+        "branch_id",
+        "n_flowers_with_seeds",
+        "n_flowers_without_seeds",
+        "excluded",
+        "comment"
+      ],
+      "data_rows": 163
+    },
+    "symphytum_officinale_seed_set.csv": {
+      "path": "07_pollination_success/symphytum_officinale_seed_set.csv",
+      "bytes": 229951,
+      "sha256": "35f8ed2aa016f0b371d14785f0a130ac41d81d984add1127ab2fe8fd649c98c5",
+      "columns": [
+        "Id",
+        "plant_nr",
+        "plant_id",
+        "branch_nr",
+        "branch_id",
+        "flower_nr",
+        "flower_id",
+        "n_seeds",
+        "n_unfertilized_ovules",
+        "comment"
+      ],
+      "data_rows": 6181
+    },
+    "taxa_checklist.csv": {
+      "path": "04_taxonomic_data/taxa_checklist.csv",
+      "bytes": 14735,
+      "sha256": "6809072bc1affdcc33fd51a2580fac3322ea51076e1a3fdf566adff873f09077",
+      "columns": [
+        "taxon",
+        "pollinator_group",
+        "order",
+        "family",
+        "genus",
+        "species",
+        "taxon_rank",
+        "pollinator_group_sociality"
+      ],
+      "data_rows": 167
+    }
+  },
+  "xlsx_files": {
+    "data_description.xlsx": {
+      "path": "01_metadata/data_description.xlsx",
+      "bytes": 33228,
+      "sha256": "82108d30ec7ee7a2632b800fb569d12facd067f393254c65df9661b389c61e10",
+      "sheets": [
+        {
+          "sheet": "README",
+          "max_row": 1,
+          "max_column": 1,
+          "columns": [
+            ""
+          ]
+        },
+        {
+          "sheet": "03_garden_site_coordinates",
+          "max_row": 4,
+          "max_column": 3,
+          "columns": [
+            "Column name",
+            "Type",
+            "Description"
+          ]
+        },
+        {
+          "sheet": "04_taxa_checklist",
+          "max_row": 9,
+          "max_column": 3,
+          "columns": [
+            "Column name",
+            "Type",
+            "Description"
+          ]
+        },
+        {
+          "sheet": "05_raw_sampling_data",
+          "max_row": 22,
+          "max_column": 3,
+          "columns": [
+            "Column name",
+            "Type",
+            "Description"
+          ]
+        },
+        {
+          "sheet": "06_individual_traits",
+          "max_row": 18,
+          "max_column": 3,
+          "columns": [
+            "Column name",
+            "Type",
+            "Description"
+          ]
+        },
+        {
+          "sheet": "06_species_temporal_flower_visi",
+          "max_row": 172,
+          "max_column": 3,
+          "columns": [
+            "Column name",
+            "Type",
+            "Description"
+          ]
+        },
+        {
+          "sheet": "07_daucus_carota_seed_set",
+          "max_row": 10,
+          "max_column": 3,
+          "columns": [
+            "Column name",
+            "Type",
+            "Description"
+          ]
+        },
+        {
+          "sheet": "07_raphanus_sativus_fruit_set",
+          "max_row": 9,
+          "max_column": 3,
+          "columns": [
+            "Column name",
+            "Type",
+            "Description"
+          ]
+        },
+        {
+          "sheet": "07_raphanus_sativus_seed_set",
+          "max_row": 9,
+          "max_column": 3,
+          "columns": [
+            "Column name",
+            "Type",
+            "Description"
+          ]
+        },
+        {
+          "sheet": "07_onobrychis_viciifolia_fru",
+          "max_row": 9,
+          "max_column": 3,
+          "columns": [
+            "Column name",
+            "Type",
+            "Description"
+          ]
+        },
+        {
+          "sheet": "07_symphytum_officinale_fruit_s",
+          "max_row": 10,
+          "max_column": 3,
+          "columns": [
+            "Column name",
+            "Type",
+            "Description"
+          ]
+        },
+        {
+          "sheet": "07_symphytum_officinale_seed_se",
+          "max_row": 11,
+          "max_column": 3,
+          "columns": [
+            "Column name",
+            "Type",
+            "Description"
+          ]
+        }
+      ]
+    },
+    "raw_sampling_data.xlsx": {
+      "path": "05_field_data/raw_sampling_data.xlsx",
+      "bytes": 82158,
+      "sha256": "e6498d739d255a39a0d2c9d4a6ab6ef3783bd406c16ff58ed54c185e83868370",
+      "sheets": [
+        {
+          "sheet": "raw_sampling_data",
+          "max_row": 671,
+          "max_column": 21,
+          "columns": [
+            "Id",
+            "capture_period",
+            "observer1",
+            "observer2",
+            "observer3",
+            "n_observers",
+            "total_sampling_effort_min",
+            "capture_window",
+            "duration_timewindow_min",
+            "wind_speed",
+            "cloudiness",
+            "escaped_carrot",
+            "escaped_radish",
+            "escaped_sainfoin",
+            "escaped_comfrey",
+            "escaped_unclear",
+            "n_flowers_carrot",
+            "n_flowers_radish",
+            "n_flowers_sainfoin",
+            "n_flowers_comfrey",
+            "comment"
+          ]
+        }
+      ]
+    }
+  },
+  "schema_hints": {
+    "garden_identifier_or_context_present": true,
+    "impervious_surface_term_present": false,
+    "pollination_or_reproductive_response_terms_present": true
+  },
+  "numeric_outcome_summaries_calculated": false,
+  "effect_outcomes_opened": false,
+  "next_gate": "identify exact garden key and 500m impervious-surface field, then verify that visitation and species seed/fruit records join at garden level before opening response values"
+}
