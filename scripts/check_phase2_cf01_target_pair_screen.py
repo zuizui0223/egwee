@@ -51,6 +51,7 @@ AEXTOXICON_ANCHOR = ROOT / "manuscript/PHASE2_CF01_AEXTOXICON_PROCESS_ANCHOR_202
 SCHUEPP_CONTRACT = ROOT / "manuscript/CF01_SCHUEPP_CHERRY_2014_GRADIENT_RECOVERY_CONTRACT.md"
 SCHUEPP_ACCESS = ROOT / "manuscript/PHASE2_CF01_SCHUEPP_ACCESS_GATE_2026-09-24.md"
 ANAXAGOREA_CONTRACT = ROOT / "manuscript/CF01_ANAXAGOREA_2012_DIRECT_IF_RECOVERY_CONTRACT.md"
+ANAXAGOREA_ACCESS = ROOT / "manuscript/PHASE2_CF01_ANAXAGOREA_RECOVERY_GATE_2026-09-24.md"
 CARDIOPETALUM_RULE = ROOT / "manuscript/CF01_CARDIOPETALUM_2012_GRADIENT_RECOVERY_RULE.md"
 CARDIOPETALUM_RESULT = ROOT / "manuscript/PHASE2_CF01_CARDIOPETALUM_GRADIENT_RECOVERY_2026-09-24.md"
 
@@ -63,7 +64,7 @@ def rows(path: Path) -> list[dict[str, str]]:
 def main() -> None:
     for p in (
         QUEUE, SCREEN, FULLTEXT, PAIR_COVERAGE, WAVE3, WAVE4, WAVE5, WAVE6, WAVE7, WAVE8, WAVE9, WAVE10, WAVE11, WAVE12, WAVE13, WAVE14, WAVE15, WAVE16, WAVE17, MILKWEED_CHECK,
-        BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE, BDFFP_SCHEMA, BDFFP_STATUS, HASS_CONTRACT, HASS_SCHEMA, HASS_STATUS, THAI_ORCHARD_CONTRACT, THAI_ORCHARD_ACCESS, THAI_ORCHARD_STATUS, PLECTRITIS_CONTRACT, CABRALEA_CONTRACT, PLECTRITIS_ACCESS, CABRALEA_ACCESS, COMARUM_CONTRACT, COMARUM_ACCESS, AEXTOXICON_ANCHOR, SCHUEPP_CONTRACT, SCHUEPP_ACCESS, ANAXAGOREA_CONTRACT, CARDIOPETALUM_RULE, CARDIOPETALUM_RESULT,
+        BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE, BDFFP_SCHEMA, BDFFP_STATUS, HASS_CONTRACT, HASS_SCHEMA, HASS_STATUS, THAI_ORCHARD_CONTRACT, THAI_ORCHARD_ACCESS, THAI_ORCHARD_STATUS, PLECTRITIS_CONTRACT, CABRALEA_CONTRACT, PLECTRITIS_ACCESS, CABRALEA_ACCESS, COMARUM_CONTRACT, COMARUM_ACCESS, AEXTOXICON_ANCHOR, SCHUEPP_CONTRACT, SCHUEPP_ACCESS, ANAXAGOREA_CONTRACT, ANAXAGOREA_ACCESS, CARDIOPETALUM_RULE, CARDIOPETALUM_RESULT,
     ):
         assert p.is_file(), p
 
@@ -565,7 +566,7 @@ def main() -> None:
     assert "CFTQ0165" in fulltext
     anax = fulltext["CFTQ0165"]
     assert anax["programme_identity"] == "P2_CF01_ANAXAGOREA_2012"
-    assert anax["quantitative_gate_status"] == "recovery_contract_frozen_fragment_values_pending"
+    assert anax["quantitative_gate_status"] == "blocked_common_six_fragment_fruit_set_not_recoverable"
     assert "3 small + 3 large" in anax["independent_unit"]
     assert int(anax["pair_programme_increment"]) == 0
     assert anax["effect_calculation_opened"] == "no"
@@ -768,6 +769,16 @@ def main() -> None:
     ):
         assert token in anaxagorea_contract, token
 
+    anaxagorea_access = ANAXAGOREA_ACCESS.read_text(encoding="utf-8")
+    for token in (
+        "design-valid, quantitatively blocked by common six-fragment F effect-unit recovery",
+        "only fragments **A, B and D**",
+        "Direct I-F programme increment: **0**",
+        "mature fruits per tree",
+        "use 186 or 209 flowers as fragmentation n",
+    ):
+        assert token in anaxagorea_access, token
+
     cardiopetalum_rule = CARDIOPETALUM_RULE.read_text(encoding="utf-8")
     for token in (
         "10 independent cerrado forest fragments",
@@ -838,7 +849,7 @@ def main() -> None:
         "PHASE2_CF01_TARGET_PAIR_SCREEN_OK "
         "queue=360 screened=170 pending=190 wave3_advance=1 wave4_advance=0 wave5_advance=1 wave6_advance=2 wave7_advance=3 wave8_advance=1 wave9_advance=2 wave10_advance=0 wave11_advance=1 wave12_advance=1 wave12_link_existing=1 wave13_advance=2 wave14_advance=1 wave15_advance=1 wave16_advance=2 wave17_advance=3 "
         "brassica_increment=0 milkweed_gradient_increment=1 phacelia_increment=0 hedysarum_increment=0 "
-        "bdffp_access_stop=1 hass_access_stop=1 aloe_pending=1 thai_orchard_access_stop=1 brudvig_link_noK=1 acer_CF_increment=0 plectritis_access_stop=1 cabralea_access_stop=1 comarum_access_stop=1 acer_miyabei_gradient_admitted=1 aextoxicon_anchor_noK=1 schuepp_access_stop=1 celtis_pending=1 anaxagorea_pending=1 cardiopetalum_gradient_admitted=1 bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=0 direct_IF=1/5 direct_CF=2/5"
+        "bdffp_access_stop=1 hass_access_stop=1 aloe_pending=1 thai_orchard_access_stop=1 brudvig_link_noK=1 acer_CF_increment=0 plectritis_access_stop=1 cabralea_access_stop=1 comarum_access_stop=1 acer_miyabei_gradient_admitted=1 aextoxicon_anchor_noK=1 schuepp_access_stop=1 celtis_pending=1 anaxagorea_access_stop=1 cardiopetalum_gradient_admitted=1 bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=0 direct_IF=1/5 direct_CF=2/5"
     )
 
 
