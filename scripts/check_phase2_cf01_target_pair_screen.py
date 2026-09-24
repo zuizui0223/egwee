@@ -233,6 +233,13 @@ def main() -> None:
     assert int(brazil["pair_programme_increment"]) == 0
     assert brazil["effect_calculation_opened"] == "no"
 
+    assert "CFTQ0078" in fulltext
+    banksia = fulltext["CFTQ0078"]
+    assert banksia["programme_identity"] == "P2_CF01_BANKSIA_NIVEA_2019"
+    assert banksia["quantitative_gate_status"] == "close_no_common_IF_fragmentation_frame"
+    assert int(banksia["pair_programme_increment"]) == 0
+    assert banksia["effect_calculation_opened"] == "no"
+
     manifest = json.loads(BRASSICA_MANIFEST.read_text(encoding="utf-8"))
     assert manifest["dataset_id"] == "6jw833yrt4"
     assert manifest["version"] == 1
