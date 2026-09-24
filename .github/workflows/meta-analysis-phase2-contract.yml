@@ -77,6 +77,17 @@ on:
       - 'scripts/build_phase2_cf01_seed_manifest.py'
       - 'scripts/resolve_phase2_cf01_openalex.py'
       - 'manuscript/CF01_CANDIDATE_SCREENING_CONTRACT_2026-09-23.md'
+      - 'manuscript/CF01_ZURICH_2026_GRADIENT_RECOVERY_CONTRACT.md'
+      - 'evidence/meta_extraction/phase2_cf01_zurich_source_manifest_v1.json'
+      - 'evidence/meta_extraction/phase2_cf01_zurich_exposure_v1.csv'
+      - 'evidence/meta_extraction/phase2_cf01_zurich_visitation_source_v1.csv'
+      - 'evidence/meta_extraction/phase2_cf01_zurich_garden_values_v1.csv'
+      - 'evidence/meta_extraction/phase2_cf01_zurich_gradient_effects_v1.csv'
+      - 'evidence/meta_extraction/phase2_cf01_zurich_gradient_covariance_v1.json'
+      - 'evidence/meta_extraction/phase2_gradient_programme_registry_v1.csv'
+      - 'manuscript/PHASE2_CF01_ZURICH_GRADIENT_RECOVERY_2026-09-24.md'
+      - 'manuscript/PHASE2_GRADIENT_PROGRAMME_REGISTRY_2026-09-24.md'
+      - 'scripts/check_phase2_cf01_zurich_gradient.py'
       - 'manuscript/meta_analysis_moderator_schema_v1.csv'
       - 'manuscript/meta_analysis_recovery_priority_v2.csv'
       - 'scripts/check_systematic_coverage_expansion_contract.py'
@@ -159,6 +170,17 @@ on:
       - 'scripts/build_phase2_cf01_seed_manifest.py'
       - 'scripts/resolve_phase2_cf01_openalex.py'
       - 'manuscript/CF01_CANDIDATE_SCREENING_CONTRACT_2026-09-23.md'
+      - 'manuscript/CF01_ZURICH_2026_GRADIENT_RECOVERY_CONTRACT.md'
+      - 'evidence/meta_extraction/phase2_cf01_zurich_source_manifest_v1.json'
+      - 'evidence/meta_extraction/phase2_cf01_zurich_exposure_v1.csv'
+      - 'evidence/meta_extraction/phase2_cf01_zurich_visitation_source_v1.csv'
+      - 'evidence/meta_extraction/phase2_cf01_zurich_garden_values_v1.csv'
+      - 'evidence/meta_extraction/phase2_cf01_zurich_gradient_effects_v1.csv'
+      - 'evidence/meta_extraction/phase2_cf01_zurich_gradient_covariance_v1.json'
+      - 'evidence/meta_extraction/phase2_gradient_programme_registry_v1.csv'
+      - 'manuscript/PHASE2_CF01_ZURICH_GRADIENT_RECOVERY_2026-09-24.md'
+      - 'manuscript/PHASE2_GRADIENT_PROGRAMME_REGISTRY_2026-09-24.md'
+      - 'scripts/check_phase2_cf01_zurich_gradient.py'
       - 'manuscript/meta_analysis_moderator_schema_v1.csv'
       - 'manuscript/meta_analysis_recovery_priority_v2.csv'
       - 'scripts/check_systematic_coverage_expansion_contract.py'
@@ -184,5 +206,7 @@ jobs:
         run: python scripts/check_phase2_cf01_prunus_kakamega_2008.py
       - name: Validate five-programme adult-offspring synthesis
         run: python scripts/check_phase2_gpair_synthesis.py
+      - name: Validate Zurich Phase-2 gradient programme
+        run: python scripts/check_phase2_cf01_zurich_gradient.py
       - name: Validate systematic coverage and moderator expansion contract
         run: python scripts/check_systematic_coverage_expansion_contract.py
