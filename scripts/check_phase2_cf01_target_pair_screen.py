@@ -613,7 +613,7 @@ def main() -> None:
     assert attalea["identity_status"] == "linked_companion_programme_same_fragment_system"
     assert attalea["quantitative_gate_status"] == "blocked_linked_four_fragment_CF_values_not_recoverable"
     for token in ("AJ-19", "SH-57", "UN-2400", "PA-3500"):
-        assert token in attalea["fragmentation_exposure"]
+        assert token in attalea["fragmentation_exposure_status"]
     assert int(attalea["pair_programme_increment"]) == 0
     assert attalea["effect_calculation_opened"] == "no"
 
