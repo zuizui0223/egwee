@@ -1,0 +1,50 @@
+{
+  "schema_version": 3,
+  "candidate": "CFTQ0065",
+  "programme_id": "P2_CF01_BDFFP_SEED_RAIN_2020",
+  "dataset_doi": "10.5061/dryad.612jm640h",
+  "article_doi": "10.1002/eap.2093",
+  "dryad_dataset_id": 41829,
+  "dryad_version_id": null,
+  "dryad_version_number": 3,
+  "indexed_files": {
+    "density.rich.data.xlsx": {
+      "id": null,
+      "path": "density.rich.data.xlsx",
+      "size": 13432
+    },
+    "dispersed.matrix.xlsx": {
+      "id": null,
+      "path": "dispersed.matrix.xlsx",
+      "size": 32978
+    },
+    "functional.diversity.xlsx": {
+      "id": null,
+      "path": "functional.diversity.xlsx",
+      "size": 10658
+    },
+    "undispersed.matrix.xlsx": {
+      "id": null,
+      "path": "undispersed.matrix.xlsx",
+      "size": 34985
+    }
+  },
+  "downloaded_files": {},
+  "download_urls_used": {},
+  "access_status": "public_metadata_visible_file_bytes_blocked",
+  "access_errors": {
+    "density.rich.data.xlsx": "RuntimeError: https://datadryad.org/api/v2/files/243392/download: HTTPError: HTTP Error 401: Unauthorized",
+    "dispersed.matrix.xlsx": "RuntimeError: https://datadryad.org/api/v2/files/243394/download: HTTPError: HTTP Error 401: Unauthorized",
+    "functional.diversity.xlsx": "RuntimeError: https://datadryad.org/api/v2/files/243393/download: HTTPError: HTTP Error 401: Unauthorized",
+    "undispersed.matrix.xlsx": "RuntimeError: https://datadryad.org/api/v2/files/243395/download: HTTPError: HTTP Error 401: Unauthorized"
+  },
+  "schema_hints": {
+    "plot_identifier_present": false,
+    "fragment_exposure_present": false,
+    "dispersed_seed_endpoint_present": true,
+    "undispersed_seed_endpoint_present": true
+  },
+  "effect_outcomes_opened": false,
+  "numeric_effects_calculated": false,
+  "next_gate": "reopen only if the public Dryad file bytes become reproducibly accessible or an authoritative public mirror is identified; otherwise retain the design-valid access STOP"
+}
