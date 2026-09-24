@@ -168,7 +168,7 @@ def main() -> None:
         assert calc["ci_low"] < 0 < calc["ci_high"]
 
     registry = {r["programme_id"]: r for r in rows(REGISTRY)}
-    assert set(registry) == {"ML015", "P2_CF01_ZURICH_2026", PROGRAMME, "P2_CF01_ACER_MIYABEI_2014"}
+    assert set(registry) == {"ML015", "P2_CF01_ZURICH_2026", PROGRAMME, "P2_CF01_ACER_MIYABEI_2014", "P2_CF01_CARDIOPETALUM_2012"}
     milk = registry[PROGRAMME]
     assert milk["design_stream"] == "fisher_z_gradient_generalisation"
     assert milk["independent_unit"] == "population_patch"
@@ -207,8 +207,8 @@ def main() -> None:
 
     status = REGISTRY_STATUS.read_text(encoding="utf-8")
     for token in (
-        "**4 gradient/generalisation programmes**",
-        "**15 primary Fisher-z admissible marginal effects**",
+        "**5 gradient/generalisation programmes**",
+        "**17 primary Fisher-z admissible marginal effects**",
         "**31 populations**",
         "**38 populations**",
         "direct I-F coverage remains **1/5**",
@@ -221,7 +221,7 @@ def main() -> None:
         f"I_z={primary['I_z']:.8f} F_z={primary['F_z']:.8f} "
         f"delta={primary['delta']:.8f} p={primary['p']:.8f} "
         f"sensitivity_delta={sensitivity['delta']:.8f} sensitivity_p={sensitivity['p']:.8f} "
-        "gradient_programmes=4 direct_IF=1/5"
+        "gradient_programmes=5 direct_IF=1/5"
     )
 
 
