@@ -1,4 +1,4 @@
-name: Recover CF01 Acer miyabei gradient
+name: Validate CF01 Acer miyabei gradient
 
 on:
   push:
@@ -7,7 +7,10 @@ on:
     paths:
       - 'manuscript/CF01_ACER_MIYABEI_2014_GRADIENT_RECOVERY_RULE.md'
       - 'evidence/meta_extraction/phase2_cf01_acer_miyabei_table1_v1.csv'
-      - 'scripts/recover_phase2_cf01_acer_miyabei_gradient.py'
+      - 'evidence/meta_extraction/phase2_cf01_acer_miyabei_gradient_effects_v1.csv'
+      - 'evidence/meta_extraction/phase2_cf01_acer_miyabei_gradient_covariance_v1.json'
+      - 'manuscript/PHASE2_CF01_ACER_MIYABEI_GRADIENT_RECOVERY_2026-09-24.md'
+      - 'scripts/check_phase2_cf01_acer_miyabei_gradient.py'
       - '.github/workflows/recover-cf01-acer-miyabei-gradient.yml'
   workflow_dispatch:
 
@@ -15,18 +18,12 @@ permissions:
   contents: read
 
 jobs:
-  recover:
+  validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Recompute retrospective forest-level gradient
-        run: python scripts/recover_phase2_cf01_acer_miyabei_gradient.py
-      - name: Verify committed derived recovery is current
-        run: |
-          git diff --exit-code -- \
-            evidence/meta_extraction/phase2_cf01_acer_miyabei_gradient_effects_v1.csv \
-            evidence/meta_extraction/phase2_cf01_acer_miyabei_gradient_covariance_v1.json \
-            manuscript/PHASE2_CF01_ACER_MIYABEI_GRADIENT_RECOVERY_2026-09-24.md
+      - name: Recompute and validate retrospective forest-level gradient
+        run: python scripts/check_phase2_cf01_acer_miyabei_gradient.py
