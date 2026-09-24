@@ -55,5 +55,17 @@
   "term_hits": {},
   "impervious_surface_field_found": false,
   "effect_outcomes_opened": false,
-  "decision": "article_exposure_not_materialized_in_this_archive"
+  "decision": "exposure_join_resolved_from_source_archived_analysis_release",
+  "linked_analysis_source": {
+    "repository": "mrejichacko/BetterBlooms",
+    "release": "jae",
+    "commit": "d6361f6874398e797322afe07a8fea85a3c7e927",
+    "path": "raw_data/explanatory_variables.txt",
+    "exposure_field": "Urban_500",
+    "garden_count": 24,
+    "exact_garden_id_join": true
+  },
+  "impervious_surface_field_found_in_envidat_archive": false,
+  "impervious_surface_field_found_in_linked_analysis_source": true,
+  "next_gate": "reconstruct locked garden-level F endpoints from EnviDat raw files and calculate Fisher-z I/F gradient effects on common garden frames"
 }
