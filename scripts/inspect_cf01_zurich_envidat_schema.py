@@ -126,6 +126,12 @@ def main() -> None:
         for short in sorted(x for x in EXPECTED_SUFFIXES if x.endswith(".csv")):
             csv_files[short] = csv_schema(zf, base[short])
 
+        site_text = zf.read(base["garden_site_coordinates.csv"]).decode("utf-8-sig", errors="strict")
+        site_rows = list(csv.DictReader(io.StringIO(site_text)))
+        garden_ids = [str(r["Id"]).strip() for r in site_rows]
+        assert len(garden_ids) == 24
+        assert len(set(garden_ids)) == 24
+
         xlsx_files = {}
         for short in ("data_description.xlsx", "raw_sampling_data.xlsx"):
             xlsx_files[short] = xlsx_schema(zf, base[short])
@@ -159,6 +165,7 @@ def main() -> None:
         "archive_bytes": path.stat().st_size,
         "file_count": len(names),
         "expected_files_present": True,
+        "garden_ids": garden_ids,
         "csv_files": csv_files,
         "xlsx_files": xlsx_files,
         "schema_hints": {
@@ -188,6 +195,7 @@ def main() -> None:
             "all CSV/XLSX schema field names",
         ],
         "searched_terms": list(exposure_terms),
+        "garden_ids": garden_ids,
         "term_hits": exposure_hits,
         "impervious_surface_field_found": has_impervious_hint,
         "effect_outcomes_opened": False,
