@@ -26,6 +26,7 @@ WAVE13 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE13_2026-09-24.md"
 WAVE14 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE14_2026-09-24.md"
 WAVE15 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE15_2026-09-24.md"
 WAVE16 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE16_2026-09-24.md"
+WAVE17 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE17_2026-09-24.md"
 MILKWEED_CHECK = ROOT / "scripts/check_phase2_cf01_milkweed_gradient.py"
 
 BRASSICA_CONTRACT = ROOT / "manuscript/CF01_BRASSICA_GUATEMALA_2024_RECOVERY_CONTRACT.md"
@@ -49,6 +50,9 @@ COMARUM_ACCESS = ROOT / "manuscript/PHASE2_CF01_COMARUM_ACCESS_GATE_2026-09-24.m
 AEXTOXICON_ANCHOR = ROOT / "manuscript/PHASE2_CF01_AEXTOXICON_PROCESS_ANCHOR_2026-09-24.md"
 SCHUEPP_CONTRACT = ROOT / "manuscript/CF01_SCHUEPP_CHERRY_2014_GRADIENT_RECOVERY_CONTRACT.md"
 SCHUEPP_ACCESS = ROOT / "manuscript/PHASE2_CF01_SCHUEPP_ACCESS_GATE_2026-09-24.md"
+ANAXAGOREA_CONTRACT = ROOT / "manuscript/CF01_ANAXAGOREA_2012_DIRECT_IF_RECOVERY_CONTRACT.md"
+CARDIOPETALUM_RULE = ROOT / "manuscript/CF01_CARDIOPETALUM_2012_GRADIENT_RECOVERY_RULE.md"
+CARDIOPETALUM_RESULT = ROOT / "manuscript/PHASE2_CF01_CARDIOPETALUM_GRADIENT_RECOVERY_2026-09-24.md"
 
 
 def rows(path: Path) -> list[dict[str, str]]:
@@ -58,21 +62,21 @@ def rows(path: Path) -> list[dict[str, str]]:
 
 def main() -> None:
     for p in (
-        QUEUE, SCREEN, FULLTEXT, PAIR_COVERAGE, WAVE3, WAVE4, WAVE5, WAVE6, WAVE7, WAVE8, WAVE9, WAVE10, WAVE11, WAVE12, WAVE13, WAVE14, WAVE15, WAVE16, MILKWEED_CHECK,
-        BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE, BDFFP_SCHEMA, BDFFP_STATUS, HASS_CONTRACT, HASS_SCHEMA, HASS_STATUS, THAI_ORCHARD_CONTRACT, THAI_ORCHARD_ACCESS, THAI_ORCHARD_STATUS, PLECTRITIS_CONTRACT, CABRALEA_CONTRACT, PLECTRITIS_ACCESS, CABRALEA_ACCESS, COMARUM_CONTRACT, COMARUM_ACCESS, AEXTOXICON_ANCHOR, SCHUEPP_CONTRACT, SCHUEPP_ACCESS,
+        QUEUE, SCREEN, FULLTEXT, PAIR_COVERAGE, WAVE3, WAVE4, WAVE5, WAVE6, WAVE7, WAVE8, WAVE9, WAVE10, WAVE11, WAVE12, WAVE13, WAVE14, WAVE15, WAVE16, WAVE17, MILKWEED_CHECK,
+        BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE, BDFFP_SCHEMA, BDFFP_STATUS, HASS_CONTRACT, HASS_SCHEMA, HASS_STATUS, THAI_ORCHARD_CONTRACT, THAI_ORCHARD_ACCESS, THAI_ORCHARD_STATUS, PLECTRITIS_CONTRACT, CABRALEA_CONTRACT, PLECTRITIS_ACCESS, CABRALEA_ACCESS, COMARUM_CONTRACT, COMARUM_ACCESS, AEXTOXICON_ANCHOR, SCHUEPP_CONTRACT, SCHUEPP_ACCESS, ANAXAGOREA_CONTRACT, CARDIOPETALUM_RULE, CARDIOPETALUM_RESULT,
     ):
         assert p.is_file(), p
 
     queue = rows(QUEUE)
     assert len(queue) == 360
-    assert [r["queue_id"] for r in queue[:160]] == [f"CFTQ{i:04d}" for i in range(1, 161)]
+    assert [r["queue_id"] for r in queue[:170]] == [f"CFTQ{i:04d}" for i in range(1, 171)]
     assert all(r["outcome_opened"] == "no" for r in queue)
 
     screen = rows(SCREEN)
-    assert len(screen) == 160
-    assert [r["queue_id"] for r in screen] == [f"CFTQ{i:04d}" for i in range(1, 161)]
-    assert {r["screen_wave"] for r in screen} == {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"}
-    assert all(sum(r["screen_wave"] == str(w) for r in screen) == 10 for w in range(1, 17))
+    assert len(screen) == 170
+    assert [r["queue_id"] for r in screen] == [f"CFTQ{i:04d}" for i in range(1, 171)]
+    assert {r["screen_wave"] for r in screen} == {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17"}
+    assert all(sum(r["screen_wave"] == str(w) for r in screen) == 10 for w in range(1, 18))
     assert all(r["outcome_opened"] == "no" for r in screen)
     assert all(r["outcome_blind_confirmation"] == "yes" for r in screen)
 
@@ -365,6 +369,31 @@ def main() -> None:
     ):
         assert token in w16, token
 
+    wave17 = [r for r in screen if r["screen_wave"] == "17"]
+    assert [r["queue_id"] for r in wave17] == [f"CFTQ{i:04d}" for i in range(161, 171)]
+    assert [r["queue_id"] for r in wave17 if r["screen_decision"] == "advance_full_text_design_screen"] == ["CFTQ0162", "CFTQ0165", "CFTQ0166"]
+    assert sum(r["screen_decision"].startswith("close_") for r in wave17) == 7
+    assert by_id["CFTQ0164"]["screen_decision"] == "close_no_source_defined_fragmentation_exposure"
+    assert by_id["CFTQ0168"]["screen_decision"] == "close_no_direct_F"
+    assert by_id["CFTQ0169"]["screen_decision"] == "close_no_source_defined_fragmentation_exposure"
+
+    w17 = WAVE17.read_text(encoding="utf-8")
+    for token in (
+        "screened in wave 17: **10**",
+        "advance to full-text / recovery gate: **3**",
+        "cumulative target-pair screen: **170 / 360**",
+        "pending target-pair screen: **190**",
+        "CFTQ0162",
+        "CFTQ0165",
+        "CFTQ0166",
+        "fifth gradient/generalisation programme",
+        "I − F: **+1.439**",
+        "p = **0.00316**",
+        "primary direct I-F coverage remains **1/5",
+        "primary direct C-F coverage remains **2/5**",
+    ):
+        assert token in w17, token
+
     fulltext = {r["queue_id"]: r for r in rows(FULLTEXT)}
     assert "CFTQ0030" in fulltext
     b = fulltext["CFTQ0030"]
@@ -524,6 +553,30 @@ def main() -> None:
     assert "30 maximum sites" in sch["independent_unit"]
     assert int(sch["pair_programme_increment"]) == 0
     assert sch["effect_calculation_opened"] == "no"
+
+    assert "CFTQ0162" in fulltext
+    celtis = fulltext["CFTQ0162"]
+    assert celtis["programme_identity"] == "P2_CF01_CELTIS_MODIFIED_FORESTS_2013"
+    assert celtis["quantitative_gate_status"] == "pending_fulltext_forest_modification_estimand_lock"
+    assert "36 sites total" in celtis["independent_unit"]
+    assert int(celtis["pair_programme_increment"]) == 0
+    assert celtis["effect_calculation_opened"] == "no"
+
+    assert "CFTQ0165" in fulltext
+    anax = fulltext["CFTQ0165"]
+    assert anax["programme_identity"] == "P2_CF01_ANAXAGOREA_2012"
+    assert anax["quantitative_gate_status"] == "recovery_contract_frozen_fragment_values_pending"
+    assert "3 small + 3 large" in anax["independent_unit"]
+    assert int(anax["pair_programme_increment"]) == 0
+    assert anax["effect_calculation_opened"] == "no"
+
+    assert "CFTQ0166" in fulltext
+    card = fulltext["CFTQ0166"]
+    assert card["programme_identity"] == "P2_CF01_CARDIOPETALUM_2012"
+    assert card["quantitative_gate_status"] == "recovered_gradient_generalisation_multilayer_cluster_retrospective"
+    assert "10 Table-1 fragments" in card["independent_unit"]
+    assert int(card["pair_programme_increment"]) == 0
+    assert card["effect_calculation_opened"] == "yes"
 
     bdffp_schema = json.loads(BDFFP_SCHEMA.read_text(encoding="utf-8"))
     assert bdffp_schema["candidate"] == "CFTQ0065"
@@ -704,6 +757,40 @@ def main() -> None:
     ):
         assert token in schuepp_access, token
 
+    anaxagorea_contract = ANAXAGOREA_CONTRACT.read_text(encoding="utf-8")
+    for token in (
+        "three large Atlantic-rainforest fragments",
+        "three small fragments",
+        "Independent unit = **forest fragment**",
+        "Primary I = **pollinator abundance per flower**",
+        "Primary F = **fruit set = fruits per flower**",
+        "retrospective external recovery",
+    ):
+        assert token in anaxagorea_contract, token
+
+    cardiopetalum_rule = CARDIOPETALUM_RULE.read_text(encoding="utf-8")
+    for token in (
+        "10 independent cerrado forest fragments",
+        "fragmentation_severity = -log(fragment_area_ha)",
+        "Primary I = **pollinator abundance per flower (ABP)**",
+        "Primary F = **fruit set per flower (F)**",
+        "retrospective external recovery",
+        "contributes **zero** primary direct Hedges-g I-F programmes",
+    ):
+        assert token in cardiopetalum_rule, token
+
+    cardiopetalum_result = CARDIOPETALUM_RESULT.read_text(encoding="utf-8")
+    for token in (
+        "independent forest fragments: **10**",
+        "Fisher z = **−0.245**",
+        "Fisher z = **−1.684**",
+        "I − F = **+1.439**",
+        "95% CI = **[+0.483, +2.394]**",
+        "p = **0.00316**",
+        "interaction persistence with reproductive collapse",
+    ):
+        assert token in cardiopetalum_result, token
+
     manifest = json.loads(BRASSICA_MANIFEST.read_text(encoding="utf-8"))
     assert manifest["dataset_id"] == "6jw833yrt4"
     assert manifest["version"] == 1
@@ -749,9 +836,9 @@ def main() -> None:
 
     print(
         "PHASE2_CF01_TARGET_PAIR_SCREEN_OK "
-        "queue=360 screened=160 pending=200 wave3_advance=1 wave4_advance=0 wave5_advance=1 wave6_advance=2 wave7_advance=3 wave8_advance=1 wave9_advance=2 wave10_advance=0 wave11_advance=1 wave12_advance=1 wave12_link_existing=1 wave13_advance=2 wave14_advance=1 wave15_advance=1 wave16_advance=2 "
+        "queue=360 screened=170 pending=190 wave3_advance=1 wave4_advance=0 wave5_advance=1 wave6_advance=2 wave7_advance=3 wave8_advance=1 wave9_advance=2 wave10_advance=0 wave11_advance=1 wave12_advance=1 wave12_link_existing=1 wave13_advance=2 wave14_advance=1 wave15_advance=1 wave16_advance=2 wave17_advance=3 "
         "brassica_increment=0 milkweed_gradient_increment=1 phacelia_increment=0 hedysarum_increment=0 "
-        "bdffp_access_stop=1 hass_access_stop=1 aloe_pending=1 thai_orchard_access_stop=1 brudvig_link_noK=1 acer_CF_increment=0 plectritis_access_stop=1 cabralea_access_stop=1 comarum_access_stop=1 acer_miyabei_gradient_admitted=1 aextoxicon_anchor_noK=1 schuepp_access_stop=1 bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=0 direct_IF=1/5 direct_CF=2/5"
+        "bdffp_access_stop=1 hass_access_stop=1 aloe_pending=1 thai_orchard_access_stop=1 brudvig_link_noK=1 acer_CF_increment=0 plectritis_access_stop=1 cabralea_access_stop=1 comarum_access_stop=1 acer_miyabei_gradient_admitted=1 aextoxicon_anchor_noK=1 schuepp_access_stop=1 celtis_pending=1 anaxagorea_pending=1 cardiopetalum_gradient_admitted=1 bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=0 direct_IF=1/5 direct_CF=2/5"
     )
 
 
