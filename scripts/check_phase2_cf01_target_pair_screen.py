@@ -29,6 +29,7 @@ WAVE16 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE16_2026-09-24.md"
 WAVE17 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE17_2026-09-24.md"
 WAVE18 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE18_2026-09-24.md"
 WAVE19 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE19_2026-09-25.md"
+WAVE20 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE20_2026-09-25.md"
 MILKWEED_CHECK = ROOT / "scripts/check_phase2_cf01_milkweed_gradient.py"
 
 BRASSICA_CONTRACT = ROOT / "manuscript/CF01_BRASSICA_GUATEMALA_2024_RECOVERY_CONTRACT.md"
@@ -68,21 +69,21 @@ def rows(path: Path) -> list[dict[str, str]]:
 
 def main() -> None:
     for p in (
-        QUEUE, SCREEN, FULLTEXT, PAIR_COVERAGE, WAVE3, WAVE4, WAVE5, WAVE6, WAVE7, WAVE8, WAVE9, WAVE10, WAVE11, WAVE12, WAVE13, WAVE14, WAVE15, WAVE16, WAVE17, WAVE18, WAVE19, MILKWEED_CHECK,
+        QUEUE, SCREEN, FULLTEXT, PAIR_COVERAGE, WAVE3, WAVE4, WAVE5, WAVE6, WAVE7, WAVE8, WAVE9, WAVE10, WAVE11, WAVE12, WAVE13, WAVE14, WAVE15, WAVE16, WAVE17, WAVE18, WAVE19, WAVE20, MILKWEED_CHECK,
         BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE, BDFFP_SCHEMA, BDFFP_STATUS, HASS_CONTRACT, HASS_SCHEMA, HASS_STATUS, THAI_ORCHARD_CONTRACT, THAI_ORCHARD_ACCESS, THAI_ORCHARD_STATUS, PLECTRITIS_CONTRACT, CABRALEA_CONTRACT, PLECTRITIS_ACCESS, CABRALEA_ACCESS, COMARUM_CONTRACT, COMARUM_ACCESS, AEXTOXICON_ANCHOR, SCHUEPP_CONTRACT, SCHUEPP_ACCESS, ANAXAGOREA_CONTRACT, ANAXAGOREA_ACCESS, CELTIS_GATE, ATTALEA_GATE, CARDIOPETALUM_RULE, CARDIOPETALUM_RESULT, MYRMECOPHILA_GATE,
     ):
         assert p.is_file(), p
 
     queue = rows(QUEUE)
     assert len(queue) == 360
-    assert [r["queue_id"] for r in queue[:190]] == [f"CFTQ{i:04d}" for i in range(1, 191)]
+    assert [r["queue_id"] for r in queue[:200]] == [f"CFTQ{i:04d}" for i in range(1, 201)]
     assert all(r["outcome_opened"] == "no" for r in queue)
 
     screen = rows(SCREEN)
-    assert len(screen) == 190
-    assert [r["queue_id"] for r in screen] == [f"CFTQ{i:04d}" for i in range(1, 191)]
-    assert {r["screen_wave"] for r in screen} == {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19"}
-    assert all(sum(r["screen_wave"] == str(w) for r in screen) == 10 for w in range(1, 20))
+    assert len(screen) == 200
+    assert [r["queue_id"] for r in screen] == [f"CFTQ{i:04d}" for i in range(1, 201)]
+    assert {r["screen_wave"] for r in screen} == {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"}
+    assert all(sum(r["screen_wave"] == str(w) for r in screen) == 10 for w in range(1, 21))
     assert all(r["outcome_opened"] == "no" for r in screen)
     assert all(r["outcome_blind_confirmation"] == "yes" for r in screen)
 
@@ -447,6 +448,30 @@ def main() -> None:
         "primary direct C-F coverage remains **2/5**",
     ):
         assert token in w19, token
+
+    wave20 = [r for r in screen if r["screen_wave"] == "20"]
+    assert [r["queue_id"] for r in wave20] == [f"CFTQ{i:04d}" for i in range(191, 201)]
+    assert not [r for r in wave20 if r["screen_decision"] == "advance_full_text_design_screen"]
+    assert sum(r["screen_decision"].startswith("close_") for r in wave20) == 10
+    assert by_id["CFTQ0191"]["screen_decision"] == "close_nonprimary_review"
+    assert by_id["CFTQ0194"]["screen_decision"] == "close_nonplant_or_wrong_biological_system"
+    assert by_id["CFTQ0196"]["screen_decision"] == "close_no_direct_F"
+    assert by_id["CFTQ0200"]["screen_decision"] == "close_nonplant_or_wrong_biological_system"
+
+    w20 = WAVE20.read_text(encoding="utf-8")
+    for token in (
+        "screened in wave 20: **10**",
+        "advance to full-text / recovery gate: **0**",
+        "cumulative target-pair screen: **200 / 360**",
+        "pending target-pair screen: **160**",
+        "CFTQ0196",
+        "C → D",
+        "D_resource_demography",
+        "gradient/generalisation registry remains **5 programmes / 17 primary Fisher-z effects**",
+        "primary direct I-F coverage remains **1/5**",
+        "primary direct C-F coverage remains **2/5**",
+    ):
+        assert token in w20, token
 
     fulltext = {r["queue_id"]: r for r in rows(FULLTEXT)}
     assert "CFTQ0030" in fulltext
@@ -953,9 +978,9 @@ def main() -> None:
 
     print(
         "PHASE2_CF01_TARGET_PAIR_SCREEN_OK "
-        "queue=360 screened=190 pending=170 wave3_advance=1 wave4_advance=0 wave5_advance=1 wave6_advance=2 wave7_advance=3 wave8_advance=1 wave9_advance=2 wave10_advance=0 wave11_advance=1 wave12_advance=1 wave12_link_existing=1 wave13_advance=2 wave14_advance=1 wave15_advance=1 wave16_advance=2 wave17_advance=3 wave18_advance=1 wave19_advance=1 "
+        "queue=360 screened=200 pending=160 wave3_advance=1 wave4_advance=0 wave5_advance=1 wave6_advance=2 wave7_advance=3 wave8_advance=1 wave9_advance=2 wave10_advance=0 wave11_advance=1 wave12_advance=1 wave12_link_existing=1 wave13_advance=2 wave14_advance=1 wave15_advance=1 wave16_advance=2 wave17_advance=3 wave18_advance=1 wave19_advance=1 wave20_advance=0 "
         "brassica_increment=0 milkweed_gradient_increment=1 phacelia_increment=0 hedysarum_increment=0 "
-        "bdffp_access_stop=1 hass_access_stop=1 aloe_pending=1 thai_orchard_access_stop=1 brudvig_link_noK=1 acer_CF_increment=0 plectritis_access_stop=1 cabralea_access_stop=1 comarum_access_stop=1 acer_miyabei_gradient_admitted=1 aextoxicon_anchor_noK=1 schuepp_access_stop=1 celtis_estimand_stop=1 anaxagorea_access_stop=1 cardiopetalum_gradient_admitted=1 attalea_linked_stop=1 myrmecophila_estimand_pending=1 bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=0 direct_IF=1/5 direct_CF=2/5"
+        "bdffp_access_stop=1 hass_access_stop=1 aloe_pending=1 thai_orchard_access_stop=1 brudvig_link_noK=1 acer_CF_increment=0 plectritis_access_stop=1 cabralea_access_stop=1 comarum_access_stop=1 acer_miyabei_gradient_admitted=1 aextoxicon_anchor_noK=1 schuepp_access_stop=1 celtis_estimand_stop=1 anaxagorea_access_stop=1 cardiopetalum_gradient_admitted=1 attalea_linked_stop=1 myrmecophila_estimand_pending=1 herrera_CD_anchor_noK=1 bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=0 direct_IF=1/5 direct_CF=2/5"
     )
 
 
