@@ -39,6 +39,8 @@ THAI_ORCHARD_ACCESS = ROOT / "evidence/meta_extraction/phase2_cf01_thai_orchard_
 THAI_ORCHARD_STATUS = ROOT / "manuscript/PHASE2_CF01_THAI_ORCHARD_ACCESS_GATE_2026-09-24.md"
 PLECTRITIS_CONTRACT = ROOT / "manuscript/CF01_PLECTRITIS_2015_GRADIENT_RECOVERY_CONTRACT.md"
 CABRALEA_CONTRACT = ROOT / "manuscript/CF01_CABRALEA_2015_DIRECT_IF_RECOVERY_CONTRACT.md"
+PLECTRITIS_ACCESS = ROOT / "manuscript/PHASE2_CF01_PLECTRITIS_ACCESS_GATE_2026-09-24.md"
+CABRALEA_ACCESS = ROOT / "manuscript/PHASE2_CF01_CABRALEA_ACCESS_GATE_2026-09-24.md"
 
 
 def rows(path: Path) -> list[dict[str, str]]:
@@ -49,7 +51,7 @@ def rows(path: Path) -> list[dict[str, str]]:
 def main() -> None:
     for p in (
         QUEUE, SCREEN, FULLTEXT, PAIR_COVERAGE, WAVE3, WAVE4, WAVE5, WAVE6, WAVE7, WAVE8, WAVE9, WAVE10, WAVE11, WAVE12, WAVE13, MILKWEED_CHECK,
-        BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE, BDFFP_SCHEMA, BDFFP_STATUS, HASS_CONTRACT, HASS_SCHEMA, HASS_STATUS, THAI_ORCHARD_CONTRACT, THAI_ORCHARD_ACCESS, THAI_ORCHARD_STATUS, PLECTRITIS_CONTRACT, CABRALEA_CONTRACT,
+        BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE, BDFFP_SCHEMA, BDFFP_STATUS, HASS_CONTRACT, HASS_SCHEMA, HASS_STATUS, THAI_ORCHARD_CONTRACT, THAI_ORCHARD_ACCESS, THAI_ORCHARD_STATUS, PLECTRITIS_CONTRACT, CABRALEA_CONTRACT, PLECTRITIS_ACCESS, CABRALEA_ACCESS,
     ):
         assert p.is_file(), p
 
@@ -403,7 +405,7 @@ def main() -> None:
     assert "CFTQ0121" in fulltext
     plectritis = fulltext["CFTQ0121"]
     assert plectritis["programme_identity"] == "P2_CF01_PLECTRITIS_ISLAND_CONNECTIVITY_2015"
-    assert plectritis["quantitative_gate_status"] == "recovery_contract_frozen_source_site_data_pending"
+    assert plectritis["quantitative_gate_status"] == "blocked_public_site_level_connectivity_IF_values_not_recoverable"
     assert "12 source localities" in plectritis["independent_unit"]
     assert int(plectritis["pair_programme_increment"]) == 0
     assert plectritis["effect_calculation_opened"] == "no"
@@ -411,7 +413,7 @@ def main() -> None:
     assert "CFTQ0124" in fulltext
     cabralea = fulltext["CFTQ0124"]
     assert cabralea["programme_identity"] == "P2_CF01_CABRALEA_2015"
-    assert cabralea["quantitative_gate_status"] == "recovery_contract_frozen_four_site_values_pending"
+    assert cabralea["quantitative_gate_status"] == "blocked_public_four_site_IF_values_not_recoverable"
     for token in ("F1", "F2", "C1", "C2"):
         assert token in cabralea["independent_unit"]
     assert int(cabralea["pair_programme_increment"]) == 0
@@ -520,6 +522,25 @@ def main() -> None:
     ):
         assert token in cabralea_contract, token
 
+    plectritis_access = PLECTRITIS_ACCESS.read_text(encoding="utf-8")
+    for token in (
+        "design-valid, quantitatively blocked by site-level effect-unit recoverability",
+        "not an ecological null",
+        "digitize figures",
+        "12-site vectors",
+    ):
+        assert token in plectritis_access, token
+
+    cabralea_access = CABRALEA_ACCESS.read_text(encoding="utf-8")
+    for token in (
+        "design-valid, quantitatively blocked by four-site effect-unit recoverability",
+        "F1, F2",
+        "C1, C2",
+        "not a null I-F result",
+        "group-level SD",
+    ):
+        assert token in cabralea_access, token
+
     manifest = json.loads(BRASSICA_MANIFEST.read_text(encoding="utf-8"))
     assert manifest["dataset_id"] == "6jw833yrt4"
     assert manifest["version"] == 1
@@ -567,7 +588,7 @@ def main() -> None:
         "PHASE2_CF01_TARGET_PAIR_SCREEN_OK "
         "queue=360 screened=130 pending=230 wave3_advance=1 wave4_advance=0 wave5_advance=1 wave6_advance=2 wave7_advance=3 wave8_advance=1 wave9_advance=2 wave10_advance=0 wave11_advance=1 wave12_advance=1 wave12_link_existing=1 wave13_advance=2 "
         "brassica_increment=0 milkweed_gradient_increment=1 phacelia_increment=0 hedysarum_increment=0 "
-        "bdffp_access_stop=1 hass_access_stop=1 aloe_pending=1 thai_orchard_access_stop=1 brudvig_link_noK=1 acer_CF_increment=0 plectritis_pending=1 cabralea_pending=1 bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=0 direct_IF=1/5 direct_CF=2/5"
+        "bdffp_access_stop=1 hass_access_stop=1 aloe_pending=1 thai_orchard_access_stop=1 brudvig_link_noK=1 acer_CF_increment=0 plectritis_access_stop=1 cabralea_access_stop=1 bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=0 direct_IF=1/5 direct_CF=2/5"
     )
 
 
