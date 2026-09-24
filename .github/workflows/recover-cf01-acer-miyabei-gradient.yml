@@ -12,32 +12,21 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   recover:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - name: Recompute retrospective forest-level gradient
         run: python scripts/recover_phase2_cf01_acer_miyabei_gradient.py
-      - name: Commit derived recovery
+      - name: Verify committed derived recovery is current
         run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add \
+          git diff --exit-code -- \
             evidence/meta_extraction/phase2_cf01_acer_miyabei_gradient_effects_v1.csv \
             evidence/meta_extraction/phase2_cf01_acer_miyabei_gradient_covariance_v1.json \
             manuscript/PHASE2_CF01_ACER_MIYABEI_GRADIENT_RECOVERY_2026-09-24.md
-          if git diff --cached --quiet; then
-            echo 'No Acer miyabei derived changes'
-          else
-            git commit -m 'Recover Acer miyabei retrospective gradient'
-            git pull --rebase origin meta/systematic-coverage-moderator-expansion-2026-09-16
-            git push origin HEAD:meta/systematic-coverage-moderator-expansion-2026-09-16
-          fi
