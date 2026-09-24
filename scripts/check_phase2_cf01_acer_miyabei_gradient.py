@@ -150,7 +150,7 @@ def main() -> None:
         "C_support = - mean_kinship",
         "F_viable_seed_density = seed_density_per_m2 * viable_seed_proportion",
         "nine forests",
-        "zero** primary direct Hedges-g",
+        "contributes **zero** to direct I-F or C-F Hedges-g coverage",
     ):
         assert token in rule, token
 
