@@ -13,6 +13,7 @@ from openpyxl import load_workbook
 ROOT = Path(__file__).resolve().parents[1]
 SUMMARY = ROOT / "evidence/meta_extraction/phase2_cf01_zurich_envidat_schema_v1.json"
 STATUS = ROOT / "manuscript/PHASE2_CF01_ZURICH_ENVIDAT_SCHEMA_2026-09-24.md"
+EXPOSURE = ROOT / "evidence/meta_extraction/phase2_cf01_zurich_exposure_audit_v1.json"
 
 EXPECTED_SUFFIXES = {
     "data_description.xlsx",
@@ -81,6 +82,34 @@ def xlsx_schema(zf: zipfile.ZipFile, name: str) -> dict:
     }
 
 
+
+def workbook_text(zf: zipfile.ZipFile, name: str) -> str:
+    raw = zf.read(name)
+    wb = load_workbook(io.BytesIO(raw), read_only=True, data_only=False)
+    values = []
+    for ws in wb.worksheets:
+        values.append(f"SHEET {ws.title}")
+        for row in ws.iter_rows(values_only=True):
+            vals = [str(x) for x in row if x is not None]
+            if vals:
+                values.append(" | ".join(vals))
+    return "\n".join(values)
+
+
+def text_resource(zf: zipfile.ZipFile, name: str) -> str:
+    return zf.read(name).decode("utf-8-sig", errors="replace")
+
+
+def term_hits(text: str, terms: tuple[str, ...]) -> dict[str, list[str]]:
+    lines = text.splitlines()
+    out: dict[str, list[str]] = {}
+    for term in terms:
+        matches = [line.strip() for line in lines if term.casefold() in line.casefold()]
+        if matches:
+            out[term] = matches[:25]
+    return out
+
+
 def main() -> None:
     if len(sys.argv) != 2:
         raise SystemExit("usage: inspect_cf01_zurich_envidat_schema.py DATASET.zip")
@@ -101,13 +130,24 @@ def main() -> None:
         for short in ("data_description.xlsx", "raw_sampling_data.xlsx"):
             xlsx_files[short] = xlsx_schema(zf, base[short])
 
-        readme = zf.read(base["README.txt"]).decode("utf-8-sig", errors="replace")
+        readme = text_resource(zf, base["README.txt"])
+        data_description_text = workbook_text(zf, base["data_description.xlsx"])
+        raw_workbook_text = workbook_text(zf, base["raw_sampling_data.xlsx"])
+        r_script_text = "\n\n".join(
+            f"FILE {short}\n" + text_resource(zf, base[short])
+            for short in sorted(x for x in EXPECTED_SUFFIXES if x.endswith(".R"))
+        )
 
-    exposure_tokens = ("impervious", "500", "garden", "urban")
     response_tokens = ("visit", "pollin", "seed", "fruit")
     schema_text = json.dumps({"csv": csv_files, "xlsx": xlsx_files}, ensure_ascii=False).lower()
-    exposure_schema_hint = all(tok in (schema_text + readme.lower()) for tok in ("garden",))
-    has_impervious_hint = "impervious" in (schema_text + readme.lower())
+    corpus = "\n".join([schema_text, readme, data_description_text, raw_workbook_text, r_script_text])
+    exposure_schema_hint = "garden" in corpus.casefold()
+    exposure_terms = (
+        "impervious", "sealed", "built", "urban intensity", "urbanisation", "urbanization",
+        "500 m", "500m", "radius", "land cover", "landcover", "habitat loss",
+    )
+    exposure_hits = term_hits(corpus, exposure_terms)
+    has_impervious_hint = "impervious" in exposure_hits
     response_schema_hint = any(tok in schema_text for tok in response_tokens)
 
     summary = {
@@ -126,6 +166,7 @@ def main() -> None:
             "impervious_surface_term_present": has_impervious_hint,
             "pollination_or_reproductive_response_terms_present": response_schema_hint,
         },
+        "exposure_term_hits": exposure_hits,
         "numeric_outcome_summaries_calculated": False,
         "effect_outcomes_opened": False,
         "next_gate": (
@@ -136,6 +177,31 @@ def main() -> None:
     SUMMARY.write_text(json.dumps(summary, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
     raw_sheets = xlsx_files["raw_sampling_data.xlsx"]["sheets"]
+    exposure_audit = {
+        "candidate": "CFTQ0018",
+        "dataset_doi": "10.16904/envidat.676",
+        "searched_resources": [
+            "README.txt",
+            "data_description.xlsx (all cells)",
+            "raw_sampling_data.xlsx (all cells)",
+            "figure_1.R", "figure_2.R", "figure_3.R", "figure_4.R", "table_2.R",
+            "all CSV/XLSX schema field names",
+        ],
+        "searched_terms": list(exposure_terms),
+        "term_hits": exposure_hits,
+        "impervious_surface_field_found": has_impervious_hint,
+        "effect_outcomes_opened": False,
+        "decision": (
+            "exposure_present_in_archive_schema_or_code"
+            if has_impervious_hint
+            else "article_exposure_not_materialized_in_this_archive"
+        ),
+    }
+    EXPOSURE.write_text(
+        json.dumps(exposure_audit, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
+
     STATUS.write_text(
         f"""# CFTQ0018 Zurich EnviDat schema gate — 2026-09-24
 
