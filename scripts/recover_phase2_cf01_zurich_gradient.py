@@ -223,11 +223,14 @@ def main() -> None:
 
             f_by_garden = aggregate_f(f_rows, spec)
             common = sorted(
-                gid for gid in exposure
-                if gid not in spec["exclude_ids"]
-                and (gid, plant) in visit
-                and gid in f_by_garden
-            , key=int)
+                (
+                    gid for gid in exposure
+                    if gid not in spec["exclude_ids"]
+                    and (gid, plant) in visit
+                    and gid in f_by_garden
+                ),
+                key=int,
+            )
             assert len(common) >= 4, (plant, common)
 
             x = [exposure[g] for g in common]
