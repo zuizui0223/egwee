@@ -148,7 +148,7 @@ def main() -> None:
         assert abs(pair["p_two_sided"] - p) < TOL
 
     registry = {r["programme_id"]: r for r in rows(REGISTRY)}
-    assert set(registry) == {"ML015", PROGRAMME, "P2_CF01_MILKWEED_URBAN_2023"}
+    assert set(registry) == {"ML015", PROGRAMME, "P2_CF01_MILKWEED_URBAN_2023", "P2_CF01_ACER_MIYABEI_2014"}
     z = registry[PROGRAMME]
     assert z["design_stream"] == "fisher_z_gradient_generalisation"
     assert z["independent_unit"] == "garden"
@@ -187,8 +187,8 @@ def main() -> None:
 
     registry_status = REGISTRY_STATUS.read_text(encoding="utf-8")
     for token in (
-        "**3 gradient/generalisation programmes**",
-        "**13 Fisher-z admissible marginal effects**",
+        "**4 gradient/generalisation programmes**",
+        "**15 primary Fisher-z admissible marginal effects**",
         "Zurich contributes **8 Fisher-z admissible marginal effects**",
         "direct I-F coverage remains **1/5**",
     ):
@@ -197,7 +197,7 @@ def main() -> None:
     print(
         "PHASE2_CF01_ZURICH_CHECK_OK "
         "programme=1 phytometers=4 effects=8 covariance_blocks=4 all_PD=true "
-        "gradient_programmes=3 primary_Hedges_increment=0"
+        "gradient_programmes=4 primary_Hedges_increment=0"
     )
 
 
