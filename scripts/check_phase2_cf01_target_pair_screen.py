@@ -48,6 +48,7 @@ COMARUM_CONTRACT = ROOT / "manuscript/CF01_COMARUM_2014_GRADIENT_RECOVERY_CONTRA
 COMARUM_ACCESS = ROOT / "manuscript/PHASE2_CF01_COMARUM_ACCESS_GATE_2026-09-24.md"
 AEXTOXICON_ANCHOR = ROOT / "manuscript/PHASE2_CF01_AEXTOXICON_PROCESS_ANCHOR_2026-09-24.md"
 SCHUEPP_CONTRACT = ROOT / "manuscript/CF01_SCHUEPP_CHERRY_2014_GRADIENT_RECOVERY_CONTRACT.md"
+SCHUEPP_ACCESS = ROOT / "manuscript/PHASE2_CF01_SCHUEPP_ACCESS_GATE_2026-09-24.md"
 
 
 def rows(path: Path) -> list[dict[str, str]]:
@@ -58,7 +59,7 @@ def rows(path: Path) -> list[dict[str, str]]:
 def main() -> None:
     for p in (
         QUEUE, SCREEN, FULLTEXT, PAIR_COVERAGE, WAVE3, WAVE4, WAVE5, WAVE6, WAVE7, WAVE8, WAVE9, WAVE10, WAVE11, WAVE12, WAVE13, WAVE14, WAVE15, WAVE16, MILKWEED_CHECK,
-        BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE, BDFFP_SCHEMA, BDFFP_STATUS, HASS_CONTRACT, HASS_SCHEMA, HASS_STATUS, THAI_ORCHARD_CONTRACT, THAI_ORCHARD_ACCESS, THAI_ORCHARD_STATUS, PLECTRITIS_CONTRACT, CABRALEA_CONTRACT, PLECTRITIS_ACCESS, CABRALEA_ACCESS, COMARUM_CONTRACT, COMARUM_ACCESS, AEXTOXICON_ANCHOR, SCHUEPP_CONTRACT,
+        BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE, BDFFP_SCHEMA, BDFFP_STATUS, HASS_CONTRACT, HASS_SCHEMA, HASS_STATUS, THAI_ORCHARD_CONTRACT, THAI_ORCHARD_ACCESS, THAI_ORCHARD_STATUS, PLECTRITIS_CONTRACT, CABRALEA_CONTRACT, PLECTRITIS_ACCESS, CABRALEA_ACCESS, COMARUM_CONTRACT, COMARUM_ACCESS, AEXTOXICON_ANCHOR, SCHUEPP_CONTRACT, SCHUEPP_ACCESS,
     ):
         assert p.is_file(), p
 
@@ -519,7 +520,7 @@ def main() -> None:
     assert "CFTQ0156" in fulltext
     sch = fulltext["CFTQ0156"]
     assert sch["programme_identity"] == "P2_CF01_SCHUEPP_CHERRY_2014"
-    assert sch["quantitative_gate_status"] == "recovery_contract_frozen_public_site_values_pending"
+    assert sch["quantitative_gate_status"] == "blocked_public_common_site_IF_vectors_not_recoverable"
     assert "30 maximum sites" in sch["independent_unit"]
     assert int(sch["pair_programme_increment"]) == 0
     assert sch["effect_calculation_opened"] == "no"
@@ -692,6 +693,17 @@ def main() -> None:
     ):
         assert token in schuepp_contract, token
 
+    schuepp_access = SCHUEPP_ACCESS.read_text(encoding="utf-8")
+    for token in (
+        "design-valid, quantitatively blocked by common-site I/F vector recoverability",
+        "30 spatially separated landscape sectors",
+        "does **not** expose one authoritative table",
+        "No EGWEE Fisher-z effect was calculated",
+        "Gradient programme increment: **0**",
+        "digitize response figures",
+    ):
+        assert token in schuepp_access, token
+
     manifest = json.loads(BRASSICA_MANIFEST.read_text(encoding="utf-8"))
     assert manifest["dataset_id"] == "6jw833yrt4"
     assert manifest["version"] == 1
@@ -739,7 +751,7 @@ def main() -> None:
         "PHASE2_CF01_TARGET_PAIR_SCREEN_OK "
         "queue=360 screened=160 pending=200 wave3_advance=1 wave4_advance=0 wave5_advance=1 wave6_advance=2 wave7_advance=3 wave8_advance=1 wave9_advance=2 wave10_advance=0 wave11_advance=1 wave12_advance=1 wave12_link_existing=1 wave13_advance=2 wave14_advance=1 wave15_advance=1 wave16_advance=2 "
         "brassica_increment=0 milkweed_gradient_increment=1 phacelia_increment=0 hedysarum_increment=0 "
-        "bdffp_access_stop=1 hass_access_stop=1 aloe_pending=1 thai_orchard_access_stop=1 brudvig_link_noK=1 acer_CF_increment=0 plectritis_access_stop=1 cabralea_access_stop=1 comarum_access_stop=1 acer_miyabei_gradient_admitted=1 aextoxicon_anchor_noK=1 schuepp_pending=1 bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=0 direct_IF=1/5 direct_CF=2/5"
+        "bdffp_access_stop=1 hass_access_stop=1 aloe_pending=1 thai_orchard_access_stop=1 brudvig_link_noK=1 acer_CF_increment=0 plectritis_access_stop=1 cabralea_access_stop=1 comarum_access_stop=1 acer_miyabei_gradient_admitted=1 aextoxicon_anchor_noK=1 schuepp_access_stop=1 bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=0 direct_IF=1/5 direct_CF=2/5"
     )
 
 
