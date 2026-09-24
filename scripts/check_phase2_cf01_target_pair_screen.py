@@ -43,6 +43,7 @@ CABRALEA_CONTRACT = ROOT / "manuscript/CF01_CABRALEA_2015_DIRECT_IF_RECOVERY_CON
 PLECTRITIS_ACCESS = ROOT / "manuscript/PHASE2_CF01_PLECTRITIS_ACCESS_GATE_2026-09-24.md"
 CABRALEA_ACCESS = ROOT / "manuscript/PHASE2_CF01_CABRALEA_ACCESS_GATE_2026-09-24.md"
 COMARUM_CONTRACT = ROOT / "manuscript/CF01_COMARUM_2014_GRADIENT_RECOVERY_CONTRACT.md"
+COMARUM_ACCESS = ROOT / "manuscript/PHASE2_CF01_COMARUM_ACCESS_GATE_2026-09-24.md"
 
 
 def rows(path: Path) -> list[dict[str, str]]:
@@ -53,7 +54,7 @@ def rows(path: Path) -> list[dict[str, str]]:
 def main() -> None:
     for p in (
         QUEUE, SCREEN, FULLTEXT, PAIR_COVERAGE, WAVE3, WAVE4, WAVE5, WAVE6, WAVE7, WAVE8, WAVE9, WAVE10, WAVE11, WAVE12, WAVE13, WAVE14, MILKWEED_CHECK,
-        BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE, BDFFP_SCHEMA, BDFFP_STATUS, HASS_CONTRACT, HASS_SCHEMA, HASS_STATUS, THAI_ORCHARD_CONTRACT, THAI_ORCHARD_ACCESS, THAI_ORCHARD_STATUS, PLECTRITIS_CONTRACT, CABRALEA_CONTRACT, PLECTRITIS_ACCESS, CABRALEA_ACCESS, COMARUM_CONTRACT,
+        BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE, BDFFP_SCHEMA, BDFFP_STATUS, HASS_CONTRACT, HASS_SCHEMA, HASS_STATUS, THAI_ORCHARD_CONTRACT, THAI_ORCHARD_ACCESS, THAI_ORCHARD_STATUS, PLECTRITIS_CONTRACT, CABRALEA_CONTRACT, PLECTRITIS_ACCESS, CABRALEA_ACCESS, COMARUM_CONTRACT, COMARUM_ACCESS,
     ):
         assert p.is_file(), p
 
@@ -444,7 +445,7 @@ def main() -> None:
     assert "CFTQ0135" in fulltext
     comarum = fulltext["CFTQ0135"]
     assert comarum["programme_identity"] == "P2_CF01_COMARUM_2014"
-    assert comarum["quantitative_gate_status"] == "recovery_contract_frozen_population_values_pending"
+    assert comarum["quantitative_gate_status"] == "blocked_population_level_open_seed_set_not_recoverable_without_figure_digitization"
     assert "14 Belgian populations" in comarum["independent_unit"]
     assert int(comarum["pair_programme_increment"]) == 0
     assert comarum["effect_calculation_opened"] == "no"
@@ -582,6 +583,16 @@ def main() -> None:
     ):
         assert token in comarum_contract, token
 
+    comarum_access = COMARUM_ACCESS.read_text(encoding="utf-8")
+    for token in (
+        "design-valid, quantitatively blocked by population-level F recoverability",
+        "Table 1 publishes",
+        "Figure 3",
+        "No EGWEE Fisher-z effect was calculated",
+        "digitize Figure 3",
+    ):
+        assert token in comarum_access, token
+
     manifest = json.loads(BRASSICA_MANIFEST.read_text(encoding="utf-8"))
     assert manifest["dataset_id"] == "6jw833yrt4"
     assert manifest["version"] == 1
@@ -629,7 +640,7 @@ def main() -> None:
         "PHASE2_CF01_TARGET_PAIR_SCREEN_OK "
         "queue=360 screened=140 pending=220 wave3_advance=1 wave4_advance=0 wave5_advance=1 wave6_advance=2 wave7_advance=3 wave8_advance=1 wave9_advance=2 wave10_advance=0 wave11_advance=1 wave12_advance=1 wave12_link_existing=1 wave13_advance=2 wave14_advance=1 "
         "brassica_increment=0 milkweed_gradient_increment=1 phacelia_increment=0 hedysarum_increment=0 "
-        "bdffp_access_stop=1 hass_access_stop=1 aloe_pending=1 thai_orchard_access_stop=1 brudvig_link_noK=1 acer_CF_increment=0 plectritis_access_stop=1 cabralea_access_stop=1 comarum_pending=1 bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=0 direct_IF=1/5 direct_CF=2/5"
+        "bdffp_access_stop=1 hass_access_stop=1 aloe_pending=1 thai_orchard_access_stop=1 brudvig_link_noK=1 acer_CF_increment=0 plectritis_access_stop=1 cabralea_access_stop=1 comarum_access_stop=1 bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=0 direct_IF=1/5 direct_CF=2/5"
     )
 
 
