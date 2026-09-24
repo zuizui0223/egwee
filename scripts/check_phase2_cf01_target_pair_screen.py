@@ -30,6 +30,7 @@ WAVE17 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE17_2026-09-24.md"
 WAVE18 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE18_2026-09-24.md"
 WAVE19 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE19_2026-09-25.md"
 WAVE20 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE20_2026-09-25.md"
+WAVE21 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE21_2026-09-25.md"
 MILKWEED_CHECK = ROOT / "scripts/check_phase2_cf01_milkweed_gradient.py"
 
 BRASSICA_CONTRACT = ROOT / "manuscript/CF01_BRASSICA_GUATEMALA_2024_RECOVERY_CONTRACT.md"
@@ -60,6 +61,9 @@ ATTALEA_GATE = ROOT / "manuscript/PHASE2_CF01_ATTALEA_LINKED_CF_GATE_2026-09-24.
 CARDIOPETALUM_RULE = ROOT / "manuscript/CF01_CARDIOPETALUM_2012_GRADIENT_RECOVERY_RULE.md"
 CARDIOPETALUM_RESULT = ROOT / "manuscript/PHASE2_CF01_CARDIOPETALUM_GRADIENT_RECOVERY_2026-09-24.md"
 MYRMECOPHILA_GATE = ROOT / "manuscript/PHASE2_CF01_MYRMECOphila_ESTIMAND_GATE_2026-09-25.md"
+BARTOMEUS_GATE = ROOT / "manuscript/PHASE2_CF01_BARTOMEUS_ESTIMAND_GATE_2026-09-25.md"
+HELICONIA_URIARTE_GATE = ROOT / "manuscript/PHASE2_CF01_HELICONIA_URIARTE_GATE_2026-09-25.md"
+BYRSONIMA_GATE = ROOT / "manuscript/PHASE2_CF01_BYRSONIMA_VARIANCE_GATE_2026-09-25.md"
 
 
 def rows(path: Path) -> list[dict[str, str]]:
@@ -69,21 +73,21 @@ def rows(path: Path) -> list[dict[str, str]]:
 
 def main() -> None:
     for p in (
-        QUEUE, SCREEN, FULLTEXT, PAIR_COVERAGE, WAVE3, WAVE4, WAVE5, WAVE6, WAVE7, WAVE8, WAVE9, WAVE10, WAVE11, WAVE12, WAVE13, WAVE14, WAVE15, WAVE16, WAVE17, WAVE18, WAVE19, WAVE20, MILKWEED_CHECK,
-        BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE, BDFFP_SCHEMA, BDFFP_STATUS, HASS_CONTRACT, HASS_SCHEMA, HASS_STATUS, THAI_ORCHARD_CONTRACT, THAI_ORCHARD_ACCESS, THAI_ORCHARD_STATUS, PLECTRITIS_CONTRACT, CABRALEA_CONTRACT, PLECTRITIS_ACCESS, CABRALEA_ACCESS, COMARUM_CONTRACT, COMARUM_ACCESS, AEXTOXICON_ANCHOR, SCHUEPP_CONTRACT, SCHUEPP_ACCESS, ANAXAGOREA_CONTRACT, ANAXAGOREA_ACCESS, CELTIS_GATE, ATTALEA_GATE, CARDIOPETALUM_RULE, CARDIOPETALUM_RESULT, MYRMECOPHILA_GATE,
+        QUEUE, SCREEN, FULLTEXT, PAIR_COVERAGE, WAVE3, WAVE4, WAVE5, WAVE6, WAVE7, WAVE8, WAVE9, WAVE10, WAVE11, WAVE12, WAVE13, WAVE14, WAVE15, WAVE16, WAVE17, WAVE18, WAVE19, WAVE20, WAVE21, MILKWEED_CHECK,
+        BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE, BDFFP_SCHEMA, BDFFP_STATUS, HASS_CONTRACT, HASS_SCHEMA, HASS_STATUS, THAI_ORCHARD_CONTRACT, THAI_ORCHARD_ACCESS, THAI_ORCHARD_STATUS, PLECTRITIS_CONTRACT, CABRALEA_CONTRACT, PLECTRITIS_ACCESS, CABRALEA_ACCESS, COMARUM_CONTRACT, COMARUM_ACCESS, AEXTOXICON_ANCHOR, SCHUEPP_CONTRACT, SCHUEPP_ACCESS, ANAXAGOREA_CONTRACT, ANAXAGOREA_ACCESS, CELTIS_GATE, ATTALEA_GATE, CARDIOPETALUM_RULE, CARDIOPETALUM_RESULT, MYRMECOPHILA_GATE, BARTOMEUS_GATE, HELICONIA_URIARTE_GATE, BYRSONIMA_GATE,
     ):
         assert p.is_file(), p
 
     queue = rows(QUEUE)
     assert len(queue) == 360
-    assert [r["queue_id"] for r in queue[:200]] == [f"CFTQ{i:04d}" for i in range(1, 201)]
+    assert [r["queue_id"] for r in queue[:210]] == [f"CFTQ{i:04d}" for i in range(1, 211)]
     assert all(r["outcome_opened"] == "no" for r in queue)
 
     screen = rows(SCREEN)
-    assert len(screen) == 200
-    assert [r["queue_id"] for r in screen] == [f"CFTQ{i:04d}" for i in range(1, 201)]
-    assert {r["screen_wave"] for r in screen} == {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"}
-    assert all(sum(r["screen_wave"] == str(w) for r in screen) == 10 for w in range(1, 21))
+    assert len(screen) == 210
+    assert [r["queue_id"] for r in screen] == [f"CFTQ{i:04d}" for i in range(1, 211)]
+    assert {r["screen_wave"] for r in screen} == {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21"}
+    assert all(sum(r["screen_wave"] == str(w) for r in screen) == 10 for w in range(1, 22))
     assert all(r["outcome_opened"] == "no" for r in screen)
     assert all(r["outcome_blind_confirmation"] == "yes" for r in screen)
 
@@ -473,6 +477,34 @@ def main() -> None:
     ):
         assert token in w20, token
 
+    wave21 = [r for r in screen if r["screen_wave"] == "21"]
+    assert [r["queue_id"] for r in wave21] == [f"CFTQ{i:04d}" for i in range(201, 211)]
+    assert [r["queue_id"] for r in wave21 if r["screen_decision"] == "advance_full_text_design_screen"] == ["CFTQ0202", "CFTQ0204", "CFTQ0209"]
+    assert [r["queue_id"] for r in wave21 if r["screen_decision"] == "link_existing_programme"] == ["CFTQ0206"]
+    assert sum(r["screen_decision"].startswith("close_") for r in wave21) == 6
+    assert by_id["CFTQ0201"]["screen_decision"] == "close_no_common_pair_frame"
+    assert by_id["CFTQ0208"]["screen_decision"] == "close_nonprimary_review"
+    assert by_id["CFTQ0210"]["screen_decision"] == "close_no_direct_F"
+
+    w21 = WAVE21.read_text(encoding="utf-8")
+    for token in (
+        "screened in wave 21: **10**",
+        "advance to full-text design screen: **3**",
+        "link to existing/umbrella programme identity: **1**",
+        "cumulative target-pair screen: **210 / 360**",
+        "pending target-pair screen: **150**",
+        "CFTQ0202",
+        "CFTQ0204",
+        "CFTQ0209",
+        "CFTQ0206",
+        "blocked_fragment_level_IF_dispersion_and_dependence_not_recoverable",
+        "C → D / seed-limitation process anchor",
+        "gradient/generalisation registry remains **5 programmes / 17 primary Fisher-z effects**",
+        "primary direct I-F coverage remains **1/5**",
+        "primary direct C-F coverage remains **2/5**",
+    ):
+        assert token in w21, token
+
     fulltext = {r["queue_id"]: r for r in rows(FULLTEXT)}
     assert "CFTQ0030" in fulltext
     b = fulltext["CFTQ0030"]
@@ -675,6 +707,38 @@ def main() -> None:
     assert "pollen limitation" in myrm["I_endpoint"]
     assert int(myrm["pair_programme_increment"]) == 0
     assert myrm["effect_calculation_opened"] == "no"
+
+    assert "CFTQ0202" in fulltext
+    bart = fulltext["CFTQ0202"]
+    assert bart["programme_identity"] == "P2_CF01_BARTOMEUS_2010"
+    assert bart["quantitative_gate_status"] == "pending_landscape_estimand_radius_and_common_Raphanus_IF_frame"
+    assert "14 independent landscapes" in bart["independent_unit"]
+    assert int(bart["pair_programme_increment"]) == 0
+    assert bart["effect_calculation_opened"] == "no"
+
+    assert "CFTQ0204" in fulltext
+    uri = fulltext["CFTQ0204"]
+    assert uri["programme_identity"] == "P2_CF01_HELICONIA_URIARTE_2010"
+    assert uri["quantitative_gate_status"] == "retain_C_D_seed_limitation_close_CF_no_direct_observed_F"
+    assert "4 fragment + 6 continuous plots" in uri["independent_unit"]
+    assert int(uri["pair_programme_increment"]) == 0
+    assert uri["effect_calculation_opened"] == "no"
+
+    assert "CFTQ0206" in fulltext
+    braun = fulltext["CFTQ0206"]
+    assert braun["programme_identity"] == "P2_CF01_BRAUN_THESIS_2010"
+    assert braun["identity_status"] == "linked_umbrella_thesis_source_no_new_programme"
+    assert braun["quantitative_gate_status"] == "linked_umbrella_source_no_new_K"
+    assert int(braun["pair_programme_increment"]) == 0
+    assert braun["effect_calculation_opened"] == "no"
+
+    assert "CFTQ0209" in fulltext
+    byr = fulltext["CFTQ0209"]
+    assert byr["programme_identity"] == "P2_CF01_BYRSONIMA_2009"
+    assert byr["quantitative_gate_status"] == "blocked_fragment_level_IF_dispersion_and_dependence_not_recoverable"
+    assert "six fragments total" in byr["independent_unit"]
+    assert int(byr["pair_programme_increment"]) == 0
+    assert byr["effect_calculation_opened"] == "no"
 
     bdffp_schema = json.loads(BDFFP_SCHEMA.read_text(encoding="utf-8"))
     assert bdffp_schema["candidate"] == "CFTQ0065"
@@ -933,6 +997,40 @@ def main() -> None:
     ):
         assert token in myrm_gate, token
 
+    bart_gate = BARTOMEUS_GATE.read_text(encoding="utf-8")
+    for token in (
+        "14 independent riparian sites",
+        "500–3000 m radii",
+        "one landscape-severity variable",
+        "one spatial radius",
+        "Do not",
+        "choose agricultural versus forest versus grassland cover by significance",
+    ):
+        assert token in bart_gate, token
+
+    uri_gate = HELICONIA_URIARTE_GATE.read_text(encoding="utf-8")
+    for token in (
+        "four plots in 1-ha forest fragments",
+        "six plots in continuous forest",
+        "20 fruits × 3 seeds per inflorescence",
+        "C → D / seed-limitation process anchor",
+        "close direct C-F",
+        "No C-F Hedges-g effect is calculated",
+    ):
+        assert token in uri_gate, token
+
+    byr_gate = BYRSONIMA_GATE.read_text(encoding="utf-8")
+    for token in (
+        "three small restinga fragments",
+        "three large fragments",
+        "160 min per fragment",
+        "design-valid direct I-F candidate",
+        "fragmentation-unit marginal variance and dependence recoverability",
+        "cluster-robust fallback",
+        "Direct I-F coverage remains unchanged",
+    ):
+        assert token in byr_gate, token
+
     manifest = json.loads(BRASSICA_MANIFEST.read_text(encoding="utf-8"))
     assert manifest["dataset_id"] == "6jw833yrt4"
     assert manifest["version"] == 1
@@ -978,9 +1076,9 @@ def main() -> None:
 
     print(
         "PHASE2_CF01_TARGET_PAIR_SCREEN_OK "
-        "queue=360 screened=200 pending=160 wave3_advance=1 wave4_advance=0 wave5_advance=1 wave6_advance=2 wave7_advance=3 wave8_advance=1 wave9_advance=2 wave10_advance=0 wave11_advance=1 wave12_advance=1 wave12_link_existing=1 wave13_advance=2 wave14_advance=1 wave15_advance=1 wave16_advance=2 wave17_advance=3 wave18_advance=1 wave19_advance=1 wave20_advance=0 "
+        "queue=360 screened=210 pending=150 wave3_advance=1 wave4_advance=0 wave5_advance=1 wave6_advance=2 wave7_advance=3 wave8_advance=1 wave9_advance=2 wave10_advance=0 wave11_advance=1 wave12_advance=1 wave12_link_existing=1 wave13_advance=2 wave14_advance=1 wave15_advance=1 wave16_advance=2 wave17_advance=3 wave18_advance=1 wave19_advance=1 wave20_advance=0 wave21_advance=3 wave21_link_existing=1 "
         "brassica_increment=0 milkweed_gradient_increment=1 phacelia_increment=0 hedysarum_increment=0 "
-        "bdffp_access_stop=1 hass_access_stop=1 aloe_pending=1 thai_orchard_access_stop=1 brudvig_link_noK=1 acer_CF_increment=0 plectritis_access_stop=1 cabralea_access_stop=1 comarum_access_stop=1 acer_miyabei_gradient_admitted=1 aextoxicon_anchor_noK=1 schuepp_access_stop=1 celtis_estimand_stop=1 anaxagorea_access_stop=1 cardiopetalum_gradient_admitted=1 attalea_linked_stop=1 myrmecophila_estimand_pending=1 herrera_CD_anchor_noK=1 bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=0 direct_IF=1/5 direct_CF=2/5"
+        "bdffp_access_stop=1 hass_access_stop=1 aloe_pending=1 thai_orchard_access_stop=1 brudvig_link_noK=1 acer_CF_increment=0 plectritis_access_stop=1 cabralea_access_stop=1 comarum_access_stop=1 acer_miyabei_gradient_admitted=1 aextoxicon_anchor_noK=1 schuepp_access_stop=1 celtis_estimand_stop=1 anaxagorea_access_stop=1 cardiopetalum_gradient_admitted=1 attalea_linked_stop=1 myrmecophila_estimand_pending=1 herrera_CD_anchor_noK=1 bartomeus_estimand_pending=1 uriarte_CD_anchor_noK=1 braun_umbrella_noK=1 byrsonima_variance_stop=1 bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=0 direct_IF=1/5 direct_CF=2/5"
     )
 
 
