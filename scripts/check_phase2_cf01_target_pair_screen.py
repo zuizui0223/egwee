@@ -22,6 +22,7 @@ WAVE9 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE9_2026-09-24.md"
 WAVE10 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE10_2026-09-24.md"
 WAVE11 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE11_2026-09-24.md"
 WAVE12 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE12_2026-09-24.md"
+WAVE13 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE13_2026-09-24.md"
 MILKWEED_CHECK = ROOT / "scripts/check_phase2_cf01_milkweed_gradient.py"
 
 BRASSICA_CONTRACT = ROOT / "manuscript/CF01_BRASSICA_GUATEMALA_2024_RECOVERY_CONTRACT.md"
@@ -36,6 +37,8 @@ HASS_STATUS = ROOT / "manuscript/PHASE2_CF01_HASS_SUPPLEMENT_SCHEMA_2026-09-24.m
 THAI_ORCHARD_CONTRACT = ROOT / "manuscript/CF01_THAI_ORCHARD_2016_RECOVERY_CONTRACT.md"
 THAI_ORCHARD_ACCESS = ROOT / "evidence/meta_extraction/phase2_cf01_thai_orchard_access_v1.json"
 THAI_ORCHARD_STATUS = ROOT / "manuscript/PHASE2_CF01_THAI_ORCHARD_ACCESS_GATE_2026-09-24.md"
+PLECTRITIS_CONTRACT = ROOT / "manuscript/CF01_PLECTRITIS_2015_GRADIENT_RECOVERY_CONTRACT.md"
+CABRALEA_CONTRACT = ROOT / "manuscript/CF01_CABRALEA_2015_DIRECT_IF_RECOVERY_CONTRACT.md"
 
 
 def rows(path: Path) -> list[dict[str, str]]:
@@ -45,21 +48,21 @@ def rows(path: Path) -> list[dict[str, str]]:
 
 def main() -> None:
     for p in (
-        QUEUE, SCREEN, FULLTEXT, PAIR_COVERAGE, WAVE3, WAVE4, WAVE5, WAVE6, WAVE7, WAVE8, WAVE9, WAVE10, WAVE11, WAVE12, MILKWEED_CHECK,
-        BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE, BDFFP_SCHEMA, BDFFP_STATUS, HASS_CONTRACT, HASS_SCHEMA, HASS_STATUS, THAI_ORCHARD_CONTRACT, THAI_ORCHARD_ACCESS, THAI_ORCHARD_STATUS,
+        QUEUE, SCREEN, FULLTEXT, PAIR_COVERAGE, WAVE3, WAVE4, WAVE5, WAVE6, WAVE7, WAVE8, WAVE9, WAVE10, WAVE11, WAVE12, WAVE13, MILKWEED_CHECK,
+        BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE, BDFFP_SCHEMA, BDFFP_STATUS, HASS_CONTRACT, HASS_SCHEMA, HASS_STATUS, THAI_ORCHARD_CONTRACT, THAI_ORCHARD_ACCESS, THAI_ORCHARD_STATUS, PLECTRITIS_CONTRACT, CABRALEA_CONTRACT,
     ):
         assert p.is_file(), p
 
     queue = rows(QUEUE)
     assert len(queue) == 360
-    assert [r["queue_id"] for r in queue[:120]] == [f"CFTQ{i:04d}" for i in range(1, 121)]
+    assert [r["queue_id"] for r in queue[:130]] == [f"CFTQ{i:04d}" for i in range(1, 131)]
     assert all(r["outcome_opened"] == "no" for r in queue)
 
     screen = rows(SCREEN)
-    assert len(screen) == 120
-    assert [r["queue_id"] for r in screen] == [f"CFTQ{i:04d}" for i in range(1, 121)]
-    assert {r["screen_wave"] for r in screen} == {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"}
-    assert all(sum(r["screen_wave"] == str(w) for r in screen) == 10 for w in range(1, 13))
+    assert len(screen) == 130
+    assert [r["queue_id"] for r in screen] == [f"CFTQ{i:04d}" for i in range(1, 131)]
+    assert {r["screen_wave"] for r in screen} == {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"}
+    assert all(sum(r["screen_wave"] == str(w) for r in screen) == 10 for w in range(1, 14))
     assert all(r["outcome_opened"] == "no" for r in screen)
     assert all(r["outcome_blind_confirmation"] == "yes" for r in screen)
 
@@ -265,6 +268,27 @@ def main() -> None:
     ):
         assert token in w12, token
 
+    wave13 = [r for r in screen if r["screen_wave"] == "13"]
+    assert [r["queue_id"] for r in wave13] == [f"CFTQ{i:04d}" for i in range(121, 131)]
+    assert [r["queue_id"] for r in wave13 if r["screen_decision"] == "advance_full_text_design_screen"] == ["CFTQ0121", "CFTQ0124"]
+    assert sum(r["screen_decision"].startswith("close_") for r in wave13) == 8
+    assert by_id["CFTQ0122"]["screen_decision"] == "close_nonprimary_review"
+    assert by_id["CFTQ0125"]["screen_decision"] == "close_no_direct_C_response"
+    assert by_id["CFTQ0130"]["screen_decision"] == "close_nonprimary_review"
+
+    w13 = WAVE13.read_text(encoding="utf-8")
+    for token in (
+        "screened in wave 13: **10**",
+        "advance to full-text / recovery gate: **2**",
+        "cumulative target-pair screen: **130 / 360**",
+        "pending target-pair screen: **230**",
+        "CFTQ0121",
+        "CFTQ0124",
+        "primary direct I-F coverage remains **1/5**",
+        "primary direct C-F coverage remains **2/5**",
+    ):
+        assert token in w13, token
+
     fulltext = {r["queue_id"]: r for r in rows(FULLTEXT)}
     assert "CFTQ0030" in fulltext
     b = fulltext["CFTQ0030"]
@@ -376,6 +400,23 @@ def main() -> None:
     assert int(acer["pair_programme_increment"]) == 0
     assert acer["effect_calculation_opened"] == "no"
 
+    assert "CFTQ0121" in fulltext
+    plectritis = fulltext["CFTQ0121"]
+    assert plectritis["programme_identity"] == "P2_CF01_PLECTRITIS_ISLAND_CONNECTIVITY_2015"
+    assert plectritis["quantitative_gate_status"] == "recovery_contract_frozen_source_site_data_pending"
+    assert "12 source localities" in plectritis["independent_unit"]
+    assert int(plectritis["pair_programme_increment"]) == 0
+    assert plectritis["effect_calculation_opened"] == "no"
+
+    assert "CFTQ0124" in fulltext
+    cabralea = fulltext["CFTQ0124"]
+    assert cabralea["programme_identity"] == "P2_CF01_CABRALEA_2015"
+    assert cabralea["quantitative_gate_status"] == "recovery_contract_frozen_four_site_values_pending"
+    for token in ("F1", "F2", "C1", "C2"):
+        assert token in cabralea["independent_unit"]
+    assert int(cabralea["pair_programme_increment"]) == 0
+    assert cabralea["effect_calculation_opened"] == "no"
+
     bdffp_schema = json.loads(BDFFP_SCHEMA.read_text(encoding="utf-8"))
     assert bdffp_schema["candidate"] == "CFTQ0065"
     assert bdffp_schema["dataset_doi"] == "10.5061/dryad.612jm640h"
@@ -456,6 +497,29 @@ def main() -> None:
     ):
         assert token in thai_status, token
 
+    plectritis_contract = PLECTRITIS_CONTRACT.read_text(encoding="utf-8")
+    for token in (
+        "12 Plectritis congesta populations/sites",
+        "Independent unit = **Plectritis population/site**",
+        "habitat connectivity within a 1-km radius",
+        "Primary I = **total floral visitation rate to Plectritis congesta**",
+        "Primary F = **Plectritis seed production / maternal female fitness**",
+        "fragmentation_severity = - source_connectivity",
+    ):
+        assert token in plectritis_contract, token
+
+    cabralea_contract = CABRALEA_CONTRACT.read_text(encoding="utf-8")
+    for token in (
+        "three fragmented and three continuous Atlantic-forest sites",
+        "Independent unit = **forest site**",
+        "fragmented: F1 + F2",
+        "reference: C1 + C2",
+        "Primary I = **pollinator visit frequency: number of flower visits per 30 min**",
+        "Primary F = **number of developed fruits per sampled tree**",
+        "tiny four-site covariance gate",
+    ):
+        assert token in cabralea_contract, token
+
     manifest = json.loads(BRASSICA_MANIFEST.read_text(encoding="utf-8"))
     assert manifest["dataset_id"] == "6jw833yrt4"
     assert manifest["version"] == 1
@@ -501,9 +565,9 @@ def main() -> None:
 
     print(
         "PHASE2_CF01_TARGET_PAIR_SCREEN_OK "
-        "queue=360 screened=120 pending=240 wave3_advance=1 wave4_advance=0 wave5_advance=1 wave6_advance=2 wave7_advance=3 wave8_advance=1 wave9_advance=2 wave10_advance=0 wave11_advance=1 wave12_advance=1 wave12_link_existing=1 "
+        "queue=360 screened=130 pending=230 wave3_advance=1 wave4_advance=0 wave5_advance=1 wave6_advance=2 wave7_advance=3 wave8_advance=1 wave9_advance=2 wave10_advance=0 wave11_advance=1 wave12_advance=1 wave12_link_existing=1 wave13_advance=2 "
         "brassica_increment=0 milkweed_gradient_increment=1 phacelia_increment=0 hedysarum_increment=0 "
-        "bdffp_access_stop=1 hass_access_stop=1 aloe_pending=1 thai_orchard_access_stop=1 brudvig_link_noK=1 acer_CF_increment=0 bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=0 direct_IF=1/5 direct_CF=2/5"
+        "bdffp_access_stop=1 hass_access_stop=1 aloe_pending=1 thai_orchard_access_stop=1 brudvig_link_noK=1 acer_CF_increment=0 plectritis_pending=1 cabralea_pending=1 bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=0 direct_IF=1/5 direct_CF=2/5"
     )
 
 
