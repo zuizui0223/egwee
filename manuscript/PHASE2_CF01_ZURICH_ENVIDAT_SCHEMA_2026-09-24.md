@@ -30,5 +30,11 @@ The next gate is structural:
 4. keep garden as the independent landscape unit;
 5. only then freeze one I endpoint and one F endpoint before calculating a gradient effect.
 
-If impervious exposure cannot be joined at garden level, CFTQ0018 remains descriptive rather than
-being rescued with another urbanisation variable.
+The EnviDat archive itself does not store the impervious-surface field. The linked frozen source-code
+release does: BetterBlooms `jae` commit `d6361f6874398e797322afe07a8fea85a3c7e927`,
+`raw_data/explanatory_variables.txt`, contains `Urban_500` for the exact same 24 garden IDs.
+
+The exposure join is therefore **resolved without substituting another urbanisation variable**.
+
+Next: reconstruct the locked garden-level F endpoints from the EnviDat raw files and calculate
+Fisher-z I/F gradient effects on source-defined common garden frames.
