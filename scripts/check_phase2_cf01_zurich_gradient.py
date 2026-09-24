@@ -16,6 +16,7 @@ CONTRACT = ROOT / "manuscript/CF01_ZURICH_2026_GRADIENT_RECOVERY_CONTRACT.md"
 RESULT = ROOT / "manuscript/PHASE2_CF01_ZURICH_GRADIENT_RECOVERY_2026-09-24.md"
 REGISTRY = ROOT / "evidence/meta_extraction/phase2_gradient_programme_registry_v1.csv"
 REGISTRY_STATUS = ROOT / "manuscript/PHASE2_GRADIENT_PROGRAMME_REGISTRY_2026-09-24.md"
+PAIR_COVERAGE = ROOT / "evidence/meta_extraction/coverage_expansion_pair_coverage_v1.csv"
 
 PROGRAMME = "P2_CF01_ZURICH_2026"
 PLANTS = ["Daucus_carota", "Raphanus_sativus", "Onobrychis_viciifolia", "Symphytum_officinale"]
@@ -51,7 +52,7 @@ def residuals(x: list[float], y: list[float]) -> list[float]:
 
 
 def main() -> None:
-    for path in (VALUES, EFFECTS, COVARIANCE, SOURCE_MANIFEST, CONTRACT, RESULT, REGISTRY, REGISTRY_STATUS):
+    for path in (VALUES, EFFECTS, COVARIANCE, SOURCE_MANIFEST, CONTRACT, RESULT, REGISTRY, REGISTRY_STATUS, PAIR_COVERAGE):
         assert path.is_file(), path
 
     manifest = json.loads(SOURCE_MANIFEST.read_text(encoding="utf-8"))
@@ -156,6 +157,12 @@ def main() -> None:
     assert z["covariance_status"] == "proxy_reconstructed_phytometer_pair_residual"
     assert z["programme_status"] == "gradient_generalisation_multilayer_cluster"
     assert int(z["primary_hedges_increment"]) == 0
+
+    pair_coverage = {r["pair_id"]: r for r in rows(PAIR_COVERAGE)}
+    assert int(pair_coverage["I-F"]["current_independent_direct_systems"]) == 1
+    assert pair_coverage["I-F"]["current_system_ids"] == "ML020"
+    assert int(pair_coverage["C-F"]["current_independent_direct_systems"]) == 2
+    assert int(pair_coverage["G_adult-G_offspring"]["current_independent_direct_systems"]) == 5
 
     contract = CONTRACT.read_text(encoding="utf-8")
     for token in (
