@@ -21,6 +21,7 @@ WAVE8 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE8_2026-09-24.md"
 WAVE9 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE9_2026-09-24.md"
 WAVE10 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE10_2026-09-24.md"
 WAVE11 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE11_2026-09-24.md"
+WAVE12 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE12_2026-09-24.md"
 MILKWEED_CHECK = ROOT / "scripts/check_phase2_cf01_milkweed_gradient.py"
 
 BRASSICA_CONTRACT = ROOT / "manuscript/CF01_BRASSICA_GUATEMALA_2024_RECOVERY_CONTRACT.md"
@@ -44,21 +45,21 @@ def rows(path: Path) -> list[dict[str, str]]:
 
 def main() -> None:
     for p in (
-        QUEUE, SCREEN, FULLTEXT, PAIR_COVERAGE, WAVE3, WAVE4, WAVE5, WAVE6, WAVE7, WAVE8, WAVE9, WAVE10, WAVE11, MILKWEED_CHECK,
+        QUEUE, SCREEN, FULLTEXT, PAIR_COVERAGE, WAVE3, WAVE4, WAVE5, WAVE6, WAVE7, WAVE8, WAVE9, WAVE10, WAVE11, WAVE12, MILKWEED_CHECK,
         BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE, BDFFP_SCHEMA, BDFFP_STATUS, HASS_CONTRACT, HASS_SCHEMA, HASS_STATUS, THAI_ORCHARD_CONTRACT, THAI_ORCHARD_ACCESS, THAI_ORCHARD_STATUS,
     ):
         assert p.is_file(), p
 
     queue = rows(QUEUE)
     assert len(queue) == 360
-    assert [r["queue_id"] for r in queue[:110]] == [f"CFTQ{i:04d}" for i in range(1, 111)]
+    assert [r["queue_id"] for r in queue[:120]] == [f"CFTQ{i:04d}" for i in range(1, 121)]
     assert all(r["outcome_opened"] == "no" for r in queue)
 
     screen = rows(SCREEN)
-    assert len(screen) == 110
-    assert [r["queue_id"] for r in screen] == [f"CFTQ{i:04d}" for i in range(1, 111)]
-    assert {r["screen_wave"] for r in screen} == {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"}
-    assert all(sum(r["screen_wave"] == str(w) for r in screen) == 10 for w in range(1, 12))
+    assert len(screen) == 120
+    assert [r["queue_id"] for r in screen] == [f"CFTQ{i:04d}" for i in range(1, 121)]
+    assert {r["screen_wave"] for r in screen} == {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"}
+    assert all(sum(r["screen_wave"] == str(w) for r in screen) == 10 for w in range(1, 13))
     assert all(r["outcome_opened"] == "no" for r in screen)
     assert all(r["outcome_blind_confirmation"] == "yes" for r in screen)
 
@@ -241,6 +242,29 @@ def main() -> None:
     ):
         assert token in w11, token
 
+    wave12 = [r for r in screen if r["screen_wave"] == "12"]
+    assert [r["queue_id"] for r in wave12] == [f"CFTQ{i:04d}" for i in range(111, 121)]
+    assert [r["queue_id"] for r in wave12 if r["screen_decision"] == "advance_full_text_design_screen"] == ["CFTQ0119"]
+    assert [r["queue_id"] for r in wave12 if r["screen_decision"] == "link_existing_programme"] == ["CFTQ0117"]
+    assert sum(r["screen_decision"].startswith("close_") for r in wave12) == 8
+    assert by_id["CFTQ0112"]["screen_decision"] == "close_single_fragmented_single_reference_population"
+    assert by_id["CFTQ0116"]["screen_decision"] == "close_nonplant_or_wrong_biological_system"
+    assert by_id["CFTQ0120"]["screen_decision"] == "close_nonprimary_review"
+
+    w12 = WAVE12.read_text(encoding="utf-8")
+    for token in (
+        "screened in wave 12: **10**",
+        "advance to full-text design clarification: **1**",
+        "link to an existing programme: **1**",
+        "cumulative target-pair screen: **120 / 360**",
+        "pending target-pair screen: **240**",
+        "CFTQ0119",
+        "CFTQ0117",
+        "primary direct I-F coverage remains **1/5**",
+        "primary direct C-F coverage remains **2/5**",
+    ):
+        assert token in w12, token
+
     fulltext = {r["queue_id"]: r for r in rows(FULLTEXT)}
     assert "CFTQ0030" in fulltext
     b = fulltext["CFTQ0030"]
@@ -335,6 +359,14 @@ def main() -> None:
     assert "10 near + 10 far orchards" in thai["independent_unit"]
     assert int(thai["pair_programme_increment"]) == 0
     assert thai["effect_calculation_opened"] == "no"
+
+    assert "CFTQ0119" in fulltext
+    acer = fulltext["CFTQ0119"]
+    assert acer["programme_identity"] == "P2_CF01_ACER_MONO_2015"
+    assert acer["quantitative_gate_status"] == "retain_C_G_close_CF_no_direct_current_F"
+    assert "pollen dispersal" in acer["I_endpoint"] or "pollen dispersal" in acer["gate_reason"]
+    assert int(acer["pair_programme_increment"]) == 0
+    assert acer["effect_calculation_opened"] == "no"
 
     bdffp_schema = json.loads(BDFFP_SCHEMA.read_text(encoding="utf-8"))
     assert bdffp_schema["candidate"] == "CFTQ0065"
@@ -461,9 +493,9 @@ def main() -> None:
 
     print(
         "PHASE2_CF01_TARGET_PAIR_SCREEN_OK "
-        "queue=360 screened=110 pending=250 wave3_advance=1 wave4_advance=0 wave5_advance=1 wave6_advance=2 wave7_advance=3 wave8_advance=1 wave9_advance=2 wave10_advance=0 wave11_advance=1 "
+        "queue=360 screened=120 pending=240 wave3_advance=1 wave4_advance=0 wave5_advance=1 wave6_advance=2 wave7_advance=3 wave8_advance=1 wave9_advance=2 wave10_advance=0 wave11_advance=1 wave12_advance=1 wave12_link_existing=1 "
         "brassica_increment=0 milkweed_gradient_increment=1 phacelia_increment=0 hedysarum_increment=0 "
-        "bdffp_access_stop=1 hass_access_stop=1 aloe_pending=1 thai_orchard_access_stop=1 bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=0 direct_IF=1/5 direct_CF=2/5"
+        "bdffp_access_stop=1 hass_access_stop=1 aloe_pending=1 thai_orchard_access_stop=1 acer_CF_increment=0 bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=0 direct_IF=1/5 direct_CF=2/5"
     )
 
 
