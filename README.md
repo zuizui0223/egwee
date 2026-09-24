@@ -1,20 +1,15 @@
 # EGWEE — empirical multilayer fragmentation synthesis
 
-This repository is the authoritative development home for the **natural-data empirical counterpart to the NEE eco-genetic fragmentation theory**.
+This repository is the authoritative development home for an **independent natural-data synthesis of multilayer fragmentation responses in flowering-plant systems**.
 
 ## Scientific role
 
-The active paper is a cluster-first empirical synthesis asking whether fragmentation responses across biological layers can be treated as one common deterioration state.
-
-The NEE theory asks:
-
-1. **Does fragmentation produce one biological deterioration state?**
-2. **If not, which cross-layer processes and remaining functional reserve determine divergent futures?**
-
-EGWEE tests the empirical counterpart across flowering-plant systems:
+The active paper is a cluster-first empirical synthesis. Its questions are defined from natural-system exposures, effect units and biological endpoints rather than from a finite theoretical model:
 
 1. **Do interaction, movement, reproduction and genetic responses have exchangeable fragmentation effects within natural systems?**
-2. **If not, is state separation robust across independent systems, or is it conditional on particular biological contexts?**
+2. **If not, do separated and concordant response geometries recur across independent systems, and which prespecified biological contexts explain that heterogeneity once replication permits?**
+
+EGWEE therefore estimates the empirical geometry of fragmentation responses. Theory may motivate interpretation, but it is not an admission criterion, estimator, stopping rule or source of empirical endpoint values.
 
 The active manuscript spine is [`manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md`](manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md). The locked protocol is [`manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md`](manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md).
 
@@ -28,7 +23,7 @@ The defensible paper-level conclusion is therefore:
 
 > **Fragmented plant systems include both separated and concordant biological response regimes. The present corpus contains strong state separation, but the pooled direct-effect rejection is materially dependent on Serapias and does not support a universal fragmentation state-separation syndrome.**
 
-This is the natural-data analogue of NEE state separation, but it does not claim that the finite NEE operators are literally validated in nature.
+This is an empirical statement about natural response geometry. It neither tests nor validates the finite NEE operator sequence, warning rules or reserve quantities.
 
 ## Meta-analysis architecture
 
@@ -100,8 +95,10 @@ The historical spine is [`manuscript/natural_data_ecological_indicators_spine.md
 - `evidence/` — locked quantitative evidence and historical natural-data analyses.
 - `background/` — natural mechanism audits and measurement crosswalk.
 
-## Relationship to EGC / EGWE
+## Hard boundary with EGC / EGWE
 
-[`zuizui0223/egc`](https://github.com/zuizui0223/egc) provides state-separation evidence used by the NEE theory programme. [`zuizui0223/egwe`](https://github.com/zuizui0223/egwe) owns the active NEE manuscript and operator/reserve theory.
+[`zuizui0223/egc`](https://github.com/zuizui0223/egc) and [`zuizui0223/egwe`](https://github.com/zuizui0223/egwe) belong to the NEE theory/mechanism programme. In particular, `egwe` owns the finite-model operator and functional-reserve claims.
 
-EGWEE is the **empirical synthesis**. It can support, qualify, or challenge NEE predictions, but it is not allowed to manufacture agreement by selecting only illustrative systems, treating nested observations as independent, or pooling incompatible effect measures.
+EGWEE owns the **natural-data empirical synthesis**. It does not import simulated endpoint values, operator outputs or theoretical success criteria into screening or estimation. Candidate ordering, effect-unit admission, endpoint assignment, Phase-2 stopping and promotion are fixed by empirical contracts independently of whether a result agrees with NEE.
+
+The permitted connection is downstream interpretation: EGWEE can constrain which empirical phenomena a useful theory must explain, and NEE can cite EGWEE as external natural evidence. Neither repository may relabel EGWEE results as validation of a specific finite operator sequence.
