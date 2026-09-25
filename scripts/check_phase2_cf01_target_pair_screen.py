@@ -1720,8 +1720,8 @@ def main() -> None:
         "Primary I candidate = total bat visitation rate",
         "Primary F candidate = fruit set",
         "At most **one direct I-F programme increment**",
-        "cluster-robust fallback",
-        "never count species as independent programmes",
+        "cluster-robust",
+        "cannot be counted as independent K",
     ):
         assert token in ques_gate, token
 
