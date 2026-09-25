@@ -6,7 +6,7 @@ import json
 import math
 import statistics as stats
 import urllib.request
-from collections import defaultdict
+from collections import Counter, defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
