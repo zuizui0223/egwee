@@ -1,0 +1,22 @@
+{
+  "programme_id": "P2_CF01_PRITCHARD_2005",
+  "status": "gradient_generalisation_multilayer_cluster_retrospective_cluster_robust",
+  "independent_unit": "orchard_site",
+  "I_frame_n": 9,
+  "F_frame_n": 5,
+  "F_is_explicit_subset_of_I": true,
+  "F_orchards": [
+    "Briggs Lease",
+    "Cummings",
+    "Kilpatrick",
+    "Lavers",
+    "Samanes"
+  ],
+  "I_numeric_orchard_vector_publicly_recoverable": false,
+  "paired_covariance_reconstructable": false,
+  "covariance_status": "cluster_robust_fallback_overlap_5_of_9_no_pair_covariance",
+  "within_programme_I_minus_F_test_calculated": false,
+  "primary_hedges_increment": 0,
+  "retrospective_recovery": true,
+  "claim_ceiling": "observational landscape-position generalisation; source warns distance is not experimentally replicated and may covary with rainfall/geographic position"
+}
