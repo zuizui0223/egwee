@@ -1193,7 +1193,7 @@ def main() -> None:
     assert "CFTQ0267" in fulltext
     ques = fulltext["CFTQ0267"]
     assert ques["programme_identity"] == "P2_CF01_QUESADA_BOMBACACEOUS_2004"
-    assert ques["quantitative_gate_status"] == "pending_species_specific_common_IF_effect_unit_and_dependence_recovery"
+    assert ques["quantitative_gate_status"] == "close_tree_level_I_marginal_variance_not_reconstructable"
     assert "tree/local-context observational unit" in ques["independent_unit"]
     assert int(ques["pair_programme_increment"]) == 0
     assert ques["effect_calculation_opened"] == "no"
@@ -1729,6 +1729,11 @@ def main() -> None:
         "At most **one direct I-F programme increment**",
         "cluster-robust",
         "cannot be counted as independent K",
+        "35 flowers on 15 disturbed trees",
+        "43 flowers on 24 undisturbed trees",
+        "17 disturbed and 18 undisturbed trees",
+        "close_tree_level_I_marginal_variance_not_reconstructable",
+        "Direct I-F programme increment: **0**",
     ):
         assert has_token(ques_gate, token), token
 
