@@ -1910,7 +1910,7 @@ def main() -> None:
         "I-F: **1 / 5 independent programmes**",
         "C-F: **2 / 5 independent programmes**",
         "G_adult-G_offspring: **5 / 5 independent programmes**",
-        "5 programmes / 17 primary Fisher-z marginal effects",
+        "6 programmes / 19 primary Fisher-z marginal effects",
         "EGWEE search completion is **not** validation of a finite EGWE operator sequence",
     ):
         assert has_token(completion, token), token
