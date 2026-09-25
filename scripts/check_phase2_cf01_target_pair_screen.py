@@ -1372,8 +1372,12 @@ def main() -> None:
     assert "CFTQ0350" in fulltext
     pritchard = fulltext["CFTQ0350"]
     assert pritchard["programme_identity"] == "P2_CF01_PRITCHARD_2005"
-    assert pritchard["quantitative_gate_status"] == "pending_crop_site_isolation_IF_vectors_and_multicrop_identity_recovery"
+    assert pritchard["identity_status"] == "recovered_nested_frame_gradient_programme_retrospective_cluster_robust"
+    assert pritchard["quantitative_gate_status"] == "recovered_gradient_generalisation_multilayer_cluster_retrospective_cluster_robust"
+    assert "I frame = 9 orchards" in pritchard["independent_unit"]
+    assert "F frame = 5 named orchards" in pritchard["independent_unit"]
     assert int(pritchard["pair_programme_increment"]) == 0
+    assert pritchard["effect_calculation_opened"] == "yes"
 
     assert "CFTQ0355" in fulltext
     llorens = fulltext["CFTQ0355"]
