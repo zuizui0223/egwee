@@ -1669,7 +1669,7 @@ def main() -> None:
         "diminished fecundity",
         "Same species + same region + linked citations are not sufficient",
         "linked-campaign",
-        "Direct C-F programme increment: **0**",
+        "direct C-F increment = 0",
     ):
         assert token in lep_gate, token
 
