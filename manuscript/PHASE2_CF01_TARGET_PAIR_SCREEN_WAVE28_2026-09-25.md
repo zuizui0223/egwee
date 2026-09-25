@@ -61,6 +61,17 @@ Frozen candidate:
 No Hedges-g effect has yet been admitted. The source article reports group and nested-model results,
 but the exact ten-site paired I/F vectors still need recovery.
 
+### Subsequent recovery outcome
+
+The later public-source audit closed this candidate at
+`blocked_1997_common_site_identity_and_site_level_F_vector_not_recoverable`.
+
+The open article confirms the 1997 five-island + five-mainland baiting design but does not identify
+the five sampled islands or expose the matching ten site-level bee-abundance and fruit-set vectors.
+The public dissertation landing page does not provide a reproducibly accessible full text. This is
+an effect-unit/data-recoverability stop, not an ecological null. Direct I-F programme increment
+remains **0**.
+
 ## Wave-28 closures
 
 - **CFTQ0271 Zostera marina:** real isolated-patch versus continuous-meadow F effect, but no direct I on the same fragmentation frame.
@@ -77,7 +88,7 @@ but the exact ten-site paired I/F vectors still need recovery.
 Wave 28 raises target-pair coverage to **280/360**.
 
 - gradient/generalisation registry remains **5 programmes / 17 primary Fisher-z effects** pending Coffea;
-- primary direct I-F coverage remains **1/5** pending Catasetum recovery;
+- primary direct I-F coverage remains **1/5**; the subsequent Catasetum audit closed at the 1997 common-site recovery gate;
 - primary direct C-F coverage remains **2/5**;
 - Brunsvigia and Quesada remain at their respective estimand/effect-unit gates;
 - Phase-1 five-cluster synthesis remains frozen and unchanged.
