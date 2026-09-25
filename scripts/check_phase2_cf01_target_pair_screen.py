@@ -698,7 +698,7 @@ def main() -> None:
         "CFTQ0272",
         "CFTQ0278",
         "distance to forest",
-        "same **10 sites in 1997**",
+        "five island and five mainland sites",
         "gradient/generalisation registry remains **5 programmes / 17 primary Fisher-z effects** pending Coffea",
         "primary direct I-F coverage remains **1/5** pending Catasetum recovery",
         "primary direct C-F coverage remains **2/5**",
