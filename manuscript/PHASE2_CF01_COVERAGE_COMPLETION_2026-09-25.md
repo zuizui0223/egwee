@@ -34,17 +34,18 @@ exposure or public-data recoverability.
 
 ### Gradient/generalisation family
 
-The registered gradient/generalisation set contains **5 programmes / 17 primary Fisher-z marginal
+The registered gradient/generalisation set contains **6 programmes / 19 primary Fisher-z marginal
 effects**.
 
 Phase-2 added reproducible natural-system gradient evidence including:
 
 - common milkweed urbanisation;
 - Acer miyabei forest isolation;
-- Cardiopetalum cerrado fragment size.
+- Cardiopetalum cerrado fragment size;
+- Pritchard custard-apple orchard isolation from rainforest.
 
 Cardiopetalum provides a resolved I-F separation on its retrospective source table, whereas Acer
-miyabei does not. These gradient results remain outside the primary direct Hedges-g denominator.
+miyabei does not. Pritchard adds a nested-frame I/F gradient programme in which both marginal effects decline with orchard isolation, but paired covariance is not reconstructable and the frozen cluster-robust fallback is used. These gradient results remain outside the primary direct Hedges-g denominator.
 
 ## What the completed screen found
 
