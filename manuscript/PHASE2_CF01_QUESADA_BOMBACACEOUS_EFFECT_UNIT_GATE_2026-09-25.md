@@ -43,6 +43,48 @@ Before any direct Hedges-g effect is calculated, each species panel must establi
 4. whether those frames are shared, nested or only partially overlapping;
 5. marginal sampling variance at the legitimate independent-unit level.
 
+## Companion-paper audit
+
+The linked species-specific companion paper is Quesada et al. (2003), *Oecologia* 135:400–406,
+doi:10.1007/s00442-003-1234-3, for *Ceiba grandiflora*.
+
+It does not remove the effect-unit problem.
+
+- visitation was recorded from **35 flowers on 15 disturbed trees** and **43 flowers on 24
+  undisturbed trees**, with 1–3 flowers per tree and repeated recording nights;
+- the visitation model uses the number of visits per flower/night and publishes model/LS-mean
+  summaries rather than one tree-level visitation value and variance per independent tree/context;
+- fruit set is directly measured per tree on **17 disturbed and 18 undisturbed trees**.
+
+Thus the F marginal is tree-level, but the public I marginal remains a nested flower/night
+representation. The 2004 multispecies paper uses the same kind of filmed-flower/inflorescence
+reporting for visitation.
+
+The companion paper therefore cannot be used to attach tree n to flower-level I dispersion.
+
+## Decision
+
+Status: `close_tree_level_I_marginal_variance_not_reconstructable`.
+
+No Ceiba species panel currently has a publicly reconstructable direct I marginal effect whose
+sampling variance corresponds to the required tree/local-context independent unit.
+
+The cluster-robust fallback remains relevant only **after valid marginal I and F effects exist**. It
+solves unknown within-cluster covariance; it cannot repair a marginal effect whose variance is
+defined on the wrong observation level.
+
+Direct I-F programme increment: **0**.
+
+The ecological mechanism is retained: forest disruption is associated with lower effective bat
+visitation/pollen receipt and lower fruit set in *C. grandiflora*. That biological result is not
+promoted into the primary Hedges-g I-F family without the effect-unit-valid I marginal.
+
+## Reopening condition
+
+Reopen only if an authoritative source or author-provided data supplies tree-level visitation
+summaries/raw observations with tree identity sufficient to estimate the forest-versus-disturbed I
+marginal at the same legitimate tree/local-context level as F.
+
 ## Dependence rule
 
 If valid marginal I and F effects share the same species/habitat contrast but paired covariance is
