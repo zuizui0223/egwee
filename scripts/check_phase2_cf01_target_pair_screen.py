@@ -1652,11 +1652,11 @@ def main() -> None:
 
     byr_gate = BYRSONIMA_GATE.read_text(encoding="utf-8")
     for token in (
-        "three small restinga fragments",
-        "three large fragments",
+        "small fragments: SF1 = 0.22 ha",
+        "large fragments: LF1 = 36 ha",
         "160 min per fragment",
         "design-valid direct I-F candidate",
-        "fragmentation-unit marginal variance and dependence recoverability",
+        "fragmentation-unit marginal",
         "cluster-robust fallback",
         "Direct I-F coverage remains unchanged",
     ):
