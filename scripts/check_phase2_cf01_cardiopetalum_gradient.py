@@ -124,6 +124,7 @@ def main() -> None:
         "P2_CF01_MILKWEED_URBAN_2023",
         "P2_CF01_ACER_MIYABEI_2014",
         PROGRAMME,
+        "P2_CF01_PRITCHARD_2005",
     }
     card = registry[PROGRAMME]
     assert card["independent_unit"] == "forest_fragment"
