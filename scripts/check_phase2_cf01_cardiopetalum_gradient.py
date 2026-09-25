@@ -160,8 +160,8 @@ def main() -> None:
 
     status = REGISTRY_STATUS.read_text(encoding="utf-8")
     for token in (
-        "**5 gradient/generalisation programmes**",
-        "**17 primary Fisher-z admissible marginal effects**",
+        "**6 gradient/generalisation programmes**",
+        "**19 primary Fisher-z admissible marginal effects**",
         "**P2_CF01_CARDIOPETALUM_2012 — Cardiopetalum calophyllum**",
         "I-F contrast is **+1.439**",
         "p=0.00316",
@@ -172,7 +172,7 @@ def main() -> None:
     print(
         "PHASE2_CF01_CARDIOPETALUM_CHECK_OK "
         f"n=10 I_z={iz:.8f} F_z={fz:.8f} delta={delta:.8f} "
-        f"p={p:.8f} gradient_programmes=5 direct_IF_increment=0 retrospective=true"
+        f"p={p:.8f} gradient_programmes=6 direct_IF_increment=0 retrospective=true"
     )
 
 
