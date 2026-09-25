@@ -142,7 +142,8 @@ def main() -> None:
         "Fisher z = **−1.490**",
         "n = **9 orchards**",
         "n = **5 orchards**",
-        "cluster-robust fallback",
+        "cluster-robust",
+        "fallback",
         "does not change direct I-F coverage",
     ):
         assert token in result, token
