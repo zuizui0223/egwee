@@ -100,6 +100,11 @@ def rows(path: Path) -> list[dict[str, str]]:
         return list(csv.DictReader(fh))
 
 
+def has_token(text: str, token: str) -> bool:
+    """Whitespace-insensitive text invariant for prose/status documents."""
+    return " ".join(token.split()) in " ".join(text.split())
+
+
 def main() -> None:
     for p in (
         QUEUE, SCREEN, FULLTEXT, PAIR_COVERAGE, WAVE3, WAVE4, WAVE5, WAVE6, WAVE7, WAVE8, WAVE9, WAVE10, WAVE11, WAVE12, WAVE13, WAVE14, WAVE15, WAVE16, WAVE17, WAVE18, WAVE19, WAVE20, WAVE21, WAVE22, WAVE23, WAVE24, WAVE25, WAVE26, WAVE27, WAVE28, WAVE29, WAVE30, WAVE31, WAVE32, WAVE33, WAVE34, WAVE35, WAVE36, MILKWEED_CHECK,
@@ -150,7 +155,7 @@ def main() -> None:
         "cumulative target-pair screen: **30 / 360**",
         "CFTQ0030",
     ):
-        assert token in w3, token
+        assert has_token(w3, token), token
 
     w4 = WAVE4.read_text(encoding="utf-8")
     for token in (
@@ -162,7 +167,7 @@ def main() -> None:
         "CFTQ0034",
         "CFTQ0038",
     ):
-        assert token in w4, token
+        assert has_token(w4, token), token
 
     w5 = WAVE5.read_text(encoding="utf-8")
     for token in (
@@ -173,7 +178,7 @@ def main() -> None:
         "CFTQ0044",
         "10.1007/s11252-022-01278-9",
     ):
-        assert token in w5, token
+        assert has_token(w5, token), token
 
     wave6 = [r for r in screen if r["screen_wave"] == "6"]
     assert [r["queue_id"] for r in wave6] == [f"CFTQ{i:04d}" for i in range(51, 61)]
@@ -193,7 +198,7 @@ def main() -> None:
         "CFTQ0060",
         "primary direct I-F coverage remains **1/5",
     ):
-        assert token in w6, token
+        assert has_token(w6, token), token
 
     wave7 = [r for r in screen if r["screen_wave"] == "7"]
     assert [r["queue_id"] for r in wave7] == [f"CFTQ{i:04d}" for i in range(61, 71)]
@@ -216,7 +221,7 @@ def main() -> None:
         "CFTQ0070",
         "primary direct C-F coverage remains **2/5**",
     ):
-        assert token in w7, token
+        assert has_token(w7, token), token
 
     wave8 = [r for r in screen if r["screen_wave"] == "8"]
     assert [r["queue_id"] for r in wave8] == [f"CFTQ{i:04d}" for i in range(71, 81)]
@@ -236,7 +241,7 @@ def main() -> None:
         "primary direct I-F coverage remains **1/5",
         "primary direct C-F coverage remains **2/5**",
     ):
-        assert token in w8, token
+        assert has_token(w8, token), token
 
     wave9 = [r for r in screen if r["screen_wave"] == "9"]
     assert [r["queue_id"] for r in wave9] == [f"CFTQ{i:04d}" for i in range(81, 91)]
@@ -257,7 +262,7 @@ def main() -> None:
         "primary direct I-F coverage remains **1/5",
         "primary direct C-F coverage remains **2/5**",
     ):
-        assert token in w9, token
+        assert has_token(w9, token), token
 
     wave10 = [r for r in screen if r["screen_wave"] == "10"]
     assert [r["queue_id"] for r in wave10] == [f"CFTQ{i:04d}" for i in range(91, 101)]
@@ -277,7 +282,7 @@ def main() -> None:
         "primary direct I-F coverage remains **1/5",
         "primary direct C-F coverage remains **2/5**",
     ):
-        assert token in w10, token
+        assert has_token(w10, token), token
 
     wave11 = [r for r in screen if r["screen_wave"] == "11"]
     assert [r["queue_id"] for r in wave11] == [f"CFTQ{i:04d}" for i in range(101, 111)]
@@ -297,7 +302,7 @@ def main() -> None:
         "primary direct I-F coverage remains **1/5",
         "primary direct C-F coverage remains **2/5**",
     ):
-        assert token in w11, token
+        assert has_token(w11, token), token
 
     wave12 = [r for r in screen if r["screen_wave"] == "12"]
     assert [r["queue_id"] for r in wave12] == [f"CFTQ{i:04d}" for i in range(111, 121)]
@@ -320,7 +325,7 @@ def main() -> None:
         "primary direct I-F coverage remains **1/5",
         "primary direct C-F coverage remains **2/5**",
     ):
-        assert token in w12, token
+        assert has_token(w12, token), token
 
     wave13 = [r for r in screen if r["screen_wave"] == "13"]
     assert [r["queue_id"] for r in wave13] == [f"CFTQ{i:04d}" for i in range(121, 131)]
@@ -341,7 +346,7 @@ def main() -> None:
         "primary direct I-F coverage remains **1/5",
         "primary direct C-F coverage remains **2/5**",
     ):
-        assert token in w13, token
+        assert has_token(w13, token), token
 
     wave14 = [r for r in screen if r["screen_wave"] == "14"]
     assert [r["queue_id"] for r in wave14] == [f"CFTQ{i:04d}" for i in range(131, 141)]
@@ -361,7 +366,7 @@ def main() -> None:
         "primary direct I-F coverage remains **1/5",
         "primary direct C-F coverage remains **2/5**",
     ):
-        assert token in w14, token
+        assert has_token(w14, token), token
 
     wave15 = [r for r in screen if r["screen_wave"] == "15"]
     assert [r["queue_id"] for r in wave15] == [f"CFTQ{i:04d}" for i in range(141, 151)]
@@ -384,7 +389,7 @@ def main() -> None:
         "primary direct I-F coverage remains **1/5",
         "primary direct C-F coverage remains **2/5**",
     ):
-        assert token in w15, token
+        assert has_token(w15, token), token
 
     wave16 = [r for r in screen if r["screen_wave"] == "16"]
     assert [r["queue_id"] for r in wave16] == [f"CFTQ{i:04d}" for i in range(151, 161)]
@@ -407,7 +412,7 @@ def main() -> None:
         "primary direct I-F coverage remains **1/5",
         "primary direct C-F coverage remains **2/5**",
     ):
-        assert token in w16, token
+        assert has_token(w16, token), token
 
     wave17 = [r for r in screen if r["screen_wave"] == "17"]
     assert [r["queue_id"] for r in wave17] == [f"CFTQ{i:04d}" for i in range(161, 171)]
@@ -432,7 +437,7 @@ def main() -> None:
         "primary direct I-F coverage remains **1/5",
         "primary direct C-F coverage remains **2/5**",
     ):
-        assert token in w17, token
+        assert has_token(w17, token), token
 
     wave18 = [r for r in screen if r["screen_wave"] == "18"]
     assert [r["queue_id"] for r in wave18] == [f"CFTQ{i:04d}" for i in range(171, 181)]
@@ -457,7 +462,7 @@ def main() -> None:
         "primary direct I-F coverage remains **1/5**",
         "primary direct C-F coverage remains **2/5**",
     ):
-        assert token in w18, token
+        assert has_token(w18, token), token
 
     wave19 = [r for r in screen if r["screen_wave"] == "19"]
     assert [r["queue_id"] for r in wave19] == [f"CFTQ{i:04d}" for i in range(181, 191)]
@@ -480,7 +485,7 @@ def main() -> None:
         "primary direct I-F coverage remains **1/5**",
         "primary direct C-F coverage remains **2/5**",
     ):
-        assert token in w19, token
+        assert has_token(w19, token), token
 
     wave20 = [r for r in screen if r["screen_wave"] == "20"]
     assert [r["queue_id"] for r in wave20] == [f"CFTQ{i:04d}" for i in range(191, 201)]
@@ -504,7 +509,7 @@ def main() -> None:
         "primary direct I-F coverage remains **1/5**",
         "primary direct C-F coverage remains **2/5**",
     ):
-        assert token in w20, token
+        assert has_token(w20, token), token
 
     wave21 = [r for r in screen if r["screen_wave"] == "21"]
     assert [r["queue_id"] for r in wave21] == [f"CFTQ{i:04d}" for i in range(201, 211)]
@@ -533,7 +538,7 @@ def main() -> None:
         "primary direct I-F coverage remains **1/5**",
         "primary direct C-F coverage remains **2/5**",
     ):
-        assert token in w21, token
+        assert has_token(w21, token), token
 
     wave22 = [r for r in screen if r["screen_wave"] == "22"]
     assert [r["queue_id"] for r in wave22] == [f"CFTQ{i:04d}" for i in range(211, 221)]
@@ -557,7 +562,7 @@ def main() -> None:
         "primary direct I-F coverage remains **1/5**",
         "primary direct C-F coverage remains **2/5**",
     ):
-        assert token in w22, token
+        assert has_token(w22, token), token
 
     wave23 = [r for r in screen if r["screen_wave"] == "23"]
     assert [r["queue_id"] for r in wave23] == [f"CFTQ{i:04d}" for i in range(221, 231)]
@@ -582,7 +587,7 @@ def main() -> None:
         "primary direct I-F coverage remains **1/5**",
         "primary direct C-F coverage remains **2/5**",
     ):
-        assert token in w23, token
+        assert has_token(w23, token), token
 
     wave24 = [r for r in screen if r["screen_wave"] == "24"]
     assert [r["queue_id"] for r in wave24] == [f"CFTQ{i:04d}" for i in range(231, 241)]
@@ -607,7 +612,7 @@ def main() -> None:
         "primary direct I-F coverage remains **1/5**",
         "primary direct C-F coverage remains **2/5**",
     ):
-        assert token in w24, token
+        assert has_token(w24, token), token
 
     wave25 = [r for r in screen if r["screen_wave"] == "25"]
     assert [r["queue_id"] for r in wave25] == [f"CFTQ{i:04d}" for i in range(241, 251)]
@@ -631,7 +636,7 @@ def main() -> None:
         "primary direct I-F coverage remains **1/5**",
         "primary direct C-F coverage remains **2/5**",
     ):
-        assert token in w25, token
+        assert has_token(w25, token), token
 
     wave26 = [r for r in screen if r["screen_wave"] == "26"]
     assert [r["queue_id"] for r in wave26] == [f"CFTQ{i:04d}" for i in range(251, 261)]
@@ -657,7 +662,7 @@ def main() -> None:
         "primary direct I-F coverage remains **1/5**",
         "primary direct C-F coverage remains **2/5**",
     ):
-        assert token in w26, token
+        assert has_token(w26, token), token
 
     wave27 = [r for r in screen if r["screen_wave"] == "27"]
     assert [r["queue_id"] for r in wave27] == [f"CFTQ{i:04d}" for i in range(261, 271)]
@@ -682,7 +687,7 @@ def main() -> None:
         "primary direct I-F coverage remains **1/5**",
         "primary direct C-F coverage remains **2/5**",
     ):
-        assert token in w27, token
+        assert has_token(w27, token), token
 
     wave28 = [r for r in screen if r["screen_wave"] == "28"]
     assert [r["queue_id"] for r in wave28] == [f"CFTQ{i:04d}" for i in range(271, 281)]
@@ -707,7 +712,7 @@ def main() -> None:
         "primary direct I-F coverage remains **1/5** pending Catasetum recovery",
         "primary direct C-F coverage remains **2/5**",
     ):
-        assert token in w28, token
+        assert has_token(w28, token), token
 
     wave29 = [r for r in screen if r["screen_wave"] == "29"]
     assert [r["queue_id"] for r in wave29] == [f"CFTQ{i:04d}" for i in range(281, 291)]
@@ -732,7 +737,7 @@ def main() -> None:
         "primary direct I-F coverage remains **1/5**",
         "primary direct C-F coverage remains **2/5**",
     ):
-        assert token in w29, token
+        assert has_token(w29, token), token
 
     wave30 = [r for r in screen if r["screen_wave"] == "30"]
     assert [r["queue_id"] for r in wave30] == [f"CFTQ{i:04d}" for i in range(291, 301)]
@@ -755,7 +760,7 @@ def main() -> None:
         "primary direct I-F coverage remains **1/5**",
         "primary direct C-F coverage remains **2/5**",
     ):
-        assert token in w30, token
+        assert has_token(w30, token), token
 
     wave31 = [r for r in screen if r["screen_wave"] == "31"]
     assert [r["queue_id"] for r in wave31] == [f"CFTQ{i:04d}" for i in range(301, 311)]
@@ -780,7 +785,7 @@ def main() -> None:
         "movement-compensation / reproductive-decline anchor",
         "primary direct C-F coverage remains **2/5** pending Spondias recovery",
     ):
-        assert token in w31, token
+        assert has_token(w31, token), token
 
     wave32 = [r for r in screen if r["screen_wave"] == "32"]
     assert [r["queue_id"] for r in wave32] == [f"CFTQ{i:04d}" for i in range(311, 321)]
@@ -807,7 +812,7 @@ def main() -> None:
         "primary direct C-F coverage remains **2/5**",
         "5 programmes / 17 primary Fisher-z effects",
     ):
-        assert token in w32, token
+        assert has_token(w32, token), token
 
     wave33 = [r for r in screen if r["screen_wave"] == "33"]
     assert [r["queue_id"] for r in wave33] == [f"CFTQ{i:04d}" for i in range(321, 331)]
@@ -835,7 +840,7 @@ def main() -> None:
         "primary direct I-F coverage remains **1/5**",
         "primary direct C-F coverage remains **2/5**",
     ):
-        assert token in w33, token
+        assert has_token(w33, token), token
 
     wave34 = [r for r in screen if r["screen_wave"] == "34"]
     assert [r["queue_id"] for r in wave34] == [f"CFTQ{i:04d}" for i in range(331, 341)]
@@ -861,7 +866,7 @@ def main() -> None:
         "primary direct I-F coverage remains **1/5**",
         "primary direct C-F coverage remains **2/5**",
     ):
-        assert token in w34, token
+        assert has_token(w34, token), token
 
     wave35 = [r for r in screen if r["screen_wave"] == "35"]
     assert [r["queue_id"] for r in wave35] == [f"CFTQ{i:04d}" for i in range(341, 351)]
@@ -887,7 +892,7 @@ def main() -> None:
         "primary direct I-F coverage remains **1/5**",
         "primary direct C-F coverage remains **2/5**",
     ):
-        assert token in w35, token
+        assert has_token(w35, token), token
 
     wave36 = [r for r in screen if r["screen_wave"] == "36"]
     assert [r["queue_id"] for r in wave36] == [f"CFTQ{i:04d}" for i in range(351, 361)]
@@ -913,7 +918,7 @@ def main() -> None:
         "5 programmes / 17 primary Fisher-z marginal",
         "No NEE operator",
     ):
-        assert token in w36, token
+        assert has_token(w36, token), token
 
     fulltext = {r["queue_id"]: r for r in rows(FULLTEXT)}
     assert "CFTQ0030" in fulltext
@@ -1390,7 +1395,7 @@ def main() -> None:
         "not an ecological null",
         "authentication bypass",
     ):
-        assert token in bdffp_status, token
+        assert has_token(bdffp_status, token), token
 
     hass_contract = HASS_CONTRACT.read_text(encoding="utf-8")
     for token in (
@@ -1401,7 +1406,7 @@ def main() -> None:
         "Primary F = **mean radish seeds per pod**",
         "fragmentation_severity = - field_border_density",
     ):
-        assert token in hass_contract, token
+        assert has_token(hass_contract, token), token
 
     hass_schema = json.loads(HASS_SCHEMA.read_text(encoding="utf-8"))
     assert hass_schema["candidate"] == "CFTQ0084"
@@ -1416,7 +1421,7 @@ def main() -> None:
         "Do not",
         "digitised figures",
     ):
-        assert token in hass_status, token
+        assert has_token(hass_status, token), token
 
     thai_contract = THAI_ORCHARD_CONTRACT.read_text(encoding="utf-8")
     for token in (
@@ -1431,7 +1436,7 @@ def main() -> None:
         "primary F = **fruit set**",
         "p_programme = min(1, 3 * min(p_rambutan, p_durian, p_mango))",
     ):
-        assert token in thai_contract, token
+        assert has_token(thai_contract, token), token
 
     thai_access = json.loads(THAI_ORCHARD_ACCESS.read_text(encoding="utf-8"))
     assert thai_access["candidate"] == "CFTQ0103"
@@ -1449,7 +1454,7 @@ def main() -> None:
         "direct I-F coverage remains **1/5 (ML020 only)**",
         "not an ecological null",
     ):
-        assert token in thai_status, token
+        assert has_token(thai_status, token), token
 
     plectritis_contract = PLECTRITIS_CONTRACT.read_text(encoding="utf-8")
     for token in (
@@ -1462,7 +1467,7 @@ def main() -> None:
         "Primary F = **Plectritis seed production / maternal female fitness**",
         "fragmentation_severity = - source_connectivity",
     ):
-        assert token in plectritis_contract, token
+        assert has_token(plectritis_contract, token), token
 
     cabralea_contract = CABRALEA_CONTRACT.read_text(encoding="utf-8")
     for token in (
@@ -1475,7 +1480,7 @@ def main() -> None:
         "very small 2+2 common denominator",
         "only four paired site observations",
     ):
-        assert token in cabralea_contract, token
+        assert has_token(cabralea_contract, token), token
 
     plectritis_access = PLECTRITIS_ACCESS.read_text(encoding="utf-8")
     for token in (
@@ -1486,7 +1491,7 @@ def main() -> None:
         "choose 12 or 13 sites",
         "digitize figures",
     ):
-        assert token in plectritis_access, token
+        assert has_token(plectritis_access, token), token
 
     cabralea_access = CABRALEA_ACCESS.read_text(encoding="utf-8")
     for token in (
@@ -1496,7 +1501,7 @@ def main() -> None:
         "not a null I-F result",
         "group-level SD",
     ):
-        assert token in cabralea_access, token
+        assert has_token(cabralea_access, token), token
 
     comarum_contract = COMARUM_CONTRACT.read_text(encoding="utf-8")
     for token in (
@@ -1507,7 +1512,7 @@ def main() -> None:
         "Primary F = **open-pollinated viable seed set**",
         "population-year rows as independent fragmentation units",
     ):
-        assert token in comarum_contract, token
+        assert has_token(comarum_contract, token), token
 
     comarum_access = COMARUM_ACCESS.read_text(encoding="utf-8")
     for token in (
@@ -1517,7 +1522,7 @@ def main() -> None:
         "No EGWEE Fisher-z effect was calculated",
         "digitize Figure 3",
     ):
-        assert token in comarum_access, token
+        assert has_token(comarum_access, token), token
 
     aextoxicon_anchor = AEXTOXICON_ANCHOR.read_text(encoding="utf-8")
     for token in (
@@ -1526,7 +1531,7 @@ def main() -> None:
         "pooled small-patch immigrant-seed proportion is reported as 40%",
         "Direct C-F programme increment: **0**",
     ):
-        assert token in aextoxicon_anchor, token
+        assert has_token(aextoxicon_anchor, token), token
 
     schuepp_contract = SCHUEPP_CONTRACT.read_text(encoding="utf-8")
     for token in (
@@ -1537,7 +1542,7 @@ def main() -> None:
         "Primary F = **site-level open/control fruit set**",
         "retrospective external recovery",
     ):
-        assert token in schuepp_contract, token
+        assert has_token(schuepp_contract, token), token
 
     schuepp_access = SCHUEPP_ACCESS.read_text(encoding="utf-8")
     for token in (
@@ -1548,7 +1553,7 @@ def main() -> None:
         "Gradient programme increment: **0**",
         "digitize response figures",
     ):
-        assert token in schuepp_access, token
+        assert has_token(schuepp_access, token), token
 
     celtis_gate = CELTIS_GATE.read_text(encoding="utf-8")
     for token in (
@@ -1559,7 +1564,7 @@ def main() -> None:
         "process-decoupling / service-persistence anchor",
         "Quantitative I-F programme increment: **0**",
     ):
-        assert token in celtis_gate, token
+        assert has_token(celtis_gate, token), token
 
     anaxagorea_contract = ANAXAGOREA_CONTRACT.read_text(encoding="utf-8")
     for token in (
@@ -1570,7 +1575,7 @@ def main() -> None:
         "Primary F = **fruit set = fruits per flower**",
         "retrospective external recovery",
     ):
-        assert token in anaxagorea_contract, token
+        assert has_token(anaxagorea_contract, token), token
 
     anaxagorea_access = ANAXAGOREA_ACCESS.read_text(encoding="utf-8")
     for token in (
@@ -1580,7 +1585,7 @@ def main() -> None:
         "mature fruits per tree",
         "use 186 or 209 flowers as fragmentation n",
     ):
-        assert token in anaxagorea_access, token
+        assert has_token(anaxagorea_access, token), token
 
     attalea_gate = ATTALEA_GATE.read_text(encoding="utf-8")
     for token in (
@@ -1591,7 +1596,7 @@ def main() -> None:
         "Direct C-F programme increment: **0**",
         "reproduction–movement trade-off / compensation anchor",
     ):
-        assert token in attalea_gate, token
+        assert has_token(attalea_gate, token), token
 
     cardiopetalum_rule = CARDIOPETALUM_RULE.read_text(encoding="utf-8")
     for token in (
@@ -1602,7 +1607,7 @@ def main() -> None:
         "retrospective external recovery",
         "contributes **zero** primary direct Hedges-g I-F programmes",
     ):
-        assert token in cardiopetalum_rule, token
+        assert has_token(cardiopetalum_rule, token), token
 
     cardiopetalum_result = CARDIOPETALUM_RESULT.read_text(encoding="utf-8")
     for token in (
@@ -1614,7 +1619,7 @@ def main() -> None:
         "p = **0.00316**",
         "interaction persistence with reproductive collapse",
     ):
-        assert token in cardiopetalum_result, token
+        assert has_token(cardiopetalum_result, token), token
 
     myrm_gate = MYRMECOPHILA_GATE.read_text(encoding="utf-8")
     for token in (
@@ -1626,7 +1631,7 @@ def main() -> None:
         "Do not",
         "choose fragment area versus disturbance",
     ):
-        assert token in myrm_gate, token
+        assert has_token(myrm_gate, token), token
 
     bart_gate = BARTOMEUS_GATE.read_text(encoding="utf-8")
     for token in (
@@ -1637,7 +1642,7 @@ def main() -> None:
         "Do not",
         "choose agricultural versus forest versus grassland cover by significance",
     ):
-        assert token in bart_gate, token
+        assert has_token(bart_gate, token), token
 
     uri_gate = HELICONIA_URIARTE_GATE.read_text(encoding="utf-8")
     for token in (
@@ -1648,7 +1653,7 @@ def main() -> None:
         "close direct C-F",
         "No C-F Hedges-g effect is calculated",
     ):
-        assert token in uri_gate, token
+        assert has_token(uri_gate, token), token
 
     byr_gate = BYRSONIMA_GATE.read_text(encoding="utf-8")
     for token in (
@@ -1660,7 +1665,7 @@ def main() -> None:
         "cluster-robust fallback",
         "Direct I-F coverage remains unchanged",
     ):
-        assert token in byr_gate, token
+        assert has_token(byr_gate, token), token
 
     lep_gate = LEPTONYCHIA_GATE.read_text(encoding="utf-8")
     for token in (
@@ -1671,7 +1676,7 @@ def main() -> None:
         "linked-campaign",
         "direct C-F increment = 0",
     ):
-        assert token in lep_gate, token
+        assert has_token(lep_gate, token), token
 
     diek_gate = DIEKOETTER_GATE.read_text(encoding="utf-8")
     for token in (
@@ -1683,7 +1688,7 @@ def main() -> None:
         "small + bare ground",
         "direct I-F programme increment = **0**",
     ):
-        assert token in diek_gate, token
+        assert has_token(diek_gate, token), token
 
     artz_gate = ARTZ_GATE.read_text(encoding="utf-8")
     for token in (
@@ -1698,7 +1703,7 @@ def main() -> None:
         "n=48",
         "effect-unit/reporting limitation, not an ecological null",
     ):
-        assert token in artz_gate, token
+        assert has_token(artz_gate, token), token
 
     brun_gate = BRUNSVIGIA_GATE.read_text(encoding="utf-8")
     for token in (
@@ -1711,7 +1716,7 @@ def main() -> None:
         "Do not",
         "choose population size because it is the strongest published predictor",
     ):
-        assert token in brun_gate, token
+        assert has_token(brun_gate, token), token
 
     ques_gate = QUESADA_GATE.read_text(encoding="utf-8")
     for token in (
@@ -1723,7 +1728,7 @@ def main() -> None:
         "cluster-robust",
         "cannot be counted as independent K",
     ):
-        assert token in ques_gate, token
+        assert has_token(ques_gate, token), token
 
     coffea_contract = COFFEA_CONTRACT.read_text(encoding="utf-8")
     for token in (
@@ -1735,7 +1740,7 @@ def main() -> None:
         "Do not",
         "choose social bees because distance to forest is strongest for that guild",
     ):
-        assert token in coffea_contract, token
+        assert has_token(coffea_contract, token), token
 
     catasetum_contract = CATASETUM_CONTRACT.read_text(encoding="utf-8")
     for token in (
@@ -1749,7 +1754,7 @@ def main() -> None:
         "cluster-robust fallback",
         "choose 1996 or 1998 because fruit-set differences were stronger",
     ):
-        assert token in catasetum_contract, token
+        assert has_token(catasetum_contract, token), token
 
     ach_gate = ACHILLEA_GATE.read_text(encoding="utf-8")
     for token in (
@@ -1760,7 +1765,7 @@ def main() -> None:
         "not an ecological null",
         "Do not use individual transplants as island n",
     ):
-        assert token in ach_gate, token
+        assert has_token(ach_gate, token), token
 
     cal_gate = CALYSTEGIA_GATE.read_text(encoding="utf-8")
     for token in (
@@ -1772,7 +1777,7 @@ def main() -> None:
         "blocked_outcrop_level_IF_marginals_and_dispersion_not_publicly_recoverable",
         "Never promote the 39 plant patches",
     ):
-        assert token in cal_gate, token
+        assert has_token(cal_gate, token), token
 
     spond_gate = SPONDIAS_MOMBIN_GATE.read_text(encoding="utf-8")
     for token in (
@@ -1788,7 +1793,7 @@ def main() -> None:
         "do not increase C-F programme K",
         "cluster-robust fallback",
     ):
-        assert token in spond_gate, token
+        assert has_token(spond_gate, token), token
 
     mangrove_gate = MANGROVE_GATE.read_text(encoding="utf-8")
     for token in (
@@ -1801,7 +1806,7 @@ def main() -> None:
         "Do not",
         "collapse medium stands into small or large after inspecting effect strength",
     ):
-        assert token in mangrove_gate, token
+        assert has_token(mangrove_gate, token), token
 
     myrtus_gate = MYRTUS_GATE.read_text(encoding="utf-8")
     for token in (
@@ -1814,7 +1819,7 @@ def main() -> None:
         "Do not",
         "use flowers or plants as n",
     ):
-        assert token in myrtus_gate, token
+        assert has_token(myrtus_gate, token), token
 
     buerger_gate = BUERGER_GATE.read_text(encoding="utf-8")
     for token in (
@@ -1827,7 +1832,7 @@ def main() -> None:
         "choose 750 m versus 3000 m by effect size",
         "validation of an EGWE/NEE finite operator",
     ):
-        assert token in buerger_gate, token
+        assert has_token(buerger_gate, token), token
 
     completion = COVERAGE_COMPLETION.read_text(encoding="utf-8")
     for token in (
@@ -1844,7 +1849,7 @@ def main() -> None:
         "5 programmes / 17 primary Fisher-z marginal effects",
         "EGWEE search completion is **not** validation of a finite EGWE operator sequence",
     ):
-        assert token in completion, token
+        assert has_token(completion, token), token
 
     manifest = json.loads(BRASSICA_MANIFEST.read_text(encoding="utf-8"))
     assert manifest["dataset_id"] == "6jw833yrt4"
@@ -1871,7 +1876,7 @@ def main() -> None:
         "new I-F programme increment: **0**",
         "direct I-F coverage remains **1/5**",
     ):
-        assert token in gate_status, token
+        assert has_token(gate_status, token), token
 
     pair = {r["pair_id"]: r for r in rows(PAIR_COVERAGE)}
     assert int(pair["I-F"]["current_independent_direct_systems"]) == 1
@@ -1887,7 +1892,7 @@ def main() -> None:
         "`n_fragmented = 3`;",
         "`n_reference = 3`.",
     ):
-        assert token in contract, token
+        assert has_token(contract, token), token
 
     print(
         "PHASE2_CF01_TARGET_PAIR_SCREEN_OK "
