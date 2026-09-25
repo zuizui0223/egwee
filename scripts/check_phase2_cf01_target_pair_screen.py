@@ -1242,7 +1242,7 @@ def main() -> None:
     assert "CFTQ0312" in fulltext
     mangrove = fulltext["CFTQ0312"]
     assert mangrove["programme_identity"] == "P2_CF01_MANGROVE_HERMANSEN_2017"
-    assert mangrove["quantitative_gate_status"] == "pending_18stand_common_IF_values_and_estuary_block_recovery"
+    assert mangrove["quantitative_gate_status"] == "blocked_18stand_common_IF_vectors_not_publicly_recoverable_without_figure_digitization"
     assert "18 stands maximum" in mangrove["independent_unit"]
     assert int(mangrove["pair_programme_increment"]) == 0
     assert mangrove["effect_calculation_opened"] == "no"
@@ -1836,6 +1836,9 @@ def main() -> None:
         "Independent unit = **mangrove stand**",
         "Estuary is a source blocking factor",
         "Primary F candidate = direct fruit production",
+        "each bar represents one stand",
+        "blocked_18stand_common_IF_vectors_not_publicly_recoverable_without_figure_digitization",
+        "Direct I-F programme increment: **0**",
         "Do not",
         "collapse medium stands into small or large after inspecting effect strength",
     ):
