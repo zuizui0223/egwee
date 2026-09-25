@@ -44,6 +44,8 @@ WAVE31 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE31_2026-09-25.md"
 WAVE32 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE32_2026-09-25.md"
 WAVE33 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE33_2026-09-25.md"
 WAVE34 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE34_2026-09-25.md"
+WAVE35 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE35_2026-09-25.md"
+WAVE36 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE36_2026-09-25.md"
 MILKWEED_CHECK = ROOT / "scripts/check_phase2_cf01_milkweed_gradient.py"
 
 BRASSICA_CONTRACT = ROOT / "manuscript/CF01_BRASSICA_GUATEMALA_2024_RECOVERY_CONTRACT.md"
@@ -98,21 +100,21 @@ def rows(path: Path) -> list[dict[str, str]]:
 
 def main() -> None:
     for p in (
-        QUEUE, SCREEN, FULLTEXT, PAIR_COVERAGE, WAVE3, WAVE4, WAVE5, WAVE6, WAVE7, WAVE8, WAVE9, WAVE10, WAVE11, WAVE12, WAVE13, WAVE14, WAVE15, WAVE16, WAVE17, WAVE18, WAVE19, WAVE20, WAVE21, WAVE22, WAVE23, WAVE24, WAVE25, WAVE26, WAVE27, WAVE28, WAVE29, WAVE30, WAVE31, WAVE32, WAVE33, WAVE34, MILKWEED_CHECK,
+        QUEUE, SCREEN, FULLTEXT, PAIR_COVERAGE, WAVE3, WAVE4, WAVE5, WAVE6, WAVE7, WAVE8, WAVE9, WAVE10, WAVE11, WAVE12, WAVE13, WAVE14, WAVE15, WAVE16, WAVE17, WAVE18, WAVE19, WAVE20, WAVE21, WAVE22, WAVE23, WAVE24, WAVE25, WAVE26, WAVE27, WAVE28, WAVE29, WAVE30, WAVE31, WAVE32, WAVE33, WAVE34, WAVE35, WAVE36, MILKWEED_CHECK,
         BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE, BDFFP_SCHEMA, BDFFP_STATUS, HASS_CONTRACT, HASS_SCHEMA, HASS_STATUS, THAI_ORCHARD_CONTRACT, THAI_ORCHARD_ACCESS, THAI_ORCHARD_STATUS, PLECTRITIS_CONTRACT, CABRALEA_CONTRACT, PLECTRITIS_ACCESS, CABRALEA_ACCESS, COMARUM_CONTRACT, COMARUM_ACCESS, AEXTOXICON_ANCHOR, SCHUEPP_CONTRACT, SCHUEPP_ACCESS, ANAXAGOREA_CONTRACT, ANAXAGOREA_ACCESS, CELTIS_GATE, ATTALEA_GATE, CARDIOPETALUM_RULE, CARDIOPETALUM_RESULT, MYRMECOPHILA_GATE, BARTOMEUS_GATE, HELICONIA_URIARTE_GATE, BYRSONIMA_GATE, LEPTONYCHIA_GATE, DIEKOETTER_GATE, ARTZ_GATE, BRUNSVIGIA_GATE, QUESADA_GATE, COFFEA_CONTRACT, CATASETUM_CONTRACT, ACHILLEA_GATE, CALYSTEGIA_GATE, SPONDIAS_MOMBIN_GATE, MANGROVE_GATE, MYRTUS_GATE,
     ):
         assert p.is_file(), p
 
     queue = rows(QUEUE)
     assert len(queue) == 360
-    assert [r["queue_id"] for r in queue[:340]] == [f"CFTQ{i:04d}" for i in range(1, 341)]
+    assert [r["queue_id"] for r in queue[:360]] == [f"CFTQ{i:04d}" for i in range(1, 361)]
     assert all(r["outcome_opened"] == "no" for r in queue)
 
     screen = rows(SCREEN)
-    assert len(screen) == 340
-    assert [r["queue_id"] for r in screen] == [f"CFTQ{i:04d}" for i in range(1, 341)]
-    assert {r["screen_wave"] for r in screen} == {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34"}
-    assert all(sum(r["screen_wave"] == str(w) for r in screen) == 10 for w in range(1, 35))
+    assert len(screen) == 360
+    assert [r["queue_id"] for r in screen] == [f"CFTQ{i:04d}" for i in range(1, 361)]
+    assert {r["screen_wave"] for r in screen} == {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36"}
+    assert all(sum(r["screen_wave"] == str(w) for r in screen) == 10 for w in range(1, 37))
     assert all(r["outcome_opened"] == "no" for r in screen)
     assert all(r["outcome_blind_confirmation"] == "yes" for r in screen)
 
@@ -859,6 +861,58 @@ def main() -> None:
     ):
         assert token in w34, token
 
+    wave35 = [r for r in screen if r["screen_wave"] == "35"]
+    assert [r["queue_id"] for r in wave35] == [f"CFTQ{i:04d}" for i in range(341, 351)]
+    assert [r["queue_id"] for r in wave35 if r["screen_decision"] == "advance_full_text_design_screen"] == [
+        "CFTQ0344", "CFTQ0345", "CFTQ0349", "CFTQ0350"
+    ]
+    assert sum(r["screen_decision"].startswith("close_") for r in wave35) == 6
+    assert by_id["CFTQ0341"]["screen_decision"] == "close_no_direct_F"
+    assert by_id["CFTQ0343"]["screen_decision"] == "close_no_direct_C_response"
+    assert by_id["CFTQ0348"]["screen_decision"] == "close_no_source_defined_fragmentation_exposure"
+
+    w35 = WAVE35.read_text(encoding="utf-8")
+    for token in (
+        "screened: **10**",
+        "advance to full-text / effect-unit gate: **4**",
+        "cumulative screen: **350 / 360**",
+        "pending: **10**",
+        "CFTQ0344",
+        "six fragment trees and five continuous-forest trees",
+        "CFTQ0345",
+        "CFTQ0349",
+        "CFTQ0350",
+        "primary direct I-F coverage remains **1/5**",
+        "primary direct C-F coverage remains **2/5**",
+    ):
+        assert token in w35, token
+
+    wave36 = [r for r in screen if r["screen_wave"] == "36"]
+    assert [r["queue_id"] for r in wave36] == [f"CFTQ{i:04d}" for i in range(351, 361)]
+    assert [r["queue_id"] for r in wave36 if r["screen_decision"] == "advance_full_text_design_screen"] == ["CFTQ0356"]
+    assert [r["queue_id"] for r in wave36 if r["screen_decision"] == "link_existing_programme"] == ["CFTQ0355", "CFTQ0357"]
+    assert sum(r["screen_decision"].startswith("close_") for r in wave36) == 7
+    assert by_id["CFTQ0354"]["screen_decision"] == "close_nonplant_or_wrong_biological_system"
+    assert by_id["CFTQ0359"]["screen_decision"] == "close_no_source_defined_fragmentation_exposure"
+    assert by_id["CFTQ0360"]["screen_decision"] == "close_no_source_defined_fragmentation_exposure"
+
+    w36 = WAVE36.read_text(encoding="utf-8")
+    for token in (
+        "screened: **10**",
+        "advance to full-text / effect-unit gate: **1**",
+        "link to existing / umbrella programme identity: **2**",
+        "cumulative screen: **360 / 360**",
+        "pending: **0**",
+        "P2_CF01_COFFEA_SULAWESI_2003",
+        "search-completion stopping rule",
+        "primary direct I-F coverage: **1/5**",
+        "primary direct C-F coverage: **2/5**",
+        "G_adult-G_offspring direct coverage: **5/5**",
+        "5 programmes / 17 primary Fisher-z marginal effects",
+        "No NEE operator",
+    ):
+        assert token in w36, token
+
     fulltext = {r["queue_id"]: r for r in rows(FULLTEXT)}
     assert "CFTQ0030" in fulltext
     b = fulltext["CFTQ0030"]
@@ -1270,6 +1324,50 @@ def main() -> None:
     saint = fulltext["CFTQ0340"]
     assert saint["quantitative_gate_status"] == "linked_umbrella_source_no_new_K"
     assert int(saint["pair_programme_increment"]) == 0
+
+    assert "CFTQ0344" in fulltext
+    cramer = fulltext["CFTQ0344"]
+    assert cramer["programme_identity"] == "P2_CF01_CRAMER_DUCKEODENDRON_2007"
+    assert cramer["quantitative_gate_status"] == "pending_Duckeodendron_11tree_common_CF_values_model_variance_and_forest_nesting_recovery"
+    assert "11 adult trees" in cramer["independent_unit"]
+    assert int(cramer["pair_programme_increment"]) == 0
+
+    assert "CFTQ0345" in fulltext
+    ottewell = fulltext["CFTQ0345"]
+    assert ottewell["quantitative_gate_status"] == "linked_thesis_to_primary_publications_pending_common_effect_unit_mapping_no_new_K"
+    assert "10.1016/j.biocon.2008.12.019" in ottewell["fragmentation_exposure_status"]
+    assert int(ottewell["pair_programme_increment"]) == 0
+
+    assert "CFTQ0349" in fulltext
+    kenya = fulltext["CFTQ0349"]
+    assert kenya["programme_identity"] == "P2_CF01_BERGSDORF_KAKAMEGA_2006"
+    assert kenya["quantitative_gate_status"] == "pending_species_campaign_site_replication_and_common_IF_frames"
+    assert int(kenya["pair_programme_increment"]) == 0
+
+    assert "CFTQ0350" in fulltext
+    pritchard = fulltext["CFTQ0350"]
+    assert pritchard["programme_identity"] == "P2_CF01_PRITCHARD_2005"
+    assert pritchard["quantitative_gate_status"] == "pending_crop_site_isolation_IF_vectors_and_multicrop_identity_recovery"
+    assert int(pritchard["pair_programme_increment"]) == 0
+
+    assert "CFTQ0355" in fulltext
+    llorens = fulltext["CFTQ0355"]
+    assert llorens["quantitative_gate_status"] == "linked_umbrella_source_no_new_K"
+    assert int(llorens["pair_programme_increment"]) == 0
+
+    assert "CFTQ0356" in fulltext
+    buerger = fulltext["CFTQ0356"]
+    assert buerger["programme_identity"] == "P2_CF01_BUERGER_2004"
+    assert buerger["quantitative_gate_status"] == "pending_chapter_identity_site_overlap_landscape_radius_and_common_IF_frame"
+    assert int(buerger["pair_programme_increment"]) == 0
+    assert buerger["effect_calculation_opened"] == "no"
+
+    assert "CFTQ0357" in fulltext
+    klein_thesis = fulltext["CFTQ0357"]
+    assert klein_thesis["programme_identity"] == "P2_CF01_COFFEA_SULAWESI_2003"
+    assert klein_thesis["quantitative_gate_status"] == "linked_umbrella_source_no_new_K"
+    assert "15-site" in klein_thesis["fragmentation_exposure_status"]
+    assert int(klein_thesis["pair_programme_increment"]) == 0
 
     bdffp_schema = json.loads(BDFFP_SCHEMA.read_text(encoding="utf-8"))
     assert bdffp_schema["candidate"] == "CFTQ0065"
@@ -1761,7 +1859,7 @@ def main() -> None:
 
     print(
         "PHASE2_CF01_TARGET_PAIR_SCREEN_OK "
-        "queue=360 screened=340 pending=20 wave3_advance=1 wave4_advance=0 wave5_advance=1 wave6_advance=2 wave7_advance=3 wave8_advance=1 wave9_advance=2 wave10_advance=0 wave11_advance=1 wave12_advance=1 wave12_link_existing=1 wave13_advance=2 wave14_advance=1 wave15_advance=1 wave16_advance=2 wave17_advance=3 wave18_advance=1 wave19_advance=1 wave20_advance=0 wave21_advance=3 wave21_link_existing=1 wave22_advance=1 wave23_advance=1 wave24_advance=1 wave25_advance=0 wave26_advance=0 wave27_advance=2 wave28_advance=2 wave29_advance=2 wave30_advance=0 wave31_advance=1 wave32_advance=8 wave32_link_existing=1 wave33_advance=3 wave33_link_existing=1 wave34_advance=2 wave34_link_existing=2 "
+        "queue=360 screened=360 pending=0 wave3_advance=1 wave4_advance=0 wave5_advance=1 wave6_advance=2 wave7_advance=3 wave8_advance=1 wave9_advance=2 wave10_advance=0 wave11_advance=1 wave12_advance=1 wave12_link_existing=1 wave13_advance=2 wave14_advance=1 wave15_advance=1 wave16_advance=2 wave17_advance=3 wave18_advance=1 wave19_advance=1 wave20_advance=0 wave21_advance=3 wave21_link_existing=1 wave22_advance=1 wave23_advance=1 wave24_advance=1 wave25_advance=0 wave26_advance=0 wave27_advance=2 wave28_advance=2 wave29_advance=2 wave30_advance=0 wave31_advance=1 wave32_advance=8 wave32_link_existing=1 wave33_advance=3 wave33_link_existing=1 wave34_advance=2 wave34_link_existing=2 wave35_advance=4 wave36_advance=1 wave36_link_existing=2 search_complete=1 "
         "brassica_increment=0 milkweed_gradient_increment=1 phacelia_increment=0 hedysarum_increment=0 "
         "bdffp_access_stop=1 hass_access_stop=1 aloe_pending=1 thai_orchard_access_stop=1 brudvig_link_noK=1 acer_CF_increment=0 plectritis_access_stop=1 cabralea_access_stop=1 comarum_access_stop=1 acer_miyabei_gradient_admitted=1 aextoxicon_anchor_noK=1 schuepp_access_stop=1 celtis_estimand_stop=1 anaxagorea_access_stop=1 cardiopetalum_gradient_admitted=1 attalea_linked_stop=1 myrmecophila_estimand_pending=1 herrera_CD_anchor_noK=1 bartomeus_estimand_pending=1 uriarte_CD_anchor_noK=1 braun_umbrella_noK=1 byrsonima_variance_stop=1 leptonychia_linked_pending=1 diekoetter_factorial_pending=1 artz_repeated_island_stop=1 wave25_noK=1 wave26_noK=1 brunsvigia_estimand_pending=1 quesada_effect_unit_pending=1 coffea_gradient_pending=1 catasetum_direct_IF_pending=1 achillea_effect_unit_stop=1 calystegia_effect_unit_stop=1 wave30_noK=1 spondias_mombin_CF_pending=1 bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=0 direct_IF=1/5 direct_CF=2/5"
     )
