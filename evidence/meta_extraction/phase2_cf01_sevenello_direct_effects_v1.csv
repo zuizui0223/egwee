@@ -1,0 +1,9 @@
+programme_id,species,layer,endpoint,effect_stream,fragmented_group,reference_group,n_fragmented,n_reference,hedges_g,variance,primary_or_sensitivity,orientation_note
+P2_CF01_SEVENELLO_2026,GORO,I,all_bees_per_transect,hedges_g_direct,Edge,Core,6,6,0.029631086907,0.333369916721,primary,negative = lower total bee abundance at Edge than Core
+P2_CF01_SEVENELLO_2026,GORO,F,mean_total_viable_seeds_per_OP_plant,hedges_g_direct,Edge,Core,6,6,0.009516487953,0.333337106814,primary,negative = lower natural open seed production at Edge than Core
+P2_CF01_SEVENELLO_2026,LARO,I,all_bees_per_transect,hedges_g_direct,Edge,Core,8,8,-0.340162859966,0.253615961603,primary,negative = lower total bee abundance at Edge than Core
+P2_CF01_SEVENELLO_2026,LARO,F,mean_total_viable_seeds_per_OP_plant,hedges_g_direct,Edge,Core,8,8,0.119344064748,0.250445093931,primary,negative = lower natural open seed production at Edge than Core
+P2_CF01_SEVENELLO_2026,POAR,I,all_bees_per_transect,hedges_g_direct,Edge,Core,6,6,-0.346163414409,0.338326212895,primary,negative = lower total bee abundance at Edge than Core
+P2_CF01_SEVENELLO_2026,POAR,F,mean_total_viable_seeds_per_OP_plant,hedges_g_direct,Edge,Core,6,6,0.058450575856,0.333475686242,primary,negative = lower natural open seed production at Edge than Core
+P2_CF01_SEVENELLO_2026,POGN,I,all_bees_per_transect,hedges_g_direct,Edge,Core,6,5,-0.391784448283,0.373643714572,sensitivity,negative = lower total bee abundance at Edge than Core
+P2_CF01_SEVENELLO_2026,POGN,F,mean_total_viable_seeds_per_OP_plant,hedges_g_direct,Edge,Core,6,5,-0.223805878212,0.368943442627,sensitivity,negative = lower natural open seed production at Edge than Core

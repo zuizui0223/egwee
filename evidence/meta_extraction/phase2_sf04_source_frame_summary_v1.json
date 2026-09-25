@@ -1,0 +1,40 @@
+{
+  "source_frame": "SF04",
+  "source_article_doi": "10.1111/cobi.13422",
+  "figshare_doi": "10.6084/m9.figshare.7520456.v1",
+  "source_files": {
+    "allelic_data.csv": {
+      "sha256": "5a4ae8d52530169e22faeb439032d08055d1511b8b32c9824363f06fef285df0",
+      "case_rows": 42
+    },
+    "he_data.csv": {
+      "sha256": "80e8cfefd2e8ba427753a906365c84b72a92e46fbb95f44210fd09758be997ce",
+      "case_rows": 50
+    },
+    "references.txt": {
+      "sha256": "eb717d27103450dc0f96249627ac9e77a406bd3667d9328a696bc969e4bc1634",
+      "references": 38
+    },
+    "readme.txt": {
+      "sha256": "c328a0e528407ab855c56b2be26d1f352e18ad22a4a08c4141a7ea2471fd8750"
+    }
+  },
+  "materialized": {
+    "deduplicated_source_publications": 38,
+    "unique_species": 38,
+    "total_source_case_rows": 92,
+    "allelic_case_rows": 42,
+    "heterozygosity_case_rows": 50
+  },
+  "outcome_fields_materialized": false,
+  "excluded_source_columns": [
+    "Xe",
+    "Se",
+    "Ne",
+    "Xc",
+    "Sc",
+    "Nc"
+  ],
+  "publication_universe_file": "phase2_sf04_publication_universe_v1.csv",
+  "completion_status": "publication_rows_materialized_screening_pending"
+}

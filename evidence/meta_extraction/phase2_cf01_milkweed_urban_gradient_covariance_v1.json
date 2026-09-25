@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "programme_id": "P2_CF01_MILKWEED_URBAN_2023",
+  "exposure": "greater_urbanization_negative_city_dist",
+  "dependence_method": "residual-correlation proxy after separate endpoint ~ intercept + exposure fits; Cov=rho*sqrt(VI*VF)",
+  "primary_source_code_nonzero": {
+    "n_independent": 31,
+    "I_r": -0.31245039885514153,
+    "F_r": 0.10456237808380588,
+    "I_fisher_z": -0.323258614172581,
+    "F_fisher_z": 0.10494596788433687,
+    "marginal_variance_I": 0.03571428571428571,
+    "marginal_variance_F": 0.03571428571428571,
+    "residual_correlation_IF": -0.3427849388474527,
+    "sampling_covariance_proxy_IF": -0.012242319244551882,
+    "covariance_matrix": [
+      [
+        0.03571428571428571,
+        -0.012242319244551882
+      ],
+      [
+        -0.012242319244551882,
+        0.03571428571428571
+      ]
+    ],
+    "eigenvalues_ascending": [
+      0.023471966469733832,
+      0.04795660495883759
+    ],
+    "positive_definite": true,
+    "I_minus_F": {
+      "delta": -0.42820458205691786,
+      "variance": 0.09591320991767519,
+      "se": 0.3096985791340916,
+      "z": -1.382649488590376,
+      "ci95": [
+        -1.0352026432229653,
+        0.17879347910912952
+      ]
+    }
+  },
+  "zero_pollinator_retaining_sensitivity": {
+    "n_independent": 38,
+    "I_r": -0.3895583122850114,
+    "F_r": 0.049683276185662824,
+    "I_fisher_z": -0.41127922065575384,
+    "F_fisher_z": 0.04972421670025482,
+    "marginal_variance_I": 0.02857142857142857,
+    "marginal_variance_F": 0.02857142857142857,
+    "residual_correlation_IF": -0.21290650393785482,
+    "sampling_covariance_proxy_IF": -0.0060830429696529945,
+    "covariance_matrix": [
+      [
+        0.02857142857142857,
+        -0.0060830429696529945
+      ],
+      [
+        -0.0060830429696529945,
+        0.02857142857142857
+      ]
+    ],
+    "eigenvalues_ascending": [
+      0.022488385601775577,
+      0.03465447154108157
+    ],
+    "positive_definite": true,
+    "I_minus_F": {
+      "delta": -0.4610034373560087,
+      "variance": 0.06930894308216314,
+      "se": 0.26326591705377117,
+      "z": -1.7510942643663605,
+      "ci95": [
+        -0.9769951531383094,
+        0.05498827842629206
+      ]
+    }
+  },
+  "programme_independence_note": "Primary and sensitivity frames are alternative analyses of one programme, not independent programmes."
+}

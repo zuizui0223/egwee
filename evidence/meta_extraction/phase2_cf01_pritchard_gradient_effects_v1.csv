@@ -1,0 +1,4 @@
+programme_id,endpoint_role,layer,endpoint,effect_stream,n_independent,exposure,r,fisher_z,variance,primary_or_sensitivity,source_location
+P2_CF01_PRITCHARD_2005,I_primary,I_interaction,total_floral_visitor_abundance,fisher_z_gradient,9,log_distance_to_rainforest_km,-0.756967634711,-0.989075021144,0.166666666667,primary,"Chapter 3 source regression R2=0.573, negative slope, n=9 orchards"
+P2_CF01_PRITCHARD_2005,F_primary,F_reproductive_function,open_fruit_initiation_log,fisher_z_gradient,5,log_distance_to_rainforest_km,-0.903286126357,-1.489790174137,0.500000000000,primary,"Chapter 4 five source orchard means; ln fruit initiation versus ln distance"
+P2_CF01_PRITCHARD_2005,F_sensitivity_raw_proportion,F_reproductive_function,open_fruit_initiation_raw_proportion,fisher_z_gradient,5,log_distance_to_rainforest_km,-0.880260532763,-1.376923675662,0.500000000000,sensitivity,"Chapter 4 five source orchard means; raw proportion versus ln distance"

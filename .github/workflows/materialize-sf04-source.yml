@@ -1,0 +1,64 @@
+name: Materialize SF04 source universe
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - 'scripts/build_phase2_sf04_study_universe.py'
+      - '.github/workflows/materialize-sf04-source.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Resolve and download public SF04 Figshare files
+        run: |
+          curl --fail --location --retry 3 --retry-delay 2             'https://api.figshare.com/v2/articles/7520456'             -o /tmp/sf04_figshare.json
+          python - <<'PY'
+          import json
+          import urllib.request
+          from pathlib import Path
+          expected = {
+              'allelic_data.csv': (15317540, '47b87f1f8741e10d048aad2aada2b5e0'),
+              'he_data.csv': (15317543, 'f7ce24913bf59e12bfeeae2390d55798'),
+              'references.txt': (15317549, 'c6f3cc5694d56b80f892e147cc30ddf5'),
+              'readme.txt': (18009869, '643a543f0f29d1e0f7bf37a8bdb7cefb'),
+          }
+          data=json.loads(Path('/tmp/sf04_figshare.json').read_text())
+          files={f['name']: f for f in data.get('files', [])}
+          assert set(files) == set(expected), files
+          for name,(fid,md5) in expected.items():
+              f=files[name]
+              assert int(f['id']) == fid, f
+              assert f.get('computed_md5') == md5, f
+              req=urllib.request.Request(
+                  f['download_url'],
+                  headers={'User-Agent':'egwee-sf04-materializer/1.0'},
+              )
+              Path('/tmp/'+name).write_bytes(urllib.request.urlopen(req,timeout=30).read())
+          PY
+      - name: Build outcome-blind SF04 publication universe
+        run: |
+          python scripts/build_phase2_sf04_study_universe.py             /tmp/allelic_data.csv             /tmp/he_data.csv             /tmp/references.txt             /tmp/readme.txt             evidence/meta_extraction
+          test -s evidence/meta_extraction/phase2_sf04_publication_universe_v1.csv
+          test -s evidence/meta_extraction/phase2_sf04_source_frame_summary_v1.json
+          test -s manuscript/PHASE2_SF04_MATERIALIZATION_2026-09-20.md
+      - name: Commit SF04 materialization
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add             evidence/meta_extraction/phase2_sf04_publication_universe_v1.csv             evidence/meta_extraction/phase2_sf04_source_frame_summary_v1.json             manuscript/PHASE2_SF04_MATERIALIZATION_2026-09-20.md
+          if git diff --cached --quiet; then
+            echo 'No SF04 materialization changes'
+          else
+            git commit -m 'Materialize SF04 publication universe'
+            git push origin HEAD:meta/systematic-coverage-moderator-expansion-2026-09-16
+          fi

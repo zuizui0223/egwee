@@ -1,0 +1,23 @@
+{
+  "source_frame": "SF06",
+  "source_article_doi": "10.1093/aob/mcae076",
+  "source_sha256": "3635c9d39804332559c7f23ce6b4d754e2dce94ddbc0cd6e5d534a6c9324a84e",
+  "docx_tables": 7,
+  "materialized": {
+    "source_effect_rows": 426,
+    "deduplicated_source_publications": 255,
+    "unique_species": 261,
+    "response_row_counts": {
+      "Female fitness": 267,
+      "Pollination": 71,
+      "Male fitness": 88
+    }
+  },
+  "outcome_fields_materialized": false,
+  "excluded_source_fields": [
+    "Hedges_d",
+    "V(d)"
+  ],
+  "publication_universe_file": "phase2_sf06_publication_universe_v1.csv",
+  "completion_status": "publication_rows_materialized_screening_pending"
+}
