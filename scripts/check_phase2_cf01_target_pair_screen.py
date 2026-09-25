@@ -91,6 +91,8 @@ CALYSTEGIA_GATE = ROOT / "manuscript/PHASE2_CF01_CALYSTEGIA_EFFECT_UNIT_GATE_202
 SPONDIAS_MOMBIN_GATE = ROOT / "manuscript/PHASE2_CF01_SPONDIAS_MOMBIN_CF_GATE_2026-09-25.md"
 MANGROVE_GATE = ROOT / "manuscript/PHASE2_CF01_MANGROVE_HERMANSEN_GATE_2026-09-25.md"
 MYRTUS_GATE = ROOT / "manuscript/PHASE2_CF01_MYRTUS_GATE_2026-09-25.md"
+BUERGER_GATE = ROOT / "manuscript/PHASE2_CF01_BUERGER_LANDSCAPE_ESTIMAND_GATE_2026-09-25.md"
+COVERAGE_COMPLETION = ROOT / "manuscript/PHASE2_CF01_COVERAGE_COMPLETION_2026-09-25.md"
 
 
 def rows(path: Path) -> list[dict[str, str]]:
@@ -101,7 +103,7 @@ def rows(path: Path) -> list[dict[str, str]]:
 def main() -> None:
     for p in (
         QUEUE, SCREEN, FULLTEXT, PAIR_COVERAGE, WAVE3, WAVE4, WAVE5, WAVE6, WAVE7, WAVE8, WAVE9, WAVE10, WAVE11, WAVE12, WAVE13, WAVE14, WAVE15, WAVE16, WAVE17, WAVE18, WAVE19, WAVE20, WAVE21, WAVE22, WAVE23, WAVE24, WAVE25, WAVE26, WAVE27, WAVE28, WAVE29, WAVE30, WAVE31, WAVE32, WAVE33, WAVE34, WAVE35, WAVE36, MILKWEED_CHECK,
-        BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE, BDFFP_SCHEMA, BDFFP_STATUS, HASS_CONTRACT, HASS_SCHEMA, HASS_STATUS, THAI_ORCHARD_CONTRACT, THAI_ORCHARD_ACCESS, THAI_ORCHARD_STATUS, PLECTRITIS_CONTRACT, CABRALEA_CONTRACT, PLECTRITIS_ACCESS, CABRALEA_ACCESS, COMARUM_CONTRACT, COMARUM_ACCESS, AEXTOXICON_ANCHOR, SCHUEPP_CONTRACT, SCHUEPP_ACCESS, ANAXAGOREA_CONTRACT, ANAXAGOREA_ACCESS, CELTIS_GATE, ATTALEA_GATE, CARDIOPETALUM_RULE, CARDIOPETALUM_RESULT, MYRMECOPHILA_GATE, BARTOMEUS_GATE, HELICONIA_URIARTE_GATE, BYRSONIMA_GATE, LEPTONYCHIA_GATE, DIEKOETTER_GATE, ARTZ_GATE, BRUNSVIGIA_GATE, QUESADA_GATE, COFFEA_CONTRACT, CATASETUM_CONTRACT, ACHILLEA_GATE, CALYSTEGIA_GATE, SPONDIAS_MOMBIN_GATE, MANGROVE_GATE, MYRTUS_GATE,
+        BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE, BDFFP_SCHEMA, BDFFP_STATUS, HASS_CONTRACT, HASS_SCHEMA, HASS_STATUS, THAI_ORCHARD_CONTRACT, THAI_ORCHARD_ACCESS, THAI_ORCHARD_STATUS, PLECTRITIS_CONTRACT, CABRALEA_CONTRACT, PLECTRITIS_ACCESS, CABRALEA_ACCESS, COMARUM_CONTRACT, COMARUM_ACCESS, AEXTOXICON_ANCHOR, SCHUEPP_CONTRACT, SCHUEPP_ACCESS, ANAXAGOREA_CONTRACT, ANAXAGOREA_ACCESS, CELTIS_GATE, ATTALEA_GATE, CARDIOPETALUM_RULE, CARDIOPETALUM_RESULT, MYRMECOPHILA_GATE, BARTOMEUS_GATE, HELICONIA_URIARTE_GATE, BYRSONIMA_GATE, LEPTONYCHIA_GATE, DIEKOETTER_GATE, ARTZ_GATE, BRUNSVIGIA_GATE, QUESADA_GATE, COFFEA_CONTRACT, CATASETUM_CONTRACT, ACHILLEA_GATE, CALYSTEGIA_GATE, SPONDIAS_MOMBIN_GATE, MANGROVE_GATE, MYRTUS_GATE, BUERGER_GATE, COVERAGE_COMPLETION,
     ):
         assert p.is_file(), p
 
@@ -1813,6 +1815,36 @@ def main() -> None:
         "use flowers or plants as n",
     ):
         assert token in myrtus_gate, token
+
+    buerger_gate = BUERGER_GATE.read_text(encoding="utf-8")
+    for token in (
+        "P2_CF01_BUERGER_2004",
+        "five studies/chapters",
+        "Independent unit = **landscape/site**",
+        "one response-free landscape variable",
+        "one source-supported radius",
+        "Brassica napus",
+        "choose 750 m versus 3000 m by effect size",
+        "validation of an EGWE/NEE finite operator",
+    ):
+        assert token in buerger_gate, token
+
+    completion = COVERAGE_COMPLETION.read_text(encoding="utf-8")
+    for token in (
+        "screened: **360 / 360**",
+        "screening waves: **36 × 10 candidates**",
+        "advanced to full-text/design/effect-unit gate: **66**",
+        "linked to an existing/umbrella programme identity: **8**",
+        "closed at screening/design stage: **286**",
+        "unscreened candidates: **0**",
+        "search-completion stopping rule",
+        "I-F: **1 / 5 independent programmes**",
+        "C-F: **2 / 5 independent programmes**",
+        "G_adult-G_offspring: **5 / 5 independent programmes**",
+        "5 programmes / 17 primary Fisher-z marginal effects",
+        "EGWEE search completion is **not** validation of a finite EGWE operator sequence",
+    ):
+        assert token in completion, token
 
     manifest = json.loads(BRASSICA_MANIFEST.read_text(encoding="utf-8"))
     assert manifest["dataset_id"] == "6jw833yrt4"
