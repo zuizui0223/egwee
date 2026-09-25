@@ -1330,7 +1330,7 @@ def main() -> None:
     for token in (
         "21 forest fragments",
         "Table 4",
-        "total bumblebees captured / trapping hours",
+        "all bumblebee individuals captured / trapping hours",
         "minimum",
         "equal for **most** sites",
         "Halls Creek",
