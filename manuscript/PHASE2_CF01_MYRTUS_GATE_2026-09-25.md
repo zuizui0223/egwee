@@ -46,6 +46,56 @@ Preference order fixed before numeric recovery:
 
 Seed mass remains secondary.
 
+## Full-source recovery audit
+
+The open manuscript makes the interaction layer unusually transparent.
+
+### I is recoverable at population level
+
+Table 2 reports total insect visitation rate (`V/H`, visits/hour) separately for all six source
+populations:
+
+- Large: DBL, CHP, DHY;
+- Small: GBL, CRB, PTR.
+
+The source analysis treats population as a random effect for the Large-versus-Small visitation
+comparison. This is compatible with the population/site independent-unit contract.
+
+### F is not exposed on the same numeric frame
+
+The reproductive analyses remain nested below population:
+
+- pollen limitation uses 6–8 plants per population and natural versus xenogamous flowers within
+  plant;
+- seed production samples 12–14 plants per population and 20 fruits per plant;
+- Figure 4 reports Large/Small pollen-limitation summaries;
+- Figure 5 shows the six population pollen-limitation points against visitation, but pollen
+  limitation is an I-layer response rather than direct natural F;
+- Figure 6 reports Large/Small brood-size and seed-mass summaries.
+
+The public manuscript does not provide a table of six population-level natural fruit-set or
+brood-size values with population-level marginal dispersion.
+
+Therefore a valid direct F marginal cannot be constructed without either digitizing figures or
+pairing lower-level plant/model uncertainty with population `n=3+3`.
+
+## Decision
+
+Status:
+`blocked_population_level_natural_F_vector_and_variance_not_publicly_recoverable`.
+
+The programme remains biologically valuable: pollinator assemblages and visitation shift strongly
+between Large and Small patches, and visitation covaries with pollen limitation. But the frozen
+direct I-F family requires both I and F marginals at the same legitimate population effect unit.
+
+Direct I-F programme increment: **0**.
+
+## Reopening condition
+
+Reopen only if an authoritative public or author-provided source supplies population-level natural
+fruit set or the source primary seed-production response for the same six populations together with
+population-level marginal variance or paired raw population values.
+
 ## Admission
 
 Admit only if both marginal effects correspond to the six population units and their variance is
