@@ -111,15 +111,24 @@ def main() -> None:
     assert len(bees) == 20
 
     # One mean natural/open seed-production value per species x transect.
+    # Missingness handling is frozen in the 2026-09-25 amendment: literal NA/blank
+    # plant rows are excluded, never recoded as zero.
     fvals: dict[tuple[str, str, str, str], list[float]] = defaultdict(list)
+    planned: Counter[tuple[str, str, str, str]] = Counter()
     for r in seed_rows:
         if r["treat"] != "OP":
             continue
         site = norm_site(r["site"])
-        fvals[(r["species"], site, r["crop_type"], r["transect"])].append(float(r["total_seeds"]))
+        fkey = (r["species"], site, r["crop_type"], r["transect"])
+        planned[fkey] += 1
+        raw = (r["total_seeds"] or "").strip()
+        if raw in {"", "NA"}:
+            continue
+        fvals[fkey].append(float(raw))
 
-    fmean = {k: stats.mean(v) for k, v in fvals.items()}
-    assert all(len(v) == 10 for v in fvals.values())
+    assert planned and all(n == 10 for n in planned.values())
+    assert all(fvals.get(k) for k in planned), "entire OP transect missing after amendment"
+    fmean = {k: stats.mean(fvals[k]) for k in planned}
 
     panel_rows: dict[str, list[dict[str, object]]] = {}
     for species in (*PRIMARY_SPECIES, *SENSITIVITY_SPECIES):
@@ -140,6 +149,8 @@ def main() -> None:
                     "bee_source_site_label": raw_aliases[k],
                     "I_all_bees": bees[k],
                     "F_mean_total_seeds_OP": f_value,
+                    "n_OP_planned": planned[(sp, site, crop, transect)],
+                    "n_OP_nonmissing": len(fvals[(sp, site, crop, transect)]),
                     "primary_or_sensitivity": (
                         "primary" if species in PRIMARY_SPECIES else "sensitivity"
                     ),
@@ -162,7 +173,7 @@ def main() -> None:
     value_fields = [
         "programme_id", "species", "site", "crop", "transect",
         "bee_source_site_label", "I_all_bees", "F_mean_total_seeds_OP",
-        "primary_or_sensitivity",
+        "n_OP_planned", "n_OP_nonmissing", "primary_or_sensitivity",
     ]
     with VALUES.open("w", newline="", encoding="utf-8") as fh:
         w = csv.DictWriter(fh, fieldnames=value_fields)
