@@ -910,7 +910,7 @@ def main() -> None:
         "primary direct I-F coverage: **1/5**",
         "primary direct C-F coverage: **2/5**",
         "G_adult-G_offspring direct coverage: **5/5**",
-        "5 programmes / 17 primary Fisher-z marginal effects",
+        "5 programmes / 17 primary Fisher-z marginal",
         "No NEE operator",
     ):
         assert token in w36, token
