@@ -82,7 +82,7 @@ pairing lower-level plant/model uncertainty with population `n=3+3`.
 ## Decision
 
 Status:
-`blocked_population_level_natural_F_vector_and_variance_not_publicly_recoverable`.
+`blocked_population_level_F_or_PL_vector_not_publicly_recoverable`.
 
 The programme remains biologically valuable: pollinator assemblages and visitation shift strongly
 between Large and Small patches, and visitation covaries with pollen limitation. But the frozen
