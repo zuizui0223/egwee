@@ -1170,7 +1170,7 @@ def main() -> None:
     assert "CFTQ0229" in fulltext
     diek = fulltext["CFTQ0229"]
     assert diek["programme_identity"] == "P2_CF01_DIEKOETTER_2007"
-    assert diek["quantitative_gate_status"] == "pending_factorial_fragmentation_estimand_and_independent_unit_recovery"
+    assert diek["quantitative_gate_status"] == "blocked_factorial_fragmentation_marginal_IF_effects_not_publicly_recoverable"
     assert "experimental habitat unit/landscape replicate" in diek["independent_unit"]
     assert int(diek["pair_programme_increment"]) == 0
     assert diek["effect_calculation_opened"] == "no"
