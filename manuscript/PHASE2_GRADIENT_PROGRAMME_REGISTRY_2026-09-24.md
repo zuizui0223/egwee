@@ -4,7 +4,7 @@
 
 Continuous fragmentation / landscape-alteration gradients remain separate from the primary fragmented-versus-reference Hedges-g family.
 
-The registry now contains **5 gradient/generalisation programmes**:
+The registry now contains **6 gradient/generalisation programmes**:
 
 1. **ML015 — Eucalyptus wandoo**: I/F/G_adult on the response-free fragmentation PC.
 2. **P2_CF01_ZURICH_2026 — Zurich BetterBlooms**: four dependent phytometer I/F panels against the source-defined Urban_500 impervious-surface gradient.
@@ -12,7 +12,7 @@ The registry now contains **5 gradient/generalisation programmes**:
 4. **P2_CF01_ACER_MIYABEI_2014 — Acer miyabei**: retrospective forest-level C/F responses along the source Table-1 isolation gradient.
 5. **P2_CF01_CARDIOPETALUM_2012 — Cardiopetalum calophyllum**: retrospective fragment-level I/F responses along the fragment-area gradient.
 
-Across the registry there are **17 primary Fisher-z admissible marginal effects**: 3 from ML015, 8 from Zurich, 2 from common milkweed, 2 from Acer miyabei, and 2 from Cardiopetalum. Sensitivity analyses are not counted as additional marginal effects or programmes.
+Across the registry there are **19 primary Fisher-z admissible marginal effects**: 3 from ML015, 8 from Zurich, 2 from common milkweed, 2 from Acer miyabei, and 2 from Cardiopetalum. Sensitivity analyses are not counted as additional marginal effects or programmes.
 
 ## Zurich admission
 
@@ -65,8 +65,23 @@ Follicle set, seed set and nearest-fragment isolation retain the same qualitativ
 
 This is explicitly **retrospective generalisation evidence** because the Table 1 values were visible before the deterministic recovery rule was written.
 
+6. **P2_CF01_PRITCHARD_2005 — custard apple**: retrospective nested-frame I/F responses along orchard distance from rainforest, retained with cluster-robust dependence fallback.
+
+## Pritchard admission
+
+Pritchard contributes **2 primary Fisher-z marginal effects** inside one retrospective observational programme:
+
+- I: total floral visitor abundance from the source nine-orchard log-abundance versus log-distance regression; Fisher z = **−0.989**, n=9;
+- F: open-pollinated fruit initiation from the five source-explicit orchard means; Fisher z = **−1.490**, n=5;
+- the five F orchards are an explicit subset of the nine I orchards;
+- paired covariance is not reconstructable because the numeric nine-orchard I vector is not public.
+
+The two effects remain in one cluster with the frozen **cluster-robust fallback**. No within-programme I−F p-value is calculated, covariance is not set to zero, and Figure 3.2 is not digitized.
+
+The source explicitly cautions that distance to rainforest is observational and can covary with rainfall and broad geographic position. EGWEE therefore treats this as landscape-position generalisation evidence, not causal proof of a rainforest-distance mechanism.
+
 ## Family boundary
 
 Current primary direct I-F coverage remains **1/5** (ML020 only).
 
-Zurich, common milkweed, Acer miyabei and Cardiopetalum increase the explicitly recoverable gradient/generalisation multilayer programme set from **1 to 5 programmes** (ML015 + Zurich + milkweed + Acer miyabei + Cardiopetalum). They contribute **0** to the primary Hedges-g programme denominator and do not alter the frozen Phase-1 state-separation synthesis.
+Zurich, common milkweed, Acer miyabei, Cardiopetalum and Pritchard increase the explicitly recoverable gradient/generalisation multilayer programme set from **1 to 6 programmes** (ML015 + Zurich + milkweed + Acer miyabei + Cardiopetalum). They contribute **0** to the primary Hedges-g programme denominator and do not alter the frozen Phase-1 state-separation synthesis.
