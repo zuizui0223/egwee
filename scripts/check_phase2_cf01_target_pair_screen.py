@@ -85,6 +85,7 @@ ARTZ_GATE = ROOT / "manuscript/PHASE2_CF01_ARTZ_ASCLEPIAS_EFFECT_UNIT_GATE_2026-
 BRUNSVIGIA_GATE = ROOT / "manuscript/PHASE2_CF01_BRUNSVIGIA_RADULOSA_ESTIMAND_GATE_2026-09-25.md"
 QUESADA_GATE = ROOT / "manuscript/PHASE2_CF01_QUESADA_BOMBACACEOUS_EFFECT_UNIT_GATE_2026-09-25.md"
 COFFEA_CONTRACT = ROOT / "manuscript/CF01_COFFEA_SULAWESI_2003_GRADIENT_RECOVERY_CONTRACT.md"
+COFFEA_GATE = ROOT / "manuscript/PHASE2_CF01_COFFEA_SULAWESI_RECOVERY_GATE_2026-09-25.md"
 CATASETUM_CONTRACT = ROOT / "manuscript/CF01_CATASETUM_2002_DIRECT_IF_RECOVERY_CONTRACT.md"
 CATASETUM_GATE = ROOT / "manuscript/PHASE2_CF01_CATASETUM_1997_RECOVERY_GATE_2026-09-25.md"
 ACHILLEA_GATE = ROOT / "manuscript/PHASE2_CF01_ACHILLEA_ISOLATION_EFFECT_UNIT_GATE_2026-09-25.md"
@@ -1200,7 +1201,7 @@ def main() -> None:
     assert "CFTQ0272" in fulltext
     coff = fulltext["CFTQ0272"]
     assert coff["programme_identity"] == "P2_CF01_COFFEA_SULAWESI_2003"
-    assert coff["quantitative_gate_status"] == "recovery_contract_frozen_site_level_distance_bee_openfruit_vectors_pending"
+    assert coff["quantitative_gate_status"] == "blocked_primary_total_bee_site_vector_not_publicly_recoverable"
     assert "15 independent sites" in coff["independent_unit"]
     assert int(coff["pair_programme_increment"]) == 0
     assert coff["effect_calculation_opened"] == "no"
@@ -1742,6 +1743,18 @@ def main() -> None:
         "choose social bees because distance to forest is strongest for that guild",
     ):
         assert has_token(coffea_contract, token), token
+
+    coffea_gate = COFFEA_GATE.read_text(encoding="utf-8")
+    for token in (
+        "blocked_primary_total_bee_site_vector_not_publicly_recoverable",
+        "broad all-bee abundance/visitation",
+        "social-bee species and social-bee individuals",
+        "does not print one 15-site vector",
+        "legacy public full-text URL",
+        "No Fisher-z I-F pair is admitted",
+        "recoverability/endpoint-lock STOP",
+    ):
+        assert has_token(coffea_gate, token), token
 
     catasetum_contract = CATASETUM_CONTRACT.read_text(encoding="utf-8")
     for token in (
