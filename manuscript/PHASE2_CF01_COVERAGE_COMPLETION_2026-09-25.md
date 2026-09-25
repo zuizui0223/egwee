@@ -17,13 +17,13 @@ This satisfies the preregistered Phase-2 **search-completion stopping rule**.
 
 Search completion is a statement about coverage, not about all quantitative gates being solved.
 
-## Quantitative-family state at search completion
+## Current quantitative-family state after search completion
 
 The empirical families remain intentionally separated.
 
 ### Primary direct Hedges-g families
 
-- I-F: **1 / 5 independent programmes**
+- I-F: **2 / 5 independent programmes**
 - C-F: **2 / 5 independent programmes**
 - G_adult-G_offspring: **5 / 5 independent programmes**
 - G_adult-mean(I,F): **0 / 5 independent programmes**
@@ -31,6 +31,13 @@ The empirical families remain intentionally separated.
 The direct I-F and C-F families do not gain programmes merely because a candidate is biologically
 interesting. Many candidates remain blocked by effect-unit variance, covariance, site-frame,
 exposure or public-data recoverability.
+
+After search completion, **CFTQ0001 Sevenello 2026** was recovered from the public Figshare raw data
+under a frozen Edge-versus-Core contract. GORO, LARO and POAR form dependent primary species panels
+inside one programme; all three have valid Hedges-g marginals and positive-definite paired
+transect-level covariance blocks. None resolves a precise I-F separation, and the internal
+three-panel Bonferroni p is 1.0. Sevenello therefore raises direct I-F **coverage** from 1/5 to 2/5
+without strengthening the frozen Phase-1 five-cluster Fisher result, which remains unchanged.
 
 ### Gradient/generalisation family
 
