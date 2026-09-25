@@ -1524,7 +1524,7 @@ def main() -> None:
         "close_no_common_patch_level_C_effect_unit",
         "movement-compensation / source-limitation anchor",
         "pooled small-patch immigrant-seed proportion is reported as 40%",
-        "Direct C-F programme increment: **0**",
+        "direct C-F increment = 0",
     ):
         assert token in aextoxicon_anchor, token
 
