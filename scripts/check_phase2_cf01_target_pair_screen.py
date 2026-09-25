@@ -726,7 +726,7 @@ def main() -> None:
         "CFTQ0283",
         "CFTQ0286",
         "16 small versus seven large serpentine outcrops",
-        "fragmentation-unit",
+        "independent habitat unit is the outcrop",
         "primary direct I-F coverage remains **1/5**",
         "primary direct C-F coverage remains **2/5**",
     ):
