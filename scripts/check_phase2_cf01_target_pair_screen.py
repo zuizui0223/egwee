@@ -950,7 +950,7 @@ def main() -> None:
     assert "PHASE2_CF01_MILKWEED_CHECK_OK" in milk_proc.stdout
     assert "primary_n=31" in milk_proc.stdout
     assert "sensitivity_n=38" in milk_proc.stdout
-    assert "gradient_programmes=5" in milk_proc.stdout
+    assert "gradient_programmes=6" in milk_proc.stdout
     assert "direct_IF=1/5" in milk_proc.stdout
 
     assert "CFTQ0052" in fulltext
