@@ -23,7 +23,7 @@ The empirical families remain intentionally separated.
 
 ### Primary direct Hedges-g families
 
-- I-F: **2 / 5 independent programmes**
+- I-F: **3 / 5 independent programmes**
 - C-F: **2 / 5 independent programmes**
 - G_adult-G_offspring: **5 / 5 independent programmes**
 - G_adult-mean(I,F): **0 / 5 independent programmes**
@@ -38,6 +38,8 @@ inside one programme; all three have valid Hedges-g marginals and positive-defin
 transect-level covariance blocks. None resolves a precise I-F separation, and the internal
 three-panel Bonferroni p is 1.0. Sevenello therefore raises direct I-F **coverage** from 1/5 to 2/5
 without strengthening the frozen Phase-1 five-cluster Fisher result, which remains unchanged.
+
+After search completion, **CFTQ0349 Bergsdorf Kakamega 2006** was also recovered retrospectively from dissertation site tables under a deterministic all-recoverable-panel rule. Four dependent species×campaign panels (*Acanthopale pubescens* 2001, *Acanthus eminens* 2002 and 2003, and *Heinsenia diervilleoides* 2002–2003) have valid Hedges-g marginals and positive-definite paired-site covariance blocks; *Dracaena fragrans* remains explicitly blocked because a common site-level I/F table is not recoverable. Acanthopale shows resolved I-F separation (delta = +3.197, p = 0.00163), while the other three panel intervals cross zero. Bonferroni protection across all four recovered panels gives p_programme = 0.006535. Bergsdorf therefore raises direct I-F coverage from **2/5 to 3/5** while leaving the frozen Phase-1 five-cluster synthesis unchanged.
 
 ### Gradient/generalisation family
 
