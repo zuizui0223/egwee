@@ -221,7 +221,7 @@ def main() -> None:
         "I − F: **+3.197**",
         "p = **0.00163**",
         "p_programme = min(1, 4 × min(p_panel)) = 0.00653539",
-        "2/5 to **3/5**",
+        "**2/5 to 3/5**",
         "does not add a sixth Phase-1 cluster",
     ):
         assert token in result, token
