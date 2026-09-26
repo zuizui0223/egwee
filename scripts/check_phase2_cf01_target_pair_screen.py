@@ -1051,7 +1051,7 @@ def main() -> None:
     assert "CFTQ0088" in fulltext
     aloe = fulltext["CFTQ0088"]
     assert aloe["programme_identity"] == "P2_CF01_ALOE_THRASKII_2018"
-    assert aloe["quantitative_gate_status"] == "pending_fulltext_habitat_exposure_definition"
+    assert aloe["quantitative_gate_status"] == "close_no_source_defined_habitat_fragmentation_exposure_population_geometry_only"
     assert int(aloe["pair_programme_increment"]) == 0
     assert aloe["effect_calculation_opened"] == "no"
 
@@ -1165,7 +1165,7 @@ def main() -> None:
     assert "CFTQ0187" in fulltext
     myrm = fulltext["CFTQ0187"]
     assert myrm["programme_identity"] == "P2_CF01_MYRMECOPHILA_2011"
-    assert myrm["quantitative_gate_status"] == "pending_fulltext_fragmentation_estimand_and_common_population_frame"
+    assert myrm["quantitative_gate_status"] == "blocked_single_fragmentation_estimand_and_common_population_IF_vectors_not_publicly_recoverable"
     assert "14 maximum populations" in myrm["independent_unit"]
     assert "pollen limitation" in myrm["I_endpoint"]
     assert int(myrm["pair_programme_increment"]) == 0
@@ -1709,9 +1709,9 @@ def main() -> None:
         "fragment size/area",
         "habitat disturbance / affectation",
         "pollen limitation",
-        "one response-free fragmentation estimand",
-        "Do not",
-        "choose fragment area versus disturbance",
+        "blocked_single_fragmentation_estimand_and_common_population_IF_vectors_not_publicly_recoverable",
+        "Direct I-F programme increment: **0**",
+        "choose fragment area versus disturbance because one gives a larger I-F contrast",
     ):
         assert has_token(myrm_gate, token), token
 
