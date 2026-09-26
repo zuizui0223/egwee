@@ -1272,7 +1272,7 @@ def main() -> None:
     assert "CFTQ0301" in fulltext
     sm = fulltext["CFTQ0301"]
     assert sm["programme_identity"] == "P2_CF01_SPONDIAS_MOMBIN_1997"
-    assert sm["quantitative_gate_status"] == "pending_common_population_CF_effect_unit_and_fruit_production_recovery"
+    assert sm["quantitative_gate_status"] == "spondias_mombin_population_F_not_recoverable"
     assert "Spondias population/forest-fragment unit" in sm["independent_unit"]
     assert int(sm["pair_programme_increment"]) == 0
     assert sm["effect_calculation_opened"] == "no"
@@ -1884,13 +1884,14 @@ def main() -> None:
         "90–100% pollen immigration",
         "80–1000 m",
         "Primary fragmented condition = **small island fragments**",
-        "Primary reference condition = the source continuous-forest populations **FDP + LC**",
+        "Primary reference condition = continuous-forest populations **FDP + LC**",
         "larger island/fragment **DL**",
-        "Primary C = population-level pollen immigration",
-        "Primary F = population-level fruit production / fecundity",
-        "five *Ficus* species",
-        "do not increase C-F programme K",
-        "cluster-robust fallback",
+        "Population and DBH are significant terms",
+        "Figure 2",
+        "spondias_mombin_population_F_not_recoverable",
+        "Direct C-F programme increment: **0**",
+        "movement-compensation / reproductive-decline process anchor",
+        "cluster-robust dependence fallback",
     ):
         assert has_token(spond_gate, token), token
 
