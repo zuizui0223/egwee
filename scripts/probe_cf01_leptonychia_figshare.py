@@ -8,6 +8,7 @@ import zipfile
 from pathlib import PurePosixPath
 
 from openpyxl import load_workbook
+from bs4 import BeautifulSoup
 
 COLLECTION_ID = 3300914
 API_ROOT = "https://api.figshare.com/v2"
@@ -49,6 +50,36 @@ def xlsx_schema(raw: bytes) -> dict:
     return {"sheets": out}
 
 
+def html_schema(raw: bytes) -> dict:
+    soup = BeautifulSoup(raw, "html.parser")
+    headings = []
+    for tag in soup.find_all(["h1", "h2", "h3", "h4", "h5", "h6"]):
+        text = " ".join(tag.stripped_strings)
+        if text:
+            headings.append(text)
+
+    tables = []
+    for i, table in enumerate(soup.find_all("table"), start=1):
+        rows = table.find_all("tr")
+        first = rows[0] if rows else None
+        columns = []
+        if first is not None:
+            columns = [" ".join(cell.stripped_strings) for cell in first.find_all(["th", "td"])]
+        caption = ""
+        cap = table.find("caption")
+        if cap is not None:
+            caption = " ".join(cap.stripped_strings)
+        tables.append(
+            {
+                "index": i,
+                "caption": caption,
+                "rows": len(rows),
+                "columns": columns,
+            }
+        )
+    return {"headings": headings, "tables": tables}
+
+
 def main() -> None:
     articles = get_json(
         f"{API_ROOT}/collections/{COLLECTION_ID}/articles?page=1&page_size=1000"
@@ -83,7 +114,7 @@ def main() -> None:
                 continue
 
             suffix = PurePosixPath(name).suffix.casefold()
-            if suffix not in {".csv", ".tsv", ".xlsx", ".zip", ".txt"}:
+            if suffix not in {".csv", ".tsv", ".xlsx", ".zip", ".txt", ".htm", ".html"}:
                 continue
 
             raw = get_bytes(url)
@@ -108,6 +139,13 @@ def main() -> None:
                 print(
                     "LEPTONYCHIA_SCHEMA "
                     f"name={name!r} type=zip members={names!r}"
+                )
+            elif suffix in {".htm", ".html"}:
+                schema = html_schema(raw)
+                print(
+                    "LEPTONYCHIA_SCHEMA "
+                    f"name={name!r} type=html headings={schema['headings']!r} "
+                    f"tables={schema['tables']!r}"
                 )
 
     print("LEPTONYCHIA_FIGSHARE_SCHEMA_OK outcomes_summarized=false")
