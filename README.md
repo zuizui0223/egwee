@@ -67,6 +67,13 @@ Pair-specific Phase-2 direct coverage is currently:
 - **C-F: 2/5 independent programmes** — `ML001` plus `ML002`;
 - **G_adult-G_offspring: 5/5**, so that preregistered pair-specific analysis gate is open.
 
+The direct **C-F family is now coverage-closed rather than search-pending**. CF01 screened all
+**360/360** candidates, **24 C-F-targeted records reached full-text gating**, and **0** of those
+records retain a `pending_*` quantitative status. The direct C-F analysis-opening gate therefore
+remains closed at 2/5 because no additional candidate satisfied the frozen common-exposure,
+effect-unit and marginal-variance rules. EGWEE does not start a new search merely to force K=5.
+See `manuscript/PHASE2_CF01_CF_FAMILY_CLOSURE_2026-09-27.md`.
+
 Sevenello was recovered after search completion from public raw data under a frozen Edge-versus-Core contract. Its three primary species panels are dependent outcomes inside one programme, all paired covariance blocks are positive definite, and the internal three-panel Bonferroni p is 1.0.
 
 Bergsdorf's Kakamega dissertation was then recovered retrospectively from source site tables under an all-recoverable-panel rule. Four dependent species×campaign panels were retained; *Dracaena fragrans* remains explicitly blocked rather than coded as zero. The programme-level Bonferroni p is 0.006535, driven by strong Acanthopale interaction–function separation, while the other three recovered panels are individually imprecise. Bergsdorf therefore raises **I-F coverage to 3/5**, but, like Sevenello, it does not add a sixth cluster to the frozen Phase-1 five-cluster Fisher synthesis.
@@ -76,6 +83,7 @@ The canonical current-state documents are:
 - [`manuscript/META_ANALYSIS_CLUSTER_STATUS_2026-09-12.md`](manuscript/META_ANALYSIS_CLUSTER_STATUS_2026-09-12.md)
 - [`manuscript/STATE_SEPARATION_SYNTHESIS_RESULT_2026-09-13.md`](manuscript/STATE_SEPARATION_SYNTHESIS_RESULT_2026-09-13.md)
 - [`manuscript/AIZEN_FEINSINGER_1994_RECOVERY_RESULT.md`](manuscript/AIZEN_FEINSINGER_1994_RECOVERY_RESULT.md)
+- [`manuscript/PHASE2_CF01_CF_FAMILY_CLOSURE_2026-09-27.md`](manuscript/PHASE2_CF01_CF_FAMILY_CLOSURE_2026-09-27.md)
 
 ## Search stop and claim discipline
 
