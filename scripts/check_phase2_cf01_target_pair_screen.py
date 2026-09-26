@@ -96,6 +96,8 @@ SPONDIAS_MOMBIN_GATE = ROOT / "manuscript/PHASE2_CF01_SPONDIAS_MOMBIN_CF_GATE_20
 DUCKEODENDRON_GATE = ROOT / "manuscript/PHASE2_CF01_DUCKEODENDRON_CF_GATE_2026-09-27.md"
 BANKSIA_CAESIA_GATE = ROOT / "manuscript/PHASE2_CF01_BANKSIA_CAESIA_CF_GATE_2026-09-27.md"
 OTTEWELL_GATE = ROOT / "manuscript/PHASE2_CF01_OTTEWELL_PRIMARY_PUBLICATION_GATE_2026-09-27.md"
+SALIX_NIGRA_GATE = ROOT / "manuscript/PHASE2_CF01_SALIX_NIGRA_THESIS_GATE_2026-09-27.md"
+EUCALYPTUS_AGGREGATA_GATE = ROOT / "manuscript/PHASE2_CF01_EUCALYPTUS_AGGREGATA_THESIS_GATE_2026-09-27.md"
 MANGROVE_GATE = ROOT / "manuscript/PHASE2_CF01_MANGROVE_HERMANSEN_GATE_2026-09-25.md"
 MYRTUS_GATE = ROOT / "manuscript/PHASE2_CF01_MYRTUS_GATE_2026-09-25.md"
 MYRTUS_STOP = ROOT / "manuscript/PHASE2_CF01_MYRTUS_RECOVERY_STOP_2026-09-25.md"
@@ -117,7 +119,7 @@ def has_token(text: str, token: str) -> bool:
 def main() -> None:
     for p in (
         QUEUE, SCREEN, FULLTEXT, PAIR_COVERAGE, WAVE3, WAVE4, WAVE5, WAVE6, WAVE7, WAVE8, WAVE9, WAVE10, WAVE11, WAVE12, WAVE13, WAVE14, WAVE15, WAVE16, WAVE17, WAVE18, WAVE19, WAVE20, WAVE21, WAVE22, WAVE23, WAVE24, WAVE25, WAVE26, WAVE27, WAVE28, WAVE29, WAVE30, WAVE31, WAVE32, WAVE33, WAVE34, WAVE35, WAVE36, MILKWEED_CHECK, SEVENELLO_CHECK, BERGSDORF_CHECK,
-        BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE, BDFFP_SCHEMA, BDFFP_STATUS, HASS_CONTRACT, HASS_SCHEMA, HASS_STATUS, THAI_ORCHARD_CONTRACT, THAI_ORCHARD_ACCESS, THAI_ORCHARD_STATUS, PLECTRITIS_CONTRACT, CABRALEA_CONTRACT, PLECTRITIS_ACCESS, CABRALEA_ACCESS, COMARUM_CONTRACT, COMARUM_ACCESS, AEXTOXICON_ANCHOR, SCHUEPP_CONTRACT, SCHUEPP_ACCESS, ANAXAGOREA_CONTRACT, ANAXAGOREA_ACCESS, CELTIS_GATE, ATTALEA_GATE, CARDIOPETALUM_RULE, CARDIOPETALUM_RESULT, MYRMECOPHILA_GATE, BARTOMEUS_GATE, HELICONIA_URIARTE_GATE, BYRSONIMA_GATE, LEPTONYCHIA_GATE, DIEKOETTER_GATE, ARTZ_GATE, BRUNSVIGIA_GATE, QUESADA_GATE, COFFEA_CONTRACT, CATASETUM_CONTRACT, CATASETUM_GATE, ACHILLEA_GATE, CALYSTEGIA_GATE, SPONDIAS_MOMBIN_GATE, DUCKEODENDRON_GATE, BANKSIA_CAESIA_GATE, OTTEWELL_GATE, MANGROVE_GATE, MYRTUS_GATE, MYRTUS_STOP, SCHLOTMAN_STOP, BUERGER_GATE, COVERAGE_COMPLETION,
+        BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE, BDFFP_SCHEMA, BDFFP_STATUS, HASS_CONTRACT, HASS_SCHEMA, HASS_STATUS, THAI_ORCHARD_CONTRACT, THAI_ORCHARD_ACCESS, THAI_ORCHARD_STATUS, PLECTRITIS_CONTRACT, CABRALEA_CONTRACT, PLECTRITIS_ACCESS, CABRALEA_ACCESS, COMARUM_CONTRACT, COMARUM_ACCESS, AEXTOXICON_ANCHOR, SCHUEPP_CONTRACT, SCHUEPP_ACCESS, ANAXAGOREA_CONTRACT, ANAXAGOREA_ACCESS, CELTIS_GATE, ATTALEA_GATE, CARDIOPETALUM_RULE, CARDIOPETALUM_RESULT, MYRMECOPHILA_GATE, BARTOMEUS_GATE, HELICONIA_URIARTE_GATE, BYRSONIMA_GATE, LEPTONYCHIA_GATE, DIEKOETTER_GATE, ARTZ_GATE, BRUNSVIGIA_GATE, QUESADA_GATE, COFFEA_CONTRACT, CATASETUM_CONTRACT, CATASETUM_GATE, ACHILLEA_GATE, CALYSTEGIA_GATE, SPONDIAS_MOMBIN_GATE, DUCKEODENDRON_GATE, BANKSIA_CAESIA_GATE, OTTEWELL_GATE, SALIX_NIGRA_GATE, EUCALYPTUS_AGGREGATA_GATE, MANGROVE_GATE, MYRTUS_GATE, MYRTUS_STOP, SCHLOTMAN_STOP, BUERGER_GATE, COVERAGE_COMPLETION,
     ):
         assert p.is_file(), p
 
@@ -1316,10 +1318,16 @@ def main() -> None:
     assert poly["quantitative_gate_status"] == "blocked_fragment_level_IF_aggregation_not_recoverable_from_published_tree_level_summary"
     assert "forest fragment is required independent unit" in poly["independent_unit"]
 
-    for thesis_id in ("CFTQ0318", "CFTQ0319"):
-        assert thesis_id in fulltext
-        assert fulltext[thesis_id]["quantitative_gate_status"] == "pending_thesis_chapter_identity_mapping_no_new_K"
-        assert int(fulltext[thesis_id]["pair_programme_increment"]) == 0
+    assert "CFTQ0318" in fulltext
+    salix = fulltext["CFTQ0318"]
+    assert salix["quantitative_gate_status"] == "close_no_source_defined_fragmentation_exposure_after_thesis_mapping"
+    assert "510 m" in salix["I_endpoint"]
+    assert int(salix["pair_programme_increment"]) == 0
+    assert salix["effect_calculation_opened"] == "no"
+
+    assert "CFTQ0319" in fulltext
+    assert fulltext["CFTQ0319"]["quantitative_gate_status"] == "pending_thesis_chapter_identity_mapping_no_new_K"
+    assert int(fulltext["CFTQ0319"]["pair_programme_increment"]) == 0
 
     assert "CFTQ0320" in fulltext
     hass_thesis = fulltext["CFTQ0320"]
@@ -1382,7 +1390,7 @@ def main() -> None:
 
     assert "CFTQ0338" in fulltext
     eagg = fulltext["CFTQ0338"]
-    assert eagg["quantitative_gate_status"] == "pending_thesis_chapter_publication_identity_and_common_CF_or_IF_frame"
+    assert eagg["quantitative_gate_status"] == "close_no_common_same_exposure_CF_frame_hybrid_state_not_direct_C"
     assert int(eagg["pair_programme_increment"]) == 0
 
     assert "CFTQ0340" in fulltext
@@ -1937,6 +1945,29 @@ def main() -> None:
         "combine the 2009 individual-isolation exposure with the 2010 paddock-vs-fragment exposure",
     ):
         assert has_token(ottewell_gate, token), token
+
+    salix_gate = SALIX_NIGRA_GATE.read_text(encoding="utf-8")
+    for token in (
+        "510 m",
+        "12%",
+        "one defined *Salix nigra* population",
+        "close_no_source_defined_fragmentation_exposure_after_thesis_mapping",
+        "I-F/C-F programme increment: **0**",
+        "may connect fragmented populations",
+    ):
+        assert has_token(salix_gate, token), token
+
+    eagg_gate = EUCALYPTUS_AGGREGATA_GATE.read_text(encoding="utf-8")
+    for token in (
+        "18 E. aggregata populations",
+        "relative population size",
+        "hybrid seed production is offspring mating/genetic state",
+        "three adult hybrid zones",
+        "close_no_common_same_exposure_CF_frame_hybrid_state_not_direct_C",
+        "Direct C-F programme increment: **0**",
+        "relabel hybrid seed frequency as direct C",
+    ):
+        assert has_token(eagg_gate, token), token
 
     mangrove_gate = MANGROVE_GATE.read_text(encoding="utf-8")
     for token in (
