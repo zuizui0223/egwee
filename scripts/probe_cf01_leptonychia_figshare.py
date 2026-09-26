@@ -69,12 +69,27 @@ def html_schema(raw: bytes) -> dict:
         cap = table.find("caption")
         if cap is not None:
             caption = " ".join(cap.stripped_strings)
+        row_values = []
+        for row in rows:
+            row_values.append(
+                [" ".join(cell.stripped_strings) for cell in row.find_all(["th", "td"])]
+            )
+
+        context = ""
+        prev = table.find_previous(["p", "div"])
+        if prev is not None:
+            context = " ".join(prev.stripped_strings)
+            if len(context) > 1200:
+                context = context[-1200:]
+
         tables.append(
             {
                 "index": i,
                 "caption": caption,
                 "rows": len(rows),
                 "columns": columns,
+                "context": context,
+                "row_values": row_values,
             }
         )
     return {"headings": headings, "tables": tables}
@@ -144,9 +159,14 @@ def main() -> None:
                 schema = html_schema(raw)
                 print(
                     "LEPTONYCHIA_SCHEMA "
-                    f"name={name!r} type=html headings={schema['headings']!r} "
-                    f"tables={schema['tables']!r}"
+                    f"name={name!r} type=html headings={schema['headings']!r}"
                 )
+                for table in schema["tables"]:
+                    print(
+                        "LEPTONYCHIA_HTML_TABLE "
+                        f"index={table['index']} caption={table['caption']!r} "
+                        f"context={table['context']!r} rows={table['row_values']!r}"
+                    )
 
     print("LEPTONYCHIA_FIGSHARE_SCHEMA_OK outcomes_summarized=false")
 
