@@ -71,7 +71,7 @@ def main() -> None:
         assert 1 <= int(r["n_OP_nonmissing"]) <= 10
 
     assert set(by_sp) == {*PRIMARY, "POGN"}
-    assert sum(int(r["n_OP_nonmissing"]) < 10 for r in vals) == 5
+    assert sum(int(r["n_OP_nonmissing"]) < 10 for r in vals) == 6
     assert not any(
         r["species"] == "POGN" and r["site"] == "Maya"
         and r["crop"] == "Wheat" and r["transect"] == "Core"
