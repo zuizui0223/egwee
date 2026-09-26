@@ -63,11 +63,13 @@ These Fisher-z programmes remain separate from the primary Hedges-g Fisher stati
 
 Pair-specific Phase-2 direct coverage is currently:
 
-- **I-F: 2/5 independent programmes** — `ML020` plus `P2_CF01_SEVENELLO_2026`;
+- **I-F: 3/5 independent programmes** — `ML020`, `P2_CF01_SEVENELLO_2026` and `P2_CF01_BERGSDORF_KAKAMEGA_2006`;
 - **C-F: 2/5 independent programmes** — `ML001` plus `ML002`;
 - **G_adult-G_offspring: 5/5**, so that preregistered pair-specific analysis gate is open.
 
-Sevenello was recovered after search completion from public raw data under a frozen Edge-versus-Core contract. Its three primary species panels are dependent outcomes inside one programme, all paired covariance blocks are positive definite, and the internal three-panel Bonferroni p is 1.0. It therefore increases **I-F coverage**, but it does not add a sixth cluster to the frozen Phase-1 five-cluster Fisher synthesis.
+Sevenello was recovered after search completion from public raw data under a frozen Edge-versus-Core contract. Its three primary species panels are dependent outcomes inside one programme, all paired covariance blocks are positive definite, and the internal three-panel Bonferroni p is 1.0.
+
+Bergsdorf's Kakamega dissertation was then recovered retrospectively from source site tables under an all-recoverable-panel rule. Four dependent species×campaign panels were retained; *Dracaena fragrans* remains explicitly blocked rather than coded as zero. The programme-level Bonferroni p is 0.006535, driven by strong Acanthopale interaction–function separation, while the other three recovered panels are individually imprecise. Bergsdorf therefore raises **I-F coverage to 3/5**, but, like Sevenello, it does not add a sixth cluster to the frozen Phase-1 five-cluster Fisher synthesis.
 
 The canonical current-state documents are:
 
