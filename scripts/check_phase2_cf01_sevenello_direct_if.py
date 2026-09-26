@@ -158,17 +158,19 @@ def main() -> None:
         assert token in result, token
 
     pair={r["pair_id"]:r for r in rows(PAIR)}
-    assert int(pair["I-F"]["current_independent_direct_systems"]) == 2
-    assert set(pair["I-F"]["current_system_ids"].split(";")) == {"ML020", PROGRAMME}
+    assert int(pair["I-F"]["current_independent_direct_systems"]) == 3
+    assert set(pair["I-F"]["current_system_ids"].split(";")) == {
+        "ML020", PROGRAMME, "P2_CF01_BERGSDORF_KAKAMEGA_2006"
+    }
 
     completion=COMPLETION.read_text(encoding="utf-8")
-    assert "I-F: **2 / 5 independent programmes**" in completion
+    assert "I-F: **3 / 5 independent programmes**" in completion
     assert "Sevenello" in completion
 
     print(
         "PHASE2_CF01_SEVENELLO_CHECK_OK "
         "primary_panels=3 sensitivity_panels=1 covariance_blocks=4 all_PD=true "
-        "programme_p=1 direct_IF=2/5 phase1_unchanged=true"
+        "programme_p=1 direct_IF=3/5 phase1_unchanged=true"
     )
 
 
