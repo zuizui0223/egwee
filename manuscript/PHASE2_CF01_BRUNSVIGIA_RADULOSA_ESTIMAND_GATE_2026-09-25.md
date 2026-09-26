@@ -1,13 +1,13 @@
-# CFTQ0263 Brunsvigia radulosa I-F estimand gate — 2026-09-25
+# CFTQ0263 Brunsvigia radulosa I-F estimand gate — resolved 2026-09-27
 
-## Candidate
+## Programme
 
 Programme identity: `P2_CF01_BRUNSVIGIA_RADULOSA_2005`.
 
 Primary source: Ward & Johnson (2005), *Oikos* 108:253–262,
 doi:10.1111/j.0030-1299.2005.13468.x.
 
-The source studies fragmented grassland populations and explicitly records three related predictors:
+The source studies fragmented grassland populations and explicitly evaluates:
 
 - habitat fragment area;
 - population isolation;
@@ -15,61 +15,65 @@ The source studies fragmented grassland populations and explicitly records three
 
 It also measures direct seed production and pollen limitation using supplemental hand pollination.
 
-## Why this requires an estimand gate
+## Habitat variables are not rejected because they are null
 
-Population size is biologically important but is not itself the frozen EGWEE habitat-fragmentation
-exposure. The source's published conclusions emphasize reduced seed production and stronger pollen
-limitation in small populations, while habitat fragment area and isolation are weaker in the
-published multivariable model.
+Fragment area and population isolation are source-defined habitat variables and remain biologically
+eligible fragmentation gradients.
 
-Because those outcome directions are already public, EGWEE will not choose the predictor that
-produces the strongest I-F pattern after inspection.
+The source's multivariable result is that population size, rather than fragment area or population
+isolation, best explains variation in seed production / pollen limitation.
 
-## Frozen rule
+EGWEE does **not** close the habitat gradients merely because those habitat terms are not
+significant.
 
-No numerical EGWEE effect is opened until the source methods/data support one **habitat** estimand:
+## Why quantitative recovery still closes
 
-1. fragment area, or
-2. population isolation.
+A Fisher-z I-F recovery would require one common population table containing:
 
-Population size remains a separate demographic / mate-availability moderator.
+1. fragment area or population isolation;
+2. population-level pollen limitation;
+3. population-level direct seed production;
+4. the same population IDs and effect-unit-valid observations.
 
-Independent unit = population/site. Flowers, hand-pollination treatments, seeds and juveniles are
-nested below population.
+The audited public reporting surface does not expose that common vector.
 
-Primary candidate I = population-level pollen limitation under the source open-versus-supplemental
-pollination experiment.
+The available publication summaries are model-level conclusions. Back-calculating a population
+correlation from a nonsignificant coefficient or p-value would create a new effect after outcome
+inspection.
 
-Primary candidate F = population-level direct seed production per plant.
+Population size cannot replace fragment area/isolation simply because it is the strongest published
+predictor; population size is retained as a demographic / mate-availability moderator.
 
-The same population IDs must support exposure + I + F.
+## Terminal status
 
-## Effect family
+`blocked_fragment_area_or_isolation_common_population_IF_vectors_not_publicly_recoverable`
 
-If a continuous habitat variable and common population vector are recoverable, this programme enters
-only the Fisher-z gradient/generalisation stream.
+Direct I-F programme increment: **0**.
 
-Do not dichotomize fragment area or isolation after seeing responses. Do not turn population size
-into habitat-fragmentation severity.
+The source remains strong mechanism evidence that small populations can experience pollen limitation
+and reduced seed production even when habitat area/isolation are not the strongest multivariate
+predictors.
 
-## Terminal outcomes
+## Reopening condition
 
-- `brunsvigia_gradient_IF_covariance_aware`;
-- `brunsvigia_fragment_area_common_IF_frame_not_recoverable`;
-- `brunsvigia_isolation_common_IF_frame_not_recoverable`;
-- `brunsvigia_habitat_estimand_not_identifiable`;
-- `brunsvigia_population_level_I_not_recoverable`;
-- `brunsvigia_population_level_F_not_recoverable`.
+Reopen only if an authoritative source supplies population-level values for:
+
+- habitat fragment area or population isolation;
+- pollen limitation;
+- direct seed production;
+
+on one common population frame.
+
+The fragmentation axis must be fixed from source provenance, not chosen by effect strength.
 
 ## No rescue
 
 Do not:
 
-- choose population size because it is the strongest published predictor;
+- choose population size as fragmentation severity;
 - choose area versus isolation by significance;
+- infer an exact Fisher-z effect from a null regression coefficient or p-value;
 - use juvenile recruitment as F;
 - count flowers, fruits, seeds or juveniles as fragmentation n;
-- claim equivalence from a non-significant fragment-area or isolation coefficient;
+- interpret nonsignificance as equivalence;
 - use the result to validate a finite EGWE/NEE operator.
-
-All terminal outcomes are retained.
