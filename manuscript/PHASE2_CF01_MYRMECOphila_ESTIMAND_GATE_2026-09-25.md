@@ -1,64 +1,82 @@
-# CFTQ0187 Myrmecophila christinae fragmentation I-F estimand gate — 2026-09-25
+# CFTQ0187 Myrmecophila christinae fragmentation I-F estimand gate — resolved 2026-09-27
 
-## Why this candidate matters
+## Programme
 
-Parra-Tabla et al. (2011) surveyed **14 populations** of the endangered epiphytic orchid
-*Myrmecophila christinae* in a fragmented coastal-shrub landscape and measured:
+Programme identity: `P2_CF01_MYRMECOPHILA_2011`.
+
+Primary source: Parra-Tabla et al. (2011), *Biotropica*,
+doi:10.1111/j.1744-7429.2011.00752.x.
+
+The source surveys **14 populations** of the endangered epiphytic orchid
+*Myrmecophila christinae* in a fragmented coastal-shrub landscape and measures:
 
 - population/demographic state;
-- habitat fragmentation/disturbance variables;
+- fragment size / habitat disturbance;
 - pollen limitation using hand-pollination comparisons;
-- fruit production / fruit set.
+- fruit production and fruit set.
 
-Under the frozen EGWEE layer definitions, pollen limitation is an eligible
-`I_interaction` endpoint and fruit production/fruit set are eligible
-`F_reproductive_function` endpoints.
+Pollen limitation is an eligible `I_interaction` endpoint and direct fruit output is eligible
+`F_reproductive_function`.
 
-## Current ambiguity
+## Why one I-F effect cannot be recovered
 
-The public abstract exposes at least two source-defined habitat axes:
+The source does not expose one unique fragmentation estimand shared by I and F.
 
-1. **fragment size/area** — e.g. demographic differences in fragments <1 ha and higher fruit
-   production in fragments >10 ha;
+At least two source habitat axes are reported:
+
+1. **fragment size/area** — demographic responses and higher fruit production in fragments >10 ha;
 2. **habitat disturbance / affectation** — fruit set is lower in highly disturbed fragments.
 
-It also reports that pollen limitation occurs across all studied populations and is not obviously
-aligned with habitat disturbance.
+The public source also reports that pollen limitation occurs across the studied populations and is
+not related to habitat disturbance.
 
-Those facts make the study scientifically interesting, but they also make post hoc extraction
-dangerous: choosing fragment size for F, disturbance for another F quantity, and then pairing either
-with pollen limitation after seeing directions would manufacture the estimand.
+Thus selecting fragment area for one reproductive endpoint, habitat disturbance for another, or
+choosing between fruit production and fruit set after reading the directions would create the
+estimand post hoc.
 
-## Frozen gate
+## Effect-unit recoverability
 
-No numerical EGWEE effect is opened until authoritative full-text methods/tables establish:
+The audited public reporting surface does not expose a machine-readable / tabulated common
+14-population frame containing:
 
-1. the exact population IDs and fragmentation-level independent unit;
-2. the exact source coding of fragment area/size and habitat disturbance;
-3. which one variable can serve as one response-free fragmentation estimand on a common population frame;
-4. a population-level pollen-limitation quantity under the source pollination experiment;
-5. a direct F endpoint on the **same population/exposure frame**;
-6. recoverable sampling dispersion or raw population values without promoting flowers/plants/fruits to fragmentation n.
+- one locked fragmentation variable;
+- population-level pollen limitation;
+- one locked direct F endpoint;
+- compatible fragmentation-unit dispersion.
 
-## Permitted outcomes
+Plants, hand-pollination flowers, fruits and seeds are nested below population and cannot substitute
+for the missing population vector.
 
-- `myrmecophila_gradient_IF_covariance_aware`;
-- `myrmecophila_direct_IF_covariance_aware` if the source itself defines an eligible two-group
-  contrast before response selection;
-- `myrmecophila_common_IF_frame_not_recoverable`;
-- `myrmecophila_fragmentation_estimand_ambiguous`;
-- `myrmecophila_population_level_I_not_recoverable`;
-- `myrmecophila_population_level_F_not_recoverable`.
+## Terminal status
+
+`blocked_single_fragmentation_estimand_and_common_population_IF_vectors_not_publicly_recoverable`
+
+Direct I-F programme increment: **0**.
+
+The system remains valuable mechanism evidence: habitat fragmentation/disturbance is associated with
+demographic and reproductive changes while pollen limitation is pervasive across populations.
+
+That source-level ecological pattern is not converted into a quantitative I-F programme by choosing
+the most convenient habitat axis or reproductive endpoint.
+
+## Reopening condition
+
+Reopen only if an authoritative source supplies a common population table or raw dataset containing:
+
+1. one source-defined response-free fragmentation variable;
+2. population-level pollen limitation;
+3. one direct reproductive-function endpoint;
+4. sufficient population-level information for a valid marginal effect.
+
+The already-frozen endpoint/exposure rules must be applied without re-selection from effect strength.
 
 ## No rescue
 
 Do not:
 
-- choose fragment area versus disturbance because one produces a stronger I-F difference;
+- choose fragment area versus disturbance because one gives a larger I-F contrast;
 - choose fruit production versus fruit set by significance;
-- treat individual flowers, plants or fruits as independent fragmentation units;
-- convert the source into a binary small/large contrast unless that contrast is explicitly source-defined;
-- infer absence of fragmentation effects from pollen limitation occurring in all populations;
-- use this study to validate a finite EGWE/NEE operator.
-
-All terminal outcomes are retained.
+- treat flowers, plants, fruits or seeds as independent fragmentation units;
+- infer equivalence from pollen limitation being reported in all populations;
+- dichotomize the source after inspecting outcomes;
+- use the study to validate a finite EGWE/NEE operator.
