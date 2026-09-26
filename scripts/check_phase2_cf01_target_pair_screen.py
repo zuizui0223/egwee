@@ -1199,7 +1199,7 @@ def main() -> None:
     assert "CFTQ0215" in fulltext
     lep = fulltext["CFTQ0215"]
     assert lep["programme_identity"] == "P2_CF01_LEPTONYCHIA_2003_2009"
-    assert lep["quantitative_gate_status"] == "pending_linked_2003_2009_site_and_campaign_alignment"
+    assert lep["quantitative_gate_status"] == "leptonychia_public_data_no_common_CF_frame"
     assert "forest fragment / continuous-forest habitat unit" in lep["independent_unit"]
     assert int(lep["pair_programme_increment"]) == 0
     assert lep["effect_calculation_opened"] == "no"
@@ -1735,12 +1735,15 @@ def main() -> None:
 
     lep_gate = LEPTONYCHIA_GATE.read_text(encoding="utf-8")
     for token in (
-        "four small forest fragments",
-        "2, 9, 13 and 31 ha",
-        "diminished fecundity",
+        "2, 9, 16 and 31 ha",
+        "520 and 3500 ha",
+        "21-ha",
+        "rodent abundance",
+        "dove abundance",
+        "238 trees",
+        "leptonychia_public_data_no_common_CF_frame",
+        "Direct C-F increment = **0**",
         "Same species + same region + linked citations are not sufficient",
-        "linked-campaign",
-        "direct C-F increment = 0",
     ):
         assert has_token(lep_gate, token), token
 
