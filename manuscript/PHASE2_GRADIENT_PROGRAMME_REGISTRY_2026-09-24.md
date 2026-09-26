@@ -81,6 +81,6 @@ The source explicitly cautions that distance to rainforest is observational and 
 
 ## Family boundary
 
-Current pair-specific direct I-F coverage is **2/5** (ML020 + P2_CF01_SEVENELLO_2026). Sevenello was recovered after search completion under a frozen Edge-versus-Core direct-effect contract and does not enter the frozen Phase-1 five-cluster Fisher synthesis.
+Current pair-specific direct I-F coverage is **3/5** (ML020 + P2_CF01_SEVENELLO_2026 + P2_CF01_BERGSDORF_KAKAMEGA_2006). Sevenello and Bergsdorf were recovered after search completion under separate frozen retrospective direct-effect rules. Their dependent species/campaign panels count once per programme, and neither programme enters the frozen Phase-1 five-cluster Fisher synthesis.
 
 Zurich, common milkweed, Acer miyabei, Cardiopetalum and Pritchard increase the explicitly recoverable gradient/generalisation multilayer programme set from **1 to 6 programmes** (ML015 + Zurich + milkweed + Acer miyabei + Cardiopetalum + Pritchard). They contribute **0** to the primary Hedges-g programme denominator and do not alter the frozen Phase-1 state-separation synthesis.
