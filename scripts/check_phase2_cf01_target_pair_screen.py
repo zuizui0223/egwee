@@ -105,6 +105,7 @@ MYRTUS_STOP = ROOT / "manuscript/PHASE2_CF01_MYRTUS_RECOVERY_STOP_2026-09-25.md"
 SCHLOTMAN_STOP = ROOT / "manuscript/PHASE2_CF01_SCHLOTMAN_RECOVERY_STOP_2026-09-25.md"
 BUERGER_GATE = ROOT / "manuscript/PHASE2_CF01_BUERGER_LANDSCAPE_ESTIMAND_GATE_2026-09-25.md"
 COVERAGE_COMPLETION = ROOT / "manuscript/PHASE2_CF01_COVERAGE_COMPLETION_2026-09-25.md"
+CF_FAMILY_CLOSURE = ROOT / "manuscript/PHASE2_CF01_CF_FAMILY_CLOSURE_2026-09-27.md"
 
 
 def rows(path: Path) -> list[dict[str, str]]:
@@ -120,7 +121,7 @@ def has_token(text: str, token: str) -> bool:
 def main() -> None:
     for p in (
         QUEUE, SCREEN, FULLTEXT, PAIR_COVERAGE, WAVE3, WAVE4, WAVE5, WAVE6, WAVE7, WAVE8, WAVE9, WAVE10, WAVE11, WAVE12, WAVE13, WAVE14, WAVE15, WAVE16, WAVE17, WAVE18, WAVE19, WAVE20, WAVE21, WAVE22, WAVE23, WAVE24, WAVE25, WAVE26, WAVE27, WAVE28, WAVE29, WAVE30, WAVE31, WAVE32, WAVE33, WAVE34, WAVE35, WAVE36, MILKWEED_CHECK, SEVENELLO_CHECK, BERGSDORF_CHECK,
-        BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE, BDFFP_SCHEMA, BDFFP_STATUS, HASS_CONTRACT, HASS_SCHEMA, HASS_STATUS, THAI_ORCHARD_CONTRACT, THAI_ORCHARD_ACCESS, THAI_ORCHARD_STATUS, PLECTRITIS_CONTRACT, CABRALEA_CONTRACT, PLECTRITIS_ACCESS, CABRALEA_ACCESS, COMARUM_CONTRACT, COMARUM_ACCESS, AEXTOXICON_ANCHOR, SCHUEPP_CONTRACT, SCHUEPP_ACCESS, ANAXAGOREA_CONTRACT, ANAXAGOREA_ACCESS, CELTIS_GATE, ATTALEA_GATE, CARDIOPETALUM_RULE, CARDIOPETALUM_RESULT, MYRMECOPHILA_GATE, BARTOMEUS_GATE, HELICONIA_URIARTE_GATE, BYRSONIMA_GATE, LEPTONYCHIA_GATE, DIEKOETTER_GATE, ARTZ_GATE, BRUNSVIGIA_GATE, QUESADA_GATE, COFFEA_CONTRACT, CATASETUM_CONTRACT, CATASETUM_GATE, ACHILLEA_GATE, CALYSTEGIA_GATE, SPONDIAS_MOMBIN_GATE, DUCKEODENDRON_GATE, BANKSIA_CAESIA_GATE, OTTEWELL_GATE, SALIX_NIGRA_GATE, EUCALYPTUS_AGGREGATA_GATE, EAKIN_BUSHER_GATE, MANGROVE_GATE, MYRTUS_GATE, MYRTUS_STOP, SCHLOTMAN_STOP, BUERGER_GATE, COVERAGE_COMPLETION,
+        BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE, BDFFP_SCHEMA, BDFFP_STATUS, HASS_CONTRACT, HASS_SCHEMA, HASS_STATUS, THAI_ORCHARD_CONTRACT, THAI_ORCHARD_ACCESS, THAI_ORCHARD_STATUS, PLECTRITIS_CONTRACT, CABRALEA_CONTRACT, PLECTRITIS_ACCESS, CABRALEA_ACCESS, COMARUM_CONTRACT, COMARUM_ACCESS, AEXTOXICON_ANCHOR, SCHUEPP_CONTRACT, SCHUEPP_ACCESS, ANAXAGOREA_CONTRACT, ANAXAGOREA_ACCESS, CELTIS_GATE, ATTALEA_GATE, CARDIOPETALUM_RULE, CARDIOPETALUM_RESULT, MYRMECOPHILA_GATE, BARTOMEUS_GATE, HELICONIA_URIARTE_GATE, BYRSONIMA_GATE, LEPTONYCHIA_GATE, DIEKOETTER_GATE, ARTZ_GATE, BRUNSVIGIA_GATE, QUESADA_GATE, COFFEA_CONTRACT, CATASETUM_CONTRACT, CATASETUM_GATE, ACHILLEA_GATE, CALYSTEGIA_GATE, SPONDIAS_MOMBIN_GATE, DUCKEODENDRON_GATE, BANKSIA_CAESIA_GATE, OTTEWELL_GATE, SALIX_NIGRA_GATE, EUCALYPTUS_AGGREGATA_GATE, EAKIN_BUSHER_GATE, MANGROVE_GATE, MYRTUS_GATE, MYRTUS_STOP, SCHLOTMAN_STOP, BUERGER_GATE, COVERAGE_COMPLETION, CF_FAMILY_CLOSURE,
     ):
         assert p.is_file(), p
 
@@ -2089,7 +2090,43 @@ def main() -> None:
         "ML020", "P2_CF01_SEVENELLO_2026", "P2_CF01_BERGSDORF_KAKAMEGA_2006"
     }
     assert int(pair["C-F"]["current_independent_direct_systems"]) == 2
+    assert pair["C-F"]["current_system_ids"] == "ML001;ML002"
     assert int(pair["G_adult-G_offspring"]["current_independent_direct_systems"]) == 5
+
+    cf_target_ids = {
+        r["queue_id"] for r in screen
+        if "C-F" in (r["pair_families"] or "").split(";")
+    }
+    cf_fulltext = [
+        r for r in rows(FULLTEXT)
+        if r["queue_id"] in cf_target_ids
+    ]
+    assert len(cf_fulltext) == 24
+    assert not [
+        r for r in cf_fulltext
+        if r["quantitative_gate_status"].startswith("pending_")
+    ]
+    assert sum(
+        r["quantitative_gate_status"] == "linked_umbrella_source_no_new_K"
+        for r in cf_fulltext
+    ) == 4
+    assert all(int(r["pair_programme_increment"]) == 0 for r in cf_fulltext)
+
+    cf_closure = CF_FAMILY_CLOSURE.read_text(encoding="utf-8")
+    for token in (
+        "360 / 360 screened",
+        "full-text-gated records originating from a C-F target family: **24**",
+        "remaining `pending_*` quantitative status: **0**",
+        "**2 / 5 independent programmes**",
+        "**ML001; ML002**",
+        "analysis-opening gate",
+        "This is no longer a search-in-progress denominator",
+        "leptonychia_public_data_no_common_CF_frame",
+        "spondias_mombin_population_F_not_recoverable",
+        "blocked_Duckeodendron_common_tree_CF_marginals_and_forest_nesting_not_recoverable",
+        "Failure to open the direct C-F meta-analysis neither supports nor falsifies an EGWE/NEE operator",
+    ):
+        assert has_token(cf_closure, token), token
 
     contract = BRASSICA_CONTRACT.read_text(encoding="utf-8")
     for token in (
@@ -2105,7 +2142,7 @@ def main() -> None:
         "PHASE2_CF01_TARGET_PAIR_SCREEN_OK "
         "queue=360 screened=360 pending=0 wave3_advance=1 wave4_advance=0 wave5_advance=1 wave6_advance=2 wave7_advance=3 wave8_advance=1 wave9_advance=2 wave10_advance=0 wave11_advance=1 wave12_advance=1 wave12_link_existing=1 wave13_advance=2 wave14_advance=1 wave15_advance=1 wave16_advance=2 wave17_advance=3 wave18_advance=1 wave19_advance=1 wave20_advance=0 wave21_advance=3 wave21_link_existing=1 wave22_advance=1 wave23_advance=1 wave24_advance=1 wave25_advance=0 wave26_advance=0 wave27_advance=2 wave28_advance=2 wave29_advance=2 wave30_advance=0 wave31_advance=1 wave32_advance=8 wave32_link_existing=1 wave33_advance=3 wave33_link_existing=1 wave34_advance=2 wave34_link_existing=2 wave35_advance=4 wave36_advance=1 wave36_link_existing=2 search_complete=1 "
         "brassica_increment=0 milkweed_gradient_increment=1 phacelia_increment=0 hedysarum_increment=0 "
-        "bdffp_access_stop=1 hass_access_stop=1 aloe_pending=1 thai_orchard_access_stop=1 brudvig_link_noK=1 acer_CF_increment=0 plectritis_access_stop=1 cabralea_access_stop=1 comarum_access_stop=1 acer_miyabei_gradient_admitted=1 aextoxicon_anchor_noK=1 schuepp_access_stop=1 celtis_estimand_stop=1 anaxagorea_access_stop=1 cardiopetalum_gradient_admitted=1 attalea_linked_stop=1 myrmecophila_estimand_pending=1 herrera_CD_anchor_noK=1 bartomeus_estimand_pending=1 uriarte_CD_anchor_noK=1 braun_umbrella_noK=1 byrsonima_variance_stop=1 leptonychia_linked_pending=1 diekoetter_factorial_pending=1 artz_repeated_island_stop=1 wave25_noK=1 wave26_noK=1 brunsvigia_estimand_pending=1 quesada_effect_unit_pending=1 coffea_gradient_pending=1 catasetum_direct_IF_pending=1 achillea_effect_unit_stop=1 calystegia_effect_unit_stop=1 wave30_noK=1 spondias_mombin_CF_pending=1 bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=2 sevenello_direct_IF_admitted=1 bergsdorf_direct_IF_admitted=1 direct_IF=3/5 direct_CF=2/5"
+        "bdffp_access_stop=1 hass_access_stop=1 aloe_pending=1 thai_orchard_access_stop=1 brudvig_link_noK=1 acer_CF_increment=0 plectritis_access_stop=1 cabralea_access_stop=1 comarum_access_stop=1 acer_miyabei_gradient_admitted=1 aextoxicon_anchor_noK=1 schuepp_access_stop=1 celtis_estimand_stop=1 anaxagorea_access_stop=1 cardiopetalum_gradient_admitted=1 attalea_linked_stop=1 myrmecophila_estimand_pending=1 herrera_CD_anchor_noK=1 bartomeus_estimand_pending=1 uriarte_CD_anchor_noK=1 braun_umbrella_noK=1 byrsonima_variance_stop=1 leptonychia_CF_stop=1 diekoetter_factorial_pending=1 artz_repeated_island_stop=1 wave25_noK=1 wave26_noK=1 brunsvigia_estimand_pending=1 quesada_effect_unit_pending=1 coffea_gradient_pending=1 catasetum_direct_IF_pending=1 achillea_effect_unit_stop=1 calystegia_effect_unit_stop=1 wave30_noK=1 spondias_mombin_CF_stop=1 bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=2 sevenello_direct_IF_admitted=1 bergsdorf_direct_IF_admitted=1 cf_family_closed=1 cf_fulltext=24 cf_pending=0 direct_IF=3/5 direct_CF=2/5"
     )
 
 
