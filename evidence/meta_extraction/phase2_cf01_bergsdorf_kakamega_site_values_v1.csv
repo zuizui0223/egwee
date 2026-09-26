@@ -1,0 +1,28 @@
+programme_id,panel_id,species,campaign,site,habitat,zero_visit_units,total_visit_units,I_visit_occurrence,F_fruit_set,F_within_site_SD,source_I_table,source_F_table,common_IF_frame,note
+P2_CF01_BERGSDORF_KAKAMEGA_2006,AP_2001,Acanthopale pubescens,2001,Colobus trail,main,9,46,0.804347826087,0.68,0.21,Table 12,Table 20,yes,source probable-pollinator set = honey bees
+P2_CF01_BERGSDORF_KAKAMEGA_2006,AP_2001,Acanthopale pubescens,2001,Salazar,main,9,34,0.735294117647,0.72,0.27,Table 12,Table 20,yes,source probable-pollinator set = honey bees
+P2_CF01_BERGSDORF_KAKAMEGA_2006,AP_2001,Acanthopale pubescens,2001,Isecheno,main,10,27,0.629629629630,0.72,0.27,Table 12,Table 20,yes,source probable-pollinator set = honey bees
+P2_CF01_BERGSDORF_KAKAMEGA_2006,AP_2001,Acanthopale pubescens,2001,Kisere,fragment,5,54,0.907407407407,0.59,0.27,Table 12,Table 20,yes,source probable-pollinator set = honey bees
+P2_CF01_BERGSDORF_KAKAMEGA_2006,AP_2001,Acanthopale pubescens,2001,Ikuywa,fragment,8,34,0.764705882353,0.42,0.32,Table 12,Table 20,yes,source probable-pollinator set = honey bees
+P2_CF01_BERGSDORF_KAKAMEGA_2006,AP_2001,Acanthopale pubescens,2001,Yala,fragment,15,37,0.594594594595,0.48,0.31,Table 12,Table 20,yes,source probable-pollinator set = honey bees
+P2_CF01_BERGSDORF_KAKAMEGA_2006,AP_2001,Acanthopale pubescens,2001,Kaimosi,fragment,4,22,0.818181818182,0.54,0.22,Table 12,Table 20,yes,source probable-pollinator set = honey bees
+P2_CF01_BERGSDORF_KAKAMEGA_2006,AE_2002,Acanthus eminens,2002,Salazar I,main,3,10,0.700000000000,0.04,0.09,Table 28,Table 43,yes,source pollinator set = Xylocopa
+P2_CF01_BERGSDORF_KAKAMEGA_2006,AE_2002,Acanthus eminens,2002,Salazar II,main,3,13,0.769230769231,0.05,0.12,Table 28,Table 43,yes,source pollinator set = Xylocopa
+P2_CF01_BERGSDORF_KAKAMEGA_2006,AE_2002,Acanthus eminens,2002,Isecheno,main,4,11,0.636363636364,0.08,0.13,Table 28,Table 43,yes,source pollinator set = Xylocopa
+P2_CF01_BERGSDORF_KAKAMEGA_2006,AE_2002,Acanthus eminens,2002,Kisere,fragment,3,16,0.812500000000,0.47,0.45,Table 28,Table 43,yes,source pollinator set = Xylocopa
+P2_CF01_BERGSDORF_KAKAMEGA_2006,AE_2002,Acanthus eminens,2002,Ikuywa,fragment,2,21,0.904761904762,0.04,0.11,Table 28,Table 43,yes,source pollinator set = Xylocopa
+P2_CF01_BERGSDORF_KAKAMEGA_2006,AE_2002,Acanthus eminens,2002,Yala,fragment,,,0.03,0.04,,Table 43,no,F-only source row; excluded mechanically because 2002 visitation table has no Yala value
+P2_CF01_BERGSDORF_KAKAMEGA_2006,AE_2003,Acanthus eminens,2003,Colobus trail,main,6,10,0.400000000000,0.16,0.15,Table 29,Table 44,yes,source pollinator set = Xylocopa
+P2_CF01_BERGSDORF_KAKAMEGA_2006,AE_2003,Acanthus eminens,2003,Salazar I,main,6,18,0.666666666667,0.01,0.04,Table 29,Table 44,yes,source pollinator set = Xylocopa
+P2_CF01_BERGSDORF_KAKAMEGA_2006,AE_2003,Acanthus eminens,2003,Salazar II,main,9,46,0.804347826087,0.12,0.19,Table 29,Table 44,yes,source pollinator set = Xylocopa
+P2_CF01_BERGSDORF_KAKAMEGA_2006,AE_2003,Acanthus eminens,2003,Isecheno,main,13,24,0.458333333333,0.24,0.24,Table 29,Table 44,yes,source pollinator set = Xylocopa
+P2_CF01_BERGSDORF_KAKAMEGA_2006,AE_2003,Acanthus eminens,2003,Kisere,fragment,6,31,0.806451612903,0.10,0.16,Table 29,Table 44,yes,source pollinator set = Xylocopa
+P2_CF01_BERGSDORF_KAKAMEGA_2006,AE_2003,Acanthus eminens,2003,Ikuywa,fragment,4,20,0.800000000000,0.23,0.21,Table 29,Table 44,yes,source pollinator set = Xylocopa
+P2_CF01_BERGSDORF_KAKAMEGA_2006,AE_2003,Acanthus eminens,2003,Yala,fragment,5,19,0.736842105263,0.13,0.09,Table 29,Table 44,yes,source pollinator set = Xylocopa
+P2_CF01_BERGSDORF_KAKAMEGA_2006,HD_2002_03,Heinsenia diervilleoides,2002-2003,Colobus trail,main,10,25,0.600000000000,0.25,0.21,Table 53,Table 59,yes,source accepted all visitor groups as potential pollinators
+P2_CF01_BERGSDORF_KAKAMEGA_2006,HD_2002_03,Heinsenia diervilleoides,2002-2003,Buyangu hill,main,1,10,0.900000000000,0.15,0.22,Table 53,Table 59,yes,source accepted all visitor groups as potential pollinators
+P2_CF01_BERGSDORF_KAKAMEGA_2006,HD_2002_03,Heinsenia diervilleoides,2002-2003,Salazar I,main,3,20,0.850000000000,0.62,0.25,Table 53,Table 59,yes,source accepted all visitor groups as potential pollinators
+P2_CF01_BERGSDORF_KAKAMEGA_2006,HD_2002_03,Heinsenia diervilleoides,2002-2003,Isecheno,main,2,20,0.900000000000,0.22,0.19,Table 53,Table 59,yes,source accepted all visitor groups as potential pollinators
+P2_CF01_BERGSDORF_KAKAMEGA_2006,HD_2002_03,Heinsenia diervilleoides,2002-2003,Malava,fragment,2,20,0.900000000000,0.39,0.32,Table 53,Table 59,yes,source accepted all visitor groups as potential pollinators
+P2_CF01_BERGSDORF_KAKAMEGA_2006,HD_2002_03,Heinsenia diervilleoides,2002-2003,Kisere,fragment,0,37,1.000000000000,0.61,0.34,Table 53,Table 59,yes,source accepted all visitor groups as potential pollinators
+P2_CF01_BERGSDORF_KAKAMEGA_2006,HD_2002_03,Heinsenia diervilleoides,2002-2003,Yala,fragment,0,20,1.000000000000,0.48,0.33,Table 53,Table 59,yes,source accepted all visitor groups as potential pollinators
