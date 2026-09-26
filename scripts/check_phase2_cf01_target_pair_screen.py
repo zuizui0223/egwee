@@ -2110,7 +2110,13 @@ def main() -> None:
         r["quantitative_gate_status"] == "linked_umbrella_source_no_new_K"
         for r in cf_fulltext
     ) == 4
-    assert all(int(r["pair_programme_increment"]) == 0 for r in cf_fulltext)
+    # pair_programme_increment is not pair-family-specific: e.g. Bergsdorf is
+    # present in the C-F-targeted candidate set but its +1 belongs to I-F.
+    # The pair coverage ledger above is the authoritative direct C-F invariant.
+    assert not [
+        r for r in cf_fulltext
+        if r["quantitative_gate_status"].startswith("recovered_direct_CF")
+    ]
 
     cf_closure = CF_FAMILY_CLOSURE.read_text(encoding="utf-8")
     for token in (
