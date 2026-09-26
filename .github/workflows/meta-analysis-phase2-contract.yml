@@ -104,6 +104,12 @@ on:
       - 'evidence/meta_extraction/phase2_cf01_sevenello_direct_covariance_v1.json'
       - 'manuscript/PHASE2_CF01_SEVENELLO_DIRECT_IF_RECOVERY_2026-09-25.md'
       - 'scripts/check_phase2_cf01_sevenello_direct_if.py'
+      - 'manuscript/CF01_BERGSDORF_KAKAMEGA_2006_DIRECT_IF_RECOVERY_RULE.md'
+      - 'evidence/meta_extraction/phase2_cf01_bergsdorf_kakamega_site_values_v1.csv'
+      - 'evidence/meta_extraction/phase2_cf01_bergsdorf_kakamega_direct_effects_v1.csv'
+      - 'evidence/meta_extraction/phase2_cf01_bergsdorf_kakamega_direct_covariance_v1.json'
+      - 'manuscript/PHASE2_CF01_BERGSDORF_KAKAMEGA_DIRECT_IF_RECOVERY_2026-09-27.md'
+      - 'scripts/check_phase2_cf01_bergsdorf_direct_if.py'
       - 'manuscript/CF01_ACER_MIYABEI_2014_GRADIENT_RECOVERY_RULE.md'
       - 'evidence/meta_extraction/phase2_cf01_acer_miyabei_table1_v1.csv'
       - 'evidence/meta_extraction/phase2_cf01_acer_miyabei_gradient_effects_v1.csv'
@@ -241,6 +247,12 @@ on:
       - 'evidence/meta_extraction/phase2_cf01_sevenello_direct_covariance_v1.json'
       - 'manuscript/PHASE2_CF01_SEVENELLO_DIRECT_IF_RECOVERY_2026-09-25.md'
       - 'scripts/check_phase2_cf01_sevenello_direct_if.py'
+      - 'manuscript/CF01_BERGSDORF_KAKAMEGA_2006_DIRECT_IF_RECOVERY_RULE.md'
+      - 'evidence/meta_extraction/phase2_cf01_bergsdorf_kakamega_site_values_v1.csv'
+      - 'evidence/meta_extraction/phase2_cf01_bergsdorf_kakamega_direct_effects_v1.csv'
+      - 'evidence/meta_extraction/phase2_cf01_bergsdorf_kakamega_direct_covariance_v1.json'
+      - 'manuscript/PHASE2_CF01_BERGSDORF_KAKAMEGA_DIRECT_IF_RECOVERY_2026-09-27.md'
+      - 'scripts/check_phase2_cf01_bergsdorf_direct_if.py'
       - 'manuscript/CF01_ACER_MIYABEI_2014_GRADIENT_RECOVERY_RULE.md'
       - 'evidence/meta_extraction/phase2_cf01_acer_miyabei_table1_v1.csv'
       - 'evidence/meta_extraction/phase2_cf01_acer_miyabei_gradient_effects_v1.csv'
@@ -306,6 +318,8 @@ jobs:
         run: python scripts/check_phase2_cf01_pritchard_gradient.py
       - name: Validate Sevenello direct I-F programme
         run: python scripts/check_phase2_cf01_sevenello_direct_if.py
+      - name: Validate Bergsdorf Kakamega direct I-F programme
+        run: python scripts/check_phase2_cf01_bergsdorf_direct_if.py
       - name: Validate CF01 target-pair screen and Brassica gate
         run: python scripts/check_phase2_cf01_target_pair_screen.py
       - name: Validate systematic coverage and moderator expansion contract
