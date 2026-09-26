@@ -47,6 +47,7 @@ WAVE34 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE34_2026-09-25.md"
 WAVE35 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE35_2026-09-25.md"
 WAVE36 = ROOT / "manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE36_2026-09-25.md"
 MILKWEED_CHECK = ROOT / "scripts/check_phase2_cf01_milkweed_gradient.py"
+SEVENELLO_CHECK = ROOT / "scripts/check_phase2_cf01_sevenello_direct_if.py"
 
 BRASSICA_CONTRACT = ROOT / "manuscript/CF01_BRASSICA_GUATEMALA_2024_RECOVERY_CONTRACT.md"
 BRASSICA_MANIFEST = ROOT / "evidence/meta_extraction/phase2_cf01_brassica_mendeley_manifest_v1.json"
@@ -111,7 +112,7 @@ def has_token(text: str, token: str) -> bool:
 
 def main() -> None:
     for p in (
-        QUEUE, SCREEN, FULLTEXT, PAIR_COVERAGE, WAVE3, WAVE4, WAVE5, WAVE6, WAVE7, WAVE8, WAVE9, WAVE10, WAVE11, WAVE12, WAVE13, WAVE14, WAVE15, WAVE16, WAVE17, WAVE18, WAVE19, WAVE20, WAVE21, WAVE22, WAVE23, WAVE24, WAVE25, WAVE26, WAVE27, WAVE28, WAVE29, WAVE30, WAVE31, WAVE32, WAVE33, WAVE34, WAVE35, WAVE36, MILKWEED_CHECK,
+        QUEUE, SCREEN, FULLTEXT, PAIR_COVERAGE, WAVE3, WAVE4, WAVE5, WAVE6, WAVE7, WAVE8, WAVE9, WAVE10, WAVE11, WAVE12, WAVE13, WAVE14, WAVE15, WAVE16, WAVE17, WAVE18, WAVE19, WAVE20, WAVE21, WAVE22, WAVE23, WAVE24, WAVE25, WAVE26, WAVE27, WAVE28, WAVE29, WAVE30, WAVE31, WAVE32, WAVE33, WAVE34, WAVE35, WAVE36, MILKWEED_CHECK, SEVENELLO_CHECK,
         BRASSICA_CONTRACT, BRASSICA_MANIFEST, BRASSICA_SCHEMA, BRASSICA_GATE, BDFFP_SCHEMA, BDFFP_STATUS, HASS_CONTRACT, HASS_SCHEMA, HASS_STATUS, THAI_ORCHARD_CONTRACT, THAI_ORCHARD_ACCESS, THAI_ORCHARD_STATUS, PLECTRITIS_CONTRACT, CABRALEA_CONTRACT, PLECTRITIS_ACCESS, CABRALEA_ACCESS, COMARUM_CONTRACT, COMARUM_ACCESS, AEXTOXICON_ANCHOR, SCHUEPP_CONTRACT, SCHUEPP_ACCESS, ANAXAGOREA_CONTRACT, ANAXAGOREA_ACCESS, CELTIS_GATE, ATTALEA_GATE, CARDIOPETALUM_RULE, CARDIOPETALUM_RESULT, MYRMECOPHILA_GATE, BARTOMEUS_GATE, HELICONIA_URIARTE_GATE, BYRSONIMA_GATE, LEPTONYCHIA_GATE, DIEKOETTER_GATE, ARTZ_GATE, BRUNSVIGIA_GATE, QUESADA_GATE, COFFEA_CONTRACT, CATASETUM_CONTRACT, CATASETUM_GATE, ACHILLEA_GATE, CALYSTEGIA_GATE, SPONDIAS_MOMBIN_GATE, MANGROVE_GATE, MYRTUS_GATE, MYRTUS_STOP, SCHLOTMAN_STOP, BUERGER_GATE, COVERAGE_COMPLETION,
     ):
         assert p.is_file(), p
@@ -925,6 +926,17 @@ def main() -> None:
         assert has_token(w36, token), token
 
     fulltext = {r["queue_id"]: r for r in rows(FULLTEXT)}
+    assert "CFTQ0001" in fulltext
+    seven = fulltext["CFTQ0001"]
+    assert seven["programme_identity"] == "P2_CF01_SEVENELLO_2026"
+    assert seven["identity_status"] == "recovered_direct_IF_three_panel_covariance_aware"
+    assert seven["quantitative_gate_status"] == "recovered_direct_IF_three_panel_covariance_aware"
+    assert int(seven["pair_programme_increment"]) == 1
+    assert seven["effect_calculation_opened"] == "yes"
+    assert "GORO=6 Edge+6 Core" in seven["independent_unit"]
+    assert "LARO=8+8" in seven["independent_unit"]
+    assert "POAR=6+6" in seven["independent_unit"]
+
     assert "CFTQ0030" in fulltext
     b = fulltext["CFTQ0030"]
     assert b["programme_identity"] == "P2_CF01_BRASSICA_GUATEMALA_2024"
@@ -951,7 +963,19 @@ def main() -> None:
     assert "primary_n=31" in milk_proc.stdout
     assert "sensitivity_n=38" in milk_proc.stdout
     assert "gradient_programmes=6" in milk_proc.stdout
-    assert "direct_IF=1/5" in milk_proc.stdout
+    assert "direct_IF=2/5" in milk_proc.stdout
+
+    seven_proc = subprocess.run(
+        [sys.executable, str(SEVENELLO_CHECK)],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    assert "PHASE2_CF01_SEVENELLO_CHECK_OK" in seven_proc.stdout
+    assert "direct_IF=2/5" in seven_proc.stdout
+    assert "programme_p=1" in seven_proc.stdout
+    assert "phase1_unchanged=true" in seven_proc.stdout
 
     assert "CFTQ0052" in fulltext
     ph = fulltext["CFTQ0052"]
@@ -1911,7 +1935,7 @@ def main() -> None:
         "closed at screening/design stage: **286**",
         "unscreened candidates: **0**",
         "search-completion stopping rule",
-        "I-F: **1 / 5 independent programmes**",
+        "I-F: **2 / 5 independent programmes**",
         "C-F: **2 / 5 independent programmes**",
         "G_adult-G_offspring: **5 / 5 independent programmes**",
         "6 programmes / 19 primary Fisher-z marginal effects",
@@ -1947,8 +1971,8 @@ def main() -> None:
         assert has_token(gate_status, token), token
 
     pair = {r["pair_id"]: r for r in rows(PAIR_COVERAGE)}
-    assert int(pair["I-F"]["current_independent_direct_systems"]) == 1
-    assert pair["I-F"]["current_system_ids"] == "ML020"
+    assert int(pair["I-F"]["current_independent_direct_systems"]) == 2
+    assert set(pair["I-F"]["current_system_ids"].split(";")) == {"ML020", "P2_CF01_SEVENELLO_2026"}
     assert int(pair["C-F"]["current_independent_direct_systems"]) == 2
     assert int(pair["G_adult-G_offspring"]["current_independent_direct_systems"]) == 5
 
@@ -1966,7 +1990,7 @@ def main() -> None:
         "PHASE2_CF01_TARGET_PAIR_SCREEN_OK "
         "queue=360 screened=360 pending=0 wave3_advance=1 wave4_advance=0 wave5_advance=1 wave6_advance=2 wave7_advance=3 wave8_advance=1 wave9_advance=2 wave10_advance=0 wave11_advance=1 wave12_advance=1 wave12_link_existing=1 wave13_advance=2 wave14_advance=1 wave15_advance=1 wave16_advance=2 wave17_advance=3 wave18_advance=1 wave19_advance=1 wave20_advance=0 wave21_advance=3 wave21_link_existing=1 wave22_advance=1 wave23_advance=1 wave24_advance=1 wave25_advance=0 wave26_advance=0 wave27_advance=2 wave28_advance=2 wave29_advance=2 wave30_advance=0 wave31_advance=1 wave32_advance=8 wave32_link_existing=1 wave33_advance=3 wave33_link_existing=1 wave34_advance=2 wave34_link_existing=2 wave35_advance=4 wave36_advance=1 wave36_link_existing=2 search_complete=1 "
         "brassica_increment=0 milkweed_gradient_increment=1 phacelia_increment=0 hedysarum_increment=0 "
-        "bdffp_access_stop=1 hass_access_stop=1 aloe_pending=1 thai_orchard_access_stop=1 brudvig_link_noK=1 acer_CF_increment=0 plectritis_access_stop=1 cabralea_access_stop=1 comarum_access_stop=1 acer_miyabei_gradient_admitted=1 aextoxicon_anchor_noK=1 schuepp_access_stop=1 celtis_estimand_stop=1 anaxagorea_access_stop=1 cardiopetalum_gradient_admitted=1 attalea_linked_stop=1 myrmecophila_estimand_pending=1 herrera_CD_anchor_noK=1 bartomeus_estimand_pending=1 uriarte_CD_anchor_noK=1 braun_umbrella_noK=1 byrsonima_variance_stop=1 leptonychia_linked_pending=1 diekoetter_factorial_pending=1 artz_repeated_island_stop=1 wave25_noK=1 wave26_noK=1 brunsvigia_estimand_pending=1 quesada_effect_unit_pending=1 coffea_gradient_pending=1 catasetum_direct_IF_pending=1 achillea_effect_unit_stop=1 calystegia_effect_unit_stop=1 wave30_noK=1 spondias_mombin_CF_pending=1 bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=0 direct_IF=1/5 direct_CF=2/5"
+        "bdffp_access_stop=1 hass_access_stop=1 aloe_pending=1 thai_orchard_access_stop=1 brudvig_link_noK=1 acer_CF_increment=0 plectritis_access_stop=1 cabralea_access_stop=1 comarum_access_stop=1 acer_miyabei_gradient_admitted=1 aextoxicon_anchor_noK=1 schuepp_access_stop=1 celtis_estimand_stop=1 anaxagorea_access_stop=1 cardiopetalum_gradient_admitted=1 attalea_linked_stop=1 myrmecophila_estimand_pending=1 herrera_CD_anchor_noK=1 bartomeus_estimand_pending=1 uriarte_CD_anchor_noK=1 braun_umbrella_noK=1 byrsonima_variance_stop=1 leptonychia_linked_pending=1 diekoetter_factorial_pending=1 artz_repeated_island_stop=1 wave25_noK=1 wave26_noK=1 brunsvigia_estimand_pending=1 quesada_effect_unit_pending=1 coffea_gradient_pending=1 catasetum_direct_IF_pending=1 achillea_effect_unit_stop=1 calystegia_effect_unit_stop=1 wave30_noK=1 spondias_mombin_CF_pending=1 bdffp_increment=0 ophrys_increment=0 brazil_nut_CF_increment=0 primary_IF_increment=1 sevenello_direct_IF_admitted=1 direct_IF=2/5 direct_CF=2/5"
     )
 
 
