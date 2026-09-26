@@ -50,15 +50,24 @@ Primary direct clusters:
 - `ML014` *Eucalyptus socialis*: G_mating / F;
 - `ML020` Aizen–Feinsinger Chaco programme: three dependent species × I / F, counted once.
 
-Separate gradient/generalisation evidence now contains **five programmes / 17 primary Fisher-z marginal effects**:
+Separate gradient/generalisation evidence now contains **six programmes / 19 primary Fisher-z marginal effects**:
 
 - `ML015` *Eucalyptus wandoo*: I / F / G_adult on the response-free fragmentation PC;
 - `P2_CF01_ZURICH_2026`: four dependent phytometer I/F panels on the Urban_500 gradient;
 - `P2_CF01_MILKWEED_URBAN_2023`: population-level I/F responses along the Toronto urbanisation gradient;
 - `P2_CF01_ACER_MIYABEI_2014`: retrospective forest-level C/F isolation-gradient recovery;
-- `P2_CF01_CARDIOPETALUM_2012`: retrospective fragment-size I/F recovery, including the resolved interaction-persistence / reproductive-collapse contrast.
+- `P2_CF01_CARDIOPETALUM_2012`: retrospective fragment-size I/F recovery, including the resolved interaction-persistence / reproductive-collapse contrast;
+- `P2_CF01_PRITCHARD_2005`: retrospective nested-frame orchard-isolation I/F recovery with cluster-robust dependence fallback.
 
 These Fisher-z programmes remain separate from the primary Hedges-g Fisher statistic.
+
+Pair-specific Phase-2 direct coverage is currently:
+
+- **I-F: 2/5 independent programmes** — `ML020` plus `P2_CF01_SEVENELLO_2026`;
+- **C-F: 2/5 independent programmes** — `ML001` plus `ML002`;
+- **G_adult-G_offspring: 5/5**, so that preregistered pair-specific analysis gate is open.
+
+Sevenello was recovered after search completion from public raw data under a frozen Edge-versus-Core contract. Its three primary species panels are dependent outcomes inside one programme, all paired covariance blocks are positive definite, and the internal three-panel Bonferroni p is 1.0. It therefore increases **I-F coverage**, but it does not add a sixth cluster to the frozen Phase-1 five-cluster Fisher synthesis.
 
 The canonical current-state documents are:
 
