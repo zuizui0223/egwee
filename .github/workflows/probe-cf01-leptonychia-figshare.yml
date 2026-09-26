@@ -23,6 +23,6 @@ jobs:
         with:
           python-version: '3.12'
       - name: Install schema reader
-        run: python -m pip install --quiet openpyxl
+        run: python -m pip install --quiet openpyxl beautifulsoup4
       - name: Probe public Figshare collection and file schemas
         run: python scripts/probe_cf01_leptonychia_figshare.py
