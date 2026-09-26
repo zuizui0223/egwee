@@ -203,8 +203,8 @@ def main() -> None:
         "I-F", "C-F", "G_adult-G_offspring", "G_adult-mean(I,F)"
     }
     by_pair = {r["pair_id"]: r for r in pair_rows}
-    assert int(by_pair["I-F"]["current_independent_direct_systems"]) == 1
-    assert by_pair["I-F"]["current_system_ids"] == "ML020"
+    assert int(by_pair["I-F"]["current_independent_direct_systems"]) == 2
+    assert set(by_pair["I-F"]["current_system_ids"].split(";")) == {"ML020", "P2_CF01_SEVENELLO_2026"}
     assert int(by_pair["C-F"]["current_independent_direct_systems"]) == 2
     assert set(by_pair["C-F"]["current_system_ids"].split(";")) == {"ML001", "ML002"}
     assert int(by_pair["G_adult-G_offspring"]["current_independent_direct_systems"]) == 5
