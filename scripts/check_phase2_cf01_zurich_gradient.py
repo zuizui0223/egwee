@@ -159,8 +159,10 @@ def main() -> None:
     assert int(z["primary_hedges_increment"]) == 0
 
     pair_coverage = {r["pair_id"]: r for r in rows(PAIR_COVERAGE)}
-    assert int(pair_coverage["I-F"]["current_independent_direct_systems"]) == 2
-    assert set(pair_coverage["I-F"]["current_system_ids"].split(";")) == {"ML020", "P2_CF01_SEVENELLO_2026"}
+    assert int(pair_coverage["I-F"]["current_independent_direct_systems"]) == 3
+    assert set(pair_coverage["I-F"]["current_system_ids"].split(";")) == {
+        "ML020", "P2_CF01_SEVENELLO_2026", "P2_CF01_BERGSDORF_KAKAMEGA_2006"
+    }
     assert int(pair_coverage["C-F"]["current_independent_direct_systems"]) == 2
     assert int(pair_coverage["G_adult-G_offspring"]["current_independent_direct_systems"]) == 5
 
@@ -190,7 +192,7 @@ def main() -> None:
         "**6 gradient/generalisation programmes**",
         "**19 primary Fisher-z admissible marginal effects**",
         "Zurich contributes **8 Fisher-z admissible marginal effects**",
-        "direct I-F coverage is **2/5**",
+        "direct I-F coverage is **3/5**",
     ):
         assert token in registry_status, token
 
