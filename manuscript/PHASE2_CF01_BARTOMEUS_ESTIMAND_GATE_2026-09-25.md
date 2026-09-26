@@ -1,78 +1,81 @@
-# CFTQ0202 Bartomeus landscape I-F estimand gate — 2026-09-25
+# CFTQ0202 Bartomeus landscape I-F estimand gate — resolved 2026-09-27
 
-## Candidate
+## Programme
 
 Programme identity: `P2_CF01_BARTOMEUS_2010`.
 
 Primary source: Bartomeus, Vilà & Steffan-Dewenter (2010), *Journal of Ecology* 98:440–450,
 doi:10.1111/j.1365-2745.2009.01629.x.
 
-The source uses **14 independent riparian sites** along a landscape-composition gradient. At every
-site, invaded and non-invaded transects are paired and the Raphanus sentinel experiment is repeated
-before and during *Impatiens glandulifera* flowering.
+The source uses **14 independent riparian sites** and places paired invaded/non-invaded transects
+plus experimental *Raphanus sativus* pots at each site.
 
-## Why this is not yet one registered gradient
+The experiment directly measures floral visitation and fruit/seed response, so the biological I/F
+content is eligible in principle.
 
-The paper characterizes landscape composition with:
+## Why one fragmentation gradient is not source-unique
 
-- agricultural land cover;
+Landscape structure is represented by several correlated variables:
+
+- percentage agricultural land;
 - forest cover;
 - grassland cover;
 
-across **500–3000 m radii**.
+measured across **500–3000 m radii**.
 
-The source prespecifies different radii for different pollinator guilds (3000 m for bumblebees and
-honeybees, 500 m for wild bees and hoverflies), fits different before/during models, and reports
-minimum adequate models after stepwise selection.
+The source additionally prespecifies different radii for different pollinator guilds:
 
-Those choices are scientifically legitimate in the source study, but they mean EGWEE cannot inspect
-the published results and then choose whichever combination of:
+- about 3000 m for social bees;
+- about 500 m for wild bees / hoverflies.
 
-- land-cover variable;
-- radius;
-- pollinator guild;
-- invasion period;
+Before- and during-*Impatiens glandulifera* flowering periods are analysed separately, and the
+published minimum models are obtained after variable selection.
 
-produces the clearest I-F separation.
+These are legitimate source analyses. They do not define one unique EGWEE fragmentation severity
+that can be selected after reading which guild/period/land-cover variable has the clearest result.
 
-## Frozen gate
+## Raphanus common-frame problem
 
-No numerical EGWEE effect is opened until a source-backed common-site representation is identified
-that fixes, independently of response magnitude:
+The public article confirms direct *Raphanus* visitation and fruit set at the 14 sites, but it does
+not expose one machine-readable common table containing:
 
-1. one landscape-severity variable;
-2. one spatial radius for that variable;
-3. one direct Raphanus visitation endpoint;
-4. one Raphanus fruit-set endpoint;
-5. one common site/period/treatment frame across I and F.
+1. one locked response-free landscape variable and radius;
+2. one broad population/site-level visitation I endpoint;
+3. one fruit-set F endpoint;
+4. one common period/treatment frame.
 
-Independent unit = **site**, maximum n = 14. Paired transects, pots, individual plants, flowers and
-visits are nested below site.
+Published results are organized by pollinator guild, invasion period and mixed-model term.
 
-## Preferred recovery path
+Back-transforming whichever selected model coefficient is most convenient would create a new effect
+representation after outcome inspection.
 
-Prefer an authoritative raw/source table with site IDs, landscape composition, Raphanus visitation
-and fruit set. If raw site-level data are unavailable, do not create a new Fisher-z family by
-back-transforming selected mixed-model t statistics from different guild/radius models.
+## Terminal status
 
-## Terminal outcomes
+`blocked_common_landscape_estimand_and_Raphanus_IF_site_vectors_not_recoverable`
 
-- `bartomeus_gradient_IF_covariance_aware`;
-- `bartomeus_common_landscape_estimand_not_identifiable`;
-- `bartomeus_common_Raphanus_IF_site_frame_not_recoverable`;
-- `bartomeus_site_level_data_not_recoverable`.
+Direct I-F programme increment: **0**.
+
+Bartomeus remains valuable evidence that invasion and landscape structure affect pollinator
+communities at different spatial/seasonal scales. It is not converted into a single multilayer
+fragmentation effect without a common source table.
+
+## Reopening condition
+
+Reopen only if authoritative raw/source data provide the 14 site IDs with:
+
+- one prospectively frozen landscape variable/radius;
+- one direct Raphanus visitation measure;
+- Raphanus fruit set;
+- a common period/treatment definition.
 
 ## No rescue
 
 Do not:
 
 - choose agricultural versus forest versus grassland cover by significance;
-- choose 500 versus 3000 m by which gives a larger contrast;
+- choose 500 versus 3000 m because one gives a larger I-F contrast;
 - switch pollinator guilds after seeing results;
 - select before versus during invasion because one is clearer;
-- count invaded/non-invaded transects as independent landscapes;
-- use stepwise-selected model t values as if they were one common raw correlation without a
-  prospective conversion contract;
-- interpret the result as validation of an EGWE/NEE finite operator.
-
-All terminal outcomes are retained.
+- count paired transects or pots as independent landscapes;
+- convert selected mixed-model t values into a Fisher-z effect without a frozen conversion rule;
+- use this study to validate a finite EGWE/NEE operator.
