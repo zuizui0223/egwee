@@ -1,4 +1,4 @@
-# CFTQ0301 Spondias mombin C-F effect-unit gate — 2026-09-25
+# CFTQ0301 Spondias mombin C-F effect-unit gate — resolved 2026-09-27
 
 ## Programme
 
@@ -7,82 +7,91 @@ Programme identity: `P2_CF01_SPONDIAS_MOMBIN_1997`.
 Primary source: Nason, Aldrich & Hamrick (1997), *Journal of Heredity*,
 doi:10.1093/oxfordjournals.jhered.a023104.
 
-The article contains original empirical case studies of gene flow and reproductive consequences of
-forest fragmentation. The *Spondias mombin* case is the relevant C-F candidate.
+The *Spondias mombin* case contains a biologically striking fragmentation response:
 
-## Biological signal already visible
-
-The source reports two contrasting responses in the *Spondias* fragment system:
-
-- fruit production / germination are reduced in small fragments;
+- fruit production and germination are reduced in small fragments;
 - progeny in small fragments show approximately **90–100% pollen immigration**, with inferred pollen
   sources roughly **80–1000 m** away.
 
-This is an ecologically important candidate for movement/connectivity persistence alongside reduced
-reproductive function.
-
-Because those directions are already public, the recovery is explicitly retrospective.
+The recovery is explicitly retrospective because those directions were already public.
 
 ## Frozen contrast
 
 Primary fragmented condition = **small island fragments**.
 
-Primary reference condition = the source continuous-forest populations **FDP + LC**.
+Primary reference condition = continuous-forest populations **FDP + LC**.
 
 The larger island/fragment **DL** remains source context / sensitivity and is not inserted into the
-primary contrast after seeing outcomes.
+primary contrast after outcome inspection.
 
-The five *Ficus* species discussed in the same article are separate pollen-flow case studies. They
-are C-only context and **do not increase C-F programme K**.
+The five *Ficus* panels in the same article are C-only case studies and do not increase C-F programme K.
 
-## Locked layers
+## C effect unit
 
-Primary C = population-level pollen immigration / interfragment gene-flow support from the
-*Spondias* progeny/paternity analysis.
+The pollen-flow analysis supplies population/treatment-level C information. Source Table 3 reports
+total pollen gene flow / immigration for the *Spondias* populations, and small-island progeny are
+dominated by immigrant pollen.
 
-Primary F = population-level fruit production / fecundity.
+This is a valid movement/connectivity process signal at the population-fragment scale.
 
-Germination is secondary and cannot replace fruit production because it is easier to reconstruct or
-has a stronger response.
+## F effect unit
 
-## Effect-unit problem
+Fruit production is not reported on the same effect unit.
 
-C is reported at a population / fragment level.
+The source analyses fruit production per reproductive tree with **DBH as a covariate**. Population
+and DBH are significant terms, and the individual-tree values are presented in **Figure 2**.
 
-Fruit production is shown largely as individual-tree fruit output against DBH in the published
-figure. Individual trees are nested within population/fragment and cannot become fragmentation
-replicates.
+The public article does not expose an authoritative population-level fruit-production mean and
+fragmentation-unit variance for the frozen small-island versus FDP+LC contrast.
 
-No direct Hedges-g C-F effect is calculated unless an authoritative source permits fruit production
-to be aggregated to the same population units used for C with a defensible marginal sampling
-variance.
+Individual reproductive trees are nested within population/fragment. They cannot be promoted to
+independent fragmentation units, and their dispersion cannot be attached to population n.
 
-Figure digitization of individual trees is not authorized by this gate.
+Figure digitization of individual trees is prohibited by the frozen gate.
 
-## Dependence
+## Linked fruiting study does not rescue the contrast
 
-If valid population-level C and F marginals are recovered on the same contrast but paired covariance
-is unavailable, preserve one programme cluster and use the already-frozen cluster-robust fallback.
-Do not set covariance to zero.
+The later Adler & Kielpinski fruiting-phenology study follows small island populations in a separate
+campaign. It does not provide the frozen continuous-forest FDP+LC reference on the same observation
+window.
 
-## Terminal outcomes
+It is useful biological context but cannot be concatenated with the 1997 C effect to manufacture a
+direct C-F cluster.
 
-- `spondias_mombin_direct_CF_covariance_aware`;
-- `spondias_mombin_direct_CF_cluster_robust`;
-- `spondias_mombin_population_F_not_recoverable`;
-- `spondias_mombin_common_population_CF_frame_not_recoverable`;
-- `spondias_mombin_marginal_variance_not_effect_unit_valid`.
+## Decision
+
+Terminal status:
+
+`spondias_mombin_population_F_not_recoverable`
+
+Direct C-F programme increment: **0**.
+
+The programme is retained as a **movement-compensation / reproductive-decline process anchor**:
+very high incoming pollen movement can coexist with reduced local reproductive output in small
+fragments. That ecological contrast is informative without being converted into an invalid paired
+meta-analytic effect.
+
+## Reopening condition
+
+Reopen only if an authoritative source supplies population-level fruit-production summaries or raw
+data that permit a defensible F marginal effect and variance on the frozen small-island versus
+FDP+LC frame.
+
+If valid C and F marginals later become available but paired covariance remains unavailable, keep one
+programme cluster and use the preregistered cluster-robust dependence fallback. Never set covariance
+to zero by convenience.
 
 ## No rescue
 
 Do not:
 
 - use individual trees as population/fragment n;
-- digitize the fruit-production figure to invent a population variance;
-- select germination instead of fruit production after seeing results;
-- combine DL with the small islands because it improves a contrast;
-- count the five *Ficus* species as extra C-F programmes;
-- interpret high pollen immigration as proof that fragmentation has no biological effect;
-- use this result to validate a finite EGWE/NEE operator.
+- digitize Figure 2 to invent population means or variances;
+- select germination instead of fruit production because it is easier to recover;
+- combine DL with the small-island group because it improves the contrast;
+- use the later small-island-only fruiting campaign as a continuous-reference substitute;
+- count the five *Ficus* species as additional C-F programmes;
+- interpret high pollen immigration as absence of fragmentation effects;
+- use this programme to validate a finite EGWE/NEE operator.
 
 All terminal outcomes are retained.
