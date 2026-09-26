@@ -1406,7 +1406,7 @@ def main() -> None:
     cramer = fulltext["CFTQ0344"]
     assert cramer["programme_identity"] == "P2_CF01_CRAMER_DUCKEODENDRON_2007"
     assert cramer["quantitative_gate_status"] == "blocked_Duckeodendron_common_tree_CF_marginals_and_forest_nesting_not_recoverable"
-    assert "11 adult trees" in cramer["independent_unit"]
+    assert "11 trees (6 fragment, 5 continuous)" in cramer["independent_unit"]
     assert int(cramer["pair_programme_increment"]) == 0
 
     assert "CFTQ0345" in fulltext
