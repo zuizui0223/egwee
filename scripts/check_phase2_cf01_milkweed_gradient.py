@@ -179,8 +179,10 @@ def main() -> None:
     assert int(milk["primary_hedges_increment"]) == 0
 
     pair = {r["pair_id"]: r for r in rows(PAIR_COVERAGE)}
-    assert int(pair["I-F"]["current_independent_direct_systems"]) == 2
-    assert set(pair["I-F"]["current_system_ids"].split(";")) == {"ML020", "P2_CF01_SEVENELLO_2026"}
+    assert int(pair["I-F"]["current_independent_direct_systems"]) == 3
+    assert set(pair["I-F"]["current_system_ids"].split(";")) == {
+        "ML020", "P2_CF01_SEVENELLO_2026", "P2_CF01_BERGSDORF_KAKAMEGA_2006"
+    }
     assert int(pair["C-F"]["current_independent_direct_systems"]) == 2
     assert int(pair["G_adult-G_offspring"]["current_independent_direct_systems"]) == 5
 
@@ -211,7 +213,7 @@ def main() -> None:
         "**19 primary Fisher-z admissible marginal effects**",
         "**31 populations**",
         "**38 populations**",
-        "direct I-F coverage is **2/5**",
+        "direct I-F coverage is **3/5**",
     ):
         assert token in status, token
 
@@ -221,7 +223,7 @@ def main() -> None:
         f"I_z={primary['I_z']:.8f} F_z={primary['F_z']:.8f} "
         f"delta={primary['delta']:.8f} p={primary['p']:.8f} "
         f"sensitivity_delta={sensitivity['delta']:.8f} sensitivity_p={sensitivity['p']:.8f} "
-        "gradient_programmes=6 direct_IF=2/5"
+        "gradient_programmes=6 direct_IF=3/5"
     )
 
 
