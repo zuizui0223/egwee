@@ -218,7 +218,7 @@ The current evidence points to a next testable question: which mating systems, p
 
 ### Ecological scope
 
-EGWEE is an empirical plant-fragmentation study. Its inferential targets are natural response coupling, process mismatch and ecological heterogeneity across systems. The analysis does not test a finite simulator, operator sequence, warning rule or reserve quantity. Theory can be used later to explain the observed ecological regimes, but it does not define study admission, effect construction, stopping rules or the biological conclusion.
+This study is an empirical plant-fragmentation synthesis. Its inferential targets are natural response coupling, process mismatch and ecological heterogeneity across systems. The analysis does not test a finite simulator, operator sequence, warning rule or reserve quantity. Theory can be used later to explain the observed ecological regimes, but it does not define study admission, effect construction, stopping rules or the biological conclusion.
 
 ### Limitations
 
