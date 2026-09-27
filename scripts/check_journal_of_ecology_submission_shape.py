@@ -93,7 +93,7 @@ def main() -> None:
 
     assert "**Primary target journal:** **Journal of Ecology**" in metadata
     assert "Research Article / empirical research synthesis" in metadata
-    assert "results_bearing_ecological_response_coupling_synthesis" in metadata
+    assert "results_bearing_variable_lifecycle_bottleneck_synthesis" in metadata
 
     print(
         "JOURNAL_OF_ECOLOGY_SHAPE_OK "
