@@ -2,7 +2,7 @@
 
 ## Manuscript identity
 
-- **Working title:** Variable life-cycle bottlenecks under habitat fragmentation: a cross-system synthesis of plant interaction, mating and reproduction
+- **Working title:** Evidence for variable life-cycle bottleneck positions under habitat fragmentation: a cross-system synthesis of plant interaction, mating and reproduction
 - **Source manuscript:** `manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md`
 - **Protocol:** `manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md`
 - **Submission state:** `results_bearing_variable_lifecycle_bottleneck_synthesis`
@@ -62,6 +62,7 @@ Authorised manuscript-level ecological claims:
 - *Eucalyptus wandoo*, *Cardiopetalum calophyllum* and the Kakamega *Acanthopale pubescens* panel each show a quantity–function mismatch in which interaction/pollen quantity is maintained or changes less strongly while reproductive function declines;
 - the repeated quantity–function geometry is a descriptive ecological motif across heterogeneous registered effect families, not a pooled universal effect;
 - the complete paired process–function census contains 12 independent programmes; 11 are pair-testable, 4 resolve a mismatch, 7 are unresolved and 1 is not pair-testable; among resolved mismatches, 3 are downstream F-dominant and 1 is upstream process-dominant;
+- the two-direction resolved bottleneck result is not leave-one-programme-out robust: omitting ML001 *Serapias* removes the only resolved upstream process-dominant case and leaves 3 downstream F-dominant resolved programmes;
 - the complete registered I–F census contains 8 programmes; 7 are pair-testable, 3 resolve a mismatch, all 3 are F-more-negative-than-I, 4 are unresolved, and 1 is not pair-testable;
 - all 8 registered I endpoints quantify interaction/pollen quantity; none directly quantify compatible mating quality, realised paternity or effective pollen-donor diversity on the same I–F frame;
 - a secondary four-programme movement/mating-support versus F audit contains one resolved upstream process-dominant mismatch (*Serapias*) and three unresolved contrasts, showing that the dominant fragmentation bottleneck is not fixed at reproductive function;
@@ -75,6 +76,7 @@ Not authorised:
 - a confirmed cross-system cohort/history lag;
 - treating pollinator abundance, reproductive output or genetic diversity alone as a sufficient proxy for whole-system condition;
 - one universal life-cycle bottleneck position across fragmented plant systems;
+- claiming that upstream and downstream bottleneck directions are both leave-one-programme-out robust or recurrent across independent systems;
 - converting the descriptive 3 downstream : 1 upstream resolved split into a sign/binomial test or a global regime-prevalence estimate;
 - a universal claim that effective mating quality is the missing mechanism in every fragmented system;
 - direct empirical validation of finite EGWE/NEE operators;
