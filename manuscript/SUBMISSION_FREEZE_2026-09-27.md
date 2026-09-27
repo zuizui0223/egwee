@@ -2,13 +2,13 @@
 
 ## Freeze base
 
-`9fe74375346112747c9aa84ae6fa977a7c380255` is the scientific base for the current Journal of Ecology package.
+`18c128a46d37abfbbe6bc1eb003526487fbc2df0` is the scientific base for the current Journal of Ecology package.
 
 Future changes should be treated as amendments to this state rather than silently redefining the paper.
 
 ## Ecological identity
 
-The paper is an **empirical plant-fragmentation ecology synthesis**. Its primary question is whether interaction, movement, reproduction and genetic responses remain coupled under fragmentation or become decoupled within the same natural systems.
+The paper is an **empirical plant-fragmentation ecology synthesis**. Its primary conclusion is that fragmentation does not impose one fixed life-cycle bottleneck: interaction quantity, movement/effective mating, reproductive function and genetic responses can remain coupled or decouple at different stages across natural systems.
 
 It is not the empirical-validation arm of EGWE/NEE theory.
 
@@ -36,13 +36,27 @@ The complete registered I-F denominator is 8 independent programmes = 3 direct H
 
 This 3/3 direction is descriptive and post hoc. It is not converted into a sign test or global prevalence estimate.
 
+## Bottleneck-position audit
+
+A separate auxiliary audit contains 4 independent movement/connectivity or mating-support versus F programmes.
+
+- resolved process–F mismatch: 1;
+- unresolved: 3;
+- resolved movement/mating support more negative than F: 1 (*Serapias*);
+- resolved F more negative than process: 0;
+- point estimates process more negative than F: 3/4.
+
+These programmes are not pooled across effect families. Their role is to establish that the dominant fragmentation bottleneck is **not fixed at reproductive function**.
+
 ## Measurement gap
 
 All 8/8 registered I endpoints measure interaction or pollen quantity. None directly measures compatible mating quality, realised paternity or effective pollen-donor diversity on the same I-F frame.
 
-This observation motivates the fresh synchronized field chain:
+This observation motivates the fresh synchronized field chain and Figure 4 synthesis:
 
 `I_quantity → effective mating / pollen quality → F`
+
+The prospective H2-v2 primary localization contrast is `ΔQE = Q − E > 0`; `ΔEF = E − F` distinguishes propagation, downstream compensation and later filtering.
 
 ## Novelty boundary
 
@@ -68,6 +82,6 @@ Fresh confirmation uses only genuinely new biological programmes under the separ
 
 ## Submission readiness
 
-Automated manuscript, statistical, submission-shape, double-anonymous, figure/table and reviewer-package checks are green.
+Automated manuscript, statistical, submission-shape, double-anonymous, Figures 1–4 / Tables 1–2 and reviewer-package checks are green.
 
 The only unresolved submission items are human administrative metadata: authors, affiliations, corresponding-author details, CRediT contributions, funding/permits, conflicts and final author approval.
