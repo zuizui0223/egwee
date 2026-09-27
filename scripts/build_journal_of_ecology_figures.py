@@ -16,6 +16,7 @@ WANDOO_EFFECTS = ROOT / "evidence/meta_extraction/PS019_eucalyptus_wandoo_2018_g
 CARDIO_EFFECTS = ROOT / "evidence/meta_extraction/phase2_cf01_cardiopetalum_gradient_effects_v1.csv"
 BERGSDORF_EFFECTS = ROOT / "evidence/meta_extraction/phase2_cf01_bergsdorf_kakamega_direct_effects_v1.csv"
 IF_CENSUS = ROOT / "evidence/meta_extraction/ecological_if_programme_census_v1.csv"
+MATING_FUNCTION_CENSUS = ROOT / "evidence/meta_extraction/ecological_mating_function_programme_census_v1.csv"
 REGISTRY = ROOT / "evidence/meta_extraction/multilayer_cluster_registry_v1.csv"
 REGISTRY_ML020 = ROOT / "evidence/meta_extraction/multilayer_cluster_registry_extension_ml020.csv"
 SYNTHESIS = ROOT / "scripts/synthesize_state_separation.py"
@@ -300,6 +301,84 @@ def figure3_response_regimes() -> None:
     write_svg(FIGDIR / "figure3_ecological_response_regimes.svg", width, height, body)
 
 
+
+def figure4_bottleneck_synthesis() -> None:
+    if_rows = rows(IF_CENSUS)
+    mf_rows = rows(MATING_FUNCTION_CENSUS)
+    assert len(if_rows) == 8
+    assert sum(r["if_pair_testable"] == "yes" for r in if_rows) == 7
+    assert sum(r["resolved_if_mismatch"] == "yes" for r in if_rows) == 3
+    assert {r["resolved_direction"] for r in if_rows if r["resolved_if_mismatch"] == "yes"} == {"F_more_negative_than_I"}
+    assert {r["interaction_measurement_class"] for r in if_rows} == {"quantity_only"}
+    assert len(mf_rows) == 4
+    assert sum(r["resolved_mismatch"] == "yes" for r in mf_rows) == 1
+    assert next(r for r in mf_rows if r["resolved_mismatch"] == "yes")["programme_id"] == "ML001"
+
+    width, height = 1240, 720
+    body: list[str] = [
+        svg_text(30, 36, "Figure 4. Fragmentation can shift the position of the reproductive life-cycle bottleneck", size=18, weight="bold"),
+        svg_text(30, 60, "Evidence synthesis only: regimes are descriptive and effect families are not pooled numerically.", size=11),
+    ]
+
+    def arrow(x1: float, y: float, x2: float) -> None:
+        body.append(f'<line x1="{x1:.1f}" y1="{y:.1f}" x2="{x2 - 10:.1f}" y2="{y:.1f}" stroke="black" stroke-width="1.5"/>')
+        body.append(f'<polygon points="{x2 - 10:.1f},{y - 5:.1f} {x2:.1f},{y:.1f} {x2 - 10:.1f},{y + 5:.1f}" fill="black"/>')
+
+    def box(x: float, y: float, w: float, h: float, title: str, subtitle: str, *, dashed: bool = False) -> None:
+        dash = ' stroke-dasharray="5,4"' if dashed else ""
+        body.append(f'<rect x="{x:.1f}" y="{y:.1f}" width="{w:.1f}" height="{h:.1f}" fill="white" stroke="black" stroke-width="1.4"{dash}/>')
+        body.append(svg_text(x + w / 2, y + 25, title, anchor="middle", size=12, weight="bold"))
+        body.append(svg_text(x + w / 2, y + 46, subtitle, anchor="middle", size=9))
+
+    def regime(y: float, label: str, note: str, qtxt: str, etxt: str, ftxt: str, *, e_dashed: bool = False) -> None:
+        body.append(svg_text(45, y + 20, label, size=14, weight="bold"))
+        body.append(svg_text(45, y + 42, note, size=10))
+        xq, xe, xf = 410, 690, 970
+        bw, bh = 180, 68
+        box(xq, y, bw, bh, "Interaction quantity", qtxt)
+        arrow(xq + bw, y + bh / 2, xe)
+        box(xe, y, bw, bh, "Effective mating", etxt, dashed=e_dashed)
+        arrow(xe + bw, y + bh / 2, xf)
+        box(xf, y, bw, bh, "Reproductive function", ftxt)
+
+    regime(
+        115,
+        "A. Coupled / unresolved",
+        "Chaco and Sevenello: no resolved I–F mismatch",
+        "declines or changes",
+        "not directly measured",
+        "tracks I within uncertainty",
+        e_dashed=True,
+    )
+    regime(
+        270,
+        "B. Downstream function-dominant",
+        "3 resolved I–F programmes: Wandoo, Cardiopetalum, Kakamega",
+        "buffered / less negative",
+        "missing in current I–F frame",
+        "more negative",
+        e_dashed=True,
+    )
+    regime(
+        425,
+        "C. Upstream movement/mating-dominant",
+        "Serapias resolved; Brosimum and E. socialis point similarly but remain unresolved",
+        "not the tested process",
+        "movement/mating support more negative",
+        "partly buffered / less negative",
+        e_dashed=False,
+    )
+
+    body.append(f'<line x1="30" y1="535" x2="1210" y2="535" stroke="black" stroke-width="1"/>')
+    body.append(svg_text(45, 570, "Current measurement gap", size=14, weight="bold"))
+    body.append(svg_text(45, 594, "I–F corpus: 8/8 interaction endpoints are quantity-level; 0/8 directly measure effective mating quality on the same frame.", size=11))
+    body.append(svg_text(45, 628, "Fresh localization design", size=14, weight="bold"))
+    body.append(svg_text(230, 628, "Q → E → F", size=16, weight="bold"))
+    body.append(svg_text(330, 628, "Primary H2-v2 contrast: ΔQE = Q − E; ΔEF locates propagation, compensation, or later filtering.", size=11))
+    body.append(svg_text(45, 673, "Interpretation: fragmentation changes response coupling; it does not impose one universal stage of maximum sensitivity.", size=11, weight="bold"))
+
+    write_svg(FIGDIR / "figure4_lifecycle_bottleneck_synthesis.svg", width, height, body)
+
 def table1(result: dict) -> None:
     registry = rows(REGISTRY) + rows(REGISTRY_ML020)
     by_id = {r["cluster_id"]: r for r in registry}
@@ -408,18 +487,20 @@ def main() -> None:
     figure1_coverage()
     figure2_influence(result)
     figure3_response_regimes()
+    figure4_bottleneck_synthesis()
     table1(result)
     table2_if_direction_census()
     expected = [
         FIGDIR / "figure1_primary_evidence_geometry.svg",
         FIGDIR / "figure2_leave_one_out_influence.svg",
         FIGDIR / "figure3_ecological_response_regimes.svg",
+        FIGDIR / "figure4_lifecycle_bottleneck_synthesis.svg",
         TABLEDIR / "table1_primary_cluster_summary.csv",
         TABLEDIR / "table2_if_direction_census.csv",
     ]
-    assert all(p.is_file() and p.stat().st_size > 500 for p in expected[:3])
-    assert expected[3].is_file() and expected[3].stat().st_size > 200
-    assert expected[4].is_file() and expected[4].stat().st_size > 400
+    assert all(p.is_file() and p.stat().st_size > 500 for p in expected[:4])
+    assert expected[4].is_file() and expected[4].stat().st_size > 200
+    assert expected[5].is_file() and expected[5].stat().st_size > 400
     print("JOURNAL_OF_ECOLOGY_FIGURES_OK " + " ".join(str(p.relative_to(ROOT)) for p in expected))
 
 
