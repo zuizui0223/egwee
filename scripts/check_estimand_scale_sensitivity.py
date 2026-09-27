@@ -9,6 +9,7 @@ import synthesize_state_separation as state
 
 ROOT = Path(__file__).resolve().parents[1]
 SCALE = ROOT / "evidence/meta_extraction/estimand_scale_sensitivity_v1.csv"
+FISHER_SCALE = ROOT / "evidence/meta_extraction/estimand_scale_fisher_sensitivity_v1.csv"
 SUMMARY = ROOT / "evidence/meta_extraction/estimand_scale_cluster_summary_v1.csv"
 ML020_SITE = ROOT / "evidence/meta_extraction/PS022_aizen_feinsinger_site_means_v1.csv"
 
@@ -184,6 +185,21 @@ def main() -> None:
         full = fisher(pvals)[2]
         drop = fisher(pvals[1:])[2]
         outputs[mode] = {"pvals": pvals, "full": full, "drop_ml001": drop, "detail": detail}
+
+    summary_rows = rows(FISHER_SCALE)
+    assert len(summary_rows) == 4
+    by_key = {(r["estimand"], r["dependence_regime"]): r for r in summary_rows}
+    expected_summary = {
+        ("hedges_g", "registered_rho_proxy"): (g_full, g_drop_ml001),
+        ("oriented_lnRR", "carried_existing_rho_proxy"): (outputs["rho_proxy"]["full"], outputs["rho_proxy"]["drop_ml001"]),
+        ("oriented_lnRR", "zero_covariance"): (outputs["zero_cov"]["full"], outputs["zero_cov"]["drop_ml001"]),
+        ("oriented_lnRR", "cauchy_maximum_contrast_variance"): (outputs["cauchy_maxvar"]["full"], outputs["cauchy_maxvar"]["drop_ml001"]),
+    }
+    assert set(by_key) == set(expected_summary)
+    for key, (full_p, drop_p) in expected_summary.items():
+        r = by_key[key]
+        assert abs(float(r["full_fisher_p"]) - full_p) < 5e-12
+        assert abs(float(r["omit_ML001_fisher_p"]) - drop_p) < 5e-12
 
     # Key scale sensitivity: Serapias C-F no longer separates on lnRR.
     cf_pair = next(
