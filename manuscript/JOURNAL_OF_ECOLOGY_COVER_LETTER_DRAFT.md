@@ -2,7 +2,7 @@
 
 Dear Editors,
 
-We would like to submit the Research Article **“Coupling and decoupling of plant interaction, reproduction and genetic responses under habitat fragmentation: a cross-system synthesis”** for consideration in *Journal of Ecology*.
+We would like to submit the Research Article **“Variable life-cycle bottlenecks under habitat fragmentation: a cross-system synthesis of plant interaction, mating and reproduction”** for consideration in *Journal of Ecology*.
 
 Habitat-fragmentation syntheses usually ask whether individual endpoints decline on average. Our manuscript asks a different plant-ecology question: when interaction, movement, reproductive and genetic responses are measured within the same fragmented systems, do they deteriorate together or become decoupled because ecological processes operate on different spatial and temporal scales?
 
