@@ -74,6 +74,14 @@ remains closed at 2/5 because no additional candidate satisfied the frozen commo
 effect-unit and marginal-variance rules. EGWEE does not start a new search merely to force K=5.
 See `manuscript/PHASE2_CF01_CF_FAMILY_CLOSURE_2026-09-27.md`.
 
+The direct **I-F family is likewise coverage-closed**. After resolving the remaining dissertation,
+estimand, graphical-vector and fragmentation-unit variance gates, the full-text ledger contains
+**0 `pending_*` quantitative statuses**. Direct I-F coverage is **3/5 independent programmes**
+(`ML020`, `P2_CF01_SEVENELLO_2026`, `P2_CF01_BERGSDORF_KAKAMEGA_2006`), so the preregistered
+five-programme pooled-analysis gate remains closed. No new search is opened to force K=5; terminal
+programmes may be reopened only if their already-specified missing evidence becomes available.
+See `manuscript/PHASE2_CF01_IF_FAMILY_CLOSURE_2026-09-27.md`.
+
 Sevenello was recovered after search completion from public raw data under a frozen Edge-versus-Core contract. Its three primary species panels are dependent outcomes inside one programme, all paired covariance blocks are positive definite, and the internal three-panel Bonferroni p is 1.0.
 
 Bergsdorf's Kakamega dissertation was then recovered retrospectively from source site tables under an all-recoverable-panel rule. Four dependent species×campaign panels were retained; *Dracaena fragrans* remains explicitly blocked rather than coded as zero. The programme-level Bonferroni p is 0.006535, driven by strong Acanthopale interaction–function separation, while the other three recovered panels are individually imprecise. Bergsdorf therefore raises **I-F coverage to 3/5**, but, like Sevenello, it does not add a sixth cluster to the frozen Phase-1 five-cluster Fisher synthesis.
@@ -84,6 +92,7 @@ The canonical current-state documents are:
 - [`manuscript/STATE_SEPARATION_SYNTHESIS_RESULT_2026-09-13.md`](manuscript/STATE_SEPARATION_SYNTHESIS_RESULT_2026-09-13.md)
 - [`manuscript/AIZEN_FEINSINGER_1994_RECOVERY_RESULT.md`](manuscript/AIZEN_FEINSINGER_1994_RECOVERY_RESULT.md)
 - [`manuscript/PHASE2_CF01_CF_FAMILY_CLOSURE_2026-09-27.md`](manuscript/PHASE2_CF01_CF_FAMILY_CLOSURE_2026-09-27.md)
+- [`manuscript/PHASE2_CF01_IF_FAMILY_CLOSURE_2026-09-27.md`](manuscript/PHASE2_CF01_IF_FAMILY_CLOSURE_2026-09-27.md)
 
 ## Search stop and claim discipline
 
