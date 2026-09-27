@@ -184,6 +184,7 @@ def verify_reproduction() -> None:
         "manuscript/figures/figure3_ecological_response_regimes.svg",
         "manuscript/figures/figure_s1_all_primary_marginal_effects.svg",
         "manuscript/tables/table1_primary_cluster_summary.csv",
+        "manuscript/tables/table2_if_direction_census.csv",
         "manuscript/tables/table_s1_cluster_recovery_flow.csv",
         "manuscript/tables/table_s2_covariance_robustness.csv",
         "manuscript/tables/table_s3_primary_marginal_effects.csv",
