@@ -40,6 +40,15 @@ def main() -> None:
     }
     assert burned == expected
 
+    expected_auxiliary = {
+        "ML001",
+        "ML002",
+        "ML014",
+        "P2_CF01_ACER_MIYABEI_2014",
+    }
+    assert set(c["burned_auxiliary_process_function_programmes"]) == expected_auxiliary
+    assert c["auxiliary_discovery_audit"] == "manuscript/ECOLOGICAL_BOTTLENECK_POSITION_AUDIT_2026-09-27.md"
+
     for pid in expected:
         assert pid in census_text, pid
 
@@ -71,6 +80,7 @@ def main() -> None:
         "future-only ecological validation programme",
         "burned discovery system",
         "This 3/3 direction is **motivation only**",
+        "burned as auxiliary evidence for H2",
         "after 2026-09-18",
         "effect families are never pooled numerically",
         "No binomial sign test",
@@ -98,7 +108,7 @@ def main() -> None:
 
     print(
         "FRESH_ECOLOGICAL_IF_VALIDATION_CONTRACT_OK "
-        "burned=8 min_fresh_family=5 min_level=4 cross_family_pooling=false"
+        "burned_IF=8 burned_auxiliary=4 min_fresh_family=5 min_level=4 cross_family_pooling=false"
     )
 
 
