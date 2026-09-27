@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Define what the current manuscript can and cannot claim as an ecological contribution after the response-coupling reframe.
+Define what the current manuscript can and cannot claim as an ecological contribution after the variable life-cycle bottleneck synthesis.
 
 ## What is already established
 
@@ -41,30 +41,36 @@ The corpus contains Chaco and Sevenello programmes without resolved I–F mismat
 
 This allows the manuscript to describe **response regimes** rather than selecting only systems that fit decoupling.
 
-### 3. The complete registered I–F census is directionally asymmetric
+### 3. The complete paired process–function census contains both directions of resolved mismatch
 
-Among eight registered I–F programmes:
+The canonical denominator is now 12 independent programmes:
 
-- seven are pair-testable;
-- three resolve a mismatch after their registered programme rule;
-- all three resolved cases have F more negative than I;
-- four are unresolved;
-- one is not pair-testable;
-- zero resolve I as more negative than F.
+- 8 interaction/pollen-quantity–F programmes;
+- 4 disjoint movement/connectivity or mating-support–F programmes.
 
-This is descriptive and post hoc. It is not a sign test or global prevalence estimate.
+Eleven are pair-testable. Four resolve a process–F mismatch:
 
-### 4. Quantity–function decoupling is connected to a full life-cycle interpretation
+- 3 are downstream function-dominant;
+- 1 is upstream process-dominant (*Serapias*).
 
-The manuscript does not stop at pollinator counts. It places I–F mismatch beside movement/mating connectivity and adult/offspring genetic responses.
+Seven are unresolved and one is not pair-testable.
 
-The ecological question becomes where along the life cycle fragmentation effects remain coupled and where a downstream bottleneck emerges.
+The resolved 3:1 split is descriptive and post hoc. It is not a sign test, common-effect estimate or global prevalence estimate.
 
+This is the key ecological addition beyond endpoint-specific meta-analysis: **the strongest fragmentation response is not fixed at one stage of the reproductive life cycle**.
+
+### 4. The I–F subset identifies the missing intermediate measurement
+
+Among the eight I–F programmes, all eight I endpoints are quantity-level measures (visits, pollinator abundance/occurrence or total pollen/pollen tubes) and none directly measures compatible mating quality, realised paternity or effective pollen-donor diversity on the same I–F frame.
+
+Thus the current corpus can identify where measured process–F mismatches occur, but it cannot directly localize the transition from interaction quantity to effective mating to reproductive function.
+
+The prospective ecological extension is therefore a synchronized `Q → E → F` design, not simply a larger collection of pollinator-count studies.
 ## Novelty claim ceiling
 
 Strong formulation:
 
-> The contribution is a programme-level synthesis of fragmentation-response coupling, showing that the average pollination–reproduction association documented by previous meta-analyses can conceal within-system response mismatches. In the complete audited I–F programme census, every resolved mismatch is function-dominant, while explicit coupled and unresolved counterexamples remain in the denominator.
+> The contribution is a programme-level synthesis of fragmentation-response geometry showing that the average pollination–reproduction coupling documented by previous meta-analyses can conceal different positions of ecological limitation within natural systems. In the complete 12-programme paired process–function census, resolved mismatches occur in both directions—three downstream function-dominant and one upstream process-dominant—while unresolved and non-testable programmes remain in the denominator.
 
 Do not claim:
 
@@ -72,7 +78,8 @@ Do not claim:
 - first evidence that pollination and reproduction can differ;
 - first evidence for pollen-quality limitation;
 - universal F-dominant decoupling;
-- a global frequency of coupled versus decoupled regimes;
+- one universal life-cycle bottleneck position;
+- a global frequency of downstream, upstream or unresolved regimes;
 - a causal common mechanism across Wandoo, Cardiopetalum and Acanthopale.
 
 ## Closest literature
@@ -84,6 +91,6 @@ Do not claim:
 
 ## Implication for writing
 
-Introduction: position EGWEE as moving from endpoint-average effects / cross-species correlation to paired within-programme response geometry.
+Introduction: position EGWEE as moving from endpoint-average effects / cross-species correlation to paired within-programme response geometry and bottleneck localization.
 
-Discussion: acknowledge that pollen-quality mechanisms are established in plant reproductive ecology; claim novelty for cross-system response-regime synthesis and the complete direction census, not for the mechanism itself.
+Discussion: acknowledge that pollen-quality mechanisms are established in plant reproductive ecology; claim novelty for the complete 12-programme response-geometry census, the demonstration that resolved mismatches occur in both directions, and the identification of the missing effective-mating measurement layer—not for pollen-quality limitation itself.
