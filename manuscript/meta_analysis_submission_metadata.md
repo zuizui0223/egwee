@@ -92,7 +92,7 @@ Not authorised:
 - [x] primary venue selected: Journal of Ecology;
 - [x] journal-specific abstract and keywords shaped;
 - [x] main text converted to Journal of Ecology IMRaD structure;
-- [x] main-text word count audited against the ~8000-word research-article target (current automated count: 5815 words from Introduction onward);
+- [x] main-text word count audited against the ~8000-word research-article target (current automated count: 6156 words from Introduction onward);
 - [x] final figure/table package completed and CI-reproduced (Figures 1–3, Table 1, complete I–F census Table 2, Supplementary Tables S1–S3, Supplementary Figure S1);
 - [x] double-anonymous submission package checked and anonymously reproduced in CI;
 - [ ] author/declaration metadata approved.
