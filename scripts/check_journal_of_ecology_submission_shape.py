@@ -29,7 +29,7 @@ def main() -> None:
     cover_letter = COVER_LETTER.read_text(encoding="utf-8")
 
     assert manuscript.startswith(
-        "# Evidence for variable life-cycle bottleneck positions under habitat fragmentation:"
+        "# Habitat fragmentation across plant reproductive life cycles:"
     )
     for heading in (
         "## Abstract",
@@ -82,19 +82,18 @@ def main() -> None:
     assert "Paper role relative to NEE" not in metadata
     assert "aligned to NEE state separation" not in metadata
     for token in (
-        "complete paired process–function census",
-        "interaction quantity can persist while reproductive function fails",
+        "estimand-scale",
+        "17/17",
         "empirical plant-fragmentation",
     ):
         assert token in (manuscript + "\n" + metadata + "\n" + cover_letter), token
-    assert "shift where the dominant bottleneck appears" in cover_letter
-    assert "complete paired process–function census contains 12 independent programmes" in cover_letter
-    assert "four resolve a mismatch" in cover_letter
-    assert "none directly measures compatible mating quality" in cover_letter
+    assert "REVISION HOLD" in cover_letter
+    assert "estimand-scale sensitivity" in cover_letter
+    assert "17 oriented effects are negative" in cover_letter
 
     assert "**Primary target journal:** **Journal of Ecology**" in metadata
     assert "Research Article / empirical research synthesis" in metadata
-    assert "results_bearing_variable_lifecycle_bottleneck_synthesis" in metadata
+    assert "revision_required_estimand_scale_sensitivity" in metadata
 
     print(
         "JOURNAL_OF_ECOLOGY_SHAPE_OK "
