@@ -17,6 +17,7 @@ CARDIO_EFFECTS = ROOT / "evidence/meta_extraction/phase2_cf01_cardiopetalum_grad
 BERGSDORF_EFFECTS = ROOT / "evidence/meta_extraction/phase2_cf01_bergsdorf_kakamega_direct_effects_v1.csv"
 IF_CENSUS = ROOT / "evidence/meta_extraction/ecological_if_programme_census_v1.csv"
 MATING_FUNCTION_CENSUS = ROOT / "evidence/meta_extraction/ecological_mating_function_programme_census_v1.csv"
+PROCESS_FUNCTION_CENSUS = ROOT / "evidence/meta_extraction/ecological_process_function_programme_census_v1.csv"
 REGISTRY = ROOT / "evidence/meta_extraction/multilayer_cluster_registry_v1.csv"
 REGISTRY_ML020 = ROOT / "evidence/meta_extraction/multilayer_cluster_registry_extension_ml020.csv"
 SYNTHESIS = ROOT / "scripts/synthesize_state_separation.py"
@@ -423,44 +424,48 @@ def table1(result: dict) -> None:
 
 
 
-def table2_if_direction_census() -> None:
-    census = rows(IF_CENSUS)
-    assert len(census) == 8
-    assert sum(r["if_pair_testable"] == "yes" for r in census) == 7
-    assert sum(r["resolved_if_mismatch"] == "yes" for r in census) == 3
-    assert sum(r["resolved_if_mismatch"] == "no" for r in census) == 4
-    assert sum(r["resolved_if_mismatch"] == "not_testable" for r in census) == 1
-    assert {r["interaction_measurement_class"] for r in census} == {"quantity_only"}
-
-    resolved = [r for r in census if r["resolved_if_mismatch"] == "yes"]
-    assert resolved
-    assert {r["resolved_direction"] for r in resolved} == {"F_more_negative_than_I"}
-    assert not any(r["resolved_direction"] == "I_more_negative_than_F" for r in census)
+def table2_process_function_census() -> None:
+    census = rows(PROCESS_FUNCTION_CENSUS)
+    assert len(census) == 12
+    assert sum(r["pair_testable"] == "yes" for r in census) == 11
+    assert sum(r["resolved_mismatch"] == "yes" for r in census) == 4
+    assert sum(r["resolved_mismatch"] == "no" for r in census) == 7
+    assert sum(r["resolved_mismatch"] == "not_testable" for r in census) == 1
+    assert sum(r["resolved_direction"] == "F_more_negative_than_process" for r in census) == 3
+    assert sum(r["resolved_direction"] == "process_more_negative_than_F" for r in census) == 1
+    assert sum(r["measurement_class"] == "quantity_only" for r in census) == 8
+    assert sum(r["measurement_class"] == "movement_or_mating_support" for r in census) == 4
 
     TABLEDIR.mkdir(parents=True, exist_ok=True)
-    out = TABLEDIR / "table2_if_direction_census.csv"
+    out = TABLEDIR / "table2_process_function_census.csv"
     fields = [
         "programme_id",
         "system",
         "source_id",
-        "i_endpoint",
-        "interaction_measurement_class",
+        "process_stage",
+        "process_endpoint",
+        "measurement_class",
         "effect_family",
-        "n_dependent_if_panels",
+        "n_dependent_panels",
         "pair_testable",
         "programme_adjusted_p",
         "census_result",
         "direction_if_resolved",
+        "ecological_regime",
         "ecological_interpretation",
     ]
     with out.open("w", newline="", encoding="utf-8") as fh:
         writer = csv.DictWriter(fh, fieldnames=fields)
         writer.writeheader()
         for row in census:
-            if row["resolved_if_mismatch"] == "yes":
+            if row["resolved_mismatch"] == "yes":
                 result = "resolved mismatch"
-                direction = "F more negative than I"
-            elif row["resolved_if_mismatch"] == "no":
+                if row["resolved_direction"] == "F_more_negative_than_process":
+                    direction = "F more negative than process"
+                else:
+                    assert row["resolved_direction"] == "process_more_negative_than_F"
+                    direction = "process more negative than F"
+            elif row["resolved_mismatch"] == "no":
                 result = "unresolved mismatch"
                 direction = ""
             else:
@@ -470,14 +475,16 @@ def table2_if_direction_census() -> None:
                 "programme_id": row["programme_id"],
                 "system": row["system"],
                 "source_id": row["source_id"],
-                "i_endpoint": row["i_endpoint"],
-                "interaction_measurement_class": row["interaction_measurement_class"],
+                "process_stage": row["process_stage"],
+                "process_endpoint": row["process_endpoint"],
+                "measurement_class": row["measurement_class"],
                 "effect_family": row["effect_family"],
-                "n_dependent_if_panels": row["n_dependent_if_panels"],
-                "pair_testable": row["if_pair_testable"],
+                "n_dependent_panels": row["n_dependent_panels"],
+                "pair_testable": row["pair_testable"],
                 "programme_adjusted_p": row["programme_adjusted_p"],
                 "census_result": result,
                 "direction_if_resolved": direction,
+                "ecological_regime": row["ecological_regime"],
                 "ecological_interpretation": row["interpretation"],
             })
 
@@ -489,14 +496,14 @@ def main() -> None:
     figure3_response_regimes()
     figure4_bottleneck_synthesis()
     table1(result)
-    table2_if_direction_census()
+    table2_process_function_census()
     expected = [
         FIGDIR / "figure1_primary_evidence_geometry.svg",
         FIGDIR / "figure2_leave_one_out_influence.svg",
         FIGDIR / "figure3_ecological_response_regimes.svg",
         FIGDIR / "figure4_lifecycle_bottleneck_synthesis.svg",
         TABLEDIR / "table1_primary_cluster_summary.csv",
-        TABLEDIR / "table2_if_direction_census.csv",
+        TABLEDIR / "table2_process_function_census.csv",
     ]
     assert all(p.is_file() and p.stat().st_size > 500 for p in expected[:4])
     assert expected[4].is_file() and expected[4].stat().st_size > 200
