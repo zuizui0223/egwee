@@ -120,19 +120,24 @@ Define:
 
 `Delta_QF = effect(I_quantity) - effect(F)`
 
+`Delta_QE = effect(I_quantity) - effect(I_effective)`
+
 `Delta_EF = effect(I_effective) - effect(F)`
 
 Positive values mean reproductive function is more negatively affected than the interaction metric.
 
 ### Primary mechanism prediction
 
-If a quality/mating bottleneck explains quantity–function decoupling:
+If effective mating is the missing bottleneck behind quantity–function decoupling:
 
 1. `Delta_QF > 0`;
-2. `effect(I_effective)` should move toward `effect(F)` relative to `effect(I_quantity)`;
-3. therefore `|Delta_EF| < |Delta_QF|` under the prespecified orientation.
+2. `Delta_QE > 0` is the primary localization prediction: effective mating deteriorates more than raw interaction quantity;
+3. the sign of `Delta_EF` distinguishes downstream geometry:
+   - near zero: F tracks effective mating;
+   - negative: effective mating deteriorates more strongly than F, consistent with downstream compensation;
+   - positive: F deteriorates more strongly than effective mating, consistent with a later post-mating/post-pollination filter.
 
-This is tested only when the same independent sites support all required endpoints.
+The fresh H2 test therefore localizes the bottleneck rather than requiring exact recoupling. It is tested only when the same independent sites support all required endpoints.
 
 ## Site-level representation
 
