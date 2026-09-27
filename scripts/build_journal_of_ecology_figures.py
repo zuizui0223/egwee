@@ -15,6 +15,7 @@ ML020_EFFECTS = ROOT / "evidence/meta_extraction/PS022_aizen_feinsinger_effects_
 WANDOO_EFFECTS = ROOT / "evidence/meta_extraction/PS019_eucalyptus_wandoo_2018_gradient_effects_v1.csv"
 CARDIO_EFFECTS = ROOT / "evidence/meta_extraction/phase2_cf01_cardiopetalum_gradient_effects_v1.csv"
 BERGSDORF_EFFECTS = ROOT / "evidence/meta_extraction/phase2_cf01_bergsdorf_kakamega_direct_effects_v1.csv"
+IF_CENSUS = ROOT / "evidence/meta_extraction/ecological_if_programme_census_v1.csv"
 REGISTRY = ROOT / "evidence/meta_extraction/multilayer_cluster_registry_v1.csv"
 REGISTRY_ML020 = ROOT / "evidence/meta_extraction/multilayer_cluster_registry_extension_ml020.csv"
 SYNTHESIS = ROOT / "scripts/synthesize_state_separation.py"
@@ -342,20 +343,76 @@ def table1(result: dict) -> None:
             })
 
 
+
+def table2_if_direction_census() -> None:
+    census = rows(IF_CENSUS)
+    assert len(census) == 8
+    assert sum(r["if_pair_testable"] == "yes" for r in census) == 7
+    assert sum(r["resolved_if_mismatch"] == "yes" for r in census) == 3
+    assert sum(r["resolved_if_mismatch"] == "no" for r in census) == 4
+    assert sum(r["resolved_if_mismatch"] == "not_testable" for r in census) == 1
+
+    resolved = [r for r in census if r["resolved_if_mismatch"] == "yes"]
+    assert resolved
+    assert {r["resolved_direction"] for r in resolved} == {"F_more_negative_than_I"}
+    assert not any(r["resolved_direction"] == "I_more_negative_than_F" for r in census)
+
+    TABLEDIR.mkdir(parents=True, exist_ok=True)
+    out = TABLEDIR / "table2_if_direction_census.csv"
+    fields = [
+        "programme_id",
+        "system",
+        "effect_family",
+        "n_dependent_if_panels",
+        "pair_testable",
+        "programme_adjusted_p",
+        "census_result",
+        "direction_if_resolved",
+        "ecological_interpretation",
+    ]
+    with out.open("w", newline="", encoding="utf-8") as fh:
+        writer = csv.DictWriter(fh, fieldnames=fields)
+        writer.writeheader()
+        for row in census:
+            if row["resolved_if_mismatch"] == "yes":
+                result = "resolved mismatch"
+                direction = "F more negative than I"
+            elif row["resolved_if_mismatch"] == "no":
+                result = "unresolved mismatch"
+                direction = ""
+            else:
+                result = "not testable"
+                direction = ""
+            writer.writerow({
+                "programme_id": row["programme_id"],
+                "system": row["system"],
+                "effect_family": row["effect_family"],
+                "n_dependent_if_panels": row["n_dependent_if_panels"],
+                "pair_testable": row["if_pair_testable"],
+                "programme_adjusted_p": row["programme_adjusted_p"],
+                "census_result": result,
+                "direction_if_resolved": direction,
+                "ecological_interpretation": row["interpretation"],
+            })
+
+
 def main() -> None:
     result = canonical_result()
     figure1_coverage()
     figure2_influence(result)
     figure3_response_regimes()
     table1(result)
+    table2_if_direction_census()
     expected = [
         FIGDIR / "figure1_primary_evidence_geometry.svg",
         FIGDIR / "figure2_leave_one_out_influence.svg",
         FIGDIR / "figure3_ecological_response_regimes.svg",
         TABLEDIR / "table1_primary_cluster_summary.csv",
+        TABLEDIR / "table2_if_direction_census.csv",
     ]
     assert all(p.is_file() and p.stat().st_size > 500 for p in expected[:3])
     assert expected[3].is_file() and expected[3].stat().st_size > 200
+    assert expected[4].is_file() and expected[4].stat().st_size > 400
     print("JOURNAL_OF_ECOLOGY_FIGURES_OK " + " ".join(str(p.relative_to(ROOT)) for p in expected))
 
 
