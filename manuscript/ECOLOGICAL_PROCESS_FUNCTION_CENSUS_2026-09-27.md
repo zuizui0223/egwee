@@ -13,6 +13,8 @@ The programme IDs are disjoint, giving **12 independent programmes** in the comp
 
 Effect families remain separate. Hedges-g and Fisher-z values are never pooled numerically.
 
+Here **bottleneck position** is an operational response-geometry term: it identifies which member of a paired process–F comparison has the more negative standardized fragmentation response when that difference is resolved. It does not establish the unique causal, demographic or temporal rate-limiting step.
+
 ## Complete denominator
 
 Across 12 programmes:
