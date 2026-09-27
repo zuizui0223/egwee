@@ -7,9 +7,9 @@ The scientific and reviewer-facing package is machine-checked. The current autom
 - ecology-first manuscript title, abstract, keywords and IMRaD structure;
 - primary 5-cluster / 17-effect synthesis and influence analysis;
 - complete 360/360 Phase-2 screening record;
-- complete 8-programme I–F census and Table 2;
+- complete 12-programme paired process–function bottleneck census and Table 2, with the 8-programme I–F measurement-gap subset retained inside it;
 - interaction-measurement coverage audit (8/8 quantity-level, 0/8 effective-mating-quality);
-- Figures 1–3, Tables 1–2, Supplementary Tables S1–S3 and Supplementary Figure S1;
+- Figures 1–4, Tables 1–2, Supplementary Tables S1–S3 and Supplementary Figure S1;
 - double-anonymous main manuscript check;
 - anonymous reviewer code/data package reproduction;
 - fresh-validation preregistration kept separate from the current discovery/synthesis manuscript.
