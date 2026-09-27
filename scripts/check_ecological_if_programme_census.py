@@ -112,6 +112,22 @@ def main() -> None:
     for pid, source in expected_sources.items():
         assert by[pid]["source_id"] == source, (pid, by[pid]["source_id"], source)
 
+    assert {r["interaction_measurement_class"] for r in census} == {"quantity_only"}
+    assert sum(r["interaction_measurement_class"] == "quantity_only" for r in census) == 8
+    assert not any(r["interaction_measurement_class"] == "effective_mating_quality" for r in census)
+    expected_i_endpoints = {
+        "ML020": "pollen_tubes",
+        "P2_CF01_SEVENELLO_2026": "all_bees_per_transect",
+        "P2_CF01_BERGSDORF_KAKAMEGA_2006": "standardized_visit_occurrence",
+        "ML015": "pollen_tubes_at_base_of_style",
+        "P2_CF01_CARDIOPETALUM_2012": "pollinator_abundance_per_flower",
+        "P2_CF01_ZURICH_2026": "all_pollinator_capture_rate_per_9h",
+        "P2_CF01_MILKWEED_URBAN_2023": "total_pollinator_abundance_per_surveyed_plant",
+        "P2_CF01_PRITCHARD_2005": "total_floral_visitor_abundance",
+    }
+    for pid, endpoint in expected_i_endpoints.items():
+        assert by[pid]["i_endpoint"] == endpoint, (pid, by[pid]["i_endpoint"], endpoint)
+
     expected_p = {
         "ML020": ml020_programme_p(),
         "P2_CF01_SEVENELLO_2026": float(obj(SEVEN)["programme_internal_bonferroni_p"]),
@@ -157,7 +173,7 @@ def main() -> None:
     print(
         "ECOLOGICAL_IF_CENSUS_OK "
         "programmes=8 pair_testable=7 resolved=3 unresolved=4 not_testable=1 "
-        "resolved_F_more_negative=3 resolved_I_more_negative=0"
+        "resolved_F_more_negative=3 resolved_I_more_negative=0 quantity_only_I=8 effective_mating_I=0"
     )
 
 
