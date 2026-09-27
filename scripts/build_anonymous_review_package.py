@@ -48,6 +48,7 @@ FILES = [
     "evidence/meta_extraction/phase2_cf01_cardiopetalum_gradient_effects_v1.csv",
     "evidence/meta_extraction/phase2_cf01_bergsdorf_kakamega_direct_effects_v1.csv",
     "evidence/meta_extraction/estimand_scale_sensitivity_v1.csv",
+    "evidence/meta_extraction/estimand_scale_fisher_sensitivity_v1.csv",
     "evidence/meta_extraction/estimand_scale_cluster_summary_v1.csv",
     "evidence/meta_extraction/exploratory_transition_filtering_v1.csv",
     "evidence/meta_extraction/ecological_if_programme_census_v1.csv",
