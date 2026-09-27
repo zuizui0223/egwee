@@ -100,7 +100,7 @@ def main() -> None:
         "effect families are never pooled numerically",
         "No binomial sign test",
         "not required to complete or submit",
-        "bottleneck-localization H2",
+        "primary H2-v2 prediction",
     ):
         assert token in p, token
 
