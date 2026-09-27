@@ -25,6 +25,18 @@ The defensible paper-level conclusion is therefore:
 
 This is a plant-ecology result about how biological processes covary under habitat fragmentation. It neither tests nor validates finite NEE operator sequences, warning rules or reserve quantities.
 
+### Repeated ecological motif: interaction quantity is not reproductive function
+
+Three independent natural programmes now show the same qualitative mismatch on their own registered effect scales:
+
+- *Eucalyptus wandoo*: pollen-tube quantity increases along fragmentation severity while seed production declines;
+- *Cardiopetalum calophyllum*: beetle-pollinator abundance changes weakly while fruit set declines strongly toward smaller fragments;
+- Kakamega *Acanthopale pubescens*: pollinator occurrence is maintained/slightly elevated in fragment sites while fruit set is sharply lower.
+
+These heterogeneous analyses are not pooled into a new effect size. They define a **descriptive quantity–function decoupling motif** and motivate an ecological hypothesis: fragmentation can disrupt pollen quality, compatible mating or post-visitation reproduction even when observed interaction quantity remains apparently intact.
+
+Chaco and Sevenello provide the necessary counterexamples: interaction and reproduction can also decline together or show no resolved mismatch. The ecological target is therefore to explain **when** coupling is maintained and **when** it breaks.
+
 ## Meta-analysis architecture
 
 Primary response layers:
