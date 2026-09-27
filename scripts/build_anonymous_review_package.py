@@ -23,6 +23,7 @@ FILES = [
     "scripts/synthesize_state_separation.py",
     "scripts/check_covariance_robustness.py",
     "scripts/check_ecological_if_programme_census.py",
+    "scripts/check_ecological_process_function_programme_census.py",
     "scripts/check_primary_effect_supplement.py",
     "scripts/build_primary_effect_forest.py",
     "scripts/build_journal_of_ecology_figures.py",
@@ -42,6 +43,7 @@ FILES = [
     "evidence/meta_extraction/phase2_cf01_bergsdorf_kakamega_direct_effects_v1.csv",
     "evidence/meta_extraction/ecological_if_programme_census_v1.csv",
     "evidence/meta_extraction/ecological_mating_function_programme_census_v1.csv",
+    "evidence/meta_extraction/ecological_process_function_programme_census_v1.csv",
     "evidence/meta_extraction/phase2_cf01_sevenello_direct_covariance_v1.json",
     "evidence/meta_extraction/phase2_cf01_bergsdorf_kakamega_direct_covariance_v1.json",
     "evidence/meta_extraction/phase2_cf01_cardiopetalum_gradient_covariance_v1.json",
@@ -93,7 +95,7 @@ def copy_scrubbed(rel: str) -> None:
 
 
 def write_readme() -> None:
-    text = """# Anonymous review package\n\nThis package contains the analysis-ready tables and minimal code needed to reproduce the five-cluster direct synthesis of within-system fragmentation-response coupling, covariance sensitivity/certification analysis, the complete registered I-F direction census, separate continuous-gradient generalisation, the four main submission figures, the complete registered-cluster recovery flow, and all 17 admitted primary marginal effects. It intentionally excludes version-control history, author metadata and identity-bearing title-page material.\n\n## Reproduce the synthesis\n\n```bash\npython scripts/synthesize_state_separation.py\n```\n\nThe command prints a machine-readable `STATE_SEPARATION` record containing the primary five-cluster Fisher result and leave-one-cluster-out diagnostics.\n\n## Reproduce the covariance sensitivity\n\n```bash\npython scripts/check_covariance_robustness.py\n```\n\nThis verifies the frozen paired-covariance result, the zero-covariance working sensitivity and the pairwise Cauchy–Schwarz covariance-free certification bound against Supplementary Table S2 and the manuscript.\n\n## Reproduce the complete I-F direction census\n\n```bash\npython scripts/check_ecological_if_programme_census.py\n```\n\nThis verifies the complete eight-programme I-F registry: seven pair-testable programmes, three resolved mismatches, all three with reproductive function more negative than interaction/pollen quantity, four unresolved programmes and one not-testable programme. It also verifies that all eight current I endpoints are quantity-only measures and none directly measures effective mating quality. The census is descriptive and does not pool Hedges-g and Fisher-z effects.\n\n## Audit all 17 primary marginal effects\n\n```bash\npython scripts/check_primary_effect_supplement.py\npython scripts/build_primary_effect_forest.py\n```\n\nThe first command reconstructs Supplementary Table S3 from the source effect files and verifies each Hedges-g value, sampling variance, independent-unit count, standard error and marginal 95% confidence interval. The second generates Supplementary Figure S1, using an explicitly separate horizontal scale for the extreme ML001 Serapias effects so the other 14 effects remain legible. The dual scale is display-only and does not alter inference.\n\n## Reproduce the main figures and Tables 1–2\n\n```bash\npython scripts/build_journal_of_ecology_figures.py\n```\n\nOutputs are written under `manuscript/figures/` and `manuscript/tables/`. Supplementary Table S1 records all 16 formal cluster attempts and their terminal admission/closure status. Supplementary Table S2 records the three dependence regimes. Supplementary Table S3 records all 17 primary marginal effects.\n\n## Scope\n\nThe package contains analysis-ready evidence rather than every raw source file from the original publications. Source studies and DOIs are documented in the anonymous manuscript and evidence tables.\n"""
+    text = """# Anonymous review package\n\nThis package contains the analysis-ready tables and minimal code needed to reproduce the five-cluster direct synthesis of within-system fragmentation-response coupling, covariance sensitivity/certification analysis, the complete 12-programme process-function bottleneck census and its I-F subset, separate continuous-gradient generalisation, the four main submission figures, the complete registered-cluster recovery flow, and all 17 admitted primary marginal effects. It intentionally excludes version-control history, author metadata and identity-bearing title-page material.\n\n## Reproduce the synthesis\n\n```bash\npython scripts/synthesize_state_separation.py\n```\n\nThe command prints a machine-readable `STATE_SEPARATION` record containing the primary five-cluster Fisher result and leave-one-cluster-out diagnostics.\n\n## Reproduce the covariance sensitivity\n\n```bash\npython scripts/check_covariance_robustness.py\n```\n\nThis verifies the frozen paired-covariance result, the zero-covariance working sensitivity and the pairwise Cauchy–Schwarz covariance-free certification bound against Supplementary Table S2 and the manuscript.\n\n## Reproduce the process-function bottleneck census and I-F subset\n\n```bash\npython scripts/check_ecological_if_programme_census.py\n```\n\nThis first verifies the complete 12-programme paired process-function registry: 11 pair-testable, four resolved mismatches (three downstream F-dominant and one upstream process-dominant), seven unresolved and one not-testable programme. The second verifies the eight-programme I-F subset and its measurement gap: all eight current I endpoints are quantity-only measures and none directly measures effective mating quality. Both censuses are descriptive and do not pool Hedges-g and Fisher-z effects.\n\n## Audit all 17 primary marginal effects\n\n```bash\npython scripts/check_primary_effect_supplement.py\npython scripts/build_primary_effect_forest.py\n```\n\nThe first command reconstructs Supplementary Table S3 from the source effect files and verifies each Hedges-g value, sampling variance, independent-unit count, standard error and marginal 95% confidence interval. The second generates Supplementary Figure S1, using an explicitly separate horizontal scale for the extreme ML001 Serapias effects so the other 14 effects remain legible. The dual scale is display-only and does not alter inference.\n\n## Reproduce the main figures and Tables 1–2\n\n```bash\npython scripts/build_journal_of_ecology_figures.py\n```\n\nOutputs are written under `manuscript/figures/` and `manuscript/tables/`. Supplementary Table S1 records all 16 formal cluster attempts and their terminal admission/closure status. Supplementary Table S2 records the three dependence regimes. Supplementary Table S3 records all 17 primary marginal effects.\n\n## Scope\n\nThe package contains analysis-ready evidence rather than every raw source file from the original publications. Source studies and DOIs are documented in the anonymous manuscript and evidence tables.\n"""
     (PKG / "README_REVIEW_PACKAGE.md").write_text(text, encoding="utf-8")
 
 
@@ -142,6 +144,16 @@ def verify_reproduction() -> None:
     if "COVARIANCE_ROBUSTNESS " not in cov.stdout:
         raise AssertionError(cov.stdout)
 
+    process_function_census = subprocess.run(
+        [sys.executable, "scripts/check_ecological_process_function_programme_census.py"],
+        cwd=PKG,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    if "ECOLOGICAL_PROCESS_FUNCTION_CENSUS_OK programmes=12 testable=11 resolved=4 unresolved=7 not_testable=1 resolved_downstream_F=3 resolved_upstream_process=1 quantity_I=8 movement_mating=4" not in process_function_census.stdout:
+        raise AssertionError(process_function_census.stdout)
+
     census = subprocess.run(
         [sys.executable, "scripts/check_ecological_if_programme_census.py"],
         cwd=PKG,
@@ -186,7 +198,7 @@ def verify_reproduction() -> None:
         "manuscript/figures/figure4_lifecycle_bottleneck_synthesis.svg",
         "manuscript/figures/figure_s1_all_primary_marginal_effects.svg",
         "manuscript/tables/table1_primary_cluster_summary.csv",
-        "manuscript/tables/table2_if_direction_census.csv",
+        "manuscript/tables/table2_process_function_census.csv",
         "manuscript/tables/table_s1_cluster_recovery_flow.csv",
         "manuscript/tables/table_s2_covariance_robustness.csv",
         "manuscript/tables/table_s3_primary_marginal_effects.csv",
