@@ -1343,13 +1343,13 @@ def main() -> None:
     assert "CFTQ0322" in fulltext
     linaria = fulltext["CFTQ0322"]
     assert linaria["programme_identity"] == "P2_CF01_LINARIA_URBAN_2019"
-    assert linaria["quantitative_gate_status"] == "pending_urbanization_metric_population_frame_and_I_endpoint_recovery"
+    assert linaria["quantitative_gate_status"] == "close_no_common_same_exposure_urbanization_IF_frame_across_thesis_questions"
     assert int(linaria["pair_programme_increment"]) == 0
 
     assert "CFTQ0324" in fulltext
     erica = fulltext["CFTQ0324"]
     assert erica["programme_identity"] == "P2_CF01_ERICA_ANGOH_2016"
-    assert erica["quantitative_gate_status"] == "pending_20patch_visitation_and_viable_seed_set_vector_recovery"
+    assert erica["quantitative_gate_status"] == "blocked_20patch_IF_response_vectors_only_graphically_reported_no_digitization"
     assert "habitat patch; n=20 maximum" in erica["independent_unit"]
     assert int(erica["pair_programme_increment"]) == 0
     assert erica["effect_calculation_opened"] == "no"
