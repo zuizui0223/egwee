@@ -140,8 +140,8 @@ def figure2_influence(result: dict) -> None:
         ("Omit ML014 E. socialis", loo["ML014"]),
         ("Omit ML020 Chaco", loo["ML020"]),
     ]
-    body: list[str] = [svg_text(30, 35, "Figure 2. Leave-one-cluster-out influence defines the claim ceiling", size=18, weight="bold")]
-    body.append(svg_text(30, 60, "Only omission of ML001 removes rejection at α = 0.05.", size=12))
+    body: list[str] = [svg_text(30, 35, "Figure 2. Historical Hedges-g leave-one-cluster-out influence", size=18, weight="bold")]
+    body.append(svg_text(30, 60, "Registered primary estimand only; Figure 4 shows that this robustness classification is not scale-invariant.", size=11))
 
     axis_y = 420
     body.append(f'<line x1="{x0}" y1="{axis_y}" x2="{x1}" y2="{axis_y}" stroke="black" stroke-width="1.5"/>')
@@ -249,14 +249,14 @@ def figure3_response_regimes() -> None:
 
     width, height = 1240, 760
     body: list[str] = [
-        svg_text(30, 34, "Figure 3. Fragmentation produces coupled and decoupled interaction–function responses", size=18, weight="bold"),
-        svg_text(30, 58, "Each panel retains its registered effect scale; effect magnitudes are not compared across panels.", size=11),
+        svg_text(30, 34, "Figure 3. Interaction–function response geometries on their registered scales", size=18, weight="bold"),
+        svg_text(30, 58, "Descriptive examples only: unresolved differences are not evidence of equality, and effect magnitudes are not compared across scales.", size=11),
     ]
 
     draw_effect_pair_panel(
         body,
         px=30, py=85, pw=575, ph=285,
-        title="A. Chaco: coupled decline",
+        title="A. Chaco: same-direction decline; I–F difference unresolved",
         subtitle="Hedges g; small fragments minus continuous forest",
         pairs=[
             ("Atamisquea", chaco["Atamisquea emarginata"]["I_interaction"], chaco["Atamisquea emarginata"]["F_reproductive_function"]),
@@ -264,13 +264,13 @@ def figure3_response_regimes() -> None:
             ("Prosopis", chaco["Prosopis nigra"]["I_interaction"], chaco["Prosopis nigra"]["F_reproductive_function"]),
         ],
         lo=-1.3, hi=0.1, ticks=[-1.2, -0.8, -0.4, 0.0],
-        footer="Three dependent species; programme Bonferroni p = 1.0.",
+        footer="Three dependent species; programme p = 1.0 means no resolved I–F difference, not demonstrated equality.",
     )
 
     draw_effect_pair_panel(
         body,
         px=635, py=85, pw=575, ph=285,
-        title="B. Eucalyptus wandoo: pollen quantity–function decoupling",
+        title="B. Eucalyptus wandoo: opposite-sign I–F response",
         subtitle="Fisher z along response-free fragmentation severity",
         pairs=[("E. wandoo", wandoo["I"], wandoo["F"])],
         lo=-1.1, hi=0.9, ticks=[-1.0, -0.5, 0.0, 0.5],
@@ -280,7 +280,7 @@ def figure3_response_regimes() -> None:
     draw_effect_pair_panel(
         body,
         px=30, py=405, pw=575, ph=285,
-        title="C. Cardiopetalum: pollinator persistence–function decoupling",
+        title="C. Cardiopetalum: registered-scale I–F mismatch",
         subtitle="Fisher z along decreasing fragment area",
         pairs=[("Cardiopetalum", cardio["I_interaction"], cardio["F_reproductive_function"])],
         lo=-1.9, hi=0.1, ticks=[-1.8, -1.2, -0.6, 0.0],
@@ -290,7 +290,7 @@ def figure3_response_regimes() -> None:
     draw_effect_pair_panel(
         body,
         px=635, py=405, pw=575, ph=285,
-        title="D. Kakamega Acanthopale: visitation–function decoupling",
+        title="D. Kakamega Acanthopale: opposite-sign I–F response",
         subtitle="Hedges g; fragment sites minus main-forest sites",
         pairs=[("Acanthopale", berg["I_interaction"], berg["F_reproductive_function"])],
         lo=-3.2, hi=0.8, ticks=[-3.0, -2.0, -1.0, 0.0],
