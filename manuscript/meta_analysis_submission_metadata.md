@@ -5,7 +5,7 @@
 - **Working title:** Evidence for variable life-cycle bottleneck positions under habitat fragmentation: a cross-system synthesis of plant interaction, mating and reproduction
 - **Source manuscript:** `manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md`
 - **Protocol:** `manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md`
-- **Submission state:** `results_bearing_variable_lifecycle_bottleneck_synthesis`
+- **Submission state:** `revision_required_estimand_scale_sensitivity`
 - **Article type:** Research Article / empirical research synthesis
 - **Primary target journal:** **Journal of Ecology**
 - **Fallback venues:** Ecology (Article or Concepts & Synthesis, if reframed for broader ecological generality); Oikos (Meta-analysis)
@@ -37,6 +37,8 @@ EGWEE is a plant-fragmentation ecology synthesis. Its primary objects are natura
 The paper asks whether these processes remain coupled under fragmentation or become decoupled because they operate over different spatial scales, demographic pathways and response times.
 
 Finite-model NEE/EGWE work is not the framing, estimand, admission rule or inferential target of this paper. It may be cited only as downstream comparative theory where useful.
+
+> **Submission hold:** the historical Hedges-g synthesis is reproducible, but its biological separation/robustness interpretation is estimand-scale dependent. Journal of Ecology submission is reopened pending the mandatory g-versus-lnRR revision.
 
 ## Current quantitative state
 
@@ -99,8 +101,12 @@ Not authorised:
 - [x] journal-specific abstract and keywords shaped;
 - [x] main text converted to Journal of Ecology IMRaD structure;
 - [x] main-text word count audited against the ~8000-word research-article target (current automated count: 7031 words from Introduction onward);
-- [x] final figure/table package completed and CI-reproduced (Figures 1–4, Table 1, complete paired process–function bottleneck census Table 2, Supplementary Tables S1–S3, Supplementary Figure S1);
-- [x] double-anonymous submission package checked and anonymously reproduced in CI;
+- [x] pre-scale-audit figure/table package completed and CI-reproduced (Figures 1–4, Table 1, complete paired process–function bottleneck census Table 2, Supplementary Tables S1–S3, Supplementary Figure S1);
+- [x] pre-scale-audit double-anonymous package checked and anonymously reproduced in CI;
+- [x] estimand-scale audit completed: Hedges-g and lnRR yield materially different response geometry / robustness classifications;
+- [ ] manuscript headline revised so no scale-dependent separation/bottleneck claim is presented as scale-invariant;
+- [ ] g and lnRR sensitivity reported in Methods, Results, Limitations and figure/table package;
+- [ ] submission freeze renewed after scale-aware manuscript revision;
 - [ ] author/declaration metadata approved.
 
 Secondary cohort-lag and interaction/function-coupling analyses remain optional future ecological extensions only if independently justified coverage becomes sufficient; they are not submission blockers for the present cross-system fragmentation synthesis.
