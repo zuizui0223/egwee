@@ -2,7 +2,7 @@
 
 ## Freeze base
 
-`d2c5c37acf005c10341c4f7ee6551ea52eaa463f` is the scientific base for the current Journal of Ecology package.
+`5db1c5c44033cd2320a6ed45faa19d3a53ea2974` is the scientific base for the current Journal of Ecology package.
 
 Future changes should be treated as amendments to this state rather than silently redefining the paper.
 
