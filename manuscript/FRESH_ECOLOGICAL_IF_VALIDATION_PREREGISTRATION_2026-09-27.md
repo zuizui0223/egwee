@@ -8,6 +8,8 @@ It is written after the current I–F direction census was observed. Therefore e
 
 No current Phase-1 or Phase-2 result is reclassified as confirmatory evidence.
 
+The secondary movement/mating-support versus F audit is also discovery evidence. ML001 *Serapias*, ML002 *Brosimum*, ML014 *Eucalyptus socialis* and P2_CF01_ACER_MIYABEI_2014 are therefore burned as auxiliary evidence for H2 and cannot be reused as fresh confirmation. Their heterogeneous process endpoints do not constitute the prospective synchronized `I_quantity → I_effective → F` test.
+
 ## Discovery pattern that motivates the programme
 
 The complete registered I–F census contains eight programmes:
