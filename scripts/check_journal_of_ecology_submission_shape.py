@@ -82,7 +82,7 @@ def main() -> None:
     assert "Paper role relative to NEE" not in metadata
     assert "aligned to NEE state separation" not in metadata
     for token in (
-        "fragmentation-response coupling",
+        "complete registered I–F programme set",
         "interaction quantity can persist while reproductive function fails",
         "empirical plant-fragmentation",
     ):
