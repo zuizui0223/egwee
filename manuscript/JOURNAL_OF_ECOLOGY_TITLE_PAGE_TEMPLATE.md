@@ -2,7 +2,7 @@
 
 ## Manuscript title
 
-Evidence for variable life-cycle bottleneck positions under habitat fragmentation: a cross-system synthesis of plant interaction, mating and reproduction
+Habitat fragmentation across plant reproductive life cycles: directional consistency and scale-sensitive response amplitudes
 
 ## Authors
 
