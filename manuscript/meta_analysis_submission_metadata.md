@@ -2,7 +2,7 @@
 
 ## Manuscript identity
 
-- **Working title:** Evidence for variable life-cycle bottleneck positions under habitat fragmentation: a cross-system synthesis of plant interaction, mating and reproduction
+- **Working title:** Habitat fragmentation across plant reproductive life cycles: directional consistency and scale-sensitive response amplitudes
 - **Source manuscript:** `manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md`
 - **Protocol:** `manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md`
 - **Submission state:** `revision_required_estimand_scale_sensitivity`
@@ -34,7 +34,7 @@ EGWEE is a plant-fragmentation ecology synthesis. Its primary objects are natura
 - reproductive function;
 - adult and offspring genetic responses.
 
-The paper asks whether these processes remain coupled under fragmentation or become decoupled because they operate over different spatial scales, demographic pathways and response times.
+The paper now distinguishes scale-robust response direction from scale-dependent response amplitude. The historical Hedges-g separation analysis is retained as the registered primary estimand, but magnitude ordering and leave-one-system robustness are explicitly audited against an oriented lnRR sensitivity.
 
 Finite-model NEE/EGWE work is not the framing, estimand, admission rule or inferential target of this paper. It may be cited only as downstream comparative theory where useful.
 
