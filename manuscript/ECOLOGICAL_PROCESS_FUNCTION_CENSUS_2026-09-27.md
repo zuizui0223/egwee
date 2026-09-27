@@ -39,6 +39,17 @@ The resolved upstream programme is:
 
 - *Serapias lingua* — pollen immigration more negative than fruit set.
 
+## Influence of individual programmes
+
+The resolved two-direction pattern is **not leave-one-programme-out robust**.
+
+- Omitting ML001 *Serapias lingua* removes the only resolved upstream process-dominant case.
+- After omitting ML001, the three remaining resolved programmes are all downstream F-dominant.
+- Omitting any one of the other 11 programmes retains both a downstream and the *Serapias* upstream resolved direction.
+
+Thus the current corpus provides evidence for more than one bottleneck position, but the upstream resolved direction is presently represented by one influential system. Independent recurrence of upstream bottlenecks remains unestablished.
+
+
 ## Interaction–function subset
 
 The 8-programme I–F subset contains:
