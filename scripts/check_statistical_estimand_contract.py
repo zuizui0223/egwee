@@ -4,10 +4,12 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 MANUSCRIPT = ROOT / "manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md"
+SCALE_RESULT = ROOT / "manuscript/ESTIMAND_SCALE_SENSITIVITY_RESULT_2026-09-27.md"
 
 
 def main() -> None:
     text = MANUSCRIPT.read_text(encoding="utf-8")
+    scale = SCALE_RESULT.read_text(encoding="utf-8")
 
     required = (
         "d = (M_frag - M_ref) / s_p",
@@ -36,9 +38,13 @@ def main() -> None:
         "p = 0.01212432",
         "p = 0.18194353",
         "p_ML020=1.0",
-        "variable bottleneck position rather than a universal ordering of biological sensitivity",
+        "relative response amplitude and robustness classification are estimand-scale dependent",
+        "all **17/17 primary direct effects were negative on both oriented g and oriented lnRR**",
     ):
         assert token in text, token
+
+    for token in ("ML001", "p ≈ 0.605", "17/17", "scale-sensitive"):
+        assert token in scale, token
 
     # Guard against common overclaims that the clarified estimand explicitly rejects.
     forbidden = (
