@@ -151,3 +151,6 @@ All are publishable outcomes.
 The present Journal of Ecology manuscript remains an empirical discovery/synthesis paper. This future validation contract is not required to complete or submit it.
 
 The current manuscript may motivate the downstream-bottleneck hypothesis but must label the 3/3 direction census as descriptive and post hoc.
+
+For prospective synchronized field implementation, use
+`manuscript/FRESH_ECOLOGICAL_IF_SYNCHRONIZED_FIELD_MODULE_V1.md`.
