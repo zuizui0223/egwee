@@ -156,37 +156,49 @@ This gradient result provides independent evidence that strong layer discordance
 
 ## Discussion
 
-### Conditional state separation, not a universal syndrome
+### Fragmentation produces both coupled and decoupled ecological responses
 
-The primary synthesis separates two ecological statements that are easy to conflate. Fragmentation can affect multiple biological layers, yet those layers need not differ from one another in effect magnitude. Under the frozen paired-unit covariance reconstruction, the five-cluster Fisher test rejected complete exchangeability; the rejection also survived the simpler zero-covariance sensitivity. However, the result was materially dependent on ML001 *Serapias*, and it could not be certified from marginal effects alone when within-cluster covariance was treated as entirely unknown. Once *Serapias* was removed, no dependence regime examined supported the cross-system rejection.
+The central ecological result is not that fragmentation creates one universal syndrome. Instead, natural plant systems differ in how pollination, movement, reproduction and genetic responses remain coupled after habitat fragmentation. Under the frozen paired-unit analysis, the five direct clusters reject complete equality of within-system standardized responses, but that cross-system result is materially influenced by *Serapias lingua* and is not leave-one-system-out robust. The correct interpretation is therefore heterogeneity in response coupling, not a universal rule that biological processes must diverge.
 
-The defensible conclusion is therefore conditional state separation. The available systems do not support a universal single deterioration axis, because some clusters show strong layer discordance. They also do not support a robust universal state-separation syndrome, because the independent Chaco programme showed interaction and reproductive function declining together without detectable separation, the canonical pooled result failed the key leave-*Serapias*-out test, and the strongest full-corpus rejection uses paired dependence information that is absent from a marginal-only certification analysis.
+The replicated Chaco programme provides the clearest counterexample to universal decoupling. Across three dependent species, both pollen-tube support and fruit set declined in small fragments, and the programme-level test did not resolve an interaction–function difference. Fragmentation can therefore propagate through interaction and reproduction as a broadly coupled deterioration pathway.
 
-### Multi-layer deterioration is not state separation
+### A recurring motif: interaction quantity can persist while reproductive function fails
 
-ML020 is especially informative because it was not excluded when it failed to reproduce layer separation. In all three Chaco species, both pollen-tube support and fruit set were lower in small fragments than in continuous forest. If the analysis had been based only on whether each endpoint declined, the system would have appeared to support a generic multi-layer fragmentation syndrome. The within-system comparison shows something different: the data do not resolve an I–F difference under the frozen covariance-aware test.
+A different ecological geometry recurs in three independent natural programmes.
 
-This distinction matters for ecological interpretation. A system in which interaction and reproductive function fall together may require different mechanistic explanations and monitoring priorities from a system in which interaction, movement, reproduction and genetic state decouple. Endpoint-specific syntheses can establish average vulnerability; a cluster-first synthesis is needed to ask whether the response geometry itself is concordant or separated.
+In *Eucalyptus wandoo*, pollen-tube quantity increased along the response-free fragmentation gradient (Fisher z = +0.690) while seed production declined (z = -0.876). Their pairwise difference was +1.566 (p = 0.0008565). The source itself interprets this tension in terms of pollen quality or self-pollen rather than pollen quantity alone.
 
-### Why the influential-system result is scientifically useful
+In *Cardiopetalum calophyllum*, measured beetle-pollinator abundance changed comparatively weakly with decreasing fragment area (z = -0.245), whereas fruit set declined sharply (z = -1.684). The I–F difference was +1.439, with a 95% interval of [+0.483, +2.394] and p = 0.00316.
 
-The loss of significance after removing *Serapias* is not simply a weakness to be hidden by adding more studies until the p-value changes sign. It defines the current claim boundary. The five-cluster corpus is small and heterogeneous in which layer pairs are represented. Under those conditions, a statistically significant pooled result can coexist with substantial influence from one system. Reporting that influence explicitly prevents the synthesis from being presented as a general mechanistic law that the data do not support.
+The Kakamega *Acanthopale pubescens* panel shows the same qualitative mismatch on the direct Hedges-g scale: standardized pollinator occurrence was slightly higher in fragment sites (g = +0.349), while natural fruit set was much lower (g = -2.848). The I–F difference was +3.197, with a 95% interval of [+1.208, +5.186] and p = 0.00163.
 
-The result also reframes the next empirical question. Rather than asking whether fragmentation always separates biological states, future work should ask which system properties determine separation versus concordant decline. Candidate moderators include mating system, reproductive assurance, pollination mode, life history, fragmentation age and the distinction between standing adult genetic state and contemporary process measures. Those moderators should be tested only after sufficient independent same-frame systems accumulate.
+These programmes cannot be pooled into one confirmatory effect because they belong to different registered effect families and were not selected prospectively as a common test set. Their repeated qualitative geometry is nevertheless ecologically informative. Pollinator abundance, visitation occurrence or pollen quantity can remain stable or increase while realised reproductive function deteriorates. That pattern is consistent with downstream filters such as pollen quality, compatible-mate limitation, mating structure, self or heterospecific pollen, resource limitation or other post-visitation processes, although the present analyses do not identify those mechanisms causally.
 
-### Status of the original H2 and H3 extensions
+### The motif is not universal
 
-Adult-versus-offspring genetic differences remain biologically motivated, especially in *Spondias* and *Conospermum*, but the current admissible primary corpus does not support a sufficiently replicated cross-system cohort-lag test for a headline conclusion. In *Spondias*, adult–juvenile and adult–seed covariance-aware contrasts cross zero. Cohort/history lag therefore remains a secondary hypothesis rather than a current paper-level result.
+The direct Sevenello edge–core programme provides an important counterweight. Its three primary species panels showed no resolved interaction–function separation: I–F differences were +0.020, -0.460 and -0.405, all with intervals crossing zero, and the programme-level Bonferroni p-value was 1.0.
 
-Likewise, the original plan proposed C–F and I–F cross-system relationships to test whether movement or interaction responses predict reproductive function. The number of independent same-frame paired clusters is currently too small for a stable moderator model. Mechanistic examples remain useful interpretation anchors, but they do not yet support a fitted general compensation law.
+The Kakamega programme also shows strong within-region heterogeneity. *Acanthopale* exhibits pronounced interaction–function decoupling, whereas two *Acanthus* campaigns and *Heinsenia* show positive fragment-site responses in both interaction and reproduction with wide I–F intervals. Thus “fragmentation” is not itself a sufficient mechanistic descriptor. Plant mating biology, pollinator identity, life history, spatial configuration and year-specific ecological context may determine whether interaction and reproduction remain coupled.
 
-Neither extension is used to inflate the present conclusion.
+### Genetic responses add a slower ecological timescale, but a general lag is not yet established
 
-### Relationship to eco-genetic fragmentation theory
+Genetic responses are biologically important because standing adult variation can integrate older landscape conditions while offspring cohorts reflect more recent mating and recruitment. The present data are compatible with that possibility in some systems but do not establish it as a general rule.
 
-The synthesis was motivated by theoretical frameworks in which fragmentation can reorganize multiple ecological and genetic states. The present analysis does not validate any specific finite-model operator sequence in nature. Instead, it tests the more basic empirical premise that biological response layers need not behave as one state under fragmentation.
+In *Spondias purpurea*, adult observed heterozygosity is lower in fragmented sites (g = -0.941), juvenile heterozygosity is more negative (g = -3.181), and seed heterozygosity is -1.118. However, the covariance-aware adult–offspring contrasts are too imprecise to support a directional within-system cohort-lag conclusion. Across the preregistered five-programme adult–offspring family, the mean adult-minus-offspring response contrast is approximately +0.129 and does not resolve a common directional cohort lag.
 
-The natural evidence supports that premise conditionally: separated and concordant regimes both occur. That result is more informative for theory than an unconditional confirmation would be, because it implies that any useful mechanistic framework must explain not only why states can separate, but also why they sometimes remain concordant.
+This negative cross-system result is useful ecologically: temporal memory in standing genetic variation should be treated as a system-dependent hypothesis rather than assumed whenever contemporary ecological processes respond faster than adult genetics.
+
+### Implications for fragmentation monitoring
+
+The results caution against using one biological layer as a universal proxy for whole-system condition. Pollinator abundance or pollen receipt can fail to track reproductive output; adult genetic diversity can lag contemporary mating processes; and in other systems interaction and reproduction decline together. Monitoring programmes that measure only one layer may therefore miss either hidden functional loss or compensatory persistence elsewhere in the life cycle.
+
+A stronger ecological design is to measure at least one contemporary interaction or movement process together with reproductive function, and, where feasible, adult and offspring genetic responses on the same populations and time window. The aim is not to maximize the number of indicators but to identify where along the life cycle fragmentation effects remain coupled and where the mapping between processes breaks down.
+
+The current evidence points to a next testable question: which mating systems, pollination modes, life histories, fragmentation ages and demographic contexts predict coupled decline versus quantity–function decoupling? EGWEE does not yet have enough independent same-frame programmes for stable moderator inference, so these remain explicitly prospective ecological hypotheses.
+
+### Ecological scope
+
+EGWEE is an empirical plant-fragmentation study. Its inferential targets are natural response coupling, process mismatch and ecological heterogeneity across systems. The analysis does not test a finite simulator, operator sequence, warning rule or reserve quantity. Theory can be used later to explain the observed ecological regimes, but it does not define study admission, effect construction, stopping rules or the biological conclusion.
 
 ### Limitations
 
@@ -204,9 +216,11 @@ Finally, the strong *Eucalyptus wandoo* gradient result is deliberately kept out
 
 ## Conclusion
 
-Habitat fragmentation affects multiple biological layers, but the available natural systems do not support a single universal response geometry. Under the source-supported paired covariance reconstruction, the pooled direct-effect synthesis rejects the global null of layer exchangeability, and that rejection also survives a zero-covariance sensitivity. It does not survive removal of the influential *Serapias* system and cannot be certified from marginal effects alone when within-cluster covariance is left entirely unknown. The empirical result is therefore conditional state separation, not a universal fragmentation syndrome.
+Habitat fragmentation does not map onto one universal ecological response trajectory. Across the audited natural plant systems, pollination, movement, reproduction and genetic responses can either deteriorate together or become decoupled. The five-cluster direct synthesis contains evidence against complete equality of within-system standardized responses, but that cross-system signal is materially influenced by *Serapias lingua* and is not leave-one-system-out robust.
 
-The current manuscript may claim five admitted direct same-effect-family programme/study clusters, a canonical paired-covariance Fisher rejection at `p = 0.01212432`, a zero-covariance full sensitivity at `p=0.03860161`, a covariance-free certification bound of `p=0.28061178`, loss of the canonical rejection after omitting ML001 at `p = 0.18194353`, an independent ML020 concordant-decline result with `p_ML020=1.0`, and separate gradient discordance. It may not claim covariance-free global rejection, robust universal state separation, a universal layer ordering, a confirmed cohort lag, a general compensation mechanism, direct validation of a specific finite eco-genetic model, or that a sixth cluster should be sought merely to restore Serapias-independent significance.
+The most ecologically informative repeated motif is narrower and more concrete: interaction quantity can persist while reproductive function declines. This geometry appears independently in *Eucalyptus wandoo*, *Cardiopetalum calophyllum* and the Kakamega *Acanthopale pubescens* panel, while the Chaco and Sevenello programmes demonstrate that interaction and reproductive responses can also remain broadly coupled or unresolved. The evidence therefore supports response-regime heterogeneity rather than one universal fragmentation syndrome.
+
+The manuscript may claim five admitted direct programme/study clusters, a canonical paired-covariance Fisher result of `p = 0.01212432`, loss of that rejection after omitting ML001 (`p = 0.18194353`), an independent Chaco coupled-decline programme (`p_ML020 = 1.0`), separate gradient evidence of strong interaction–function decoupling, and a search-complete Phase-2 record in which direct I–F and C–F coverage remain below their five-programme pooled-analysis gates. It may not claim a universal process ordering, a confirmed cohort lag, a general causal mechanism, or that pollinator abundance, reproductive output or genetic diversity alone is a sufficient proxy for the whole fragmented-system response.
 
 ## References
 
