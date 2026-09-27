@@ -62,6 +62,7 @@ Authorised manuscript-level ecological claims:
 - *Eucalyptus wandoo*, *Cardiopetalum calophyllum* and the Kakamega *Acanthopale pubescens* panel each show a quantity–function mismatch in which interaction/pollen quantity is maintained or changes less strongly while reproductive function declines;
 - the repeated quantity–function geometry is a descriptive ecological motif across heterogeneous registered effect families, not a pooled universal effect;
 - the complete registered I–F census contains 8 programmes; 7 are pair-testable, 3 resolve a mismatch, all 3 are F-more-negative-than-I, 4 are unresolved, and 1 is not pair-testable;
+- all 8 registered I endpoints quantify interaction/pollen quantity; none directly quantify compatible mating quality, realised paternity or effective pollen-donor diversity on the same I–F frame;
 - the current evidence does not resolve a common directional adult-versus-offspring genetic lag.
 
 Not authorised:
@@ -71,6 +72,7 @@ Not authorised:
 - a general causal explanation for quantity–function decoupling;
 - a confirmed cross-system cohort/history lag;
 - treating pollinator abundance, reproductive output or genetic diversity alone as a sufficient proxy for whole-system condition;
+- a universal claim that effective mating quality is the missing mechanism in every fragmented system;
 - direct empirical validation of finite EGWE/NEE operators;
 - searching for additional systems merely to restore a preferred p-value or force a pair family to K=5.
 
