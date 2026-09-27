@@ -1,4 +1,7 @@
 # Ecological bottleneck-position audit — movement/mating support versus reproductive function
+> **Status after the estimand-scale audit (2026-09-27): exploratory registered-scale record only.**
+> Hedges-g and oriented-lnRR sensitivities change relative response ordering and robustness classification. This document is retained for provenance and hypothesis generation, but its bottleneck/separation classifications are not scale-invariant submission-headline evidence. See `manuscript/ESTIMAND_SCALE_SENSITIVITY_RESULT_2026-09-27.md`.
+
 
 ## Purpose
 
