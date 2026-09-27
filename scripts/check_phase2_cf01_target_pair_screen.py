@@ -1231,7 +1231,7 @@ def main() -> None:
     assert "CFTQ0263" in fulltext
     brun = fulltext["CFTQ0263"]
     assert brun["programme_identity"] == "P2_CF01_BRUNSVIGIA_RADULOSA_2005"
-    assert brun["quantitative_gate_status"] == "pending_fragment_area_or_isolation_estimand_and_common_population_IF_frame"
+    assert brun["quantitative_gate_status"] == "blocked_fragment_area_or_isolation_common_population_IF_vectors_not_publicly_recoverable"
     assert "population/site" in brun["independent_unit"]
     assert int(brun["pair_programme_increment"]) == 0
     assert brun["effect_calculation_opened"] == "no"
