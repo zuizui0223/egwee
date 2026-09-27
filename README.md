@@ -47,7 +47,7 @@ Chaco and Sevenello provide necessary counterevidence: interaction and reproduct
 
 The unified 12-programme census provides the denominator for the paper-level conclusion. The three resolved interaction–function mismatches are downstream F-dominant, whereas *Serapias* provides a resolved upstream movement/connectivity-dominant mismatch. Seven additional pair-testable programmes remain unresolved and Pritchard is not pair-testable.
 
-Thus the supported ecological statement is not “reproduction is always the most sensitive layer” or “connectivity fails first.” It is that **fragmentation can shift the position of the strongest response among stages of the reproductive life cycle**.
+Thus the supported ecological statement is not “reproduction is always the most sensitive layer” or “connectivity fails first.” The current corpus provides **evidence that fragmentation can shift the position of the strongest response among stages of the reproductive life cycle**, but the resolved upstream direction is ML001 *Serapias*-dependent and is not leave-one-programme-out robust.
 
 The fresh Q → E → F programme is designed to localize that position prospectively rather than infer it from another collection of upstream proxy counts.
 
@@ -124,6 +124,7 @@ The canonical current-state documents are:
 - [`manuscript/ECOLOGICAL_IF_MEASUREMENT_GAP_2026-09-27.md`](manuscript/ECOLOGICAL_IF_MEASUREMENT_GAP_2026-09-27.md) — complete 8/8 quantity-level versus 0/8 effective-mating measurement audit.
 - [`manuscript/ECOLOGICAL_BOTTLENECK_POSITION_AUDIT_2026-09-27.md`](manuscript/ECOLOGICAL_BOTTLENECK_POSITION_AUDIT_2026-09-27.md) — secondary 4-programme audit showing that bottleneck position is not fixed; current auxiliary programmes are burned for fresh H2 validation.
 - [`manuscript/ECOLOGICAL_PROCESS_FUNCTION_CENSUS_2026-09-27.md`](manuscript/ECOLOGICAL_PROCESS_FUNCTION_CENSUS_2026-09-27.md) — canonical unified 12-programme denominator: 11 testable, 4 resolved (3 downstream F-dominant, 1 upstream process-dominant), 7 unresolved, 1 not testable.
+- [`manuscript/ECOLOGICAL_BOTTLENECK_DIRECTION_INFLUENCE_2026-09-27.md`](manuscript/ECOLOGICAL_BOTTLENECK_DIRECTION_INFLUENCE_2026-09-27.md) — leave-one-programme-out claim ceiling: the upstream resolved direction is ML001-dependent.
 - [`manuscript/ECOLOGICAL_QUANTITY_FUNCTION_MECHANISM_AUDIT_2026-09-27.md`](manuscript/ECOLOGICAL_QUANTITY_FUNCTION_MECHANISM_AUDIT_2026-09-27.md) — evidence-graded mechanism audit separating source-supported pollen-quality/mating constraints from unresolved mechanism.
 - [`manuscript/ECOLOGICAL_NEAREST_NEIGHBOR_NOVELTY_AUDIT_2026-09-27.md`](manuscript/ECOLOGICAL_NEAREST_NEIGHBOR_NOVELTY_AUDIT_2026-09-27.md) — novelty firewall: prior syntheses establish average pollination–reproduction coupling; EGWEE contributes paired within-programme response geometry and the complete direction census.
 - [`manuscript/FRESH_ECOLOGICAL_IF_VALIDATION_PREREGISTRATION_2026-09-27.md`](manuscript/FRESH_ECOLOGICAL_IF_VALIDATION_PREREGISTRATION_2026-09-27.md) — future-only validation of the downstream reproductive-bottleneck hypothesis; all current eight I–F programmes are burned discovery systems.
