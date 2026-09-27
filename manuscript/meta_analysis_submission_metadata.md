@@ -2,10 +2,10 @@
 
 ## Manuscript identity
 
-- **Working title:** Testing whether fragmentation acts as a single biological state: a cluster-first synthesis of plant interaction, reproduction and genetic responses
+- **Working title:** Coupling and decoupling of plant interaction, reproduction and genetic responses under habitat fragmentation: a cross-system synthesis
 - **Source manuscript:** `manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md`
 - **Protocol:** `manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md`
-- **Submission state:** `results_bearing_conditional_state_separation`
+- **Submission state:** `results_bearing_ecological_response_coupling_synthesis`
 - **Article type:** Research Article / empirical research synthesis
 - **Primary target journal:** **Journal of Ecology**
 - **Fallback venues:** Ecology (Article or Concepts & Synthesis, if reframed for broader ecological generality); Oikos (Meta-analysis)
@@ -25,11 +25,18 @@ Current Journal of Ecology shaping constraints:
 
 The manuscript abstract and keywords have been reformatted to these requirements, and the main text has been converted to Introduction, Materials and Methods, Results and Discussion. Automated word-count and submission-shape checks are used before the remaining figure and anonymous-submission package work.
 
-## Paper role relative to NEE
+## Ecological research position
 
-- NEE Q1 is theoretical/finite-model state separation under fragmentation.
-- NEE Q2 identifies hidden cross-layer organization, life-cycle operators and continuous local reserve as determinants of divergent futures in the declared closure.
-- EGWEE is the empirical synthesis: it tests whether natural flowering-plant systems show exchangeable or separated cross-layer fragmentation responses and whether that pattern is robust across independent systems.
+EGWEE is a plant-fragmentation ecology synthesis. Its primary objects are natural biological processes and their coupling across fragmented systems:
+
+- pollinator interaction / pollen receipt;
+- movement and mating connectivity;
+- reproductive function;
+- adult and offspring genetic responses.
+
+The paper asks whether these processes remain coupled under fragmentation or become decoupled because they operate over different spatial scales, demographic pathways and response times.
+
+Finite-model NEE/EGWE work is not the framing, estimand, admission rule or inferential target of this paper. It may be cited only as downstream comparative theory where useful.
 
 ## Current quantitative state
 
@@ -66,7 +73,7 @@ Not authorised:
 
 ## Completion gates
 
-- [x] biological response-layer question aligned to NEE state separation;
+- [x] ecological response-coupling question defined independently from theory;
 - [x] primary and secondary effect-size streams declared;
 - [x] response-layer coding declared;
 - [x] dependence/duplicate rules declared;
@@ -85,4 +92,4 @@ Not authorised:
 - [ ] double-anonymous submission package checked;
 - [ ] author/declaration metadata approved.
 
-Secondary cohort-lag and compensation analyses remain optional future extensions only if independently justified coverage becomes sufficient; they are not submission blockers for the present conditional-state-separation paper.
+Secondary cohort-lag and interaction/function-coupling analyses remain optional future ecological extensions only if independently justified coverage becomes sufficient; they are not submission blockers for the present cross-system fragmentation synthesis.
