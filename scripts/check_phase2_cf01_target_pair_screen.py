@@ -1363,7 +1363,7 @@ def main() -> None:
     assert "CFTQ0329" in fulltext
     angadenia = fulltext["CFTQ0329"]
     assert angadenia["programme_identity"] == "P2_CF01_ANGADENIA_2015"
-    assert angadenia["quantitative_gate_status"] == "pending_dissertation_chapter_common_fragmentation_IF_frame"
+    assert angadenia["quantitative_gate_status"] == "close_no_common_same_remnant_fragmentation_IF_frame_across_dissertation_experiments"
     assert int(angadenia["pair_programme_increment"]) == 0
     assert angadenia["effect_calculation_opened"] == "no"
 
@@ -1447,7 +1447,7 @@ def main() -> None:
     assert "CFTQ0356" in fulltext
     buerger = fulltext["CFTQ0356"]
     assert buerger["programme_identity"] == "P2_CF01_BUERGER_2004"
-    assert buerger["quantitative_gate_status"] == "pending_chapter_identity_site_overlap_landscape_radius_and_common_IF_frame"
+    assert buerger["quantitative_gate_status"] == "close_no_verified_common_landscape_site_frame_across_bee_and_rapeseed_thesis_studies"
     assert int(buerger["pair_programme_increment"]) == 0
     assert buerger["effect_calculation_opened"] == "no"
 
