@@ -1,98 +1,118 @@
 {
-  "schema_version": 3,
+  "schema_version": 4,
   "frozen_on": "2026-09-27",
-  "scientific_base_commit": "90850a69f10052145ee8b2ae3509f4c4b0cf6c1a",
+  "freeze_kind": "scale_aware_submission_freeze",
+  "scientific_base_commit": "5046c7f2bd793b36303ea85f887b4dec25e98d70",
+  "submission_state": "scale_aware_revision_complete_admin_pending",
   "manuscript": {
     "path": "manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md",
-    "blob_sha": "ca1eee8b5701da83db9a6352868568b6c66f00a4",
-    "title": "Evidence for variable life-cycle bottleneck positions under habitat fragmentation: a cross-system synthesis of plant interaction, mating and reproduction",
+    "blob_sha": "2112cc282d6b4b4826960b14784bf08408d2eb5e",
+    "title": "Habitat fragmentation across plant reproductive life cycles: directional consistency and scale-sensitive response amplitudes",
     "target_journal": "Journal of Ecology",
-    "main_text_words_at_freeze": 7031,
-    "abstract_words_at_freeze": 313
+    "main_text_words_at_freeze": 6816,
+    "abstract_words_at_freeze": 263
   },
-  "primary_direct": {
+  "historical_primary": {
+    "estimand": "Hedges_g",
     "independent_clusters": 5,
     "marginal_effects": 17,
-    "canonical_p": 0.01212432,
-    "omit_ML001_p": 0.18194353,
-    "zero_covariance_p": 0.03860161,
-    "covariance_free_bound_p": 0.28061178
+    "full_fisher_p": 0.01212432,
+    "omit_ML001_p": 0.18194353
   },
-  "phase2": {
-    "target_pair_candidates_screened": 360,
-    "target_pair_candidates_total": 360,
-    "pending_screens": 0,
-    "direct_IF_programmes": 3,
-    "direct_IF_gate": 5,
-    "direct_CF_programmes": 2,
-    "direct_CF_gate": 5,
-    "gradient_programmes": 6,
-    "gradient_primary_effects": 19
-  },
-  "ecological_IF_census": {
-    "path": "evidence/meta_extraction/ecological_if_programme_census_v1.csv",
-    "blob_sha": "53eb2b609abddad978cce1ff139f96143e4da5bb",
-    "independent_programmes": 8,
-    "pair_testable": 7,
-    "resolved": 3,
-    "unresolved": 4,
-    "not_testable": 1,
-    "resolved_F_more_negative_than_I": 3,
-    "resolved_I_more_negative_than_F": 0,
-    "quantity_only_I": 8,
-    "effective_mating_quality_I": 0
-  },
-  "novelty_boundary": {
-    "established_before_this_paper": [
-      "fragmentation often reduces pollination and reproductive success",
-      "pollination and reproductive responses can be positively associated across species/studies",
-      "pollen quantity and pollen quality/compatibility are biologically distinct"
+  "estimand_scale_audit": {
+    "amendment_path": "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-27_ESTIMAND_SCALE.md",
+    "amendment_blob_sha": "e6a5d20376cc54ef07ad5b53522e0c723d748362",
+    "result_path": "manuscript/ESTIMAND_SCALE_SENSITIVITY_RESULT_2026-09-27.md",
+    "result_blob_sha": "4730caf7010a75c64a5a0ee8ec3b2245ab677f2c",
+    "endpoint_table": "evidence/meta_extraction/estimand_scale_sensitivity_v1.csv",
+    "endpoint_table_blob_sha": "f1f8e84ac199e9e7afd753ed006bc317021415fc",
+    "cluster_summary": "evidence/meta_extraction/estimand_scale_cluster_summary_v1.csv",
+    "cluster_summary_blob_sha": "111531ecf3c24195fdadc671eeed517eed064c30",
+    "fisher_summary": "evidence/meta_extraction/estimand_scale_fisher_sensitivity_v1.csv",
+    "fisher_summary_blob_sha": "7c5588860f1d4458984632549234b7f480adf176",
+    "checker": "scripts/check_estimand_scale_sensitivity.py",
+    "lnRR_existing_rho_full_p": 1.1786949416822378e-10,
+    "lnRR_existing_rho_omit_ML001_p": 0.000029182238842850177,
+    "lnRR_zero_cov_full_p": 1.7227795177175651e-9,
+    "lnRR_zero_cov_omit_ML001_p": 0.004344181486474443,
+    "lnRR_cauchy_full_p": 0.00009946000181275223,
+    "lnRR_cauchy_omit_ML001_p": 0.11137892442058767,
+    "ML001_CF_lnRR_p_existing_rho": 0.6048817291933912,
+    "ML001_g_abs_order": [
+      "G",
+      "C",
+      "F"
     ],
-    "contribution": [
-      "paired within-programme fragmentation response geometry with shared effect units and dependence",
-      "complete 12-programme paired process-function bottleneck census retaining resolved unresolved and not-testable programmes",
-      "evidence-gap audit showing quantity-level I measurements dominate and effective-mating I is absent",
-      "prospective bottleneck-localization design using Q-E-F rather than assuming one universally sensitive stage"
+    "ML001_lnRR_abs_order": [
+      "C",
+      "F",
+      "G"
     ]
   },
-  "current_claim_ceiling": [
-    "the complete paired process-function census contains 12 independent programmes, 11 pair-testable, 4 resolved, 7 unresolved and 1 not-testable",
-    "the four resolved process-function mismatches include 3 downstream F-dominant and 1 upstream process-dominant programme",
-    "the two-direction resolved bottleneck pattern is not leave-one-programme-out robust because omitting ML001 Serapias removes the only upstream resolved direction",
-    "the five-cluster direct rejection is not Serapias-independent",
-    "the 8-programme I-F subset contains 3 resolved mismatches and all 3 are F-dominant",
-    "the 3/3 I-F directional pattern and 3:1 unified resolved split are descriptive and post hoc, not sign tests or prevalence estimates",
-    "all eight current I endpoints are quantity-level and none directly measures effective mating quality on the same I-F frame",
-    "the audited corpus provides evidence for more than one bottleneck position, while independent recurrence of the upstream direction remains unestablished"
+  "scale_stable_result": {
+    "primary_direct_effects": 17,
+    "negative_on_oriented_g": 17,
+    "negative_on_oriented_lnRR": 17,
+    "positive_on_oriented_g": 0,
+    "positive_on_oriented_lnRR": 0,
+    "interpretation": "common direction of fragmentation-associated deterioration; no scale-independent magnitude ordering"
+  },
+  "separate_gradient_evidence": {
+    "wandoo_sign_discordance": true,
+    "interaction_sign": "positive",
+    "reproductive_function_sign": "negative",
+    "pooled_with_primary": false
+  },
+  "exploratory_ecology": {
+    "status": "post_hoc_hypothesis_generating",
+    "hypotheses": [
+      "mating/connectivity effects may be buffered before downstream performance",
+      "genetic response amplitude may differ among adult juvenile and seed cohorts",
+      "fragmentation effects may be attenuated amplified or delayed across biological transitions"
+    ],
+    "counterexample": "Chaco does not support a universal attenuation gradient"
+  },
+  "former_bottleneck_census": {
+    "status": "supplementary_exploratory_registered_scale_only",
+    "table": "manuscript/tables/table_s4_process_function_census.csv",
+    "scale_invariant_claim_permitted": false
+  },
+  "figure_table_package": {
+    "figure1": "manuscript/figures/figure1_primary_evidence_geometry.svg",
+    "figure2": "manuscript/figures/figure2_leave_one_out_influence.svg",
+    "figure2_role": "historical_Hedges_g_primary_only",
+    "figure3": "manuscript/figures/figure3_ecological_response_regimes.svg",
+    "figure3_role": "registered_scale_examples_unresolved_not_equality",
+    "figure4": "manuscript/figures/figure4_estimand_scale_sensitivity.svg",
+    "figure4_role": "main_estimand_scale_sensitivity",
+    "table1": "manuscript/tables/table1_primary_cluster_summary.csv",
+    "table2": "manuscript/tables/table2_estimand_scale_sensitivity.csv",
+    "supplementary_table_s4": "manuscript/tables/table_s4_process_function_census.csv"
+  },
+  "claim_ceiling": [
+    "historical Hedges-g primary analysis is reproducible",
+    "leave-one-Serapias robustness classification is estimand-scale and dependence sensitive",
+    "all 17 primary direct effects are negative on both oriented Hedges g and oriented lnRR",
+    "primary direct corpus supports directional consistency of deterioration but not scale-independent magnitude separation",
+    "Eucalyptus wandoo gradient supplies separate qualitative sign discordance",
+    "filtering buffering and cohort-lag patterns are exploratory only"
   ],
   "not_authorized": [
-    "universal state separation",
-    "universal F-dominant I-F law",
-    "one universal life-cycle bottleneck position",
-    "common causal mechanism across resolved programmes",
-    "significance testing of the burned 3/3 I-F direction pattern",
-    "cross-family pooling of Hedges-g and Fisher-z effects",
-    "direct validation of finite EGWE or NEE operators",
-    "claiming that upstream and downstream resolved bottleneck directions are both leave-one-programme-out robust or recurrent across independent systems"
+    "scale-invariant global layer-separation syndrome",
+    "scale-invariant variable bottleneck ordering",
+    "universal attenuation buffering or compensation pathway",
+    "confirmed cohort lag",
+    "ML020 p equals evidence of true equality",
+    "lnRR is uniquely correct effect scale",
+    "former 12-programme bottleneck census is confirmatory scale-invariant evidence",
+    "direct empirical validation of EGWE or NEE theory"
   ],
-  "fresh_validation": {
-    "preregistration": "manuscript/FRESH_ECOLOGICAL_IF_VALIDATION_PREREGISTRATION_2026-09-27.md",
-    "field_module": "manuscript/FRESH_ECOLOGICAL_IF_SYNCHRONIZED_FIELD_MODULE_V1.md",
-    "moderator_schema": "manuscript/fresh_ecological_if_moderator_schema_v1.csv",
-    "current_IF_programmes_burned": 8,
-    "min_fresh_programmes_per_effect_family": 5,
-    "amendment": "manuscript/FRESH_ECOLOGICAL_IF_VALIDATION_AMENDMENT_2026-09-27_BOTTLENECK_LOCALIZATION.md",
-    "h2_v2_primary_contrast": "Delta_QE=Q-E",
-    "h2_v2_primary_direction": "Delta_QE>0",
-    "burned_auxiliary_process_function_programmes": 4
-  },
-  "automated_readiness": {
-    "validation_mode": "self_validating_current_ci",
-    "last_pre_v3_green_full_contract_run_id": 36308420940,
-    "submission_shape": true,
-    "double_anonymous": true,
-    "figures_tables_reproduced": true,
-    "anonymous_review_package_reproduced": true
+  "validation": {
+    "mode": "self_validating_current_full_contract",
+    "scale_checker_required": true,
+    "double_anonymous_required": true,
+    "figure_table_reproduction_required": true,
+    "anonymous_review_package_required": true
   },
   "remaining_human_blockers": [
     "final author list",
@@ -102,56 +122,5 @@
     "funding acknowledgements and permits if applicable",
     "conflict of interest declaration",
     "final all-author approval"
-  ],
-  "bottleneck_position_audit": {
-    "path": "evidence/meta_extraction/ecological_mating_function_programme_census_v1.csv",
-    "blob_sha": "778be674e51d9c82ef59e457a0ff7dc4ddafd266",
-    "independent_programmes": 4,
-    "resolved": 1,
-    "unresolved": 3,
-    "resolved_process_more_negative_than_F": 1,
-    "resolved_F_more_negative_than_process": 0,
-    "point_process_more_negative_than_F": 3,
-    "point_F_more_negative_than_process": 1,
-    "resolved_example": "ML001 Serapias lingua"
-  },
-  "figures_tables": {
-    "main_figures": 4,
-    "main_tables": 2,
-    "figure4": "manuscript/figures/figure4_lifecycle_bottleneck_synthesis.svg",
-    "table2": "manuscript/tables/table2_process_function_census.csv"
-  },
-  "unified_process_function_census": {
-    "path": "evidence/meta_extraction/ecological_process_function_programme_census_v1.csv",
-    "blob_sha": "698e0ed8c0ce6cf46872f68ce559550e410de183",
-    "independent_programmes": 12,
-    "pair_testable": 11,
-    "resolved": 4,
-    "unresolved": 7,
-    "not_testable": 1,
-    "resolved_downstream_F_dominant": 3,
-    "resolved_upstream_process_dominant": 1,
-    "interaction_quantity_programmes": 8,
-    "movement_or_mating_support_programmes": 4
-  },
-  "canonical_process_function_census_note": {
-    "path": "manuscript/ECOLOGICAL_PROCESS_FUNCTION_CENSUS_2026-09-27.md",
-    "blob_sha": "c286952a0a4a0f9bec67b21f0e6b74afb97aba9f"
-  },
-  "reviewer_risk_audit": {
-    "path": "manuscript/REVIEWER_RISK_AUDIT_2026-09-27.md",
-    "blob_sha": "9fb72b9f34a1bab59acbe7a863e1c46cf8ab514a"
-  },
-  "bottleneck_direction_influence": {
-    "path": "manuscript/ECOLOGICAL_BOTTLENECK_DIRECTION_INFLUENCE_2026-09-27.md",
-    "checker": "scripts/check_ecological_bottleneck_direction_influence.py",
-    "direction_diversity_lost_only_if_drop": "ML001",
-    "resolved_without_ML001": 3,
-    "remaining_direction_without_ML001": "downstream_F_only",
-    "blob_sha": "73d41cd04064c877f357f8fc8ab79dbac716d0f3"
-  },
-  "novelty_audit": {
-    "path": "manuscript/ECOLOGICAL_NEAREST_NEIGHBOR_NOVELTY_AUDIT_2026-09-27.md",
-    "blob_sha": "3cfd9a28831292517bd92321fdd23c108f18b933"
-  }
+  ]
 }
