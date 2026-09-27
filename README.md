@@ -1,13 +1,23 @@
-## Submission hold — estimand scale
+## Scale-aware revision complete — validation / administration pending
 
-The Journal of Ecology package is **reopened for revision**. The historical Hedges-g result is fully reproducible, but the biological interpretation of layer separation and leave-one-Serapias robustness changes on an oriented lnRR sensitivity scale.
+The mandatory Hedges-g versus oriented-lnRR estimand audit has now been integrated into the manuscript, Figure 4, Table 2, claim ceiling and scale-aware submission freeze v4.
 
-Canonical audit:
+Current scientific status:
+
+- the historical Hedges-g primary analysis remains exactly reproducible;
+- its relative-magnitude / leave-one-*Serapias* interpretation is not scale-invariant;
+- all 17/17 primary direct effects remain negative on both oriented g and oriented lnRR;
+- old variable-bottleneck classifications are retained only as exploratory registered-scale audits;
+- filtering, buffering and cohort-lag patterns are post hoc hypotheses for prospective validation.
+
+Submission remains conditional on the current full contract being green and the remaining human administrative fields being approved.
+
+Canonical scale audit:
 - [`manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-27_ESTIMAND_SCALE.md`](manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-27_ESTIMAND_SCALE.md)
 - [`manuscript/ESTIMAND_SCALE_SENSITIVITY_RESULT_2026-09-27.md`](manuscript/ESTIMAND_SCALE_SENSITIVITY_RESULT_2026-09-27.md)
 - [`evidence/meta_extraction/estimand_scale_sensitivity_v1.csv`](evidence/meta_extraction/estimand_scale_sensitivity_v1.csv)
-
-The primary direct stream is directionally uniform (17/17 oriented effects negative), while relative response amplitude and cluster-separation inference are scale-sensitive. Existing variable-bottleneck classifications are therefore hypothesis-generating until they survive scale-aware reanalysis.
+- [`evidence/meta_extraction/estimand_scale_cluster_summary_v1.csv`](evidence/meta_extraction/estimand_scale_cluster_summary_v1.csv)
+- [`evidence/meta_extraction/estimand_scale_fisher_sensitivity_v1.csv`](evidence/meta_extraction/estimand_scale_fisher_sensitivity_v1.csv)
 
 # EGWEE — empirical multilayer fragmentation synthesis
 
@@ -17,10 +27,10 @@ This repository is the authoritative development home for an **independent natur
 
 The active paper is a cluster-first empirical synthesis. Its questions are defined from natural-system exposures, effect units and biological endpoints rather than from a finite theoretical model:
 
-1. **Do pollination, movement, reproduction and genetic responses remain coupled under fragmentation, or do they become decoupled within natural plant systems?**
-2. **Where along the reproductive life cycle does fragmentation create its dominant bottleneck, and which life histories, pollination modes, fragmentation histories or demographic contexts shift that bottleneck among interaction, mating/connectivity and reproductive function?**
+1. **Which features of cross-process fragmentation responses are robust to effect-size representation: response direction, relative amplitude, or neither?**
+2. **Do the recovered systems suggest filtering, buffering or cohort-lag patterns across mating, reproduction and genetic states that deserve prospective ecological tests?**
 
-EGWEE therefore studies the ecology of fragmentation-response coupling: whether pollination, movement, reproduction and genetic responses track one another or become decoupled across natural plant systems. Theory may motivate interpretation, but it is not an admission criterion, estimator, stopping rule or source of empirical endpoint values.
+EGWEE therefore studies how fragmentation responses propagate across plant interaction, mating, reproductive and genetic processes while explicitly separating scale-stable direction from scale-dependent response amplitude. Theory may motivate downstream interpretation, but it is not an admission criterion, estimator, stopping rule or source of empirical endpoint values.
 
 The active manuscript spine is [`manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md`](manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md). The locked protocol is [`manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md`](manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md).
 
