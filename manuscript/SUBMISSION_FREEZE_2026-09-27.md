@@ -1,105 +1,119 @@
-# EGWEE ecological submission freeze — 2026-09-27
+# EGWEE scale-aware submission freeze — 2026-09-27
 
-## Freeze base
+## Status
 
-`90850a69f10052145ee8b2ae3509f4c4b0cf6c1a` is the scientific base for the current Journal of Ecology package.
+This freeze supersedes the earlier variable-bottleneck submission freeze.
 
-Future changes should be treated as amendments to this state rather than silently redefining the paper.
+The current Journal of Ecology package is **scale-aware**. The registered Hedges-g analysis remains reproducible, but no biological claim about relative response amplitude, layer separation, bottleneck position or leave-one-cluster robustness is treated as scale-invariant unless it survives the mandatory estimand-scale audit.
 
-## Ecological identity
+## Scientific base
 
-The paper is an **empirical plant-fragmentation ecology synthesis**. Its primary conclusion is that fragmentation does not impose one fixed life-cycle bottleneck: interaction quantity, movement/effective mating, reproductive function and genetic responses can remain coupled or decouple at different stages across natural systems.
+`5046c7f2bd793b36303ea85f887b4dec25e98d70` is the scale-aware scientific/package base immediately before this freeze update.
 
-It is not the empirical-validation arm of EGWE/NEE theory.
+## Manuscript identity
 
-## Frozen ecological result
+**Habitat fragmentation across plant reproductive life cycles: directional consistency and scale-sensitive response amplitudes**
 
-- primary direct synthesis: 5 independent clusters / 17 marginal Hedges-g effects;
-- canonical Fisher p = 0.01212432;
-- omit-ML001 *Serapias* p = 0.18194353;
-- direct global rejection is therefore not Serapias-independent;
-- Phase-2 target-pair search: 360/360 screened, pending = 0;
-- direct I-F coverage = 3/5 and search-complete;
-- direct C-F coverage = 2/5 and search-complete;
-- gradient/generalisation registry = 6 programmes / 19 Fisher-z effects.
+Target: *Journal of Ecology* Research Article.
 
-## Complete paired process–function census
+## Historical registered primary analysis
 
-The canonical paired process–function denominator is **12 independent programmes**:
+- five independent direct programme/study clusters;
+- 17 primary marginal Hedges-g effects;
+- full Hedges-g Fisher p = **0.01212432**;
+- omit-ML001 *Serapias* Hedges-g Fisher p = **0.18194353**.
 
-- 8 interaction/pollen-quantity–F programmes;
-- 4 disjoint movement/connectivity or mating-support–F programmes.
+These values remain part of the paper for protocol fidelity and reproducibility.
 
-Across all 12:
+## Mandatory estimand-scale sensitivity
 
-- pair-testable: **11**;
-- resolved process–F mismatch: **4**;
-- unresolved: **7**;
-- not testable: **1**;
-- resolved downstream F-dominant: **3**;
-- resolved upstream process-dominant: **1**.
+Using oriented lnRR from the same positive fragmented/reference summaries:
 
-Thus both directions of resolved mismatch occur in the complete audited denominator. The 3:1 split is descriptive and is not converted into a sign test, common effect or prevalence estimate.
+| estimand / dependence | full Fisher p | omit ML001 p |
+|---|---:|---:|
+| Hedges g / registered rho proxy | 0.01212432 | 0.18194353 |
+| lnRR / carried endpoint-correlation proxy | 1.1787e-10 | 2.9182e-05 |
+| lnRR / zero covariance | 1.7228e-09 | 0.00434418 |
+| lnRR / Cauchy maximum-contrast-variance boundary | 9.9460e-05 | 0.111379 |
 
-This two-direction result is **not leave-one-programme-out robust**. Omitting ML001 *Serapias lingua* removes the only resolved upstream process-dominant programme and leaves three resolved downstream F-dominant programmes. The current evidence therefore supports more than one bottleneck position in the audited corpus but does not yet establish independent recurrence of upstream bottlenecks.
+The correct inference is **not** that lnRR proves robust separation. The leave-one-*Serapias* classification itself depends on estimand scale and dependence assumptions.
 
-### I-F subset
+## Serapias scale reversal
 
-Within the unified denominator, the 8-programme I–F subset contains:
+- Hedges-g absolute ordering: `G > C > F`;
+- oriented-lnRR absolute ordering: `C > F > G`;
+- Hedges-g C–F difference is resolved;
+- lnRR C–F difference under the carried endpoint-correlation proxy is unresolved (`p ≈ 0.605`).
 
-- pair-testable: 7;
-- resolved: 3;
-- unresolved: 4;
-- not testable: 1;
-- resolved F-more-negative-than-I: 3;
-- resolved I-more-negative-than-F: 0.
+Therefore the former claim that *Serapias* supplies a scale-stable upstream bottleneck is withdrawn from the submission headline.
 
-This 3/3 subset direction is also descriptive and post hoc.
+## Scale-stable result
 
-### Movement/mating–F subset
+All **17/17 primary direct effects are negative** on both oriented Hedges g and oriented lnRR.
 
-The 4-programme movement/connectivity or mating-support–F subset contains:
+This supports a common direction of fragmentation-associated deterioration across the primary direct corpus. It does **not** establish equality, separation or ordering of response magnitudes.
 
-- resolved: 1;
-- unresolved: 3;
-- resolved process-more-negative-than-F: 1 (*Serapias*);
-- resolved F-more-negative-than-process: 0.
+The clearest qualitative sign discordance remains outside the primary direct stream in the separate *Eucalyptus wandoo* gradient, where interaction/pollen quantity is positive while reproductive function is negative on its registered Fisher-z representation.
 
+## Exploratory ecology
 
-## Measurement gap
+lnRR suggests post hoc patterns worth prospective testing:
 
-All 8/8 registered I endpoints measure interaction or pollen quantity. None directly measures compatible mating quality, realised paternity or effective pollen-donor diversity on the same I-F frame.
+- *Brosimum*: movement/connectivity ≈ -0.54 versus one-year progeny vigour ≈ -0.20;
+- *Eucalyptus socialis*: mating support ≈ -0.90 versus family growth ≈ -0.06;
+- *Spondias*: adult H_O ≈ -0.15, juvenile ≈ -0.54, seed ≈ -0.40.
 
-This observation motivates the fresh synchronized field chain and Figure 4 synthesis:
+These motivate filtering, buffering and cohort-lag hypotheses. They are hypothesis-generating only. Chaco provides a counterexample to any simple universal attenuation gradient.
 
-`I_quantity → effective mating / pollen quality → F`
+## Status of the former 12-programme bottleneck census
 
-The prospective H2-v2 primary localization contrast is `ΔQE = Q − E > 0`; `ΔEF = E − F` distinguishes propagation, downstream compensation and later filtering.
+The registered-scale process–function census is retained as **Supplementary Table S4 / exploratory transparency only**. Its bottleneck classifications are heterogeneous-scale and are not scale-invariant manuscript conclusions after the estimand audit.
 
-## Novelty boundary
+## Main submission figures/tables
 
-Already known before this paper:
+- Figure 1: primary evidence geometry;
+- Figure 2: historical Hedges-g leave-one-cluster-out influence, explicitly labelled scale-specific;
+- Figure 3: registered-scale I–F examples; unresolved differences are not treated as equality;
+- Figure 4: estimand-scale sensitivity and exploratory ecology;
+- Table 1: admitted primary direct clusters;
+- Table 2: estimand-scale sensitivity summary;
+- Supplementary Table S4: exploratory registered-scale bottleneck census.
 
-- fragmentation can reduce pollination and plant reproduction;
-- pollination and reproductive effects can covary positively across species/studies;
-- pollen quantity and pollen quality/compatibility are distinct.
+## Canonical scale-audit files
 
-The contribution of this paper is instead:
+- `manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-27_ESTIMAND_SCALE.md`
+- `manuscript/ESTIMAND_SCALE_SENSITIVITY_RESULT_2026-09-27.md`
+- `evidence/meta_extraction/estimand_scale_sensitivity_v1.csv`
+- `evidence/meta_extraction/estimand_scale_cluster_summary_v1.csv`
+- `evidence/meta_extraction/estimand_scale_fisher_sensitivity_v1.csv`
+- `scripts/check_estimand_scale_sensitivity.py`
 
-- paired within-programme response geometry;
-- explicit shared effect units and dependence;
-- complete inclusion of downstream, upstream, unresolved and not-testable programmes in a 12-programme census;
-- a complete process–function direction census;
-- identification of the effective-mating measurement gap.
+## Claim ceiling
 
-## Fresh-validation firewall
+Allowed:
 
-All 12 current paired process–function programmes are discovery evidence for bottleneck localization: the 8 I-F programmes are burned for H1/H2, and the 4 auxiliary movement/mating–F programmes are additionally burned for H2-v2.
+- exact reproduction of the historical Hedges-g primary analysis;
+- estimand/dependence sensitivity of magnitude-separation and leave-one-*Serapias* conclusions;
+- 17/17 negative direct primary effects on both g and lnRR;
+- separate registered-scale sign discordance in *Eucalyptus wandoo*;
+- exploratory filtering/buffering/cohort-lag hypotheses, clearly labelled post hoc.
 
-Fresh confirmation uses only genuinely new biological programmes under the separate preregistration, amendment and synchronized field module. Hedges-g and Fisher-z effect families remain separate.
+Not allowed:
 
-## Submission readiness
+- a scale-invariant global layer-separation syndrome;
+- a scale-invariant variable bottleneck ordering;
+- a universal attenuation/compensation pathway;
+- a confirmed cohort lag;
+- treating p=1.0 in ML020 as evidence that true effects are equal;
+- claiming lnRR is the uniquely correct scale;
+- direct empirical validation of EGWE/NEE theory.
 
-The submission freeze is valid only when the current full contract is green. CI enforces the manuscript, statistical, submission-shape, double-anonymous, Figures 1–4 / Tables 1–2, census and reviewer-package contracts together.
+## Remaining human-only blockers
 
-The only unresolved submission items are human administrative metadata: authors, affiliations, corresponding-author details, CRediT contributions, funding/permits, conflicts and final author approval.
+- final author list;
+- affiliations;
+- corresponding-author details;
+- author contributions;
+- funding / permits / acknowledgements;
+- conflict declaration;
+- final all-author approval.
