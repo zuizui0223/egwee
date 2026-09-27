@@ -1,3 +1,14 @@
+## Submission hold — estimand scale
+
+The Journal of Ecology package is **reopened for revision**. The historical Hedges-g result is fully reproducible, but the biological interpretation of layer separation and leave-one-Serapias robustness changes on an oriented lnRR sensitivity scale.
+
+Canonical audit:
+- [`manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-27_ESTIMAND_SCALE.md`](manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-27_ESTIMAND_SCALE.md)
+- [`manuscript/ESTIMAND_SCALE_SENSITIVITY_RESULT_2026-09-27.md`](manuscript/ESTIMAND_SCALE_SENSITIVITY_RESULT_2026-09-27.md)
+- [`evidence/meta_extraction/estimand_scale_sensitivity_v1.csv`](evidence/meta_extraction/estimand_scale_sensitivity_v1.csv)
+
+The primary direct stream is directionally uniform (17/17 oriented effects negative), while relative response amplitude and cluster-separation inference are scale-sensitive. Existing variable-bottleneck classifications are therefore hypothesis-generating until they survive scale-aware reanalysis.
+
 # EGWEE — empirical multilayer fragmentation synthesis
 
 This repository is the authoritative development home for an **independent natural-data synthesis of multilayer fragmentation responses in flowering-plant systems**.
