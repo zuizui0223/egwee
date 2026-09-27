@@ -2,7 +2,7 @@
 
 ## Freeze base
 
-`5db1c5c44033cd2320a6ed45faa19d3a53ea2974` is the scientific base for the current Journal of Ecology package.
+`69369530ec2b93adf3ddc48c4b5ba24371226e45` is the scientific base for the current Journal of Ecology package.
 
 Future changes should be treated as amendments to this state rather than silently redefining the paper.
 
@@ -40,6 +40,8 @@ Across all 12:
 - resolved upstream process-dominant: **1**.
 
 Thus both directions of resolved mismatch occur in the complete audited denominator. The 3:1 split is descriptive and is not converted into a sign test, common effect or prevalence estimate.
+
+This two-direction result is **not leave-one-programme-out robust**. Omitting ML001 *Serapias lingua* removes the only resolved upstream process-dominant programme and leaves three resolved downstream F-dominant programmes. The current evidence therefore supports more than one bottleneck position in the audited corpus but does not yet establish independent recurrence of upstream bottlenecks.
 
 ### I-F subset
 
