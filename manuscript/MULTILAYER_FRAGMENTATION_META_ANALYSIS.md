@@ -1,4 +1,4 @@
-# Coupling and decoupling of plant interaction, reproduction and genetic responses under habitat fragmentation: a cross-system synthesis
+# Variable life-cycle bottlenecks under habitat fragmentation: a cross-system synthesis of plant interaction, mating and reproduction
 
 ## Abstract
 
