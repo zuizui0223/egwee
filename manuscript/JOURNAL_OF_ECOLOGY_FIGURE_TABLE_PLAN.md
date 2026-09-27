@@ -78,27 +78,32 @@ One row per independent primary programme/study cluster. Columns:
 
 ML020 appears once, with its three species described as dependent subsystems. ML015 is excluded from Table 1 and described separately as gradient generalisation evidence.
 
-## Table 2 — Complete registered I–F programme census
+## Table 2 — Complete paired process–function bottleneck census
 
-**Purpose:** expose the full denominator behind the ecological direction claim rather than showing only the three resolved examples.
+**Purpose:** expose the full 12-programme denominator behind the variable-bottleneck conclusion rather than showing only resolved examples.
 
-One row per independent registered programme with eligible I and F information. Required columns:
+One row per independent registered programme with one upstream process endpoint and reproductive function F on a common fragmentation frame. Required columns:
 
 - programme/system;
 - source identifier (DOI / thesis ID);
-- I endpoint;
-- interaction-measurement class;
+- process stage;
+- process endpoint;
+- measurement class;
 - effect family;
-- number of dependent I–F panels;
-- whether a registered within-programme I–F comparison is possible;
+- number of dependent process–F panels;
+- whether a registered within-programme process–F comparison is possible;
 - programme-adjusted p-value where applicable;
 - census result: resolved mismatch / unresolved mismatch / not testable;
 - direction when resolved;
+- ecological regime;
 - ecological interpretation.
 
-The table must contain exactly **8 programmes**: 7 pair-testable, 3 resolved, 4 unresolved and 1 not testable. All 3 resolved rows must read **F more negative than I**; no row may be assigned the opposite resolved direction. All 8 current I endpoints must remain classified as quantity-level interaction/pollen measures; the table must show that **0/8** directly measure compatible mating quality on the same I–F frame.
+The table must contain exactly **12 programmes**: **11 pair-testable, 4 resolved, 7 unresolved and 1 not testable**. Among the four resolved rows, exactly **3** must read **F more negative than process** and exactly **1** must read **process more negative than F**.
 
-Do not pool Hedges-g and Fisher-z values in Table 2. The table is a direction/status census, not a common-effect meta-analysis.
+The process-stage composition is fixed at **8 interaction/pollen-quantity programmes + 4 movement/connectivity or mating-support programmes**. All eight interaction programmes remain quantity-level; none directly measures compatible mating quality on the same I–F frame.
+
+Do not pool Hedges-g and Fisher-z values in Table 2. The table is a response-geometry census, not a common-effect meta-analysis or prevalence estimate.
+
 
 ## Supplementary Table S3 — All 17 primary marginal effects
 
