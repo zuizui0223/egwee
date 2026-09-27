@@ -1,13 +1,13 @@
 {
   "schema_version": 3,
   "frozen_on": "2026-09-27",
-  "scientific_base_commit": "d2c5c37acf005c10341c4f7ee6551ea52eaa463f",
+  "scientific_base_commit": "5db1c5c44033cd2320a6ed45faa19d3a53ea2974",
   "manuscript": {
     "path": "manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md",
-    "blob_sha": "da71382b7b03fb768c9c48a32b946be24a37a921",
+    "blob_sha": "58a0fe6c355c54276a1e17d5e2ba45678d326f0c",
     "title": "Variable life-cycle bottlenecks under habitat fragmentation: a cross-system synthesis of plant interaction, mating and reproduction",
     "target_journal": "Journal of Ecology",
-    "main_text_words_at_freeze": 6619,
+    "main_text_words_at_freeze": 6717,
     "abstract_words_at_freeze": 293
   },
   "primary_direct": {
@@ -131,5 +131,9 @@
     "resolved_upstream_process_dominant": 1,
     "interaction_quantity_programmes": 8,
     "movement_or_mating_support_programmes": 4
+  },
+  "canonical_process_function_census_note": {
+    "path": "manuscript/ECOLOGICAL_PROCESS_FUNCTION_CENSUS_2026-09-27.md",
+    "blob_sha": "a013d709aa35f10f9de5d8b4db5e5b2b28dd1b6f"
   }
 }
