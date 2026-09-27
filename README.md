@@ -35,7 +35,9 @@ Three independent natural programmes now show the same qualitative mismatch on t
 
 These heterogeneous analyses are not pooled into a new effect size. They define a **descriptive quantity–function decoupling motif** and motivate an ecological hypothesis: fragmentation can disrupt pollen quality, compatible mating or post-visitation reproduction even when observed interaction quantity remains apparently intact.
 
-Chaco and Sevenello provide the necessary counterexamples: interaction and reproduction can also decline together or show no resolved mismatch. The ecological target is therefore to explain **when** coupling is maintained and **when** it breaks.
+A complete census of the registered I–F programme set now contains **8 programmes**. Seven support a within-programme I–F comparison: **3 resolve a mismatch and all 3 have reproductive function more negative than interaction/pollen quantity; 4 are unresolved; 0 resolve the opposite direction**. Pritchard is retained as the eighth, non-testable programme because paired covariance cannot be reconstructed. This directional asymmetry is descriptive, not a new pooled test or prevalence estimate.
+
+Chaco and Sevenello provide necessary counterevidence: interaction and reproduction can also decline together or show no resolved mismatch. The ecological target is therefore to explain **when** coupling is maintained and **when** it breaks.
 
 ## Meta-analysis architecture
 
@@ -106,6 +108,7 @@ The canonical current-state documents are:
 - [`manuscript/PHASE2_CF01_CF_FAMILY_CLOSURE_2026-09-27.md`](manuscript/PHASE2_CF01_CF_FAMILY_CLOSURE_2026-09-27.md)
 - [`manuscript/PHASE2_CF01_IF_FAMILY_CLOSURE_2026-09-27.md`](manuscript/PHASE2_CF01_IF_FAMILY_CLOSURE_2026-09-27.md)
 - [`manuscript/ECOLOGICAL_RESPONSE_REGIMES_2026-09-27.md`](manuscript/ECOLOGICAL_RESPONSE_REGIMES_2026-09-27.md) — ecology-first synthesis of coupled decline, quantity–function decoupling and unresolved I–F regimes.
+- [`manuscript/ECOLOGICAL_IF_DIRECTION_CENSUS_2026-09-27.md`](manuscript/ECOLOGICAL_IF_DIRECTION_CENSUS_2026-09-27.md) — complete 8-programme I–F direction census and claim ceiling.
 
 ## Search stop and claim discipline
 
