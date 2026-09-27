@@ -14,6 +14,8 @@ The updated synthesis by Aguilar et al. (2025) likewise found negative global la
 
 Therefore EGWEE must not claim that it newly discovers that fragmentation links pollination and reproduction.
 
+Ibáñez et al. (2014) already established that fragmentation is a multiprocess–multiresponse problem spanning different plant responses and life stages. EGWEE therefore also must not claim novelty for integrating multiple fragmentation processes or life-cycle responses per se.
+
 ### Pollen quantity and pollen quality are already distinct ecological concepts
 
 Classic and subsequent studies have shown that sufficient pollen quantity can coexist with low compatible-mate diversity, inbreeding or poor pollen quality, and that pollen supplementation can reveal quantity versus quality limitation. Byers (1995) is a clear early example.
@@ -57,6 +59,8 @@ Seven are unresolved and one is not pair-testable.
 
 The resolved 3:1 split is descriptive and post hoc. It is not a sign test, common-effect estimate or global prevalence estimate.
 
+The two-direction result is also **not leave-one-programme-out robust**. Omitting *Serapias* removes the only resolved upstream process-dominant case and leaves three resolved downstream F-dominant programmes. Thus the novelty is evidence that bottleneck position need not be fixed in the current corpus, not a claim that upstream and downstream bottlenecks are already recurrently replicated.
+
 This is the key ecological addition beyond endpoint-specific meta-analysis: **the strongest fragmentation response is not fixed at one stage of the reproductive life cycle**.
 
 ### 4. The I–F subset identifies the missing intermediate measurement
@@ -66,11 +70,12 @@ Among the eight I–F programmes, all eight I endpoints are quantity-level measu
 Thus the current corpus can identify where measured process–F mismatches occur, but it cannot directly localize the transition from interaction quantity to effective mating to reproductive function.
 
 The prospective ecological extension is therefore a synchronized `Q → E → F` design, not simply a larger collection of pollinator-count studies.
+
 ## Novelty claim ceiling
 
 Strong formulation:
 
-> The contribution is a programme-level synthesis of fragmentation-response geometry showing that the average pollination–reproduction coupling documented by previous meta-analyses can conceal different positions of ecological limitation within natural systems. In the complete 12-programme paired process–function census, resolved mismatches occur in both directions—three downstream function-dominant and one upstream process-dominant—while unresolved and non-testable programmes remain in the denominator.
+> The contribution is a programme-level synthesis of fragmentation-response geometry showing that average endpoint coupling can conceal different positions of ecological limitation within natural systems. The complete 12-programme census contains three downstream function-dominant resolved mismatches and one upstream process-dominant *Serapias* mismatch, but the upstream direction is single-system and influence-sensitive.
 
 Do not claim:
 
@@ -79,12 +84,14 @@ Do not claim:
 - first evidence for pollen-quality limitation;
 - universal F-dominant decoupling;
 - one universal life-cycle bottleneck position;
+- leave-one-programme-out robust or recurrent upstream bottlenecks;
 - a global frequency of downstream, upstream or unresolved regimes;
 - a causal common mechanism across Wandoo, Cardiopetalum and Acanthopale.
 
 ## Closest literature
 
 - Aguilar et al. 2006 — global fragmentation meta-analysis of pollination and reproduction; average negative effects and cross-effect correlation.
+- Ibáñez et al. 2014 — hierarchical fragmentation meta-analysis explicitly integrating multiple processes, response types and life stages.
 - Aguilar et al. 2025 — updated global land-use meta-analysis of pollination and male/female fitness; simultaneous pollination–female-fitness effect sizes remain positively correlated across species.
 - Byers 1995 — explicit pollen quantity versus compatibility/quality limitation in small populations.
 - Llorens et al. 2018 — source-level Wandoo mechanism showing why high pollen arrival can coexist with lower reproductive output.
@@ -93,4 +100,4 @@ Do not claim:
 
 Introduction: position EGWEE as moving from endpoint-average effects / cross-species correlation to paired within-programme response geometry and bottleneck localization.
 
-Discussion: acknowledge that pollen-quality mechanisms are established in plant reproductive ecology; claim novelty for the complete 12-programme response-geometry census, the demonstration that resolved mismatches occur in both directions, and the identification of the missing effective-mating measurement layer—not for pollen-quality limitation itself.
+Discussion: acknowledge that multiprocess fragmentation and pollen-quality mechanisms are established. Claim novelty for dependence-aware within-programme response geometry, evidence for more than one bottleneck position in the audited corpus, the explicit Serapias influence ceiling, and the missing effective-mating measurement layer.
