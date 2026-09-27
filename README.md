@@ -35,7 +35,9 @@ Three independent natural programmes now show the same qualitative mismatch on t
 
 These heterogeneous analyses are not pooled into a new effect size. They define a **descriptive quantity–function decoupling motif** and motivate an ecological hypothesis: fragmentation can disrupt pollen quality, compatible mating or post-visitation reproduction even when observed interaction quantity remains apparently intact.
 
-A complete census of the registered I–F programme set now contains **8 programmes**. Seven support a within-programme I–F comparison: **3 resolve a mismatch and all 3 have reproductive function more negative than interaction/pollen quantity; 4 are unresolved; 0 resolve the opposite direction**. Pritchard is retained as the eighth, non-testable programme because paired covariance cannot be reconstructed. This directional asymmetry is descriptive, not a new pooled test or prevalence estimate.
+A complete **paired process–function census now contains 12 independent programmes**: the eight I–F programmes plus four disjoint movement/connectivity or mating-support–F programmes. **11 are pair-testable; 4 resolve a mismatch; 7 are unresolved; 1 is not testable.** Among the four resolved mismatches, **3 are downstream function-dominant** and **1 is upstream process-dominant** (*Serapias* pollen immigration more negative than fruit set). This 3:1 split is descriptive, not a pooled effect or prevalence estimate.
+
+Within that complete denominator, the registered I–F subset remains **8 programmes**: seven pair-testable, **3 resolved and all 3 F-dominant**, four unresolved, and Pritchard not testable.
 
 The same complete census exposes a **measurement gap**: all **8/8** current I endpoints quantify interaction or pollen quantity (visits, bee abundance/occurrence, or total pollen tubes), while **0/8** directly quantify compatible mating quality, realised paternity or effective pollen-donor diversity on the same I–F frame. This is why the fresh field programme measures quantity → effective mating → reproductive function rather than simply adding more pollinator counts.
 
@@ -43,9 +45,11 @@ Chaco and Sevenello provide necessary counterevidence: interaction and reproduct
 
 ### Bottleneck position is not fixed
 
-A separate four-programme audit moves one step downstream/upstream from raw interaction quantity to movement/connectivity or mating support. *Serapias lingua* resolves the opposite geometry from the three F-dominant I–F examples: pollen immigration deteriorates more strongly than fruit set (pair p≈0.0072; existing three-pair-adjusted p≈0.0216). *Brosimum alicastrum* and *Eucalyptus socialis* point in the same movement/mating-dominant direction but remain unresolved, whereas *Acer miyabei* is unresolved in the opposite point direction.
+The unified 12-programme census provides the denominator for the paper-level conclusion. The three resolved interaction–function mismatches are downstream F-dominant, whereas *Serapias* provides a resolved upstream movement/connectivity-dominant mismatch. Seven additional pair-testable programmes remain unresolved and Pritchard is not pair-testable.
 
-These programmes are not pooled across effect families. Their role is to establish a biological boundary: **fragmentation can shift the position of the strongest response along the reproductive life cycle**. The next fresh test therefore localizes the bottleneck using `Q → E → F` rather than assuming that either reproduction or mating is always the most sensitive stage.
+Thus the supported ecological statement is not “reproduction is always the most sensitive layer” or “connectivity fails first.” It is that **fragmentation can shift the position of the strongest response among stages of the reproductive life cycle**.
+
+The fresh Q → E → F programme is designed to localize that position prospectively rather than infer it from another collection of upstream proxy counts.
 
 ## Meta-analysis architecture
 
