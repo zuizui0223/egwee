@@ -36,6 +36,8 @@ FILES = [
     "evidence/meta_extraction/PS022_aizen_feinsinger_covariance_v1.csv",
     "evidence/meta_extraction/PS019_eucalyptus_wandoo_2018_gradient_effects_v1.csv",
     "evidence/meta_extraction/PS019_eucalyptus_wandoo_2018_gradient_covariance_v1.csv",
+    "evidence/meta_extraction/phase2_cf01_cardiopetalum_gradient_effects_v1.csv",
+    "evidence/meta_extraction/phase2_cf01_bergsdorf_kakamega_direct_effects_v1.csv",
     "evidence/meta_extraction/multilayer_cluster_registry_v1.csv",
     "evidence/meta_extraction/multilayer_cluster_registry_extension_ml020.csv",
 ]
@@ -160,7 +162,7 @@ def verify_reproduction() -> None:
     for rel in (
         "manuscript/figures/figure1_primary_evidence_geometry.svg",
         "manuscript/figures/figure2_leave_one_out_influence.svg",
-        "manuscript/figures/figure3_ml020_concordant_decline.svg",
+        "manuscript/figures/figure3_ecological_response_regimes.svg",
         "manuscript/figures/figure_s1_all_primary_marginal_effects.svg",
         "manuscript/tables/table1_primary_cluster_summary.csv",
         "manuscript/tables/table_s1_cluster_recovery_flow.csv",
