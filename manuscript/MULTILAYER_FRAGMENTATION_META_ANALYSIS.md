@@ -184,11 +184,11 @@ The replicated Chaco programme provides the clearest counterexample to universal
 
 A different ecological geometry recurs in three independent natural programmes.
 
-In *Eucalyptus wandoo*, pollen-tube quantity increased along the response-free fragmentation gradient (Fisher z = +0.690) while seed production declined (z = -0.876). Their pairwise difference was +1.566 (p = 0.0008565). The source itself interprets this tension in terms of pollen quality or self-pollen rather than pollen quantity alone.
+In *Eucalyptus wandoo*, pollen-tube quantity increased along the response-free fragmentation gradient (Fisher z = +0.690) while seed production declined (z = -0.876). Their pairwise difference was +1.566 (p = 0.0008565). The species is bird- and insect-pollinated with a mixed mating system, and the source explicitly interprets the mismatch as lower effective pollen quality in small populations through a higher proportional contribution of self-pollen, despite substantial pollen arrival and immigration (Llorens et al., 2018).
 
-In *Cardiopetalum calophyllum*, measured beetle-pollinator abundance changed comparatively weakly with decreasing fragment area (z = -0.245), whereas fruit set declined sharply (z = -1.684). The I–F difference was +1.439, with a 95% interval of [+0.483, +2.394] and p = 0.00316.
+In *Cardiopetalum calophyllum*, measured beetle-pollinator abundance changed comparatively weakly with decreasing fragment area (z = -0.245), whereas fruit set declined sharply (z = -1.684). The I–F difference was +1.439, with a 95% interval of [+0.483, +2.394] and p = 0.00316. This allogamous, strongly dichogamous species depends on the nitidulid beetle *Lobiopa insularis*; the source proposes that reduced fragment size and increased isolation can restrict effective pollen exchange even when local beetle abundance persists (Elias et al., 2012).
 
-The Kakamega *Acanthopale pubescens* panel shows the same qualitative mismatch on the direct Hedges-g scale: standardized pollinator occurrence was slightly higher in fragment sites (g = +0.349), while natural fruit set was much lower (g = -2.848). The I–F difference was +3.197, with a 95% interval of [+1.208, +5.186] and p = 0.00163.
+The Kakamega *Acanthopale pubescens* panel shows the same qualitative mismatch on the direct Hedges-g scale: standardized pollinator occurrence was slightly higher in fragment sites (g = +0.349), while natural fruit set was much lower (g = -2.848). The I–F difference was +3.197, with a 95% interval of [+1.208, +5.186] and p = 0.00163. The source identifies honey bees as the most probable effective pollinator, but the recovered programme does not directly measure compatible pollen, pollen quality or post-pollination limitation, so the mechanism behind this mismatch remains unresolved (Bergsdorf, 2006).
 
 These programmes cannot be pooled into one confirmatory effect because they belong to different registered effect families and were not selected prospectively as a common test set. Their repeated qualitative geometry is nevertheless ecologically informative. Pollinator abundance, visitation occurrence or pollen quantity can remain stable or increase while realised reproductive function deteriorates. That pattern is consistent with downstream filters such as pollen quality, compatible-mate limitation, mating structure, self or heterospecific pollen, resource limitation or other post-visitation processes, although the present analyses do not identify those mechanisms causally.
 
@@ -254,9 +254,14 @@ Aguilar-Aguilar, M.J., Cristóbal-Pérez, E.J., Lobo, J., Fuchs, E.J., Oyama, K.
 
 Aizen, M.A. & Feinsinger, P. (1994). Forest fragmentation, pollination, and plant reproduction in a Chaco dry forest, Argentina. *Ecology*, 75, 330–351. https://doi.org/10.2307/1939538
 
+
+Bergsdorf, T. (2006). *Forest fragmentation and plant-pollinator interactions in Western Kenya*. PhD dissertation, Rheinische Friedrich-Wilhelms-Universität Bonn. urn:nbn:de:hbz:5N-08143
+
 Breed, M.F., Marklund, M.H.K., Ottewell, K.M., Gardner, M.G., Harris, J.B.C. & Lowe, A.J. (2012). Pollen diversity matters: revealing the neglected effect of pollen diversity on fitness in fragmented landscapes. *Molecular Ecology*, 21, 5955–5968. https://doi.org/10.1111/mec.12056
 
 Cristóbal-Pérez, E.J., Fuchs, E.J., Martén-Rodríguez, S. & Quesada, M. (2021). Habitat fragmentation negatively affects effective gene flow via pollen, and male and female fitness in the dioecious tree, *Spondias purpurea* (Anacardiaceae). *Biological Conservation*, 256, 109007. https://doi.org/10.1016/j.biocon.2021.109007
+
+Elias, M.A.S., Franceschinelli, E.V., Juen, L., Borges, F.J.A., Ferreira, G.M. & Carvalho, F.M.V. (2012). Reproductive success of *Cardiopetalum calophyllum* (Annonaceae) treelets in fragments of Brazilian savanna. *Journal of Tropical Ecology*, 28, 317–320. https://doi.org/10.1017/S0266467412000120
 
 Llorens, T.M., Yates, C.J., Byrne, M., Elliott, C.P., Sampson, J., Fairman, R., Macdonald, B. & Coates, D.J. (2018). Altered soil properties inhibit fruit set but increase progeny performance for a foundation tree in a highly fragmented landscape. *Frontiers in Ecology and Evolution*, 6, 39. https://doi.org/10.3389/fevo.2018.00039
 
