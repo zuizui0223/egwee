@@ -2,7 +2,7 @@
 
 ## Manuscript identity
 
-- **Working title:** Coupling and decoupling of plant interaction, reproduction and genetic responses under habitat fragmentation: a cross-system synthesis
+- **Working title:** Variable life-cycle bottlenecks under habitat fragmentation: a cross-system synthesis of plant interaction, mating and reproduction
 - **Source manuscript:** `manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md`
 - **Protocol:** `manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md`
 - **Submission state:** `results_bearing_ecological_response_coupling_synthesis`
