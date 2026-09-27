@@ -36,7 +36,7 @@ def main() -> None:
         "p = 0.01212432",
         "p = 0.18194353",
         "p_ML020=1.0",
-        "response-regime heterogeneity rather than one universal fragmentation syndrome",
+        "descriptive directional asymmetry rather than a pooled law",
     ):
         assert token in text, token
 
