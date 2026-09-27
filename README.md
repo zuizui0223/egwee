@@ -132,6 +132,7 @@ The canonical current-state documents are:
 - [`manuscript/FRESH_ECOLOGICAL_IF_SYNCHRONIZED_FIELD_MODULE_V1.md`](manuscript/FRESH_ECOLOGICAL_IF_SYNCHRONIZED_FIELD_MODULE_V1.md) — synchronized quantity → effective mating → reproductive-function field design for genuinely fresh systems.
 - [`manuscript/SUBMISSION_FREEZE_2026-09-27.md`](manuscript/SUBMISSION_FREEZE_2026-09-27.md) — ecology-first submission freeze and remaining human-only blockers.
 - [`manuscript/SUBMISSION_ADMIN_HANDOFF_2026-09-27.md`](manuscript/SUBMISSION_ADMIN_HANDOFF_2026-09-27.md) — exact human-only fields to complete before submission; anonymous scientific files should remain identity-free.
+- [`manuscript/REVIEWER_RISK_AUDIT_2026-09-27.md`](manuscript/REVIEWER_RISK_AUDIT_2026-09-27.md) — red-team audit of novelty, post-hoc integration, effect-family heterogeneity, bottleneck terminology and Serapias influence.
 
 ## Search stop and claim discipline
 
