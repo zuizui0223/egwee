@@ -2,7 +2,7 @@
 
 ## Manuscript title
 
-Testing whether fragmentation acts as a single biological state: a cluster-first synthesis of plant interaction, reproduction and genetic responses
+Coupling and decoupling of plant interaction, reproduction and genetic responses under habitat fragmentation: a cross-system synthesis
 
 ## Authors
 
