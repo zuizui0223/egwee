@@ -304,21 +304,22 @@ def figure3_response_regimes() -> None:
 
 
 def figure4_bottleneck_synthesis() -> None:
-    if_rows = rows(IF_CENSUS)
-    mf_rows = rows(MATING_FUNCTION_CENSUS)
-    assert len(if_rows) == 8
-    assert sum(r["if_pair_testable"] == "yes" for r in if_rows) == 7
-    assert sum(r["resolved_if_mismatch"] == "yes" for r in if_rows) == 3
-    assert {r["resolved_direction"] for r in if_rows if r["resolved_if_mismatch"] == "yes"} == {"F_more_negative_than_I"}
-    assert {r["interaction_measurement_class"] for r in if_rows} == {"quantity_only"}
-    assert len(mf_rows) == 4
-    assert sum(r["resolved_mismatch"] == "yes" for r in mf_rows) == 1
-    assert next(r for r in mf_rows if r["resolved_mismatch"] == "yes")["programme_id"] == "ML001"
+    census = rows(PROCESS_FUNCTION_CENSUS)
+    assert len(census) == 12
+    assert sum(r["pair_testable"] == "yes" for r in census) == 11
+    assert sum(r["resolved_mismatch"] == "yes" for r in census) == 4
+    assert sum(r["resolved_mismatch"] == "no" for r in census) == 7
+    assert sum(r["resolved_mismatch"] == "not_testable" for r in census) == 1
+    assert sum(r["resolved_direction"] == "F_more_negative_than_process" for r in census) == 3
+    assert sum(r["resolved_direction"] == "process_more_negative_than_F" for r in census) == 1
+    assert sum(r["measurement_class"] == "quantity_only" for r in census) == 8
+    assert sum(r["measurement_class"] == "movement_or_mating_support" for r in census) == 4
 
-    width, height = 1240, 720
+    width, height = 1240, 735
     body: list[str] = [
         svg_text(30, 36, "Figure 4. Fragmentation can shift the position of the reproductive life-cycle bottleneck", size=18, weight="bold"),
-        svg_text(30, 60, "Evidence synthesis only: regimes are descriptive and effect families are not pooled numerically.", size=11),
+        svg_text(30, 60, "Complete denominator: 12 independent programmes; 11 pair-testable; 4 resolved; 7 unresolved; 1 not testable.", size=11),
+        svg_text(30, 79, "Resolved mismatches include 3 downstream F-dominant and 1 upstream process-dominant programme; effect families are not pooled.", size=11),
     ]
 
     def arrow(x1: float, y: float, x2: float) -> None:
@@ -338,45 +339,46 @@ def figure4_bottleneck_synthesis() -> None:
         bw, bh = 180, 68
         box(xq, y, bw, bh, "Interaction quantity", qtxt)
         arrow(xq + bw, y + bh / 2, xe)
-        box(xe, y, bw, bh, "Effective mating", etxt, dashed=e_dashed)
+        box(xe, y, bw, bh, "Movement / effective mating", etxt, dashed=e_dashed)
         arrow(xe + bw, y + bh / 2, xf)
         box(xf, y, bw, bh, "Reproductive function", ftxt)
 
     regime(
-        115,
-        "A. Coupled / unresolved",
-        "Chaco and Sevenello: no resolved I–F mismatch",
-        "declines or changes",
-        "not directly measured",
-        "tracks I within uncertainty",
+        125,
+        "A. Unresolved process–function difference",
+        "7 programmes; includes Chaco and Sevenello coupled-looking I–F examples",
+        "varies",
+        "often unmeasured",
+        "difference unresolved",
         e_dashed=True,
     )
     regime(
-        270,
-        "B. Downstream function-dominant",
-        "3 resolved I–F programmes: Wandoo, Cardiopetalum, Kakamega",
+        280,
+        "B. Resolved downstream function-dominant",
+        "3 programmes: Wandoo, Cardiopetalum, Kakamega Acanthopale",
         "buffered / less negative",
-        "missing in current I–F frame",
+        "missing in these I–F frames",
         "more negative",
         e_dashed=True,
     )
     regime(
-        425,
-        "C. Upstream movement/mating-dominant",
-        "Serapias resolved; Brosimum and E. socialis point similarly but remain unresolved",
-        "not the tested process",
-        "movement/mating support more negative",
-        "partly buffered / less negative",
+        435,
+        "C. Resolved upstream process-dominant",
+        "1 programme: Serapias; Brosimum and E. socialis are unresolved same-direction context",
+        "not the paired process",
+        "more negative",
+        "less negative",
         e_dashed=False,
     )
 
-    body.append(f'<line x1="30" y1="535" x2="1210" y2="535" stroke="black" stroke-width="1"/>')
-    body.append(svg_text(45, 570, "Current measurement gap", size=14, weight="bold"))
-    body.append(svg_text(45, 594, "I–F corpus: 8/8 interaction endpoints are quantity-level; 0/8 directly measure effective mating quality on the same frame.", size=11))
-    body.append(svg_text(45, 628, "Fresh localization design", size=14, weight="bold"))
-    body.append(svg_text(230, 628, "Q → E → F", size=16, weight="bold"))
-    body.append(svg_text(330, 628, "Primary H2-v2 contrast: ΔQE = Q − E; ΔEF locates propagation, compensation, or later filtering.", size=11))
-    body.append(svg_text(45, 673, "Interpretation: fragmentation changes response coupling; it does not impose one universal stage of maximum sensitivity.", size=11, weight="bold"))
+    body.append(f'<line x1="30" y1="545" x2="1210" y2="545" stroke="black" stroke-width="1"/>')
+    body.append(svg_text(45, 580, "Measurement gap in the I–F subset", size=14, weight="bold"))
+    body.append(svg_text(45, 604, "8/8 interaction endpoints are quantity-level; 0/8 directly measure effective mating quality on the same frame.", size=11))
+    body.append(svg_text(45, 638, "Fresh localization design", size=14, weight="bold"))
+    body.append(svg_text(230, 638, "Q → E → F", size=16, weight="bold"))
+    body.append(svg_text(330, 638, "Primary H2-v2 contrast: ΔQE = Q − E; ΔEF locates propagation, compensation, or later filtering.", size=11))
+    body.append(svg_text(45, 687, "Interpretation: fragmentation changes bottleneck position; unresolved programmes are not classified as truly coupled.", size=11, weight="bold"))
+    body.append(svg_text(45, 710, "One additional programme (Pritchard) is retained as not testable because paired covariance cannot be reconstructed.", size=10))
 
     write_svg(FIGDIR / "figure4_lifecycle_bottleneck_synthesis.svg", width, height, body)
 
