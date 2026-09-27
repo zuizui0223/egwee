@@ -118,6 +118,7 @@ The canonical current-state documents are:
 - [`manuscript/FRESH_ECOLOGICAL_IF_VALIDATION_PREREGISTRATION_2026-09-27.md`](manuscript/FRESH_ECOLOGICAL_IF_VALIDATION_PREREGISTRATION_2026-09-27.md) — future-only validation of the downstream reproductive-bottleneck hypothesis; all current eight I–F programmes are burned discovery systems.
 - [`manuscript/FRESH_ECOLOGICAL_IF_SYNCHRONIZED_FIELD_MODULE_V1.md`](manuscript/FRESH_ECOLOGICAL_IF_SYNCHRONIZED_FIELD_MODULE_V1.md) — synchronized quantity → effective mating → reproductive-function field design for genuinely fresh systems.
 - [`manuscript/SUBMISSION_FREEZE_2026-09-27.md`](manuscript/SUBMISSION_FREEZE_2026-09-27.md) — ecology-first submission freeze and remaining human-only blockers.
+- [`manuscript/SUBMISSION_ADMIN_HANDOFF_2026-09-27.md`](manuscript/SUBMISSION_ADMIN_HANDOFF_2026-09-27.md) — exact human-only fields to complete before submission; anonymous scientific files should remain identity-free.
 
 ## Search stop and claim discipline
 
