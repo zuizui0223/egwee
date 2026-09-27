@@ -116,6 +116,7 @@ The canonical current-state documents are:
 - [`manuscript/ECOLOGICAL_NEAREST_NEIGHBOR_NOVELTY_AUDIT_2026-09-27.md`](manuscript/ECOLOGICAL_NEAREST_NEIGHBOR_NOVELTY_AUDIT_2026-09-27.md) — novelty firewall: prior syntheses establish average pollination–reproduction coupling; EGWEE contributes paired within-programme response geometry and the complete direction census.
 - [`manuscript/FRESH_ECOLOGICAL_IF_VALIDATION_PREREGISTRATION_2026-09-27.md`](manuscript/FRESH_ECOLOGICAL_IF_VALIDATION_PREREGISTRATION_2026-09-27.md) — future-only validation of the downstream reproductive-bottleneck hypothesis; all current eight I–F programmes are burned discovery systems.
 - [`manuscript/FRESH_ECOLOGICAL_IF_SYNCHRONIZED_FIELD_MODULE_V1.md`](manuscript/FRESH_ECOLOGICAL_IF_SYNCHRONIZED_FIELD_MODULE_V1.md) — synchronized quantity → effective mating → reproductive-function field design for genuinely fresh systems.
+- [`manuscript/SUBMISSION_FREEZE_2026-09-27.md`](manuscript/SUBMISSION_FREEZE_2026-09-27.md) — ecology-first submission freeze and remaining human-only blockers.
 
 ## Search stop and claim discipline
 
