@@ -48,5 +48,7 @@
     "endpoint_switch_after_outcome",
     "search_until_significance",
     "unresolved_as_zero"
-  ]
+  ],
+  "field_module": "manuscript/FRESH_ECOLOGICAL_IF_SYNCHRONIZED_FIELD_MODULE_V1.md",
+  "current_manuscript_role": "discovery_synthesis_not_fresh_confirmation"
 }
