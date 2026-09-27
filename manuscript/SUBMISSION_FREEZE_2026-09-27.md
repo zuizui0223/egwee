@@ -2,7 +2,7 @@
 
 ## Freeze base
 
-`18c128a46d37abfbbe6bc1eb003526487fbc2df0` is the scientific base for the current Journal of Ecology package.
+`d2c5c37acf005c10341c4f7ee6551ea52eaa463f` is the scientific base for the current Journal of Ecology package.
 
 Future changes should be treated as amendments to this state rather than silently redefining the paper.
 
@@ -23,30 +23,46 @@ It is not the empirical-validation arm of EGWE/NEE theory.
 - direct C-F coverage = 2/5 and search-complete;
 - gradient/generalisation registry = 6 programmes / 19 Fisher-z effects.
 
-## Complete I-F census
+## Complete paired process–function census
 
-The complete registered I-F denominator is 8 independent programmes = 3 direct Hedges-g + 5 gradient Fisher-z programmes.
+The canonical paired process–function denominator is **12 independent programmes**:
+
+- 8 interaction/pollen-quantity–F programmes;
+- 4 disjoint movement/connectivity or mating-support–F programmes.
+
+Across all 12:
+
+- pair-testable: **11**;
+- resolved process–F mismatch: **4**;
+- unresolved: **7**;
+- not testable: **1**;
+- resolved downstream F-dominant: **3**;
+- resolved upstream process-dominant: **1**.
+
+Thus both directions of resolved mismatch occur in the complete audited denominator. The 3:1 split is descriptive and is not converted into a sign test, common effect or prevalence estimate.
+
+### I-F subset
+
+Within the unified denominator, the 8-programme I–F subset contains:
 
 - pair-testable: 7;
-- resolved I-F mismatch: 3;
+- resolved: 3;
 - unresolved: 4;
 - not testable: 1;
 - resolved F-more-negative-than-I: 3;
 - resolved I-more-negative-than-F: 0.
 
-This 3/3 direction is descriptive and post hoc. It is not converted into a sign test or global prevalence estimate.
+This 3/3 subset direction is also descriptive and post hoc.
 
-## Bottleneck-position audit
+### Movement/mating–F subset
 
-A separate auxiliary audit contains 4 independent movement/connectivity or mating-support versus F programmes.
+The 4-programme movement/connectivity or mating-support–F subset contains:
 
-- resolved process–F mismatch: 1;
+- resolved: 1;
 - unresolved: 3;
-- resolved movement/mating support more negative than F: 1 (*Serapias*);
-- resolved F more negative than process: 0;
-- point estimates process more negative than F: 3/4.
+- resolved process-more-negative-than-F: 1 (*Serapias*);
+- resolved F-more-negative-than-process: 0.
 
-These programmes are not pooled across effect families. Their role is to establish that the dominant fragmentation bottleneck is **not fixed at reproductive function**.
 
 ## Measurement gap
 
@@ -70,18 +86,18 @@ The contribution of this paper is instead:
 
 - paired within-programme response geometry;
 - explicit shared effect units and dependence;
-- complete inclusion of coupled, decoupled, unresolved and not-testable programmes;
-- a complete direction census;
+- complete inclusion of downstream, upstream, unresolved and not-testable programmes in a 12-programme census;
+- a complete process–function direction census;
 - identification of the effective-mating measurement gap.
 
 ## Fresh-validation firewall
 
-All 8 current I-F programmes are burned discovery systems for the downstream-bottleneck hypothesis.
+All 12 current paired process–function programmes are discovery evidence for bottleneck localization: the 8 I-F programmes are burned for H1/H2, and the 4 auxiliary movement/mating–F programmes are additionally burned for H2-v2.
 
-Fresh confirmation uses only genuinely new biological programmes under the separate preregistration and synchronized field module. Hedges-g and Fisher-z effect families remain separate.
+Fresh confirmation uses only genuinely new biological programmes under the separate preregistration, amendment and synchronized field module. Hedges-g and Fisher-z effect families remain separate.
 
 ## Submission readiness
 
-Automated manuscript, statistical, submission-shape, double-anonymous, Figures 1–4 / Tables 1–2 and reviewer-package checks are green.
+The submission freeze is valid only when the current full contract is green. CI enforces the manuscript, statistical, submission-shape, double-anonymous, Figures 1–4 / Tables 1–2, census and reviewer-package contracts together.
 
 The only unresolved submission items are human administrative metadata: authors, affiliations, corresponding-author details, CRediT contributions, funding/permits, conflicts and final author approval.
