@@ -1174,7 +1174,7 @@ def main() -> None:
     assert "CFTQ0202" in fulltext
     bart = fulltext["CFTQ0202"]
     assert bart["programme_identity"] == "P2_CF01_BARTOMEUS_2010"
-    assert bart["quantitative_gate_status"] == "pending_landscape_estimand_radius_and_common_Raphanus_IF_frame"
+    assert bart["quantitative_gate_status"] == "blocked_common_landscape_estimand_and_Raphanus_IF_site_vectors_not_recoverable"
     assert "14 independent landscapes" in bart["independent_unit"]
     assert int(bart["pair_programme_increment"]) == 0
     assert bart["effect_calculation_opened"] == "no"
