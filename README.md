@@ -26,41 +26,59 @@ The active manuscript spine is [`manuscript/MULTILAYER_FRAGMENTATION_META_ANALYS
 
 ## Current empirical conclusion
 
-The primary direct-effect family now contains **five independent programme/study clusters / 17 marginal effects**. The five-cluster Fisher synthesis rejects complete layer exchangeability (`p = 0.01212432`), but the result is **not Serapias-independent**: omitting ML001 *Serapias lingua* gives `p = 0.18194353`.
+The historical primary direct analysis contains **five independent programme/study clusters / 17 marginal effects**. On the registered Hedges-g estimand, the five-cluster Fisher synthesis rejects equality of within-system standardized response magnitudes (`p = 0.01212432`), but omitting ML001 *Serapias lingua* gives `p = 0.18194353`.
 
-The fifth cluster, the replicated Aizen–Feinsinger Chaco programme, was admitted regardless of significance and shows fragmentation-associated deterioration in both pollination interaction and reproductive function without detectable I–F separation (`p_ML020 = 1.0`).
+That robustness classification is **not scale-invariant**.
 
-The defensible paper-level conclusion is therefore:
+A mandatory oriented-lnRR sensitivity constructed from the same positive fragmented/reference summaries changes endpoint ordering and leave-one-cluster interpretation:
 
-> **Habitat fragmentation does not impose one fixed life-cycle bottleneck. Across natural plant systems, the strongest disruption can occur at interaction/reproductive-function transitions, at movement or mating stages, or remain broadly coupled across stages. The present corpus therefore supports variable bottleneck position rather than one universal fragmentation trajectory.**
+- under the existing dimensionless dependence proxy carried onto lnRR variances, omit-*Serapias* rejection remains below 0.05;
+- under zero covariance, omit-*Serapias* rejection also remains below 0.05;
+- under a covariance-free Cauchy maximum-variance boundary, omit-*Serapias* rejection is **not certified**.
 
-This is a plant-ecology result about how biological processes covary under habitat fragmentation. It neither tests nor validates finite NEE operator sequences, warning rules or reserve quantities.
+The strongest paper-level conclusion is therefore:
 
-### Repeated ecological motif: interaction quantity is not reproductive function
+> **Fragmentation-associated deterioration is directionally consistent across the primary direct corpus, but relative response amplitude and layer-separation/robustness conclusions depend on the declared effect-size scale and dependence assumptions.**
 
-Three independent natural programmes now show the same qualitative mismatch on their own registered effect scales:
+All **17/17 primary direct effects are negative** on both oriented Hedges g and oriented lnRR. This is descriptive scale-stable evidence for a common direction of deterioration, not a sign test and not evidence that response magnitudes are equal.
 
-- *Eucalyptus wandoo*: pollen-tube quantity increases along fragmentation severity while seed production declines;
-- *Cardiopetalum calophyllum*: beetle-pollinator abundance changes weakly while fruit set declines strongly toward smaller fragments;
-- Kakamega *Acanthopale pubescens*: pollinator occurrence is maintained/slightly elevated in fragment sites while fruit set is sharply lower.
+### Why the old Serapias bottleneck headline was withdrawn
 
-These heterogeneous analyses are not pooled into a new effect size. They define a **descriptive quantity–function decoupling motif** and motivate an ecological hypothesis: fragmentation can disrupt pollen quality, compatible mating or post-visitation reproduction even when observed interaction quantity remains apparently intact.
+ML001 *Serapias* illustrates the scale problem directly:
 
-A complete **paired process–function census now contains 12 independent programmes**: the eight I–F programmes plus four disjoint movement/connectivity or mating-support–F programmes. **11 are pair-testable; 4 resolve a mismatch; 7 are unresolved; 1 is not testable.** Among the four resolved mismatches, **3 are downstream function-dominant** and **1 is upstream process-dominant** (*Serapias* pollen immigration more negative than fruit set). This 3:1 split is descriptive, not a pooled effect or prevalence estimate.
+- Hedges-g absolute ordering: `G > C > F`;
+- oriented-lnRR absolute ordering: `C > F > G`;
+- Hedges-g C–F difference: resolved;
+- lnRR C–F difference under the carried rho proxy: unresolved (`p ≈ 0.605`).
 
-Within that complete denominator, the registered I–F subset remains **8 programmes**: seven pair-testable, **3 resolved and all 3 F-dominant**, four unresolved, and Pritchard not testable.
+Thus the earlier claim that *Serapias* supplies a resolved upstream movement/connectivity bottleneck is not scale-stable.
 
-The same complete census exposes a **measurement gap**: all **8/8** current I endpoints quantify interaction or pollen quantity (visits, bee abundance/occurrence, or total pollen tubes), while **0/8** directly quantify compatible mating quality, realised paternity or effective pollen-donor diversity on the same I–F frame. This is why the fresh field programme measures quantity → effective mating → reproductive function rather than simply adding more pollinator counts.
+### Scale-independent qualitative discordance
 
-Chaco and Sevenello provide necessary counterevidence: interaction and reproduction can also decline together or show no resolved mismatch. The ecological target is therefore to explain **when** coupling is maintained and **when** it breaks.
+The primary direct stream contains **no sign reversal** among its 17 effects.
 
-### Bottleneck position is not fixed
+The clearest qualitative process discordance remains outside that primary direct stream in the separate *Eucalyptus wandoo* gradient, where interaction/pollen quantity is positive while reproductive function is negative on the registered Fisher-z scale.
 
-The unified 12-programme census provides the denominator for the paper-level conclusion. The three resolved interaction–function mismatches are downstream F-dominant, whereas *Serapias* provides a resolved upstream movement/connectivity-dominant mismatch. Seven additional pair-testable programmes remain unresolved and Pritchard is not pair-testable.
+### Exploratory ecological hypotheses
 
-Thus the supported ecological statement is not “reproduction is always the most sensitive layer” or “connectivity fails first.” The current corpus provides **evidence that fragmentation can shift the position of the strongest response among stages of the reproductive life cycle**, but the resolved upstream direction is ML001 *Serapias*-dependent and is not leave-one-programme-out robust.
+The lnRR sensitivity exposes biologically interesting but post hoc patterns:
 
-The fresh Q → E → F programme is designed to localize that position prospectively rather than infer it from another collection of upstream proxy counts.
+- ML002 *Brosimum*: movement/connectivity declines more strongly than one-year progeny vigour;
+- ML014 *Eucalyptus socialis*: mating-support decline is much larger than family growth decline;
+- ML003 *Spondias*: juvenile and seed H_O decline more strongly than adult H_O.
+
+These motivate a **filtering / buffering / cohort-lag hypothesis**: fragmentation effects may be attenuated, amplified or delayed as they propagate across mating, reproduction and demographic/genetic states.
+
+This is **hypothesis-generating only**. It is not a confirmed macroecological law and is explicitly separated from the scale-stable primary conclusion.
+
+### Canonical scale audit
+
+- [`manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-27_ESTIMAND_SCALE.md`](manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-27_ESTIMAND_SCALE.md)
+- [`manuscript/ESTIMAND_SCALE_SENSITIVITY_RESULT_2026-09-27.md`](manuscript/ESTIMAND_SCALE_SENSITIVITY_RESULT_2026-09-27.md)
+- [`evidence/meta_extraction/estimand_scale_sensitivity_v1.csv`](evidence/meta_extraction/estimand_scale_sensitivity_v1.csv)
+- [`scripts/check_estimand_scale_sensitivity.py`](scripts/check_estimand_scale_sensitivity.py)
+
+The older 12-programme bottleneck census and associated Q → E → F design remain useful exploratory development work, but they are not current submission-headline evidence until they survive scale-aware reanalysis.
 
 ## Meta-analysis architecture
 
