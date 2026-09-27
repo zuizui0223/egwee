@@ -5,7 +5,7 @@
 - **Working title:** Habitat fragmentation across plant reproductive life cycles: directional consistency and scale-sensitive response amplitudes
 - **Source manuscript:** `manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md`
 - **Protocol:** `manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md`
-- **Submission state:** `revision_required_estimand_scale_sensitivity`
+- **Submission state:** `scale_aware_revision_complete_admin_pending`
 - **Article type:** Research Article / empirical research synthesis
 - **Primary target journal:** **Journal of Ecology**
 - **Fallback venues:** Ecology (Article or Concepts & Synthesis, if reframed for broader ecological generality); Oikos (Meta-analysis)
@@ -98,7 +98,7 @@ Not authorised:
 - [x] primary venue selected: Journal of Ecology;
 - [x] journal-specific abstract and keywords shaped;
 - [x] main text converted to Journal of Ecology IMRaD structure;
-- [x] main-text word count audited against the ~8000-word research-article target (current automated count: 7031 words from Introduction onward);
+- [x] main-text word count audited against the ~8000-word research-article target (current automated count: 6816 words from Introduction onward);
 - [x] pre-scale-audit figure/table package completed and CI-reproduced (Figures 1–4, Table 1, complete paired process–function bottleneck census Table 2, Supplementary Tables S1–S3, Supplementary Figure S1);
 - [x] pre-scale-audit double-anonymous package checked and anonymously reproduced in CI;
 - [x] estimand-scale audit completed: Hedges-g and lnRR yield materially different response geometry / robustness classifications;
