@@ -29,7 +29,7 @@ def main() -> None:
     cover_letter = COVER_LETTER.read_text(encoding="utf-8")
 
     assert manuscript.startswith(
-        "# Variable life-cycle bottlenecks under habitat fragmentation:"
+        "# Evidence for variable life-cycle bottleneck positions under habitat fragmentation:"
     )
     for heading in (
         "## Abstract",
