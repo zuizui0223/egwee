@@ -39,16 +39,17 @@ def main() -> None:
 
     assert m["schema_version"] == 3
     assert m["frozen_on"] == "2026-09-27"
-    assert m["scientific_base_commit"] == "d2c5c37acf005c10341c4f7ee6551ea52eaa463f"
+    assert m["scientific_base_commit"] == "5db1c5c44033cd2320a6ed45faa19d3a53ea2974"
 
     assert git_blob_sha(MANUSCRIPT) == m["manuscript"]["blob_sha"]
+    assert git_blob_sha(CANONICAL_CENSUS_NOTE) == m["canonical_process_function_census_note"]["blob_sha"]
     assert git_blob_sha(IF_CENSUS) == m["ecological_IF_census"]["blob_sha"]
     assert git_blob_sha(BOTTLENECK_CENSUS) == m["bottleneck_position_audit"]["blob_sha"]
     assert git_blob_sha(PROCESS_FUNCTION_CENSUS) == m["unified_process_function_census"]["blob_sha"]
 
     assert m["manuscript"]["title"] == "Variable life-cycle bottlenecks under habitat fragmentation: a cross-system synthesis of plant interaction, mating and reproduction"
     assert m["manuscript"]["target_journal"] == "Journal of Ecology"
-    assert m["manuscript"]["main_text_words_at_freeze"] == 6619
+    assert m["manuscript"]["main_text_words_at_freeze"] == 6717
     assert m["manuscript"]["abstract_words_at_freeze"] == 293
     assert manuscript.startswith("# " + m["manuscript"]["title"])
 
