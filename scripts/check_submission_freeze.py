@@ -1,30 +1,23 @@
 from __future__ import annotations
 
-import csv
 import hashlib
 import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = ROOT / "manuscript/submission_freeze_manifest_v1.json"
-FREEZE_NOTE = ROOT / "manuscript/SUBMISSION_FREEZE_2026-09-27.md"
+STATE_NOTE = ROOT / "manuscript/SUBMISSION_FREEZE_2026-09-27.md"
 MANUSCRIPT = ROOT / "manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md"
-AMENDMENT = ROOT / "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-27_ESTIMAND_SCALE.md"
-SCALE_RESULT = ROOT / "manuscript/ESTIMAND_SCALE_SENSITIVITY_RESULT_2026-09-27.md"
-SCALE_ENDPOINTS = ROOT / "evidence/meta_extraction/estimand_scale_sensitivity_v1.csv"
-SCALE_CLUSTERS = ROOT / "evidence/meta_extraction/estimand_scale_cluster_summary_v1.csv"
-SCALE_FISHER = ROOT / "evidence/meta_extraction/estimand_scale_fisher_sensitivity_v1.csv"
 METADATA = ROOT / "manuscript/meta_analysis_submission_metadata.md"
-TITLE_PAGE = ROOT / "manuscript/JOURNAL_OF_ECOLOGY_TITLE_PAGE_TEMPLATE.md"
-COVER = ROOT / "manuscript/JOURNAL_OF_ECOLOGY_COVER_LETTER_DRAFT.md"
+SCALE_ENDPOINTS = ROOT / "evidence/meta_extraction/estimand_scale_sensitivity_v1.csv"
+SCALE_SUMMARY = ROOT / "evidence/meta_extraction/estimand_scale_cluster_summary_v1.csv"
+SCALE_RESULT = ROOT / "manuscript/ESTIMAND_SCALE_SENSITIVITY_RESULT_2026-09-27.md"
+SCALE_AMENDMENT = ROOT / "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-27_ESTIMAND_SCALE.md"
+FILTER_NOTE = ROOT / "manuscript/EXPLORATORY_TRANSITION_FILTERING_2026-09-27.md"
+FILTER_TABLE = ROOT / "evidence/meta_extraction/exploratory_transition_filtering_v1.csv"
 FIGURE_BUILDER = ROOT / "scripts/build_journal_of_ecology_figures.py"
 FIGURE_CAPTIONS = ROOT / "manuscript/JOURNAL_OF_ECOLOGY_FIGURE_CAPTIONS.md"
 ANON_BUILDER = ROOT / "scripts/build_anonymous_review_package.py"
-
-
-def rows(path: Path) -> list[dict[str, str]]:
-    with path.open(newline="", encoding="utf-8") as fh:
-        return list(csv.DictReader(fh))
 
 
 def git_blob_sha(path: Path) -> str:
@@ -35,138 +28,113 @@ def git_blob_sha(path: Path) -> str:
 
 def main() -> None:
     m = json.loads(MANIFEST.read_text(encoding="utf-8"))
-    note = FREEZE_NOTE.read_text(encoding="utf-8")
+    note = STATE_NOTE.read_text(encoding="utf-8")
     manuscript = MANUSCRIPT.read_text(encoding="utf-8")
-    amendment = AMENDMENT.read_text(encoding="utf-8")
-    scale_result = SCALE_RESULT.read_text(encoding="utf-8")
     metadata = METADATA.read_text(encoding="utf-8")
-    title_page = TITLE_PAGE.read_text(encoding="utf-8")
-    cover = COVER.read_text(encoding="utf-8")
+    scale_result = SCALE_RESULT.read_text(encoding="utf-8")
+    amendment = SCALE_AMENDMENT.read_text(encoding="utf-8")
+    filter_note = FILTER_NOTE.read_text(encoding="utf-8")
     builder = FIGURE_BUILDER.read_text(encoding="utf-8")
     captions = FIGURE_CAPTIONS.read_text(encoding="utf-8")
     anon = ANON_BUILDER.read_text(encoding="utf-8")
 
     assert m["schema_version"] == 4
-    assert m["freeze_kind"] == "scale_aware_submission_freeze"
-    assert m["frozen_on"] == "2026-09-27"
-    assert m["scientific_base_commit"] == "5046c7f2bd793b36303ea85f887b4dec25e98d70"
-    assert m["submission_state"] == "scale_aware_revision_complete_admin_pending"
+    assert m["status"] == "revision_required_estimand_scale_sensitivity"
+    assert m["submission_ready"] is False
+    assert m["supersedes_submission_freeze"] is True
+    assert m["revision_base_commit"] == "5046c7f2bd793b36303ea85f887b4dec25e98d70"
 
     man = m["manuscript"]
+    assert git_blob_sha(MANUSCRIPT) == man["blob_sha"]
     assert man["title"] == "Habitat fragmentation across plant reproductive life cycles: directional consistency and scale-sensitive response amplitudes"
     assert man["target_journal"] == "Journal of Ecology"
-    assert man["main_text_words_at_freeze"] == 6816
-    assert man["abstract_words_at_freeze"] == 263
-    assert git_blob_sha(MANUSCRIPT) == man["blob_sha"]
+    assert man["main_text_words"] == 6816
+    assert man["abstract_words"] == 263
     assert manuscript.startswith("# " + man["title"])
-    assert man["title"] in title_page
-    assert man["title"] in cover
 
-    hp = m["historical_primary"]
-    assert hp["estimand"] == "Hedges_g"
-    assert hp["independent_clusters"] == 5
-    assert hp["marginal_effects"] == 17
-    assert hp["full_fisher_p"] == 0.01212432
-    assert hp["omit_ML001_p"] == 0.18194353
+    g = m["historical_primary_g"]
+    assert g["independent_clusters"] == 5
+    assert g["marginal_effects"] == 17
+    assert g["full_fisher_p"] == 0.01212432
+    assert g["omit_ML001_p"] == 0.18194353
 
-    sa = m["estimand_scale_audit"]
-    assert git_blob_sha(AMENDMENT) == sa["amendment_blob_sha"]
-    assert git_blob_sha(SCALE_RESULT) == sa["result_blob_sha"]
-    assert git_blob_sha(SCALE_ENDPOINTS) == sa["endpoint_table_blob_sha"]
-    assert git_blob_sha(SCALE_CLUSTERS) == sa["cluster_summary_blob_sha"]
-    assert git_blob_sha(SCALE_FISHER) == sa["fisher_summary_blob_sha"]
-    assert abs(sa["lnRR_existing_rho_full_p"] - 1.1786949416822378e-10) < 1e-20
-    assert abs(sa["lnRR_existing_rho_omit_ML001_p"] - 2.9182238842850177e-05) < 1e-15
-    assert abs(sa["lnRR_zero_cov_full_p"] - 1.7227795177175651e-09) < 1e-19
-    assert abs(sa["lnRR_zero_cov_omit_ML001_p"] - 0.004344181486474443) < 1e-14
-    assert abs(sa["lnRR_cauchy_full_p"] - 9.946000181275223e-05) < 1e-14
-    assert abs(sa["lnRR_cauchy_omit_ML001_p"] - 0.11137892442058767) < 1e-13
-    assert abs(sa["ML001_CF_lnRR_p_existing_rho"] - 0.6048817291933912) < 1e-12
-    assert sa["ML001_g_abs_order"] == ["G", "C", "F"]
-    assert sa["ML001_lnRR_abs_order"] == ["C", "F", "G"]
+    s = m["estimand_scale_sensitivity"]
+    assert git_blob_sha(SCALE_ENDPOINTS) == s["endpoint_table_blob_sha"]
+    assert git_blob_sha(SCALE_SUMMARY) == s["cluster_summary_blob_sha"]
+    assert git_blob_sha(SCALE_RESULT) == s["result_note_blob_sha"]
+    assert git_blob_sha(SCALE_AMENDMENT) == s["protocol_amendment_blob_sha"]
+    assert s["primary_direct_negative_g"] == 17
+    assert s["primary_direct_negative_lnRR"] == 17
+    assert s["ML001_g_abs_order"] == ["G", "C", "F"]
+    assert s["ML001_lnRR_abs_order"] == ["C", "F", "G"]
+    assert abs(s["ML001_CF_lnRR_p_rho_proxy"] - 0.6048817291933912) < 1e-12
+    assert s["lnRR_rho_omit_ML001_p"] < 0.05
+    assert s["lnRR_zero_omit_ML001_p"] < 0.05
+    assert s["lnRR_cauchy_omit_ML001_p"] > 0.05
 
-    endpoint_rows = rows(SCALE_ENDPOINTS)
-    assert len(endpoint_rows) == 17
-    assert sum(float(r["hedges_g"]) < 0 for r in endpoint_rows) == 17
-    assert sum(float(r["oriented_lnRR"]) < 0 for r in endpoint_rows) == 17
+    exp = m["exploratory_ecology"]
+    assert exp["status"] == "post_hoc_hypothesis_generating"
+    assert git_blob_sha(FILTER_NOTE) == exp["transition_filtering_note_blob_sha"]
+    assert git_blob_sha(FILTER_TABLE) == exp["transition_filtering_table_blob_sha"]
 
-    fisher_rows = rows(SCALE_FISHER)
-    assert len(fisher_rows) == 4
-    by_key = {(r["estimand"], r["dependence_regime"]): r for r in fisher_rows}
-    assert abs(float(by_key[("hedges_g", "registered_rho_proxy")]["omit_ML001_fisher_p"]) - 0.18194353) < 5e-8
-    assert float(by_key[("oriented_lnRR", "carried_existing_rho_proxy")]["omit_ML001_fisher_p"]) < 0.05
-    assert float(by_key[("oriented_lnRR", "zero_covariance")]["omit_ML001_fisher_p"]) < 0.05
-    assert float(by_key[("oriented_lnRR", "cauchy_maximum_contrast_variance")]["omit_ML001_fisher_p"]) > 0.05
-
-    stable = m["scale_stable_result"]
-    assert stable["primary_direct_effects"] == 17
-    assert stable["negative_on_oriented_g"] == 17
-    assert stable["negative_on_oriented_lnRR"] == 17
-    assert "no scale-independent magnitude ordering" in stable["interpretation"]
-
-    assert m["separate_gradient_evidence"]["wandoo_sign_discordance"] is True
-    assert m["separate_gradient_evidence"]["pooled_with_primary"] is False
-    assert m["exploratory_ecology"]["status"] == "post_hoc_hypothesis_generating"
-    assert m["former_bottleneck_census"]["status"] == "supplementary_exploratory_registered_scale_only"
-    assert m["former_bottleneck_census"]["scale_invariant_claim_permitted"] is False
-
-    ft = m["figure_table_package"]
-    assert ft["figure2_role"] == "historical_Hedges_g_primary_only"
-    assert ft["figure3_role"] == "registered_scale_examples_unresolved_not_equality"
-    assert ft["figure4_role"] == "main_estimand_scale_sensitivity"
-    assert ft["table2"] == "manuscript/tables/table2_estimand_scale_sensitivity.csv"
+    ft = m["figure_table_revision"]
+    assert git_blob_sha(FIGURE_BUILDER) == ft["builder_blob_sha"]
+    assert git_blob_sha(FIGURE_CAPTIONS) == ft["captions_blob_sha"]
+    assert ft["main_figure4"] == "manuscript/figures/figure4_estimand_scale_sensitivity.svg"
+    assert ft["main_table2"] == "manuscript/tables/table2_estimand_scale_sensitivity.csv"
     assert ft["supplementary_table_s4"] == "manuscript/tables/table_s4_process_function_census.csv"
-    for token in (
-        "figure4_estimand_scale_sensitivity.svg",
-        "table2_estimand_scale_sensitivity.csv",
-        "table_s4_process_function_census.csv",
-    ):
-        assert token in builder, token
-    assert "Historical Hedges-g leave-one-cluster-out influence" in captions
-    assert "Relative response geometry is estimand-scale dependent" in captions
-    assert "unresolved" in captions and "not evidence that the true I and F effects are equal" in captions
+    assert "figure4_estimand_scale_sensitivity.svg" in builder
+    assert "table2_estimand_scale_sensitivity.csv" in builder
+    assert "table_s4_process_function_census.csv" in builder
+    assert "Figure 4. Relative response geometry is estimand-scale dependent" in captions
+    assert "Table 2. Estimand-scale sensitivity of the direct synthesis" in captions
+
+    ap = m["anonymous_package"]
+    assert git_blob_sha(ANON_BUILDER) == ap["builder_blob_sha"]
+    assert ap["reproduces_scale_audit"] is True
+    assert "check_estimand_scale_sensitivity.py" in anon
+    assert "figure4_estimand_scale_sensitivity.svg" in anon
+    assert "table2_estimand_scale_sensitivity.csv" in anon
 
     for token in (
-        "scale_aware_revision_complete_admin_pending",
-        "estimand-scale audit completed",
-        "g and lnRR sensitivity reported in Methods, Results, Limitations and figure/table package",
-        "submission freeze renewed after scale-aware manuscript + figure/table revision",
-    ):
-        assert token in metadata, token
-    assert "[ ] author/declaration metadata approved." in metadata
-
-    for token in (
-        "estimand_scale_fisher_sensitivity_v1.csv",
-        "check_estimand_scale_sensitivity.py",
-        "figure4_estimand_scale_sensitivity.svg",
-        "table2_estimand_scale_sensitivity.csv",
-    ):
-        assert token in anon, token
-
-    assert "not invariant to effect-size scale" in scale_result
-    assert "17/17" in scale_result
-    assert "not a replacement truth" in amendment
-    assert "Scale-independent directional audit" in amendment
-
-    for token in (
-        "scale-invariant global layer-separation syndrome",
-        "scale-invariant variable bottleneck ordering",
-        "ML020 p equals evidence of true equality",
-        "lnRR is uniquely correct effect scale",
+        "historical Hedges-g synthesis is exactly reproducible",
+        "relative response amplitude and omit-Serapias robustness classification are estimand-scale dependent",
+        "all 17 primary direct effects are negative on both oriented Hedges g and oriented lnRR",
     ):
         assert token in json.dumps(m), token
 
-    assert "17/17 primary direct effects are negative" in note
-    assert "relative response amplitude" in note
-    assert "Supplementary Table S4" in note
+    for token in (
+        "scale-invariant global layer-separation syndrome",
+        "scale-invariant variable life-cycle bottleneck ordering",
+        "claiming lnRR is the uniquely correct effect scale",
+        "using ML020 p=1.0 as evidence of equality or coupling",
+    ):
+        assert token in json.dumps(m), token
 
-    assert len(m["remaining_human_blockers"]) == 7
+    assert "**STATUS: NOT SUBMISSION-READY.**" in note
+    assert "mandatory estimand-scale revision" in note
+    assert "17/17" in note
+    assert "Figure 4: estimand-scale sensitivity" in note
+    assert "green CI while `submission_ready=false`" in note
+
+    assert "`revision_required_estimand_scale_sensitivity`" in metadata
+    assert "Submission hold" in metadata
+    assert "estimand-scale audit completed" in metadata
+    assert "[ ] submission freeze renewed" in metadata
+
+    assert "relative response amplitude and robustness classification are estimand-scale dependent" in manuscript
+    assert "all **17/17 primary direct effects were negative on both oriented g and oriented lnRR**" in manuscript
+    assert "p≈0.605" in manuscript
+    assert "post hoc / hypothesis-generating" in filter_note.casefold()
+    assert "not a replacement truth" in scale_result
+    assert "mandatory sensitivity audit" in amendment
 
     print(
-        "SCALE_AWARE_SUBMISSION_FREEZE_V4_OK "
-        "clusters=5 effects=17 g_full=0.01212432 g_drop_ML001=0.18194353 "
-        "sign_negative_g=17 sign_negative_lnRR=17 figure4=scale_sensitivity table2=scale_sensitivity "
-        "admin_pending=7"
+        "REVISION_STATE_V4_OK "
+        "submission_ready=false g_full=0.01212432 g_drop_ML001=0.18194353 "
+        "primary_negative_g=17 primary_negative_lnRR=17 "
+        "ML001_order_g=G>C>F ML001_order_lnRR=C>F>G "
+        "main_figure4=estimand_scale main_table2=estimand_scale"
     )
 
 
