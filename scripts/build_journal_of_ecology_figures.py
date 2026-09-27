@@ -12,6 +12,9 @@ ROOT = Path(__file__).resolve().parents[1]
 FIGDIR = ROOT / "manuscript/figures"
 TABLEDIR = ROOT / "manuscript/tables"
 ML020_EFFECTS = ROOT / "evidence/meta_extraction/PS022_aizen_feinsinger_effects_v1.csv"
+WANDOO_EFFECTS = ROOT / "evidence/meta_extraction/PS019_eucalyptus_wandoo_2018_gradient_effects_v1.csv"
+CARDIO_EFFECTS = ROOT / "evidence/meta_extraction/phase2_cf01_cardiopetalum_gradient_effects_v1.csv"
+BERGSDORF_EFFECTS = ROOT / "evidence/meta_extraction/phase2_cf01_bergsdorf_kakamega_direct_effects_v1.csv"
 REGISTRY = ROOT / "evidence/meta_extraction/multilayer_cluster_registry_v1.csv"
 REGISTRY_ML020 = ROOT / "evidence/meta_extraction/multilayer_cluster_registry_extension_ml020.csv"
 SYNTHESIS = ROOT / "scripts/synthesize_state_separation.py"
@@ -158,60 +161,142 @@ def figure2_influence(result: dict) -> None:
     write_svg(FIGDIR / "figure2_leave_one_out_influence.svg", width, height, body)
 
 
-def figure3_ml020() -> None:
-    effect_rows = rows(ML020_EFFECTS)
-    by_species: dict[str, dict[str, float]] = {}
-    for row in effect_rows:
-        by_species.setdefault(row["species"], {})[row["endpoint_id"]] = float(row["oriented_effect"])
-    expected_species = {"Atamisquea emarginata", "Cercidium australe", "Prosopis nigra"}
-    assert set(by_species) == expected_species
-
-    width, height = 700, 650
-    x0, x1, y0, y1 = 105, 630, 540, 80
-    lo, hi = -1.35, 0.05
+def draw_effect_pair_panel(
+    body: list[str],
+    *,
+    px: float,
+    py: float,
+    pw: float,
+    ph: float,
+    title: str,
+    subtitle: str,
+    pairs: list[tuple[str, float, float]],
+    lo: float,
+    hi: float,
+    ticks: list[float],
+    footer: str,
+) -> None:
+    label_w = 145
+    x0 = px + label_w
+    x1 = px + pw - 24
+    axis_y = py + ph - 48
+    plot_top = py + 70
+    plot_bottom = axis_y - 28
 
     def sx(v: float) -> float:
         return x0 + (v - lo) / (hi - lo) * (x1 - x0)
 
-    def sy(v: float) -> float:
-        return y0 - (v - lo) / (hi - lo) * (y0 - y1)
+    body.append(f'<rect x="{px}" y="{py}" width="{pw}" height="{ph}" fill="white" stroke="black" stroke-width="1"/>')
+    body.append(svg_text(px + 12, py + 24, title, size=14, weight="bold"))
+    body.append(svg_text(px + 12, py + 45, subtitle, size=10))
 
-    body: list[str] = [svg_text(30, 35, "Figure 3. ML020: interaction and reproductive function decline together", size=18, weight="bold")]
-    body.append(svg_text(30, 60, "Three dependent species subsystems in one replicated Chaco programme; programme p = 1.0.", size=12))
+    if lo <= 0 <= hi:
+        zx = sx(0.0)
+        body.append(f'<line x1="{zx:.1f}" y1="{plot_top - 8:.1f}" x2="{zx:.1f}" y2="{axis_y:.1f}" stroke="black" stroke-dasharray="4,4"/>')
 
-    body.append(f'<line x1="{x0}" y1="{y0}" x2="{x1}" y2="{y0}" stroke="black" stroke-width="1.5"/>')
-    body.append(f'<line x1="{x0}" y1="{y0}" x2="{x0}" y2="{y1}" stroke="black" stroke-width="1.5"/>')
-    body.append(f'<line x1="{sx(lo):.1f}" y1="{sy(lo):.1f}" x2="{sx(hi):.1f}" y2="{sy(hi):.1f}" stroke="black" stroke-dasharray="6,5"/>')
-    body.append(svg_text(sx(-0.15), sy(-0.15) - 8, "F = I", size=10))
+    body.append(f'<line x1="{x0:.1f}" y1="{axis_y:.1f}" x2="{x1:.1f}" y2="{axis_y:.1f}" stroke="black" stroke-width="1.2"/>')
+    for tick in ticks:
+        tx = sx(tick)
+        body.append(f'<line x1="{tx:.1f}" y1="{axis_y:.1f}" x2="{tx:.1f}" y2="{axis_y + 5:.1f}" stroke="black"/>')
+        body.append(svg_text(tx, axis_y + 20, f"{tick:g}", anchor="middle", size=9))
 
-    for tick in [-1.2, -0.9, -0.6, -0.3, 0.0]:
-        x = sx(tick)
-        y = sy(tick)
-        body.append(f'<line x1="{x:.1f}" y1="{y0}" x2="{x:.1f}" y2="{y0 + 6}" stroke="black"/>')
-        body.append(svg_text(x, y0 + 24, f"{tick:.1f}", anchor="middle", size=10))
-        body.append(f'<line x1="{x0 - 6}" y1="{y:.1f}" x2="{x0}" y2="{y:.1f}" stroke="black"/>')
-        body.append(svg_text(x0 - 12, y + 4, f"{tick:.1f}", anchor="end", size=10))
+    n = len(pairs)
+    if n == 1:
+        ys = [(plot_top + plot_bottom) / 2]
+    else:
+        step = (plot_bottom - plot_top) / (n - 1)
+        ys = [plot_top + i * step for i in range(n)]
 
-    body.append(svg_text((x0 + x1) / 2, 605, "Fragmentation effect on I (pollen tubes), Hedges g", anchor="middle", size=12, weight="bold"))
-    body.append(
-        f'<text x="28" y="{(y0 + y1) / 2:.1f}" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="bold" text-anchor="middle" transform="rotate(-90 28 {(y0 + y1) / 2:.1f})">Fragmentation effect on F (fruit set), Hedges g</text>'
+    for y, (label, i_eff, f_eff) in zip(ys, pairs):
+        xi = sx(i_eff)
+        xf = sx(f_eff)
+        body.append(svg_text(px + 12, y + 4, label, size=10, weight="bold"))
+        body.append(f'<line x1="{xi:.1f}" y1="{y:.1f}" x2="{xf:.1f}" y2="{y:.1f}" stroke="black" stroke-width="1.5"/>')
+        body.append(f'<circle cx="{xi:.1f}" cy="{y:.1f}" r="5" fill="white" stroke="black" stroke-width="1.5"/>')
+        body.append(f'<rect x="{xf - 5:.1f}" y="{y - 5:.1f}" width="10" height="10" fill="black"/>')
+        body.append(svg_text(xi, y - 9, f"I {i_eff:+.2f}", anchor="middle", size=9))
+        body.append(svg_text(xf, y + 18, f"F {f_eff:+.2f}", anchor="middle", size=9))
+
+    body.append(svg_text(px + 12, py + ph - 12, footer, size=9))
+
+
+def figure3_response_regimes() -> None:
+    chaco_rows = rows(ML020_EFFECTS)
+    chaco: dict[str, dict[str, float]] = {}
+    for row in chaco_rows:
+        chaco.setdefault(row["species"], {})[row["layer"]] = float(row["oriented_effect"])
+    assert set(chaco) == {"Atamisquea emarginata", "Cercidium australe", "Prosopis nigra"}
+
+    wandoo_rows = rows(WANDOO_EFFECTS)
+    wandoo = {r["layer"]: float(r["oriented_effect"]) for r in wandoo_rows}
+    assert {"I", "F"} <= set(wandoo)
+
+    cardio_rows = [r for r in rows(CARDIO_EFFECTS) if r["primary_or_sensitivity"] == "primary"]
+    cardio = {r["layer"]: float(r["fisher_z"]) for r in cardio_rows}
+    assert {"I_interaction", "F_reproductive_function"} <= set(cardio)
+
+    berg_rows = [
+        r for r in rows(BERGSDORF_EFFECTS)
+        if r["panel_id"] == "AP_2001" and r["primary_or_sensitivity"] == "primary"
+    ]
+    berg = {r["layer"]: float(r["hedges_g"]) for r in berg_rows}
+    assert {"I_interaction", "F_reproductive_function"} <= set(berg)
+
+    width, height = 1240, 760
+    body: list[str] = [
+        svg_text(30, 34, "Figure 3. Fragmentation produces coupled and decoupled interaction–function responses", size=18, weight="bold"),
+        svg_text(30, 58, "Each panel retains its registered effect scale; effect magnitudes are not compared across panels.", size=11),
+    ]
+
+    draw_effect_pair_panel(
+        body,
+        px=30, py=85, pw=575, ph=285,
+        title="A. Chaco: coupled decline",
+        subtitle="Hedges g; small fragments minus continuous forest",
+        pairs=[
+            ("Atamisquea", chaco["Atamisquea emarginata"]["I_interaction"], chaco["Atamisquea emarginata"]["F_reproductive_function"]),
+            ("Cercidium", chaco["Cercidium australe"]["I_interaction"], chaco["Cercidium australe"]["F_reproductive_function"]),
+            ("Prosopis", chaco["Prosopis nigra"]["I_interaction"], chaco["Prosopis nigra"]["F_reproductive_function"]),
+        ],
+        lo=-1.3, hi=0.1, ticks=[-1.2, -0.8, -0.4, 0.0],
+        footer="Three dependent species; programme Bonferroni p = 1.0.",
     )
 
-    labels = {
-        "Atamisquea emarginata": "Atamisquea",
-        "Cercidium australe": "Cercidium",
-        "Prosopis nigra": "Prosopis",
-    }
-    for species in sorted(by_species):
-        vals = by_species[species]
-        ix = vals["I_pollen_tubes"]
-        fy = vals["F_fruit_set"]
-        x, y = sx(ix), sy(fy)
-        body.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="7" fill="black"/>')
-        body.append(svg_text(x + 10, y - 8, labels[species], size=11, weight="bold"))
+    draw_effect_pair_panel(
+        body,
+        px=635, py=85, pw=575, ph=285,
+        title="B. Eucalyptus wandoo: pollen quantity–function decoupling",
+        subtitle="Fisher z along response-free fragmentation severity",
+        pairs=[("E. wandoo", wandoo["I"], wandoo["F"])],
+        lo=-1.1, hi=0.9, ticks=[-1.0, -0.5, 0.0, 0.5],
+        footer="Pollen tubes increase while seed production declines; I-F p = 0.0008565.",
+    )
 
-    body.append(svg_text(385, 110, "Both layers deteriorate", size=11))
-    write_svg(FIGDIR / "figure3_ml020_concordant_decline.svg", width, height, body)
+    draw_effect_pair_panel(
+        body,
+        px=30, py=405, pw=575, ph=285,
+        title="C. Cardiopetalum: pollinator persistence–function decoupling",
+        subtitle="Fisher z along decreasing fragment area",
+        pairs=[("Cardiopetalum", cardio["I_interaction"], cardio["F_reproductive_function"])],
+        lo=-1.9, hi=0.1, ticks=[-1.8, -1.2, -0.6, 0.0],
+        footer="Pollinator abundance changes weakly while fruit set declines; I-F p = 0.00316.",
+    )
+
+    draw_effect_pair_panel(
+        body,
+        px=635, py=405, pw=575, ph=285,
+        title="D. Kakamega Acanthopale: visitation–function decoupling",
+        subtitle="Hedges g; fragment sites minus main-forest sites",
+        pairs=[("Acanthopale", berg["I_interaction"], berg["F_reproductive_function"])],
+        lo=-3.2, hi=0.8, ticks=[-3.0, -2.0, -1.0, 0.0],
+        footer="Visitation is maintained/slightly higher while fruit set falls; I-F p = 0.00163.",
+    )
+
+    body.append(f'<circle cx="445" cy="726" r="5" fill="white" stroke="black" stroke-width="1.5"/>')
+    body.append(svg_text(458, 730, "Interaction / pollen quantity", size=10))
+    body.append(f'<rect x="662" y="721" width="10" height="10" fill="black"/>')
+    body.append(svg_text(678, 730, "Reproductive function", size=10))
+    write_svg(FIGDIR / "figure3_ecological_response_regimes.svg", width, height, body)
 
 
 def table1(result: dict) -> None:
@@ -261,12 +346,12 @@ def main() -> None:
     result = canonical_result()
     figure1_coverage()
     figure2_influence(result)
-    figure3_ml020()
+    figure3_response_regimes()
     table1(result)
     expected = [
         FIGDIR / "figure1_primary_evidence_geometry.svg",
         FIGDIR / "figure2_leave_one_out_influence.svg",
-        FIGDIR / "figure3_ml020_concordant_decline.svg",
+        FIGDIR / "figure3_ecological_response_regimes.svg",
         TABLEDIR / "table1_primary_cluster_summary.csv",
     ]
     assert all(p.is_file() and p.stat().st_size > 500 for p in expected[:3])
