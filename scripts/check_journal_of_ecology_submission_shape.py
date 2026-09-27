@@ -27,7 +27,7 @@ def main() -> None:
     metadata = METADATA.read_text(encoding="utf-8")
 
     assert manuscript.startswith(
-        "# Testing whether fragmentation acts as a single biological state:"
+        "# Coupling and decoupling of plant interaction, reproduction and genetic responses under habitat fragmentation:"
     )
     for heading in (
         "## Abstract",
@@ -76,7 +76,7 @@ def main() -> None:
 
     assert "**Primary target journal:** **Journal of Ecology**" in metadata
     assert "Research Article / empirical research synthesis" in metadata
-    assert "results_bearing_conditional_state_separation" in metadata
+    assert "results_bearing_ecological_response_coupling_synthesis" in metadata
 
     print(
         "JOURNAL_OF_ECOLOGY_SHAPE_OK "
