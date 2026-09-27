@@ -5,7 +5,7 @@
 - **Working title:** Variable life-cycle bottlenecks under habitat fragmentation: a cross-system synthesis of plant interaction, mating and reproduction
 - **Source manuscript:** `manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md`
 - **Protocol:** `manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md`
-- **Submission state:** `results_bearing_ecological_response_coupling_synthesis`
+- **Submission state:** `results_bearing_variable_lifecycle_bottleneck_synthesis`
 - **Article type:** Research Article / empirical research synthesis
 - **Primary target journal:** **Journal of Ecology**
 - **Fallback venues:** Ecology (Article or Concepts & Synthesis, if reframed for broader ecological generality); Oikos (Meta-analysis)
@@ -95,7 +95,7 @@ Not authorised:
 - [x] primary venue selected: Journal of Ecology;
 - [x] journal-specific abstract and keywords shaped;
 - [x] main text converted to Journal of Ecology IMRaD structure;
-- [x] main-text word count audited against the ~8000-word research-article target (current automated count: 6468 words from Introduction onward);
+- [x] main-text word count audited against the ~8000-word research-article target (current automated count: 6619 words from Introduction onward);
 - [x] final figure/table package completed and CI-reproduced (Figures 1–4, Table 1, complete I–F census Table 2, Supplementary Tables S1–S3, Supplementary Figure S1);
 - [x] double-anonymous submission package checked and anonymously reproduced in CI;
 - [ ] author/declaration metadata approved.
