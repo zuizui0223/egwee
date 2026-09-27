@@ -351,6 +351,7 @@ def table2_if_direction_census() -> None:
     assert sum(r["resolved_if_mismatch"] == "yes" for r in census) == 3
     assert sum(r["resolved_if_mismatch"] == "no" for r in census) == 4
     assert sum(r["resolved_if_mismatch"] == "not_testable" for r in census) == 1
+    assert {r["interaction_measurement_class"] for r in census} == {"quantity_only"}
 
     resolved = [r for r in census if r["resolved_if_mismatch"] == "yes"]
     assert resolved
@@ -363,6 +364,8 @@ def table2_if_direction_census() -> None:
         "programme_id",
         "system",
         "source_id",
+        "i_endpoint",
+        "interaction_measurement_class",
         "effect_family",
         "n_dependent_if_panels",
         "pair_testable",
@@ -388,6 +391,8 @@ def table2_if_direction_census() -> None:
                 "programme_id": row["programme_id"],
                 "system": row["system"],
                 "source_id": row["source_id"],
+                "i_endpoint": row["i_endpoint"],
+                "interaction_measurement_class": row["interaction_measurement_class"],
                 "effect_family": row["effect_family"],
                 "n_dependent_if_panels": row["n_dependent_if_panels"],
                 "pair_testable": row["if_pair_testable"],
