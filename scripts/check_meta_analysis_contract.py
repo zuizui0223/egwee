@@ -49,15 +49,16 @@ def main() -> None:
     metadata = METADATA.read_text(encoding="utf-8")
     schema = json.loads(SCHEMA.read_text(encoding="utf-8"))
 
-    # The repository is now results-bearing. Guard the current conditional
-    # conclusion semantically rather than coupling CI to one exact sentence.
+    # Guard the current scale-aware ecological framing rather than the superseded
+    # variable-bottleneck / g-only headline.
     assert "active paper is a cluster-first empirical synthesis" in readme
     assert "five independent programme/study clusters / 17 marginal effects" in readme
-    assert "not Serapias-independent" in readme
-    assert "Primary hypothesis — fragmentation can decouple biological processes" in manuscript
-    assert "not leave-one-cluster-out robust" in manuscript
-    assert "A recurring motif: interaction quantity can persist while reproductive function fails" in manuscript
-    assert "Genetic responses add a slower ecological timescale, but a general lag is not yet established" in manuscript
+    assert "That robustness classification is **not scale-invariant**" in readme
+    assert "All **17/17 primary direct effects are negative**" in readme
+    assert "Primary questions — response direction, relative amplitude and scale dependence" in manuscript
+    assert "The scale-robust result is common direction, not a universal ordering of response magnitude" in manuscript
+    assert "relative response amplitude and robustness classification are estimand-scale dependent" in manuscript
+    assert "hypothesis-generating" in manuscript
     assert "primary meta-analysis requires a direct fragmented-versus-reference comparison" in protocol.lower()
     assert "pseudo-replication firewall" in effect_amendment.lower()
     assert "proxy_pairwise_low_rank" in cohort_amendment
@@ -70,7 +71,7 @@ def main() -> None:
     assert phase2_contract["phase1_reference"]["n_primary_clusters"] == 5
     assert phase2_contract["phase1_reference"]["n_primary_marginal_effects"] == 17
     assert phase2_contract["pair_specific_analysis_gate"]["min_independent_programmes"] == 5
-    assert "revision_required_estimand_scale_sensitivity" in metadata
+    assert "scale_aware_revision_complete_admin_pending" in metadata
     assert "p = 0.01212432" in metadata
     assert "p = 0.18194353" in metadata
 
@@ -154,7 +155,7 @@ def main() -> None:
     print(
         "EGWEE multilayer meta-analysis contract: PASS; "
         f"{len(primary)} verified studies, {len(candidates)} candidates, {len(queue)} queued; "
-        "active paper is revision-blocked by estimand-scale sensitivity with locked historical-result sync; "
+        "active paper is scale-aware with locked historical-result and estimand-sensitivity sync; "
         "systematic coverage/moderator expansion is frozen separately"
     )
 
