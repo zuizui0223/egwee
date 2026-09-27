@@ -87,13 +87,13 @@ def main() -> None:
         "empirical plant-fragmentation",
     ):
         assert token in (manuscript + "\n" + metadata + "\n" + cover_letter), token
-    assert "REVISION HOLD" in cover_letter
-    assert "estimand-scale sensitivity" in cover_letter
-    assert "17 oriented effects are negative" in cover_letter
+    assert "not invariant to an oriented lnRR sensitivity" in cover_letter
+    assert "all 17 oriented effects are negative on both g and lnRR" in cover_letter
+    assert "hypothesis-generating" in cover_letter
 
     assert "**Primary target journal:** **Journal of Ecology**" in metadata
     assert "Research Article / empirical research synthesis" in metadata
-    assert "revision_required_estimand_scale_sensitivity" in metadata
+    assert "scale_aware_revision_complete_admin_pending" in metadata
 
     print(
         "JOURNAL_OF_ECOLOGY_SHAPE_OK "
