@@ -51,5 +51,12 @@
   ],
   "field_module": "manuscript/FRESH_ECOLOGICAL_IF_SYNCHRONIZED_FIELD_MODULE_V1.md",
   "current_manuscript_role": "discovery_synthesis_not_fresh_confirmation",
-  "moderator_schema": "manuscript/fresh_ecological_if_moderator_schema_v1.csv"
+  "moderator_schema": "manuscript/fresh_ecological_if_moderator_schema_v1.csv",
+  "burned_auxiliary_process_function_programmes": [
+    "ML001",
+    "ML002",
+    "ML014",
+    "P2_CF01_ACER_MIYABEI_2014"
+  ],
+  "auxiliary_discovery_audit": "manuscript/ECOLOGICAL_BOTTLENECK_POSITION_AUDIT_2026-09-27.md"
 }
