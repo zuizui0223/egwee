@@ -8,6 +8,7 @@ CONTRACT = ROOT / "manuscript/fresh_ecological_if_validation_contract_v1.json"
 PREREG = ROOT / "manuscript/FRESH_ECOLOGICAL_IF_VALIDATION_PREREGISTRATION_2026-09-27.md"
 FIELD_MODULE = ROOT / "manuscript/FRESH_ECOLOGICAL_IF_SYNCHRONIZED_FIELD_MODULE_V1.md"
 CENSUS = ROOT / "evidence/meta_extraction/ecological_if_programme_census_v1.csv"
+MODERATOR_SCHEMA = ROOT / "manuscript/fresh_ecological_if_moderator_schema_v1.csv"
 
 
 def main() -> None:
@@ -15,6 +16,7 @@ def main() -> None:
     p = PREREG.read_text(encoding="utf-8")
     census_text = CENSUS.read_text(encoding="utf-8")
     field = FIELD_MODULE.read_text(encoding="utf-8")
+    moderator_text = MODERATOR_SCHEMA.read_text(encoding="utf-8")
 
     assert c["schema_version"] == 1
     assert c["frozen_on"] == "2026-09-27"
@@ -22,6 +24,7 @@ def main() -> None:
     assert c["effect_family_boundary"]["cross_family_pooling"] is False
     assert c["field_module"] == "manuscript/FRESH_ECOLOGICAL_IF_SYNCHRONIZED_FIELD_MODULE_V1.md"
     assert c["current_manuscript_role"] == "discovery_synthesis_not_fresh_confirmation"
+    assert c["moderator_schema"] == "manuscript/fresh_ecological_if_moderator_schema_v1.csv"
     assert c["primary_estimand"].startswith("Delta_IF=")
 
     burned = set(c["burned_programmes"])
@@ -83,6 +86,15 @@ def main() -> None:
         "plants/flowers/fruits/offspring to independent fragmentation units",
     ):
         assert token in field, token
+
+    for token in (
+        "interaction_measurement_class",
+        "quantity_only;effective_mating_quality;unknown",
+        "self-compatibility alone is not assurance",
+        "do not infer from low fruit set or high inbreeding",
+        "do not define direct quality from association with F",
+    ):
+        assert token in moderator_text, token
 
     print(
         "FRESH_ECOLOGICAL_IF_VALIDATION_CONTRACT_OK "
