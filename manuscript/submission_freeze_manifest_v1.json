@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "frozen_on": "2026-09-27",
+  "scientific_base_commit": "9fe74375346112747c9aa84ae6fa977a7c380255",
+  "manuscript": {
+    "path": "manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md",
+    "blob_sha": "cd2484545ed0873b0746698f7d6f6ace17d4b65b",
+    "title": "Coupling and decoupling of plant interaction, reproduction and genetic responses under habitat fragmentation: a cross-system synthesis",
+    "target_journal": "Journal of Ecology",
+    "main_text_words_at_freeze": 6156,
+    "abstract_words_at_freeze": 301
+  },
+  "primary_direct": {
+    "independent_clusters": 5,
+    "marginal_effects": 17,
+    "canonical_p": 0.01212432,
+    "omit_ML001_p": 0.18194353,
+    "zero_covariance_p": 0.03860161,
+    "covariance_free_bound_p": 0.28061178
+  },
+  "phase2": {
+    "target_pair_candidates_screened": 360,
+    "target_pair_candidates_total": 360,
+    "pending_screens": 0,
+    "direct_IF_programmes": 3,
+    "direct_IF_gate": 5,
+    "direct_CF_programmes": 2,
+    "direct_CF_gate": 5,
+    "gradient_programmes": 6,
+    "gradient_primary_effects": 19
+  },
+  "ecological_IF_census": {
+    "path": "evidence/meta_extraction/ecological_if_programme_census_v1.csv",
+    "blob_sha": "53eb2b609abddad978cceadea88ec51636146e3",
+    "independent_programmes": 8,
+    "pair_testable": 7,
+    "resolved": 3,
+    "unresolved": 4,
+    "not_testable": 1,
+    "resolved_F_more_negative_than_I": 3,
+    "resolved_I_more_negative_than_F": 0,
+    "quantity_only_I": 8,
+    "effective_mating_quality_I": 0
+  },
+  "novelty_boundary": {
+    "established_before_this_paper": [
+      "fragmentation often reduces pollination and reproductive success",
+      "pollination and reproductive responses can be positively associated across species/studies",
+      "pollen quantity and pollen quality/compatibility are biologically distinct"
+    ],
+    "contribution": [
+      "paired within-programme fragmentation response geometry with shared effect units and dependence",
+      "complete registered I-F direction census retaining resolved unresolved and not-testable programmes",
+      "evidence-gap audit showing quantity-level I measurements dominate and effective-mating I is absent"
+    ]
+  },
+  "current_claim_ceiling": [
+    "fragmented plant systems can show coupled deterioration or process decoupling",
+    "the five-cluster direct rejection is not Serapias-independent",
+    "all three resolved I-F mismatches in the complete registered census are F-dominant",
+    "the 3/3 directional pattern is descriptive and post hoc not a sign test or prevalence estimate",
+    "all eight current I endpoints are quantity-level and none directly measures effective mating quality on the same I-F frame"
+  ],
+  "not_authorized": [
+    "universal state separation",
+    "universal F-dominant I-F law",
+    "common causal mechanism across resolved programmes",
+    "significance testing of the burned 3/3 direction pattern",
+    "cross-family pooling of Hedges-g and Fisher-z effects",
+    "direct validation of finite EGWE or NEE operators"
+  ],
+  "fresh_validation": {
+    "preregistration": "manuscript/FRESH_ECOLOGICAL_IF_VALIDATION_PREREGISTRATION_2026-09-27.md",
+    "field_module": "manuscript/FRESH_ECOLOGICAL_IF_SYNCHRONIZED_FIELD_MODULE_V1.md",
+    "moderator_schema": "manuscript/fresh_ecological_if_moderator_schema_v1.csv",
+    "current_IF_programmes_burned": 8,
+    "min_fresh_programmes_per_effect_family": 5
+  },
+  "automated_readiness": {
+    "full_contract_run_id": 36296557354,
+    "full_contract_conclusion": "success",
+    "submission_shape": true,
+    "double_anonymous": true,
+    "figures_tables_reproduced": true,
+    "anonymous_review_package_reproduced": true
+  },
+  "remaining_human_blockers": [
+    "final author list",
+    "affiliations",
+    "corresponding author contact",
+    "author contributions approval",
+    "funding acknowledgements and permits if applicable",
+    "conflict of interest declaration",
+    "final all-author approval"
+  ]
+}
