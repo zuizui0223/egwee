@@ -6,6 +6,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 MANUSCRIPT = ROOT / "manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md"
 METADATA = ROOT / "manuscript/meta_analysis_submission_metadata.md"
+COVER_LETTER = ROOT / "manuscript/JOURNAL_OF_ECOLOGY_COVER_LETTER_DRAFT.md"
 
 
 def words(text: str) -> list[str]:
@@ -25,6 +26,7 @@ def section(text: str, start: str, end: str | None) -> str:
 def main() -> None:
     manuscript = MANUSCRIPT.read_text(encoding="utf-8")
     metadata = METADATA.read_text(encoding="utf-8")
+    cover_letter = COVER_LETTER.read_text(encoding="utf-8")
 
     assert manuscript.startswith(
         "# Coupling and decoupling of plant interaction, reproduction and genetic responses under habitat fragmentation:"
@@ -73,6 +75,20 @@ def main() -> None:
         "sixth cluster",
     ):
         assert token in manuscript, token
+
+    # Submission-facing framing is ecological, not a theory-validation wrapper.
+    assert "Testing whether fragmentation acts as a single biological state" not in manuscript
+    assert "Testing whether fragmentation acts as a single biological state" not in metadata
+    assert "Paper role relative to NEE" not in metadata
+    assert "aligned to NEE state separation" not in metadata
+    for token in (
+        "fragmentation-response coupling",
+        "interaction quantity can persist while reproductive function fails",
+        "empirical plant-fragmentation",
+    ):
+        assert token in (manuscript + "\n" + metadata + "\n" + cover_letter), token
+    assert "coupled deterioration" in cover_letter
+    assert "process decoupling" in cover_letter
 
     assert "**Primary target journal:** **Journal of Ecology**" in metadata
     assert "Research Article / empirical research synthesis" in metadata
