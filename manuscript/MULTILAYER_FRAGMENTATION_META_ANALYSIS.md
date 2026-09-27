@@ -14,7 +14,7 @@
 
 ## Keywords
 
-habitat fragmentation; plant–pollinator interactions; pollen and seed movement; plant reproduction; population genetics; response coupling; ecological decoupling; cross-system synthesis
+cross-system synthesis; ecological decoupling; habitat fragmentation; plant reproduction; plant–pollinator interactions; pollen and seed movement; population genetics; response coupling
 
 ## Introduction
 
