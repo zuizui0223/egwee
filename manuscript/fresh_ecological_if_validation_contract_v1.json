@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "frozen_on": "2026-09-27",
+  "programme": "fresh_ecological_IF_decoupling_validation",
+  "discovery_cutoff": "2026-09-18",
+  "burned_programmes": [
+    "ML020",
+    "P2_CF01_SEVENELLO_2026",
+    "P2_CF01_BERGSDORF_KAKAMEGA_2006",
+    "ML015",
+    "P2_CF01_CARDIOPETALUM_2012",
+    "P2_CF01_ZURICH_2026",
+    "P2_CF01_MILKWEED_URBAN_2023",
+    "P2_CF01_PRITCHARD_2005"
+  ],
+  "hypotheses": {
+    "H1": "quantity-only interaction measurements can remain buffered while reproductive function deteriorates because effective mating/post-pollination processes are downstream",
+    "H2": "effective-mating-quality interaction measurements should show smaller I-F mismatch than quantity-only interaction measurements",
+    "H3": "F-dominant mismatch should be stronger or more frequent under source-supported outcrossing dependence and absent autonomous reproductive assurance"
+  },
+  "effect_family_boundary": {
+    "direct": "Hedges_g",
+    "gradient": "Fisher_z",
+    "cross_family_pooling": false
+  },
+  "primary_estimand": "Delta_IF=effect_I-effect_F; positive means F more negative than I",
+  "fresh_gate": {
+    "min_programmes_per_effect_family": 5,
+    "min_programmes_per_categorical_level": 4,
+    "leave_one_programme_out_required": true
+  },
+  "fresh_lanes": [
+    "post_2026-09-18_new_primary_programme",
+    "prospective_synchronized_field_programme"
+  ],
+  "primary_moderators": [
+    "interaction_measurement_class",
+    "autonomous_reproductive_assurance",
+    "outcrossing_dependence",
+    "pollination_specialisation",
+    "fragmentation_component"
+  ],
+  "forbidden": [
+    "reuse_burned_programmes_as_fresh_confirmation",
+    "outcome_based_moderator_coding",
+    "self_compatibility_as_assurance_without_measurement",
+    "cross_family_delta_pooling",
+    "endpoint_switch_after_outcome",
+    "search_until_significance",
+    "unresolved_as_zero"
+  ]
+}
