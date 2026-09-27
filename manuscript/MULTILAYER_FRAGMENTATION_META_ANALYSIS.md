@@ -4,7 +4,7 @@
 
 1. Habitat fragmentation alters pollinator interactions, pollen and seed movement, reproductive output and population genetic structure, but these processes operate over different spatial scales and response times. We asked whether their fragmentation responses remain coupled within the same plant systems or become decoupled.
 
-2. A protocol-first recovery workflow began from 20 named system/program candidates and 19 source-verified primary-study records, and materialised 16 formal multilayer cluster attempts. Five independent direct fragmented-versus-reference clusters comprising 17 Hedges-g marginal effects met the primary admission contract; one additional continuous-gradient cluster was retained separately.
+2. A protocol-first primary recovery began from 20 named candidates and 19 source-verified records, materialising 16 formal multilayer attempts: five direct clusters (17 Hedges-g effects) entered the primary synthesis and one gradient programme remained separate. A separately frozen Phase-2 coverage expansion then screened 360/360 target-pair candidates, raising direct I–F coverage to three programmes and the gradient/generalisation registry to six programmes (19 Fisher-z effects).
 
 3. Across the five direct clusters, the Fisher synthesis rejected complete equality of within-system standardized fragmentation responses (`chi-square(10)=22.65`, `p=0.0121`), but this result did not survive removal of the influential *Serapias lingua* cluster (`p=0.1819`). The evidence for cross-process decoupling is therefore real in the present corpus but not leave-one-system-out robust.
 
@@ -49,6 +49,18 @@ This was a targeted, protocol-first evidence-recovery synthesis rather than a cl
 Sixteen multilayer cluster attempts were formally registered (`ML001`–`ML015` plus `ML020`; Supplementary Table S1). Five ultimately met the direct Hedges-g primary admission contract (`ML001`, `ML002`, `ML003`, `ML014`, `ML020`). One additional system (`ML015`) met a common-population continuous-gradient contract and was retained as Fisher-z generalisation evidence rather than converted into a direct binary effect. Ten registered attempts were closed without primary admission. Eight closures reflected inability to reconstruct the required same-frame exposure, signed effect, sampling variance/covariance, or source data from the public material under the frozen effect-unit rules. Two closures (`ML009`, `ML013`) were structural non-identifiability cases because only one independent landscape/reference population represented one condition, so lower-level mothers, progeny or loci could not supply fragmentation-level replication.
 
 A closure due to inaccessible or non-reconstructable data was never interpreted as a biological null. Likewise, a non-significant published endpoint was never entered as a zero effect. This admission flow fixes the denominator by estimand and effect-unit validity rather than by whether a candidate supports state separation.
+
+### Phase-2 systematic pair-coverage expansion
+
+The five-cluster primary corpus above was frozen before a separate coverage programme was opened on 18 September 2026. The Phase-2 purpose was to increase empirical coverage of prespecified layer pairs and future moderator information, not to repair the Phase-1 p-value. Candidate admission, endpoint assignment, independent-unit rules and search stopping were fixed independently of effect direction.
+
+A deterministic citation-expanded target-pair queue was screened through the frozen 18 September 2026 cutoff. Screening decisions used title, abstract, methods, exposure structure and effect-unit recoverability without opening newly discovered effect magnitudes for inclusion decisions. The final queue contained **360 candidates; all 360 were screened and no title/abstract/method screen remained pending**.
+
+Pair-specific direct analyses had a preregistered opening gate of five independent programmes. Exhausting the search did not authorize relaxed endpoints, lower-level pseudo-replication or additional searching merely to reach that gate. The direct I–F family closed search-complete at **3/5 programmes** (ML020 Chaco, Sevenello and Bergsdorf Kakamega), while direct C–F closed at **2/5** (ML001 and ML002); neither pooled pair-specific analysis was opened.
+
+Continuous fragmentation and landscape gradients were retained in a separate Fisher-z generalisation registry rather than converted to binary contrasts. By search completion this registry contained **six independent programmes / 19 primary Fisher-z marginal effects**: *Eucalyptus wandoo*, Zurich BetterBlooms, Toronto common milkweed, *Acer miyabei*, *Cardiopetalum calophyllum* and Pritchard orchard isolation. Five of those six programmes contain I and F; *Acer miyabei* instead contains C and F.
+
+Consequently, the complete registered I–F programme denominator used in the descriptive direction census is **eight independent programmes: three direct Hedges-g programmes plus five gradient Fisher-z programmes**. Effect families remain numerically separate throughout.
 
 ### Response layers, effect orientation and the direct-effect estimand
 
@@ -161,6 +173,12 @@ The frozen within-programme Bonferroni gate was therefore **`p_ML020=1.0`**. ML0
 The separate *Eucalyptus wandoo* gradient system (Llorens et al., 2018) showed strong discordance on the Fisher-z scale. The canonical effects were I pollen tubes `z=+0.69029123`, F seeds per fruit `z=-0.87593080` and G_adult H_e `z=-0.41117288`. The strongest I–F contrast had `z=3.33386`, two-sided `p=0.00085651`; Bonferroni correction across the three endpoint pairs gave `p_cluster=0.00256953`.
 
 This gradient result provides independent evidence that strong layer discordance occurs in nature, but because its exposure representation and effect family differ from the primary direct stream it was treated as generalisation evidence rather than a sixth primary replicate.
+
+### Phase-2 search completion and I–F programme denominator
+
+The separately frozen Phase-2 target-pair search screened **360/360 candidates** and ended with no pending screening decisions. Deterministic recovery of already-screened sources added Sevenello and Bergsdorf Kakamega to the direct I–F family, raising direct I–F coverage from one to **3/5 independent programmes**. The five-programme pooled direct I–F gate therefore remained closed.
+
+The separate gradient/generalisation registry expanded from *Eucalyptus wandoo* alone to **six programmes / 19 primary Fisher-z marginal effects**. Five registry programmes contained I and F (*Eucalyptus wandoo*, Zurich BetterBlooms, common milkweed, *Cardiopetalum calophyllum* and Pritchard orchard isolation); *Acer miyabei* contained C and F. Thus the complete registered I–F denominator comprised **3 direct + 5 gradient = 8 independent programmes**. This accounting determines the denominator for the descriptive direction census below; it does not authorize cross-family numerical pooling.
 
 ### Complete registered I–F direction census
 
