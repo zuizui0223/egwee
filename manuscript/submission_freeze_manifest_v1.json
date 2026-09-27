@@ -147,6 +147,7 @@
     "checker": "scripts/check_ecological_bottleneck_direction_influence.py",
     "direction_diversity_lost_only_if_drop": "ML001",
     "resolved_without_ML001": 3,
-    "remaining_direction_without_ML001": "downstream_F_only"
+    "remaining_direction_without_ML001": "downstream_F_only",
+    "blob_sha": "73d41cd04064c877f357f8fc8ab79dbac716d0f3"
   }
 }
