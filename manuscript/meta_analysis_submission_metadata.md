@@ -75,6 +75,7 @@ Not authorised:
 - a confirmed cross-system cohort/history lag;
 - treating pollinator abundance, reproductive output or genetic diversity alone as a sufficient proxy for whole-system condition;
 - one universal life-cycle bottleneck position across fragmented plant systems;
+- converting the descriptive 3 downstream : 1 upstream resolved split into a sign/binomial test or a global regime-prevalence estimate;
 - a universal claim that effective mating quality is the missing mechanism in every fragmented system;
 - direct empirical validation of finite EGWE/NEE operators;
 - searching for additional systems merely to restore a preferred p-value or force a pair family to K=5.
