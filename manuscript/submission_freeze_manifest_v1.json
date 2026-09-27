@@ -1,43 +1,38 @@
 {
   "schema_version": 4,
-  "frozen_on": "2026-09-27",
-  "freeze_kind": "scale_aware_submission_freeze",
-  "scientific_base_commit": "5046c7f2bd793b36303ea85f887b4dec25e98d70",
-  "submission_state": "scale_aware_revision_complete_admin_pending",
+  "updated_on": "2026-09-27",
+  "status": "revision_required_estimand_scale_sensitivity",
+  "submission_ready": false,
+  "supersedes_submission_freeze": true,
+  "revision_base_commit": "5046c7f2bd793b36303ea85f887b4dec25e98d70",
   "manuscript": {
     "path": "manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md",
     "blob_sha": "2112cc282d6b4b4826960b14784bf08408d2eb5e",
     "title": "Habitat fragmentation across plant reproductive life cycles: directional consistency and scale-sensitive response amplitudes",
     "target_journal": "Journal of Ecology",
-    "main_text_words_at_freeze": 6816,
-    "abstract_words_at_freeze": 263
+    "main_text_words": 6816,
+    "abstract_words": 263
   },
-  "historical_primary": {
-    "estimand": "Hedges_g",
+  "historical_primary_g": {
     "independent_clusters": 5,
     "marginal_effects": 17,
     "full_fisher_p": 0.01212432,
-    "omit_ML001_p": 0.18194353
+    "omit_ML001_p": 0.18194353,
+    "zero_cov_full_p": 0.03860161,
+    "covariance_free_full_bound_p": 0.28061178
   },
-  "estimand_scale_audit": {
-    "amendment_path": "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-27_ESTIMAND_SCALE.md",
-    "amendment_blob_sha": "e6a5d20376cc54ef07ad5b53522e0c723d748362",
-    "result_path": "manuscript/ESTIMAND_SCALE_SENSITIVITY_RESULT_2026-09-27.md",
-    "result_blob_sha": "4730caf7010a75c64a5a0ee8ec3b2245ab677f2c",
+  "estimand_scale_sensitivity": {
     "endpoint_table": "evidence/meta_extraction/estimand_scale_sensitivity_v1.csv",
     "endpoint_table_blob_sha": "f1f8e84ac199e9e7afd753ed006bc317021415fc",
     "cluster_summary": "evidence/meta_extraction/estimand_scale_cluster_summary_v1.csv",
     "cluster_summary_blob_sha": "111531ecf3c24195fdadc671eeed517eed064c30",
-    "fisher_summary": "evidence/meta_extraction/estimand_scale_fisher_sensitivity_v1.csv",
-    "fisher_summary_blob_sha": "7c5588860f1d4458984632549234b7f480adf176",
+    "result_note": "manuscript/ESTIMAND_SCALE_SENSITIVITY_RESULT_2026-09-27.md",
+    "result_note_blob_sha": "4730caf7010a75c64a5a0ee8ec3b2245ab677f2c",
+    "protocol_amendment": "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-27_ESTIMAND_SCALE.md",
+    "protocol_amendment_blob_sha": "e6a5d20376cc54ef07ad5b53522e0c723d748362",
     "checker": "scripts/check_estimand_scale_sensitivity.py",
-    "lnRR_existing_rho_full_p": 1.1786949416822378e-10,
-    "lnRR_existing_rho_omit_ML001_p": 0.000029182238842850177,
-    "lnRR_zero_cov_full_p": 1.7227795177175651e-9,
-    "lnRR_zero_cov_omit_ML001_p": 0.004344181486474443,
-    "lnRR_cauchy_full_p": 0.00009946000181275223,
-    "lnRR_cauchy_omit_ML001_p": 0.11137892442058767,
-    "ML001_CF_lnRR_p_existing_rho": 0.6048817291933912,
+    "primary_direct_negative_g": 17,
+    "primary_direct_negative_lnRR": 17,
     "ML001_g_abs_order": [
       "G",
       "C",
@@ -47,73 +42,72 @@
       "C",
       "F",
       "G"
-    ]
+    ],
+    "ML001_CF_lnRR_p_rho_proxy": 0.6048817291933912,
+    "lnRR_rho_omit_ML001_p": 0.0000291822388429,
+    "lnRR_zero_omit_ML001_p": 0.0043441814864746,
+    "lnRR_cauchy_omit_ML001_p": 0.1113789244205897
   },
-  "scale_stable_result": {
-    "primary_direct_effects": 17,
-    "negative_on_oriented_g": 17,
-    "negative_on_oriented_lnRR": 17,
-    "positive_on_oriented_g": 0,
-    "positive_on_oriented_lnRR": 0,
-    "interpretation": "common direction of fragmentation-associated deterioration; no scale-independent magnitude ordering"
-  },
-  "separate_gradient_evidence": {
-    "wandoo_sign_discordance": true,
-    "interaction_sign": "positive",
-    "reproductive_function_sign": "negative",
-    "pooled_with_primary": false
-  },
+  "scale_stable_claims": [
+    "all 17 primary direct effects are negative on both oriented Hedges g and oriented lnRR",
+    "the primary direct corpus supports a common direction of fragmentation-associated deterioration",
+    "the separate Eucalyptus wandoo gradient contains qualitative sign discordance between interaction and reproductive function"
+  ],
+  "scale_sensitive_claims": [
+    "relative layer response amplitude",
+    "within-cluster magnitude separation",
+    "leave-one-Serapias robustness classification",
+    "registered-scale bottleneck ordering"
+  ],
   "exploratory_ecology": {
+    "transition_filtering_note": "manuscript/EXPLORATORY_TRANSITION_FILTERING_2026-09-27.md",
+    "transition_filtering_note_blob_sha": "1bac821dafb49006a34cd817c2d6089cec5b5f47",
+    "transition_filtering_table": "evidence/meta_extraction/exploratory_transition_filtering_v1.csv",
+    "transition_filtering_table_blob_sha": "72e68bdd5ac7c4816367b63ef57cc55bfb3861e2",
     "status": "post_hoc_hypothesis_generating",
     "hypotheses": [
-      "mating/connectivity effects may be buffered before downstream performance",
-      "genetic response amplitude may differ among adult juvenile and seed cohorts",
-      "fragmentation effects may be attenuated amplified or delayed across biological transitions"
-    ],
-    "counterexample": "Chaco does not support a universal attenuation gradient"
+      "transition-specific attenuation or amplification",
+      "adult-state legacy buffering and cohort lag"
+    ]
   },
-  "former_bottleneck_census": {
-    "status": "supplementary_exploratory_registered_scale_only",
-    "table": "manuscript/tables/table_s4_process_function_census.csv",
-    "scale_invariant_claim_permitted": false
+  "prior_bottleneck_census": {
+    "status": "supplementary_hypothesis_generating_after_scale_audit",
+    "table_output": "manuscript/tables/table_s4_process_function_census.csv",
+    "not_authorized_as_scale_invariant_headline": true
   },
-  "figure_table_package": {
-    "figure1": "manuscript/figures/figure1_primary_evidence_geometry.svg",
-    "figure2": "manuscript/figures/figure2_leave_one_out_influence.svg",
-    "figure2_role": "historical_Hedges_g_primary_only",
-    "figure3": "manuscript/figures/figure3_ecological_response_regimes.svg",
-    "figure3_role": "registered_scale_examples_unresolved_not_equality",
-    "figure4": "manuscript/figures/figure4_estimand_scale_sensitivity.svg",
-    "figure4_role": "main_estimand_scale_sensitivity",
-    "table1": "manuscript/tables/table1_primary_cluster_summary.csv",
-    "table2": "manuscript/tables/table2_estimand_scale_sensitivity.csv",
+  "figure_table_revision": {
+    "builder_blob_sha": "d95de0eb42f132419eb6fdd9d802f37333ed902f",
+    "captions_blob_sha": "e3c3b42904d4ca423d15c0084a8a4c9b7860e233",
+    "main_figure4": "manuscript/figures/figure4_estimand_scale_sensitivity.svg",
+    "main_table2": "manuscript/tables/table2_estimand_scale_sensitivity.csv",
     "supplementary_table_s4": "manuscript/tables/table_s4_process_function_census.csv"
   },
-  "claim_ceiling": [
-    "historical Hedges-g primary analysis is reproducible",
-    "leave-one-Serapias robustness classification is estimand-scale and dependence sensitive",
+  "anonymous_package": {
+    "builder_blob_sha": "bf628708bf548cc5a295b40d1d079f8971bafa5d",
+    "reproduces_scale_audit": true,
+    "reproduces_historical_g": true,
+    "reproduces_exploratory_census": true
+  },
+  "current_claim_ceiling": [
+    "historical Hedges-g synthesis is exactly reproducible",
+    "relative response amplitude and omit-Serapias robustness classification are estimand-scale dependent",
     "all 17 primary direct effects are negative on both oriented Hedges g and oriented lnRR",
-    "primary direct corpus supports directional consistency of deterioration but not scale-independent magnitude separation",
-    "Eucalyptus wandoo gradient supplies separate qualitative sign discordance",
-    "filtering buffering and cohort-lag patterns are exploratory only"
+    "Eucalyptus wandoo provides separate qualitative sign discordance",
+    "transition filtering and cohort lag are exploratory hypotheses only"
   ],
   "not_authorized": [
     "scale-invariant global layer-separation syndrome",
-    "scale-invariant variable bottleneck ordering",
-    "universal attenuation buffering or compensation pathway",
+    "scale-invariant variable life-cycle bottleneck ordering",
+    "claiming Serapias uniquely determines robustness without naming the Hedges-g estimand",
+    "claiming lnRR is the uniquely correct effect scale",
+    "universal attenuation or buffering pathway",
     "confirmed cohort lag",
-    "ML020 p equals evidence of true equality",
-    "lnRR is uniquely correct effect scale",
-    "former 12-programme bottleneck census is confirmatory scale-invariant evidence",
-    "direct empirical validation of EGWE or NEE theory"
+    "using ML020 p=1.0 as evidence of equality or coupling",
+    "direct empirical validation of finite EGWE or NEE operators"
   ],
-  "validation": {
-    "mode": "self_validating_current_full_contract",
-    "scale_checker_required": true,
-    "double_anonymous_required": true,
-    "figure_table_reproduction_required": true,
-    "anonymous_review_package_required": true
-  },
+  "remaining_scientific_gate": [
+    "current full CI contract green after scale-aware manuscript figure table and anonymous-package rebuild"
+  ],
   "remaining_human_blockers": [
     "final author list",
     "affiliations",
