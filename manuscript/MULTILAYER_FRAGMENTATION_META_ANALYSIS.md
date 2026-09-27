@@ -279,6 +279,8 @@ Bergsdorf, T. (2006). *Forest fragmentation and plant-pollinator interactions in
 
 Breed, M.F., Marklund, M.H.K., Ottewell, K.M., Gardner, M.G., Harris, J.B.C. & Lowe, A.J. (2012). Pollen diversity matters: revealing the neglected effect of pollen diversity on fitness in fragmented landscapes. *Molecular Ecology*, 21, 5955–5968. https://doi.org/10.1111/mec.12056
 
+Breitbart, S., Tomchyshyn, A., Wagner, H.H. & Johnson, M.T.J. (2023). Urbanization and a green corridor influence reproductive success and pollinators of common milkweed. *Urban Ecosystems*, 26, 1–13. https://doi.org/10.1007/s11252-022-01278-9
+
 Byers, D.L. (1995). Pollen quantity and quality as explanations for low seed set in small populations exemplified by *Eupatorium* (Asteraceae). *American Journal of Botany*, 82, 1000–1006. https://doi.org/10.1002/j.1537-2197.1995.tb11564.x
 
 Cristóbal-Pérez, E.J., Fuchs, E.J., Martén-Rodríguez, S. & Quesada, M. (2021). Habitat fragmentation negatively affects effective gene flow via pollen, and male and female fitness in the dioecious tree, *Spondias purpurea* (Anacardiaceae). *Biological Conservation*, 256, 109007. https://doi.org/10.1016/j.biocon.2021.109007
