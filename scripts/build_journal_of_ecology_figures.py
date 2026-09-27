@@ -18,6 +18,8 @@ BERGSDORF_EFFECTS = ROOT / "evidence/meta_extraction/phase2_cf01_bergsdorf_kakam
 IF_CENSUS = ROOT / "evidence/meta_extraction/ecological_if_programme_census_v1.csv"
 MATING_FUNCTION_CENSUS = ROOT / "evidence/meta_extraction/ecological_mating_function_programme_census_v1.csv"
 PROCESS_FUNCTION_CENSUS = ROOT / "evidence/meta_extraction/ecological_process_function_programme_census_v1.csv"
+SCALE_EFFECTS = ROOT / "evidence/meta_extraction/estimand_scale_sensitivity_v1.csv"
+SCALE_SUMMARY = ROOT / "evidence/meta_extraction/estimand_scale_cluster_summary_v1.csv"
 REGISTRY = ROOT / "evidence/meta_extraction/multilayer_cluster_registry_v1.csv"
 REGISTRY_ML020 = ROOT / "evidence/meta_extraction/multilayer_cluster_registry_extension_ml020.csv"
 SYNTHESIS = ROOT / "scripts/synthesize_state_separation.py"
@@ -303,84 +305,98 @@ def figure3_response_regimes() -> None:
 
 
 
-def figure4_bottleneck_synthesis() -> None:
-    census = rows(PROCESS_FUNCTION_CENSUS)
-    assert len(census) == 12
-    assert sum(r["pair_testable"] == "yes" for r in census) == 11
-    assert sum(r["resolved_mismatch"] == "yes" for r in census) == 4
-    assert sum(r["resolved_mismatch"] == "no" for r in census) == 7
-    assert sum(r["resolved_mismatch"] == "not_testable" for r in census) == 1
-    assert sum(r["resolved_direction"] == "F_more_negative_than_process" for r in census) == 3
-    assert sum(r["resolved_direction"] == "process_more_negative_than_F" for r in census) == 1
-    assert sum(r["measurement_class"] == "quantity_only" for r in census) == 8
-    assert sum(r["measurement_class"] == "movement_or_mating_support" for r in census) == 4
+def figure4_estimand_scale_sensitivity() -> None:
+    effects = rows(SCALE_EFFECTS)
+    summary = rows(SCALE_SUMMARY)
+    assert len(effects) == 17
+    assert len(summary) == 7
+    assert sum(float(r["hedges_g"]) < 0 for r in effects) == 17
+    assert sum(float(r["oriented_lnRR"]) < 0 for r in effects) == 17
 
-    width, height = 1240, 735
+    ml001 = {r["endpoint_id"]: r for r in effects if r["cluster_id"] == "ML001"}
+    assert set(ml001) == {"F", "C", "G"}
+    g_order = sorted(ml001, key=lambda e: abs(float(ml001[e]["hedges_g"])), reverse=True)
+    r_order = sorted(ml001, key=lambda e: abs(float(ml001[e]["oriented_lnRR"])), reverse=True)
+    assert g_order == ["G", "C", "F"]
+    assert r_order == ["C", "F", "G"]
+
+    by = {(r["row_type"], r["row_id"]): r for r in summary}
+    omit = by[("fisher", "OMIT_ML001")]
+
+    width, height = 1240, 760
     body: list[str] = [
-        svg_text(30, 36, "Figure 4. Fragmentation can shift the position of the reproductive life-cycle bottleneck", size=18, weight="bold"),
-        svg_text(30, 60, "Complete denominator: 12 independent programmes; 11 pair-testable; 4 resolved; 7 unresolved; 1 not testable.", size=11),
-        svg_text(30, 79, "Resolved mismatches include 3 downstream F-dominant and 1 upstream process-dominant programme; effect families are not pooled.", size=11),
+        svg_text(30, 36, "Figure 4. Relative response geometry is estimand-scale dependent", size=18, weight="bold"),
+        svg_text(30, 60, "Hedges g is the historical primary estimand; lnRR is a mandatory post hoc sensitivity, not a replacement truth.", size=11),
     ]
 
-    def arrow(x1: float, y: float, x2: float) -> None:
-        body.append(f'<line x1="{x1:.1f}" y1="{y:.1f}" x2="{x2 - 10:.1f}" y2="{y:.1f}" stroke="black" stroke-width="1.5"/>')
-        body.append(f'<polygon points="{x2 - 10:.1f},{y - 5:.1f} {x2:.1f},{y:.1f} {x2 - 10:.1f},{y + 5:.1f}" fill="black"/>')
+    # Panel A: Serapias ordering on two separate scales.
+    body.append(svg_text(35, 105, "A. Serapias response ordering reverses", size=14, weight="bold"))
+    body.append(svg_text(55, 132, "Hedges g |absolute magnitude|", size=11, weight="bold"))
+    body.append(svg_text(355, 132, "oriented lnRR |absolute magnitude|", size=11, weight="bold"))
+    y = 165
+    for rank, ep in enumerate(g_order, start=1):
+        body.append(svg_text(65, y, f"{rank}. {ep}: {float(ml001[ep]['hedges_g']):+.3f}", size=12))
+        y += 28
+    y = 165
+    for rank, ep in enumerate(r_order, start=1):
+        body.append(svg_text(365, y, f"{rank}. {ep}: {float(ml001[ep]['oriented_lnRR']):+.3f}", size=12))
+        y += 28
+    body.append(svg_text(55, 260, "C–F lnRR contrast: p≈0.605 under the carried endpoint-correlation proxy.", size=10))
 
-    def box(x: float, y: float, w: float, h: float, title: str, subtitle: str, *, dashed: bool = False) -> None:
-        dash = ' stroke-dasharray="5,4"' if dashed else ""
-        body.append(f'<rect x="{x:.1f}" y="{y:.1f}" width="{w:.1f}" height="{h:.1f}" fill="white" stroke="black" stroke-width="1.4"{dash}/>')
-        body.append(svg_text(x + w / 2, y + 25, title, anchor="middle", size=12, weight="bold"))
-        body.append(svg_text(x + w / 2, y + 46, subtitle, anchor="middle", size=9))
+    # Panel B: omit-ML001 robustness under scales/dependence.
+    body.append(svg_text(650, 105, "B. Omit-Serapias Fisher conclusion changes", size=14, weight="bold"))
+    x0, x1 = 790, 1190
+    y0 = 145
+    xmin, xmax = 1e-5, 1.0
+    labels = [
+        ("Hedges g primary", float(omit["hedges_g_p"])),
+        ("lnRR + rho proxy", float(omit["lnRR_rho_proxy_p"])),
+        ("lnRR + zero cov", float(omit["lnRR_zero_cov_p"])),
+        ("lnRR + Cauchy max-var", float(omit["lnRR_cauchy_maxvar_p"])),
+    ]
+    threshold_x = log_x(0.05, xmin, xmax, x0, x1)
+    body.append(f'<line x1="{threshold_x:.1f}" y1="{y0 - 20}" x2="{threshold_x:.1f}" y2="{y0 + 145}" stroke="black" stroke-dasharray="5,4"/>')
+    body.append(svg_text(threshold_x, y0 - 27, "p=0.05", anchor="middle", size=9))
+    body.append(f'<line x1="{x0}" y1="{y0 + 135}" x2="{x1}" y2="{y0 + 135}" stroke="black"/>')
+    for tick in (1e-5, 1e-4, 1e-3, 1e-2, 1e-1, 1.0):
+        tx = log_x(tick, xmin, xmax, x0, x1)
+        body.append(f'<line x1="{tx:.1f}" y1="{y0 + 132}" x2="{tx:.1f}" y2="{y0 + 140}" stroke="black"/>')
+        body.append(svg_text(tx, y0 + 156, f"{tick:g}", anchor="middle", size=8))
+    for i, (label, p) in enumerate(labels):
+        yy = y0 + i * 32
+        px = log_x(max(xmin, min(xmax, p)), xmin, xmax, x0, x1)
+        body.append(svg_text(650, yy + 4, label, size=10))
+        body.append(f'<circle cx="{px:.1f}" cy="{yy:.1f}" r="5" fill="black"/>')
+        body.append(svg_text(px + 8, yy + 4, f"{p:.3g}", size=9))
 
-    def regime(y: float, label: str, note: str, qtxt: str, etxt: str, ftxt: str, *, e_dashed: bool = False) -> None:
-        body.append(svg_text(45, y + 20, label, size=14, weight="bold"))
-        body.append(svg_text(45, y + 42, note, size=10))
-        xq, xe, xf = 410, 690, 970
-        bw, bh = 180, 68
-        box(xq, y, bw, bh, "Interaction quantity", qtxt)
-        arrow(xq + bw, y + bh / 2, xe)
-        box(xe, y, bw, bh, "Movement / effective mating", etxt, dashed=e_dashed)
-        arrow(xe + bw, y + bh / 2, xf)
-        box(xf, y, bw, bh, "Reproductive function", ftxt)
+    # Panel C: scale-stable signs.
+    body.append(f'<line x1="30" y1="340" x2="1210" y2="340" stroke="black"/>')
+    body.append(svg_text(35, 380, "C. Scale-stable qualitative direction", size=14, weight="bold"))
+    body.append(svg_text(55, 415, "Primary direct effects", size=11, weight="bold"))
+    body.append(svg_text(245, 415, "Hedges g", size=11, weight="bold"))
+    body.append(svg_text(430, 415, "oriented lnRR", size=11, weight="bold"))
+    body.append(svg_text(55, 450, "negative / deterioration-oriented", size=11))
+    body.append(svg_text(255, 450, "17 / 17", size=15, weight="bold"))
+    body.append(svg_text(455, 450, "17 / 17", size=15, weight="bold"))
+    body.append(svg_text(55, 482, "positive / improvement-oriented", size=11))
+    body.append(svg_text(268, 482, "0", size=15, weight="bold"))
+    body.append(svg_text(468, 482, "0", size=15, weight="bold"))
+    body.append(svg_text(650, 420, "Interpretation", size=12, weight="bold"))
+    body.append(svg_text(650, 448, "Direction of deterioration is stable;", size=11))
+    body.append(svg_text(650, 472, "relative amplitude / separation is not.", size=11))
 
-    regime(
-        125,
-        "A. Unresolved process–function difference",
-        "7 programmes; includes Chaco and Sevenello coupled-looking I–F examples",
-        "varies",
-        "often unmeasured",
-        "difference unresolved",
-        e_dashed=True,
-    )
-    regime(
-        280,
-        "B. Resolved downstream function-dominant",
-        "3 programmes: Wandoo, Cardiopetalum, Kakamega Acanthopale",
-        "buffered / less negative",
-        "missing in these I–F frames",
-        "more negative",
-        e_dashed=True,
-    )
-    regime(
-        435,
-        "C. Resolved upstream process-dominant",
-        "1 programme: Serapias; Brosimum and E. socialis are unresolved same-direction context",
-        "not the paired process",
-        "more negative",
-        "less negative",
-        e_dashed=False,
-    )
+    # Panel D: exploratory ecology.
+    body.append(f'<line x1="30" y1="525" x2="1210" y2="525" stroke="black"/>')
+    body.append(svg_text(35, 562, "D. Ecological hypothesis generated by lnRR, not confirmed by this corpus", size=14, weight="bold"))
+    body.append(svg_text(55, 595, "Brosimum: connectivity ≈ -0.54 → progeny vigour ≈ -0.20", size=11))
+    body.append(svg_text(55, 622, "E. socialis: mating support ≈ -0.90 → family growth ≈ -0.06", size=11))
+    body.append(svg_text(55, 649, "Spondias: adult H_O ≈ -0.15; juvenile ≈ -0.54; seed ≈ -0.40", size=11))
+    body.append(svg_text(55, 685, "Hypothesis: fragmentation effects may be filtered, buffered or delayed across biological transitions and cohorts.", size=11, weight="bold"))
+    body.append(svg_text(55, 712, "Counterexample: Chaco fruit-set changes can equal or exceed pollen-tube changes; no universal attenuation gradient is claimed.", size=10))
 
-    body.append(f'<line x1="30" y1="545" x2="1210" y2="545" stroke="black" stroke-width="1"/>')
-    body.append(svg_text(45, 580, "Measurement gap in the I–F subset", size=14, weight="bold"))
-    body.append(svg_text(45, 604, "8/8 interaction endpoints are quantity-level; 0/8 directly measure effective mating quality on the same frame.", size=11))
-    body.append(svg_text(45, 638, "Fresh localization design", size=14, weight="bold"))
-    body.append(svg_text(230, 638, "Q → E → F", size=16, weight="bold"))
-    body.append(svg_text(330, 638, "Primary H2-v2 contrast: ΔQE = Q − E; ΔEF locates propagation, compensation, or later filtering.", size=11))
-    body.append(svg_text(45, 687, "Interpretation: fragmentation changes bottleneck position; unresolved programmes are not classified as truly coupled.", size=11, weight="bold"))
-    body.append(svg_text(45, 710, "One additional programme (Pritchard) is retained as not testable because paired covariance cannot be reconstructed.", size=10))
+    write_svg(FIGDIR / "figure4_estimand_scale_sensitivity.svg", width, height, body)
 
-    write_svg(FIGDIR / "figure4_lifecycle_bottleneck_synthesis.svg", width, height, body)
+
 
 def table1(result: dict) -> None:
     registry = rows(REGISTRY) + rows(REGISTRY_ML020)
@@ -426,90 +442,55 @@ def table1(result: dict) -> None:
 
 
 
-def table2_process_function_census() -> None:
-    census = rows(PROCESS_FUNCTION_CENSUS)
-    assert len(census) == 12
-    assert sum(r["pair_testable"] == "yes" for r in census) == 11
-    assert sum(r["resolved_mismatch"] == "yes" for r in census) == 4
-    assert sum(r["resolved_mismatch"] == "no" for r in census) == 7
-    assert sum(r["resolved_mismatch"] == "not_testable" for r in census) == 1
-    assert sum(r["resolved_direction"] == "F_more_negative_than_process" for r in census) == 3
-    assert sum(r["resolved_direction"] == "process_more_negative_than_F" for r in census) == 1
-    assert sum(r["measurement_class"] == "quantity_only" for r in census) == 8
-    assert sum(r["measurement_class"] == "movement_or_mating_support" for r in census) == 4
-
+def table2_estimand_scale_sensitivity() -> None:
+    summary = rows(SCALE_SUMMARY)
+    assert len(summary) == 7
     TABLEDIR.mkdir(parents=True, exist_ok=True)
-    out = TABLEDIR / "table2_process_function_census.csv"
+    out = TABLEDIR / "table2_estimand_scale_sensitivity.csv"
     fields = [
-        "programme_id",
-        "system",
-        "source_id",
-        "process_stage",
-        "process_endpoint",
-        "measurement_class",
-        "effect_family",
-        "n_dependent_panels",
-        "pair_testable",
-        "programme_adjusted_p",
-        "census_result",
-        "direction_if_resolved",
-        "ecological_regime",
-        "ecological_interpretation",
+        "row_type", "row_id", "hedges_g_p", "lnRR_rho_proxy_p",
+        "lnRR_zero_cov_p", "lnRR_cauchy_maxvar_p", "interpretation",
     ]
     with out.open("w", newline="", encoding="utf-8") as fh:
         writer = csv.DictWriter(fh, fieldnames=fields)
         writer.writeheader()
-        for row in census:
-            if row["resolved_mismatch"] == "yes":
-                result = "resolved mismatch"
-                if row["resolved_direction"] == "F_more_negative_than_process":
-                    direction = "F more negative than process"
-                else:
-                    assert row["resolved_direction"] == "process_more_negative_than_F"
-                    direction = "process more negative than F"
-            elif row["resolved_mismatch"] == "no":
-                result = "unresolved mismatch"
-                direction = ""
-            else:
-                result = "not testable"
-                direction = ""
-            writer.writerow({
-                "programme_id": row["programme_id"],
-                "system": row["system"],
-                "source_id": row["source_id"],
-                "process_stage": row["process_stage"],
-                "process_endpoint": row["process_endpoint"],
-                "measurement_class": row["measurement_class"],
-                "effect_family": row["effect_family"],
-                "n_dependent_panels": row["n_dependent_panels"],
-                "pair_testable": row["pair_testable"],
-                "programme_adjusted_p": row["programme_adjusted_p"],
-                "census_result": result,
-                "direction_if_resolved": direction,
-                "ecological_regime": row["ecological_regime"],
-                "ecological_interpretation": row["interpretation"],
-            })
+        for row in summary:
+            writer.writerow({k: row[k] for k in fields})
 
+
+def table_s4_process_function_census() -> None:
+    census = rows(PROCESS_FUNCTION_CENSUS)
+    assert len(census) == 12
+    TABLEDIR.mkdir(parents=True, exist_ok=True)
+    out = TABLEDIR / "table_s4_process_function_census.csv"
+    fields = list(census[0].keys())
+    with out.open("w", newline="", encoding="utf-8") as fh:
+        writer = csv.DictWriter(fh, fieldnames=fields)
+        writer.writeheader()
+        writer.writerows(census)
 
 def main() -> None:
     result = canonical_result()
     figure1_coverage()
     figure2_influence(result)
     figure3_response_regimes()
-    figure4_bottleneck_synthesis()
+    figure4_estimand_scale_sensitivity()
     table1(result)
-    table2_process_function_census()
+    table2_estimand_scale_sensitivity()
+    table_s4_process_function_census()
     expected = [
         FIGDIR / "figure1_primary_evidence_geometry.svg",
         FIGDIR / "figure2_leave_one_out_influence.svg",
         FIGDIR / "figure3_ecological_response_regimes.svg",
-        FIGDIR / "figure4_lifecycle_bottleneck_synthesis.svg",
+        FIGDIR / "figure4_estimand_scale_sensitivity.svg",
         TABLEDIR / "table1_primary_cluster_summary.csv",
-        TABLEDIR / "table2_process_function_census.csv",
+        TABLEDIR / "table2_estimand_scale_sensitivity.csv",
+        TABLEDIR / "table_s4_process_function_census.csv",
     ]
     assert all(p.is_file() and p.stat().st_size > 500 for p in expected[:4])
     assert expected[4].is_file() and expected[4].stat().st_size > 200
     assert expected[5].is_file() and expected[5].stat().st_size > 400
+    assert expected[6].is_file() and expected[6].stat().st_size > 400
     print("JOURNAL_OF_ECOLOGY_FIGURES_OK " + " ".join(str(p.relative_to(ROOT)) for p in expected))
 
 
