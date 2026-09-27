@@ -15,13 +15,13 @@ The figure must make two design facts visually explicit:
 1. the denominator is five independent programme/study clusters, not 17 independent effects;
 2. the layer coverage is incomplete and heterogeneous, so the paper tests within-system non-exchangeability rather than a fully crossed universal layer ordering.
 
-## Figure 2 — Cross-cluster influence determines the claim ceiling
+## Figure 2 — Historical Hedges-g leave-one-cluster-out influence
 
-**Purpose:** put the decisive robustness result in the centre of the paper.
+**Purpose:** reproduce the registered primary g-scale influence result without presenting it as scale-invariant.
 
-Plot the full five-cluster Fisher p-value and each leave-one-primary-cluster-out p-value on a log-scaled p axis, with a reference at 0.05.
+Plot the full five-cluster Hedges-g Fisher p-value and each leave-one-primary-cluster-out p-value on a log-scaled p axis, with a reference at 0.05.
 
-Canonical values:
+Canonical historical values:
 
 - full: `0.01212432`;
 - omit ML001 *Serapias*: `0.18194353`;
@@ -30,22 +30,20 @@ Canonical values:
 - omit ML014 *Eucalyptus socialis*: `0.02116199`;
 - omit ML020 Chaco programme: `0.00384724`.
 
-The caption states that only omission of ML001 removes rejection. This is the graphical reason the manuscript concludes **conditional state separation** rather than a universal syndrome.
+The figure title/subtitle must explicitly say **Hedges g / historical primary estimand** and direct readers to Figure 4 for the lnRR sensitivity. It must not call the g-only leave-one-out result the manuscript's scale-independent claim ceiling.
 
-## Figure 3 — Coupled decline versus quantity–function decoupling
+## Figure 3 — Registered-scale interaction–function examples
 
-**Purpose:** make the paper's ecological result visible without merging incompatible effect families.
+**Purpose:** show ecological response geometries without treating unresolved differences as equality and without merging incompatible effect families.
 
-Use four panels, each preserving its registered effect scale:
+Use four panels, each preserving its registered scale:
 
-- **A. Chaco / ML020, Hedges g:** three dependent species with both pollen-tube support and fruit set lower in small fragments; programme Bonferroni `p=1.0`.
-- **B. *Eucalyptus wandoo*, Fisher z:** pollen tubes `+0.69029123`, seed production `-0.87593080`; I–F `p=0.0008565`.
-- **C. *Cardiopetalum calophyllum*, Fisher z:** pollinator abundance `-0.24516531`, fruit set `-1.68379787`; I–F `p=0.00316`.
-- **D. Kakamega *Acanthopale pubescens*, Hedges g:** pollinator occurrence `+0.34890186`, fruit set `-2.84788614`; I–F `p=0.00163`.
+- **A. Chaco / ML020, Hedges g:** both pollen-tube support and fruit set are lower in small fragments; programme `p=1.0` means the I–F difference is unresolved, **not that the effects are demonstrated equal**.
+- **B. *Eucalyptus wandoo*, Fisher z:** pollen tubes `+0.69029123`, seed production `-0.87593080`; genuine opposite-sign I–F response.
+- **C. *Cardiopetalum calophyllum*, Fisher z:** pollinator abundance `-0.24516531`, fruit set `-1.68379787`; registered-scale magnitude mismatch.
+- **D. Kakamega *Acanthopale pubescens*, Hedges g:** pollinator occurrence `+0.34890186`, fruit set `-2.84788614`; genuine opposite-sign I–F response.
 
-Use an open circle for interaction/pollen quantity and a filled square for reproductive function. Each panel has its own x-axis and clearly states Hedges g or Fisher z. **Never place Hedges-g and Fisher-z values on one common numerical axis.** The intended comparison is response geometry: coupled deterioration versus quantity–function decoupling.
-
-The figure must retain Chaco as the counterexample so the manuscript does not visually select only decoupling systems.
+Never place Hedges-g and Fisher-z magnitudes on one common numerical axis. Panels B and D may be called qualitative sign discordance; panel C is scale-specific magnitude discordance; panel A is same-direction with unresolved difference.
 
 
 ## Figure 4 — Estimand-scale sensitivity
