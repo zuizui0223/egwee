@@ -32,19 +32,21 @@ Canonical values:
 
 The caption states that only omission of ML001 removes rejection. This is the graphical reason the manuscript concludes **conditional state separation** rather than a universal syndrome.
 
-## Figure 3 — Independent Chaco programme shows concordant decline
+## Figure 3 — Coupled decline versus quantity–function decoupling
 
-**Purpose:** show what the fifth cluster adds biologically rather than statistically.
+**Purpose:** make the paper's ecological result visible without merging incompatible effect families.
 
-For each of the three source-explicit four-site ML020 species, plot the Hedges-g fragmentation effect on pollen-tube interaction support (`I`) against the effect on fruit set (`F`). Add the `F = I` line.
+Use four panels, each preserving its registered effect scale:
 
-Canonical points:
+- **A. Chaco / ML020, Hedges g:** three dependent species with both pollen-tube support and fruit set lower in small fragments; programme Bonferroni `p=1.0`.
+- **B. *Eucalyptus wandoo*, Fisher z:** pollen tubes `+0.69029123`, seed production `-0.87593080`; I–F `p=0.0008565`.
+- **C. *Cardiopetalum calophyllum*, Fisher z:** pollinator abundance `-0.24516531`, fruit set `-1.68379787`; I–F `p=0.00316`.
+- **D. Kakamega *Acanthopale pubescens*, Hedges g:** pollinator occurrence `+0.34890186`, fruit set `-2.84788614`; I–F `p=0.00163`.
 
-- *Atamisquea emarginata*: I `-0.71280256`, F `-1.00477681`;
-- *Cercidium australe*: I `-0.63733120`, F `-1.13852812`;
-- *Prosopis nigra*: I `-0.48057139`, F `-1.13549676`.
+Use an open circle for interaction/pollen quantity and a filled square for reproductive function. Each panel has its own x-axis and clearly states Hedges g or Fisher z. **Never place Hedges-g and Fisher-z values on one common numerical axis.** The intended comparison is response geometry: coupled deterioration versus quantity–function decoupling.
 
-All points are in the lower-left deterioration quadrant. Species-specific covariance-aware I–F contrasts are non-significant and the programme Bonferroni gate is `p_ML020=1.0`. Thus fragmentation affects both layers but does not produce detectable state separation in this programme.
+The figure must retain Chaco as the counterexample so the manuscript does not visually select only decoupling systems.
+
 
 ## Table 1 — Admitted primary clusters
 
