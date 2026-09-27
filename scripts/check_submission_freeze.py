@@ -80,7 +80,7 @@ def main() -> None:
         assert token in census, token
 
     for token in (
-        "all 8 registered I endpoints quantify interaction/pollen quantity",
+        "all eight current I endpoints are quantity-level and none directly measures effective mating quality on the same I-F frame",
         "universal F-dominant I-F law",
         "direct validation of finite EGWE or NEE operators",
     ):
