@@ -1719,8 +1719,8 @@ def main() -> None:
     for token in (
         "14 independent riparian sites",
         "500–3000 m radii",
-        "one landscape-severity variable",
-        "one spatial radius",
+        "one unique EGWEE fragmentation severity",
+        "one locked response-free landscape variable and radius",
         "Do not",
         "choose agricultural versus forest versus grassland cover by significance",
     ):
