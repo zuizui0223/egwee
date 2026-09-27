@@ -61,6 +61,7 @@ Authorised manuscript-level ecological claims:
 - ML020 independently shows coupled deterioration of interaction and reproductive function across a replicated fragmentation programme;
 - *Eucalyptus wandoo*, *Cardiopetalum calophyllum* and the Kakamega *Acanthopale pubescens* panel each show a quantity–function mismatch in which interaction/pollen quantity is maintained or changes less strongly while reproductive function declines;
 - the repeated quantity–function geometry is a descriptive ecological motif across heterogeneous registered effect families, not a pooled universal effect;
+- the complete paired process–function census contains 12 independent programmes; 11 are pair-testable, 4 resolve a mismatch, 7 are unresolved and 1 is not pair-testable; among resolved mismatches, 3 are downstream F-dominant and 1 is upstream process-dominant;
 - the complete registered I–F census contains 8 programmes; 7 are pair-testable, 3 resolve a mismatch, all 3 are F-more-negative-than-I, 4 are unresolved, and 1 is not pair-testable;
 - all 8 registered I endpoints quantify interaction/pollen quantity; none directly quantify compatible mating quality, realised paternity or effective pollen-donor diversity on the same I–F frame;
 - a secondary four-programme movement/mating-support versus F audit contains one resolved upstream process-dominant mismatch (*Serapias*) and three unresolved contrasts, showing that the dominant fragmentation bottleneck is not fixed at reproductive function;
