@@ -14,6 +14,7 @@ PROCESS_FUNCTION_CENSUS = ROOT / "evidence/meta_extraction/ecological_process_fu
 CANONICAL_CENSUS_NOTE = ROOT / "manuscript/ECOLOGICAL_PROCESS_FUNCTION_CENSUS_2026-09-27.md"
 INFLUENCE_NOTE = ROOT / "manuscript/ECOLOGICAL_BOTTLENECK_DIRECTION_INFLUENCE_2026-09-27.md"
 REVIEWER_RISK = ROOT / "manuscript/REVIEWER_RISK_AUDIT_2026-09-27.md"
+NOVELTY_AUDIT = ROOT / "manuscript/ECOLOGICAL_NEAREST_NEIGHBOR_NOVELTY_AUDIT_2026-09-27.md"
 METADATA = ROOT / "manuscript/meta_analysis_submission_metadata.md"
 README = ROOT / "README.md"
 FIGURE_BUILDER = ROOT / "scripts/build_journal_of_ecology_figures.py"
@@ -36,6 +37,7 @@ def main() -> None:
     canonical_note = CANONICAL_CENSUS_NOTE.read_text(encoding="utf-8")
     influence_note = INFLUENCE_NOTE.read_text(encoding="utf-8")
     reviewer_risk = REVIEWER_RISK.read_text(encoding="utf-8")
+    novelty_audit = NOVELTY_AUDIT.read_text(encoding="utf-8")
     metadata = METADATA.read_text(encoding="utf-8")
     readme = README.read_text(encoding="utf-8")
     builder = FIGURE_BUILDER.read_text(encoding="utf-8")
@@ -43,12 +45,13 @@ def main() -> None:
 
     assert m["schema_version"] == 3
     assert m["frozen_on"] == "2026-09-27"
-    assert m["scientific_base_commit"] == "69369530ec2b93adf3ddc48c4b5ba24371226e45"
+    assert m["scientific_base_commit"] == "90850a69f10052145ee8b2ae3509f4c4b0cf6c1a"
 
     assert git_blob_sha(MANUSCRIPT) == m["manuscript"]["blob_sha"]
     assert git_blob_sha(CANONICAL_CENSUS_NOTE) == m["canonical_process_function_census_note"]["blob_sha"]
     assert git_blob_sha(INFLUENCE_NOTE) == m["bottleneck_direction_influence"]["blob_sha"]
     assert git_blob_sha(REVIEWER_RISK) == m["reviewer_risk_audit"]["blob_sha"]
+    assert git_blob_sha(NOVELTY_AUDIT) == m["novelty_audit"]["blob_sha"]
     assert git_blob_sha(IF_CENSUS) == m["ecological_IF_census"]["blob_sha"]
     assert git_blob_sha(BOTTLENECK_CENSUS) == m["bottleneck_position_audit"]["blob_sha"]
     assert git_blob_sha(PROCESS_FUNCTION_CENSUS) == m["unified_process_function_census"]["blob_sha"]
@@ -135,6 +138,8 @@ def main() -> None:
     assert "Delta_QE = Q - E" in canonical_note
     assert "Risk 5" in reviewer_risk
     assert "Only *Serapias lingua* supplies a resolved upstream process-dominant mismatch." in reviewer_risk
+    assert "not leave-one-programme-out robust" in novelty_audit
+    assert "Ibáñez et al. (2014) already established" in novelty_audit
 
     claims = json.dumps(m)
     for token in (
