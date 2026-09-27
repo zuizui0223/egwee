@@ -1,14 +1,14 @@
 {
   "schema_version": 3,
   "frozen_on": "2026-09-27",
-  "scientific_base_commit": "5db1c5c44033cd2320a6ed45faa19d3a53ea2974",
+  "scientific_base_commit": "69369530ec2b93adf3ddc48c4b5ba24371226e45",
   "manuscript": {
     "path": "manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md",
-    "blob_sha": "58a0fe6c355c54276a1e17d5e2ba45678d326f0c",
-    "title": "Variable life-cycle bottlenecks under habitat fragmentation: a cross-system synthesis of plant interaction, mating and reproduction",
+    "blob_sha": "ca1eee8b5701da83db9a6352868568b6c66f00a4",
+    "title": "Evidence for variable life-cycle bottleneck positions under habitat fragmentation: a cross-system synthesis of plant interaction, mating and reproduction",
     "target_journal": "Journal of Ecology",
-    "main_text_words_at_freeze": 6717,
-    "abstract_words_at_freeze": 293
+    "main_text_words_at_freeze": 7031,
+    "abstract_words_at_freeze": 313
   },
   "primary_direct": {
     "independent_clusters": 5,
@@ -58,11 +58,12 @@
   "current_claim_ceiling": [
     "the complete paired process-function census contains 12 independent programmes, 11 pair-testable, 4 resolved, 7 unresolved and 1 not-testable",
     "the four resolved process-function mismatches include 3 downstream F-dominant and 1 upstream process-dominant programme",
+    "the two-direction resolved bottleneck pattern is not leave-one-programme-out robust because omitting ML001 Serapias removes the only upstream resolved direction",
     "the five-cluster direct rejection is not Serapias-independent",
     "the 8-programme I-F subset contains 3 resolved mismatches and all 3 are F-dominant",
     "the 3/3 I-F directional pattern and 3:1 unified resolved split are descriptive and post hoc, not sign tests or prevalence estimates",
     "all eight current I endpoints are quantity-level and none directly measures effective mating quality on the same I-F frame",
-    "the dominant fragmentation bottleneck can occur at different life-cycle stages across systems"
+    "the audited corpus provides evidence for more than one bottleneck position, while independent recurrence of the upstream direction remains unestablished"
   ],
   "not_authorized": [
     "universal state separation",
@@ -71,7 +72,8 @@
     "common causal mechanism across resolved programmes",
     "significance testing of the burned 3/3 I-F direction pattern",
     "cross-family pooling of Hedges-g and Fisher-z effects",
-    "direct validation of finite EGWE or NEE operators"
+    "direct validation of finite EGWE or NEE operators",
+    "claiming that upstream and downstream resolved bottleneck directions are both leave-one-programme-out robust or recurrent across independent systems"
   ],
   "fresh_validation": {
     "preregistration": "manuscript/FRESH_ECOLOGICAL_IF_VALIDATION_PREREGISTRATION_2026-09-27.md",
@@ -135,5 +137,16 @@
   "canonical_process_function_census_note": {
     "path": "manuscript/ECOLOGICAL_PROCESS_FUNCTION_CENSUS_2026-09-27.md",
     "blob_sha": "a013d709aa35f10f9de5d8b4db5e5b2b28dd1b6f"
+  },
+  "reviewer_risk_audit": {
+    "path": "manuscript/REVIEWER_RISK_AUDIT_2026-09-27.md",
+    "blob_sha": "9fb72b9f34a1bab59acbe7a863e1c46cf8ab514a"
+  },
+  "bottleneck_direction_influence": {
+    "path": "manuscript/ECOLOGICAL_BOTTLENECK_DIRECTION_INFLUENCE_2026-09-27.md",
+    "checker": "scripts/check_ecological_bottleneck_direction_influence.py",
+    "direction_diversity_lost_only_if_drop": "ML001",
+    "resolved_without_ML001": 3,
+    "remaining_direction_without_ML001": "downstream_F_only"
   }
 }
