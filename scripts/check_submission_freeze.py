@@ -12,6 +12,8 @@ IF_CENSUS = ROOT / "evidence/meta_extraction/ecological_if_programme_census_v1.c
 BOTTLENECK_CENSUS = ROOT / "evidence/meta_extraction/ecological_mating_function_programme_census_v1.csv"
 PROCESS_FUNCTION_CENSUS = ROOT / "evidence/meta_extraction/ecological_process_function_programme_census_v1.csv"
 CANONICAL_CENSUS_NOTE = ROOT / "manuscript/ECOLOGICAL_PROCESS_FUNCTION_CENSUS_2026-09-27.md"
+INFLUENCE_NOTE = ROOT / "manuscript/ECOLOGICAL_BOTTLENECK_DIRECTION_INFLUENCE_2026-09-27.md"
+REVIEWER_RISK = ROOT / "manuscript/REVIEWER_RISK_AUDIT_2026-09-27.md"
 METADATA = ROOT / "manuscript/meta_analysis_submission_metadata.md"
 README = ROOT / "README.md"
 FIGURE_BUILDER = ROOT / "scripts/build_journal_of_ecology_figures.py"
@@ -32,6 +34,8 @@ def main() -> None:
     bottleneck = BOTTLENECK_CENSUS.read_text(encoding="utf-8")
     process_function = PROCESS_FUNCTION_CENSUS.read_text(encoding="utf-8")
     canonical_note = CANONICAL_CENSUS_NOTE.read_text(encoding="utf-8")
+    influence_note = INFLUENCE_NOTE.read_text(encoding="utf-8")
+    reviewer_risk = REVIEWER_RISK.read_text(encoding="utf-8")
     metadata = METADATA.read_text(encoding="utf-8")
     readme = README.read_text(encoding="utf-8")
     builder = FIGURE_BUILDER.read_text(encoding="utf-8")
@@ -39,18 +43,20 @@ def main() -> None:
 
     assert m["schema_version"] == 3
     assert m["frozen_on"] == "2026-09-27"
-    assert m["scientific_base_commit"] == "5db1c5c44033cd2320a6ed45faa19d3a53ea2974"
+    assert m["scientific_base_commit"] == "69369530ec2b93adf3ddc48c4b5ba24371226e45"
 
     assert git_blob_sha(MANUSCRIPT) == m["manuscript"]["blob_sha"]
     assert git_blob_sha(CANONICAL_CENSUS_NOTE) == m["canonical_process_function_census_note"]["blob_sha"]
+    assert git_blob_sha(INFLUENCE_NOTE) == m["bottleneck_direction_influence"]["blob_sha"]
+    assert git_blob_sha(REVIEWER_RISK) == m["reviewer_risk_audit"]["blob_sha"]
     assert git_blob_sha(IF_CENSUS) == m["ecological_IF_census"]["blob_sha"]
     assert git_blob_sha(BOTTLENECK_CENSUS) == m["bottleneck_position_audit"]["blob_sha"]
     assert git_blob_sha(PROCESS_FUNCTION_CENSUS) == m["unified_process_function_census"]["blob_sha"]
 
-    assert m["manuscript"]["title"] == "Variable life-cycle bottlenecks under habitat fragmentation: a cross-system synthesis of plant interaction, mating and reproduction"
+    assert m["manuscript"]["title"] == "Evidence for variable life-cycle bottleneck positions under habitat fragmentation: a cross-system synthesis of plant interaction, mating and reproduction"
     assert m["manuscript"]["target_journal"] == "Journal of Ecology"
-    assert m["manuscript"]["main_text_words_at_freeze"] == 6717
-    assert m["manuscript"]["abstract_words_at_freeze"] == 293
+    assert m["manuscript"]["main_text_words_at_freeze"] == 7031
+    assert m["manuscript"]["abstract_words_at_freeze"] == 313
     assert manuscript.startswith("# " + m["manuscript"]["title"])
 
     direct = m["primary_direct"]
@@ -101,6 +107,13 @@ def main() -> None:
     assert bp["resolved_process_more_negative_than_F"] == 1
     assert bp["resolved_F_more_negative_than_process"] == 0
 
+    infl = m["bottleneck_direction_influence"]
+    assert infl["direction_diversity_lost_only_if_drop"] == "ML001"
+    assert infl["resolved_without_ML001"] == 3
+    assert infl["remaining_direction_without_ML001"] == "downstream_F_only"
+    assert "not leave-one-programme-out robust" in influence_note
+    assert "omitting ML001" in influence_note or "Omitting **ML001" in influence_note
+
     for token in (
         "programmes=12",
         "resolved_downstream_F=3",
@@ -120,6 +133,8 @@ def main() -> None:
     assert "3 are downstream function-dominant" in canonical_note
     assert "1 is upstream process-dominant" in canonical_note
     assert "Delta_QE = Q - E" in canonical_note
+    assert "Risk 5" in reviewer_risk
+    assert "Only *Serapias lingua* supplies a resolved upstream process-dominant mismatch." in reviewer_risk
 
     claims = json.dumps(m)
     for token in (
