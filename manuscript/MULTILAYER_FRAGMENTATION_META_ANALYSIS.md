@@ -170,7 +170,7 @@ Of the seven pair-testable programmes, **three** contained a resolved I–F mism
 
 The resolved programmes were *Eucalyptus wandoo* (programme-adjusted p = 0.00256953), *Cardiopetalum calophyllum* (p = 0.00315990) and the Kakamega programme, where the *Acanthopale pubescens* panel drove a four-panel Bonferroni programme p = 0.00653539. Chaco, Sevenello, Zurich and common milkweed did not resolve a programme-level I–F mismatch.
 
-Because this direction census spans different effect families and includes retrospective recoveries, the 3/3 directional agreement is reported only as a descriptive property of the complete audited I–F programme set. It is not converted into a sign test or an estimate of global prevalence.
+Because this direction census spans different effect families and includes retrospective recoveries, the 3/3 directional agreement is reported only as a descriptive property of the complete audited I–F programme set. It is not converted into a sign test or an estimate of global prevalence. Table 2 reports all eight programmes, including unresolved and non-testable cases, so the directional statement is auditable against its complete denominator.
 
 ## Discussion
 
