@@ -71,6 +71,7 @@ ML020 appears once, with its three species described as dependent subsystems. ML
 One row per independent registered programme with eligible I and F information. Required columns:
 
 - programme/system;
+- source identifier (DOI / thesis ID);
 - effect family;
 - number of dependent I–F panels;
 - whether a registered within-programme I–F comparison is possible;
