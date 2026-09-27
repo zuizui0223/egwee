@@ -48,19 +48,19 @@ Use an open circle for interaction/pollen quantity and a filled square for repro
 The figure must retain Chaco as the counterexample so the manuscript does not visually select only decoupling systems.
 
 
-## Figure 4 — Life-cycle bottleneck synthesis
+## Figure 4 — Estimand-scale sensitivity
 
-**Purpose:** make the ecology-first conclusion visible: fragmentation changes where the strongest response appears along the reproductive life cycle rather than imposing one universal bottleneck.
+**Purpose:** show why the former separation/bottleneck headline is no longer scale-robust.
 
-Required content:
+Required panels:
 
-- **A. Unresolved process–function difference:** seven programmes; Chaco and Sevenello may be highlighted as coupled-looking examples, but unresolved is not equated with true coupling.
-- **B. Resolved downstream function-dominant:** three programmes — Wandoo, Cardiopetalum and Kakamega Acanthopale.
-- **C. Resolved upstream process-dominant:** one programme — Serapias; Brosimum and Eucalyptus socialis may appear only as unresolved same-direction context.
-- **Measurement gap:** current I–F corpus = 8/8 quantity-level I and 0/8 effective-mating-quality I.
-- **Fresh design:** Q → E → F with primary H2-v2 contrast ΔQE = Q−E.
+- **A. Serapias ordering:** Hedges-g absolute order G > C > F versus lnRR absolute order C > F > G; report C–F lnRR p≈0.605.
+- **B. Omit-ML001 Fisher sensitivity:** g primary, lnRR + rho proxy, lnRR + zero covariance, lnRR + Cauchy maximum-variance boundary, with the 0.05 threshold visible.
+- **C. Directional consistency:** 17/17 negative effects on both oriented g and oriented lnRR.
+- **D. Exploratory ecology:** Brosimum and Eucalyptus socialis attenuation examples plus Spondias adult/offspring contrast, with Chaco explicitly identified as a counterexample to universal attenuation.
 
-Also show the one not-testable Pritchard programme outside the three panels. Do not imply that the displayed regimes are exhaustive, equally frequent or causal categories. Do not pool Hedges-g and Fisher-z effects. The figure is a synthesis of audited response geometry and measurement coverage.
+Do not place g and lnRR magnitudes on a common numerical axis. The figure compares inferential geometry and qualitative direction, not raw effect-size values across estimands.
+
 
 ## Table 1 — Admitted primary clusters
 
@@ -78,31 +78,21 @@ One row per independent primary programme/study cluster. Columns:
 
 ML020 appears once, with its three species described as dependent subsystems. ML015 is excluded from Table 1 and described separately as gradient generalisation evidence.
 
-## Table 2 — Complete paired process–function bottleneck census
+## Table 2 — Estimand-scale sensitivity summary
 
-**Purpose:** expose the full 12-programme denominator behind the variable-bottleneck conclusion rather than showing only resolved examples.
+One row per primary direct cluster plus FULL and OMIT_ML001 cross-cluster rows. Required columns:
 
-One row per independent registered programme with one upstream process endpoint and reproductive function F on a common fragmentation frame. Required columns:
+- historical Hedges-g p-value;
+- lnRR p under carried rho proxy;
+- lnRR p under zero covariance;
+- lnRR p under Cauchy maximum-variance boundary;
+- interpretation.
 
-- programme/system;
-- source identifier (DOI / thesis ID);
-- process stage;
-- process endpoint;
-- measurement class;
-- effect family;
-- number of dependent process–F panels;
-- whether a registered within-programme process–F comparison is possible;
-- programme-adjusted p-value where applicable;
-- census result: resolved mismatch / unresolved mismatch / not testable;
-- direction when resolved;
-- ecological regime;
-- ecological interpretation.
+The table must show that the omit-ML001 classification crosses the 0.05 threshold across estimand/dependence treatments. It must not imply that lnRR is the uniquely correct scale.
 
-The table must contain exactly **12 programmes**: **11 pair-testable, 4 resolved, 7 unresolved and 1 not testable**. Among the four resolved rows, exactly **3** must read **F more negative than process** and exactly **1** must read **process more negative than F**.
+## Supplementary Table S4 — Registered-scale process–function census
 
-The process-stage composition is fixed at **8 interaction/pollen-quantity programmes + 4 movement/connectivity or mating-support programmes**. All eight interaction programmes remain quantity-level; none directly measures compatible mating quality on the same I–F frame.
-
-Do not pool Hedges-g and Fisher-z values in Table 2. The table is a response-geometry census, not a common-effect meta-analysis or prevalence estimate.
+Retain the 12-programme process–function catalogue for transparency and hypothesis generation. Explicitly mark it as heterogeneous-scale and non-confirmatory after the estimand audit.
 
 
 ## Supplementary Table S3 — All 17 primary marginal effects
