@@ -6,8 +6,8 @@ This repository is the authoritative development home for an **independent natur
 
 The active paper is a cluster-first empirical synthesis. Its questions are defined from natural-system exposures, effect units and biological endpoints rather than from a finite theoretical model:
 
-1. **Do interaction, movement, reproduction and genetic responses have exchangeable fragmentation effects within natural systems?**
-2. **If not, do separated and concordant response geometries recur across independent systems, and which prespecified biological contexts explain that heterogeneity once replication permits?**
+1. **Do pollination, movement, reproduction and genetic responses remain coupled under fragmentation, or do they become decoupled within natural plant systems?**
+2. **Which recurring ecological response regimes appear across systems, and which life histories, pollination modes, fragmentation histories or demographic contexts may explain them once replication permits?**
 
 EGWEE therefore studies the ecology of fragmentation-response coupling: whether pollination, movement, reproduction and genetic responses track one another or become decoupled across natural plant systems. Theory may motivate interpretation, but it is not an admission criterion, estimator, stopping rule or source of empirical endpoint values.
 
@@ -93,6 +93,7 @@ The canonical current-state documents are:
 - [`manuscript/AIZEN_FEINSINGER_1994_RECOVERY_RESULT.md`](manuscript/AIZEN_FEINSINGER_1994_RECOVERY_RESULT.md)
 - [`manuscript/PHASE2_CF01_CF_FAMILY_CLOSURE_2026-09-27.md`](manuscript/PHASE2_CF01_CF_FAMILY_CLOSURE_2026-09-27.md)
 - [`manuscript/PHASE2_CF01_IF_FAMILY_CLOSURE_2026-09-27.md`](manuscript/PHASE2_CF01_IF_FAMILY_CLOSURE_2026-09-27.md)
+- [`manuscript/ECOLOGICAL_RESPONSE_REGIMES_2026-09-27.md`](manuscript/ECOLOGICAL_RESPONSE_REGIMES_2026-09-27.md) — ecology-first synthesis of coupled decline, quantity–function decoupling and unresolved I–F regimes.
 
 ## Search stop and claim discipline
 
