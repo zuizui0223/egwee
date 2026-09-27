@@ -362,6 +362,7 @@ def table2_if_direction_census() -> None:
     fields = [
         "programme_id",
         "system",
+        "source_id",
         "effect_family",
         "n_dependent_if_panels",
         "pair_testable",
@@ -386,6 +387,7 @@ def table2_if_direction_census() -> None:
             writer.writerow({
                 "programme_id": row["programme_id"],
                 "system": row["system"],
+                "source_id": row["source_id"],
                 "effect_family": row["effect_family"],
                 "n_dependent_if_panels": row["n_dependent_if_panels"],
                 "pair_testable": row["if_pair_testable"],
