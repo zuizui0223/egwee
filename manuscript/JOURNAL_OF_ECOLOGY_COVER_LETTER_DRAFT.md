@@ -2,9 +2,9 @@
 
 Dear Editors,
 
-We would like to submit the Research Article **“Testing whether fragmentation acts as a single biological state: a cluster-first synthesis of plant interaction, reproduction and genetic responses”** for consideration in *Journal of Ecology*.
+We would like to submit the Research Article **“Coupling and decoupling of plant interaction, reproduction and genetic responses under habitat fragmentation: a cross-system synthesis”** for consideration in *Journal of Ecology*.
 
-Habitat-fragmentation syntheses usually ask whether individual endpoints decline on average. Our manuscript asks a different plant-ecology question: when interaction, movement, reproductive and genetic responses are measured within the same fragmented systems, can they be treated as one common deterioration state, or do their response magnitudes separate?
+Habitat-fragmentation syntheses usually ask whether individual endpoints decline on average. Our manuscript asks a different plant-ecology question: when interaction, movement, reproductive and genetic responses are measured within the same fragmented systems, do they deteriorate together or become decoupled because ecological processes operate on different spatial and temporal scales?
 
 We assembled five independent direct fragmented-versus-reference programme/study clusters comprising 17 Hedges-g marginal effects, with explicit within-system dependence and effect-unit rules. The pooled five-cluster synthesis rejects complete response-layer exchangeability (`p=0.0121`). Crucially, however, the result is not leave-one-cluster-out robust: removal of the influential *Serapias lingua* system gives `p=0.1819`. A fifth independent replicated Chaco programme was retained regardless of statistical significance and shows interaction and reproductive function declining together without detectable separation (`p_programme=1.0`). A separate *Eucalyptus wandoo* continuous-gradient system provides additional evidence that strong cross-layer discordance can also occur, but we do not combine that different effect family with the primary synthesis.
 
