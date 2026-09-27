@@ -9,7 +9,7 @@ The active paper is a cluster-first empirical synthesis. Its questions are defin
 1. **Do interaction, movement, reproduction and genetic responses have exchangeable fragmentation effects within natural systems?**
 2. **If not, do separated and concordant response geometries recur across independent systems, and which prespecified biological contexts explain that heterogeneity once replication permits?**
 
-EGWEE therefore estimates the empirical geometry of fragmentation responses. Theory may motivate interpretation, but it is not an admission criterion, estimator, stopping rule or source of empirical endpoint values.
+EGWEE therefore studies the ecology of fragmentation-response coupling: whether pollination, movement, reproduction and genetic responses track one another or become decoupled across natural plant systems. Theory may motivate interpretation, but it is not an admission criterion, estimator, stopping rule or source of empirical endpoint values.
 
 The active manuscript spine is [`manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md`](manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md). The locked protocol is [`manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md`](manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md).
 
@@ -21,9 +21,9 @@ The fifth cluster, the replicated Aizen–Feinsinger Chaco programme, was admitt
 
 The defensible paper-level conclusion is therefore:
 
-> **Fragmented plant systems include both separated and concordant biological response regimes. The present corpus contains strong state separation, but the pooled direct-effect rejection is materially dependent on Serapias and does not support a universal fragmentation state-separation syndrome.**
+> **Fragmented plant systems can show either coupled deterioration or ecological decoupling among interaction, movement, reproduction and genetic responses. The present corpus contains clear examples of both, but the cross-system evidence for unequal process responses is materially influenced by Serapias and does not support one universal fragmentation trajectory.**
 
-This is an empirical statement about natural response geometry. It neither tests nor validates the finite NEE operator sequence, warning rules or reserve quantities.
+This is a plant-ecology result about how biological processes covary under habitat fragmentation. It neither tests nor validates finite NEE operator sequences, warning rules or reserve quantities.
 
 ## Meta-analysis architecture
 
