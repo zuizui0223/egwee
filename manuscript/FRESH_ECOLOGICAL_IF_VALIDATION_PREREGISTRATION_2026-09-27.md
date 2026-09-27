@@ -158,3 +158,11 @@ The current manuscript may motivate the downstream-bottleneck hypothesis but mus
 
 For prospective synchronized field implementation, use
 `manuscript/FRESH_ECOLOGICAL_IF_SYNCHRONIZED_FIELD_MODULE_V1.md`.
+
+
+## Amendment status
+
+H2 has been prospectively amended before opening any fresh validation outcomes. See
+`manuscript/FRESH_ECOLOGICAL_IF_VALIDATION_AMENDMENT_2026-09-27_BOTTLENECK_LOCALIZATION.md`.
+
+The original recoupling wording is retained above as historical preregistration text; the amendment supersedes it for fresh H2 inference. The primary H2-v2 prediction is `Delta_QE = Q - E > 0`, with `Delta_EF` used to localize propagation, compensation or later reproductive filtering.
