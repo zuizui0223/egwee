@@ -205,7 +205,7 @@ jobs:
         run: python scripts/check_journal_of_ecology_submission_shape.py
       - name: Check double-anonymous manuscript
         run: python scripts/check_double_anonymous_submission.py
-      - name: Build Journal of Ecology figures and Table 1
+      - name: Build Journal of Ecology figures and Tables 1-2
         run: python scripts/build_journal_of_ecology_figures.py
       - name: Build anonymous reviewer code and data package
         run: python scripts/build_anonymous_review_package.py
