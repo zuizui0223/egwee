@@ -8,9 +8,9 @@
 
 3. Across the five direct clusters, the Fisher synthesis rejected complete equality of within-system standardized fragmentation responses (`chi-square(10)=22.65`, `p=0.0121`), but this result did not survive removal of the influential *Serapias lingua* cluster (`p=0.1819`). The evidence for cross-process decoupling is therefore real in the present corpus but not leave-one-system-out robust.
 
-4. Ecological responses also differed qualitatively among systems. In the replicated Chaco programme, fragmentation reduced both pollen-tube interaction support and fruit set without detectable separation in their effect magnitudes (`p_programme=1.0`), whereas a separate continuous-gradient *Eucalyptus wandoo* system showed strong discordance among interaction, reproductive and adult-genetic responses.
+4. A complete descriptive census identified eight registered programmes with both interaction/pollen-quantity and reproductive-function information. Seven permitted a within-programme I–F comparison: three resolved a mismatch after their registered multiplicity rule, all three had reproductive function more negative than interaction quantity, four were unresolved, and no programme resolved the opposite direction. The eighth programme lacked reconstructable paired covariance.
 
-5. **Synthesis.** Fragmentation does not map onto one universal ecological response trajectory. Plant systems can show either coupled deterioration across processes or marked decoupling among interaction, reproduction and genetic responses. No single response layer can therefore be assumed to represent whole-system fragmentation impact. The next ecological question is which life histories, pollination systems, fragmentation histories and demographic contexts maintain coupling or generate response lags.
+5. **Synthesis.** Fragmentation does not map onto one universal ecological response trajectory. Plant systems can show coupled deterioration or process decoupling, and the resolved interaction–function mismatches in the current audited corpus are directionally asymmetric toward stronger reproductive loss. No single interaction metric can therefore be assumed to represent reproductive function or whole-system impact. The next ecological question is which life histories, pollination systems, fragmentation histories and demographic contexts create this downstream bottleneck.
 
 ## Keywords
 
@@ -102,6 +102,14 @@ For ML020, each species used four small-fragment habitat-unit means and four con
 
 The *Eucalyptus wandoo* programme of Llorens et al. (2018; `ML015`) was retained as a separate Fisher-z gradient generalisation cluster. It included interaction, reproductive-function and adult-genetic effects against a response-free fragmentation geometry. Pairwise endpoint differences and the same Bonferroni cluster rule were computed on the Fisher-z scale using its paired-population covariance proxy, but ML015 contributed zero direct Hedges-g primary effects and its p-value was never combined with the primary Fisher statistic.
 
+### Complete descriptive I–F direction census
+
+After the Phase-2 I–F search and recovery programme was closed, we constructed a descriptive census of every registered programme containing both an interaction/pollen-quantity endpoint (I) and reproductive function (F). This secondary summary was defined after the individual programme analyses existed and is therefore not treated as a preregistered directional test.
+
+A programme was called pair-testable only when its registered analysis supported a within-programme I–F comparison with a reconstructed covariance or other already-declared dependence rule. Where a programme contained multiple dependent species, phytometers or endpoint pairs, we retained its existing multiplicity correction rather than selecting the strongest panel. A mismatch was described as resolved only when the registered programme-level or pair-family-adjusted p-value was below 0.05. Direction was then recorded as F more negative than I or I more negative than F. Programmes without reconstructable paired dependence remained explicitly not testable.
+
+Direct Hedges-g and gradient Fisher-z programmes were never pooled numerically in this census. We counted the direction of resolved within-programme mismatches only. No binomial sign test, cross-programme pooled effect, prevalence estimate or new significance threshold was calculated.
+
 ### Search-stop rule
 
 The fifth same-effect-family robustness test was treated as a terminal test of the current claim. A sixth cluster was not sought merely because removal of ML001 remained non-significant. Any future corpus expansion must be justified by a separately declared coverage or moderator goal before candidate outcomes are inspected.
@@ -154,6 +162,16 @@ The separate *Eucalyptus wandoo* gradient system (Llorens et al., 2018) showed s
 
 This gradient result provides independent evidence that strong layer discordance occurs in nature, but because its exposure representation and effect family differ from the primary direct stream it was treated as generalisation evidence rather than a sixth primary replicate.
 
+### Complete registered I–F direction census
+
+Eight independent registered programmes contained eligible I and F information. Seven supported a within-programme I–F comparison under their registered dependence rules; the Pritchard orchard-isolation programme retained valid marginal I and F gradients but lacked reconstructable paired covariance and was classified as not testable.
+
+Of the seven pair-testable programmes, **three** contained a resolved I–F mismatch after their registered within-programme multiplicity rule and **four** were unresolved. All three resolved programmes pointed in the same ecological direction: **reproductive function was more negative than interaction/pollen quantity**. No registered programme resolved the opposite direction.
+
+The resolved programmes were *Eucalyptus wandoo* (programme-adjusted p = 0.00256953), *Cardiopetalum calophyllum* (p = 0.00315990) and the Kakamega programme, where the *Acanthopale pubescens* panel drove a four-panel Bonferroni programme p = 0.00653539. Chaco, Sevenello, Zurich and common milkweed did not resolve a programme-level I–F mismatch.
+
+Because this direction census spans different effect families and includes retrospective recoveries, the 3/3 directional agreement is reported only as a descriptive property of the complete audited I–F programme set. It is not converted into a sign test or an estimate of global prevalence.
+
 ## Discussion
 
 ### Fragmentation produces both coupled and decoupled ecological responses
@@ -173,6 +191,8 @@ In *Cardiopetalum calophyllum*, measured beetle-pollinator abundance changed com
 The Kakamega *Acanthopale pubescens* panel shows the same qualitative mismatch on the direct Hedges-g scale: standardized pollinator occurrence was slightly higher in fragment sites (g = +0.349), while natural fruit set was much lower (g = -2.848). The I–F difference was +3.197, with a 95% interval of [+1.208, +5.186] and p = 0.00163.
 
 These programmes cannot be pooled into one confirmatory effect because they belong to different registered effect families and were not selected prospectively as a common test set. Their repeated qualitative geometry is nevertheless ecologically informative. Pollinator abundance, visitation occurrence or pollen quantity can remain stable or increase while realised reproductive function deteriorates. That pattern is consistent with downstream filters such as pollen quality, compatible-mate limitation, mating structure, self or heterospecific pollen, resource limitation or other post-visitation processes, although the present analyses do not identify those mechanisms causally.
+
+The complete I–F direction census shows that these three examples are not a selected subset of a larger set containing resolved mismatches in both directions. Across all seven pair-testable registered programmes, they are the only programmes with a resolved I–F mismatch, and every resolved case is function-dominant; four programmes remain unresolved and none resolves interaction quantity as the more negative component. This directional asymmetry is descriptive and post hoc, but it narrows the ecological hypothesis from generic “decoupling” to a possible downstream reproductive bottleneck.
 
 ### The motif is not universal
 
@@ -218,7 +238,7 @@ Finally, the strong *Eucalyptus wandoo* gradient result is deliberately kept out
 
 Habitat fragmentation does not map onto one universal ecological response trajectory. Across the audited natural plant systems, pollination, movement, reproduction and genetic responses can either deteriorate together or become decoupled. The five-cluster direct synthesis contains evidence against complete equality of within-system standardized responses, but that cross-system signal is materially influenced by *Serapias lingua* and is not leave-one-system-out robust.
 
-The most ecologically informative repeated motif is narrower and more concrete: interaction quantity can persist while reproductive function declines. This geometry appears independently in *Eucalyptus wandoo*, *Cardiopetalum calophyllum* and the Kakamega *Acanthopale pubescens* panel, while the Chaco and Sevenello programmes demonstrate that interaction and reproductive responses can also remain broadly coupled or unresolved. The evidence therefore supports response-regime heterogeneity rather than one universal fragmentation syndrome.
+The most ecologically informative repeated motif is narrower and more concrete: interaction quantity can persist while reproductive function declines. A complete census of the registered I–F programme set found seven pair-testable programmes; three resolved an I–F mismatch and all three were function-dominant, four were unresolved, and none resolved the opposite direction. The eighth programme lacked reconstructable paired covariance. Because the census spans heterogeneous effect families and retrospective recoveries, this is a descriptive directional asymmetry rather than a pooled law. Chaco and Sevenello remain explicit counterexamples to universal decoupling.
 
 The manuscript may claim five admitted direct programme/study clusters, a canonical paired-covariance Fisher result of `p = 0.01212432`, loss of that rejection after omitting ML001 (`p = 0.18194353`), an independent Chaco coupled-decline programme (`p_ML020 = 1.0`), separate gradient evidence of strong interaction–function decoupling, and a search-complete Phase-2 record in which direct I–F and C–F coverage remain below their five-programme pooled-analysis gates. It may not claim a universal process ordering, a confirmed cohort lag, a general causal mechanism, or that pollinator abundance, reproductive output or genetic diversity alone is a sufficient proxy for the whole fragmented-system response.
 
