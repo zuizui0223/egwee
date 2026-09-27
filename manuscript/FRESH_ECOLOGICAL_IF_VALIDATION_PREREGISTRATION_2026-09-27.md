@@ -22,6 +22,8 @@ The resolved examples are *Eucalyptus wandoo*, *Cardiopetalum calophyllum* and t
 
 This 3/3 direction is **motivation only**. It is not the validation dataset.
 
+No binomial sign test, directional p-value or prevalence estimate is calculated from the burned 3/3 pattern.
+
 ## Ecological hypothesis
 
 ### H1 — downstream reproductive bottleneck
