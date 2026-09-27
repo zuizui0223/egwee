@@ -65,20 +65,30 @@ def ml020_programme_p() -> float:
 
 def wandoo_programme_p() -> tuple[float, float]:
     erows = rows(WANDOO_E)
-    eff = {r["endpoint"]: (float(r["oriented_effect"]), float(r["oriented_variance"])) for r in erows}
+    eff = {r["layer"]: (float(r["oriented_effect"]), float(r["oriented_variance"])) for r in erows}
     cov = {(r["endpoint_i"], r["endpoint_j"]): float(r["sampling_covariance"]) for r in rows(WANDOO_C)}
-    names = list(eff)
+    cov_name = {
+        "I": "I_pollen_tubes",
+        "F": "F_seeds_per_fruit_y2",
+        "G_adult": "G_adult_He",
+    }
+    names = ["I", "F", "G_adult"]
     ps = []
     if_delta = None
     if_p = None
     for a, b in combinations(names, 2):
-        delta, p = pair_p(eff[a][0], eff[a][1], eff[b][0], eff[b][1], cov[(a, b)])
+        delta, p = pair_p(
+            eff[a][0], eff[a][1], eff[b][0], eff[b][1],
+            cov[(cov_name[a], cov_name[b])],
+        )
         ps.append(p)
-        if {a, b} == {"pollen_tubes_at_base_of_style", "seeds_per_fruit_y2"}:
-            # orient explicitly as I - F
-            i = eff["pollen_tubes_at_base_of_style"]
-            f = eff["seeds_per_fruit_y2"]
-            if_delta, if_p = pair_p(i[0], i[1], f[0], f[1], cov[("pollen_tubes_at_base_of_style", "seeds_per_fruit_y2")])
+        if {a, b} == {"I", "F"}:
+            i = eff["I"]
+            f = eff["F"]
+            if_delta, if_p = pair_p(
+                i[0], i[1], f[0], f[1],
+                cov[("I_pollen_tubes", "F_seeds_per_fruit_y2")],
+            )
     assert if_delta is not None and if_p is not None and if_delta > 0
     return min(1.0, 3.0 * min(ps)), if_delta
 
