@@ -72,6 +72,8 @@ One row per independent registered programme with eligible I and F information. 
 
 - programme/system;
 - source identifier (DOI / thesis ID);
+- I endpoint;
+- interaction-measurement class;
 - effect family;
 - number of dependent I–F panels;
 - whether a registered within-programme I–F comparison is possible;
@@ -80,7 +82,7 @@ One row per independent registered programme with eligible I and F information. 
 - direction when resolved;
 - ecological interpretation.
 
-The table must contain exactly **8 programmes**: 7 pair-testable, 3 resolved, 4 unresolved and 1 not testable. All 3 resolved rows must read **F more negative than I**; no row may be assigned the opposite resolved direction.
+The table must contain exactly **8 programmes**: 7 pair-testable, 3 resolved, 4 unresolved and 1 not testable. All 3 resolved rows must read **F more negative than I**; no row may be assigned the opposite resolved direction. All 8 current I endpoints must remain classified as quantity-level interaction/pollen measures; the table must show that **0/8** directly measure compatible mating quality on the same I–F frame.
 
 Do not pool Hedges-g and Fisher-z values in Table 2. The table is a direction/status census, not a common-effect meta-analysis.
 
