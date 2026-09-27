@@ -1794,12 +1794,12 @@ def main() -> None:
     for token in (
         "habitat fragment area",
         "population isolation",
-        "Population size remains a separate demographic / mate-availability moderator",
-        "Independent unit = population/site",
-        "Primary candidate I = population-level pollen limitation",
-        "Primary candidate F = population-level direct seed production per plant",
+        "population size is retained as a demographic / mate-availability moderator",
+        "one common population table",
+        "population-level pollen limitation",
+        "population-level direct seed production",
         "Do not",
-        "choose population size because it is the strongest published predictor",
+        "choose population size as fragmentation severity",
     ):
         assert has_token(brun_gate, token), token
 
