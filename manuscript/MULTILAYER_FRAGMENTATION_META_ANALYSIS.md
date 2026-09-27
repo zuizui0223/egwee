@@ -214,7 +214,7 @@ The results caution against using one biological layer as a universal proxy for 
 
 A stronger ecological design is to measure at least one contemporary interaction or movement process together with reproductive function, and, where feasible, adult and offspring genetic responses on the same populations and time window. The aim is not to maximize the number of indicators but to identify where along the life cycle fragmentation effects remain coupled and where the mapping between processes breaks down.
 
-The current evidence points to a next testable question: which mating systems, pollination modes, life histories, fragmentation ages and demographic contexts predict coupled decline versus quantity–function decoupling? EGWEE does not yet have enough independent same-frame programmes for stable moderator inference, so these remain explicitly prospective ecological hypotheses.
+The current evidence points to a next testable question: which mating systems, pollination modes, life histories, fragmentation ages and demographic contexts predict coupled decline versus quantity–function decoupling? The present corpus does not yet contain enough independent same-frame programmes for stable moderator inference, so these remain explicitly prospective ecological hypotheses.
 
 ### Ecological scope
 
