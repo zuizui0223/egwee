@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "frozen_on": "2026-09-27",
   "programme": "fresh_ecological_IF_decoupling_validation",
   "discovery_cutoff": "2026-09-18",
@@ -15,7 +15,7 @@
   ],
   "hypotheses": {
     "H1": "quantity-only interaction measurements can remain buffered while reproductive function deteriorates because effective mating/post-pollination processes are downstream",
-    "H2": "effective-mating-quality interaction measurements should show smaller I-F mismatch than quantity-only interaction measurements",
+    "H2": "in fresh synchronized Q-E-F programmes, effective mating should localize the bottleneck; primary prediction Delta_QE=Q-E > 0 when mating quality is the missing stage, while Delta_EF distinguishes propagation, compensation, or later filtering",
     "H3": "F-dominant mismatch should be stronger or more frequent under source-supported outcrossing dependence and absent autonomous reproductive assurance"
   },
   "effect_family_boundary": {
@@ -23,7 +23,7 @@
     "gradient": "Fisher_z",
     "cross_family_pooling": false
   },
-  "primary_estimand": "Delta_IF=effect_I-effect_F; positive means F more negative than I",
+  "primary_estimand": "Delta_QF=Q-F for quantity-function decoupling; H2-v2 primary Delta_QE=Q-E; secondary Delta_EF=E-F",
   "fresh_gate": {
     "min_programmes_per_effect_family": 5,
     "min_programmes_per_categorical_level": 4,
@@ -47,7 +47,8 @@
     "cross_family_delta_pooling",
     "endpoint_switch_after_outcome",
     "search_until_significance",
-    "unresolved_as_zero"
+    "unresolved_as_zero",
+    "reuse_burned_auxiliary_process_function_programmes_as_fresh_H2_confirmation"
   ],
   "field_module": "manuscript/FRESH_ECOLOGICAL_IF_SYNCHRONIZED_FIELD_MODULE_V1.md",
   "current_manuscript_role": "discovery_synthesis_not_fresh_confirmation",
@@ -58,5 +59,27 @@
     "ML014",
     "P2_CF01_ACER_MIYABEI_2014"
   ],
-  "auxiliary_discovery_audit": "manuscript/ECOLOGICAL_BOTTLENECK_POSITION_AUDIT_2026-09-27.md"
+  "auxiliary_discovery_audit": "manuscript/ECOLOGICAL_BOTTLENECK_POSITION_AUDIT_2026-09-27.md",
+  "amended_on": "2026-09-27",
+  "amendment": "manuscript/FRESH_ECOLOGICAL_IF_VALIDATION_AMENDMENT_2026-09-27_BOTTLENECK_LOCALIZATION.md",
+  "h2_v2": {
+    "endpoint_chain": [
+      "I_quantity",
+      "I_effective_mating_quality",
+      "F_reproductive"
+    ],
+    "primary_contrast": "Delta_QE=Q-E",
+    "primary_direction": "Delta_QE>0",
+    "secondary_contrasts": [
+      "Delta_QF=Q-F",
+      "Delta_EF=E-F"
+    ],
+    "min_fresh_QEF_programmes_per_effect_family": 5,
+    "regimes": {
+      "B1": "Delta_QF>0; Delta_QE>0; Delta_EF approximately zero: direct mating-quality propagation",
+      "B2": "Delta_QF>0; Delta_QE>0; Delta_EF<0: mating bottleneck with downstream compensation",
+      "B3": "Delta_QF>0; Delta_QE approximately zero; Delta_EF>0: post-mating/post-pollination bottleneck",
+      "B4": "Q E F all deteriorate with unresolved/small contrasts: coupled chain deterioration"
+    }
+  }
 }
