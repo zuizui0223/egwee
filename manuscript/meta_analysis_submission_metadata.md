@@ -54,22 +54,24 @@ ML015 *Eucalyptus wandoo* remains separate Fisher-z gradient generalisation evid
 
 ## Current claim ceiling
 
-Authorised manuscript-level claims:
+Authorised manuscript-level ecological claims:
 
-- the five-cluster direct-effect corpus rejects complete response-layer exchangeability overall;
-- that rejection is materially dependent on ML001 *Serapias* and is not leave-one-cluster-out robust;
-- natural fragmented plant systems include both separated and concordant response regimes;
-- ML020 independently shows concordant I/F deterioration under a replicated fragmentation programme;
-- ML015 provides additional discordance evidence on a separate continuous-gradient effect scale.
+- natural fragmented plant systems include both coupled and decoupled process responses;
+- the five-cluster direct corpus contains evidence against complete equality of process-specific fragmentation responses, but that evidence is materially dependent on ML001 *Serapias* and is not leave-one-system-out robust;
+- ML020 independently shows coupled deterioration of interaction and reproductive function across a replicated fragmentation programme;
+- *Eucalyptus wandoo*, *Cardiopetalum calophyllum* and the Kakamega *Acanthopale pubescens* panel each show a quantity–function mismatch in which interaction/pollen quantity is maintained or changes less strongly while reproductive function declines;
+- the repeated quantity–function geometry is a descriptive ecological motif across heterogeneous registered effect families, not a pooled universal effect;
+- the current evidence does not resolve a common directional adult-versus-offspring genetic lag.
 
 Not authorised:
 
-- universal state separation across fragmented plant systems;
-- a universal ordering of I/C/F/G layers;
+- one universal fragmentation response trajectory;
+- a universal ordering of I/C/F/G responses;
+- a general causal explanation for quantity–function decoupling;
 - a confirmed cross-system cohort/history lag;
-- a general process-compensation law;
-- direct empirical validation of the finite NEE operators;
-- searching for a sixth cluster merely to restore Serapias-independent significance.
+- treating pollinator abundance, reproductive output or genetic diversity alone as a sufficient proxy for whole-system condition;
+- direct empirical validation of finite EGWE/NEE operators;
+- searching for additional systems merely to restore a preferred p-value or force a pair family to K=5.
 
 ## Completion gates
 
