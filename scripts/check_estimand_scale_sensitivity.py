@@ -9,6 +9,7 @@ import synthesize_state_separation as state
 
 ROOT = Path(__file__).resolve().parents[1]
 SCALE = ROOT / "evidence/meta_extraction/estimand_scale_sensitivity_v1.csv"
+SUMMARY = ROOT / "evidence/meta_extraction/estimand_scale_cluster_summary_v1.csv"
 ML020_SITE = ROOT / "evidence/meta_extraction/PS022_aizen_feinsinger_site_means_v1.csv"
 
 TOL = 5e-9
@@ -208,6 +209,32 @@ def main() -> None:
     assert sum(v["g"] < 0 for v in tab.values()) == 17
     assert sum(v["lnrr"] < 0 for v in tab.values()) == 17
     assert not any(v["g"] > 0 or v["lnrr"] > 0 for v in tab.values())
+
+    summary_rows = rows(SUMMARY)
+    by_id = {(r["row_type"], r["row_id"]): r for r in summary_rows}
+    assert len(summary_rows) == 7
+    for cid, gp, rp, zp, bp in zip(
+        ("ML001", "ML002", "ML003", "ML014", "ML020"),
+        g_p,
+        outputs["rho_proxy"]["pvals"],
+        outputs["zero_cov"]["pvals"],
+        outputs["cauchy_maxvar"]["pvals"],
+    ):
+        r = by_id[("cluster", cid)]
+        assert abs(float(r["hedges_g_p"]) - gp) < 5e-8
+        assert abs(float(r["lnRR_rho_proxy_p"]) - rp) < 5e-8
+        assert abs(float(r["lnRR_zero_cov_p"]) - zp) < 5e-8
+        assert abs(float(r["lnRR_cauchy_maxvar_p"]) - bp) < 5e-8
+
+    for rid, gp, rp, zp, bp in (
+        ("FULL", g_full, outputs["rho_proxy"]["full"], outputs["zero_cov"]["full"], outputs["cauchy_maxvar"]["full"]),
+        ("OMIT_ML001", g_drop_ml001, outputs["rho_proxy"]["drop_ml001"], outputs["zero_cov"]["drop_ml001"], outputs["cauchy_maxvar"]["drop_ml001"]),
+    ):
+        r = by_id[("fisher", rid)]
+        assert abs(float(r["hedges_g_p"]) - gp) < 5e-8
+        assert abs(float(r["lnRR_rho_proxy_p"]) - rp) < 5e-8
+        assert abs(float(r["lnRR_zero_cov_p"]) - zp) < 5e-8
+        assert abs(float(r["lnRR_cauchy_maxvar_p"]) - bp) < 5e-8
 
     print(
         "ESTIMAND_SCALE_SENSITIVITY_OK "
