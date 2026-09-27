@@ -102,6 +102,26 @@ First, a zero-covariance working sensitivity set every off-diagonal `Cov_ij` to 
 
 Second, we calculated a covariance-free certification bound from the Cauchy–Schwarz constraint `Cov_ij >= -sqrt(V_i V_j)`. For each endpoint pair, setting `Cov_ij = -sqrt(V_i V_j)` maximises `V(g_i-g_j)` and therefore maximises that pair's two-sided p-value. We propagated these pairwise p-value upper bounds through the unchanged Bonferroni and Fisher rules. Because the separately maximising pairwise covariance bounds need not constitute one jointly realisable full covariance matrix, this calculation is not an alternative biological covariance model. It is a conservative certification question: can rejection be guaranteed from the marginal effects and variances alone when dependence is otherwise unknown?
 
+### Estimand-scale sensitivity
+
+The historical primary test compares endpoint-specific Hedges g values. Because g divides each response by its own within-group SD, equality of g across biological endpoints is not invariant to the measurement scale or to endpoint-specific dispersion.
+
+We therefore added a mandatory post hoc scale audit for every positive-valued primary direct endpoint. Using the same fragmented/reference group summaries, we calculated an oriented log response ratio,
+
+`lnRR = orientation_multiplier × log(mean_fragmented / mean_reference)`,
+
+so that negative values retain the same biological-support orientation as the primary analysis. Marginal uncertainty used the delta approximation
+
+`V(lnRR) = SD_f^2/(n_f mean_f^2) + SD_r^2/(n_r mean_r^2)`.
+
+For ML020, means and SDs were recomputed from the committed four-site Appendix-I habitat-unit table. For the other direct clusters, the committed group summaries were used directly.
+
+Exact cross-endpoint sampling covariance is not known on the lnRR scale. We therefore repeated the same pairwise, within-cluster Bonferroni and cross-cluster Fisher calculations under three declared dependence treatments: (1) the existing dimensionless group-centred endpoint correlation proxy carried onto lnRR marginal variances; (2) zero off-diagonal covariance; and (3) the pairwise Cauchy–Schwarz maximum-contrast-variance boundary. The third is a non-certification bound, not a fitted covariance model.
+
+Finally, we recorded only the sign of each oriented primary direct effect on both g and lnRR. The 17 effects are dependent within five clusters, so this sign audit is descriptive and is not analysed as 17 independent Bernoulli trials.
+
+A claim about relative layer severity, magnitude separation, bottleneck position or leave-one-cluster robustness is called scale-robust only when its qualitative interpretation survives the historical g analysis and the lnRR sensitivity without relying on one convenient dependence treatment.
+
 ### Cross-cluster state-separation test and estimand
 
 The five admitted primary clusters are distinct study/programme systems, so only their single cluster-level p-values were treated as cross-cluster inputs. We combined them using Fisher's statistic `X = -2 sum_k log(p_k)`. Under the global null with independent uniform cluster-level p-values, `X` has a chi-square reference distribution with `2K` degrees of freedom (`K=5` in the final primary synthesis). Because the within-cluster Bonferroni p-values can be conservative rather than exactly uniform, the chi-square calibration is correspondingly conservative relative to ideal uniform inputs.
@@ -142,9 +162,9 @@ The audit therefore progressed from 20 candidate system/program entries and 19 s
 
 This flow matters for interpretation of the final denominator. The five primary clusters were not the five systems with the strongest state-separation results: ML020 entered despite a programme p-value of 1.0, whereas several biologically suggestive systems remained excluded because their fragmentation-level effect or covariance could not be reconstructed without pseudo-replication or an exposure substitution. Supplementary Table S1 records each registered attempt and its terminal status.
 
-### Primary direct-effect synthesis
+### Historical primary direct-effect synthesis on Hedges g
 
-The five admitted direct clusters produced the following cluster-level p-values:
+The five admitted direct clusters produced the registered Hedges-g cluster-level p-values:
 
 - ML001 *Serapias*: `0.00354530`;
 - ML002 *Brosimum*: `0.19911670`;
@@ -152,29 +172,37 @@ The five admitted direct clusters produced the following cluster-level p-values:
 - ML014 *Eucalyptus socialis*: `0.09831774`;
 - ML020 Chaco programme: `1.00000000`.
 
-Combining the five cluster p-values gave `chi-square(10)=22.64771647`, **`p = 0.01212432`**. The pooled direct-effect corpus therefore rejected the global null that all five admitted systems satisfy within-system layer exchangeability. This rejection is a global test of discordance somewhere in the corpus, not an estimate of a common layer effect or a claim that each cluster individually separates.
+Combining the five cluster p-values gave `chi-square(10)=22.64771647`, **`p = 0.01212432`**. On the registered g scale this rejects the intersection null that all five systems satisfy within-system equality of standardized response magnitudes.
 
-### Dependence sensitivity
+### Hedges-g dependence and influence sensitivity
 
-The full conclusion was not restricted to the fitted non-zero covariance proxies. With all within-cluster off-diagonal covariances set to zero, the five-cluster statistic was `X=19.13332192` and remained below the 0.05 threshold (**`p=0.03860161`**). Thus the full rejection does not require the reconstructed covariance proxies to have their observed non-zero values.
+With all within-cluster off-diagonal covariances set to zero, the five-cluster g statistic remained below 0.05 (**`p=0.03860161`**). The covariance-free Cauchy–Schwarz maximum-variance bound did not reject (**`p=0.28061178`**), so marginal g effects and variances alone do not certify the global rejection under arbitrary dependence.
 
-The stronger covariance-free certification question did not reject. Using the pairwise Cauchy–Schwarz maximum-contrast-variance bounds produced `X=12.06678382`, **`p=0.28061178`**. Marginal effects and variances alone therefore do not certify rejection for every dependence structure allowed by their variances. This bound is deliberately more adversarial than a realised covariance sensitivity and should not be interpreted as a fitted alternative covariance matrix.
+On the canonical paired-covariance g analysis, omitting ML001 *Serapias* gave **`p = 0.18194353`**. The other leave-one-cluster-out analyses retained rejection. Under zero covariance the omit-ML001 g result was `p=0.57123438`, and the covariance-free certification bound was `p=0.92060125`. Thus the registered g-scale rejection is not Serapias-independent.
 
-The Serapias dependence strengthened under both calculations. Omitting ML001 gave **`p=0.57123438`** with zero covariance and a covariance-free certification bound of **`p=0.92060125`**. Full and cluster-specific values are reported in Supplementary Table S2.
+### Estimand-scale sensitivity
 
-### Influence of ML001 Serapias
+The biological interpretation changed materially when the same group summaries were represented as oriented lnRR.
 
-The canonical paired-covariance rejection is not leave-one-cluster-out robust. Removing ML001 after admission of the fifth cluster retained ML002, ML003, ML014 and ML020 and gave `chi-square(8)=11.36345148`, **`p = 0.18194353`**. Thus the direct cross-system rejection did not survive removal of *Serapias*.
+In *Serapias*, absolute Hedges-g magnitudes rank **G > C > F** (`-26.07`, `-10.10`, `-4.55`), whereas absolute lnRR magnitudes rank **C > F > G** (`-1.157`, `-1.102`, `-0.650`). The C–F lnRR contrast was unresolved under the carried endpoint-correlation proxy (`p≈0.605`). Thus the recently used interpretation of *Serapias* as a resolved movement/connectivity-dominant process–F bottleneck is not effect-scale stable.
 
-The other canonical leave-one-cluster-out analyses retained rejection: omit ML002, `p=0.01276794`; omit ML003, `p=0.01407214`; omit ML014, `p=0.02116199`; omit ML020, `p=0.00384724`. The last value recovers the previous four-cluster synthesis.
+The cross-cluster robustness classification also changed. Under lnRR:
 
-### Independent fifth-cluster test: concordant I and F deterioration
+- carrying the existing dimensionless endpoint-correlation proxies gave full Fisher `p≈1.18×10^-10` and omit-ML001 `p≈2.92×10^-5`;
+- zero covariance gave full Fisher `p≈1.72×10^-9` and omit-ML001 `p≈0.00434`;
+- the covariance-free maximum-variance boundary gave full Fisher `p≈9.95×10^-5` but omit-ML001 `p≈0.111`.
 
-ML020 provided the independent same-effect-family robustness test using the replicated Aizen–Feinsinger Chaco programme (Aizen & Feinsinger, 1994). Fragmentation reduced both pollen-tube interaction support and fruit set in all three retained species, but their effect magnitudes were not detectably separated.
+Accordingly, lnRR does not supply a new uniquely correct robustness verdict: common working dependence treatments retain rejection without *Serapias*, whereas the covariance-free bound does not certify it. The defensible conclusion is that **the leave-one-Serapias robustness classification depends jointly on effect-size scale and dependence assumptions**.
 
-For *Atamisquea emarginata*, I was `g=-0.71280256` and F was `g=-1.00477681`, with covariance-aware I–F `p=0.79824355`. For *Cercidium australe*, I was `g=-0.63733120` and F was `g=-1.13852812`, with `p=0.61830903`. For *Prosopis nigra*, I was `g=-0.48057139` and F was `g=-1.13549676`, with `p=0.55736567`.
+A scale-independent qualitative feature did remain: all **17/17 primary direct effects were negative on both oriented g and oriented lnRR**. The direct primary stream therefore consistently indicates deterioration across its measured biological layers, but contains no qualitative sign discordance that would by itself establish cross-layer separation.
 
-The frozen within-programme Bonferroni gate was therefore **`p_ML020=1.0`**. ML020 was admitted regardless of significance. Its result provides no detected I–F separation under the frozen test while both layers generally deteriorate in the same direction; it is not evidence that their true fragmentation effects are exactly equal.
+### Fifth direct cluster: same-direction I and F responses with unresolved difference
+
+ML020 provided the independent same-effect-family fifth cluster using the replicated Aizen–Feinsinger Chaco programme (Aizen & Feinsinger, 1994). Fragmentation reduced both pollen-tube interaction support and fruit set in all three retained species.
+
+For *Atamisquea emarginata*, I was `g=-0.7128` and F was `g=-1.0048`; for *Cercidium australe*, I was `g=-0.6373` and F was `g=-1.1385`; for *Prosopis nigra*, I was `g=-0.4806` and F was `g=-1.1355`. The registered programme gate was **`p_ML020=1.0`**.
+
+This is a failure to resolve an I–F difference at four independent habitat units per condition, not evidence that the true responses are equal or biologically coupled. The same-direction signs are informative descriptively, but the magnitude comparison is low-precision.
 
 ### Separate gradient evidence
 
