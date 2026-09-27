@@ -12,7 +12,7 @@ We believe the ecological advance is that habitat fragmentation can **shift wher
 
 The manuscript is centred on plant ecology and plant–pollinator/reproductive processes, while integrating mating and genetic responses within the same biological systems. We therefore believe it fits *Journal of Ecology*’s interest in research that advances general understanding of plant populations and their interactions with other organisms.
 
-The reviewer-facing manuscript has been prepared for double-anonymous review. Analysis-ready evidence tables and minimal reproduction code are assembled into an anonymised review package that reproduces the five-cluster synthesis, leave-one-out diagnostics, complete I–F census, main figures and main tables.
+The reviewer-facing manuscript has been prepared for double-anonymous review. Analysis-ready evidence tables and minimal reproduction code are assembled into an anonymised review package that reproduces the five-cluster synthesis, leave-one-out diagnostics, complete 12-programme process–function bottleneck census, main figures and main tables.
 
 Before submission, please confirm and replace the following administrative placeholders as appropriate:
 
