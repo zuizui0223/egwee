@@ -87,8 +87,9 @@ def main() -> None:
         "empirical plant-fragmentation",
     ):
         assert token in (manuscript + "\n" + metadata + "\n" + cover_letter), token
-    assert "coupled deterioration" in cover_letter
-    assert "process decoupling" in cover_letter
+    assert "shift where the dominant bottleneck appears" in cover_letter
+    assert "Together they show coupled, downstream function-dominant and upstream movement/mating-dominant regimes." in cover_letter
+    assert "none directly measures compatible mating quality" in cover_letter
 
     assert "**Primary target journal:** **Journal of Ecology**" in metadata
     assert "Research Article / empirical research synthesis" in metadata
