@@ -6,6 +6,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = ROOT / "manuscript/fresh_ecological_if_validation_contract_v1.json"
 PREREG = ROOT / "manuscript/FRESH_ECOLOGICAL_IF_VALIDATION_PREREGISTRATION_2026-09-27.md"
+FIELD_MODULE = ROOT / "manuscript/FRESH_ECOLOGICAL_IF_SYNCHRONIZED_FIELD_MODULE_V1.md"
 CENSUS = ROOT / "evidence/meta_extraction/ecological_if_programme_census_v1.csv"
 
 
@@ -13,11 +14,14 @@ def main() -> None:
     c = json.loads(CONTRACT.read_text(encoding="utf-8"))
     p = PREREG.read_text(encoding="utf-8")
     census_text = CENSUS.read_text(encoding="utf-8")
+    field = FIELD_MODULE.read_text(encoding="utf-8")
 
     assert c["schema_version"] == 1
     assert c["frozen_on"] == "2026-09-27"
     assert c["discovery_cutoff"] == "2026-09-18"
     assert c["effect_family_boundary"]["cross_family_pooling"] is False
+    assert c["field_module"] == "manuscript/FRESH_ECOLOGICAL_IF_SYNCHRONIZED_FIELD_MODULE_V1.md"
+    assert c["current_manuscript_role"] == "discovery_synthesis_not_fresh_confirmation"
     assert c["primary_estimand"].startswith("Delta_IF=")
 
     burned = set(c["burned_programmes"])
@@ -70,6 +74,15 @@ def main() -> None:
         "not required to complete or submit",
     ):
         assert token in p, token
+
+    for token in (
+        "I_quantity  →  I_effective / mating quality  →  F_reproductive",
+        "Delta_QF = effect(I_quantity) - effect(F)",
+        "Delta_EF = effect(I_effective) - effect(F)",
+        "pollen supplementation or cross-pollination partially rescues F",
+        "plants/flowers/fruits/offspring to independent fragmentation units",
+    ):
+        assert token in field, token
 
     print(
         "FRESH_ECOLOGICAL_IF_VALIDATION_CONTRACT_OK "
