@@ -54,13 +54,13 @@ The figure must retain Chaco as the counterexample so the manuscript does not vi
 
 Required content:
 
-- **A. Coupled / unresolved:** Chaco and Sevenello as explicit counterexamples to universal decoupling.
-- **B. Downstream function-dominant:** Wandoo, Cardiopetalum and Kakamega Acanthopale; all three resolved I–F mismatches have F more negative than I.
-- **C. Upstream movement/mating-dominant:** Serapias as the one resolved process–F mismatch in the auxiliary audit, with Brosimum and Eucalyptus socialis shown as unresolved same-direction context.
+- **A. Unresolved process–function difference:** seven programmes; Chaco and Sevenello may be highlighted as coupled-looking examples, but unresolved is not equated with true coupling.
+- **B. Resolved downstream function-dominant:** three programmes — Wandoo, Cardiopetalum and Kakamega Acanthopale.
+- **C. Resolved upstream process-dominant:** one programme — Serapias; Brosimum and Eucalyptus socialis may appear only as unresolved same-direction context.
 - **Measurement gap:** current I–F corpus = 8/8 quantity-level I and 0/8 effective-mating-quality I.
 - **Fresh design:** Q → E → F with primary H2-v2 contrast ΔQE = Q−E.
 
-Do not imply that the three regimes are exhaustive, equally frequent or causal categories. Do not pool Hedges-g and Fisher-z effects. The figure is a synthesis of audited response geometry and measurement coverage.
+Also show the one not-testable Pritchard programme outside the three panels. Do not imply that the displayed regimes are exhaustive, equally frequent or causal categories. Do not pool Hedges-g and Fisher-z effects. The figure is a synthesis of audited response geometry and measurement coverage.
 
 ## Table 1 — Admitted primary clusters
 
