@@ -7,7 +7,7 @@ This repository is the authoritative development home for an **independent natur
 The active paper is a cluster-first empirical synthesis. Its questions are defined from natural-system exposures, effect units and biological endpoints rather than from a finite theoretical model:
 
 1. **Do pollination, movement, reproduction and genetic responses remain coupled under fragmentation, or do they become decoupled within natural plant systems?**
-2. **Which recurring ecological response regimes appear across systems, and which life histories, pollination modes, fragmentation histories or demographic contexts may explain them once replication permits?**
+2. **Where along the reproductive life cycle does fragmentation create its dominant bottleneck, and which life histories, pollination modes, fragmentation histories or demographic contexts shift that bottleneck among interaction, mating/connectivity and reproductive function?**
 
 EGWEE therefore studies the ecology of fragmentation-response coupling: whether pollination, movement, reproduction and genetic responses track one another or become decoupled across natural plant systems. Theory may motivate interpretation, but it is not an admission criterion, estimator, stopping rule or source of empirical endpoint values.
 
@@ -21,7 +21,7 @@ The fifth cluster, the replicated Aizen–Feinsinger Chaco programme, was admitt
 
 The defensible paper-level conclusion is therefore:
 
-> **Fragmented plant systems can show either coupled deterioration or ecological decoupling among interaction, movement, reproduction and genetic responses. The present corpus contains clear examples of both, but the cross-system evidence for unequal process responses is materially influenced by Serapias and does not support one universal fragmentation trajectory.**
+> **Habitat fragmentation does not impose one fixed life-cycle bottleneck. Across natural plant systems, the strongest disruption can occur at interaction/reproductive-function transitions, at movement or mating stages, or remain broadly coupled across stages. The present corpus therefore supports variable bottleneck position rather than one universal fragmentation trajectory.**
 
 This is a plant-ecology result about how biological processes covary under habitat fragmentation. It neither tests nor validates finite NEE operator sequences, warning rules or reserve quantities.
 
@@ -40,6 +40,12 @@ A complete census of the registered I–F programme set now contains **8 program
 The same complete census exposes a **measurement gap**: all **8/8** current I endpoints quantify interaction or pollen quantity (visits, bee abundance/occurrence, or total pollen tubes), while **0/8** directly quantify compatible mating quality, realised paternity or effective pollen-donor diversity on the same I–F frame. This is why the fresh field programme measures quantity → effective mating → reproductive function rather than simply adding more pollinator counts.
 
 Chaco and Sevenello provide necessary counterevidence: interaction and reproduction can also decline together or show no resolved mismatch. The ecological target is therefore to explain **when** coupling is maintained and **when** it breaks.
+
+### Bottleneck position is not fixed
+
+A separate four-programme audit moves one step downstream/upstream from raw interaction quantity to movement/connectivity or mating support. *Serapias lingua* resolves the opposite geometry from the three F-dominant I–F examples: pollen immigration deteriorates more strongly than fruit set (pair p≈0.0072; existing three-pair-adjusted p≈0.0216). *Brosimum alicastrum* and *Eucalyptus socialis* point in the same movement/mating-dominant direction but remain unresolved, whereas *Acer miyabei* is unresolved in the opposite point direction.
+
+These programmes are not pooled across effect families. Their role is to establish a biological boundary: **fragmentation can shift the position of the strongest response along the reproductive life cycle**. The next fresh test therefore localizes the bottleneck using `Q → E → F` rather than assuming that either reproduction or mating is always the most sensitive stage.
 
 ## Meta-analysis architecture
 
