@@ -58,29 +58,27 @@ ML015 *Eucalyptus wandoo* remains separate Fisher-z gradient generalisation evid
 
 Authorised manuscript-level ecological claims:
 
-- natural fragmented plant systems include both coupled and decoupled process responses;
-- the five-cluster direct corpus contains evidence against complete equality of process-specific fragmentation responses, but that evidence is materially dependent on ML001 *Serapias* and is not leave-one-system-out robust;
-- ML020 independently shows coupled deterioration of interaction and reproductive function across a replicated fragmentation programme;
-- *Eucalyptus wandoo*, *Cardiopetalum calophyllum* and the Kakamega *Acanthopale pubescens* panel each show a quantity–function mismatch in which interaction/pollen quantity is maintained or changes less strongly while reproductive function declines;
-- the repeated quantity–function geometry is a descriptive ecological motif across heterogeneous registered effect families, not a pooled universal effect;
-- the complete paired process–function census contains 12 independent programmes; 11 are pair-testable, 4 resolve a mismatch, 7 are unresolved and 1 is not pair-testable; among resolved mismatches, 3 are downstream F-dominant and 1 is upstream process-dominant;
-- the two-direction resolved bottleneck result is not leave-one-programme-out robust: omitting ML001 *Serapias* removes the only resolved upstream process-dominant case and leaves 3 downstream F-dominant resolved programmes;
-- the complete registered I–F census contains 8 programmes; 7 are pair-testable, 3 resolve a mismatch, all 3 are F-more-negative-than-I, 4 are unresolved, and 1 is not pair-testable;
-- all 8 registered I endpoints quantify interaction/pollen quantity; none directly quantify compatible mating quality, realised paternity or effective pollen-donor diversity on the same I–F frame;
-- a secondary four-programme movement/mating-support versus F audit contains one resolved upstream process-dominant mismatch (*Serapias*) and three unresolved contrasts, showing that the dominant fragmentation bottleneck is not fixed at reproductive function;
-- the current evidence does not resolve a common directional adult-versus-offspring genetic lag.
+- the historical five-cluster Hedges-g analysis is exactly reproducible: full Fisher `p = 0.01212432`, omit-ML001 *Serapias* `p = 0.18194353`;
+- that leave-one-*Serapias* robustness classification is **not estimand-scale invariant**: oriented lnRR sensitivity retains omit-ML001 rejection under the existing-rho and zero-covariance working regimes, whereas the covariance-free Cauchy maximum-variance boundary does not certify it;
+- *Serapias* itself shows a strong scale reversal: absolute response ordering changes from `G > C > F` on Hedges g to `C > F > G` on oriented lnRR, and the C–F contrast is unresolved on lnRR (working rho-proxy `p ≈ 0.605`);
+- all **17/17 primary direct effects are negative** on both oriented Hedges g and oriented lnRR; this common deterioration direction is the strongest scale-stable result in the primary direct stream;
+- the primary direct stream therefore supports directional consistency of fragmentation-associated deterioration, but not a scale-independent ordering or magnitude separation among response layers;
+- the separate *Eucalyptus wandoo* gradient remains a genuine qualitative sign-discordance example because interaction/pollen quantity is positive while reproductive function is negative on its registered Fisher-z representation;
+- lnRR patterns suggesting stronger mating/connectivity responses than downstream performance in ML002/ML014, and stronger juvenile/seed than adult genetic responses in ML003, may be presented only as **post hoc exploratory filtering/lag hypotheses** requiring prospective validation;
+- the earlier 12-programme process–function bottleneck census and bottleneck-position classifications remain descriptive exploratory audits and are not submission-headline evidence until they survive scale-aware reanalysis.
 
 Not authorised:
 
-- one universal fragmentation response trajectory;
-- a universal ordering of I/C/F/G responses;
+- a scale-invariant global layer-separation syndrome;
+- the statement that the global separation result is specifically or uniquely *Serapias*-dependent without naming the Hedges-g estimand;
+- a scale-invariant variable life-cycle bottleneck ordering;
+- treating the descriptive 3 downstream : 1 upstream bottleneck split as a confirmatory result, sign test or prevalence estimate;
+- claiming that upstream and downstream bottleneck positions are both recurrent across independent systems;
+- a universal attenuation, buffering or compensation pathway;
+- a confirmed adult-versus-offspring cohort/history lag;
 - a general causal explanation for quantity–function decoupling;
-- a confirmed cross-system cohort/history lag;
 - treating pollinator abundance, reproductive output or genetic diversity alone as a sufficient proxy for whole-system condition;
-- one universal life-cycle bottleneck position across fragmented plant systems;
-- claiming that upstream and downstream bottleneck directions are both leave-one-programme-out robust or recurrent across independent systems;
-- converting the descriptive 3 downstream : 1 upstream resolved split into a sign/binomial test or a global regime-prevalence estimate;
-- a universal claim that effective mating quality is the missing mechanism in every fragmented system;
+- claiming lnRR is the uniquely correct effect scale; it is a mandatory sensitivity estimand with small-n delta-method limitations;
 - direct empirical validation of finite EGWE/NEE operators;
 - searching for additional systems merely to restore a preferred p-value or force a pair family to K=5.
 
@@ -104,9 +102,9 @@ Not authorised:
 - [x] pre-scale-audit figure/table package completed and CI-reproduced (Figures 1–4, Table 1, complete paired process–function bottleneck census Table 2, Supplementary Tables S1–S3, Supplementary Figure S1);
 - [x] pre-scale-audit double-anonymous package checked and anonymously reproduced in CI;
 - [x] estimand-scale audit completed: Hedges-g and lnRR yield materially different response geometry / robustness classifications;
-- [ ] manuscript headline revised so no scale-dependent separation/bottleneck claim is presented as scale-invariant;
-- [ ] g and lnRR sensitivity reported in Methods, Results, Limitations and figure/table package;
-- [ ] submission freeze renewed after scale-aware manuscript revision;
+- [x] manuscript headline revised so no scale-dependent separation/bottleneck claim is presented as scale-invariant;
+- [ ] g and lnRR sensitivity reported in Methods, Results, Limitations and **figure/table package** (text complete; figure/table revision pending);
+- [ ] submission freeze renewed after scale-aware manuscript + figure/table revision;
 - [ ] author/declaration metadata approved.
 
 Secondary cohort-lag and interaction/function-coupling analyses remain optional future ecological extensions only if independently justified coverage becomes sufficient; they are not submission blockers for the present cross-system fragmentation synthesis.
