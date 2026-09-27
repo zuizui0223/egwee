@@ -227,7 +227,7 @@ def table1(result: dict) -> None:
         "ML020": "Aizen-Feinsinger Chaco programme",
     }
     interpretation = {
-        "ML001": "clear within-system state separation; influential",
+        "ML001": "strongly unequal process responses; influential",
         "ML002": "no individual-cluster rejection",
         "ML003": "cohort/representation-dependent response; no individual rejection",
         "ML014": "concordant deterioration with unequal strength; no individual rejection",
