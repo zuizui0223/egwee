@@ -64,6 +64,25 @@ One row per independent primary programme/study cluster. Columns:
 
 ML020 appears once, with its three species described as dependent subsystems. ML015 is excluded from Table 1 and described separately as gradient generalisation evidence.
 
+## Table 2 — Complete registered I–F programme census
+
+**Purpose:** expose the full denominator behind the ecological direction claim rather than showing only the three resolved examples.
+
+One row per independent registered programme with eligible I and F information. Required columns:
+
+- programme/system;
+- effect family;
+- number of dependent I–F panels;
+- whether a registered within-programme I–F comparison is possible;
+- programme-adjusted p-value where applicable;
+- census result: resolved mismatch / unresolved mismatch / not testable;
+- direction when resolved;
+- ecological interpretation.
+
+The table must contain exactly **8 programmes**: 7 pair-testable, 3 resolved, 4 unresolved and 1 not testable. All 3 resolved rows must read **F more negative than I**; no row may be assigned the opposite resolved direction.
+
+Do not pool Hedges-g and Fisher-z values in Table 2. The table is a direction/status census, not a common-effect meta-analysis.
+
 ## Supplementary Table S3 — All 17 primary marginal effects
 
 **Purpose:** expose every admitted marginal Hedges-g effect, including the influential extreme standardized ML001 effects, without treating the 17 rows as independent meta-analytic replicates.
