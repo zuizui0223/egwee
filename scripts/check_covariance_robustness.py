@@ -155,10 +155,10 @@ def check_manuscript() -> None:
         "p=0.28061178",
         "p=0.57123438",
         "p=0.92060125",
-        "cannot be certified from marginal effects alone",
+        "Marginal effects and variances alone therefore do not certify rejection",
         "not an alternative biological covariance model",
         "Standardized effects also depend on endpoint-specific between-unit dispersion",
-        "It may not claim covariance-free global rejection",
+        "the strongest global rejection is conditional on using source-supported paired dependence information",
     ):
         assert token in text, token
 
