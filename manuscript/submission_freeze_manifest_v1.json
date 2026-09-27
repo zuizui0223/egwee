@@ -1,14 +1,14 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "frozen_on": "2026-09-27",
-  "scientific_base_commit": "9fe74375346112747c9aa84ae6fa977a7c380255",
+  "scientific_base_commit": "18c128a46d37abfbbe6bc1eb003526487fbc2df0",
   "manuscript": {
     "path": "manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md",
-    "blob_sha": "cd2484545ed0873b0746698f7d6f6ace17d4b65b",
+    "blob_sha": "4326b48532006498fa862b606dd0ec4e7c9c2fe0",
     "title": "Coupling and decoupling of plant interaction, reproduction and genetic responses under habitat fragmentation: a cross-system synthesis",
     "target_journal": "Journal of Ecology",
-    "main_text_words_at_freeze": 6156,
-    "abstract_words_at_freeze": 301
+    "main_text_words_at_freeze": 6468,
+    "abstract_words_at_freeze": 304
   },
   "primary_direct": {
     "independent_clusters": 5,
@@ -58,14 +58,17 @@
     "fragmented plant systems can show coupled deterioration or process decoupling",
     "the five-cluster direct rejection is not Serapias-independent",
     "all three resolved I-F mismatches in the complete registered census are F-dominant",
-    "the 3/3 directional pattern is descriptive and post hoc not a sign test or prevalence estimate",
-    "all eight current I endpoints are quantity-level and none directly measures effective mating quality on the same I-F frame"
+    "the 3/3 I-F directional pattern is descriptive and post hoc not a sign test or prevalence estimate",
+    "all eight current I endpoints are quantity-level and none directly measures effective mating quality on the same I-F frame",
+    "a separate four-programme movement/mating-support audit contains one resolved upstream process-dominant mismatch and three unresolved contrasts",
+    "the dominant fragmentation bottleneck can therefore occur at different life-cycle stages across systems"
   ],
   "not_authorized": [
     "universal state separation",
     "universal F-dominant I-F law",
+    "one universal life-cycle bottleneck position",
     "common causal mechanism across resolved programmes",
-    "significance testing of the burned 3/3 direction pattern",
+    "significance testing of the burned 3/3 I-F direction pattern",
     "cross-family pooling of Hedges-g and Fisher-z effects",
     "direct validation of finite EGWE or NEE operators"
   ],
@@ -74,10 +77,14 @@
     "field_module": "manuscript/FRESH_ECOLOGICAL_IF_SYNCHRONIZED_FIELD_MODULE_V1.md",
     "moderator_schema": "manuscript/fresh_ecological_if_moderator_schema_v1.csv",
     "current_IF_programmes_burned": 8,
-    "min_fresh_programmes_per_effect_family": 5
+    "min_fresh_programmes_per_effect_family": 5,
+    "amendment": "manuscript/FRESH_ECOLOGICAL_IF_VALIDATION_AMENDMENT_2026-09-27_BOTTLENECK_LOCALIZATION.md",
+    "h2_v2_primary_contrast": "Delta_QE=Q-E",
+    "h2_v2_primary_direction": "Delta_QE>0",
+    "burned_auxiliary_process_function_programmes": 4
   },
   "automated_readiness": {
-    "full_contract_run_id": 36296557354,
+    "full_contract_run_id": 36297345529,
     "full_contract_conclusion": "success",
     "submission_shape": true,
     "double_anonymous": true,
@@ -92,5 +99,23 @@
     "funding acknowledgements and permits if applicable",
     "conflict of interest declaration",
     "final all-author approval"
-  ]
+  ],
+  "bottleneck_position_audit": {
+    "path": "evidence/meta_extraction/ecological_mating_function_programme_census_v1.csv",
+    "blob_sha": "778be674e51d9c82ef59e457a0ff7dc4ddafd266",
+    "independent_programmes": 4,
+    "resolved": 1,
+    "unresolved": 3,
+    "resolved_process_more_negative_than_F": 1,
+    "resolved_F_more_negative_than_process": 0,
+    "point_process_more_negative_than_F": 3,
+    "point_F_more_negative_than_process": 1,
+    "resolved_example": "ML001 Serapias lingua"
+  },
+  "figures_tables": {
+    "main_figures": 4,
+    "main_tables": 2,
+    "figure4": "manuscript/figures/figure4_lifecycle_bottleneck_synthesis.svg",
+    "table2": "manuscript/tables/table2_if_direction_census.csv"
+  }
 }
