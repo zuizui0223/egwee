@@ -99,6 +99,19 @@ def main() -> None:
     assert len(census) == 8
     assert len(by) == 8
 
+    expected_sources = {
+        "ML020": "doi:10.2307/1939538",
+        "P2_CF01_SEVENELLO_2026": "doi:10.1007/s10980-026-02305-2",
+        "P2_CF01_BERGSDORF_KAKAMEGA_2006": "urn:nbn:de:hbz:5N-08143",
+        "ML015": "doi:10.3389/fevo.2018.00039",
+        "P2_CF01_CARDIOPETALUM_2012": "doi:10.1017/S0266467412000120",
+        "P2_CF01_ZURICH_2026": "doi:10.1111/1365-2664.70384",
+        "P2_CF01_MILKWEED_URBAN_2023": "doi:10.1007/s11252-022-01278-9",
+        "P2_CF01_PRITCHARD_2005": "Pritchard 2005 JCU MSc thesis",
+    }
+    for pid, source in expected_sources.items():
+        assert by[pid]["source_id"] == source, (pid, by[pid]["source_id"], source)
+
     expected_p = {
         "ML020": ml020_programme_p(),
         "P2_CF01_SEVENELLO_2026": float(obj(SEVEN)["programme_internal_bonferroni_p"]),
