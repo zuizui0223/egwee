@@ -70,7 +70,7 @@ def main() -> None:
     assert phase2_contract["phase1_reference"]["n_primary_clusters"] == 5
     assert phase2_contract["phase1_reference"]["n_primary_marginal_effects"] == 17
     assert phase2_contract["pair_specific_analysis_gate"]["min_independent_programmes"] == 5
-    assert "results_bearing_ecological_response_coupling_synthesis" in metadata
+    assert "results_bearing_variable_lifecycle_bottleneck_synthesis" in metadata
     assert "p = 0.01212432" in metadata
     assert "p = 0.18194353" in metadata
 
@@ -154,7 +154,7 @@ def main() -> None:
     print(
         "EGWEE multilayer meta-analysis contract: PASS; "
         f"{len(primary)} verified studies, {len(candidates)} candidates, {len(queue)} queued; "
-        "active paper is results-bearing with ecology-first response-coupling framing and locked claim sync; "
+        "active paper is results-bearing with variable life-cycle bottleneck framing and locked claim sync; "
         "systematic coverage/moderator expansion is frozen separately"
     )
 
