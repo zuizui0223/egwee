@@ -41,6 +41,7 @@ FILES = [
     "evidence/meta_extraction/phase2_cf01_cardiopetalum_gradient_effects_v1.csv",
     "evidence/meta_extraction/phase2_cf01_bergsdorf_kakamega_direct_effects_v1.csv",
     "evidence/meta_extraction/ecological_if_programme_census_v1.csv",
+    "evidence/meta_extraction/ecological_mating_function_programme_census_v1.csv",
     "evidence/meta_extraction/phase2_cf01_sevenello_direct_covariance_v1.json",
     "evidence/meta_extraction/phase2_cf01_bergsdorf_kakamega_direct_covariance_v1.json",
     "evidence/meta_extraction/phase2_cf01_cardiopetalum_gradient_covariance_v1.json",
