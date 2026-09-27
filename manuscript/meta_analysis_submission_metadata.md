@@ -103,8 +103,8 @@ Not authorised:
 - [x] pre-scale-audit double-anonymous package checked and anonymously reproduced in CI;
 - [x] estimand-scale audit completed: Hedges-g and lnRR yield materially different response geometry / robustness classifications;
 - [x] manuscript headline revised so no scale-dependent separation/bottleneck claim is presented as scale-invariant;
-- [ ] g and lnRR sensitivity reported in Methods, Results, Limitations and **figure/table package** (text complete; figure/table revision pending);
-- [ ] submission freeze renewed after scale-aware manuscript + figure/table revision;
+- [x] g and lnRR sensitivity reported in Methods, Results, Limitations and figure/table package (Figure 4 + Table 2);
+- [x] submission freeze renewed after scale-aware manuscript + figure/table revision;
 - [ ] author/declaration metadata approved.
 
 Secondary cohort-lag and interaction/function-coupling analyses remain optional future ecological extensions only if independently justified coverage becomes sufficient; they are not submission blockers for the present cross-system fragmentation synthesis.
