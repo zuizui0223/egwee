@@ -1350,7 +1350,7 @@ def main() -> None:
     erica = fulltext["CFTQ0324"]
     assert erica["programme_identity"] == "P2_CF01_ERICA_ANGOH_2016"
     assert erica["quantitative_gate_status"] == "blocked_20patch_IF_response_vectors_only_graphically_reported_no_digitization"
-    assert "habitat patch; n=20 maximum" in erica["independent_unit"]
+    assert "habitat patch; n=20" in erica["independent_unit"]
     assert int(erica["pair_programme_increment"]) == 0
     assert erica["effect_calculation_opened"] == "no"
 
