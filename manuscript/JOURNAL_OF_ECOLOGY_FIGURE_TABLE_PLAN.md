@@ -119,6 +119,6 @@ ML001 *Serapias lingua* uses an explicitly labelled separate horizontal Hedges-g
 
 ## Generation contract
 
-`scripts/build_journal_of_ecology_figures.py` is the deterministic source for Figures 1–3 and Table 1. It reads the canonical registry/effect files plus `scripts/synthesize_state_separation.py`, and must fail if the five-cluster result or ML020 values drift from the canonical synthesis.
+`scripts/build_journal_of_ecology_figures.py` is the deterministic source for Figures 1–4 and Tables 1–2. It reads the canonical registry/effect files, the complete process–function census, and `scripts/synthesize_state_separation.py`; it must fail if the five-cluster result, programme censuses or registered response geometry drift from their canonical sources.
 
 `scripts/check_primary_effect_supplement.py` independently reconstructs Supplementary Table S3 from the source effect CSVs and checks all 17 effects, variances, independent-unit counts, standard errors and 95% confidence intervals. `scripts/build_primary_effect_forest.py` then builds Supplementary Figure S1 only from the checked S3 table.
