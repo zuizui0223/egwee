@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import csv
 import hashlib
 import json
 from pathlib import Path
@@ -8,17 +9,22 @@ ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = ROOT / "manuscript/submission_freeze_manifest_v1.json"
 FREEZE_NOTE = ROOT / "manuscript/SUBMISSION_FREEZE_2026-09-27.md"
 MANUSCRIPT = ROOT / "manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md"
-IF_CENSUS = ROOT / "evidence/meta_extraction/ecological_if_programme_census_v1.csv"
-BOTTLENECK_CENSUS = ROOT / "evidence/meta_extraction/ecological_mating_function_programme_census_v1.csv"
-PROCESS_FUNCTION_CENSUS = ROOT / "evidence/meta_extraction/ecological_process_function_programme_census_v1.csv"
-CANONICAL_CENSUS_NOTE = ROOT / "manuscript/ECOLOGICAL_PROCESS_FUNCTION_CENSUS_2026-09-27.md"
-INFLUENCE_NOTE = ROOT / "manuscript/ECOLOGICAL_BOTTLENECK_DIRECTION_INFLUENCE_2026-09-27.md"
-REVIEWER_RISK = ROOT / "manuscript/REVIEWER_RISK_AUDIT_2026-09-27.md"
-NOVELTY_AUDIT = ROOT / "manuscript/ECOLOGICAL_NEAREST_NEIGHBOR_NOVELTY_AUDIT_2026-09-27.md"
+AMENDMENT = ROOT / "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-27_ESTIMAND_SCALE.md"
+SCALE_RESULT = ROOT / "manuscript/ESTIMAND_SCALE_SENSITIVITY_RESULT_2026-09-27.md"
+SCALE_ENDPOINTS = ROOT / "evidence/meta_extraction/estimand_scale_sensitivity_v1.csv"
+SCALE_CLUSTERS = ROOT / "evidence/meta_extraction/estimand_scale_cluster_summary_v1.csv"
+SCALE_FISHER = ROOT / "evidence/meta_extraction/estimand_scale_fisher_sensitivity_v1.csv"
 METADATA = ROOT / "manuscript/meta_analysis_submission_metadata.md"
-README = ROOT / "README.md"
+TITLE_PAGE = ROOT / "manuscript/JOURNAL_OF_ECOLOGY_TITLE_PAGE_TEMPLATE.md"
+COVER = ROOT / "manuscript/JOURNAL_OF_ECOLOGY_COVER_LETTER_DRAFT.md"
 FIGURE_BUILDER = ROOT / "scripts/build_journal_of_ecology_figures.py"
 FIGURE_CAPTIONS = ROOT / "manuscript/JOURNAL_OF_ECOLOGY_FIGURE_CAPTIONS.md"
+ANON_BUILDER = ROOT / "scripts/build_anonymous_review_package.py"
+
+
+def rows(path: Path) -> list[dict[str, str]]:
+    with path.open(newline="", encoding="utf-8") as fh:
+        return list(csv.DictReader(fh))
 
 
 def git_blob_sha(path: Path) -> str:
@@ -31,173 +37,136 @@ def main() -> None:
     m = json.loads(MANIFEST.read_text(encoding="utf-8"))
     note = FREEZE_NOTE.read_text(encoding="utf-8")
     manuscript = MANUSCRIPT.read_text(encoding="utf-8")
-    if_census = IF_CENSUS.read_text(encoding="utf-8")
-    bottleneck = BOTTLENECK_CENSUS.read_text(encoding="utf-8")
-    process_function = PROCESS_FUNCTION_CENSUS.read_text(encoding="utf-8")
-    canonical_note = CANONICAL_CENSUS_NOTE.read_text(encoding="utf-8")
-    influence_note = INFLUENCE_NOTE.read_text(encoding="utf-8")
-    reviewer_risk = REVIEWER_RISK.read_text(encoding="utf-8")
-    novelty_audit = NOVELTY_AUDIT.read_text(encoding="utf-8")
+    amendment = AMENDMENT.read_text(encoding="utf-8")
+    scale_result = SCALE_RESULT.read_text(encoding="utf-8")
     metadata = METADATA.read_text(encoding="utf-8")
-    readme = README.read_text(encoding="utf-8")
+    title_page = TITLE_PAGE.read_text(encoding="utf-8")
+    cover = COVER.read_text(encoding="utf-8")
     builder = FIGURE_BUILDER.read_text(encoding="utf-8")
     captions = FIGURE_CAPTIONS.read_text(encoding="utf-8")
+    anon = ANON_BUILDER.read_text(encoding="utf-8")
 
-    assert m["schema_version"] == 3
+    assert m["schema_version"] == 4
+    assert m["freeze_kind"] == "scale_aware_submission_freeze"
     assert m["frozen_on"] == "2026-09-27"
-    assert m["scientific_base_commit"] == "90850a69f10052145ee8b2ae3509f4c4b0cf6c1a"
+    assert m["scientific_base_commit"] == "5046c7f2bd793b36303ea85f887b4dec25e98d70"
+    assert m["submission_state"] == "scale_aware_revision_complete_admin_pending"
 
-    assert git_blob_sha(MANUSCRIPT) == m["manuscript"]["blob_sha"]
-    assert git_blob_sha(CANONICAL_CENSUS_NOTE) == m["canonical_process_function_census_note"]["blob_sha"]
-    assert git_blob_sha(INFLUENCE_NOTE) == m["bottleneck_direction_influence"]["blob_sha"]
-    assert git_blob_sha(REVIEWER_RISK) == m["reviewer_risk_audit"]["blob_sha"]
-    assert git_blob_sha(NOVELTY_AUDIT) == m["novelty_audit"]["blob_sha"]
-    assert git_blob_sha(IF_CENSUS) == m["ecological_IF_census"]["blob_sha"]
-    assert git_blob_sha(BOTTLENECK_CENSUS) == m["bottleneck_position_audit"]["blob_sha"]
-    assert git_blob_sha(PROCESS_FUNCTION_CENSUS) == m["unified_process_function_census"]["blob_sha"]
+    man = m["manuscript"]
+    assert man["title"] == "Habitat fragmentation across plant reproductive life cycles: directional consistency and scale-sensitive response amplitudes"
+    assert man["target_journal"] == "Journal of Ecology"
+    assert man["main_text_words_at_freeze"] == 6816
+    assert man["abstract_words_at_freeze"] == 263
+    assert git_blob_sha(MANUSCRIPT) == man["blob_sha"]
+    assert manuscript.startswith("# " + man["title"])
+    assert man["title"] in title_page
+    assert man["title"] in cover
 
-    assert m["manuscript"]["title"] == "Evidence for variable life-cycle bottleneck positions under habitat fragmentation: a cross-system synthesis of plant interaction, mating and reproduction"
-    assert m["manuscript"]["target_journal"] == "Journal of Ecology"
-    assert m["manuscript"]["main_text_words_at_freeze"] == 7031
-    assert m["manuscript"]["abstract_words_at_freeze"] == 313
-    assert manuscript.startswith("# " + m["manuscript"]["title"])
+    hp = m["historical_primary"]
+    assert hp["estimand"] == "Hedges_g"
+    assert hp["independent_clusters"] == 5
+    assert hp["marginal_effects"] == 17
+    assert hp["full_fisher_p"] == 0.01212432
+    assert hp["omit_ML001_p"] == 0.18194353
 
-    direct = m["primary_direct"]
-    assert direct["independent_clusters"] == 5
-    assert direct["marginal_effects"] == 17
-    assert direct["canonical_p"] == 0.01212432
-    assert direct["omit_ML001_p"] == 0.18194353
-    assert direct["zero_covariance_p"] == 0.03860161
-    assert direct["covariance_free_bound_p"] == 0.28061178
+    sa = m["estimand_scale_audit"]
+    assert git_blob_sha(AMENDMENT) == sa["amendment_blob_sha"]
+    assert git_blob_sha(SCALE_RESULT) == sa["result_blob_sha"]
+    assert git_blob_sha(SCALE_ENDPOINTS) == sa["endpoint_table_blob_sha"]
+    assert git_blob_sha(SCALE_CLUSTERS) == sa["cluster_summary_blob_sha"]
+    assert git_blob_sha(SCALE_FISHER) == sa["fisher_summary_blob_sha"]
+    assert abs(sa["lnRR_existing_rho_full_p"] - 1.1786949416822378e-10) < 1e-20
+    assert abs(sa["lnRR_existing_rho_omit_ML001_p"] - 2.9182238842850177e-05) < 1e-15
+    assert abs(sa["lnRR_zero_cov_full_p"] - 1.7227795177175651e-09) < 1e-19
+    assert abs(sa["lnRR_zero_cov_omit_ML001_p"] - 0.004344181486474443) < 1e-14
+    assert abs(sa["lnRR_cauchy_full_p"] - 9.946000181275223e-05) < 1e-14
+    assert abs(sa["lnRR_cauchy_omit_ML001_p"] - 0.11137892442058767) < 1e-13
+    assert abs(sa["ML001_CF_lnRR_p_existing_rho"] - 0.6048817291933912) < 1e-12
+    assert sa["ML001_g_abs_order"] == ["G", "C", "F"]
+    assert sa["ML001_lnRR_abs_order"] == ["C", "F", "G"]
 
-    phase2 = m["phase2"]
-    assert phase2["target_pair_candidates_screened"] == 360
-    assert phase2["target_pair_candidates_total"] == 360
-    assert phase2["pending_screens"] == 0
-    assert phase2["direct_IF_programmes"] == 3
-    assert phase2["direct_IF_gate"] == 5
-    assert phase2["direct_CF_programmes"] == 2
-    assert phase2["direct_CF_gate"] == 5
-    assert phase2["gradient_programmes"] == 6
-    assert phase2["gradient_primary_effects"] == 19
+    endpoint_rows = rows(SCALE_ENDPOINTS)
+    assert len(endpoint_rows) == 17
+    assert sum(float(r["hedges_g"]) < 0 for r in endpoint_rows) == 17
+    assert sum(float(r["oriented_lnRR"]) < 0 for r in endpoint_rows) == 17
 
-    unified = m["unified_process_function_census"]
-    assert unified["independent_programmes"] == 12
-    assert unified["pair_testable"] == 11
-    assert unified["resolved"] == 4
-    assert unified["unresolved"] == 7
-    assert unified["not_testable"] == 1
-    assert unified["resolved_downstream_F_dominant"] == 3
-    assert unified["resolved_upstream_process_dominant"] == 1
-    assert unified["interaction_quantity_programmes"] == 8
-    assert unified["movement_or_mating_support_programmes"] == 4
+    fisher_rows = rows(SCALE_FISHER)
+    assert len(fisher_rows) == 4
+    by_key = {(r["estimand"], r["dependence_regime"]): r for r in fisher_rows}
+    assert abs(float(by_key[("hedges_g", "registered_rho_proxy")]["omit_ML001_fisher_p"]) - 0.18194353) < 5e-8
+    assert float(by_key[("oriented_lnRR", "carried_existing_rho_proxy")]["omit_ML001_fisher_p"]) < 0.05
+    assert float(by_key[("oriented_lnRR", "zero_covariance")]["omit_ML001_fisher_p"]) < 0.05
+    assert float(by_key[("oriented_lnRR", "cauchy_maximum_contrast_variance")]["omit_ML001_fisher_p"]) > 0.05
 
-    ec = m["ecological_IF_census"]
-    assert ec["independent_programmes"] == 8
-    assert ec["pair_testable"] == 7
-    assert ec["resolved"] == 3
-    assert ec["unresolved"] == 4
-    assert ec["not_testable"] == 1
-    assert ec["resolved_F_more_negative_than_I"] == 3
-    assert ec["resolved_I_more_negative_than_F"] == 0
-    assert ec["quantity_only_I"] == 8
-    assert ec["effective_mating_quality_I"] == 0
+    stable = m["scale_stable_result"]
+    assert stable["primary_direct_effects"] == 17
+    assert stable["negative_on_oriented_g"] == 17
+    assert stable["negative_on_oriented_lnRR"] == 17
+    assert "no scale-independent magnitude ordering" in stable["interpretation"]
 
-    bp = m["bottleneck_position_audit"]
-    assert bp["independent_programmes"] == 4
-    assert bp["resolved"] == 1
-    assert bp["unresolved"] == 3
-    assert bp["resolved_process_more_negative_than_F"] == 1
-    assert bp["resolved_F_more_negative_than_process"] == 0
+    assert m["separate_gradient_evidence"]["wandoo_sign_discordance"] is True
+    assert m["separate_gradient_evidence"]["pooled_with_primary"] is False
+    assert m["exploratory_ecology"]["status"] == "post_hoc_hypothesis_generating"
+    assert m["former_bottleneck_census"]["status"] == "supplementary_exploratory_registered_scale_only"
+    assert m["former_bottleneck_census"]["scale_invariant_claim_permitted"] is False
 
-    infl = m["bottleneck_direction_influence"]
-    assert infl["direction_diversity_lost_only_if_drop"] == "ML001"
-    assert infl["resolved_without_ML001"] == 3
-    assert infl["remaining_direction_without_ML001"] == "downstream_F_only"
-    assert "not leave-one-programme-out robust" in influence_note
-    assert "omitting ML001" in influence_note or "Omitting **ML001" in influence_note
+    ft = m["figure_table_package"]
+    assert ft["figure2_role"] == "historical_Hedges_g_primary_only"
+    assert ft["figure3_role"] == "registered_scale_examples_unresolved_not_equality"
+    assert ft["figure4_role"] == "main_estimand_scale_sensitivity"
+    assert ft["table2"] == "manuscript/tables/table2_estimand_scale_sensitivity.csv"
+    assert ft["supplementary_table_s4"] == "manuscript/tables/table_s4_process_function_census.csv"
+    for token in (
+        "figure4_estimand_scale_sensitivity.svg",
+        "table2_estimand_scale_sensitivity.csv",
+        "table_s4_process_function_census.csv",
+    ):
+        assert token in builder, token
+    assert "Historical Hedges-g leave-one-cluster-out influence" in captions
+    assert "Relative response geometry is estimand-scale dependent" in captions
+    assert "unresolved" in captions and "not evidence that the true I and F effects are equal" in captions
 
     for token in (
-        "programmes=12",
-        "resolved_downstream_F=3",
-        "resolved_upstream_process=1",
+        "scale_aware_revision_complete_admin_pending",
+        "estimand-scale audit completed",
+        "g and lnRR sensitivity reported in Methods, Results, Limitations and figure/table package",
+        "submission freeze renewed after scale-aware manuscript + figure/table revision",
     ):
-        assert token not in process_function  # machine output belongs in checker, not CSV
+        assert token in metadata, token
+    assert "[ ] author/declaration metadata approved." in metadata
 
     for token in (
-        "downstream_function_dominant",
-        "upstream_process_dominant",
-        "unresolved_process_function_difference",
-        "not_testable",
+        "estimand_scale_fisher_sensitivity_v1.csv",
+        "check_estimand_scale_sensitivity.py",
+        "figure4_estimand_scale_sensitivity.svg",
+        "table2_estimand_scale_sensitivity.csv",
     ):
-        assert token in process_function, token
+        assert token in anon, token
 
-    assert "12 independent programmes" in canonical_note
-    assert "3 are downstream function-dominant" in canonical_note
-    assert "1 is upstream process-dominant" in canonical_note
-    assert "Delta_QE = Q - E" in canonical_note
-    assert "Risk 5" in reviewer_risk
-    assert "Only *Serapias lingua* supplies a resolved upstream process-dominant mismatch." in reviewer_risk
-    assert "not leave-one-programme-out robust" in novelty_audit
-    assert "Ibáñez et al. (2014) already established" in novelty_audit
+    assert "not invariant to effect-size scale" in scale_result
+    assert "17/17" in scale_result
+    assert "not a replacement truth" in amendment
+    assert "Scale-independent directional audit" in amendment
 
-    claims = json.dumps(m)
     for token in (
-        "12 independent programmes",
-        "3 downstream F-dominant and 1 upstream process-dominant",
-        "one universal life-cycle bottleneck position",
-        "cross-family pooling of Hedges-g and Fisher-z effects",
-        "direct validation of finite EGWE or NEE operators",
+        "scale-invariant global layer-separation syndrome",
+        "scale-invariant variable bottleneck ordering",
+        "ML020 p equals evidence of true equality",
+        "lnRR is uniquely correct effect scale",
     ):
-        assert token in claims, token
+        assert token in json.dumps(m), token
 
-    fresh = m["fresh_validation"]
-    assert fresh["current_IF_programmes_burned"] == 8
-    assert fresh["burned_auxiliary_process_function_programmes"] == 4
-    assert fresh["min_fresh_programmes_per_effect_family"] == 5
-    assert fresh["h2_v2_primary_contrast"] == "Delta_QE=Q-E"
-    assert fresh["h2_v2_primary_direction"] == "Delta_QE>0"
-
-    ft = m["figures_tables"]
-    assert ft["main_figures"] == 4
-    assert ft["main_tables"] == 2
-    assert ft["figure4"] == "manuscript/figures/figure4_lifecycle_bottleneck_synthesis.svg"
-    assert ft["table2"] == "manuscript/tables/table2_process_function_census.csv"
-    assert "figure4_lifecycle_bottleneck_synthesis.svg" in builder
-    assert "table2_process_function_census.csv" in builder
-    assert "Figure 4. Fragmentation can shift the position" in captions
-    assert "Table 2. Complete paired process–function bottleneck census" in captions
-
-    ready = m["automated_readiness"]
-    assert ready["validation_mode"] == "self_validating_current_ci"
-    assert ready["submission_shape"] is True
-    assert ready["double_anonymous"] is True
-    assert ready["figures_tables_reproduced"] is True
-    assert ready["anonymous_review_package_reproduced"] is True
+    assert "17/17 primary direct effects are negative" in note
+    assert "relative response amplitude" in note
+    assert "Supplementary Table S4" in note
 
     assert len(m["remaining_human_blockers"]) == 7
-    assert "[ ] author/declaration metadata approved." in metadata
-    assert "[x] double-anonymous submission package checked" in metadata
-    assert "[x] final figure/table package completed" in metadata
-    assert "Figures 1–4" in metadata
-    assert "results_bearing_variable_lifecycle_bottleneck_synthesis" in metadata
-
-    for token in (
-        "12 independent programmes",
-        "Bottleneck position is not fixed",
-        "ΔQE",
-    ):
-        assert token.casefold() in (readme + "\n" + note).casefold(), token
-
-    assert "Figure 4" in manuscript
-    assert "unified 12-programme process–function census" in manuscript
-    assert "three were downstream function-dominant and one" in manuscript
 
     print(
-        "SUBMISSION_FREEZE_V3_OK "
-        "direct=5 effects=17 phase2=360/360 process_function=12 testable=11 "
-        "resolved=4 downstream=3 upstream=1 IF=8 quantity_only=8 effective=0 "
-        "figures=4 tables=2 H2v2=Delta_QE_positive human_admin_pending=7"
+        "SCALE_AWARE_SUBMISSION_FREEZE_V4_OK "
+        "clusters=5 effects=17 g_full=0.01212432 g_drop_ML001=0.18194353 "
+        "sign_negative_g=17 sign_negative_lnRR=17 figure4=scale_sensitivity table2=scale_sensitivity "
+        "admin_pending=7"
     )
 
 
