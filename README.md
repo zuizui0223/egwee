@@ -37,6 +37,8 @@ These heterogeneous analyses are not pooled into a new effect size. They define 
 
 A complete census of the registered I–F programme set now contains **8 programmes**. Seven support a within-programme I–F comparison: **3 resolve a mismatch and all 3 have reproductive function more negative than interaction/pollen quantity; 4 are unresolved; 0 resolve the opposite direction**. Pritchard is retained as the eighth, non-testable programme because paired covariance cannot be reconstructed. This directional asymmetry is descriptive, not a new pooled test or prevalence estimate.
 
+The same complete census exposes a **measurement gap**: all **8/8** current I endpoints quantify interaction or pollen quantity (visits, bee abundance/occurrence, or total pollen tubes), while **0/8** directly quantify compatible mating quality, realised paternity or effective pollen-donor diversity on the same I–F frame. This is why the fresh field programme measures quantity → effective mating → reproductive function rather than simply adding more pollinator counts.
+
 Chaco and Sevenello provide necessary counterevidence: interaction and reproduction can also decline together or show no resolved mismatch. The ecological target is therefore to explain **when** coupling is maintained and **when** it breaks.
 
 ## Meta-analysis architecture
@@ -109,6 +111,7 @@ The canonical current-state documents are:
 - [`manuscript/PHASE2_CF01_IF_FAMILY_CLOSURE_2026-09-27.md`](manuscript/PHASE2_CF01_IF_FAMILY_CLOSURE_2026-09-27.md)
 - [`manuscript/ECOLOGICAL_RESPONSE_REGIMES_2026-09-27.md`](manuscript/ECOLOGICAL_RESPONSE_REGIMES_2026-09-27.md) — ecology-first synthesis of coupled decline, quantity–function decoupling and unresolved I–F regimes.
 - [`manuscript/ECOLOGICAL_IF_DIRECTION_CENSUS_2026-09-27.md`](manuscript/ECOLOGICAL_IF_DIRECTION_CENSUS_2026-09-27.md) — complete 8-programme I–F direction census and claim ceiling.
+- [`manuscript/ECOLOGICAL_IF_MEASUREMENT_GAP_2026-09-27.md`](manuscript/ECOLOGICAL_IF_MEASUREMENT_GAP_2026-09-27.md) — complete 8/8 quantity-level versus 0/8 effective-mating measurement audit.
 - [`manuscript/ECOLOGICAL_QUANTITY_FUNCTION_MECHANISM_AUDIT_2026-09-27.md`](manuscript/ECOLOGICAL_QUANTITY_FUNCTION_MECHANISM_AUDIT_2026-09-27.md) — evidence-graded mechanism audit separating source-supported pollen-quality/mating constraints from unresolved mechanism.
 - [`manuscript/ECOLOGICAL_NEAREST_NEIGHBOR_NOVELTY_AUDIT_2026-09-27.md`](manuscript/ECOLOGICAL_NEAREST_NEIGHBOR_NOVELTY_AUDIT_2026-09-27.md) — novelty firewall: prior syntheses establish average pollination–reproduction coupling; EGWEE contributes paired within-programme response geometry and the complete direction census.
 - [`manuscript/FRESH_ECOLOGICAL_IF_VALIDATION_PREREGISTRATION_2026-09-27.md`](manuscript/FRESH_ECOLOGICAL_IF_VALIDATION_PREREGISTRATION_2026-09-27.md) — future-only validation of the downstream reproductive-bottleneck hypothesis; all current eight I–F programmes are burned discovery systems.
