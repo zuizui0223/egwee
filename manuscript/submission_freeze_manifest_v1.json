@@ -1,7 +1,7 @@
 {
   "schema_version": 3,
   "frozen_on": "2026-09-27",
-  "scientific_base_commit": "69369530ec2b93adf3ddc48c4b5ba24371226e45",
+  "scientific_base_commit": "90850a69f10052145ee8b2ae3509f4c4b0cf6c1a",
   "manuscript": {
     "path": "manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md",
     "blob_sha": "ca1eee8b5701da83db9a6352868568b6c66f00a4",
@@ -136,7 +136,7 @@
   },
   "canonical_process_function_census_note": {
     "path": "manuscript/ECOLOGICAL_PROCESS_FUNCTION_CENSUS_2026-09-27.md",
-    "blob_sha": "a013d709aa35f10f9de5d8b4db5e5b2b28dd1b6f"
+    "blob_sha": "c286952a0a4a0f9bec67b21f0e6b74afb97aba9f"
   },
   "reviewer_risk_audit": {
     "path": "manuscript/REVIEWER_RISK_AUDIT_2026-09-27.md",
@@ -149,5 +149,9 @@
     "resolved_without_ML001": 3,
     "remaining_direction_without_ML001": "downstream_F_only",
     "blob_sha": "73d41cd04064c877f357f8fc8ab79dbac716d0f3"
+  },
+  "novelty_audit": {
+    "path": "manuscript/ECOLOGICAL_NEAREST_NEIGHBOR_NOVELTY_AUDIT_2026-09-27.md",
+    "blob_sha": "3cfd9a28831292517bd92321fdd23c108f18b933"
   }
 }
