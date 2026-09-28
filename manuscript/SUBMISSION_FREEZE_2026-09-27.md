@@ -15,11 +15,11 @@ In *Serapias*:
 
 - Hedges-g absolute order: G > C > F;
 - lnRR absolute order: C > F > G;
-- C–F lnRR contrast under the carried endpoint-correlation proxy: p ≈ 0.605.
+- C–F lnRR contrast under raw-unit multivariate delta covariance: p = 0.6364.
 
 For the omit-ML001 Fisher sensitivity:
 
-- lnRR + existing rho proxy: p ≈ 2.92e-05;
+- lnRR + raw-unit multivariate delta covariance: p = 8.31e-05;
 - lnRR + zero covariance: p ≈ 0.00434;
 - lnRR + covariance-free maximum-variance boundary: p ≈ 0.111.
 
@@ -56,12 +56,16 @@ The revised main package uses:
 
 ## Canonical audit files
 
-- `manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-27_ESTIMAND_SCALE.md`
-- `manuscript/ESTIMAND_SCALE_SENSITIVITY_RESULT_2026-09-27.md`
-- `evidence/meta_extraction/estimand_scale_sensitivity_v1.csv`
-- `evidence/meta_extraction/estimand_scale_cluster_summary_v1.csv`
-- `scripts/check_estimand_scale_sensitivity.py`
+- `manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-29_EFFECT_SCALE.md`
+- `manuscript/ESTIMAND_SCALE_ROBUSTNESS_2026-09-29.md`
+- `evidence/meta_extraction/estimand_scale_robustness_v1.csv`
+- `evidence/meta_extraction/estimand_scale_cluster_summary_v2.csv`
+- `evidence/meta_extraction/estimand_scale_fisher_sensitivity_v2.csv`
+- `scripts/check_estimand_scale_robustness.py`
+- `scripts/check_bottleneck_scale_robustness.py`
 - `manuscript/EXPLORATORY_TRANSITION_FILTERING_2026-09-27.md`
+
+The 2026-09-27 carried-rho sensitivity files are retained as provenance but are superseded for main lnRR dependence reconstruction by the 2026-09-29 raw-unit delta audit.
 
 ## Submission gate
 
