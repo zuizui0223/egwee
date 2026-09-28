@@ -51,9 +51,9 @@ def sample_cov(x: list[float], y: list[float]) -> float:
 
 
 def lnrr(x_frag: list[float], x_ref: list[float], orientation: int) -> tuple[float, float]:
-    if min(x_frag + x_ref) <= 0:
-        raise AssertionError("lnRR requires strictly positive endpoint values")
     m1, m0 = mean(x_frag), mean(x_ref)
+    if m1 <= 0 or m0 <= 0:
+        raise AssertionError("lnRR requires strictly positive group means")
     v = stats.variance(x_frag) / (len(x_frag) * m1 * m1)
     v += stats.variance(x_ref) / (len(x_ref) * m0 * m0)
     return orientation * math.log(m1 / m0), v
