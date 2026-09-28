@@ -6,11 +6,11 @@
 
 2. A protocol-first recovery produced five independent direct fragmented-versus-reference clusters comprising 17 primary Hedges-g effects; a separate gradient stream was retained outside that synthesis. Phase-2 screening subsequently completed 360/360 target-pair candidates.
 
-3. The historical Hedges-g synthesis rejected equality of within-system standardized responses across the five direct clusters (`p=0.0121`), but not after omitting *Serapias lingua* (`p=0.1819`). An oriented log-response-ratio sensitivity changed that robustness classification: under two working dependence treatments, the omit-*Serapias* Fisher test remained below 0.05, whereas a covariance-free maximum-variance bound did not. In *Serapias*, absolute response ordering changed from G > C > F on g to C > F > G on lnRR, and the C–F lnRR contrast was unresolved (`p≈0.605`).
+3. The historical Hedges-g synthesis rejected equality of within-system standardized responses across the five direct clusters (`p=0.0121`), but not after omitting *Serapias lingua* (`p=0.1819`). Reconstructing oriented log-response ratios from the same independent units reversed that robustness classification: omit-*Serapias* Fisher `p=8.31×10^-5` using raw-unit multivariate delta covariance and `p=0.00434` with zero covariance. In *Serapias*, absolute response ordering changed from G > C > F on g to C > F > G on lnRR, and the C–F lnRR contrast was unresolved (`p=0.636`).
 
 4. One feature was scale-stable: all 17 primary direct effects were negative on both oriented g and oriented lnRR. Thus the direct corpus consistently indicates deterioration, but does not provide scale-independent evidence for a universal ordering or magnitude separation among biological layers. A separate *Eucalyptus wandoo* gradient retains genuine sign discordance between interaction and reproductive responses.
 
-5. **Synthesis.** The strongest supported cross-system result is directional consistency of fragmentation-associated deterioration, while relative response amplitude is estimand-scale dependent. Exploratory lnRR patterns suggest biologically interesting attenuation and cohort-lag hypotheses—for example, stronger mating/connectivity responses than downstream performance in some systems and stronger juvenile than adult genetic responses in *Spondias*—but these were identified after viewing the data and require prospective validation.
+5. **Synthesis.** The strongest supported cross-system result is directional consistency of fragmentation-associated deterioration, while relative response amplitude and attribution of the strongest responding process are estimand-scale dependent. Exploratory cross-scale audits retain both downstream function-dominant and upstream process-dominant geometries, but the upstream-supporting systems change from *Serapias* on g to *Brosimum* and *Eucalyptus socialis* on lnRR. These patterns generate filtering, buffering and cohort-lag hypotheses, but they were identified after viewing the data and require prospective validation.
 
 ## Keywords
 
@@ -116,7 +116,9 @@ so that negative values retain the same biological-support orientation as the pr
 
 For ML020, means and SDs were recomputed from the committed four-site Appendix-I habitat-unit table. For the other direct clusters, the committed group summaries were used directly.
 
-Exact cross-endpoint sampling covariance is not known on the lnRR scale. We therefore repeated the same pairwise, within-cluster Bonferroni and cross-cluster Fisher calculations under three declared dependence treatments: (1) the existing dimensionless group-centred endpoint correlation proxy carried onto lnRR marginal variances; (2) zero off-diagonal covariance; and (3) the pairwise Cauchy–Schwarz maximum-contrast-variance boundary. The third is a non-certification bound, not a fitted covariance model.
+For the authoritative lnRR sensitivity, cross-endpoint covariance was approximated directly from the aligned independent units rather than transferred from the g analysis. Within each habitat group, we calculated the sample covariance of the two raw endpoint vectors and propagated it by the multivariate delta method, so that for endpoints X and Y the covariance of their log response ratios is the sum of the fragmented- and reference-group mean-covariance terms, with the same biological-orientation multipliers used for the marginal effects. ML001, ML002, ML003 and ML020 use committed population/site tables; ML014 uses the same public TERN maternal-family table as the existing recovery script. This is still an asymptotic small-sample approximation, not known design-based sampling covariance.
+
+We repeated the pairwise, within-cluster Bonferroni and cross-cluster Fisher calculations under (1) this raw-unit multivariate-delta covariance, (2) zero off-diagonal covariance, and (3) the pairwise Cauchy–Schwarz maximum-contrast-variance boundary. The third is a covariance-free non-certification bound, not a fitted covariance model. The earlier sensitivity that carried the dimensionless g-scale correlation proxy onto lnRR variances is retained only as provenance and is superseded for the main scale audit by the raw-unit delta reconstruction.
 
 Finally, we recorded only the sign of each oriented primary direct effect on both g and lnRR. The 17 effects are dependent within five clusters, so this sign audit is descriptive and is not analysed as 17 independent Bernoulli trials.
 
@@ -184,12 +186,12 @@ On the canonical paired-covariance g analysis, omitting ML001 *Serapias* gave **
 
 The biological interpretation changed materially when the same group summaries were represented as oriented lnRR.
 
-In *Serapias*, absolute Hedges-g magnitudes rank **G > C > F** (`-26.07`, `-10.10`, `-4.55`), whereas absolute lnRR magnitudes rank **C > F > G** (`-1.157`, `-1.102`, `-0.650`). The C–F lnRR contrast was unresolved under the carried endpoint-correlation proxy (`p≈0.605`). Thus the recently used interpretation of *Serapias* as a resolved movement/connectivity-dominant process–F bottleneck is not effect-scale stable.
+In *Serapias*, absolute Hedges-g magnitudes rank **G > C > F** (`-26.07`, `-10.10`, `-4.55`), whereas absolute lnRR magnitudes rank **C > F > G** (`-1.157`, `-1.102`, `-0.650`). The C–F lnRR contrast was unresolved under the raw-unit delta covariance (`p=0.6364`). Thus the recently used interpretation of *Serapias* as a resolved movement/connectivity-dominant process–F bottleneck is not effect-scale stable.
 
 The cross-cluster robustness classification also changed. Under lnRR:
 
-- carrying the existing dimensionless endpoint-correlation proxies gave full Fisher `p≈1.18×10^-10` and omit-ML001 `p≈2.92×10^-5`;
-- zero covariance gave full Fisher `p≈1.72×10^-9` and omit-ML001 `p≈0.00434`;
+- raw-unit multivariate-delta covariance gave full Fisher `p=1.19×10^-12` and omit-ML001 `p=8.31×10^-5`;
+- zero covariance gave full Fisher `p=1.72×10^-9` and omit-ML001 `p=0.00434`;
 - the covariance-free maximum-variance boundary gave full Fisher `p≈9.95×10^-5` but omit-ML001 `p≈0.111`.
 
 Accordingly, lnRR does not supply a new uniquely correct robustness verdict: common working dependence treatments retain rejection without *Serapias*, whereas the covariance-free bound does not certify it. The defensible conclusion is that **the leave-one-Serapias robustness classification depends jointly on effect-size scale and dependence assumptions**.
@@ -291,7 +293,7 @@ The primary direct-effect denominator is five independent programme/study cluste
 
 The most important limitation is **estimand-scale dependence**. Hedges g standardizes each endpoint by its own pooled within-group SD, whereas lnRR represents proportional change in the endpoint mean. These are not interchangeable biological estimands. In *Serapias*, tiny within-group SD for adult H_O produces an extreme g and reverses the absolute response ordering relative to lnRR. The historical g result and the lnRR sensitivity also give different leave-one-*Serapias* robustness classifications under common working covariance assumptions. Therefore the manuscript cannot treat equality or separation of g values as a scale-invariant ecological statement.
 
-The lnRR sensitivity does not solve this problem by supplying a uniquely correct alternative scale. Several direct clusters have only two or three independent units per habitat group; delta-method normal approximations may be poor at such sample sizes. Exact cross-endpoint sampling covariance on the lnRR scale is unavailable. Carrying the dimensionless endpoint-correlation proxy, setting covariance to zero and using the Cauchy–Schwarz maximum-variance boundary produce different omit-*Serapias* conclusions. In addition, fruit set, heterozygosity, paternity correlation and growth are biologically different metrics, some bounded and some unbounded, so equal lnRR need not imply equal ecological importance.
+The lnRR sensitivity does not solve this problem by supplying a uniquely correct alternative scale. Several direct clusters have only two or three independent units per habitat group, so delta-method normal approximations and the raw-unit multivariate-delta covariance may be poor at such sample sizes. The zero-covariance and Cauchy–Schwarz calculations show that dependence assumptions still matter. In addition, fruit set, heterozygosity, paternity correlation and growth are biologically different metrics, some bounded and some unbounded, so equal lnRR need not imply equal ecological importance.
 
 The scale-independent sign audit is deliberately weak. All 17 primary direct effects are negative on both oriented g and oriented lnRR, but those effects are dependent within five clusters and cannot be treated as 17 independent sign trials. Uniform sign therefore supports common direction of deterioration only; it does not establish equality, separation or one response hierarchy.
 
