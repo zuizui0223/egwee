@@ -4,7 +4,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 MANUSCRIPT = ROOT / "manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md"
-SCALE_RESULT = ROOT / "manuscript/ESTIMAND_SCALE_SENSITIVITY_RESULT_2026-09-27.md"
+SCALE_RESULT = ROOT / "manuscript/ESTIMAND_SCALE_ROBUSTNESS_2026-09-29.md"
 
 
 def main() -> None:
@@ -43,7 +43,14 @@ def main() -> None:
     ):
         assert token in text, token
 
-    for token in ("ML001", "p ≈ 0.605", "17/17", "scale-sensitive"):
+    for token in (
+        "ML001",
+        "0.63640",
+        "8.3144e-05",
+        "17/17",
+        "estimand-scale dependent",
+        "raw-unit delta covariance",
+    ):
         assert token in scale, token
 
     # Guard against common overclaims that the clarified estimand explicitly rejects.
