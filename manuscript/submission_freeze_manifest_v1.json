@@ -1,38 +1,44 @@
 {
-  "schema_version": 4,
-  "updated_on": "2026-09-27",
-  "status": "revision_required_estimand_scale_sensitivity",
+  "schema_version": 5,
+  "updated_on": "2026-09-29",
+  "status": "validation_pending_raw_delta_scale_revision",
   "submission_ready": false,
   "supersedes_submission_freeze": true,
-  "revision_base_commit": "5046c7f2bd793b36303ea85f887b4dec25e98d70",
+  "revision_base_commit": "e94722fe99dd40b1bebac42fa311f40d9e412ab4",
   "manuscript": {
     "path": "manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md",
-    "blob_sha": "2112cc282d6b4b4826960b14784bf08408d2eb5e",
+    "blob_sha": "a72cde128e9ef5d071f847a52d0425fc04828d68",
     "title": "Habitat fragmentation across plant reproductive life cycles: directional consistency and scale-sensitive response amplitudes",
     "target_journal": "Journal of Ecology",
-    "main_text_words": 6816,
-    "abstract_words": 263
+    "main_text_words": 6932,
+    "abstract_words": 273
   },
   "historical_primary_g": {
     "independent_clusters": 5,
     "marginal_effects": 17,
-    "full_fisher_p": 0.01212432,
-    "omit_ML001_p": 0.18194353,
+    "full_fisher_p": 0.012124326106346261,
+    "omit_ML001_p": 0.1819435271114386,
     "zero_cov_full_p": 0.03860161,
     "covariance_free_full_bound_p": 0.28061178
   },
-  "estimand_scale_sensitivity": {
+  "authoritative_estimand_scale_audit": {
     "endpoint_table": "evidence/meta_extraction/estimand_scale_sensitivity_v1.csv",
     "endpoint_table_blob_sha": "f1f8e84ac199e9e7afd753ed006bc317021415fc",
-    "cluster_summary": "evidence/meta_extraction/estimand_scale_cluster_summary_v1.csv",
-    "cluster_summary_blob_sha": "111531ecf3c24195fdadc671eeed517eed064c30",
-    "result_note": "manuscript/ESTIMAND_SCALE_SENSITIVITY_RESULT_2026-09-27.md",
-    "result_note_blob_sha": "4730caf7010a75c64a5a0ee8ec3b2245ab677f2c",
-    "protocol_amendment": "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-27_ESTIMAND_SCALE.md",
-    "protocol_amendment_blob_sha": "e6a5d20376cc54ef07ad5b53522e0c723d748362",
-    "checker": "scripts/check_estimand_scale_sensitivity.py",
+    "robustness_table": "evidence/meta_extraction/estimand_scale_robustness_v1.csv",
+    "robustness_table_blob_sha": "e53321b6917f6bc2b310acc91fc4a15d6cccf26c",
+    "cluster_summary": "evidence/meta_extraction/estimand_scale_cluster_summary_v2.csv",
+    "cluster_summary_blob_sha": "d03a12c8224a5843fa3fff7fd80c263d24cdeb0a",
+    "fisher_summary": "evidence/meta_extraction/estimand_scale_fisher_sensitivity_v2.csv",
+    "fisher_summary_blob_sha": "9b9e923a1ef6f863720ba8e4b36035995489aee4",
+    "result_note": "manuscript/ESTIMAND_SCALE_ROBUSTNESS_2026-09-29.md",
+    "result_note_blob_sha": "e074c53c645669f279346d32db8be9fa585bdbf3",
+    "protocol_amendment": "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-29_EFFECT_SCALE.md",
+    "protocol_amendment_blob_sha": "9dc4ecc8d8cc0720284d98d8019bdc03e83a63db",
+    "checker": "scripts/check_estimand_scale_robustness.py",
+    "bottleneck_checker": "scripts/check_bottleneck_scale_robustness.py",
     "primary_direct_negative_g": 17,
     "primary_direct_negative_lnRR": 17,
+    "sign_discordance": 0,
     "ML001_g_abs_order": [
       "G",
       "C",
@@ -43,10 +49,39 @@
       "F",
       "G"
     ],
-    "ML001_CF_lnRR_p_rho_proxy": 0.6048817291933912,
-    "lnRR_rho_omit_ML001_p": 0.0000291822388429,
-    "lnRR_zero_omit_ML001_p": 0.0043441814864746,
+    "ML001_CF_g_p": 0.0071961841071408175,
+    "ML001_CF_lnRR_raw_delta_p": 0.6364031922443418,
+    "lnRR_raw_delta_full_p": 1.19170824745653e-12,
+    "lnRR_raw_delta_omit_ML001_p": 0.00008314427075398979,
+    "lnRR_zero_full_p": 1.722779517612947e-9,
+    "lnRR_zero_omit_ML001_p": 0.004344181486257532,
+    "lnRR_cauchy_full_p": 0.00009946000181275223,
     "lnRR_cauchy_omit_ML001_p": 0.1113789244205897
+  },
+  "cross_scale_process_function_geometry": {
+    "status": "post_hoc_hypothesis_generating",
+    "g_downstream": [
+      "ML015",
+      "P2_CF01_BERGSDORF_KAKAMEGA_2006",
+      "P2_CF01_CARDIOPETALUM_2012"
+    ],
+    "g_upstream": [
+      "ML001"
+    ],
+    "lnRR_downstream": [
+      "ML015",
+      "P2_CF01_BERGSDORF_KAKAMEGA_2006",
+      "P2_CF01_CARDIOPETALUM_2012"
+    ],
+    "lnRR_upstream": [
+      "ML002",
+      "ML014"
+    ],
+    "downstream_identity_stable": true,
+    "upstream_identity_stable": false,
+    "both_directions_present_g": true,
+    "both_directions_present_lnRR": true,
+    "claim": "both upstream and downstream response geometries appear under both representations, but system-specific upstream attribution is scale-sensitive"
   },
   "scale_stable_claims": [
     "all 17 primary direct effects are negative on both oriented Hedges g and oriented lnRR",
@@ -57,48 +92,45 @@
     "relative layer response amplitude",
     "within-cluster magnitude separation",
     "leave-one-Serapias robustness classification",
-    "registered-scale bottleneck ordering"
+    "system-specific bottleneck attribution"
   ],
   "exploratory_ecology": {
-    "transition_filtering_note": "manuscript/EXPLORATORY_TRANSITION_FILTERING_2026-09-27.md",
-    "transition_filtering_note_blob_sha": "1bac821dafb49006a34cd817c2d6089cec5b5f47",
-    "transition_filtering_table": "evidence/meta_extraction/exploratory_transition_filtering_v1.csv",
-    "transition_filtering_table_blob_sha": "72e68bdd5ac7c4816367b63ef57cc55bfb3861e2",
     "status": "post_hoc_hypothesis_generating",
     "hypotheses": [
-      "transition-specific attenuation or amplification",
-      "adult-state legacy buffering and cohort lag"
-    ]
-  },
-  "prior_bottleneck_census": {
-    "status": "supplementary_hypothesis_generating_after_scale_audit",
-    "table_output": "manuscript/tables/table_s4_process_function_census.csv",
-    "not_authorized_as_scale_invariant_headline": true
+      "transition-specific filtering with attenuation or amplification",
+      "adult-state legacy buffering and cohort lag",
+      "quantity-to-effective-mating-to-function bottleneck localization"
+    ],
+    "registered_scale_census_output": "manuscript/tables/table_s4_process_function_census.csv"
   },
   "figure_table_revision": {
-    "builder_blob_sha": "d95de0eb42f132419eb6fdd9d802f37333ed902f",
-    "captions_blob_sha": "e3c3b42904d4ca423d15c0084a8a4c9b7860e233",
+    "builder_blob_sha": "45eef2b6b199e3027bef428cb09f928185c08bca",
+    "captions_blob_sha": "478f062f4e2c0e831a01f14c62a66277b3b95914",
     "main_figure4": "manuscript/figures/figure4_estimand_scale_sensitivity.svg",
     "main_table2": "manuscript/tables/table2_estimand_scale_sensitivity.csv",
     "supplementary_table_s4": "manuscript/tables/table_s4_process_function_census.csv"
   },
   "anonymous_package": {
-    "builder_blob_sha": "bf628708bf548cc5a295b40d1d079f8971bafa5d",
-    "reproduces_scale_audit": true,
+    "builder_blob_sha": "ca8ab1b12ffc4738102d38fb1c9f6945fd1e4c51",
+    "reproduces_authoritative_raw_delta_scale_audit": true,
+    "reproduces_bottleneck_cross_scale_audit": true,
     "reproduces_historical_g": true,
-    "reproduces_exploratory_census": true
+    "external_requirement": "ML014 raw-unit lnRR covariance fetches the same public TERN maternal-family CSV used by the recovery script"
   },
   "current_claim_ceiling": [
     "historical Hedges-g synthesis is exactly reproducible",
     "relative response amplitude and omit-Serapias robustness classification are estimand-scale dependent",
     "all 17 primary direct effects are negative on both oriented Hedges g and oriented lnRR",
+    "downstream process-function geometry is stable across the audited representations for Wandoo Cardiopetalum and Kakamega",
+    "upstream system attribution is scale-sensitive: Serapias on g versus Brosimum and Eucalyptus socialis on lnRR",
     "Eucalyptus wandoo provides separate qualitative sign discordance",
-    "transition filtering and cohort lag are exploratory hypotheses only"
+    "transition filtering buffering amplification and cohort lag are exploratory hypotheses only"
   ],
   "not_authorized": [
     "scale-invariant global layer-separation syndrome",
-    "scale-invariant variable life-cycle bottleneck ordering",
     "claiming Serapias uniquely determines robustness without naming the Hedges-g estimand",
+    "scale-invariant system-specific bottleneck attribution",
+    "regime-prevalence inference from the exploratory process-function census",
     "claiming lnRR is the uniquely correct effect scale",
     "universal attenuation or buffering pathway",
     "confirmed cohort lag",
@@ -106,7 +138,7 @@
     "direct empirical validation of finite EGWE or NEE operators"
   ],
   "remaining_scientific_gate": [
-    "current full CI contract green after scale-aware manuscript figure table and anonymous-package rebuild"
+    "current full CI contract green with authoritative raw-delta manuscript figure table and anonymous-package reproduction"
   ],
   "remaining_human_blockers": [
     "final author list",
