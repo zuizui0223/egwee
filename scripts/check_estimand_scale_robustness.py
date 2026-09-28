@@ -18,7 +18,7 @@ SPON_C = ROOT / "evidence/meta_extraction/PS001_spondias_paternity_site_table_v1
 SPON_G = ROOT / "evidence/meta_extraction/PS001_spondias_appendixB_genetic_site_table_v1.csv"
 AIZEN = ROOT / "evidence/meta_extraction/PS022_aizen_feinsinger_site_means_v1.csv"
 SOCIALIS_URL = "https://shared.tern.org.au/attachment/c5278af9-b0c9-4572-8eb4-9ce3058f1b2a/MECBreedfamily.csv"
-UA = "Mozilla/5.0 egwee-estimand-scale-audit/1.0"
+UA = "Mozilla/5.0 plant-fragmentation-estimand-scale-audit/1.0"
 
 TOL = 5e-8
 
