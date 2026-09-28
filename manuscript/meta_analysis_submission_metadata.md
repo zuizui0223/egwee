@@ -5,7 +5,7 @@
 - **Working title:** Habitat fragmentation across plant reproductive life cycles: directional consistency and scale-sensitive response amplitudes
 - **Source manuscript:** `manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md`
 - **Protocol:** `manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md`
-- **Submission state:** `scale_aware_revision_complete_admin_pending`
+- **Submission state:** `scale_aware_raw_delta_revision_validation_pending`
 - **Article type:** Research Article / empirical research synthesis
 - **Primary target journal:** **Journal of Ecology**
 - **Fallback venues:** Ecology (Article or Concepts & Synthesis, if reframed for broader ecological generality); Oikos (Meta-analysis)
@@ -38,7 +38,7 @@ The paper now distinguishes scale-robust response direction from scale-dependent
 
 Finite-model NEE/EGWE work is not the framing, estimand, admission rule or inferential target of this paper. It may be cited only as downstream comparative theory where useful.
 
-> **Submission hold:** the historical Hedges-g synthesis is reproducible, but its biological separation/robustness interpretation is estimand-scale dependent. Journal of Ecology submission is reopened pending the mandatory g-versus-lnRR revision.
+> **Submission hold:** the historical Hedges-g synthesis is reproducible, but its biological separation/robustness interpretation is estimand-scale dependent. The raw-unit lnRR audit is complete; Journal of Ecology submission remains reopened until the full CI and anonymous reviewer package reproduce the authoritative raw-delta scale analysis.
 
 ## Current quantitative state
 
@@ -48,7 +48,7 @@ Primary direct Hedges-g synthesis:
 - admissible marginal effects: **17**;
 - full Fisher synthesis: `chi-square(10)=22.64771647`, **`p = 0.01212432`**;
 - omit-ML001 *Serapias lingua*: `chi-square(8)=11.36345148`, **`p = 0.18194353`**;
-- therefore the pooled rejection is not Serapias-independent.
+- on the historical Hedges-g estimand, the pooled rejection is not Serapias-independent; this robustness statement is not scale-general.
 
 The fifth cluster, ML020 Aizen–Feinsinger Chaco, is retained despite its non-significant programme gate (`p_ML020=1.0`). It provides the independent negative robustness result: interaction and reproductive-function layers can deteriorate together without detectable separation in effect magnitude.
 
@@ -59,13 +59,13 @@ ML015 *Eucalyptus wandoo* remains separate Fisher-z gradient generalisation evid
 Authorised manuscript-level ecological claims:
 
 - the historical five-cluster Hedges-g analysis is exactly reproducible: full Fisher `p = 0.01212432`, omit-ML001 *Serapias* `p = 0.18194353`;
-- that leave-one-*Serapias* robustness classification is **not estimand-scale invariant**: oriented lnRR sensitivity retains omit-ML001 rejection under the existing-rho and zero-covariance working regimes, whereas the covariance-free Cauchy maximum-variance boundary does not certify it;
-- *Serapias* itself shows a strong scale reversal: absolute response ordering changes from `G > C > F` on Hedges g to `C > F > G` on oriented lnRR, and the C–F contrast is unresolved on lnRR (working rho-proxy `p ≈ 0.605`);
+- that leave-one-*Serapias* robustness classification is **not estimand-scale invariant**: oriented lnRR retains omit-ML001 rejection under raw-unit multivariate delta covariance (`p = 8.31e-05`) and zero covariance (`p = 0.00434`), whereas the covariance-free Cauchy maximum-variance boundary does not certify it;
+- *Serapias* itself shows a strong scale reversal: absolute response ordering changes from `G > C > F` on Hedges g to `C > F > G` on oriented lnRR, and the C–F contrast is unresolved on lnRR using raw-unit delta covariance (`p = 0.6364`);
 - all **17/17 primary direct effects are negative** on both oriented Hedges g and oriented lnRR; this common deterioration direction is the strongest scale-stable result in the primary direct stream;
 - the primary direct stream therefore supports directional consistency of fragmentation-associated deterioration, but not a scale-independent ordering or magnitude separation among response layers;
 - the separate *Eucalyptus wandoo* gradient remains a genuine qualitative sign-discordance example because interaction/pollen quantity is positive while reproductive function is negative on its registered Fisher-z representation;
 - lnRR patterns suggesting stronger mating/connectivity responses than downstream performance in ML002/ML014, and stronger juvenile/seed than adult genetic responses in ML003, may be presented only as **post hoc exploratory filtering/lag hypotheses** requiring prospective validation;
-- the earlier 12-programme process–function bottleneck census and bottleneck-position classifications remain descriptive exploratory audits and are not submission-headline evidence until they survive scale-aware reanalysis.
+- the earlier 12-programme process–function census remains exploratory: both upstream and downstream resolved geometries occur under g/registered and lnRR representations, but upstream system attribution changes from ML001 *Serapias* on g to ML002 *Brosimum* and ML014 *Eucalyptus socialis* on lnRR; system-specific bottleneck attribution is therefore scale-sensitive.
 
 Not authorised:
 
@@ -99,8 +99,8 @@ Not authorised:
 - [x] journal-specific abstract and keywords shaped;
 - [x] main text converted to Journal of Ecology IMRaD structure;
 - [x] main-text word count audited against the ~8000-word research-article target (current automated count: 6816 words from Introduction onward);
-- [x] pre-scale-audit figure/table package completed and CI-reproduced (Figures 1–4, Table 1, complete paired process–function bottleneck census Table 2, Supplementary Tables S1–S3, Supplementary Figure S1);
-- [x] pre-scale-audit double-anonymous package checked and anonymously reproduced in CI;
+- [ ] current raw-delta scale-aware figure/table package revalidated in full CI (Figure 4 + Table 2 authoritative; registered-scale 12-programme census moved to Supplementary Table S4);
+- [ ] current anonymous reviewer package reproduces the authoritative 2026-09-29 raw-delta scale audit and bottleneck cross-scale audit;
 - [x] estimand-scale audit completed: Hedges-g and lnRR yield materially different response geometry / robustness classifications;
 - [x] manuscript headline revised so no scale-dependent separation/bottleneck claim is presented as scale-invariant;
 - [x] g and lnRR sensitivity reported in Methods, Results, Limitations and figure/table package (Figure 4 + Table 2);
