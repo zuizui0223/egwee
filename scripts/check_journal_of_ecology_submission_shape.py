@@ -87,13 +87,15 @@ def main() -> None:
         "empirical plant-fragmentation",
     ):
         assert token in (manuscript + "\n" + metadata + "\n" + cover_letter), token
-    assert "not invariant to an oriented lnRR sensitivity" in cover_letter
+    assert "this robustness classification is scale-dependent" in cover_letter
     assert "all 17 oriented effects are negative on both g and lnRR" in cover_letter
+    assert "p=0.6364" in cover_letter
+    assert "raw-unit multivariate delta covariance" in cover_letter
     assert "hypothesis-generating" in cover_letter
 
     assert "**Primary target journal:** **Journal of Ecology**" in metadata
     assert "Research Article / empirical research synthesis" in metadata
-    assert "scale_aware_revision_complete_admin_pending" in metadata
+    assert "scale_aware_raw_delta_revision_validation_pending" in metadata
 
     print(
         "JOURNAL_OF_ECOLOGY_SHAPE_OK "
