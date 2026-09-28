@@ -1,0 +1,27 @@
+name: Estimand scale robustness
+
+on:
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - 'scripts/check_estimand_scale_robustness.py'
+      - 'scripts/synthesize_state_separation.py'
+      - 'evidence/meta_extraction/PS003_serapias_site_table_v1.csv'
+      - 'evidence/meta_extraction/PS004_brosimum_site_table_v1.csv'
+      - 'evidence/meta_extraction/PS001_spondias_paternity_site_table_v1.csv'
+      - 'evidence/meta_extraction/PS001_spondias_appendixB_genetic_site_table_v1.csv'
+      - 'evidence/meta_extraction/PS022_aizen_feinsinger_site_means_v1.csv'
+      - '.github/workflows/estimand-scale-robustness.yml'
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run Hedges-g versus lnRR audit
+        run: python scripts/check_estimand_scale_robustness.py
