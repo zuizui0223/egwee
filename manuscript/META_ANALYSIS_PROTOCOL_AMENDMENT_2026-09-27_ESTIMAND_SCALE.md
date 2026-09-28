@@ -1,5 +1,7 @@
 # Protocol amendment — estimand-scale sensitivity — 2026-09-27
 
+> **SUPERSEDED FOR MAIN lnRR COVARIANCE RECONSTRUCTION (2026-09-29).** This file is retained as provenance for the earlier carried-correlation sensitivity. The authoritative submission-facing scale audit reconstructs lnRR covariance directly from aligned raw independent units by multivariate delta method. See `manuscript/ESTIMAND_SCALE_ROBUSTNESS_2026-09-29.md` and `manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-29_EFFECT_SCALE.md`.
+
 ## Trigger
 
 After the ecology-first manuscript had been assembled, an audit showed that the headline inference based on equality of Hedges-g responses is sensitive to the effect-size scale.
