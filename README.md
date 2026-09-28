@@ -13,11 +13,15 @@ Current scientific status:
 Submission remains conditional on the current full contract being green and the remaining human administrative fields being approved.
 
 Canonical scale audit:
-- [`manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-27_ESTIMAND_SCALE.md`](manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-27_ESTIMAND_SCALE.md)
-- [`manuscript/ESTIMAND_SCALE_SENSITIVITY_RESULT_2026-09-27.md`](manuscript/ESTIMAND_SCALE_SENSITIVITY_RESULT_2026-09-27.md)
-- [`evidence/meta_extraction/estimand_scale_sensitivity_v1.csv`](evidence/meta_extraction/estimand_scale_sensitivity_v1.csv)
-- [`evidence/meta_extraction/estimand_scale_cluster_summary_v1.csv`](evidence/meta_extraction/estimand_scale_cluster_summary_v1.csv)
-- [`evidence/meta_extraction/estimand_scale_fisher_sensitivity_v1.csv`](evidence/meta_extraction/estimand_scale_fisher_sensitivity_v1.csv)
+- [`manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-29_EFFECT_SCALE.md`](manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-29_EFFECT_SCALE.md)
+- [`manuscript/ESTIMAND_SCALE_ROBUSTNESS_2026-09-29.md`](manuscript/ESTIMAND_SCALE_ROBUSTNESS_2026-09-29.md)
+- [`scripts/check_estimand_scale_robustness.py`](scripts/check_estimand_scale_robustness.py)
+- [`scripts/check_bottleneck_scale_robustness.py`](scripts/check_bottleneck_scale_robustness.py)
+- [`evidence/meta_extraction/estimand_scale_robustness_v1.csv`](evidence/meta_extraction/estimand_scale_robustness_v1.csv)
+- [`evidence/meta_extraction/estimand_scale_cluster_summary_v2.csv`](evidence/meta_extraction/estimand_scale_cluster_summary_v2.csv)
+- [`evidence/meta_extraction/estimand_scale_fisher_sensitivity_v2.csv`](evidence/meta_extraction/estimand_scale_fisher_sensitivity_v2.csv)
+
+The earlier 2026-09-27 carried-rho sensitivity files are retained as provenance but are **superseded for the main lnRR dependence reconstruction** by the 2026-09-29 raw-unit multivariate-delta audit.
 
 # EGWEE — empirical multilayer fragmentation synthesis
 
@@ -42,7 +46,7 @@ That robustness classification is **not scale-invariant**.
 
 A mandatory oriented-lnRR sensitivity constructed from the same positive fragmented/reference summaries changes endpoint ordering and leave-one-cluster interpretation:
 
-- under the existing dimensionless dependence proxy carried onto lnRR variances, omit-*Serapias* rejection remains below 0.05;
+- under raw-unit multivariate delta covariance reconstructed from aligned independent units, omit-*Serapias* rejection remains below 0.05 (`p = 8.31e-05`);
 - under zero covariance, omit-*Serapias* rejection also remains below 0.05;
 - under a covariance-free Cauchy maximum-variance boundary, omit-*Serapias* rejection is **not certified**.
 
@@ -59,7 +63,7 @@ ML001 *Serapias* illustrates the scale problem directly:
 - Hedges-g absolute ordering: `G > C > F`;
 - oriented-lnRR absolute ordering: `C > F > G`;
 - Hedges-g C–F difference: resolved;
-- lnRR C–F difference under the carried rho proxy: unresolved (`p ≈ 0.605`).
+- lnRR C–F difference under raw-unit multivariate delta covariance: unresolved (`p = 0.6364`).
 
 Thus the earlier claim that *Serapias* supplies a resolved upstream movement/connectivity bottleneck is not scale-stable.
 
