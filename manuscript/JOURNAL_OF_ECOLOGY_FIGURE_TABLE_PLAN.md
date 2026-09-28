@@ -48,16 +48,16 @@ Never place Hedges-g and Fisher-z magnitudes on one common numerical axis. Panel
 
 ## Figure 4 — Estimand-scale sensitivity
 
-**Purpose:** show why the former separation/bottleneck headline is no longer scale-robust.
+**Purpose:** show why relative-amplitude / separation claims require an explicit effect-size scale.
 
 Required panels:
 
-- **A. Serapias ordering:** Hedges-g absolute order G > C > F versus lnRR absolute order C > F > G; report C–F lnRR p≈0.605.
-- **B. Omit-ML001 Fisher sensitivity:** g primary, lnRR + rho proxy, lnRR + zero covariance, lnRR + Cauchy maximum-variance boundary, with the 0.05 threshold visible.
+- **A. Serapias ordering:** Hedges-g absolute order G > C > F versus lnRR absolute order C > F > G; report raw-delta C–F lnRR `p=0.6364`.
+- **B. Omit-ML001 Fisher sensitivity:** historical g primary; lnRR + raw-unit multivariate delta covariance; lnRR + zero covariance; lnRR + Cauchy maximum-variance boundary, with the 0.05 threshold visible.
 - **C. Directional consistency:** 17/17 negative effects on both oriented g and oriented lnRR.
-- **D. Exploratory ecology:** Brosimum and Eucalyptus socialis attenuation examples plus Spondias adult/offspring contrast, with Chaco explicitly identified as a counterexample to universal attenuation.
+- **D. Exploratory ecology:** Brosimum and Eucalyptus socialis upstream-dominant lnRR examples plus Spondias adult/offspring contrast, with Chaco explicitly identified as a counterexample to universal attenuation.
 
-Do not place g and lnRR magnitudes on a common numerical axis. The figure compares inferential geometry and qualitative direction, not raw effect-size values across estimands.
+Do not place g and lnRR magnitudes on a common numerical axis. The figure compares inferential geometry and qualitative direction, not raw effect-size values across estimands. Label the raw-unit lnRR covariance as a delta-method approximation.
 
 
 ## Table 1 — Admitted primary clusters
@@ -81,12 +81,13 @@ ML020 appears once, with its three species described as dependent subsystems. ML
 One row per primary direct cluster plus FULL and OMIT_ML001 cross-cluster rows. Required columns:
 
 - historical Hedges-g p-value;
-- lnRR p under carried rho proxy;
+- lnRR p under raw-unit multivariate delta covariance;
 - lnRR p under zero covariance;
 - lnRR p under Cauchy maximum-variance boundary;
 - interpretation.
 
-The table must show that the omit-ML001 classification crosses the 0.05 threshold across estimand/dependence treatments. It must not imply that lnRR is the uniquely correct scale.
+The table must show that the omit-ML001 classification crosses the 0.05 threshold across estimand/dependence treatments. It must not imply that lnRR is the uniquely correct scale. The former carried-rho sensitivity is provenance only and is not shown as the authoritative lnRR covariance reconstruction.
+
 
 ## Supplementary Table S4 — Registered-scale process–function census
 
