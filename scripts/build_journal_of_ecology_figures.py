@@ -19,7 +19,7 @@ IF_CENSUS = ROOT / "evidence/meta_extraction/ecological_if_programme_census_v1.c
 MATING_FUNCTION_CENSUS = ROOT / "evidence/meta_extraction/ecological_mating_function_programme_census_v1.csv"
 PROCESS_FUNCTION_CENSUS = ROOT / "evidence/meta_extraction/ecological_process_function_programme_census_v1.csv"
 SCALE_EFFECTS = ROOT / "evidence/meta_extraction/estimand_scale_sensitivity_v1.csv"
-SCALE_SUMMARY = ROOT / "evidence/meta_extraction/estimand_scale_cluster_summary_v1.csv"
+SCALE_SUMMARY = ROOT / "evidence/meta_extraction/estimand_scale_cluster_summary_v2.csv"
 REGISTRY = ROOT / "evidence/meta_extraction/multilayer_cluster_registry_v1.csv"
 REGISTRY_ML020 = ROOT / "evidence/meta_extraction/multilayer_cluster_registry_extension_ml020.csv"
 SYNTHESIS = ROOT / "scripts/synthesize_state_separation.py"
@@ -341,7 +341,7 @@ def figure4_estimand_scale_sensitivity() -> None:
     for rank, ep in enumerate(r_order, start=1):
         body.append(svg_text(365, y, f"{rank}. {ep}: {float(ml001[ep]['oriented_lnRR']):+.3f}", size=12))
         y += 28
-    body.append(svg_text(55, 260, "C–F lnRR contrast: p≈0.605 under the carried endpoint-correlation proxy.", size=10))
+    body.append(svg_text(55, 260, "C–F lnRR contrast: p=0.6364 using raw-unit multivariate delta covariance.", size=10))
 
     # Panel B: omit-ML001 robustness under scales/dependence.
     body.append(svg_text(650, 105, "B. Omit-Serapias Fisher conclusion changes", size=14, weight="bold"))
@@ -350,7 +350,7 @@ def figure4_estimand_scale_sensitivity() -> None:
     xmin, xmax = 1e-5, 1.0
     labels = [
         ("Hedges g primary", float(omit["hedges_g_p"])),
-        ("lnRR + rho proxy", float(omit["lnRR_rho_proxy_p"])),
+        ("lnRR + raw-delta cov", float(omit["lnRR_raw_delta_cov_p"])),
         ("lnRR + zero cov", float(omit["lnRR_zero_cov_p"])),
         ("lnRR + Cauchy max-var", float(omit["lnRR_cauchy_maxvar_p"])),
     ]
@@ -448,7 +448,7 @@ def table2_estimand_scale_sensitivity() -> None:
     TABLEDIR.mkdir(parents=True, exist_ok=True)
     out = TABLEDIR / "table2_estimand_scale_sensitivity.csv"
     fields = [
-        "row_type", "row_id", "hedges_g_p", "lnRR_rho_proxy_p",
+        "row_type", "row_id", "hedges_g_p", "lnRR_raw_delta_cov_p",
         "lnRR_zero_cov_p", "lnRR_cauchy_maxvar_p", "interpretation",
     ]
     with out.open("w", newline="", encoding="utf-8") as fh:
