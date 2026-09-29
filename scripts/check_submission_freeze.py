@@ -18,6 +18,9 @@ SCALE_RESULT = ROOT / "manuscript/ESTIMAND_SCALE_ROBUSTNESS_2026-09-29.md"
 SCALE_AMENDMENT = ROOT / "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-29_EFFECT_SCALE.md"
 BOTTLENECK_SCALE_TABLE = ROOT / "evidence/meta_extraction/bottleneck_scale_robustness_v1.csv"
 BOTTLENECK_SCALE_NOTE = ROOT / "manuscript/BOTTLENECK_SCALE_ROBUSTNESS_2026-09-29.md"
+IF_SIGN_CENSUS = ROOT / "evidence/meta_extraction/if_sign_geometry_census_v1.csv"
+IF_SIGN_NOTE = ROOT / "manuscript/IF_SIGN_GEOMETRY_2026-09-29.md"
+IF_SIGN_CHECKER = ROOT / "scripts/check_if_sign_geometry.py"
 
 FIGURE_BUILDER = ROOT / "scripts/build_journal_of_ecology_figures.py"
 FIGURE_CAPTIONS = ROOT / "manuscript/JOURNAL_OF_ECOLOGY_FIGURE_CAPTIONS.md"
@@ -43,11 +46,11 @@ def main() -> None:
 
     assert m["schema_version"] == 5
     assert m["updated_on"] == "2026-09-29"
-    assert m["status"] == "scientific_validation_green_human_admin_pending"
+    assert m["status"] == "scale_aware_sign_geometry_revision_validation_pending"
     assert m["submission_ready"] is False
-    assert m["scientific_validation"]["conclusion"] == "success"
+    assert m["scientific_validation"]["conclusion"] == "superseded_by_sign_geometry_revision"
     assert m["scientific_validation"]["full_contract_run_id"] == 36537159520
-    assert m["remaining_scientific_gate"] == []
+    assert len(m["remaining_scientific_gate"]) == 1
     assert m["supersedes_submission_freeze"] is True
     sv = m["scientific_validation"]
     assert sv["full_contract_run_id"] == 36537159520
@@ -93,6 +96,17 @@ def main() -> None:
     assert abs(s["lnRR_zero_omit_ML001_p"] - 0.004344181486257532) < 1e-15
     assert s["lnRR_cauchy_omit_ML001_p"] > 0.05
 
+    sign = m["if_sign_geometry"]
+    assert git_blob_sha(IF_SIGN_CENSUS) == sign["census_blob_sha"]
+    assert git_blob_sha(IF_SIGN_NOTE) == sign["result_note_blob_sha"]
+    assert git_blob_sha(IF_SIGN_CHECKER) == sign["checker_blob_sha"]
+    assert sign["primary_panels"] == 18
+    assert sign["independent_programmes"] == 8
+    assert sign["sign_discordant_panels"] == 6
+    assert sign["programmes_with_sign_discordance"] == 5
+    assert sign["multi_panel_programmes"] == 4
+    assert sign["within_programme_heterogeneous"] == 3
+
     geom = m["cross_scale_process_function_geometry"]
     assert git_blob_sha(BOTTLENECK_SCALE_TABLE) == geom["scale_table_blob_sha"]
     assert git_blob_sha(BOTTLENECK_SCALE_NOTE) == geom["result_note_blob_sha"]
@@ -121,6 +135,8 @@ def main() -> None:
     assert ap["reproduces_bottleneck_cross_scale_audit"] is True
     assert "check_estimand_scale_robustness.py" in anon
     assert "check_bottleneck_scale_robustness.py" in anon
+    assert "check_if_sign_geometry.py" in anon
+    assert "table_s5_if_sign_geometry.csv" in anon
     assert "figure4_estimand_scale_sensitivity.svg" in anon
     assert "table2_estimand_scale_sensitivity.csv" in anon
 
@@ -140,17 +156,16 @@ def main() -> None:
     ):
         assert token in json.dumps(m), token
 
-    assert "**STATUS: SCIENTIFICALLY VALIDATED, HUMAN ADMINISTRATION PENDING.**" in note
+    assert "**STATUS: NOT SUBMISSION-READY.**" in note
     assert "raw-unit multivariate delta covariance" in note
     assert "8.31e-05" in note
     assert "17/17" in note
     assert "Figure 4: estimand-scale sensitivity" in note
 
-    assert "scale_aware_scientific_validation_green_human_admin_pending" in metadata
+    assert "scale_aware_sign_geometry_revision_validation_pending" in metadata
     assert "Scientific validation complete" in metadata
     assert "p = 0.6364" in metadata
-    assert "[x] current raw-delta scale-aware figure/table package revalidated" in metadata
-    assert "[x] current anonymous reviewer package reproduces" in metadata
+    assert "[ ] sign-geometry revision revalidated in current full CI and anonymous reviewer package" in metadata
 
     assert "raw-unit multivariate-delta covariance" in manuscript
     assert "all **17/17 primary direct effects were negative on both oriented g and oriented lnRR**" in manuscript
