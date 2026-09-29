@@ -1,6 +1,6 @@
 # EGWEE submission state — SIGN-GEOMETRY REVISION VALIDATION PENDING 2026-09-29
 
-> **STATUS: SCIENTIFICALLY VALIDATED, HUMAN ADMINISTRATION PENDING.** The estimand-scale revision is complete and the current full CI reproduces the manuscript, scale-aware figure/table package, double-anonymous checks and reviewer package. Submission is still not authorised until author/declaration metadata and final approval are complete.
+> **STATUS: NOT SUBMISSION-READY.** The estimand-scale revision remains valid, but the new scale-stable interaction–function sign-geometry result and Supplementary Table S5 still require full-CI and anonymous-package revalidation.
 
 ## Why the freeze was reopened
 
