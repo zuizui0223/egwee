@@ -1,17 +1,17 @@
 {
   "schema_version": 5,
   "updated_on": "2026-09-29",
-  "status": "scientific_validation_green_human_admin_pending",
+  "status": "scale_aware_sign_geometry_revision_validation_pending",
   "submission_ready": false,
   "supersedes_submission_freeze": true,
   "revision_base_commit": "e94722fe99dd40b1bebac42fa311f40d9e412ab4",
   "manuscript": {
     "path": "manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md",
-    "blob_sha": "4db0beed7862a0aa11517f0cd8a7856d4eef1db1",
+    "blob_sha": "0d8a01e7ada003043953326d474db7ddff4ea835",
     "title": "Habitat fragmentation across plant reproductive life cycles: directional consistency and scale-sensitive response amplitudes",
     "target_journal": "Journal of Ecology",
-    "main_text_words": 6932,
-    "abstract_words": 273
+    "main_text_words": 7784,
+    "abstract_words": 290
   },
   "historical_primary_g": {
     "independent_clusters": 5,
@@ -92,7 +92,10 @@
   "scale_stable_claims": [
     "all 17 primary direct effects are negative on both oriented Hedges g and oriented lnRR",
     "the primary direct corpus supports a common direction of fragmentation-associated deterioration",
-    "the separate Eucalyptus wandoo gradient contains qualitative sign discordance between interaction and reproductive function"
+    "the separate Eucalyptus wandoo gradient contains qualitative sign discordance between interaction and reproductive function",
+    "interaction quantity is not a monotonic proxy for reproductive function across the broader matched I-F evidence",
+    "opposite-sign I-F panels occur in both directions across five independent programmes",
+    "three shared-exposure multi-panel programmes contain more than one I-F sign geometry among focal species or panels"
   ],
   "scale_sensitive_claims": [
     "relative layer response amplitude",
@@ -110,14 +113,15 @@
     "registered_scale_census_output": "manuscript/tables/table_s4_process_function_census.csv"
   },
   "figure_table_revision": {
-    "builder_blob_sha": "45eef2b6b199e3027bef428cb09f928185c08bca",
-    "captions_blob_sha": "478f062f4e2c0e831a01f14c62a66277b3b95914",
+    "builder_blob_sha": "94eb7eaac77a1b9d54eaed969c82e3f6b435efa9",
+    "captions_blob_sha": "49db034028274ed2df0404bdabb12f5dc045eef8",
     "main_figure4": "manuscript/figures/figure4_estimand_scale_sensitivity.svg",
     "main_table2": "manuscript/tables/table2_estimand_scale_sensitivity.csv",
-    "supplementary_table_s4": "manuscript/tables/table_s4_process_function_census.csv"
+    "supplementary_table_s4": "manuscript/tables/table_s4_process_function_census.csv",
+    "supplementary_table_s5": "manuscript/tables/table_s5_if_sign_geometry.csv"
   },
   "anonymous_package": {
-    "builder_blob_sha": "f4665a300ffa2521edc99c876af69f601578d029",
+    "builder_blob_sha": "36f231753b247ee170cc692e6c3e66ce44f75519",
     "reproduces_authoritative_raw_delta_scale_audit": true,
     "reproduces_bottleneck_cross_scale_audit": true,
     "reproduces_historical_g": true,
@@ -141,9 +145,14 @@
     "universal attenuation or buffering pathway",
     "confirmed cohort lag",
     "using ML020 p=1.0 as evidence of equality or coupling",
-    "direct empirical validation of finite EGWE or NEE operators"
+    "direct empirical validation of finite EGWE or NEE operators",
+    "using 5 of 8 programmes or 6 of 18 panels as a global prevalence estimate",
+    "treating dependent I-F panels as independent sign trials",
+    "inferring one common compensation or pollen-quality mechanism from sign discordance alone"
   ],
-  "remaining_scientific_gate": [],
+  "remaining_scientific_gate": [
+    "current full CI contract green after scale-stable I-F sign-geometry manuscript and S5 revision"
+  ],
   "remaining_human_blockers": [
     "final author list",
     "affiliations",
@@ -155,12 +164,29 @@
   ],
   "scientific_validation": {
     "full_contract_run_id": 36537159520,
-    "conclusion": "success",
+    "conclusion": "superseded_by_sign_geometry_revision",
     "scale_aware_manuscript": true,
     "estimand_scale_audit": true,
     "cross_scale_geometry_audit": true,
     "double_anonymous": true,
     "figures_tables_reproduced": true,
     "anonymous_reviewer_package_reproduced": true
+  },
+  "if_sign_geometry": {
+    "status": "scale_stable_descriptive_ecology",
+    "census": "evidence/meta_extraction/if_sign_geometry_census_v1.csv",
+    "census_blob_sha": "06c56d067006c9063ea2d048da3407e280a08655",
+    "result_note": "manuscript/IF_SIGN_GEOMETRY_2026-09-29.md",
+    "result_note_blob_sha": "fa6600638139d7860e70b87c7564cc6b46366eeb",
+    "checker": "scripts/check_if_sign_geometry.py",
+    "checker_blob_sha": "c7157e652b98a7bf5c73490be2d25a7538fa3fa9",
+    "primary_panels": 18,
+    "independent_programmes": 8,
+    "sign_discordant_panels": 6,
+    "programmes_with_sign_discordance": 5,
+    "hidden_function_loss_programmes": 2,
+    "interaction_loss_function_gain_programmes": 3,
+    "multi_panel_programmes": 4,
+    "within_programme_heterogeneous": 3
   }
 }
