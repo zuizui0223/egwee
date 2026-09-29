@@ -1,7 +1,7 @@
 {
   "schema_version": 5,
   "updated_on": "2026-09-29",
-  "status": "scale_aware_sign_geometry_revision_validation_pending",
+  "status": "scientific_validation_green_human_admin_pending",
   "submission_ready": false,
   "supersedes_submission_freeze": true,
   "revision_base_commit": "e94722fe99dd40b1bebac42fa311f40d9e412ab4",
@@ -150,9 +150,7 @@
     "treating dependent I-F panels as independent sign trials",
     "inferring one common compensation or pollen-quality mechanism from sign discordance alone"
   ],
-  "remaining_scientific_gate": [
-    "current full CI contract green after scale-stable I-F sign-geometry manuscript and S5 revision"
-  ],
+  "remaining_scientific_gate": [],
   "remaining_human_blockers": [
     "final author list",
     "affiliations",
@@ -163,11 +161,12 @@
     "final all-author approval"
   ],
   "scientific_validation": {
-    "full_contract_run_id": 36537159520,
-    "conclusion": "superseded_by_sign_geometry_revision",
+    "full_contract_run_id": 36542416391,
+    "conclusion": "success",
     "scale_aware_manuscript": true,
     "estimand_scale_audit": true,
     "cross_scale_geometry_audit": true,
+    "interaction_function_sign_geometry": true,
     "double_anonymous": true,
     "figures_tables_reproduced": true,
     "anonymous_reviewer_package_reproduced": true
