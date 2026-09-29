@@ -89,6 +89,27 @@ One row per primary direct cluster plus FULL and OMIT_ML001 cross-cluster rows. 
 The table must show that the omit-ML001 classification crosses the 0.05 threshold across estimand/dependence treatments. It must not imply that lnRR is the uniquely correct scale. The former carried-rho sensitivity is provenance only and is not shown as the authoritative lnRR covariance reconstruction.
 
 
+## Supplementary Table S5 — Scale-stable I–F sign geometry
+
+**Purpose:** expose the scale-stable qualitative interaction→function result without treating dependent panels as independent studies.
+
+Required content:
+
+- exactly 18 primary I–F panels from 8 independent programmes;
+- interaction and F signs on the registered representation;
+- one of four descriptive geometries: I−/F−, I+/F+, I+/F−, I−/F+;
+- explicit panel/program identifiers so multi-species shared-exposure heterogeneity is auditable.
+
+The table must reproduce:
+
+- 6 sign-discordant panels;
+- sign-discordant panels in 5 independent programmes;
+- 2 panels with I+,F−;
+- 4 panels with I−,F+;
+- 4 multi-panel programmes, of which 3 contain more than one sign geometry.
+
+Do not report 5/8 as a prevalence estimate or run a sign/binomial test across dependent panels/programmes.
+
 ## Supplementary Table S4 — Registered-scale process–function census
 
 Retain the 12-programme process–function catalogue for transparency and hypothesis generation. Explicitly mark it as heterogeneous-scale and non-confirmatory after the estimand audit.
