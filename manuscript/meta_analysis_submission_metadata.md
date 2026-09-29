@@ -109,7 +109,7 @@ Not authorised:
 - [x] primary venue selected: Journal of Ecology;
 - [x] journal-specific abstract and keywords shaped;
 - [x] main text converted to Journal of Ecology IMRaD structure;
-- [x] main-text word count audited against the ~8000-word research-article target (current automated count: 7784 words from Introduction onward);
+- [x] main-text word count audited against the ~8000-word research-article target (current automated count: 7884 words from Introduction onward);
 - [x] current raw-delta scale-aware figure/table package revalidated in full CI (Figure 4 + Table 2 authoritative; registered-scale 12-programme census moved to Supplementary Table S4);
 - [x] current anonymous reviewer package reproduces the authoritative 2026-09-29 raw-delta scale audit and bottleneck cross-scale audit;
 - [x] estimand-scale audit completed: Hedges-g and lnRR yield materially different response geometry / robustness classifications;
