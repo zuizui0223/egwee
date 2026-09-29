@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "frozen_on": "2026-09-27",
   "programme": "fresh_ecological_IF_decoupling_validation",
   "discovery_cutoff": "2026-09-18",
@@ -48,10 +48,12 @@
     "endpoint_switch_after_outcome",
     "search_until_significance",
     "unresolved_as_zero",
-    "reuse_burned_auxiliary_process_function_programmes_as_fresh_H2_confirmation"
+    "reuse_burned_auxiliary_process_function_programmes_as_fresh_H2_confirmation",
+    "outcome_selected_effect_scale",
+    "scale_general_bottleneck_claim_under_contradictory_ordering"
   ],
   "field_module": "manuscript/FRESH_ECOLOGICAL_IF_SYNCHRONIZED_FIELD_MODULE_V1.md",
-  "current_manuscript_role": "discovery_synthesis_not_fresh_confirmation",
+  "current_manuscript_role": "scale_sensitive_discovery_synthesis_not_fresh_confirmation",
   "moderator_schema": "manuscript/fresh_ecological_if_moderator_schema_v1.csv",
   "burned_auxiliary_process_function_programmes": [
     "ML001",
@@ -60,8 +62,8 @@
     "P2_CF01_ACER_MIYABEI_2014"
   ],
   "auxiliary_discovery_audit": "manuscript/ECOLOGICAL_BOTTLENECK_POSITION_AUDIT_2026-09-27.md",
-  "amended_on": "2026-09-27",
-  "amendment": "manuscript/FRESH_ECOLOGICAL_IF_VALIDATION_AMENDMENT_2026-09-27_BOTTLENECK_LOCALIZATION.md",
+  "amended_on": "2026-09-29",
+  "amendment": "manuscript/FRESH_ECOLOGICAL_IF_VALIDATION_AMENDMENT_2026-09-29_EFFECT_SCALE.md",
   "h2_v2": {
     "endpoint_chain": [
       "I_quantity",
@@ -81,5 +83,28 @@
       "B3": "Delta_QF>0; Delta_QE approximately zero; Delta_EF>0: post-mating/post-pollination bottleneck",
       "B4": "Q E F all deteriorate with unresolved/small contrasts: coupled chain deterioration"
     }
+  },
+  "previous_amendment": "manuscript/FRESH_ECOLOGICAL_IF_VALIDATION_AMENDMENT_2026-09-27_BOTTLENECK_LOCALIZATION.md",
+  "direct_effect_scale": {
+    "primary": "oriented_lnRR_for_positive_Q_E_F",
+    "mandatory_sensitivity": "Hedges_g_same_independent_units",
+    "outcome_selected_scale_forbidden": true,
+    "contradictory_direction_blocks_scale_general_bottleneck_claim": true
+  },
+  "h2_v3": {
+    "endpoint_chain": [
+      "I_quantity",
+      "I_effective_mating_quality",
+      "F_reproductive"
+    ],
+    "primary_direct_contrast": "Delta_QE=lnRR_Q-lnRR_E",
+    "primary_direction": "Delta_QE>0",
+    "secondary_direct_contrasts": [
+      "Delta_QF=lnRR_Q-lnRR_F",
+      "Delta_EF=lnRR_E-lnRR_F"
+    ],
+    "hedges_g_sensitivity_required": true,
+    "scale_general_promotion_requires_noncontradictory_ordering": true,
+    "leave_one_programme_out_required_after_gate": true
   }
 }
