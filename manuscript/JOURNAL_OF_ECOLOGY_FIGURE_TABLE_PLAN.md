@@ -2,7 +2,7 @@
 
 ## Principle
 
-The figures should visualize the **claim**, not reward the most extreme standardized effect. In particular, ML001 *Serapias* has very large Hedges-g magnitudes because between-population SD within its source-defined groups is small. Putting all 17 marginal effects on one ordinary linear forest axis would compress the remaining systems and make the paper look like a study of one extreme dataset. The main figures therefore emphasize evidence geometry, cluster influence and the independent ML020 negative robustness result.
+The figures should visualize the **scale-aware claim**, not reward the most extreme standardized effect. In particular, ML001 *Serapias* has very large Hedges-g magnitudes because between-population SD within its source-defined groups is small, yet its proportional lnRR ordering differs sharply. The main package therefore separates historical Hedges-g evidence from estimand-scale sensitivity and from qualitative sign geometry. No figure may present g-only magnitude ordering, leave-one-*Serapias* failure, or the registered-scale bottleneck catalogue as a scale-independent ecological result.
 
 ## Figure 1 — Primary evidence geometry
 
