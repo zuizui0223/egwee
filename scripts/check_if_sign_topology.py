@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+TOPOLOGY_TABLE = ROOT / "evidence/meta_extraction/if_sign_topology_v1.csv"
 
 ML020 = ROOT / "evidence/meta_extraction/PS022_aizen_feinsinger_effects_v1.csv"
 SEVEN = ROOT / "evidence/meta_extraction/phase2_cf01_sevenello_direct_effects_v1.csv"
@@ -95,6 +96,16 @@ def main() -> None:
     panels.append(panel("P2_CF01_PRITCHARD_2005", "primary", p["I_primary"], p["F_primary"], "Fisher_z"))
 
     assert len(panels) == 18
+
+    canonical = rows(TOPOLOGY_TABLE)
+    assert len(canonical) == 18
+    canonical_by = {(r["programme_id"], r["panel_id"]): r for r in canonical}
+    assert set(canonical_by) == {(x["programme_id"], x["panel_id"]) for x in panels}
+    for x in panels:
+        r = canonical_by[(x["programme_id"], x["panel_id"])]
+        assert r["polarity"] == x["polarity"]
+        assert abs(float(r["I_effect"]) - x["I"]) < 5e-9
+        assert abs(float(r["F_effect"]) - x["F"]) < 5e-9
 
     # Multi-panel programmes reveal whether one landscape exposure fixes the
     # sign topology across species/panels.
