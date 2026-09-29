@@ -286,7 +286,7 @@ Monitoring designs should therefore prioritize synchronized measurements across 
 
 ### Ecological scope
 
-This study is an empirical plant-fragmentation synthesis. The historical g analysis, the lnRR sensitivity and the registered gradient analyses are all empirical summaries of natural systems. Finite EGWE/NEE operators do not define admission, effect construction, stopping rules or the biological conclusion. Theory may motivate future hypotheses about buffering, lag or propagation, but the present evidence is evaluated independently of those theoretical models.
+This study is an empirical plant-fragmentation synthesis. The historical g analysis, the lnRR sensitivity and the registered gradient analyses are all empirical summaries of natural systems. No finite simulator or operator sequence defines study admission, effect construction, stopping rules or the biological conclusion. Mechanistic ideas about buffering, lag or propagation are treated only as ecological hypotheses to be tested with natural data.
 
 ### Limitations
 
