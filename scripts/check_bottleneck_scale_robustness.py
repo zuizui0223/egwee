@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 UNIFIED = ROOT / "evidence/meta_extraction/ecological_process_function_programme_census_v1.csv"
 SEVENELLO = ROOT / "evidence/meta_extraction/phase2_cf01_sevenello_transect_values_v1.csv"
 KAKAMEGA = ROOT / "evidence/meta_extraction/phase2_cf01_bergsdorf_kakamega_site_values_v1.csv"
+SCALE_TABLE = ROOT / "evidence/meta_extraction/bottleneck_scale_robustness_v1.csv"
 
 
 def rows(path: Path) -> list[dict[str, str]]:
@@ -147,6 +148,27 @@ def main() -> None:
     assert direct["ML020"][1] > 0.05
     assert seven["programme_p"] > 0.05
     assert kaka["programme_p"] < 0.05
+
+    scale_rows = rows(SCALE_TABLE)
+    assert len(scale_rows) == 12
+    scale_by = {r["programme_id"]: r for r in scale_rows}
+    assert set(scale_by) == set(g_by)
+
+    for pid, row in scale_by.items():
+        assert row["registered_direction"] == g_by[pid]["resolved_direction"]
+        if pid in direct:
+            expected_direction, _ = classify(*direct[pid])
+            assert row["sensitivity_direction"] == expected_direction
+            assert row["scale_sensitivity_representation"] == "lnRR_raw_delta"
+            assert abs(float(row["sensitivity_programme_or_pair_p"]) - direct[pid][1]) < 5e-8
+        else:
+            assert row["sensitivity_direction"] == g_by[pid]["resolved_direction"]
+            assert row["scale_sensitivity_representation"] == "native_fisher_z_only"
+
+    assert scale_by["ML001"]["cross_scale_status"] == "scale_sensitive_upstream_attribution"
+    assert scale_by["ML002"]["cross_scale_status"] == "scale_sensitive_upstream_attribution"
+    assert scale_by["ML014"]["cross_scale_status"] == "scale_sensitive_upstream_attribution"
+    assert scale_by["P2_CF01_BERGSDORF_KAKAMEGA_2006"]["cross_scale_status"] == "stable_downstream"
 
     out = {
         "g_plus_gradient": {
