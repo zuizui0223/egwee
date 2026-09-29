@@ -2,19 +2,21 @@
 
 ## Automated scientific package
 
-The scientific and reviewer-facing package is machine-checked. The current automated state includes:
+The scientific revision is scale-aware, but submission is still on hold until the current full CI contract is green. The intended reviewer-facing package includes:
 
 - ecology-first manuscript title, abstract, keywords and IMRaD structure;
 - primary 5-cluster / 17-effect synthesis and influence analysis;
 - complete 360/360 Phase-2 screening record;
-- complete 12-programme paired process–function bottleneck census and Table 2, with the 8-programme I–F measurement-gap subset retained inside it;
+- historical five-cluster Hedges-g synthesis plus the authoritative oriented-lnRR estimand sensitivity;
+- Figure 4 estimand-scale sensitivity and main Table 2 g-versus-lnRR sensitivity;
+- the 12-programme registered-scale process–function census retained as Supplementary Table S4 / exploratory provenance;
 - interaction-measurement coverage audit (8/8 quantity-level, 0/8 effective-mating-quality);
-- Figures 1–4, Tables 1–2, Supplementary Tables S1–S3 and Supplementary Figure S1;
+- Figures 1–4, Tables 1–2, Supplementary Tables S1–S4 and Supplementary Figure S1;
 - double-anonymous main manuscript check;
 - anonymous reviewer code/data package reproduction;
 - fresh-validation preregistration kept separate from the current discovery/synthesis manuscript.
 
-These scientific items should not be reopened merely to fill administrative metadata.
+Do not proceed to administrative submission completion until the scale-aware full CI and anonymous-package reproduction are green. After that gate passes, scientific files should not be reopened merely to fill administrative metadata.
 
 ## Human-only items still required
 
@@ -82,7 +84,7 @@ Replace the title-page placeholder with either the approved conflict declaration
 
 ### 7. Data and code availability at submission
 
-The reviewer-facing anonymous package is already reproduced in CI.
+The reviewer-facing anonymous package is being revalidated against the 2026-09-29 raw-unit lnRR audit and cross-scale geometry audit.
 
 Before final submission confirm whether the journal requires:
 
@@ -132,4 +134,9 @@ Administrative state:
 
 ## Submission boundary
 
-The only current submission blockers are human administrative/declaration inputs. They are intentionally not auto-filled from account information, repository history or inferred identity.
+Current blockers are:
+
+1. **scientific validation:** full scale-aware CI and anonymous reviewer-package reproduction must be green;
+2. **human administration:** author list, affiliations, corresponding-author details, contributions, funding/permits, conflicts and final approval.
+
+Human administrative fields are intentionally not auto-filled from account information, repository history or inferred identity.
