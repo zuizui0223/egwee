@@ -46,20 +46,21 @@ def main() -> None:
 
     assert m["schema_version"] == 5
     assert m["updated_on"] == "2026-09-29"
-    assert m["status"] == "scale_aware_sign_geometry_revision_validation_pending"
+    assert m["status"] == "scientific_validation_green_human_admin_pending"
     assert m["submission_ready"] is False
-    assert m["scientific_validation"]["conclusion"] == "superseded_by_sign_geometry_revision"
-    assert m["scientific_validation"]["full_contract_run_id"] == 36537159520
-    assert len(m["remaining_scientific_gate"]) == 1
+    assert m["scientific_validation"]["conclusion"] == "success"
+    assert m["scientific_validation"]["full_contract_run_id"] == 36542416391
+    assert m["remaining_scientific_gate"] == []
     assert m["supersedes_submission_freeze"] is True
     sv = m["scientific_validation"]
-    assert sv["full_contract_run_id"] == 36537159520
-    assert sv["conclusion"] == "superseded_by_sign_geometry_revision"
+    assert sv["full_contract_run_id"] == 36542416391
+    assert sv["conclusion"] == "success"
     assert sv["scale_aware_manuscript"] is True
+    assert sv["interaction_function_sign_geometry"] is True
     assert sv["double_anonymous"] is True
     assert sv["figures_tables_reproduced"] is True
     assert sv["anonymous_reviewer_package_reproduced"] is True
-    assert len(m["remaining_scientific_gate"]) == 1
+    assert m["remaining_scientific_gate"] == []
     assert m["revision_base_commit"] == "e94722fe99dd40b1bebac42fa311f40d9e412ab4"
 
     man = m["manuscript"]
@@ -156,16 +157,16 @@ def main() -> None:
     ):
         assert token in json.dumps(m), token
 
-    assert "**STATUS: NOT SUBMISSION-READY.**" in note
+    assert "**STATUS: SCIENTIFICALLY VALIDATED, HUMAN ADMINISTRATION PENDING.**" in note
     assert "raw-unit multivariate delta covariance" in note
     assert "8.31e-05" in note
     assert "17/17" in note
     assert "Figure 4: estimand-scale sensitivity" in note
 
-    assert "scale_aware_sign_geometry_revision_validation_pending" in metadata
+    assert "scale_aware_scientific_validation_green_human_admin_pending" in metadata
     assert "Scientific validation complete" in metadata
     assert "p = 0.6364" in metadata
-    assert "[ ] sign-geometry revision revalidated in current full CI and anonymous reviewer package" in metadata
+    assert "[x] sign-geometry revision revalidated in current full CI and anonymous reviewer package" in metadata
 
     assert "raw-unit multivariate-delta covariance" in manuscript
     assert "all **17/17 primary direct effects were negative on both oriented g and oriented lnRR**" in manuscript
