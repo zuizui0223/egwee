@@ -1,6 +1,6 @@
-# EGWEE submission state — REOPENED 2026-09-27
+# EGWEE submission state — SCIENTIFIC VALIDATION GREEN 2026-09-29
 
-> **STATUS: NOT SUBMISSION-READY.** The previous ecology-first submission freeze is superseded by a mandatory estimand-scale revision.
+> **STATUS: SCIENTIFICALLY VALIDATED, HUMAN ADMINISTRATION PENDING.** The estimand-scale revision is complete and the current full CI reproduces the manuscript, scale-aware figure/table package, double-anonymous checks and reviewer package. Submission is still not authorised until author/declaration metadata and final approval are complete.
 
 ## Why the freeze was reopened
 
@@ -71,8 +71,6 @@ The 2026-09-27 carried-rho sensitivity files are retained as provenance but are 
 
 ## Submission gate
 
-Journal of Ecology remains the target, but submission is reopened.
+Journal of Ecology remains the target. The scientific gate is now **closed successfully**: the current full contract passed with the scale-aware manuscript, Figure 4/Table 2, Supplementary Table S4, double-anonymous check and anonymous reviewer package.
 
-The scientific gate is satisfied only when the current full CI contract passes with the scale-aware manuscript, scale-aware Figure 4/Table 2, Supplementary Table S4 and anonymous reviewer package.
-
-Human author/declaration approval is a separate later gate. A green CI while `submission_ready=false` means the revision state is internally consistent; it does **not** authorize submission.
+The only remaining gate is human administration: final authorship, affiliations, corresponding-author details, contributions, funding/permits, conflicts and all-author approval. `submission_ready=false` remains intentional until those fields are approved.
