@@ -147,6 +147,10 @@ jobs:
         run: python scripts/check_estimand_scale_robustness.py
       - name: Audit cross-scale process-function geometry
         run: python scripts/check_bottleneck_scale_robustness.py
+      - name: Audit scale-stable interaction-quantity proxy failure
+        run: python scripts/check_scale_stable_quantity_function_proxy_failure.py
+      - name: Audit transition-specific filtering topology
+        run: python scripts/check_transition_specific_filtering.py
       - name: Audit scale-stable interaction-function sign geometry
         run: python scripts/check_if_sign_geometry.py
       - name: Check covariance robustness and certification boundary
