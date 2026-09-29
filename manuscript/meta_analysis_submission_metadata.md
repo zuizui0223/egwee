@@ -5,7 +5,7 @@
 - **Working title:** Habitat fragmentation across plant reproductive life cycles: directional consistency and scale-sensitive response amplitudes
 - **Source manuscript:** `manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md`
 - **Protocol:** `manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md`
-- **Submission state:** `scale_aware_raw_delta_revision_validation_pending`
+- **Submission state:** `scale_aware_scientific_validation_green_human_admin_pending`
 - **Article type:** Research Article / empirical research synthesis
 - **Primary target journal:** **Journal of Ecology**
 - **Fallback venues:** Ecology (Article or Concepts & Synthesis, if reframed for broader ecological generality); Oikos (Meta-analysis)
@@ -38,7 +38,7 @@ The paper now distinguishes scale-robust response direction from scale-dependent
 
 Finite-model NEE/EGWE work is not the framing, estimand, admission rule or inferential target of this paper. It may be cited only as downstream comparative theory where useful.
 
-> **Submission hold:** the historical Hedges-g synthesis is reproducible, but its biological separation/robustness interpretation is estimand-scale dependent. The raw-unit lnRR audit is complete; Journal of Ecology submission remains reopened until the full CI and anonymous reviewer package reproduce the authoritative raw-delta scale analysis.
+> **Scientific validation complete:** the historical Hedges-g synthesis, authoritative raw-unit lnRR audit, cross-scale geometry audit, scale-aware figures/tables, double-anonymous manuscript and reviewer package all reproduce in the current full CI. Submission remains pending only on human author/declaration metadata and final approval.
 
 ## Current quantitative state
 
@@ -99,8 +99,8 @@ Not authorised:
 - [x] journal-specific abstract and keywords shaped;
 - [x] main text converted to Journal of Ecology IMRaD structure;
 - [x] main-text word count audited against the ~8000-word research-article target (current automated count: 6932 words from Introduction onward);
-- [ ] current raw-delta scale-aware figure/table package revalidated in full CI (Figure 4 + Table 2 authoritative; registered-scale 12-programme census moved to Supplementary Table S4);
-- [ ] current anonymous reviewer package reproduces the authoritative 2026-09-29 raw-delta scale audit and bottleneck cross-scale audit;
+- [x] current raw-delta scale-aware figure/table package revalidated in full CI (Figure 4 + Table 2 authoritative; registered-scale 12-programme census moved to Supplementary Table S4);
+- [x] current anonymous reviewer package reproduces the authoritative 2026-09-29 raw-delta scale audit and bottleneck cross-scale audit;
 - [x] estimand-scale audit completed: Hedges-g and lnRR yield materially different response geometry / robustness classifications;
 - [x] manuscript headline revised so no scale-dependent separation/bottleneck claim is presented as scale-invariant;
 - [x] g and lnRR sensitivity reported in Methods, Results, Limitations and figure/table package (Figure 4 + Table 2);
