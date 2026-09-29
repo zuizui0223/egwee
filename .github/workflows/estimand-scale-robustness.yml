@@ -16,6 +16,8 @@ on:
       - 'evidence/meta_extraction/phase2_cf01_sevenello_transect_values_v1.csv'
       - 'evidence/meta_extraction/phase2_cf01_bergsdorf_kakamega_site_values_v1.csv'
       - 'evidence/meta_extraction/ecological_process_function_programme_census_v1.csv'
+      - 'evidence/meta_extraction/bottleneck_scale_robustness_v1.csv'
+      - 'manuscript/BOTTLENECK_SCALE_ROBUSTNESS_2026-09-29.md'
       - '.github/workflows/estimand-scale-robustness.yml'
   workflow_dispatch:
 
