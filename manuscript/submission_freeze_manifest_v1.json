@@ -1,7 +1,7 @@
 {
   "schema_version": 5,
   "updated_on": "2026-09-29",
-  "status": "validation_pending_raw_delta_scale_revision",
+  "status": "scientific_validation_green_human_admin_pending",
   "submission_ready": false,
   "supersedes_submission_freeze": true,
   "revision_base_commit": "e94722fe99dd40b1bebac42fa311f40d9e412ab4",
@@ -143,9 +143,7 @@
     "using ML020 p=1.0 as evidence of equality or coupling",
     "direct empirical validation of finite EGWE or NEE operators"
   ],
-  "remaining_scientific_gate": [
-    "current full CI contract green with authoritative raw-delta manuscript figure table and anonymous-package reproduction"
-  ],
+  "remaining_scientific_gate": [],
   "remaining_human_blockers": [
     "final author list",
     "affiliations",
@@ -154,5 +152,15 @@
     "funding acknowledgements and permits if applicable",
     "conflict of interest declaration",
     "final all-author approval"
-  ]
+  ],
+  "scientific_validation": {
+    "full_contract_run_id": 36537159520,
+    "conclusion": "success",
+    "scale_aware_manuscript": true,
+    "estimand_scale_audit": true,
+    "cross_scale_geometry_audit": true,
+    "double_anonymous": true,
+    "figures_tables_reproduced": true,
+    "anonymous_reviewer_package_reproduced": true
+  }
 }
