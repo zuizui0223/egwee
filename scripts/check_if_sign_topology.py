@@ -96,6 +96,31 @@ def main() -> None:
 
     assert len(panels) == 18
 
+    # Multi-panel programmes reveal whether one landscape exposure fixes the
+    # sign topology across species/panels.
+    multi_panel_ids = {
+        "ML020",
+        "P2_CF01_SEVENELLO_2026",
+        "P2_CF01_BERGSDORF_KAKAMEGA_2006",
+        "P2_CF01_ZURICH_2026",
+    }
+    topology_by_programme = {
+        pid: {x["polarity"] for x in panels if x["programme_id"] == pid}
+        for pid in multi_panel_ids
+    }
+    assert topology_by_programme["ML020"] == {"--"}
+    assert topology_by_programme["P2_CF01_SEVENELLO_2026"] == {"++", "-+"}
+    assert topology_by_programme["P2_CF01_BERGSDORF_KAKAMEGA_2006"] == {"++", "+-"}
+    assert topology_by_programme["P2_CF01_ZURICH_2026"] == {"--", "-+"}
+    heterogeneous_multi_panel = {
+        pid for pid, topology in topology_by_programme.items() if len(topology) > 1
+    }
+    assert heterogeneous_multi_panel == {
+        "P2_CF01_SEVENELLO_2026",
+        "P2_CF01_BERGSDORF_KAKAMEGA_2006",
+        "P2_CF01_ZURICH_2026",
+    }
+
     opposite = [x for x in panels if x["opposite_sign"]]
     assert len(opposite) == 6
     assert sum(x["polarity"] == "+-" for x in opposite) == 2
@@ -154,7 +179,8 @@ def main() -> None:
         "programmes=8 primary_panels=18 opposite_sign_panels=6 "
         "programmes_with_opposite_sign=5 polarity_plus_minus=2 polarity_minus_plus=4 "
         "resolved_IF_programmes=3 all_resolved_F_dominant=3 "
-        "resolved_opposite_sign_programmes=2 resolved_plus_minus=2 resolved_minus_plus=0"
+        "resolved_opposite_sign_programmes=2 resolved_plus_minus=2 resolved_minus_plus=0 "
+        "multi_panel_programmes=4 heterogeneous_sign_topology=3 homogeneous_sign_topology=1"
     )
 
 
