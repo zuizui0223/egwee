@@ -56,6 +56,35 @@ The strongest paper-level conclusion is therefore:
 
 All **17/17 primary direct effects are negative** on both oriented Hedges g and oriented lnRR. This is descriptive scale-stable evidence for a common direction of deterioration, not a sign test and not evidence that response magnitudes are equal.
 
+### Strongest ecological lead: interaction quantity can provide false reassurance
+
+Across the current process–function catalogue, the **representation-stable resolved mismatches are asymmetric**. The three programmes that remain clearly downstream function-dominant under their audited representations are:
+
+- *Eucalyptus wandoo* — pollen-tube quantity increases while seed production declines;
+- *Cardiopetalum calophyllum* — pollinator abundance changes weakly while fruit set declines strongly;
+- Kakamega *Acanthopale pubescens* — visitation occurrence is maintained/slightly elevated while fruit set declines, and the geometry survives g→lnRR re-expression.
+
+These programmes span Western Australia, Brazilian cerrado and western Kenya; Myrtaceae, Annonaceae and Acanthaceae; and very different pollination/mating systems.
+
+At the same time, all **8/8** registered I–F programmes measure interaction/pollen **quantity**, while **0/8** directly measure compatible mating quality on the same frame.
+
+The resulting exploratory generalization is:
+
+> **Apparently intact interaction quantity is not a sufficient stand-alone proxy for reproductive function under fragmentation.**
+
+This is not a prevalence estimate and does not imply one shared mechanism. The canonical audit is `manuscript/SCALE_STABLE_QUANTITY_FUNCTION_PROXY_FAILURE_2026-09-29.md`.
+
+### Exploratory transition-filtering principle
+
+The current data also motivate a broader non-monotonic propagation hypothesis:
+
+- interaction quantity → F can amplify or invert;
+- movement/mating → F shows the same process-more-negative point ordering in all three direct anchors on both g and lnRR, although significance is scale-sensitive;
+- adult → offspring genetic lag is **not** general: the preregistered five-programme contrast is +0.129 with 95% CI spanning zero.
+
+The proposed general principle is **transition-specific filtering**, not one universal bottleneck or one monotonic upstream→downstream gradient. See `manuscript/TRANSITION_SPECIFIC_FILTERING_AUDIT_2026-09-29.md`.
+
+
 ML020 Chaco remains the key same-direction low-power counterexample: its registered programme difference test gives `p_ML020=1.0`. With four independent habitat units per condition, this means **the I–F magnitude difference is unresolved**, not that the true interaction and reproductive effects are demonstrated equal or biologically coupled.
 
 ### Why the old Serapias bottleneck headline was withdrawn
