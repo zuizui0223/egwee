@@ -49,7 +49,7 @@ def main() -> None:
     assert re["ci95_mKH"][0] < 0 < re["ci95_mKH"][1]
     assert abs(re["p_two_sided_t"] - 0.672436401972) < 1e-12
     contrasts = [
-        row["programme_contrast"]
+        row["pooled_mean"]
         for row in gpair["leave_one_programme_out"]
     ]
     assert min(contrasts) < 0 < max(contrasts)
