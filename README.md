@@ -87,12 +87,17 @@ This is **hypothesis-generating only**. It is not a confirmed macroecological la
 
 ### Canonical scale audit
 
-- [`manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-27_ESTIMAND_SCALE.md`](manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-27_ESTIMAND_SCALE.md)
-- [`manuscript/ESTIMAND_SCALE_SENSITIVITY_RESULT_2026-09-27.md`](manuscript/ESTIMAND_SCALE_SENSITIVITY_RESULT_2026-09-27.md)
-- [`evidence/meta_extraction/estimand_scale_sensitivity_v1.csv`](evidence/meta_extraction/estimand_scale_sensitivity_v1.csv)
-- [`scripts/check_estimand_scale_sensitivity.py`](scripts/check_estimand_scale_sensitivity.py)
+Authoritative 2026-09-29 files:
 
-The older 12-programme bottleneck census and associated Q → E → F design remain useful exploratory development work, but they are not current submission-headline evidence until they survive scale-aware reanalysis.
+- [`manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-29_EFFECT_SCALE.md`](manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-29_EFFECT_SCALE.md)
+- [`manuscript/ESTIMAND_SCALE_ROBUSTNESS_2026-09-29.md`](manuscript/ESTIMAND_SCALE_ROBUSTNESS_2026-09-29.md)
+- [`manuscript/BOTTLENECK_SCALE_ROBUSTNESS_2026-09-29.md`](manuscript/BOTTLENECK_SCALE_ROBUSTNESS_2026-09-29.md)
+- [`evidence/meta_extraction/estimand_scale_robustness_v1.csv`](evidence/meta_extraction/estimand_scale_robustness_v1.csv)
+- [`evidence/meta_extraction/bottleneck_scale_robustness_v1.csv`](evidence/meta_extraction/bottleneck_scale_robustness_v1.csv)
+- [`scripts/check_estimand_scale_robustness.py`](scripts/check_estimand_scale_robustness.py)
+- [`scripts/check_bottleneck_scale_robustness.py`](scripts/check_bottleneck_scale_robustness.py)
+
+The earlier 2026-09-27 estimand sensitivity and registered-scale bottleneck files remain provenance. The 12-programme process–function catalogue is now **exploratory registered-scale evidence**: downstream identity is stable across the audited representations, but upstream system attribution changes with effect scale.
 
 ## Meta-analysis architecture
 
