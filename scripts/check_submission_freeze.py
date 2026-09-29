@@ -147,7 +147,7 @@ def main() -> None:
 
     assert "SUPERSEDED" not in scale_result
     assert "raw-unit delta covariance" in scale_result
-    assert "mandatory sensitivity audit" in amendment
+    assert "### 2. Mandatory scale sensitivity" in amendment
 
     print(
         "REVISION_STATE_V5_OK "
