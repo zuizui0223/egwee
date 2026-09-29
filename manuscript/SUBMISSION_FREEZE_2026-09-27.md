@@ -63,6 +63,8 @@ The revised main package uses:
 - `evidence/meta_extraction/estimand_scale_fisher_sensitivity_v2.csv`
 - `scripts/check_estimand_scale_robustness.py`
 - `scripts/check_bottleneck_scale_robustness.py`
+- `evidence/meta_extraction/bottleneck_scale_robustness_v1.csv`
+- `manuscript/BOTTLENECK_SCALE_ROBUSTNESS_2026-09-29.md`
 - `manuscript/EXPLORATORY_TRANSITION_FILTERING_2026-09-27.md`
 
 The 2026-09-27 carried-rho sensitivity files are retained as provenance but are superseded for main lnRR dependence reconstruction by the 2026-09-29 raw-unit delta audit.
