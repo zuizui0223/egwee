@@ -84,6 +84,8 @@ The current data also motivate a broader non-monotonic propagation hypothesis:
 
 The proposed general principle is **transition-specific filtering**, not one universal bottleneck or one monotonic upstream→downstream gradient. See `manuscript/TRANSITION_SPECIFIC_FILTERING_AUDIT_2026-09-29.md`.
 
+Canonical synthesis: `manuscript/ECOLOGICAL_GENERALITY_AND_SURPRISE_2026-09-29.md`.
+
 
 ML020 Chaco remains the key same-direction low-power counterexample: its registered programme difference test gives `p_ML020=1.0`. With four independent habitat units per condition, this means **the I–F magnitude difference is unresolved**, not that the true interaction and reproductive effects are demonstrated equal or biologically coupled.
 
