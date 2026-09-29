@@ -19,6 +19,8 @@ FILES = [
     "manuscript/ESTIMAND_SCALE_SENSITIVITY_RESULT_2026-09-27.md",
     "manuscript/ESTIMAND_SCALE_ROBUSTNESS_2026-09-29.md",
     "manuscript/BOTTLENECK_SCALE_ROBUSTNESS_2026-09-29.md",
+    "manuscript/SCALE_STABLE_QUANTITY_FUNCTION_PROXY_FAILURE_2026-09-29.md",
+    "manuscript/TRANSITION_SPECIFIC_FILTERING_AUDIT_2026-09-29.md",
     "manuscript/IF_SIGN_GEOMETRY_2026-09-29.md",
     "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-29_EFFECT_SCALE.md",
     "manuscript/ECOLOGICAL_IF_DIRECTION_CENSUS_2026-09-27.md",
@@ -32,6 +34,8 @@ FILES = [
     "scripts/check_estimand_scale_sensitivity.py",
     "scripts/check_estimand_scale_robustness.py",
     "scripts/check_bottleneck_scale_robustness.py",
+    "scripts/check_scale_stable_quantity_function_proxy_failure.py",
+    "scripts/check_transition_specific_filtering.py",
     "scripts/check_if_sign_geometry.py",
     "scripts/check_ecological_if_programme_census.py",
     "scripts/check_ecological_process_function_programme_census.py",
@@ -65,6 +69,9 @@ FILES = [
     "evidence/meta_extraction/estimand_scale_cluster_summary_v1.csv",
     "evidence/meta_extraction/estimand_scale_robustness_v1.csv",
     "evidence/meta_extraction/bottleneck_scale_robustness_v1.csv",
+    "evidence/meta_extraction/scale_stable_quantity_function_proxy_failure_v1.csv",
+    "evidence/meta_extraction/transition_filtering_topology_v1.csv",
+    "evidence/meta_extraction/phase2_gpair_synthesis_v1.json",
     "evidence/meta_extraction/if_sign_geometry_census_v1.csv",
     "evidence/meta_extraction/estimand_scale_cluster_summary_v2.csv",
     "evidence/meta_extraction/estimand_scale_fisher_sensitivity_v2.csv",
@@ -131,6 +138,15 @@ python scripts/check_bottleneck_scale_robustness.py
 ```
 
 The first command reconstructs oriented lnRR from aligned independent units, including multivariate delta covariance, validates the Serapias rank reversal, compares full/omit-ML001 Fisher conclusions, and verifies 17/17 negative primary direct effects on both scales. The second checks which process–function geometries persist across scale representations. ML014 retrieves the same public TERN family table used by the source recovery; network access is therefore required for that one raw-unit reconstruction.
+
+## Reproduce exploratory ecological leads
+
+```bash
+python scripts/check_scale_stable_quantity_function_proxy_failure.py
+python scripts/check_transition_specific_filtering.py
+```
+
+These checks verify the three cross-context downstream proxy-failure programmes, the 8/8 quantity-only measurement gap, the cross-scale movement/mating point ordering, and the five-programme negative adult–offspring lag result. They are exploratory ecological synthesis checks, not confirmatory prevalence tests.
 
 The earlier `check_estimand_scale_sensitivity.py` carried-rho analysis is retained as provenance only and is not the authoritative lnRR covariance reconstruction.
 
