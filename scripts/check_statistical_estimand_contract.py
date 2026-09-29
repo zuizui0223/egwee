@@ -24,7 +24,7 @@ def main() -> None:
         "chi-square reference distribution with `2K` degrees of freedom",
         "does **not** estimate a common mean layer difference",
         "it is not affirmative evidence that biological layers are exchangeable",
-        "not evidence that their true fragmentation effects are exactly equal",
+        "not evidence that the true responses are equal or biologically coupled",
     )
     for token in required:
         assert token in text, token
