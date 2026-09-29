@@ -14,6 +14,8 @@ The current direct corpus shows that Hedges g and lnRR can give different endpoi
 
 Therefore a fresh test of propagation, buffering or bottleneck position must declare its response-amplitude estimand before outcomes are inspected.
 
+An **outcome-selected effect scale is forbidden**: the analysis may not switch between lnRR, Hedges g or another representation after seeing which one yields the preferred ecological ordering.
+
 ## Fresh direct-programme effect scale
 
 For positive-valued Q, E and F endpoints measured under a fragmented-versus-reference design:
