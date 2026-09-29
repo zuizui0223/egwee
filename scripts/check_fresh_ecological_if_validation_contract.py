@@ -28,6 +28,9 @@ def main() -> None:
     assert c["amended_on"] == "2026-09-29"
     assert c["previous_amendment"] == "manuscript/FRESH_ECOLOGICAL_IF_VALIDATION_AMENDMENT_2026-09-27_BOTTLENECK_LOCALIZATION.md"
     assert c["amendment"] == "manuscript/FRESH_ECOLOGICAL_IF_VALIDATION_AMENDMENT_2026-09-29_EFFECT_SCALE.md"
+    assert c["effect_family_boundary"]["direct_primary"] == "oriented_lnRR_for_positive_Q_E_F"
+    assert c["effect_family_boundary"]["direct_mandatory_sensitivity"] == "Hedges_g_same_independent_units"
+    assert c["effect_family_boundary"]["gradient_primary"] == "Fisher_z_or_prespecified_native_model_scale"
     assert c["effect_family_boundary"]["cross_family_pooling"] is False
     assert c["field_module"] == "manuscript/FRESH_ECOLOGICAL_IF_SYNCHRONIZED_FIELD_MODULE_V1.md"
     assert c["current_manuscript_role"] == "scale_sensitive_discovery_synthesis_not_fresh_confirmation"
