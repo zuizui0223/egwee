@@ -56,6 +56,8 @@ The strongest paper-level conclusion is therefore:
 
 All **17/17 primary direct effects are negative** on both oriented Hedges g and oriented lnRR. This is descriptive scale-stable evidence for a common direction of deterioration, not a sign test and not evidence that response magnitudes are equal.
 
+ML020 Chaco remains the key same-direction low-power counterexample: its registered programme difference test gives `p_ML020=1.0`. With four independent habitat units per condition, this means **the I–F magnitude difference is unresolved**, not that the true interaction and reproductive effects are demonstrated equal or biologically coupled.
+
 ### Why the old Serapias bottleneck headline was withdrawn
 
 ML001 *Serapias* illustrates the scale problem directly:
