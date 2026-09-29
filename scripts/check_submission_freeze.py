@@ -54,20 +54,20 @@ def main() -> None:
     assert m["supersedes_submission_freeze"] is True
     sv = m["scientific_validation"]
     assert sv["full_contract_run_id"] == 36537159520
-    assert sv["conclusion"] == "success"
+    assert sv["conclusion"] == "superseded_by_sign_geometry_revision"
     assert sv["scale_aware_manuscript"] is True
     assert sv["double_anonymous"] is True
     assert sv["figures_tables_reproduced"] is True
     assert sv["anonymous_reviewer_package_reproduced"] is True
-    assert m["remaining_scientific_gate"] == []
+    assert len(m["remaining_scientific_gate"]) == 1
     assert m["revision_base_commit"] == "e94722fe99dd40b1bebac42fa311f40d9e412ab4"
 
     man = m["manuscript"]
     assert git_blob_sha(MANUSCRIPT) == man["blob_sha"]
     assert man["title"] == "Habitat fragmentation across plant reproductive life cycles: directional consistency and scale-sensitive response amplitudes"
     assert man["target_journal"] == "Journal of Ecology"
-    assert man["main_text_words"] == 6932
-    assert man["abstract_words"] == 273
+    assert man["main_text_words"] == 7784
+    assert man["abstract_words"] == 290
     assert manuscript.startswith("# " + man["title"])
 
     g = m["historical_primary_g"]
