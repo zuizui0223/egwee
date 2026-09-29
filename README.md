@@ -69,11 +69,29 @@ ML001 *Serapias* illustrates the scale problem directly:
 
 Thus the earlier claim that *Serapias* supplies a resolved upstream movement/connectivity bottleneck is not scale-stable.
 
-### Scale-independent qualitative discordance
+### Scale-independent qualitative interaction–function discordance
 
-The primary direct stream contains **no sign reversal** among its 17 effects.
+The primary direct stream contains **no sign reversal** among its 17 effects, but the broader matched I–F evidence does.
 
-The clearest qualitative process discordance remains outside that primary direct stream in the separate *Eucalyptus wandoo* gradient, where interaction/pollen quantity is positive while reproductive function is negative on the registered Fisher-z scale.
+Across **18 primary I–F panels from 8 independent programmes**, six panels have opposite interaction/function signs. Those panels occur in **five independent programmes** and include both directions:
+
+- **I+, F−**: maintained/increased interaction quantity with reproductive decline (*Eucalyptus wandoo*; Kakamega *Acanthopale*);
+- **I−, F+**: interaction decline with reproductive function retained/increased (Sevenello LARO/POAR; Zurich *Onobrychis*; Toronto milkweed).
+
+The more surprising result is within shared landscape frames. Of four multi-panel programmes, **three contain more than one sign geometry among focal species/panels**:
+
+- Sevenello: I+,F+ and I−,F+;
+- Kakamega: I+,F− and I+,F+;
+- Zurich: I−,F+ and I−,F−.
+
+Only Chaco is sign-uniform (I−,F− across all three retained species).
+
+This supports a scale-stable ecological statement: **interaction quantity is not a monotonic proxy for reproductive function, and the same landscape exposure can propagate differently among focal plant species.** The counts are descriptive; 5/8 is not treated as a prevalence estimate or sign/binomial test.
+
+Canonical sign audit:
+- [`manuscript/IF_SIGN_GEOMETRY_2026-09-29.md`](manuscript/IF_SIGN_GEOMETRY_2026-09-29.md)
+- [`evidence/meta_extraction/if_sign_geometry_census_v1.csv`](evidence/meta_extraction/if_sign_geometry_census_v1.csv)
+- [`scripts/check_if_sign_geometry.py`](scripts/check_if_sign_geometry.py)
 
 ### Exploratory ecological hypotheses
 
