@@ -81,7 +81,11 @@
     "upstream_identity_stable": false,
     "both_directions_present_g": true,
     "both_directions_present_lnRR": true,
-    "claim": "both upstream and downstream response geometries appear under both representations, but system-specific upstream attribution is scale-sensitive"
+    "claim": "both upstream and downstream response geometries appear under both representations, but system-specific upstream attribution is scale-sensitive",
+    "scale_table": "evidence/meta_extraction/bottleneck_scale_robustness_v1.csv",
+    "result_note": "manuscript/BOTTLENECK_SCALE_ROBUSTNESS_2026-09-29.md",
+    "checker": "scripts/check_bottleneck_scale_robustness.py",
+    "registered_scale_census_status": "supplementary_exploratory_only"
   },
   "scale_stable_claims": [
     "all 17 primary direct effects are negative on both oriented Hedges g and oriented lnRR",
