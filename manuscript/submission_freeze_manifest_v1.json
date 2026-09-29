@@ -85,7 +85,9 @@
     "scale_table": "evidence/meta_extraction/bottleneck_scale_robustness_v1.csv",
     "result_note": "manuscript/BOTTLENECK_SCALE_ROBUSTNESS_2026-09-29.md",
     "checker": "scripts/check_bottleneck_scale_robustness.py",
-    "registered_scale_census_status": "supplementary_exploratory_only"
+    "registered_scale_census_status": "supplementary_exploratory_only",
+    "scale_table_blob_sha": "0ac17cbcddaca3a3c590cf678e04ca5b36426a11",
+    "result_note_blob_sha": "a4e02c9cf669f76a64a7267dfeca0c184c09b794"
   },
   "scale_stable_claims": [
     "all 17 primary direct effects are negative on both oriented Hedges g and oriented lnRR",
@@ -115,7 +117,7 @@
     "supplementary_table_s4": "manuscript/tables/table_s4_process_function_census.csv"
   },
   "anonymous_package": {
-    "builder_blob_sha": "ca8ab1b12ffc4738102d38fb1c9f6945fd1e4c51",
+    "builder_blob_sha": "f4665a300ffa2521edc99c876af69f601578d029",
     "reproduces_authoritative_raw_delta_scale_audit": true,
     "reproduces_bottleneck_cross_scale_audit": true,
     "reproduces_historical_g": true,
