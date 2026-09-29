@@ -16,6 +16,8 @@ SCALE_SUMMARY = ROOT / "evidence/meta_extraction/estimand_scale_cluster_summary_
 SCALE_FISHER = ROOT / "evidence/meta_extraction/estimand_scale_fisher_sensitivity_v2.csv"
 SCALE_RESULT = ROOT / "manuscript/ESTIMAND_SCALE_ROBUSTNESS_2026-09-29.md"
 SCALE_AMENDMENT = ROOT / "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-29_EFFECT_SCALE.md"
+BOTTLENECK_SCALE_TABLE = ROOT / "evidence/meta_extraction/bottleneck_scale_robustness_v1.csv"
+BOTTLENECK_SCALE_NOTE = ROOT / "manuscript/BOTTLENECK_SCALE_ROBUSTNESS_2026-09-29.md"
 
 FIGURE_BUILDER = ROOT / "scripts/build_journal_of_ecology_figures.py"
 FIGURE_CAPTIONS = ROOT / "manuscript/JOURNAL_OF_ECOLOGY_FIGURE_CAPTIONS.md"
@@ -81,6 +83,8 @@ def main() -> None:
     assert s["lnRR_cauchy_omit_ML001_p"] > 0.05
 
     geom = m["cross_scale_process_function_geometry"]
+    assert git_blob_sha(BOTTLENECK_SCALE_TABLE) == geom["scale_table_blob_sha"]
+    assert git_blob_sha(BOTTLENECK_SCALE_NOTE) == geom["result_note_blob_sha"]
     assert geom["downstream_identity_stable"] is True
     assert geom["upstream_identity_stable"] is False
     assert geom["both_directions_present_g"] is True
