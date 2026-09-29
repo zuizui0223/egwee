@@ -19,11 +19,12 @@
     "H3": "F-dominant mismatch should be stronger or more frequent under source-supported outcrossing dependence and absent autonomous reproductive assurance"
   },
   "effect_family_boundary": {
-    "direct": "Hedges_g",
-    "gradient": "Fisher_z",
+    "direct_primary": "oriented_lnRR_for_positive_Q_E_F",
+    "direct_mandatory_sensitivity": "Hedges_g_same_independent_units",
+    "gradient_primary": "Fisher_z_or_prespecified_native_model_scale",
     "cross_family_pooling": false
   },
-  "primary_estimand": "Delta_QF=Q-F for quantity-function decoupling; H2-v2 primary Delta_QE=Q-E; secondary Delta_EF=E-F",
+  "primary_estimand": "Fresh direct programmes: primary Delta_QE=lnRR_Q-lnRR_E; secondary Delta_QF=lnRR_Q-lnRR_F and Delta_EF=lnRR_E-lnRR_F; Hedges-g repeats all direct contrasts as mandatory sensitivity",
   "fresh_gate": {
     "min_programmes_per_effect_family": 5,
     "min_programmes_per_categorical_level": 4,
