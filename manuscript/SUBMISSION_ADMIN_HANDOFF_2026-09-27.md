@@ -2,7 +2,7 @@
 
 ## Automated scientific package
 
-The scientific revision is scale-aware, but submission is still on hold until the current full CI contract is green. The intended reviewer-facing package includes:
+The scientific revision is scale-aware and the current full CI is green. The validated reviewer-facing package includes:
 
 - ecology-first manuscript title, abstract, keywords and IMRaD structure;
 - primary 5-cluster / 17-effect synthesis and influence analysis;
@@ -16,7 +16,7 @@ The scientific revision is scale-aware, but submission is still on hold until th
 - anonymous reviewer code/data package reproduction;
 - fresh-validation preregistration kept separate from the current discovery/synthesis manuscript.
 
-Do not proceed to administrative submission completion until the scale-aware full CI and anonymous-package reproduction are green. After that gate passes, scientific files should not be reopened merely to fill administrative metadata.
+The scientific gate has passed. Do not reopen scientific files merely to fill administrative metadata; proceed only with the human submission fields below.
 
 ## Human-only items still required
 
@@ -84,7 +84,7 @@ Replace the title-page placeholder with either the approved conflict declaration
 
 ### 7. Data and code availability at submission
 
-The reviewer-facing anonymous package is being revalidated against the 2026-09-29 raw-unit lnRR audit and cross-scale geometry audit.
+The reviewer-facing anonymous package has been reproduced successfully against the 2026-09-29 raw-unit lnRR audit and cross-scale geometry audit.
 
 Before final submission confirm whether the journal requires:
 
@@ -134,9 +134,6 @@ Administrative state:
 
 ## Submission boundary
 
-Current blockers are:
-
-1. **scientific validation:** full scale-aware CI and anonymous reviewer-package reproduction must be green;
-2. **human administration:** author list, affiliations, corresponding-author details, contributions, funding/permits, conflicts and final approval.
+Current blockers are **human administration only**: author list, affiliations, corresponding-author details, contributions, funding/permits, conflicts and final approval.
 
 Human administrative fields are intentionally not auto-filled from account information, repository history or inferred identity.
