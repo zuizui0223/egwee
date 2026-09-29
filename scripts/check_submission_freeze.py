@@ -43,9 +43,17 @@ def main() -> None:
 
     assert m["schema_version"] == 5
     assert m["updated_on"] == "2026-09-29"
-    assert m["status"] == "validation_pending_raw_delta_scale_revision"
+    assert m["status"] == "scientific_validation_green_human_admin_pending"
     assert m["submission_ready"] is False
     assert m["supersedes_submission_freeze"] is True
+    sv = m["scientific_validation"]
+    assert sv["full_contract_run_id"] == 36537159520
+    assert sv["conclusion"] == "success"
+    assert sv["scale_aware_manuscript"] is True
+    assert sv["double_anonymous"] is True
+    assert sv["figures_tables_reproduced"] is True
+    assert sv["anonymous_reviewer_package_reproduced"] is True
+    assert m["remaining_scientific_gate"] == []
     assert m["revision_base_commit"] == "e94722fe99dd40b1bebac42fa311f40d9e412ab4"
 
     man = m["manuscript"]
@@ -129,14 +137,14 @@ def main() -> None:
     ):
         assert token in json.dumps(m), token
 
-    assert "**STATUS: NOT SUBMISSION-READY.**" in note
+    assert "**STATUS: SCIENTIFICALLY VALIDATED, HUMAN ADMINISTRATION PENDING.**" in note
     assert "raw-unit multivariate delta covariance" in note
     assert "8.31e-05" in note
     assert "17/17" in note
     assert "Figure 4: estimand-scale sensitivity" in note
 
-    assert "scale_aware_raw_delta_revision_validation_pending" in metadata
-    assert "Submission hold" in metadata
+    assert "scale_aware_scientific_validation_green_human_admin_pending" in metadata
+    assert "Scientific validation complete" in metadata
     assert "p = 0.6364" in metadata
     assert "current raw-delta scale-aware figure/table package revalidated" in metadata
 
@@ -150,7 +158,7 @@ def main() -> None:
     assert "### 2. Mandatory scale sensitivity" in amendment
 
     print(
-        "REVISION_STATE_V5_OK "
+        "SCIENTIFIC_VALIDATION_GREEN_V5_OK "
         "submission_ready=false g_full=0.012124326106 g_drop_ML001=0.181943527111 "
         "lnRR_raw_delta_full=1.191708e-12 lnRR_raw_delta_drop_ML001=8.314427e-05 "
         "primary_negative_g=17 primary_negative_lnRR=17 sign_discordance=0 "
