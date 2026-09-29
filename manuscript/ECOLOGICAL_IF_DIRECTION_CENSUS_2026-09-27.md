@@ -1,4 +1,10 @@
 # Complete registered I–F direction census — 2026-09-27
+## Status after the 2026-09-29 estimand-scale audit
+
+This document is retained as **registered-scale exploratory provenance**. It is not a current scale-invariant manuscript claim.
+
+The authoritative effect-scale interpretation is in `manuscript/ESTIMAND_SCALE_ROBUSTNESS_2026-09-29.md` and `manuscript/BOTTLENECK_SCALE_ROBUSTNESS_2026-09-29.md`. Hedges-g and lnRR give different system-specific magnitude/separation classifications. Any bottleneck, ordering or direction-census statement below must therefore be read as conditional on its declared effect representation.
+
 
 ## Question
 
