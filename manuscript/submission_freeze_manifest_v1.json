@@ -7,11 +7,11 @@
   "revision_base_commit": "e94722fe99dd40b1bebac42fa311f40d9e412ab4",
   "manuscript": {
     "path": "manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md",
-    "blob_sha": "0d8a01e7ada003043953326d474db7ddff4ea835",
+    "blob_sha": "67fb6ccdc191d2a7da7af356dfeba5b3123f807d",
     "title": "Habitat fragmentation across plant reproductive life cycles: directional consistency and scale-sensitive response amplitudes",
     "target_journal": "Journal of Ecology",
-    "main_text_words": 7784,
-    "abstract_words": 290
+    "main_text_words": 7884,
+    "abstract_words": 328
   },
   "historical_primary_g": {
     "independent_clusters": 5,
@@ -121,7 +121,7 @@
     "supplementary_table_s5": "manuscript/tables/table_s5_if_sign_geometry.csv"
   },
   "anonymous_package": {
-    "builder_blob_sha": "36f231753b247ee170cc692e6c3e66ce44f75519",
+    "builder_blob_sha": "35271c66f8d1af306975118af8cfde5891f97217",
     "reproduces_authoritative_raw_delta_scale_audit": true,
     "reproduces_bottleneck_cross_scale_audit": true,
     "reproduces_historical_g": true,
@@ -151,7 +151,7 @@
     "inferring one common compensation or pollen-quality mechanism from sign discordance alone"
   ],
   "remaining_scientific_gate": [
-    "current full CI green after ecological-lead manuscript revision and new exploratory audit checks"
+    "full CI green after ecological-lead manuscript revision, exploratory audit checks and anonymous-package reproduction"
   ],
   "remaining_human_blockers": [
     "final author list",
@@ -211,7 +211,8 @@
       "claim": "interaction quantity is not a sufficient stand-alone proxy for reproductive function under fragmentation",
       "status": "cross_context_exploratory_generalization_not_prevalence_estimate",
       "evidence_table": "evidence/meta_extraction/scale_stable_quantity_function_proxy_failure_v1.csv",
-      "note": "manuscript/SCALE_STABLE_QUANTITY_FUNCTION_PROXY_FAILURE_2026-09-29.md"
+      "note": "manuscript/SCALE_STABLE_QUANTITY_FUNCTION_PROXY_FAILURE_2026-09-29.md",
+      "note_blob_sha": "ddb85509c9a4c6a3353f52b41ccffab12beb2040"
     },
     "transition_specific_filtering": {
       "interaction_to_F_stable_downstream": 3,
@@ -219,7 +220,12 @@
       "adult_offspring_programmes": 5,
       "adult_offspring_common_lag_resolved": false,
       "note": "manuscript/TRANSITION_SPECIFIC_FILTERING_AUDIT_2026-09-29.md",
-      "status": "post_hoc_hypothesis_generating"
+      "status": "post_hoc_hypothesis_generating",
+      "note_blob_sha": "9101362629b4628d6d1855483ab0cec528044ee2"
     }
+  },
+  "ecological_generality_and_surprise": {
+    "path": "manuscript/ECOLOGICAL_GENERALITY_AND_SURPRISE_2026-09-29.md",
+    "blob_sha": "087d46cb8df9f34f028295f290d6aec89d44b767"
   }
 }
