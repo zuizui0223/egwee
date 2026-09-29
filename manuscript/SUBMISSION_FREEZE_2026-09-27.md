@@ -1,4 +1,4 @@
-# EGWEE submission state — SCIENTIFIC VALIDATION GREEN 2026-09-29
+# EGWEE submission state — SIGN-GEOMETRY REVISION VALIDATION PENDING 2026-09-29
 
 > **STATUS: SCIENTIFICALLY VALIDATED, HUMAN ADMINISTRATION PENDING.** The estimand-scale revision is complete and the current full CI reproduces the manuscript, scale-aware figure/table package, double-anonymous checks and reviewer package. Submission is still not authorised until author/declaration metadata and final approval are complete.
 
@@ -74,3 +74,15 @@ The 2026-09-27 carried-rho sensitivity files are retained as provenance but are 
 Journal of Ecology remains the target. The scientific gate is now **closed successfully**: the current full contract passed with the scale-aware manuscript, Figure 4/Table 2, Supplementary Table S4, double-anonymous check and anonymous reviewer package.
 
 The only remaining gate is human administration: final authorship, affiliations, corresponding-author details, contributions, funding/permits, conflicts and all-author approval. `submission_ready=false` remains intentional until those fields are approved.
+
+
+## Scale-stable interaction–function sign geometry
+
+The broader matched I–F evidence contains 18 primary panels from 8 independent programmes. Six panels have opposite I/F signs and occur in 5 independent programmes. Both I+,F− and I−,F+ geometries occur. Three of four multi-panel programmes show more than one sign geometry among focal species/panels under the same registered exposure frame.
+
+This is a descriptive existence result, not a prevalence estimate or independent-trial sign test.
+
+Canonical files:
+- `manuscript/IF_SIGN_GEOMETRY_2026-09-29.md`
+- `evidence/meta_extraction/if_sign_geometry_census_v1.csv`
+- `scripts/check_if_sign_geometry.py`
