@@ -8,6 +8,7 @@ on:
       - 'scripts/check_estimand_scale_robustness.py'
       - 'scripts/check_bottleneck_scale_robustness.py'
       - 'scripts/check_if_sign_topology.py'
+      - 'scripts/check_bidirectional_masking.py'
       - 'scripts/check_process_function_difference_sign_stability.py'
       - 'scripts/synthesize_state_separation.py'
       - 'evidence/meta_extraction/PS003_serapias_site_table_v1.csv'
