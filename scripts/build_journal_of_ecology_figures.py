@@ -18,6 +18,7 @@ BERGSDORF_EFFECTS = ROOT / "evidence/meta_extraction/phase2_cf01_bergsdorf_kakam
 IF_CENSUS = ROOT / "evidence/meta_extraction/ecological_if_programme_census_v1.csv"
 MATING_FUNCTION_CENSUS = ROOT / "evidence/meta_extraction/ecological_mating_function_programme_census_v1.csv"
 PROCESS_FUNCTION_CENSUS = ROOT / "evidence/meta_extraction/ecological_process_function_programme_census_v1.csv"
+IF_SIGN_GEOMETRY = ROOT / "evidence/meta_extraction/if_sign_geometry_census_v1.csv"
 SCALE_EFFECTS = ROOT / "evidence/meta_extraction/estimand_scale_sensitivity_v1.csv"
 SCALE_SUMMARY = ROOT / "evidence/meta_extraction/estimand_scale_cluster_summary_v2.csv"
 REGISTRY = ROOT / "evidence/meta_extraction/multilayer_cluster_registry_v1.csv"
@@ -469,6 +470,20 @@ def table_s4_process_function_census() -> None:
         writer.writeheader()
         writer.writerows(census)
 
+
+def table_s5_if_sign_geometry() -> None:
+    census = rows(IF_SIGN_GEOMETRY)
+    assert len(census) == 18
+    assert len({r["programme_id"] for r in census}) == 8
+    assert sum(r["interaction_sign"] != r["function_sign"] for r in census) == 6
+    TABLEDIR.mkdir(parents=True, exist_ok=True)
+    out = TABLEDIR / "table_s5_if_sign_geometry.csv"
+    fields = list(census[0].keys())
+    with out.open("w", newline="", encoding="utf-8") as fh:
+        writer = csv.DictWriter(fh, fieldnames=fields)
+        writer.writeheader()
+        writer.writerows(census)
+
 def main() -> None:
     result = canonical_result()
     figure1_coverage()
@@ -478,6 +493,7 @@ def main() -> None:
     table1(result)
     table2_estimand_scale_sensitivity()
     table_s4_process_function_census()
+    table_s5_if_sign_geometry()
     expected = [
         FIGDIR / "figure1_primary_evidence_geometry.svg",
         FIGDIR / "figure2_leave_one_out_influence.svg",
@@ -486,11 +502,13 @@ def main() -> None:
         TABLEDIR / "table1_primary_cluster_summary.csv",
         TABLEDIR / "table2_estimand_scale_sensitivity.csv",
         TABLEDIR / "table_s4_process_function_census.csv",
+        TABLEDIR / "table_s5_if_sign_geometry.csv",
     ]
     assert all(p.is_file() and p.stat().st_size > 500 for p in expected[:4])
     assert expected[4].is_file() and expected[4].stat().st_size > 200
     assert expected[5].is_file() and expected[5].stat().st_size > 400
     assert expected[6].is_file() and expected[6].stat().st_size > 400
+    assert expected[7].is_file() and expected[7].stat().st_size > 400
     print("JOURNAL_OF_ECOLOGY_FIGURES_OK " + " ".join(str(p.relative_to(ROOT)) for p in expected))
 
 
