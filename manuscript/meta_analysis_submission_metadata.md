@@ -63,6 +63,10 @@ Authorised manuscript-level ecological claims:
 - *Serapias* itself shows a strong scale reversal: absolute response ordering changes from `G > C > F` on Hedges g to `C > F > G` on oriented lnRR, and the C–F contrast is unresolved on lnRR using raw-unit delta covariance (`p = 0.6364`);
 - all **17/17 primary direct effects are negative** on both oriented Hedges g and oriented lnRR; this common deterioration direction is the strongest scale-stable result in the primary direct stream;
 - the primary direct stream therefore supports directional consistency of fragmentation-associated deterioration, but not a scale-independent ordering or magnitude separation among response layers;
+- the strongest cross-context ecological lead is interaction-quantity proxy failure: Wandoo, Cardiopetalum and Kakamega provide independent downstream function-dominant mismatches that remain stable under their audited representations;
+- all 8 registered I–F programmes measure interaction/pollen quantity and 0 directly measure effective mating quality on the same I–F frame;
+- all three direct movement/mating–F anchors retain the same process-more-negative point ordering on g and lnRR, but statistical resolution is scale-sensitive; this is exploratory transition-filtering evidence, not a confirmatory 3/3 test;
+- the preregistered five-programme adult–offspring family does not resolve a common directional cohort lag (mean +0.129; mKH 95% CI -0.655 to +0.912; p=0.672);
 - the separate *Eucalyptus wandoo* gradient remains a genuine qualitative sign-discordance example because interaction/pollen quantity is positive while reproductive function is negative on its registered Fisher-z representation;
 - the broader matched I–F evidence contains **6 sign-discordant primary panels across 5 independent programmes**, with both I+,F− and I−,F+ geometries; this is a scale-stable existence result, not a prevalence estimate;
 - among the four multi-panel programmes sharing one registered exposure frame, **Sevenello, Kakamega and Zurich each contain more than one I/F sign geometry among focal species/panels**, showing that landscape exposure alone does not determine the interaction→function trajectory;
@@ -77,6 +81,8 @@ Not authorised:
 - treating the descriptive 3 downstream : 1 upstream bottleneck split as a confirmatory result, sign test or prevalence estimate;
 - claiming that upstream and downstream bottleneck positions are both recurrent across independent systems;
 - a universal attenuation, buffering or compensation pathway;
+- a global prevalence estimate for interaction-quantity proxy failure from the current three programmes;
+- treating the three movement/mating point orderings as a preregistered sign test or proof of general attenuation;
 - a confirmed adult-versus-offspring cohort/history lag;
 - a general causal explanation for quantity–function decoupling;
 - treating 5/8 programmes or 6/18 panels as an estimate of the global prevalence of sign decoupling;
