@@ -71,7 +71,7 @@ def main() -> None:
     assert phase2_contract["phase1_reference"]["n_primary_clusters"] == 5
     assert phase2_contract["phase1_reference"]["n_primary_marginal_effects"] == 17
     assert phase2_contract["pair_specific_analysis_gate"]["min_independent_programmes"] == 5
-    assert "scale_aware_raw_delta_revision_validation_pending" in metadata
+    assert "scale_aware_scientific_validation_green_human_admin_pending" in metadata
     assert "p = 0.01212432" in metadata
     assert "p = 0.18194353" in metadata
 
