@@ -64,6 +64,8 @@ Authorised manuscript-level ecological claims:
 - all **17/17 primary direct effects are negative** on both oriented Hedges g and oriented lnRR; this common deterioration direction is the strongest scale-stable result in the primary direct stream;
 - the primary direct stream therefore supports directional consistency of fragmentation-associated deterioration, but not a scale-independent ordering or magnitude separation among response layers;
 - the separate *Eucalyptus wandoo* gradient remains a genuine qualitative sign-discordance example because interaction/pollen quantity is positive while reproductive function is negative on its registered Fisher-z representation;
+- the broader matched I–F evidence contains **6 sign-discordant primary panels across 5 independent programmes**, with both I+,F− and I−,F+ geometries; this is a scale-stable existence result, not a prevalence estimate;
+- among the four multi-panel programmes sharing one registered exposure frame, **Sevenello, Kakamega and Zurich each contain more than one I/F sign geometry among focal species/panels**, showing that landscape exposure alone does not determine the interaction→function trajectory;
 - lnRR patterns suggesting stronger mating/connectivity responses than downstream performance in ML002/ML014, and stronger juvenile/seed than adult genetic responses in ML003, may be presented only as **post hoc exploratory filtering/lag hypotheses** requiring prospective validation;
 - the earlier 12-programme process–function census remains exploratory: both upstream and downstream resolved geometries occur under g/registered and lnRR representations, but upstream system attribution changes from ML001 *Serapias* on g to ML002 *Brosimum* and ML014 *Eucalyptus socialis* on lnRR; system-specific bottleneck attribution is therefore scale-sensitive.
 
@@ -77,6 +79,9 @@ Not authorised:
 - a universal attenuation, buffering or compensation pathway;
 - a confirmed adult-versus-offspring cohort/history lag;
 - a general causal explanation for quantity–function decoupling;
+- treating 5/8 programmes or 6/18 panels as an estimate of the global prevalence of sign decoupling;
+- treating dependent species/panels inside one programme as independent sign trials;
+- inferring one common compensation mechanism for I−,F+ cases or one common pollen-quality mechanism for I+,F− cases;
 - treating pollinator abundance, reproductive output or genetic diversity alone as a sufficient proxy for whole-system condition;
 - claiming lnRR is the uniquely correct effect scale; it is a mandatory sensitivity estimand with small-n delta-method limitations;
 - direct empirical validation of finite EGWE/NEE operators;
@@ -103,6 +108,7 @@ Not authorised:
 - [x] current anonymous reviewer package reproduces the authoritative 2026-09-29 raw-delta scale audit and bottleneck cross-scale audit;
 - [x] estimand-scale audit completed: Hedges-g and lnRR yield materially different response geometry / robustness classifications;
 - [x] manuscript headline revised so no scale-dependent separation/bottleneck claim is presented as scale-invariant;
+- [x] scale-stable interaction–function sign geometry audited across all 18 primary I–F panels;
 - [x] g and lnRR sensitivity reported in Methods, Results, Limitations and figure/table package (Figure 4 + Table 2);
 - [x] submission freeze renewed after scale-aware manuscript + figure/table revision;
 - [ ] author/declaration metadata approved.
