@@ -17,6 +17,10 @@ on:
       - 'evidence/meta_extraction/phase2_cf01_bergsdorf_kakamega_site_values_v1.csv'
       - 'evidence/meta_extraction/ecological_process_function_programme_census_v1.csv'
       - 'evidence/meta_extraction/bottleneck_scale_robustness_v1.csv'
+      - 'evidence/meta_extraction/transition_filtering_topology_v1.csv'
+      - 'evidence/meta_extraction/phase2_gpair_synthesis_v1.json'
+      - 'scripts/check_transition_specific_filtering.py'
+      - 'scripts/check_scale_stable_quantity_function_proxy_failure.py'
       - 'manuscript/BOTTLENECK_SCALE_ROBUSTNESS_2026-09-29.md'
       - '.github/workflows/estimand-scale-robustness.yml'
   workflow_dispatch:
@@ -31,5 +35,11 @@ jobs:
           python-version: '3.11'
       - name: Run Hedges-g versus lnRR audit
         run: python scripts/check_estimand_scale_robustness.py
+      - name: Run cross-scale bottleneck geometry audit
+        run: python scripts/check_bottleneck_scale_robustness.py
+      - name: Run scale-stable proxy-failure audit
+        run: python scripts/check_scale_stable_quantity_function_proxy_failure.py
+      - name: Run transition-specific filtering audit
+        run: python scripts/check_transition_specific_filtering.py
       - name: Run bottleneck census scale audit
         run: python scripts/check_bottleneck_scale_robustness.py
