@@ -1,7 +1,7 @@
 {
   "schema_version": 5,
   "updated_on": "2026-09-29",
-  "status": "scientific_validation_green_human_admin_pending",
+  "status": "scientific_validation_pending_after_ecological_lead_revision",
   "submission_ready": false,
   "supersedes_submission_freeze": true,
   "revision_base_commit": "e94722fe99dd40b1bebac42fa311f40d9e412ab4",
@@ -150,7 +150,9 @@
     "treating dependent I-F panels as independent sign trials",
     "inferring one common compensation or pollen-quality mechanism from sign discordance alone"
   ],
-  "remaining_scientific_gate": [],
+  "remaining_scientific_gate": [
+    "current full CI green after ecological-lead manuscript revision and new exploratory audit checks"
+  ],
   "remaining_human_blockers": [
     "final author list",
     "affiliations",
@@ -187,5 +189,37 @@
     "interaction_loss_function_gain_programmes": 3,
     "multi_panel_programmes": 4,
     "within_programme_heterogeneous": 3
+  },
+  "ecological_leads": {
+    "scale_stable_quantity_function_proxy_failure": {
+      "programmes": [
+        "ML015",
+        "P2_CF01_CARDIOPETALUM_2012",
+        "P2_CF01_BERGSDORF_KAKAMEGA_2006"
+      ],
+      "independent_programmes": 3,
+      "regions": [
+        "Western Australia",
+        "Brazilian cerrado",
+        "Western Kenya"
+      ],
+      "plant_families": [
+        "Myrtaceae",
+        "Annonaceae",
+        "Acanthaceae"
+      ],
+      "claim": "interaction quantity is not a sufficient stand-alone proxy for reproductive function under fragmentation",
+      "status": "cross_context_exploratory_generalization_not_prevalence_estimate",
+      "evidence_table": "evidence/meta_extraction/scale_stable_quantity_function_proxy_failure_v1.csv",
+      "note": "manuscript/SCALE_STABLE_QUANTITY_FUNCTION_PROXY_FAILURE_2026-09-29.md"
+    },
+    "transition_specific_filtering": {
+      "interaction_to_F_stable_downstream": 3,
+      "movement_mating_to_F_cross_scale_point_ordering": 3,
+      "adult_offspring_programmes": 5,
+      "adult_offspring_common_lag_resolved": false,
+      "note": "manuscript/TRANSITION_SPECIFIC_FILTERING_AUDIT_2026-09-29.md",
+      "status": "post_hoc_hypothesis_generating"
+    }
   }
 }
