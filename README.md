@@ -1,4 +1,4 @@
-## Scale-aware revision complete — validation / administration pending
+## Scale-aware scientific validation green — human administration pending
 
 The mandatory Hedges-g versus oriented-lnRR estimand audit has now been integrated into the manuscript, Figure 4, Table 2, claim ceiling and scale-aware submission freeze v4.
 
@@ -10,7 +10,7 @@ Current scientific status:
 - old variable-bottleneck classifications are retained only as exploratory registered-scale audits;
 - filtering, buffering and cohort-lag patterns are post hoc hypotheses for prospective validation.
 
-Submission remains conditional on the current full contract being green and the remaining human administrative fields being approved.
+Scientific validation is green in full contract run `36537159520`. Submission remains intentionally blocked only by human administrative fields and final all-author approval.
 
 Canonical scale audit:
 - [`manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-29_EFFECT_SCALE.md`](manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-29_EFFECT_SCALE.md)
