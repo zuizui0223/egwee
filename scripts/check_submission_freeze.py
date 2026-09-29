@@ -45,6 +45,9 @@ def main() -> None:
     assert m["updated_on"] == "2026-09-29"
     assert m["status"] == "scientific_validation_green_human_admin_pending"
     assert m["submission_ready"] is False
+    assert m["scientific_validation"]["conclusion"] == "success"
+    assert m["scientific_validation"]["full_contract_run_id"] == 36537159520
+    assert m["remaining_scientific_gate"] == []
     assert m["supersedes_submission_freeze"] is True
     sv = m["scientific_validation"]
     assert sv["full_contract_run_id"] == 36537159520
@@ -146,7 +149,8 @@ def main() -> None:
     assert "scale_aware_scientific_validation_green_human_admin_pending" in metadata
     assert "Scientific validation complete" in metadata
     assert "p = 0.6364" in metadata
-    assert "current raw-delta scale-aware figure/table package revalidated" in metadata
+    assert "[x] current raw-delta scale-aware figure/table package revalidated" in metadata
+    assert "[x] current anonymous reviewer package reproduces" in metadata
 
     assert "raw-unit multivariate-delta covariance" in manuscript
     assert "all **17/17 primary direct effects were negative on both oriented g and oriented lnRR**" in manuscript
