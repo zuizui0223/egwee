@@ -56,7 +56,9 @@
     "lnRR_zero_full_p": 1.722779517612947e-9,
     "lnRR_zero_omit_ML001_p": 0.004344181486257532,
     "lnRR_cauchy_full_p": 0.00009946000181275223,
-    "lnRR_cauchy_omit_ML001_p": 0.1113789244205897
+    "lnRR_cauchy_omit_ML001_p": 0.1113789244205897,
+    "ml014_sufficient_stats_snapshot": "evidence/meta_extraction/PS020_eucalyptus_socialis_sufficient_stats_v1.json",
+    "ml014_sufficient_stats_snapshot_blob_sha": "ff108c6d832c04e7c3b47d0acc9581cbddd9cb44"
   },
   "cross_scale_process_function_geometry": {
     "status": "post_hoc_hypothesis_generating",
@@ -122,12 +124,13 @@
     "main_figure3": "manuscript/figures/figure3_if_sign_geometry.svg"
   },
   "anonymous_package": {
-    "builder_blob_sha": "64cff9b34ca885601c23725be9b0531ac14b8264",
+    "builder_blob_sha": "9c2f93d7f9ce25315508c70fe6be2a3a566969db",
     "reproduces_authoritative_raw_delta_scale_audit": true,
     "reproduces_bottleneck_cross_scale_audit": true,
     "reproduces_historical_g": true,
-    "external_requirement": "No live ML014 source download is required for CI or anonymous reproduction. The package uses a CC-BY source-derived sufficient-statistics snapshot; public Dryad/TERN probes are optional provenance refreshes.",
-    "ml014_sufficient_stats_snapshot": "evidence/meta_extraction/PS020_eucalyptus_socialis_sufficient_stats_v1.json"
+    "external_requirement": "No live ML014 source download is required for CI or anonymous reproduction. A CC-BY source-derived sufficient-statistics snapshot is pinned; Dryad/TERN probes are optional provenance refreshes.",
+    "ml014_sufficient_stats_snapshot": "evidence/meta_extraction/PS020_eucalyptus_socialis_sufficient_stats_v1.json",
+    "ml014_sufficient_stats_snapshot_blob_sha": "ff108c6d832c04e7c3b47d0acc9581cbddd9cb44"
   },
   "current_claim_ceiling": [
     "historical Hedges-g synthesis is exactly reproducible",
