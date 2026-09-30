@@ -1,6 +1,6 @@
-# EGWEE submission state — SCIENTIFIC VALIDATION GREEN 2026-09-29
+# EGWEE submission state — SIGN-GEOMETRY MAIN-FIGURE REVALIDATION PENDING 2026-10-01
 
-> **STATUS: SCIENTIFICALLY VALIDATED, HUMAN ADMINISTRATION PENDING.** Full CI run `36542416391` reproduces the scale-aware manuscript, I–F sign-geometry audit, Supplementary Table S5, figures/tables, double-anonymous checks and reviewer package. Submission remains unauthorised until human author/declaration fields and final approval are complete.
+> **STATUS: SCIENTIFIC REVALIDATION PENDING.** The previous scale-aware package was green, but the ecology-forward title, explicit post hoc sign-audit Methods and complete 18-panel sign-geometry Figure 3 are a substantive presentation revision and must pass the current full CI and anonymous reviewer-package reproduction before submission can return to human-administration-only status.
 
 ## Why the freeze was reopened
 
