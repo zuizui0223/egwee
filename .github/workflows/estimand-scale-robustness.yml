@@ -21,6 +21,7 @@ on:
       - 'evidence/meta_extraction/PS001_spondias_paternity_site_table_v1.csv'
       - 'evidence/meta_extraction/PS001_spondias_appendixB_genetic_site_table_v1.csv'
       - 'evidence/meta_extraction/PS022_aizen_feinsinger_site_means_v1.csv'
+      - 'evidence/meta_extraction/PS020_eucalyptus_socialis_sufficient_stats_v1.json'
       - 'evidence/meta_extraction/phase2_cf01_sevenello_transect_values_v1.csv'
       - 'evidence/meta_extraction/phase2_cf01_bergsdorf_kakamega_site_values_v1.csv'
       - 'evidence/meta_extraction/ecological_process_function_programme_census_v1.csv'
