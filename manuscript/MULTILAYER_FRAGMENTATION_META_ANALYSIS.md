@@ -140,18 +140,10 @@ The *Eucalyptus wandoo* programme of Llorens et al. (2018; `ML015`) was retained
 
 ### Post hoc scale-stable interaction–function sign audit
 
-After the Hedges-g versus lnRR audit showed that relative response magnitude was estimand-scale dependent, we added a **post hoc descriptive** audit based only on response sign. This audit was not preregistered and is not used to generate a confirmatory p-value or prevalence estimate.
+After the g-versus-lnRR audit exposed scale-dependent magnitude inference, we added a **post hoc descriptive** sign audit; it was not preregistered and generates no confirmatory p-value or prevalence estimate. The denominator is all 18 primary I–F panels nested within the closed eight-programme I–F evidence set. Direct positive-valued contrasts retain sign under g→lnRR re-expression, while gradient programmes retain their registered Fisher-z sign.
 
-The denominator comprises all primary interaction–function panels in the closed eight-programme I–F evidence set: 18 panels nested within eight independent programmes. For direct positive-valued fragmented-versus-reference endpoints, the sign of the oriented contrast is identical under Hedges g and lnRR; continuous-gradient programmes retain the sign of their registered Fisher-z representation. Each panel was assigned to one of four qualitative geometries:
+Each panel was classified as I−/F−, I+/F+, I+/F− or I−/F+. We report panel counts, the number of independent programmes containing sign discordance, and whether multi-panel programmes contain multiple geometries under one registered exposure frame. Panels within a programme are not independent trials, so no binomial/sign test is applied. Opposite signs describe qualitative mismatch only and do not by themselves establish compensation, pollen-quality failure or another mechanism.
 
-- `I−,F−`: concordant deterioration;
-- `I+,F+`: concordant improvement;
-- `I+,F−`: interaction retained/improved with reproductive-function loss;
-- `I−,F+`: interaction loss with reproductive function retained/improved.
-
-Panels from the same programme were not treated as independent trials. We therefore report panel counts descriptively and separately record (i) the number of independent programmes containing at least one sign-discordant panel and (ii) whether multi-panel programmes contain more than one sign geometry under a shared registered landscape/exposure frame. No binomial/sign test is applied to the 18 panels or eight programmes.
-
-The audit is intended to identify scale-stable qualitative mismatches after relative-amplitude inference became scale-sensitive. Opposite signs do not by themselves establish compensation, pollen-quality failure or any other mechanism.
 
 ### Complete descriptive process–function censuses
 
