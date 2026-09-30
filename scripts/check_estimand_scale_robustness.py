@@ -4,7 +4,6 @@ import csv
 import json
 import math
 import statistics as stats
-import urllib.request
 from itertools import combinations
 from pathlib import Path
 
@@ -17,8 +16,7 @@ BROS = ROOT / "evidence/meta_extraction/PS004_brosimum_site_table_v1.csv"
 SPON_C = ROOT / "evidence/meta_extraction/PS001_spondias_paternity_site_table_v1.csv"
 SPON_G = ROOT / "evidence/meta_extraction/PS001_spondias_appendixB_genetic_site_table_v1.csv"
 AIZEN = ROOT / "evidence/meta_extraction/PS022_aizen_feinsinger_site_means_v1.csv"
-SOCIALIS_URL = "https://shared.tern.org.au/attachment/c5278af9-b0c9-4572-8eb4-9ce3058f1b2a/MECBreedfamily.csv"
-UA = "Mozilla/5.0 plant-fragmentation-estimand-scale-audit/1.0"
+SOCIALIS_SNAPSHOT = ROOT / "evidence/meta_extraction/PS020_eucalyptus_socialis_sufficient_stats_v1.json"
 
 TOL = 5e-8
 
@@ -26,17 +24,6 @@ TOL = 5e-8
 def rows(path: Path) -> list[dict[str, str]]:
     with path.open(newline="", encoding="utf-8") as fh:
         return list(csv.DictReader(fh))
-
-
-def fetch_csv(url: str) -> list[dict[str, str]]:
-    req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "text/csv,*/*"})
-    with urllib.request.urlopen(req, timeout=60) as resp:
-        text = resp.read().decode("utf-8-sig")
-    physical = [line for line in text.splitlines() if line.strip()]
-    out = list(csv.DictReader(physical))
-    if not out:
-        raise AssertionError(f"empty CSV from {url}")
-    return out
 
 
 def mean(xs: list[float]) -> float:
@@ -205,44 +192,36 @@ def ml003() -> tuple[dict, dict]:
     return cluster_test("ML003", effects, cov), cluster_test("ML003", effects, {})
 
 
-def socialis_records() -> list[dict[str, str]]:
-    raw = fetch_csv(SOCIALIS_URL)
-    out = []
-    for r in raw:
-        group = r["group"].strip().upper()
-        if group not in {"MONLOW", "MONHIGH"}:
-            continue
-        try:
-            rp = float(r["rp"])
-            growth = float(r["plant height (cm)"])
-        except (TypeError, ValueError):
-            continue
-        if not (math.isfinite(rp) and math.isfinite(growth)):
-            continue
-        out.append({
-            "family": r["family"].strip(),
-            "habitat": "FRA" if group == "MONLOW" else "CON",
-            "rp": str(rp),
-            "growth": str(growth),
-        })
-    if len(out) != 28:
-        raise AssertionError(f"expected 28 common Monarto families, got {len(out)}")
-    if sum(r["habitat"] == "FRA" for r in out) != 13:
-        raise AssertionError("unexpected MONLOW count")
-    if sum(r["habitat"] == "CON" for r in out) != 15:
-        raise AssertionError("unexpected MONHIGH count")
-    return out
-
-
 def ml014() -> tuple[dict, dict]:
-    effects, cov = split_values(
-        socialis_records(), "habitat", "FRA", "CON",
-        {
-            "Gmating_correlated_paternity_rp": ("rp", -1),
-            "F_family_growth": ("growth", 1),
-        },
-    )
-    return cluster_test("ML014", effects, cov), cluster_test("ML014", effects, {})
+    if not SOCIALIS_SNAPSHOT.is_file():
+        raise AssertionError(SOCIALIS_SNAPSHOT)
+    s = json.loads(SOCIALIS_SNAPSHOT.read_text(encoding="utf-8"))
+    assert s["schema_version"] == 1
+    assert s["source"]["dataset_doi"] == "10.4227/05/54C4E38139B4B"
+    assert s["frame"]["n_fragmented"] == 13
+    assert s["frame"]["n_reference"] == 15
+
+    ln = s["lnRR"]
+    effects = {
+        "Gmating_correlated_paternity_rp": (
+            float(ln["Gmating_correlated_paternity_rp"]["oriented_effect"]),
+            float(ln["Gmating_correlated_paternity_rp"]["delta_variance"]),
+        ),
+        "F_family_growth": (
+            float(ln["F_family_growth"]["oriented_effect"]),
+            float(ln["F_family_growth"]["delta_variance"]),
+        ),
+    }
+    cov_value = float(ln["dependence"]["sampling_covariance"])
+    cov = {
+        ("Gmating_correlated_paternity_rp", "F_family_growth"): cov_value,
+        ("F_family_growth", "Gmating_correlated_paternity_rp"): cov_value,
+    }
+    cov_test = cluster_test("ML014", effects, cov)
+    zero_test = cluster_test("ML014", effects, {})
+    assert abs(cov_test["cluster_p_bonferroni"] - float(ln["dependence"]["pair_p_two_sided"])) < 5e-12
+    assert abs(zero_test["cluster_p_bonferroni"] - float(ln["zero_covariance_pair_p_two_sided"])) < 5e-12
+    return cov_test, zero_test
 
 
 def ml020() -> tuple[dict, dict]:
@@ -288,7 +267,7 @@ def endpoint_rank(effects: dict[str, float]) -> list[str]:
 
 
 def main() -> None:
-    for path in (SERA, BROS, SPON_C, SPON_G, AIZEN):
+    for path in (SERA, BROS, SPON_C, SPON_G, AIZEN, SOCIALIS_SNAPSHOT):
         assert path.is_file(), path
 
     lnrr_cov_clusters = [ml001()[0], ml002()[0], ml003()[0], ml014()[0], ml020()[0]]
