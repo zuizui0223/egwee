@@ -2,7 +2,7 @@
 
 ## Manuscript title
 
-Habitat fragmentation across plant reproductive life cycles: directional consistency and scale-sensitive response amplitudes
+Habitat fragmentation across plant reproductive life cycles: species-specific interaction–function translation and scale-sensitive amplitudes
 
 ## Authors
 
