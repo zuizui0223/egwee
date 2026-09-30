@@ -55,6 +55,7 @@ FILES = [
     "evidence/meta_extraction/PS001_spondias_primary_pairwise_covariance_v2.csv",
     "evidence/meta_extraction/PS020_eucalyptus_socialis_effects_v1.csv",
     "evidence/meta_extraction/PS020_eucalyptus_socialis_primary_covariance_v1.csv",
+    "evidence/meta_extraction/PS020_eucalyptus_socialis_sufficient_stats_v1.json",
     "evidence/meta_extraction/PS022_aizen_feinsinger_effects_v1.csv",
     "evidence/meta_extraction/PS022_aizen_feinsinger_site_means_v1.csv",
     "evidence/meta_extraction/PS022_aizen_feinsinger_covariance_v1.csv",
