@@ -7,10 +7,10 @@
   "revision_base_commit": "e94722fe99dd40b1bebac42fa311f40d9e412ab4",
   "manuscript": {
     "path": "manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md",
-    "blob_sha": "67fb6ccdc191d2a7da7af356dfeba5b3123f807d",
+    "blob_sha": "474745c5bd9ee18e0e5ece83e0e016fb14d140b4",
     "title": "Habitat fragmentation across plant reproductive life cycles: directional consistency and scale-sensitive response amplitudes",
     "target_journal": "Journal of Ecology",
-    "main_text_words": 7884,
+    "main_text_words": 7862,
     "abstract_words": 328
   },
   "historical_primary_g": {
@@ -224,6 +224,6 @@
   },
   "ecological_generality_and_surprise": {
     "path": "manuscript/ECOLOGICAL_GENERALITY_AND_SURPRISE_2026-09-29.md",
-    "blob_sha": "087d46cb8df9f34f028295f290d6aec89d44b767"
+    "blob_sha": "be0d5c67be858cdd16454a67e27729d90722c8bf"
   }
 }
