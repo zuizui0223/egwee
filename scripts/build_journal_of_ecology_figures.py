@@ -226,83 +226,84 @@ def draw_effect_pair_panel(
     body.append(svg_text(px + 12, py + ph - 12, footer, size=9))
 
 
-def figure3_response_regimes() -> None:
-    chaco_rows = rows(ML020_EFFECTS)
-    chaco: dict[str, dict[str, float]] = {}
-    for row in chaco_rows:
-        chaco.setdefault(row["species"], {})[row["layer"]] = float(row["oriented_effect"])
-    assert set(chaco) == {"Atamisquea emarginata", "Cercidium australe", "Prosopis nigra"}
+def figure3_if_sign_geometry() -> None:
+    census = rows(IF_SIGN_GEOMETRY)
+    assert len(census) == 18
+    programmes = {r["programme_id"] for r in census}
+    assert len(programmes) == 8
 
-    wandoo_rows = rows(WANDOO_EFFECTS)
-    wandoo = {r["layer"]: float(r["oriented_effect"]) for r in wandoo_rows}
-    assert {"I", "F"} <= set(wandoo)
+    discordant = [r for r in census if r["interaction_sign"] != r["function_sign"]]
+    assert len(discordant) == 6
+    assert len({r["programme_id"] for r in discordant}) == 5
 
-    cardio_rows = [r for r in rows(CARDIO_EFFECTS) if r["primary_or_sensitivity"] == "primary"]
-    cardio = {r["layer"]: float(r["fisher_z"]) for r in cardio_rows}
-    assert {"I_interaction", "F_reproductive_function"} <= set(cardio)
+    multi: dict[str, list[str]] = {}
+    for r in census:
+        multi.setdefault(r["programme_id"], []).append(r["sign_geometry"])
+    multi = {k: v for k, v in multi.items() if len(v) > 1}
+    assert len(multi) == 4
+    assert sum(len(set(v)) > 1 for v in multi.values()) == 3
 
-    berg_rows = [
-        r for r in rows(BERGSDORF_EFFECTS)
-        if r["panel_id"] == "AP_2001" and r["primary_or_sensitivity"] == "primary"
-    ]
-    berg = {r["layer"]: float(r["hedges_g"]) for r in berg_rows}
-    assert {"I_interaction", "F_reproductive_function"} <= set(berg)
+    programme_label = {
+        "ML020": "Chaco",
+        "P2_CF01_SEVENELLO_2026": "Sevenello",
+        "P2_CF01_BERGSDORF_KAKAMEGA_2006": "Kakamega",
+        "ML015": "E. wandoo",
+        "P2_CF01_CARDIOPETALUM_2012": "Cardiopetalum",
+        "P2_CF01_ZURICH_2026": "Zurich",
+        "P2_CF01_MILKWEED_URBAN_2023": "Milkweed",
+        "P2_CF01_PRITCHARD_2005": "Pritchard",
+    }
+    geometry_label = {
+        "concordant_deterioration": "I− / F−  concordant decline",
+        "concordant_improvement": "I+ / F+  concordant increase",
+        "function_buffered_or_compensated": "I− / F+  function retained/gains",
+        "hidden_function_loss": "I+ / F−  hidden function loss",
+    }
 
-    width, height = 1240, 760
+    width, height = 1240, 980
     body: list[str] = [
-        svg_text(30, 34, "Figure 3. Interaction–function response geometries on their registered scales", size=18, weight="bold"),
-        svg_text(30, 58, "Descriptive examples only: unresolved differences are not evidence of equality, and effect magnitudes are not compared across scales.", size=11),
+        svg_text(30, 34, "Figure 3. Interaction–function sign geometry across matched fragmentation programmes", size=18, weight="bold"),
+        svg_text(30, 58, "All 18 primary I–F panels are shown; signs are scale-stable for direct g→lnRR re-expression or retained on registered Fisher-z gradients.", size=11),
+        svg_text(30, 78, "Panels are nested within eight programmes: counts are descriptive and are not prevalence estimates or independent sign trials.", size=10),
+        svg_text(35, 112, "Programme", size=11, weight="bold"),
+        svg_text(180, 112, "Focal plant / panel", size=11, weight="bold"),
+        svg_text(675, 112, "I", size=12, weight="bold"),
+        svg_text(735, 112, "F", size=12, weight="bold"),
+        svg_text(795, 112, "Qualitative geometry", size=11, weight="bold"),
     ]
 
-    draw_effect_pair_panel(
-        body,
-        px=30, py=85, pw=575, ph=285,
-        title="A. Chaco: same-direction decline; I–F difference unresolved",
-        subtitle="Hedges g; small fragments minus continuous forest",
-        pairs=[
-            ("Atamisquea", chaco["Atamisquea emarginata"]["I_interaction"], chaco["Atamisquea emarginata"]["F_reproductive_function"]),
-            ("Cercidium", chaco["Cercidium australe"]["I_interaction"], chaco["Cercidium australe"]["F_reproductive_function"]),
-            ("Prosopis", chaco["Prosopis nigra"]["I_interaction"], chaco["Prosopis nigra"]["F_reproductive_function"]),
-        ],
-        lo=-1.3, hi=0.1, ticks=[-1.2, -0.8, -0.4, 0.0],
-        footer="Three dependent species; programme p = 1.0 means no resolved I–F difference, not demonstrated equality.",
-    )
+    y = 142
+    row_h = 38
+    last_programme = None
+    for row in census:
+        pid = row["programme_id"]
+        if last_programme is not None and pid != last_programme:
+            body.append(f'<line x1="30" y1="{y - 19:.1f}" x2="1210" y2="{y - 19:.1f}" stroke="black" stroke-width="0.6"/>')
+        prog = programme_label[pid] if pid != last_programme else ""
+        taxon = row["taxon"]
+        i_sign = "+" if row["interaction_sign"] == "positive" else "−"
+        f_sign = "+" if row["function_sign"] == "positive" else "−"
+        geom = geometry_label[row["sign_geometry"]]
+        is_discordant = row["interaction_sign"] != row["function_sign"]
 
-    draw_effect_pair_panel(
-        body,
-        px=635, py=85, pw=575, ph=285,
-        title="B. Eucalyptus wandoo: opposite-sign I–F response",
-        subtitle="Fisher z along response-free fragmentation severity",
-        pairs=[("E. wandoo", wandoo["I"], wandoo["F"])],
-        lo=-1.1, hi=0.9, ticks=[-1.0, -0.5, 0.0, 0.5],
-        footer="Pollen tubes increase while seed production declines; I-F p = 0.0008565.",
-    )
+        body.append(svg_text(35, y + 4, prog, size=10, weight="bold" if prog else "normal"))
+        body.append(svg_text(180, y + 4, taxon, size=10))
+        body.append(svg_text(680, y + 5, i_sign, anchor="middle", size=16, weight="bold"))
+        body.append(svg_text(740, y + 5, f_sign, anchor="middle", size=16, weight="bold"))
+        body.append(svg_text(795, y + 4, geom, size=10, weight="bold" if is_discordant else "normal"))
+        if is_discordant:
+            body.append(svg_text(1165, y + 4, "discordant", anchor="end", size=9, weight="bold"))
+        y += row_h
+        last_programme = pid
 
-    draw_effect_pair_panel(
-        body,
-        px=30, py=405, pw=575, ph=285,
-        title="C. Cardiopetalum: registered-scale I–F mismatch",
-        subtitle="Fisher z along decreasing fragment area",
-        pairs=[("Cardiopetalum", cardio["I_interaction"], cardio["F_reproductive_function"])],
-        lo=-1.9, hi=0.1, ticks=[-1.8, -1.2, -0.6, 0.0],
-        footer="Pollinator abundance changes weakly while fruit set declines; I-F p = 0.00316.",
-    )
+    summary_y = y + 12
+    body.append(f'<line x1="30" y1="{summary_y - 18:.1f}" x2="1210" y2="{summary_y - 18:.1f}" stroke="black" stroke-width="1.2"/>')
+    body.append(svg_text(35, summary_y + 10, "Cross-programme summary", size=13, weight="bold"))
+    body.append(svg_text(35, summary_y + 38, "6 / 18 panels have opposite I/F signs; these occur in 5 independent programmes.", size=11))
+    body.append(svg_text(35, summary_y + 64, "Among 4 multi-panel programmes sharing one exposure frame, 3 contain more than one sign geometry.", size=11))
+    body.append(svg_text(35, summary_y + 90, "Both discordant directions occur: I+ / F− and I− / F+. This is an existence/geometry result, not a frequency estimate.", size=10, weight="bold"))
 
-    draw_effect_pair_panel(
-        body,
-        px=635, py=405, pw=575, ph=285,
-        title="D. Kakamega Acanthopale: opposite-sign I–F response",
-        subtitle="Hedges g; fragment sites minus main-forest sites",
-        pairs=[("Acanthopale", berg["I_interaction"], berg["F_reproductive_function"])],
-        lo=-3.2, hi=0.8, ticks=[-3.0, -2.0, -1.0, 0.0],
-        footer="Visitation is maintained/slightly higher while fruit set falls; I-F p = 0.00163.",
-    )
-
-    body.append(f'<circle cx="445" cy="726" r="5" fill="white" stroke="black" stroke-width="1.5"/>')
-    body.append(svg_text(458, 730, "Interaction / pollen quantity", size=10))
-    body.append(f'<rect x="662" y="721" width="10" height="10" fill="black"/>')
-    body.append(svg_text(678, 730, "Reproductive function", size=10))
-    write_svg(FIGDIR / "figure3_ecological_response_regimes.svg", width, height, body)
+    write_svg(FIGDIR / "figure3_if_sign_geometry.svg", width, height, body)
 
 
 
@@ -488,7 +489,7 @@ def main() -> None:
     result = canonical_result()
     figure1_coverage()
     figure2_influence(result)
-    figure3_response_regimes()
+    figure3_if_sign_geometry()
     figure4_estimand_scale_sensitivity()
     table1(result)
     table2_estimand_scale_sensitivity()
@@ -497,7 +498,7 @@ def main() -> None:
     expected = [
         FIGDIR / "figure1_primary_evidence_geometry.svg",
         FIGDIR / "figure2_leave_one_out_influence.svg",
-        FIGDIR / "figure3_ecological_response_regimes.svg",
+        FIGDIR / "figure3_if_sign_geometry.svg",
         FIGDIR / "figure4_estimand_scale_sensitivity.svg",
         TABLEDIR / "table1_primary_cluster_summary.csv",
         TABLEDIR / "table2_estimand_scale_sensitivity.csv",
