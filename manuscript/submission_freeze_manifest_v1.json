@@ -126,7 +126,8 @@
     "reproduces_authoritative_raw_delta_scale_audit": true,
     "reproduces_bottleneck_cross_scale_audit": true,
     "reproduces_historical_g": true,
-    "external_requirement": "ML014 raw-unit lnRR covariance fetches the same public TERN maternal-family CSV used by the recovery script"
+    "external_requirement": "No live ML014 source download is required for CI or anonymous reproduction. The package uses a CC-BY source-derived sufficient-statistics snapshot; public Dryad/TERN probes are optional provenance refreshes.",
+    "ml014_sufficient_stats_snapshot": "evidence/meta_extraction/PS020_eucalyptus_socialis_sufficient_stats_v1.json"
   },
   "current_claim_ceiling": [
     "historical Hedges-g synthesis is exactly reproducible",
