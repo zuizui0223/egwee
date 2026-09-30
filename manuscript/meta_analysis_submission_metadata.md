@@ -2,7 +2,7 @@
 
 ## Manuscript identity
 
-- **Working title:** Habitat fragmentation across plant reproductive life cycles: directional consistency and scale-sensitive response amplitudes
+- **Working title:** Habitat fragmentation across plant reproductive life cycles: species-specific interaction–function translation and scale-sensitive amplitudes
 - **Source manuscript:** `manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md`
 - **Protocol:** `manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md`
 - **Submission state:** `scale_aware_scientific_validation_green_human_admin_pending`
