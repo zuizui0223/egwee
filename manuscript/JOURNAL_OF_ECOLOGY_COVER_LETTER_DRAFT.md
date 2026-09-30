@@ -2,7 +2,7 @@
 
 Dear Editors,
 
-We would like to submit the Research Article **“Habitat fragmentation across plant reproductive life cycles: directional consistency and scale-sensitive response amplitudes”** for consideration in *Journal of Ecology*.
+We would like to submit the Research Article **“Habitat fragmentation across plant reproductive life cycles: species-specific interaction–function translation and scale-sensitive amplitudes”** for consideration in *Journal of Ecology*.
 
 Habitat-fragmentation syntheses usually ask whether individual endpoints decline on average. Our manuscript asks a different plant-ecology question: when interaction, movement, reproductive and genetic responses are measured within the same fragmented systems, do they deteriorate together or become decoupled because ecological processes operate on different spatial and temporal scales?
 
