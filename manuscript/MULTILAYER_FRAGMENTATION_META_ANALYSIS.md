@@ -1,8 +1,8 @@
-# Habitat fragmentation across plant reproductive life cycles: directional consistency and scale-sensitive response amplitudes
+# Habitat fragmentation across plant reproductive life cycles: species-specific interaction–function translation and scale-sensitive amplitudes
 
 ## Abstract
 
-1. Habitat fragmentation alters pollination, movement, reproduction and genetic structure, but comparisons among these responses depend on how effect magnitude is represented. We asked which features of cross-process fragmentation responses are robust to effect-size scale within the same plant systems.
+1. Habitat fragmentation alters pollination, movement, reproduction and genetic structure, yet interaction responses need not translate directly into reproductive function. We asked which features of within-system cross-process responses are robust to effect-size scale and whether matched interaction–function trajectories recur across plant species and programmes.
 
 2. A protocol-first recovery produced five independent direct fragmented-versus-reference clusters comprising 17 primary Hedges-g effects; a separate gradient stream was retained outside that synthesis. Phase-2 screening subsequently completed 360/360 target-pair candidates.
 
@@ -14,7 +14,7 @@
 
 ## Keywords
 
-effect-size sensitivity; habitat fragmentation; life-history responses; log response ratio; plant reproduction; pollination; population genetics; response propagation
+effect-size sensitivity; habitat fragmentation; interaction–function decoupling; plant reproduction; pollination; population genetics; species-specific responses; transition filtering
 
 ## Introduction
 
