@@ -32,18 +32,29 @@ Canonical historical values:
 
 The figure title/subtitle must explicitly say **Hedges g / historical primary estimand** and direct readers to Figure 4 for the lnRR sensitivity. It must not call the g-only leave-one-out result the manuscript's scale-independent claim ceiling.
 
-## Figure 3 — Registered-scale interaction–function examples
+## Figure 3 — Complete interaction–function sign geometry
 
-**Purpose:** show ecological response geometries without treating unresolved differences as equality and without merging incompatible effect families.
+**Purpose:** make the main scale-stable ecological result visible across the complete matched I–F denominator rather than through selected examples.
 
-Use four panels, each preserving its registered scale:
+Use one row per primary I–F panel, grouped by programme. Required columns:
 
-- **A. Chaco / ML020, Hedges g:** both pollen-tube support and fruit set are lower in small fragments; programme `p=1.0` means the I–F difference is unresolved, **not that the effects are demonstrated equal**.
-- **B. *Eucalyptus wandoo*, Fisher z:** pollen tubes `+0.69029123`, seed production `-0.87593080`; genuine opposite-sign I–F response.
-- **C. *Cardiopetalum calophyllum*, Fisher z:** pollinator abundance `-0.24516531`, fruit set `-1.68379787`; registered-scale magnitude mismatch.
-- **D. Kakamega *Acanthopale pubescens*, Hedges g:** pollinator occurrence `+0.34890186`, fruit set `-2.84788614`; genuine opposite-sign I–F response.
+- programme;
+- focal taxon/panel;
+- sign of I;
+- sign of F;
+- qualitative geometry.
 
-Never place Hedges-g and Fisher-z magnitudes on one common numerical axis. Panels B and D may be called qualitative sign discordance; panel C is scale-specific magnitude discordance; panel A is same-direction with unresolved difference.
+Required denominator and checks:
+
+- exactly **18 primary panels**;
+- exactly **8 independent programmes**;
+- **6 sign-discordant panels** in **5 programmes**;
+- both discordant directions represented: I+/F− and I−/F+;
+- exactly **4 multi-panel programmes**, of which **3** contain more than one sign geometry.
+
+Do not report 5/8 or 6/18 as prevalence estimates or run sign/binomial tests. Direct signs are invariant under g→lnRR for the positive-valued endpoints; gradient panels remain on their registered Fisher-z representations.
+
+The previous four-example response-regime display is no longer a main figure. Its individual examples remain traceable in Supplementary Table S5 and source-specific Results text.
 
 
 ## Figure 4 — Estimand-scale sensitivity
