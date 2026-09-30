@@ -91,15 +91,17 @@ Prior work already established:
 - average negative fragmentation effects on pollination and reproduction and a positive association between them (Aguilar et al. 2006; updated by Aguilar et al. 2025);
 - the distinction between pollen quantity and pollen quality limitation (Aizen & Harder 2007);
 - multiprocess/multiresponse fragmentation dynamics (Ibáñez et al. 2014);
-- nuanced mediation of reproduction by plant–animal interactions under experimental fragmentation (Brudvig et al. 2015).
+- nuanced mediation of reproduction by plant–animal interactions under experimental fragmentation (Brudvig et al. 2015);
+- species-specific seed responses and the absence of a direct visitation–reproductive-success link in a four-species fragmented-landscape study (Lázaro et al. 2020).
 
 The new contribution is narrower:
 
-1. dependence-aware, within-programme comparison of process responses under shared landscape frames;
-2. scale-stable sign geometry separated from scale-sensitive magnitude ranking;
-3. repeated cross-context evidence that interaction quantity can fail as a stand-alone functional proxy;
-4. a prospectively testable transition-filtering framework generated from, but not confirmed by, the current corpus.
+1. a complete matched sign-geometry census across 18 primary panels in 8 independent programmes;
+2. demonstration that both directions of interaction–function sign discordance recur across programmes;
+3. evidence that 3 of 4 multi-panel programmes contain different sign geometries among focal species sharing one registered landscape/exposure frame;
+4. separation of these scale-stable qualitative patterns from scale-sensitive magnitude ranking;
+5. a prospectively testable transition-filtering framework generated from, but not confirmed by, the current corpus.
 
 ## Current paper-level ecological message
 
-> **Habitat fragmentation pushes many measured plant processes in a common detrimental direction, but the translation from interaction to function is species- and transition-specific. The most robust mismatch is hidden reproductive loss behind comparatively intact interaction quantity; broader attenuation, amplification and cohort-lag patterns remain prospective hypotheses.**
+> **Habitat fragmentation often pushes measured plant processes in a common detrimental direction, yet the translation from interaction to reproductive function is not fixed: opposite-sign responses recur in both directions, and focal species sharing the same landscape exposure can occupy different sign geometries. The repeated hidden-function-loss cases make interaction quantity an insufficient stand-alone proxy, while broader transition-filtering mechanisms remain prospective hypotheses.**
