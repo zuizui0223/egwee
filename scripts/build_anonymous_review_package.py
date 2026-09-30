@@ -289,7 +289,7 @@ def verify_reproduction() -> None:
     for rel in (
         "manuscript/figures/figure1_primary_evidence_geometry.svg",
         "manuscript/figures/figure2_leave_one_out_influence.svg",
-        "manuscript/figures/figure3_ecological_response_regimes.svg",
+        "manuscript/figures/figure3_if_sign_geometry.svg",
         "manuscript/figures/figure4_estimand_scale_sensitivity.svg",
         "manuscript/figures/figure_s1_all_primary_marginal_effects.svg",
         "manuscript/tables/table1_primary_cluster_summary.csv",
