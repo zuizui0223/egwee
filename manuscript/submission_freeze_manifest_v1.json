@@ -1,7 +1,7 @@
 {
   "schema_version": 5,
   "updated_on": "2026-09-29",
-  "status": "scientific_validation_pending_after_ecological_lead_revision",
+  "status": "scientific_validation_green_human_admin_pending",
   "submission_ready": false,
   "supersedes_submission_freeze": true,
   "revision_base_commit": "e94722fe99dd40b1bebac42fa311f40d9e412ab4",
@@ -150,9 +150,7 @@
     "treating dependent I-F panels as independent sign trials",
     "inferring one common compensation or pollen-quality mechanism from sign discordance alone"
   ],
-  "remaining_scientific_gate": [
-    "full CI green after ecological-lead manuscript revision, exploratory audit checks and anonymous-package reproduction"
-  ],
+  "remaining_scientific_gate": [],
   "remaining_human_blockers": [
     "final author list",
     "affiliations",
