@@ -46,29 +46,25 @@ def main() -> None:
 
     assert m["schema_version"] == 5
     assert m["updated_on"] == "2026-09-29"
-    assert m["status"] == "scientific_validation_green_human_admin_pending"
+    assert m["status"] == "scientific_validation_pending_after_main_sign_geometry_promotion"
     assert m["submission_ready"] is False
-    assert m["scientific_validation"]["conclusion"] == "success"
-    assert m["scientific_validation"]["full_contract_run_id"] == 36542416391
-    assert m["remaining_scientific_gate"] == []
     assert m["supersedes_submission_freeze"] is True
     sv = m["scientific_validation"]
-    assert sv["full_contract_run_id"] == 36542416391
-    assert sv["conclusion"] == "success"
-    assert sv["scale_aware_manuscript"] is True
-    assert sv["interaction_function_sign_geometry"] is True
-    assert sv["double_anonymous"] is True
-    assert sv["figures_tables_reproduced"] is True
-    assert sv["anonymous_reviewer_package_reproduced"] is True
-    assert m["remaining_scientific_gate"] == []
+    assert sv["previous_green_full_contract_run_id"] == 36542416391
+    assert sv["previous_conclusion"] == "success"
+    assert sv["current_revision_status"] == "pending"
+    assert sv["current_revision_validated"] is False
+    assert "main Figure 3" in sv["reason"]
+    assert len(m["remaining_scientific_gate"]) == 1
+    assert "current full CI green" in m["remaining_scientific_gate"][0]
     assert m["revision_base_commit"] == "e94722fe99dd40b1bebac42fa311f40d9e412ab4"
 
     man = m["manuscript"]
     assert git_blob_sha(MANUSCRIPT) == man["blob_sha"]
-    assert man["title"] == "Habitat fragmentation across plant reproductive life cycles: directional consistency and scale-sensitive response amplitudes"
+    assert man["title"] == "Habitat fragmentation across plant reproductive life cycles: species-specific interaction–function translation and scale-sensitive amplitudes"
     assert man["target_journal"] == "Journal of Ecology"
-    assert man["main_text_words"] == 7784
-    assert man["abstract_words"] == 290
+    assert man["main_text_words"] == 7999
+    assert man["abstract_words"] == 332
     assert manuscript.startswith("# " + man["title"])
 
     g = m["historical_primary_g"]
@@ -121,12 +117,15 @@ def main() -> None:
     ft = m["figure_table_revision"]
     assert git_blob_sha(FIGURE_BUILDER) == ft["builder_blob_sha"]
     assert git_blob_sha(FIGURE_CAPTIONS) == ft["captions_blob_sha"]
+    assert ft["main_figure3"] == "manuscript/figures/figure3_if_sign_geometry.svg"
     assert ft["main_figure4"] == "manuscript/figures/figure4_estimand_scale_sensitivity.svg"
     assert ft["main_table2"] == "manuscript/tables/table2_estimand_scale_sensitivity.csv"
     assert ft["supplementary_table_s4"] == "manuscript/tables/table_s4_process_function_census.csv"
     assert "estimand_scale_cluster_summary_v2.csv" in builder
     assert "lnRR_raw_delta_cov_p" in builder
     assert "p=0.6364" in builder
+    assert "figure3_if_sign_geometry.svg" in builder
+    assert "Figure 3. Interaction–function sign geometry across matched fragmentation programmes" in captions
     assert "Figure 4. Relative response geometry is estimand-scale dependent" in captions
     assert "raw-unit multivariate delta covariance" in captions
 
@@ -138,6 +137,7 @@ def main() -> None:
     assert "check_bottleneck_scale_robustness.py" in anon
     assert "check_if_sign_geometry.py" in anon
     assert "table_s5_if_sign_geometry.csv" in anon
+    assert "figure3_if_sign_geometry.svg" in anon
     assert "figure4_estimand_scale_sensitivity.svg" in anon
     assert "table2_estimand_scale_sensitivity.csv" in anon
 
@@ -157,16 +157,16 @@ def main() -> None:
     ):
         assert token in json.dumps(m), token
 
-    assert "**STATUS: SCIENTIFICALLY VALIDATED, HUMAN ADMINISTRATION PENDING.**" in note
+    assert "**STATUS: SCIENTIFIC REVALIDATION PENDING.**" in note
     assert "raw-unit multivariate delta covariance" in note
     assert "8.31e-05" in note
     assert "17/17" in note
     assert "Figure 4: estimand-scale sensitivity" in note
 
-    assert "scale_aware_scientific_validation_green_human_admin_pending" in metadata
-    assert "Scientific validation complete" in metadata
+    assert "scale_aware_main_sign_geometry_revision_validation_pending" in metadata
+    assert "Scientific revalidation pending" in metadata
     assert "p = 0.6364" in metadata
-    assert "[x] sign-geometry revision revalidated in current full CI and anonymous reviewer package" in metadata
+    assert "[ ] ecology-forward title / Methods / main Figure 3 sign-geometry revision revalidated in current full CI and anonymous reviewer package" in metadata
 
     assert "raw-unit multivariate-delta covariance" in manuscript
     assert "all **17/17 primary direct effects were negative on both oriented g and oriented lnRR**" in manuscript
@@ -178,7 +178,7 @@ def main() -> None:
     assert "### 2. Mandatory scale sensitivity" in amendment
 
     print(
-        "SCIENTIFIC_VALIDATION_GREEN_V5_OK "
+        "SIGN_GEOMETRY_MAIN_REVISION_PENDING_OK "
         "submission_ready=false g_full=0.012124326106 g_drop_ML001=0.181943527111 "
         "lnRR_raw_delta_full=1.191708e-12 lnRR_raw_delta_drop_ML001=8.314427e-05 "
         "primary_negative_g=17 primary_negative_lnRR=17 sign_discordance=0 "
