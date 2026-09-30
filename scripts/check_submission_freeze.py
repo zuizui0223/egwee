@@ -25,6 +25,7 @@ IF_SIGN_CHECKER = ROOT / "scripts/check_if_sign_geometry.py"
 FIGURE_BUILDER = ROOT / "scripts/build_journal_of_ecology_figures.py"
 FIGURE_CAPTIONS = ROOT / "manuscript/JOURNAL_OF_ECOLOGY_FIGURE_CAPTIONS.md"
 ANON_BUILDER = ROOT / "scripts/build_anonymous_review_package.py"
+SOCIALIS_SNAPSHOT = ROOT / "evidence/meta_extraction/PS020_eucalyptus_socialis_sufficient_stats_v1.json"
 
 
 def git_blob_sha(path: Path) -> str:
@@ -74,6 +75,7 @@ def main() -> None:
     assert abs(g["omit_ML001_p"] - 0.1819435271114386) < 1e-15
 
     s = m["authoritative_estimand_scale_audit"]
+    assert git_blob_sha(SOCIALIS_SNAPSHOT) == s["ml014_sufficient_stats_snapshot_blob_sha"]
     assert git_blob_sha(SCALE_ENDPOINTS) == s["endpoint_table_blob_sha"]
     assert git_blob_sha(SCALE_ROBUSTNESS) == s["robustness_table_blob_sha"]
     assert git_blob_sha(SCALE_SUMMARY) == s["cluster_summary_blob_sha"]
@@ -130,6 +132,9 @@ def main() -> None:
     assert "raw-unit multivariate delta covariance" in captions
 
     ap = m["anonymous_package"]
+    assert git_blob_sha(SOCIALIS_SNAPSHOT) == ap["ml014_sufficient_stats_snapshot_blob_sha"]
+    assert ap["ml014_sufficient_stats_snapshot"] == "evidence/meta_extraction/PS020_eucalyptus_socialis_sufficient_stats_v1.json"
+    assert "No live ML014 source download is required" in ap["external_requirement"]
     assert git_blob_sha(ANON_BUILDER) == ap["builder_blob_sha"]
     assert ap["reproduces_authoritative_raw_delta_scale_audit"] is True
     assert ap["reproduces_bottleneck_cross_scale_audit"] is True
