@@ -2,7 +2,7 @@
 
 ## Automated scientific package
 
-The scientific revision is scale-aware and the current full CI is green. The validated reviewer-facing package includes:
+The scientific revision is scale-aware, but a new ecology-forward title/Methods/Main Figure 3 revision is awaiting full-CI revalidation. The intended reviewer-facing package includes:
 
 - ecology-first manuscript title, abstract, keywords and IMRaD structure;
 - primary 5-cluster / 17-effect synthesis and influence analysis;
@@ -16,7 +16,7 @@ The scientific revision is scale-aware and the current full CI is green. The val
 - anonymous reviewer code/data package reproduction;
 - fresh-validation preregistration kept separate from the current discovery/synthesis manuscript.
 
-The scientific gate has passed. Do not reopen scientific files merely to fill administrative metadata; proceed only with the human submission fields below.
+Do not proceed to human-only submission completion until the current sign-geometry main-figure revision has passed full CI and anonymous-package reproduction.
 
 ## Human-only items still required
 
@@ -134,6 +134,6 @@ Administrative state:
 
 ## Submission boundary
 
-Current blockers are **human administration only**: author list, affiliations, corresponding-author details, contributions, funding/permits, conflicts and final approval.
+Current blockers are: (1) scientific revalidation of the promoted sign-geometry Figure 3/title/Methods package; then (2) human administration: author list, affiliations, corresponding-author details, contributions, funding/permits, conflicts and final approval.
 
 Human administrative fields are intentionally not auto-filled from account information, repository history or inferred identity.
