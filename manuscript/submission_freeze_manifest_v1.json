@@ -1,17 +1,17 @@
 {
   "schema_version": 5,
   "updated_on": "2026-09-29",
-  "status": "scientific_validation_green_human_admin_pending",
+  "status": "scientific_validation_pending_after_main_sign_geometry_promotion",
   "submission_ready": false,
   "supersedes_submission_freeze": true,
   "revision_base_commit": "e94722fe99dd40b1bebac42fa311f40d9e412ab4",
   "manuscript": {
     "path": "manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md",
-    "blob_sha": "474745c5bd9ee18e0e5ece83e0e016fb14d140b4",
-    "title": "Habitat fragmentation across plant reproductive life cycles: directional consistency and scale-sensitive response amplitudes",
+    "blob_sha": "87f0ace2c48ca05d8ff57f6d6aee0e4d669debbd",
+    "title": "Habitat fragmentation across plant reproductive life cycles: species-specific interaction–function translation and scale-sensitive amplitudes",
     "target_journal": "Journal of Ecology",
-    "main_text_words": 7862,
-    "abstract_words": 328
+    "main_text_words": 7999,
+    "abstract_words": 332
   },
   "historical_primary_g": {
     "independent_clusters": 5,
@@ -113,15 +113,16 @@
     "registered_scale_census_output": "manuscript/tables/table_s4_process_function_census.csv"
   },
   "figure_table_revision": {
-    "builder_blob_sha": "94eb7eaac77a1b9d54eaed969c82e3f6b435efa9",
-    "captions_blob_sha": "49db034028274ed2df0404bdabb12f5dc045eef8",
+    "builder_blob_sha": "36593c187725bc92aeba2ab33ad1147287f651da",
+    "captions_blob_sha": "abe82b8f123489d0d9a9d28a1ca57863b4181f2d",
     "main_figure4": "manuscript/figures/figure4_estimand_scale_sensitivity.svg",
     "main_table2": "manuscript/tables/table2_estimand_scale_sensitivity.csv",
     "supplementary_table_s4": "manuscript/tables/table_s4_process_function_census.csv",
-    "supplementary_table_s5": "manuscript/tables/table_s5_if_sign_geometry.csv"
+    "supplementary_table_s5": "manuscript/tables/table_s5_if_sign_geometry.csv",
+    "main_figure3": "manuscript/figures/figure3_if_sign_geometry.svg"
   },
   "anonymous_package": {
-    "builder_blob_sha": "35271c66f8d1af306975118af8cfde5891f97217",
+    "builder_blob_sha": "64cff9b34ca885601c23725be9b0531ac14b8264",
     "reproduces_authoritative_raw_delta_scale_audit": true,
     "reproduces_bottleneck_cross_scale_audit": true,
     "reproduces_historical_g": true,
@@ -150,7 +151,9 @@
     "treating dependent I-F panels as independent sign trials",
     "inferring one common compensation or pollen-quality mechanism from sign discordance alone"
   ],
-  "remaining_scientific_gate": [],
+  "remaining_scientific_gate": [
+    "current full CI green after main sign-geometry Figure 3/title/Methods revision and anonymous-package reproduction"
+  ],
   "remaining_human_blockers": [
     "final author list",
     "affiliations",
@@ -161,15 +164,11 @@
     "final all-author approval"
   ],
   "scientific_validation": {
-    "full_contract_run_id": 36542416391,
-    "conclusion": "success",
-    "scale_aware_manuscript": true,
-    "estimand_scale_audit": true,
-    "cross_scale_geometry_audit": true,
-    "interaction_function_sign_geometry": true,
-    "double_anonymous": true,
-    "figures_tables_reproduced": true,
-    "anonymous_reviewer_package_reproduced": true
+    "previous_green_full_contract_run_id": 36542416391,
+    "previous_conclusion": "success",
+    "current_revision_status": "pending",
+    "current_revision_validated": false,
+    "reason": "main Figure 3 promoted to complete I-F sign geometry; ecological title/Methods/novelty reframed"
   },
   "if_sign_geometry": {
     "status": "scale_stable_descriptive_ecology",
