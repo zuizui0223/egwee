@@ -138,6 +138,21 @@ For ML020, each species used four small-fragment habitat-unit means and four con
 
 The *Eucalyptus wandoo* programme of Llorens et al. (2018; `ML015`) was retained as a separate Fisher-z gradient generalisation cluster. It included interaction, reproductive-function and adult-genetic effects against a response-free fragmentation geometry. Pairwise endpoint differences and the same Bonferroni cluster rule were computed on the Fisher-z scale using its paired-population covariance proxy, but ML015 contributed zero direct Hedges-g primary effects and its p-value was never combined with the primary Fisher statistic.
 
+### Post hoc scale-stable interaction–function sign audit
+
+After the Hedges-g versus lnRR audit showed that relative response magnitude was estimand-scale dependent, we added a **post hoc descriptive** audit based only on response sign. This audit was not preregistered and is not used to generate a confirmatory p-value or prevalence estimate.
+
+The denominator comprises all primary interaction–function panels in the closed eight-programme I–F evidence set: 18 panels nested within eight independent programmes. For direct positive-valued fragmented-versus-reference endpoints, the sign of the oriented contrast is identical under Hedges g and lnRR; continuous-gradient programmes retain the sign of their registered Fisher-z representation. Each panel was assigned to one of four qualitative geometries:
+
+- `I−,F−`: concordant deterioration;
+- `I+,F+`: concordant improvement;
+- `I+,F−`: interaction retained/improved with reproductive-function loss;
+- `I−,F+`: interaction loss with reproductive function retained/improved.
+
+Panels from the same programme were not treated as independent trials. We therefore report panel counts descriptively and separately record (i) the number of independent programmes containing at least one sign-discordant panel and (ii) whether multi-panel programmes contain more than one sign geometry under a shared registered landscape/exposure frame. No binomial/sign test is applied to the 18 panels or eight programmes.
+
+The audit is intended to identify scale-stable qualitative mismatches after relative-amplitude inference became scale-sensitive. Opposite signs do not by themselves establish compensation, pollen-quality failure or any other mechanism.
+
 ### Complete descriptive process–function censuses
 
 After the Phase-2 I–F search and recovery programme was closed, we constructed a descriptive census of every registered programme containing both an interaction/pollen-quantity endpoint (I) and reproductive function (F). This secondary summary was defined after the individual programme analyses existed and is therefore not treated as a preregistered directional test.
