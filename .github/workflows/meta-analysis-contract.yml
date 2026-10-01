@@ -84,6 +84,16 @@ on:
       - 'scripts/check_covariance_robustness.py'
       - 'scripts/check_primary_effect_supplement.py'
       - 'scripts/build_primary_effect_forest.py'
+      - 'evidence/meta_extraction/if_sign_geometry_census_v1.csv'
+      - 'evidence/meta_extraction/if_sign_uncertainty_v1.csv'
+      - 'evidence/meta_extraction/scale_stable_quantity_function_proxy_failure_v1.csv'
+      - 'manuscript/IF_SIGN_GEOMETRY_2026-09-29.md'
+      - 'manuscript/IF_SIGN_UNCERTAINTY_2026-10-01.md'
+      - 'manuscript/IF_PROXY_FAILURE_NOVELTY_AUDIT_2026-10-01.md'
+      - 'manuscript/SCALE_STABLE_QUANTITY_FUNCTION_PROXY_FAILURE_2026-09-29.md'
+      - 'scripts/check_if_sign_geometry.py'
+      - 'scripts/check_if_sign_uncertainty.py'
+      - 'scripts/check_scale_stable_quantity_function_proxy_failure.py'
       - 'scripts/check_journal_of_ecology_submission_shape.py'
       - 'scripts/check_double_anonymous_submission.py'
       - 'scripts/build_journal_of_ecology_figures.py'
@@ -153,6 +163,8 @@ jobs:
         run: python scripts/check_transition_specific_filtering.py
       - name: Audit scale-stable interaction-function sign geometry
         run: python scripts/check_if_sign_geometry.py
+      - name: Audit interaction-function sign uncertainty
+        run: python scripts/check_if_sign_uncertainty.py
       - name: Check covariance robustness and certification boundary
         run: python scripts/check_covariance_robustness.py
       - name: Validate unified ecological process-function census
