@@ -21,6 +21,12 @@ BOTTLENECK_SCALE_NOTE = ROOT / "manuscript/BOTTLENECK_SCALE_ROBUSTNESS_2026-09-2
 IF_SIGN_CENSUS = ROOT / "evidence/meta_extraction/if_sign_geometry_census_v1.csv"
 IF_SIGN_NOTE = ROOT / "manuscript/IF_SIGN_GEOMETRY_2026-09-29.md"
 IF_SIGN_CHECKER = ROOT / "scripts/check_if_sign_geometry.py"
+IF_UNCERTAINTY = ROOT / "evidence/meta_extraction/if_sign_uncertainty_v1.csv"
+IF_UNCERTAINTY_CHECKER = ROOT / "scripts/check_if_sign_uncertainty.py"
+PROXY_TABLE = ROOT / "evidence/meta_extraction/scale_stable_quantity_function_proxy_failure_v1.csv"
+PROXY_CHECKER = ROOT / "scripts/check_scale_stable_quantity_function_proxy_failure.py"
+PROXY_NOTE = ROOT / "manuscript/SCALE_STABLE_QUANTITY_FUNCTION_PROXY_FAILURE_2026-09-29.md"
+NOVELTY_AUDIT = ROOT / "manuscript/IF_PROXY_FAILURE_NOVELTY_AUDIT_2026-10-01.md"
 
 FIGURE_BUILDER = ROOT / "scripts/build_journal_of_ecology_figures.py"
 FIGURE_CAPTIONS = ROOT / "manuscript/JOURNAL_OF_ECOLOGY_FIGURE_CAPTIONS.md"
@@ -45,27 +51,25 @@ def main() -> None:
     captions = FIGURE_CAPTIONS.read_text(encoding="utf-8")
     anon = ANON_BUILDER.read_text(encoding="utf-8")
 
-    assert m["schema_version"] == 5
-    assert m["updated_on"] == "2026-09-29"
-    assert m["status"] == "scientific_validation_pending_after_main_sign_geometry_promotion"
+    assert m["schema_version"] == 6
+    assert m["updated_on"] == "2026-10-01"
+    assert m["status"] == "scientific_validation_pending_after_proxy_failure_promotion"
     assert m["submission_ready"] is False
     assert m["supersedes_submission_freeze"] is True
     sv = m["scientific_validation"]
-    assert sv["previous_green_full_contract_run_id"] == 36542416391
     assert sv["previous_conclusion"] == "success"
     assert sv["current_revision_status"] == "pending"
     assert sv["current_revision_validated"] is False
-    assert "main Figure 3" in sv["reason"]
+    assert "proxy failure" in sv["reason"]
     assert len(m["remaining_scientific_gate"]) == 1
     assert "current full CI green" in m["remaining_scientific_gate"][0]
-    assert m["revision_base_commit"] == "e94722fe99dd40b1bebac42fa311f40d9e412ab4"
 
     man = m["manuscript"]
     assert git_blob_sha(MANUSCRIPT) == man["blob_sha"]
-    assert man["title"] == "Habitat fragmentation across plant reproductive life cycles: species-specific interaction–function translation and scale-sensitive amplitudes"
+    assert man["title"] == "Habitat fragmentation across plant reproductive life cycles: scale-stable deterioration and recurrent interaction–function proxy failure"
     assert man["target_journal"] == "Journal of Ecology"
-    assert man["main_text_words"] == 7999
-    assert man["abstract_words"] == 332
+    assert man["main_text_words"] == 7811
+    assert man["abstract_words"] == 334
     assert manuscript.startswith("# " + man["title"])
 
     g = m["historical_primary_g"]
@@ -82,17 +86,13 @@ def main() -> None:
     assert git_blob_sha(SCALE_FISHER) == s["fisher_summary_blob_sha"]
     assert git_blob_sha(SCALE_RESULT) == s["result_note_blob_sha"]
     assert git_blob_sha(SCALE_AMENDMENT) == s["protocol_amendment_blob_sha"]
-
     assert s["primary_direct_negative_g"] == 17
     assert s["primary_direct_negative_lnRR"] == 17
     assert s["sign_discordance"] == 0
     assert s["ML001_g_abs_order"] == ["G", "C", "F"]
     assert s["ML001_lnRR_abs_order"] == ["C", "F", "G"]
-    assert abs(s["ML001_CF_g_p"] - 0.0071961841071408175) < 1e-15
     assert abs(s["ML001_CF_lnRR_raw_delta_p"] - 0.6364031922443418) < 1e-15
-    assert abs(s["lnRR_raw_delta_full_p"] - 1.19170824745653e-12) < 1e-24
     assert abs(s["lnRR_raw_delta_omit_ML001_p"] - 8.314427075398979e-05) < 1e-16
-    assert abs(s["lnRR_zero_omit_ML001_p"] - 0.004344181486257532) < 1e-15
     assert s["lnRR_cauchy_omit_ML001_p"] > 0.05
 
     sign = m["if_sign_geometry"]
@@ -103,18 +103,33 @@ def main() -> None:
     assert sign["independent_programmes"] == 8
     assert sign["sign_discordant_panels"] == 6
     assert sign["programmes_with_sign_discordance"] == 5
-    assert sign["multi_panel_programmes"] == 4
-    assert sign["within_programme_heterogeneous"] == 3
+
+    uncertainty = m["if_sign_uncertainty"]
+    assert git_blob_sha(IF_UNCERTAINTY) == uncertainty["table_blob_sha"]
+    assert git_blob_sha(IF_UNCERTAINTY_CHECKER) == uncertainty["checker_blob_sha"]
+    assert uncertainty["primary_panels"] == 18
+    assert uncertainty["opposite_point_panels"] == 6
+    assert uncertainty["programmes_with_opposite_point_signs"] == 5
+    assert uncertainty["both_endpoint_directions_resolved_opposite"] == 0
+    assert uncertainty["one_endpoint_resolved_opposite"] == 2
+    assert uncertainty["both_endpoints_unresolved_opposite"] == 4
+
+    proxy = m["ecological_leads"]["scale_stable_quantity_function_proxy_failure"]
+    assert git_blob_sha(PROXY_TABLE) == proxy["evidence_table_blob_sha"]
+    assert git_blob_sha(PROXY_CHECKER) == proxy["checker_blob_sha"]
+    assert git_blob_sha(PROXY_NOTE) == proxy["note_blob_sha"]
+    assert proxy["independent_programmes"] == 3
+    assert proxy["stable_upstream_programmes"] == 0
+    assert set(proxy["programmes"]) == {"ML015", "P2_CF01_CARDIOPETALUM_2012", "P2_CF01_BERGSDORF_KAKAMEGA_2006"}
+    assert len(proxy["regions"]) == 3
+    assert len(proxy["plant_families"]) == 3
+    assert git_blob_sha(NOVELTY_AUDIT) == m["proxy_failure_novelty_audit"]["blob_sha"]
 
     geom = m["cross_scale_process_function_geometry"]
     assert git_blob_sha(BOTTLENECK_SCALE_TABLE) == geom["scale_table_blob_sha"]
     assert git_blob_sha(BOTTLENECK_SCALE_NOTE) == geom["result_note_blob_sha"]
     assert geom["downstream_identity_stable"] is True
     assert geom["upstream_identity_stable"] is False
-    assert geom["both_directions_present_g"] is True
-    assert geom["both_directions_present_lnRR"] is True
-    assert geom["g_upstream"] == ["ML001"]
-    assert geom["lnRR_upstream"] == ["ML002", "ML014"]
 
     ft = m["figure_table_revision"]
     assert git_blob_sha(FIGURE_BUILDER) == ft["builder_blob_sha"]
@@ -122,72 +137,60 @@ def main() -> None:
     assert ft["main_figure3"] == "manuscript/figures/figure3_if_sign_geometry.svg"
     assert ft["main_figure4"] == "manuscript/figures/figure4_estimand_scale_sensitivity.svg"
     assert ft["main_table2"] == "manuscript/tables/table2_estimand_scale_sensitivity.csv"
-    assert ft["supplementary_table_s4"] == "manuscript/tables/table_s4_process_function_census.csv"
-    assert "estimand_scale_cluster_summary_v2.csv" in builder
-    assert "lnRR_raw_delta_cov_p" in builder
-    assert "p=0.6364" in builder
-    assert "figure3_if_sign_geometry.svg" in builder
-    assert "Figure 3. Interaction–function sign geometry across matched fragmentation programmes" in captions
+    assert "IF_SIGN_UNCERTAINTY" in builder
+    assert "PROXY_FAILURE" in builder
+    assert "Figure 3. Scale-stable interaction–function proxy failure and sign uncertainty" in captions
     assert "Figure 4. Relative response geometry is estimand-scale dependent" in captions
-    assert "raw-unit multivariate delta covariance" in captions
 
     ap = m["anonymous_package"]
-    assert git_blob_sha(SOCIALIS_SNAPSHOT) == ap["ml014_sufficient_stats_snapshot_blob_sha"]
-    assert ap["ml014_sufficient_stats_snapshot"] == "evidence/meta_extraction/PS020_eucalyptus_socialis_sufficient_stats_v1.json"
-    assert "No live ML014 source download is required" in ap["external_requirement"]
     assert git_blob_sha(ANON_BUILDER) == ap["builder_blob_sha"]
     assert ap["reproduces_authoritative_raw_delta_scale_audit"] is True
     assert ap["reproduces_bottleneck_cross_scale_audit"] is True
     assert "check_estimand_scale_robustness.py" in anon
     assert "check_bottleneck_scale_robustness.py" in anon
     assert "check_if_sign_geometry.py" in anon
-    assert "table_s5_if_sign_geometry.csv" in anon
+    assert "check_if_sign_uncertainty.py" in anon
+    assert "scale_stable_quantity_function_proxy_failure_v1.csv" in anon
     assert "figure3_if_sign_geometry.svg" in anon
-    assert "figure4_estimand_scale_sensitivity.svg" in anon
-    assert "table2_estimand_scale_sensitivity.csv" in anon
 
+    claims = json.dumps(m)
     for token in (
-        "historical Hedges-g synthesis is exactly reproducible",
-        "relative response amplitude and omit-Serapias robustness classification are estimand-scale dependent",
         "all 17 primary direct effects are negative on both oriented Hedges g and oriented lnRR",
-        "upstream system attribution is scale-sensitive",
+        "three independent I-F programmes provide representation-stable downstream function-dominant mismatches",
+        "no audited I-F programme provides an equally representation-stable resolved upstream mismatch",
+        "zero of those six have both marginal endpoint directions individually resolved at 95 percent",
     ):
-        assert token in json.dumps(m), token
+        assert token in claims, token
 
     for token in (
-        "scale-invariant global layer-separation syndrome",
-        "scale-invariant system-specific bottleneck attribution",
-        "claiming lnRR is the uniquely correct effect scale",
-        "using ML020 p=1.0 as evidence of equality or coupling",
+        "claiming the six opposite-sign point estimates are six resolved sign reversals",
+        "claiming species-specific visitation or reproductive responses to fragmentation are newly discovered",
+        "claiming flower visitation being an imperfect proxy for pollination effectiveness is newly discovered",
     ):
-        assert token in json.dumps(m), token
+        assert token in claims, token
 
     assert "**STATUS: SCIENTIFIC REVALIDATION PENDING.**" in note
-    assert "raw-unit multivariate delta covariance" in note
-    assert "8.31e-05" in note
-    assert "17/17" in note
-    assert "Figure 4: estimand-scale sensitivity" in note
+    assert "Scale-stable interaction–function proxy failure" in note
+    assert "0/6 have both marginal endpoint directions individually resolved" in note
 
-    assert "scale_aware_main_sign_geometry_revision_validation_pending" in metadata
+    assert "scale_aware_proxy_failure_revision_validation_pending" in metadata
     assert "Scientific revalidation pending" in metadata
-    assert "p = 0.6364" in metadata
-    assert "[ ] ecology-forward title / Methods / main Figure 3 sign-geometry revision revalidated in current full CI and anonymous reviewer package" in metadata
+    assert "current automated count: 7811 words" in metadata
 
-    assert "raw-unit multivariate-delta covariance" in manuscript
+    assert "scale-stable deterioration and recurrent interaction–function proxy failure" in manuscript
     assert "all **17/17 primary direct effects were negative on both oriented g and oriented lnRR**" in manuscript
-    assert "p=0.6364" in manuscript
-    assert "8.31×10^-5" in manuscript
+    assert "three programme-level I–F mismatches that remain stable" in manuscript
+    assert "none has both marginal endpoint directions individually resolved at 95%" in manuscript
 
     assert "SUPERSEDED" not in scale_result
     assert "raw-unit delta covariance" in scale_result
     assert "### 2. Mandatory scale sensitivity" in amendment
 
     print(
-        "SIGN_GEOMETRY_MAIN_REVISION_PENDING_OK "
-        "submission_ready=false g_full=0.012124326106 g_drop_ML001=0.181943527111 "
-        "lnRR_raw_delta_full=1.191708e-12 lnRR_raw_delta_drop_ML001=8.314427e-05 "
-        "primary_negative_g=17 primary_negative_lnRR=17 sign_discordance=0 "
-        "ML001_CF_lnRR_p=0.636403 scale_specific_bottleneck_attribution=true"
+        "PROXY_FAILURE_MAIN_REVISION_PENDING_OK "
+        "submission_ready=false stable_downstream=3 stable_upstream=0 "
+        "point_opposite=6 both_endpoint_resolved_opposite=0 "
+        "primary_negative_g=17 primary_negative_lnRR=17 sign_discordance=0"
     )
 
 
