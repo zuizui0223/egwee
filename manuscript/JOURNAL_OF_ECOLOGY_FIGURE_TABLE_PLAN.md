@@ -32,29 +32,32 @@ Canonical historical values:
 
 The figure title/subtitle must explicitly say **Hedges g / historical primary estimand** and direct readers to Figure 4 for the lnRR sensitivity. It must not call the g-only leave-one-out result the manuscript's scale-independent claim ceiling.
 
-## Figure 3 — Complete interaction–function sign geometry
+## Figure 3 — Scale-stable interaction–function proxy failure and sign uncertainty
 
-**Purpose:** make the main scale-stable ecological result visible across the complete matched I–F denominator rather than through selected examples.
+**Purpose:** separate the strongest repeated ecological mismatch from weaker point-sign topology.
 
-Use one row per primary I–F panel, grouped by programme. Required columns:
+Panel A must show exactly the **3 representation-stable downstream I–F programmes**:
 
-- programme;
-- focal taxon/panel;
-- sign of I;
-- sign of F;
-- qualitative geometry.
+- *Eucalyptus wandoo*;
+- *Cardiopetalum calophyllum*;
+- Kakamega *Acanthopale pubescens*.
 
-Required denominator and checks:
+Required context:
 
-- exactly **18 primary panels**;
-- exactly **8 independent programmes**;
-- **6 sign-discordant panels** in **5 programmes**;
-- both discordant directions represented: I+/F− and I−/F+;
-- exactly **4 multi-panel programmes**, of which **3** contain more than one sign geometry.
+- stable resolved upstream I–F programmes = **0**;
+- complete registered I–F denominator = **8 programmes**;
+- quantity-level I endpoints = **8/8**;
+- effective-mating-quality I endpoints on the same frame = **0/8**.
 
-Do not report 5/8 or 6/18 as prevalence estimates or run sign/binomial tests. Direct signs are invariant under g→lnRR for the positive-valued endpoints; gradient panels remain on their registered Fisher-z representations.
+Panel B must show the uncertainty hierarchy for the **6 opposite-sign point-estimate panels**:
 
-The previous four-example response-regime display is no longer a main figure. Its individual examples remain traceable in Supplementary Table S5 and source-specific Results text.
+- both endpoint directions individually resolved opposite = **0/6**;
+- one endpoint resolved, one unresolved = **2/6**;
+- both endpoints unresolved = **4/6**;
+- opposite-sign panels occur in **5 programmes**;
+- 3/4 multi-panel programmes contain >1 point-sign topology, but this remains descriptive supporting context.
+
+Do not call the six panels six resolved sign reversals. Do not treat 3/8, 5/8 or 6/18 as prevalence estimates or binomial/sign tests. The main inference is insufficiency of interaction quantity as a stand-alone sentinel when a matched downstream mismatch is clearly resolved.
 
 
 ## Figure 4 — Estimand-scale sensitivity
