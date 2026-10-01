@@ -1,27 +1,29 @@
-## Scale-aware scientific validation green — human administration pending
+## Proxy-failure main revision — scientific revalidation pending
 
-The mandatory Hedges-g versus oriented-lnRR estimand audit has now been integrated into the manuscript, Figure 4, Table 2, claim ceiling and scale-aware submission freeze v4.
+The mandatory Hedges-g versus oriented-lnRR audit remains green, but the ecology-forward main result has been tightened after an explicit sign-uncertainty audit.
 
 Current scientific status:
 
 - the historical Hedges-g primary analysis remains exactly reproducible;
 - its relative-magnitude / leave-one-*Serapias* interpretation is not scale-invariant;
 - all 17/17 primary direct effects remain negative on both oriented g and oriented lnRR;
-- old variable-bottleneck classifications are retained only as exploratory registered-scale audits;
-- filtering, buffering and cohort-lag patterns are post hoc hypotheses for prospective validation.
+- three independent matched I–F programmes show a representation-stable resolved downstream mismatch (Wandoo, Cardiopetalum and Kakamega);
+- no audited I–F programme has an equally representation-stable resolved upstream mismatch;
+- 6/18 panels have opposite I/F point estimates, but 0/6 have both marginal endpoint directions individually resolved at 95%;
+- species-specific point topology and transition-filtering patterns are supporting, hypothesis-generating results rather than the sole novelty claim.
 
-Scientific validation is green in full contract run `36537159520`. Submission remains intentionally blocked only by human administrative fields and final all-author approval.
+The current manuscript title, uncertainty-aware Figure 3 and anonymous reviewer package must pass the active full CI before the scientific gate returns to human-administration-only status.
 
-Canonical scale audit:
-- [`manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-29_EFFECT_SCALE.md`](manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-29_EFFECT_SCALE.md)
+Canonical audits:
 - [`manuscript/ESTIMAND_SCALE_ROBUSTNESS_2026-09-29.md`](manuscript/ESTIMAND_SCALE_ROBUSTNESS_2026-09-29.md)
+- [`manuscript/SCALE_STABLE_QUANTITY_FUNCTION_PROXY_FAILURE_2026-09-29.md`](manuscript/SCALE_STABLE_QUANTITY_FUNCTION_PROXY_FAILURE_2026-09-29.md)
+- [`manuscript/IF_SIGN_UNCERTAINTY_2026-10-01.md`](manuscript/IF_SIGN_UNCERTAINTY_2026-10-01.md)
+- [`manuscript/IF_PROXY_FAILURE_NOVELTY_AUDIT_2026-10-01.md`](manuscript/IF_PROXY_FAILURE_NOVELTY_AUDIT_2026-10-01.md)
 - [`scripts/check_estimand_scale_robustness.py`](scripts/check_estimand_scale_robustness.py)
-- [`scripts/check_bottleneck_scale_robustness.py`](scripts/check_bottleneck_scale_robustness.py)
-- [`evidence/meta_extraction/estimand_scale_robustness_v1.csv`](evidence/meta_extraction/estimand_scale_robustness_v1.csv)
-- [`evidence/meta_extraction/estimand_scale_cluster_summary_v2.csv`](evidence/meta_extraction/estimand_scale_cluster_summary_v2.csv)
-- [`evidence/meta_extraction/estimand_scale_fisher_sensitivity_v2.csv`](evidence/meta_extraction/estimand_scale_fisher_sensitivity_v2.csv)
+- [`scripts/check_scale_stable_quantity_function_proxy_failure.py`](scripts/check_scale_stable_quantity_function_proxy_failure.py)
+- [`scripts/check_if_sign_uncertainty.py`](scripts/check_if_sign_uncertainty.py)
 
-The earlier 2026-09-27 carried-rho sensitivity files are retained as provenance but are **superseded for the main lnRR dependence reconstruction** by the 2026-09-29 raw-unit multivariate-delta audit.
+The earlier 2026-09-27 carried-rho and registered-scale bottleneck files remain provenance and hypothesis-generation material.
 
 # EGWEE — empirical multilayer fragmentation synthesis
 
@@ -100,29 +102,22 @@ ML001 *Serapias* illustrates the scale problem directly:
 
 Thus the earlier claim that *Serapias* supplies a resolved upstream movement/connectivity bottleneck is not scale-stable.
 
-### Scale-independent qualitative interaction–function discordance
+### Supporting point-sign topology — uncertainty matters
 
-The primary direct stream contains **no sign reversal** among its 17 effects, but the broader matched I–F evidence does.
+The broader matched I–F evidence contains **18 primary panels from 8 programmes**. Six panels have opposite I/F **point-estimate** signs across five programmes, in both directions.
 
-Across **18 primary I–F panels from 8 independent programmes**, six panels have opposite interaction/function signs. Those panels occur in **five independent programmes** and include both directions:
+However, the uncertainty audit changes how this result is described:
 
-- **I+, F−**: maintained/increased interaction quantity with reproductive decline (*Eucalyptus wandoo*; Kakamega *Acanthopale*);
-- **I−, F+**: interaction decline with reproductive function retained/increased (Sevenello LARO/POAR; Zurich *Onobrychis*; Toronto milkweed).
+- both marginal endpoint directions individually resolved opposite at 95%: **0 / 6**;
+- one endpoint resolved and the other unresolved: **2 / 6** (*Eucalyptus wandoo*; Kakamega *Acanthopale*);
+- both endpoints unresolved: **4 / 6** (Sevenello ×2; Zurich *Onobrychis*; Toronto milkweed).
 
-The more surprising result is within shared landscape frames. Of four multi-panel programmes, **three contain more than one sign geometry among focal species/panels**:
+Three of four multi-panel programmes also contain more than one point-sign topology under one registered exposure frame, but species-specific fragmentation responses are already known and these categories are often imprecise. This is therefore **supporting descriptive topology**, not six confirmed sign reversals and not the sole novelty claim.
 
-- Sevenello: I+,F+ and I−,F+;
-- Kakamega: I+,F− and I+,F+;
-- Zurich: I−,F+ and I−,F−.
-
-Only Chaco is sign-uniform (I−,F− across all three retained species).
-
-This supports a scale-stable ecological statement: **interaction quantity is not a monotonic proxy for reproductive function, and the same landscape exposure can propagate differently among focal plant species.** The counts are descriptive; 5/8 is not treated as a prevalence estimate or sign/binomial test.
-
-Canonical sign audit:
-- [`manuscript/IF_SIGN_GEOMETRY_2026-09-29.md`](manuscript/IF_SIGN_GEOMETRY_2026-09-29.md)
-- [`evidence/meta_extraction/if_sign_geometry_census_v1.csv`](evidence/meta_extraction/if_sign_geometry_census_v1.csv)
-- [`scripts/check_if_sign_geometry.py`](scripts/check_if_sign_geometry.py)
+Canonical uncertainty audit:
+- [`manuscript/IF_SIGN_UNCERTAINTY_2026-10-01.md`](manuscript/IF_SIGN_UNCERTAINTY_2026-10-01.md)
+- [`evidence/meta_extraction/if_sign_uncertainty_v1.csv`](evidence/meta_extraction/if_sign_uncertainty_v1.csv)
+- [`scripts/check_if_sign_uncertainty.py`](scripts/check_if_sign_uncertainty.py)
 
 ### Exploratory ecological hypotheses
 
