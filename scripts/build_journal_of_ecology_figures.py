@@ -19,6 +19,8 @@ IF_CENSUS = ROOT / "evidence/meta_extraction/ecological_if_programme_census_v1.c
 MATING_FUNCTION_CENSUS = ROOT / "evidence/meta_extraction/ecological_mating_function_programme_census_v1.csv"
 PROCESS_FUNCTION_CENSUS = ROOT / "evidence/meta_extraction/ecological_process_function_programme_census_v1.csv"
 IF_SIGN_GEOMETRY = ROOT / "evidence/meta_extraction/if_sign_geometry_census_v1.csv"
+IF_SIGN_UNCERTAINTY = ROOT / "evidence/meta_extraction/if_sign_uncertainty_v1.csv"
+PROXY_FAILURE = ROOT / "evidence/meta_extraction/scale_stable_quantity_function_proxy_failure_v1.csv"
 SCALE_EFFECTS = ROOT / "evidence/meta_extraction/estimand_scale_sensitivity_v1.csv"
 SCALE_SUMMARY = ROOT / "evidence/meta_extraction/estimand_scale_cluster_summary_v2.csv"
 REGISTRY = ROOT / "evidence/meta_extraction/multilayer_cluster_registry_v1.csv"
@@ -228,13 +230,29 @@ def draw_effect_pair_panel(
 
 def figure3_if_sign_geometry() -> None:
     census = rows(IF_SIGN_GEOMETRY)
-    assert len(census) == 18
-    programmes = {r["programme_id"] for r in census}
-    assert len(programmes) == 8
+    uncertainty = rows(IF_SIGN_UNCERTAINTY)
+    proxy = rows(PROXY_FAILURE)
 
-    discordant = [r for r in census if r["interaction_sign"] != r["function_sign"]]
-    assert len(discordant) == 6
-    assert len({r["programme_id"] for r in discordant}) == 5
+    assert len(census) == len(uncertainty) == 18
+    assert len({r["programme_id"] for r in census}) == 8
+    assert len(proxy) == 3
+
+    proxy_ids = {r["programme_id"] for r in proxy}
+    assert proxy_ids == {
+        "ML015",
+        "P2_CF01_CARDIOPETALUM_2012",
+        "P2_CF01_BERGSDORF_KAKAMEGA_2006",
+    }
+
+    point_opp = [r for r in uncertainty if r["point_opposite_sign"] == "yes"]
+    both_resolved = [r for r in uncertainty if r["discordance_strength"] == "both_endpoints_resolved_opposite"]
+    one_resolved = [r for r in uncertainty if r["discordance_strength"] == "one_endpoint_resolved_opposite"]
+    both_unresolved = [r for r in uncertainty if r["discordance_strength"] == "both_endpoints_unresolved_opposite"]
+    assert len(point_opp) == 6
+    assert len({r["programme_id"] for r in point_opp}) == 5
+    assert len(both_resolved) == 0
+    assert len(one_resolved) == 2
+    assert len(both_unresolved) == 4
 
     multi: dict[str, list[str]] = {}
     for r in census:
@@ -244,68 +262,73 @@ def figure3_if_sign_geometry() -> None:
     assert sum(len(set(v)) > 1 for v in multi.values()) == 3
 
     programme_label = {
-        "ML020": "Chaco",
-        "P2_CF01_SEVENELLO_2026": "Sevenello",
-        "P2_CF01_BERGSDORF_KAKAMEGA_2006": "Kakamega",
-        "ML015": "E. wandoo",
+        "ML015": "Eucalyptus wandoo",
         "P2_CF01_CARDIOPETALUM_2012": "Cardiopetalum",
-        "P2_CF01_ZURICH_2026": "Zurich",
-        "P2_CF01_MILKWEED_URBAN_2023": "Milkweed",
-        "P2_CF01_PRITCHARD_2005": "Pritchard",
-    }
-    geometry_label = {
-        "concordant_deterioration": "I− / F−  concordant decline",
-        "concordant_improvement": "I+ / F+  concordant increase",
-        "function_buffered_or_compensated": "I− / F+  function retained/gains",
-        "hidden_function_loss": "I+ / F−  hidden function loss",
+        "P2_CF01_BERGSDORF_KAKAMEGA_2006": "Kakamega Acanthopale",
     }
 
-    width, height = 1240, 980
+    width, height = 1240, 760
     body: list[str] = [
-        svg_text(30, 34, "Figure 3. Interaction–function sign geometry across matched fragmentation programmes", size=18, weight="bold"),
-        svg_text(30, 58, "All 18 primary I–F panels are shown; signs are scale-stable for direct g→lnRR re-expression or retained on registered Fisher-z gradients.", size=11),
-        svg_text(30, 78, "Panels are nested within eight programmes: counts are descriptive and are not prevalence estimates or independent sign trials.", size=10),
-        svg_text(35, 112, "Programme", size=11, weight="bold"),
-        svg_text(180, 112, "Focal plant / panel", size=11, weight="bold"),
-        svg_text(675, 112, "I", size=12, weight="bold"),
-        svg_text(735, 112, "F", size=12, weight="bold"),
-        svg_text(795, 112, "Qualitative geometry", size=11, weight="bold"),
+        svg_text(30, 34, "Figure 3. Scale-stable interaction–function proxy failure and sign uncertainty", size=18, weight="bold"),
+        svg_text(30, 58, "Resolved matched mismatches are separated from descriptive opposite-sign point estimates.", size=11),
+        svg_text(35, 100, "A. Representation-stable downstream mismatches", size=14, weight="bold"),
+        svg_text(35, 124, "In all three programmes, reproductive function is more negatively affected than measured interaction/pollen quantity.", size=10),
+        svg_text(35, 160, "Programme", size=11, weight="bold"),
+        svg_text(270, 160, "Region / family", size=11, weight="bold"),
+        svg_text(535, 160, "Interaction metric", size=11, weight="bold"),
+        svg_text(785, 160, "Reproductive metric", size=11, weight="bold"),
+        svg_text(1040, 160, "Robustness basis", size=11, weight="bold"),
     ]
 
-    y = 142
-    row_h = 38
-    last_programme = None
-    for row in census:
+    y = 194
+    for row in proxy:
         pid = row["programme_id"]
-        if last_programme is not None and pid != last_programme:
-            body.append(f'<line x1="30" y1="{y - 19:.1f}" x2="1210" y2="{y - 19:.1f}" stroke="black" stroke-width="0.6"/>')
-        prog = programme_label[pid] if pid != last_programme else ""
-        taxon = row["taxon"]
-        i_sign = "+" if row["interaction_sign"] == "positive" else "−"
-        f_sign = "+" if row["function_sign"] == "positive" else "−"
-        geom = geometry_label[row["sign_geometry"]]
-        is_discordant = row["interaction_sign"] != row["function_sign"]
+        label = programme_label[pid]
+        region_family = f'{row["region"]} / {row["plant_family"]}'
+        interaction = row["interaction_metric"].replace("_", " ")
+        function = row["function_metric"].replace("_", " ")
+        basis = (
+            "sign inversion + resolved I–F"
+            if pid == "ML015"
+            else "g + lnRR resolved"
+            if pid == "P2_CF01_BERGSDORF_KAKAMEGA_2006"
+            else "gradient I–F resolved"
+        )
+        body.append(svg_text(35, y, label, size=10, weight="bold"))
+        body.append(svg_text(270, y, region_family, size=9))
+        body.append(svg_text(535, y, interaction, size=9))
+        body.append(svg_text(785, y, function, size=9))
+        body.append(svg_text(1040, y, basis, size=9))
+        y += 48
 
-        body.append(svg_text(35, y + 4, prog, size=10, weight="bold" if prog else "normal"))
-        body.append(svg_text(180, y + 4, taxon, size=10))
-        body.append(svg_text(680, y + 5, i_sign, anchor="middle", size=16, weight="bold"))
-        body.append(svg_text(740, y + 5, f_sign, anchor="middle", size=16, weight="bold"))
-        body.append(svg_text(795, y + 4, geom, size=10, weight="bold" if is_discordant else "normal"))
-        if is_discordant:
-            body.append(svg_text(1165, y + 4, "discordant", anchor="end", size=9, weight="bold"))
-        y += row_h
-        last_programme = pid
+    body.append(svg_text(35, y + 8, "Stable resolved upstream I–F programmes: 0", size=10, weight="bold"))
+    body.append(svg_text(35, y + 32, "Complete registered I–F denominator: 8 programmes; all 8 interaction endpoints are quantity-level.", size=10))
+    body.append(svg_text(35, y + 54, "Direct effective-mating-quality endpoints on the same I–F frame: 0 / 8.", size=10))
 
-    summary_y = y + 12
-    body.append(f'<line x1="30" y1="{summary_y - 18:.1f}" x2="1210" y2="{summary_y - 18:.1f}" stroke="black" stroke-width="1.2"/>')
-    body.append(svg_text(35, summary_y + 10, "Cross-programme summary", size=13, weight="bold"))
-    body.append(svg_text(35, summary_y + 38, "6 / 18 panels have opposite I/F signs; these occur in 5 independent programmes.", size=11))
-    body.append(svg_text(35, summary_y + 64, "Among 4 multi-panel programmes sharing one exposure frame, 3 contain more than one sign geometry.", size=11))
-    body.append(svg_text(35, summary_y + 90, "Both discordant directions occur: I+ / F− and I− / F+. This is an existence/geometry result, not a frequency estimate.", size=10, weight="bold"))
+    section_y = y + 100
+    body.append(f'<line x1="30" y1="{section_y - 22:.1f}" x2="1210" y2="{section_y - 22:.1f}" stroke="black" stroke-width="1.2"/>')
+    body.append(svg_text(35, section_y, "B. Opposite-sign point geometry: useful, but mostly unresolved", size=14, weight="bold"))
+
+    stats = [
+        ("Opposite-sign point estimates", "6 / 18 panels", "5 independent programmes"),
+        ("Both endpoint directions resolved opposite", "0 / 6", "no confirmed marginal sign reversal"),
+        ("One endpoint resolved, one unresolved", "2 / 6", "Wandoo; Kakamega Acanthopale"),
+        ("Both endpoint directions unresolved", "4 / 6", "Sevenello ×2; Zurich; milkweed"),
+        ("Multi-panel programmes with >1 point topology", "3 / 4", "descriptive within-exposure heterogeneity"),
+    ]
+    sy = section_y + 38
+    for label, value, note in stats:
+        body.append(svg_text(55, sy, label, size=10))
+        body.append(svg_text(570, sy, value, size=11, weight="bold"))
+        body.append(svg_text(760, sy, note, size=9))
+        sy += 42
+
+    body.append(svg_text(35, sy + 12, "Interpretation", size=13, weight="bold"))
+    body.append(svg_text(35, sy + 38, "The repeated resolved failure mode is one-sided in the audited corpus: interaction quantity can look better than reproductive function.", size=10, weight="bold"))
+    body.append(svg_text(35, sy + 62, "Reverse I− / F+ point patterns exist, but current endpoint uncertainty does not establish resolved compensation.", size=10))
+    body.append(svg_text(35, sy + 86, "Counts are descriptive; panels nested within programmes are not independent sign trials and no prevalence is estimated.", size=9))
 
     write_svg(FIGDIR / "figure3_if_sign_geometry.svg", width, height, body)
-
-
 
 def figure4_estimand_scale_sensitivity() -> None:
     effects = rows(SCALE_EFFECTS)
