@@ -38,7 +38,7 @@ The paper now distinguishes scale-robust response direction from scale-dependent
 
 Finite-model NEE/EGWE work is not the framing, estimand, admission rule or inferential target of this paper. It may be cited only as downstream comparative theory where useful.
 
-> **Scientific revalidation pending:** the estimand-scale and sign-geometry analyses are complete, but the ecology-forward title, explicit post hoc sign-audit Methods and promoted main Figure 3 must reproduce together in the current full CI and anonymous reviewer package before the scientific gate is closed again.
+> **Scientific revalidation pending:** the estimand-scale, proxy-failure and sign-uncertainty audits are complete, but the proxy-failure title, uncertainty-aware Figure 3 and anonymous reviewer package must reproduce together in the current full CI before the scientific gate is closed again.
 
 ## Current quantitative state
 
@@ -114,9 +114,9 @@ Not authorised:
 - [x] primary venue selected: Journal of Ecology;
 - [x] journal-specific abstract and keywords shaped;
 - [x] main text converted to Journal of Ecology IMRaD structure;
-- [x] main-text word count audited against the ~8000-word research-article target (current automated count: 7999 words from Introduction onward);
-- [ ] current Figure 3 sign-geometry promotion plus scale-aware figure/table package revalidated in full CI;
-- [ ] current anonymous reviewer package reproduces the promoted Figure 3 sign census plus the authoritative 2026-09-29 scale audits;
+- [x] main-text word count audited against the ~8000-word research-article target (current automated count: 7811 words from Introduction onward);
+- [ ] current Figure 3 proxy-failure / sign-uncertainty hierarchy plus scale-aware figure/table package revalidated in full CI;
+- [ ] current anonymous reviewer package reproduces the proxy-failure Figure 3, sign-uncertainty audit and authoritative 2026-09-29 scale audits;
 - [x] estimand-scale audit completed: Hedges-g and lnRR yield materially different response geometry / robustness classifications;
 - [x] manuscript headline revised so no scale-dependent separation/bottleneck claim is presented as scale-invariant;
 - [x] scale-stable interaction–function sign geometry audited across all 18 primary I–F panels;
