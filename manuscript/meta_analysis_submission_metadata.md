@@ -2,10 +2,10 @@
 
 ## Manuscript identity
 
-- **Working title:** Habitat fragmentation across plant reproductive life cycles: species-specific interaction–function translation and scale-sensitive amplitudes
+- **Working title:** Habitat fragmentation across plant reproductive life cycles: scale-stable deterioration and recurrent interaction–function proxy failure
 - **Source manuscript:** `manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md`
 - **Protocol:** `manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md`
-- **Submission state:** `scale_aware_main_sign_geometry_revision_validation_pending`
+- **Submission state:** `scale_aware_proxy_failure_revision_validation_pending`
 - **Article type:** Research Article / empirical research synthesis
 - **Primary target journal:** **Journal of Ecology**
 - **Fallback venues:** Ecology (Article or Concepts & Synthesis, if reframed for broader ecological generality); Oikos (Meta-analysis)
@@ -64,12 +64,14 @@ Authorised manuscript-level ecological claims:
 - all **17/17 primary direct effects are negative** on both oriented Hedges g and oriented lnRR; this common deterioration direction is the strongest scale-stable result in the primary direct stream;
 - the primary direct stream therefore supports directional consistency of fragmentation-associated deterioration, but not a scale-independent ordering or magnitude separation among response layers;
 - the strongest cross-context ecological lead is interaction-quantity proxy failure: Wandoo, Cardiopetalum and Kakamega provide independent downstream function-dominant mismatches that remain stable under their audited representations;
+- these three stable downstream mismatches span three continents and three plant families, while **0** audited I–F programmes have an equally representation-stable resolved upstream mismatch; this asymmetry is descriptive and not a sign/binomial test;
+- the broader sign audit contains 6 opposite-sign point-estimate panels across 5 programmes, but **0/6** have both marginal endpoint directions individually resolved at 95%; point-sign topology is therefore supporting, hypothesis-generating evidence rather than six confirmed sign reversals;
 - all 8 registered I–F programmes measure interaction/pollen quantity and 0 directly measure effective mating quality on the same I–F frame;
 - all three direct movement/mating–F anchors retain the same process-more-negative point ordering on g and lnRR, but statistical resolution is scale-sensitive; this is exploratory transition-filtering evidence, not a confirmatory 3/3 test;
 - the preregistered five-programme adult–offspring family does not resolve a common directional cohort lag (mean +0.129; mKH 95% CI -0.655 to +0.912; p=0.672);
 - the separate *Eucalyptus wandoo* gradient remains a genuine qualitative sign-discordance example because interaction/pollen quantity is positive while reproductive function is negative on its registered Fisher-z representation;
-- the broader matched I–F evidence contains **6 sign-discordant primary panels across 5 independent programmes**, with both I+,F− and I−,F+ geometries; this is a scale-stable existence result, not a prevalence estimate;
-- among the four multi-panel programmes sharing one registered exposure frame, **Sevenello, Kakamega and Zurich each contain more than one I/F sign geometry among focal species/panels**, showing that landscape exposure alone does not determine the interaction→function trajectory;
+- the broader matched I–F evidence contains **6 opposite-sign point-estimate panels across 5 independent programmes**, with both I+,F− and I−,F+ point geometries; none has both marginal endpoint directions individually resolved at 95%, so this is descriptive topology rather than six confirmed reversals;
+- among the four multi-panel programmes sharing one registered exposure frame, **Sevenello, Kakamega and Zurich each contain more than one point-estimate I/F sign geometry among focal species/panels**; because species-specific fragmentation responses are already known and endpoint uncertainty is often wide, this is supporting context rather than the sole novelty claim;
 - lnRR patterns suggesting stronger mating/connectivity responses than downstream performance in ML002/ML014, and stronger juvenile/seed than adult genetic responses in ML003, may be presented only as **post hoc exploratory filtering/lag hypotheses** requiring prospective validation;
 - the earlier 12-programme process–function census remains exploratory: both upstream and downstream resolved geometries occur under g/registered and lnRR representations, but upstream system attribution changes from ML001 *Serapias* on g to ML002 *Brosimum* and ML014 *Eucalyptus socialis* on lnRR; system-specific bottleneck attribution is therefore scale-sensitive.
 
@@ -86,6 +88,9 @@ Not authorised:
 - a confirmed adult-versus-offspring cohort/history lag;
 - a general causal explanation for quantity–function decoupling;
 - treating 5/8 programmes or 6/18 panels as an estimate of the global prevalence of sign decoupling;
+- claiming that the six opposite-sign point estimates are six individually resolved sign reversals;
+- claiming that species-specific visitation/reproductive responses to fragmentation are newly discovered;
+- claiming that flower visitation being an imperfect proxy for pollination effectiveness is newly discovered;
 - treating dependent species/panels inside one programme as independent sign trials;
 - inferring one common compensation mechanism for I−,F+ cases or one common pollen-quality mechanism for I+,F− cases;
 - treating pollinator abundance, reproductive output or genetic diversity alone as a sufficient proxy for whole-system condition;
@@ -115,7 +120,7 @@ Not authorised:
 - [x] estimand-scale audit completed: Hedges-g and lnRR yield materially different response geometry / robustness classifications;
 - [x] manuscript headline revised so no scale-dependent separation/bottleneck claim is presented as scale-invariant;
 - [x] scale-stable interaction–function sign geometry audited across all 18 primary I–F panels;
-- [ ] ecology-forward title / Methods / main Figure 3 sign-geometry revision revalidated in current full CI and anonymous reviewer package;
+- [ ] proxy-failure title / uncertainty-aware Methods / main Figure 3 revision revalidated in current full CI and anonymous reviewer package;
 - [x] g and lnRR sensitivity reported in Methods, Results, Limitations and figure/table package (Figure 4 + Table 2);
 - [x] submission freeze renewed after scale-aware manuscript + figure/table revision;
 - [ ] author/declaration metadata approved.
