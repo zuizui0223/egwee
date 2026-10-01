@@ -22,6 +22,8 @@ FILES = [
     "manuscript/SCALE_STABLE_QUANTITY_FUNCTION_PROXY_FAILURE_2026-09-29.md",
     "manuscript/TRANSITION_SPECIFIC_FILTERING_AUDIT_2026-09-29.md",
     "manuscript/IF_SIGN_GEOMETRY_2026-09-29.md",
+    "manuscript/IF_SIGN_UNCERTAINTY_2026-10-01.md",
+    "manuscript/IF_PROXY_FAILURE_NOVELTY_AUDIT_2026-10-01.md",
     "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-29_EFFECT_SCALE.md",
     "manuscript/ECOLOGICAL_IF_DIRECTION_CENSUS_2026-09-27.md",
     "manuscript/ECOLOGICAL_PROCESS_FUNCTION_CENSUS_2026-09-27.md",
@@ -37,6 +39,7 @@ FILES = [
     "scripts/check_scale_stable_quantity_function_proxy_failure.py",
     "scripts/check_transition_specific_filtering.py",
     "scripts/check_if_sign_geometry.py",
+    "scripts/check_if_sign_uncertainty.py",
     "scripts/check_ecological_if_programme_census.py",
     "scripts/check_ecological_process_function_programme_census.py",
     "scripts/check_ecological_bottleneck_direction_influence.py",
@@ -74,6 +77,7 @@ FILES = [
     "evidence/meta_extraction/transition_filtering_topology_v1.csv",
     "evidence/meta_extraction/phase2_gpair_synthesis_v1.json",
     "evidence/meta_extraction/if_sign_geometry_census_v1.csv",
+    "evidence/meta_extraction/if_sign_uncertainty_v1.csv",
     "evidence/meta_extraction/estimand_scale_cluster_summary_v2.csv",
     "evidence/meta_extraction/estimand_scale_fisher_sensitivity_v2.csv",
     "evidence/meta_extraction/exploratory_transition_filtering_v1.csv",
@@ -249,6 +253,16 @@ def verify_reproduction() -> None:
     )
     if "IF_SIGN_GEOMETRY_OK panels=18 programmes=8 discordant_panels=6 discordant_programmes=5 hidden_function_loss_programmes=2 buffered_or_gain_programmes=3 multi_panel_programmes=4 within_program_heterogeneous=3" not in sign_geometry.stdout:
         raise AssertionError(sign_geometry.stdout)
+
+    sign_uncertainty = subprocess.run(
+        [sys.executable, "scripts/check_if_sign_uncertainty.py"],
+        cwd=PKG,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    if "IF_SIGN_UNCERTAINTY_OK panels=18 point_opposite=6 programmes_point_opposite=5 both_resolved_opposite=0 one_resolved_opposite=2 both_unresolved_opposite=4" not in sign_uncertainty.stdout:
+        raise AssertionError(sign_uncertainty.stdout)
 
     census = subprocess.run(
         [sys.executable, "scripts/check_ecological_if_programme_census.py"],
