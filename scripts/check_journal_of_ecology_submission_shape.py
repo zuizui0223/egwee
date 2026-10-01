@@ -95,7 +95,7 @@ def main() -> None:
 
     assert "**Primary target journal:** **Journal of Ecology**" in metadata
     assert "Research Article / empirical research synthesis" in metadata
-    assert "scale_aware_scientific_validation_green_human_admin_pending" in metadata
+    assert "scale_aware_main_sign_geometry_revision_validation_pending" in metadata
 
     print(
         "JOURNAL_OF_ECOLOGY_SHAPE_OK "
