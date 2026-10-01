@@ -2,7 +2,7 @@
 
 ## Manuscript title
 
-Habitat fragmentation across plant reproductive life cycles: species-specific interaction–function translation and scale-sensitive amplitudes
+Habitat fragmentation across plant reproductive life cycles: scale-stable deterioration and recurrent interaction–function proxy failure
 
 ## Authors
 
