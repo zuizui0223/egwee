@@ -1,17 +1,17 @@
 {
-  "schema_version": 5,
-  "updated_on": "2026-09-29",
-  "status": "scientific_validation_pending_after_main_sign_geometry_promotion",
+  "schema_version": 6,
+  "updated_on": "2026-10-01",
+  "status": "scientific_validation_pending_after_proxy_failure_promotion",
   "submission_ready": false,
   "supersedes_submission_freeze": true,
   "revision_base_commit": "e94722fe99dd40b1bebac42fa311f40d9e412ab4",
   "manuscript": {
     "path": "manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md",
-    "blob_sha": "87f0ace2c48ca05d8ff57f6d6aee0e4d669debbd",
-    "title": "Habitat fragmentation across plant reproductive life cycles: species-specific interaction–function translation and scale-sensitive amplitudes",
+    "blob_sha": "7348b44fb5f3444b36ed1f8778c8fcf14a675d9c",
+    "title": "Habitat fragmentation across plant reproductive life cycles: scale-stable deterioration and recurrent interaction–function proxy failure",
     "target_journal": "Journal of Ecology",
-    "main_text_words": 7999,
-    "abstract_words": 332
+    "main_text_words": 7811,
+    "abstract_words": 334
   },
   "historical_primary_g": {
     "independent_clusters": 5,
@@ -115,8 +115,8 @@
     "registered_scale_census_output": "manuscript/tables/table_s4_process_function_census.csv"
   },
   "figure_table_revision": {
-    "builder_blob_sha": "36593c187725bc92aeba2ab33ad1147287f651da",
-    "captions_blob_sha": "abe82b8f123489d0d9a9d28a1ca57863b4181f2d",
+    "builder_blob_sha": "b9c6fa45637ded105398ae0061dbaf7789835022",
+    "captions_blob_sha": "a36596ab9ec22dea418ef7fc8a76c5bf5ea08572",
     "main_figure4": "manuscript/figures/figure4_estimand_scale_sensitivity.svg",
     "main_table2": "manuscript/tables/table2_estimand_scale_sensitivity.csv",
     "supplementary_table_s4": "manuscript/tables/table_s4_process_function_census.csv",
@@ -124,7 +124,7 @@
     "main_figure3": "manuscript/figures/figure3_if_sign_geometry.svg"
   },
   "anonymous_package": {
-    "builder_blob_sha": "9c2f93d7f9ce25315508c70fe6be2a3a566969db",
+    "builder_blob_sha": "c15ebbf9e59229c7b1c7ecf93d8e3151405dd0e1",
     "reproduces_authoritative_raw_delta_scale_audit": true,
     "reproduces_bottleneck_cross_scale_audit": true,
     "reproduces_historical_g": true,
@@ -136,9 +136,11 @@
     "historical Hedges-g synthesis is exactly reproducible",
     "relative response amplitude and omit-Serapias robustness classification are estimand-scale dependent",
     "all 17 primary direct effects are negative on both oriented Hedges g and oriented lnRR",
-    "downstream process-function geometry is stable across the audited representations for Wandoo Cardiopetalum and Kakamega",
-    "upstream system attribution is scale-sensitive: Serapias on g versus Brosimum and Eucalyptus socialis on lnRR",
-    "Eucalyptus wandoo provides separate qualitative sign discordance",
+    "three independent I-F programmes provide representation-stable downstream function-dominant mismatches: Wandoo Cardiopetalum and Kakamega",
+    "no audited I-F programme provides an equally representation-stable resolved upstream mismatch",
+    "all 8 registered I-F programmes measure interaction or pollen quantity and 0 directly measure effective mating quality on the same frame",
+    "six of 18 primary I-F panels have opposite point-estimate signs across five programmes but zero of those six have both marginal endpoint directions individually resolved at 95 percent",
+    "species-specific point-sign topology under shared exposure is supporting descriptive context rather than the sole novelty claim",
     "transition filtering buffering amplification and cohort lag are exploratory hypotheses only"
   ],
   "not_authorized": [
@@ -153,10 +155,15 @@
     "direct empirical validation of finite EGWE or NEE operators",
     "using 5 of 8 programmes or 6 of 18 panels as a global prevalence estimate",
     "treating dependent I-F panels as independent sign trials",
-    "inferring one common compensation or pollen-quality mechanism from sign discordance alone"
+    "inferring one common compensation or pollen-quality mechanism from sign discordance alone",
+    "claiming the six opposite-sign point estimates are six resolved sign reversals",
+    "claiming species-specific visitation or reproductive responses to fragmentation are newly discovered",
+    "claiming flower visitation being an imperfect proxy for pollination effectiveness is newly discovered",
+    "estimating global prevalence of interaction-quantity proxy failure from three programmes",
+    "claiming one mechanism explains the three stable downstream proxy-failure programmes"
   ],
   "remaining_scientific_gate": [
-    "current full CI green after main sign-geometry Figure 3/title/Methods revision and anonymous-package reproduction"
+    "current full CI green after proxy-failure title Figure 3 uncertainty hierarchy and anonymous-package reproduction"
   ],
   "remaining_human_blockers": [
     "final author list",
@@ -172,7 +179,7 @@
     "previous_conclusion": "success",
     "current_revision_status": "pending",
     "current_revision_validated": false,
-    "reason": "main Figure 3 promoted to complete I-F sign geometry; ecological title/Methods/novelty reframed"
+    "reason": "main ecological lead promoted to scale-stable interaction-quantity proxy failure; Figure 3 now separates resolved programme mismatches from point-sign uncertainty"
   },
   "if_sign_geometry": {
     "status": "scale_stable_descriptive_ecology",
@@ -213,7 +220,11 @@
       "status": "cross_context_exploratory_generalization_not_prevalence_estimate",
       "evidence_table": "evidence/meta_extraction/scale_stable_quantity_function_proxy_failure_v1.csv",
       "note": "manuscript/SCALE_STABLE_QUANTITY_FUNCTION_PROXY_FAILURE_2026-09-29.md",
-      "note_blob_sha": "ddb85509c9a4c6a3353f52b41ccffab12beb2040"
+      "note_blob_sha": "ddb85509c9a4c6a3353f52b41ccffab12beb2040",
+      "evidence_table_blob_sha": "2e9c35e191a86121532f418a8e11233d963deea6",
+      "checker": "scripts/check_scale_stable_quantity_function_proxy_failure.py",
+      "checker_blob_sha": "3ecad17e76eb4fae0bc7c528589e26d6704c934f",
+      "stable_upstream_programmes": 0
     },
     "transition_specific_filtering": {
       "interaction_to_F_stable_downstream": 3,
@@ -228,5 +239,23 @@
   "ecological_generality_and_surprise": {
     "path": "manuscript/ECOLOGICAL_GENERALITY_AND_SURPRISE_2026-09-29.md",
     "blob_sha": "be0d5c67be858cdd16454a67e27729d90722c8bf"
+  },
+  "if_sign_uncertainty": {
+    "status": "descriptive_point_sign_uncertainty_audit",
+    "table": "evidence/meta_extraction/if_sign_uncertainty_v1.csv",
+    "table_blob_sha": "2ffe67f2218c60212c5cde4f68f6d702a7f9f0fd",
+    "checker": "scripts/check_if_sign_uncertainty.py",
+    "checker_blob_sha": "a0bf8442b26639b93ce681619db74ad0b4a0518f",
+    "note": "manuscript/IF_SIGN_UNCERTAINTY_2026-10-01.md",
+    "primary_panels": 18,
+    "opposite_point_panels": 6,
+    "programmes_with_opposite_point_signs": 5,
+    "both_endpoint_directions_resolved_opposite": 0,
+    "one_endpoint_resolved_opposite": 2,
+    "both_endpoints_unresolved_opposite": 4
+  },
+  "proxy_failure_novelty_audit": {
+    "path": "manuscript/IF_PROXY_FAILURE_NOVELTY_AUDIT_2026-10-01.md",
+    "blob_sha": "99752ac1d13bcf9dcb3a8ab5dddcbee604a8ffd4"
   }
 }
