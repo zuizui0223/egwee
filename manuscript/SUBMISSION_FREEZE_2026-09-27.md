@@ -1,6 +1,6 @@
-# EGWEE submission state — SIGN-GEOMETRY MAIN-FIGURE REVALIDATION PENDING 2026-10-01
+# EGWEE submission state — PROXY-FAILURE MAIN-FIGURE REVALIDATION PENDING 2026-10-01
 
-> **STATUS: SCIENTIFIC REVALIDATION PENDING.** The previous scale-aware package was green, but the ecology-forward title, explicit post hoc sign-audit Methods and complete 18-panel sign-geometry Figure 3 are a substantive presentation revision and must pass the current full CI and anonymous reviewer-package reproduction before submission can return to human-administration-only status.
+> **STATUS: SCIENTIFIC REVALIDATION PENDING.** The previous scale-aware package was green, but the manuscript now promotes scale-stable interaction–function proxy failure as the ecological lead and makes Figure 3 explicitly uncertainty-aware. The revised title, Figure 3 hierarchy and anonymous reviewer package must pass the current full CI before submission can return to human-administration-only status.
 
 ## Why the freeze was reopened
 
@@ -86,3 +86,21 @@ Canonical files:
 - `manuscript/IF_SIGN_GEOMETRY_2026-09-29.md`
 - `evidence/meta_extraction/if_sign_geometry_census_v1.csv`
 - `scripts/check_if_sign_geometry.py`
+
+
+## Scale-stable interaction–function proxy failure
+
+The strongest current cross-context ecological lead is narrower than the full point-sign census.
+
+Three independent matched I–F programmes—*Eucalyptus wandoo*, *Cardiopetalum calophyllum* and Kakamega *Acanthopale pubescens*—retain a resolved downstream function-dominant mismatch under their audited representations. They span three continents and three plant families. No audited I–F programme has an equally representation-stable resolved upstream mismatch.
+
+The broader point-sign audit contains 6 opposite-sign panels across 5 programmes, but 0/6 have both marginal endpoint directions individually resolved at 95%. Those point-sign patterns are therefore supporting, hypothesis-generating topology rather than six confirmed sign reversals.
+
+Canonical files:
+- `manuscript/SCALE_STABLE_QUANTITY_FUNCTION_PROXY_FAILURE_2026-09-29.md`
+- `evidence/meta_extraction/scale_stable_quantity_function_proxy_failure_v1.csv`
+- `scripts/check_scale_stable_quantity_function_proxy_failure.py`
+- `manuscript/IF_SIGN_UNCERTAINTY_2026-10-01.md`
+- `evidence/meta_extraction/if_sign_uncertainty_v1.csv`
+- `scripts/check_if_sign_uncertainty.py`
+- `manuscript/IF_PROXY_FAILURE_NOVELTY_AUDIT_2026-10-01.md`
