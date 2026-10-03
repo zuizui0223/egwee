@@ -117,7 +117,7 @@ Not authorised:
 - [x] journal-specific abstract and keywords shaped;
 - [x] main text converted to Journal of Ecology IMRaD structure;
 - [x] main-text word count audited against the ~8000-word research-article target (current automated count: 7992 words from Introduction onward);
-- [x] current Figure 3 proxy-failure / sign-uncertainty hierarchy plus scale-aware figure/table package revalidated in full CI;
+- [ ] current Figures 3–5 proxy-failure / scale / sentinel-sufficiency package revalidated in full CI;
 - [x] current anonymous reviewer package reproduces the proxy-failure Figure 3, sign-uncertainty audit, qualitative external S6 and authoritative 2026-09-29 scale audits;
 - [x] estimand-scale audit completed: Hedges-g and lnRR yield materially different response geometry / robustness classifications;
 - [x] manuscript headline revised so no scale-dependent separation/bottleneck claim is presented as scale-invariant;
