@@ -186,7 +186,7 @@ def main() -> None:
     ):
         assert token in claims, token
 
-    assert "**STATUS: SCIENTIFICALLY VALIDATED, HUMAN ADMINISTRATION PENDING.**" in note
+    assert "**STATUS: SCIENTIFIC REVALIDATION PENDING.**" in note
     assert "Scale-stable interaction–function proxy failure" in note
     assert "0/6 have both marginal endpoint directions individually resolved" in note
 
