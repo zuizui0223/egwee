@@ -38,9 +38,9 @@ Patterns suggesting attenuation, compensation or temporal/cohort lag are treated
 
 ### Protocol and study universe
 
-The meta-analysis protocol was frozen on 11 September 2026 before the current synthesis. Screening started from major prior quantitative syntheses of plant pollination/reproduction, plant genetics, progeny responses, fine-scale genetic structure and pollinator responses to fragmentation, then extended backward and forward through the primary literature. Previously curated candidate systems were used as search seeds rather than automatic inclusions.
+The meta-analysis protocol was frozen on 11 September 2026 before synthesis. Screening started from major prior quantitative syntheses of plant pollination/reproduction, plant genetics, progeny responses, fine-scale genetic structure and pollinator responses to fragmentation, then extended backward and forward through the primary literature. Previously curated candidate systems were used as search seeds rather than automatic inclusions.
 
-The primary target population comprised flowering-plant studies with a direct fragmented-versus-reference comparison or an equivalent source-defined two-group fragmentation contrast. Continuous-only fragmentation gradients were retained in a separate correlation-effect stream and were not converted into the direct primary effect family merely to enlarge sample size.
+The target population comprised flowering-plant studies with a direct fragmented-versus-reference comparison or an equivalent source-defined two-group fragmentation contrast. Continuous-only fragmentation gradients were retained in a separate correlation-effect stream and were not converted into the direct primary effect family merely to enlarge sample size.
 
 A study/programme entered the primary state-separation synthesis only when at least two predeclared biological layers could be represented under the same fragmentation comparison with valid independent units and recoverable sampling uncertainty. Nested plants, flowers, fruits, progeny, loci or repeated observations were not promoted to fragmentation replicates. Duplicate reports and shared biological observations were linked at the programme/study level.
 
