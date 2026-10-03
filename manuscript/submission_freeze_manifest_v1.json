@@ -1,16 +1,16 @@
 {
   "schema_version": 6,
-  "updated_on": "2026-10-01",
-  "status": "scientific_validation_green_human_admin_pending",
+  "updated_on": "2026-10-03",
+  "status": "scientific_validation_pending_after_qualitative_external_audit",
   "submission_ready": false,
   "supersedes_submission_freeze": true,
   "revision_base_commit": "e94722fe99dd40b1bebac42fa311f40d9e412ab4",
   "manuscript": {
     "path": "manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md",
-    "blob_sha": "7348b44fb5f3444b36ed1f8778c8fcf14a675d9c",
+    "blob_sha": "f96ab57e1c36585921fdc14de306500ebc86294e",
     "title": "Habitat fragmentation across plant reproductive life cycles: scale-stable deterioration and recurrent interaction–function proxy failure",
     "target_journal": "Journal of Ecology",
-    "main_text_words": 7811,
+    "main_text_words": 7878,
     "abstract_words": 334
   },
   "historical_primary_g": {
@@ -115,16 +115,17 @@
     "registered_scale_census_output": "manuscript/tables/table_s4_process_function_census.csv"
   },
   "figure_table_revision": {
-    "builder_blob_sha": "b9c6fa45637ded105398ae0061dbaf7789835022",
-    "captions_blob_sha": "a36596ab9ec22dea418ef7fc8a76c5bf5ea08572",
+    "builder_blob_sha": "f78d5ccc45a3752a01988b8a5f69c39a76be2d9a",
+    "captions_blob_sha": "6a3a8c79ef0a96a8cdf9924705a5d50b1c52147d",
     "main_figure4": "manuscript/figures/figure4_estimand_scale_sensitivity.svg",
     "main_table2": "manuscript/tables/table2_estimand_scale_sensitivity.csv",
     "supplementary_table_s4": "manuscript/tables/table_s4_process_function_census.csv",
     "supplementary_table_s5": "manuscript/tables/table_s5_if_sign_geometry.csv",
-    "main_figure3": "manuscript/figures/figure3_if_sign_geometry.svg"
+    "main_figure3": "manuscript/figures/figure3_if_sign_geometry.svg",
+    "supplementary_table_s6": "manuscript/tables/table_s6_qualitative_external_if_audit.csv"
   },
   "anonymous_package": {
-    "builder_blob_sha": "c15ebbf9e59229c7b1c7ecf93d8e3151405dd0e1",
+    "builder_blob_sha": "b889fde5f9e0478efafda01da8bb79dcc61fb054",
     "reproduces_authoritative_raw_delta_scale_audit": true,
     "reproduces_bottleneck_cross_scale_audit": true,
     "reproduces_historical_g": true,
@@ -141,7 +142,8 @@
     "all 8 registered I-F programmes measure interaction or pollen quantity and 0 directly measure effective mating quality on the same frame",
     "six of 18 primary I-F panels have opposite point-estimate signs across five programmes but zero of those six have both marginal endpoint directions individually resolved at 95 percent",
     "species-specific point-sign topology under shared exposure is supporting descriptive context rather than the sole novelty claim",
-    "transition filtering buffering amplification and cohort lag are exploratory hypotheses only"
+    "transition filtering buffering amplification and cohort lag are exploratory hypotheses only",
+    "the frozen qualitative blocked I-F denominator contains mixed buffering resilience concordance and hidden-function-loss geometries; it supports proxy non-monotonicity but not a one-sided prevalence rule"
   ],
   "not_authorized": [
     "scale-invariant global layer-separation syndrome",
@@ -160,9 +162,12 @@
     "claiming species-specific visitation or reproductive responses to fragmentation are newly discovered",
     "claiming flower visitation being an imperfect proxy for pollination effectiveness is newly discovered",
     "estimating global prevalence of interaction-quantity proxy failure from three programmes",
-    "claiming one mechanism explains the three stable downstream proxy-failure programmes"
+    "claiming one mechanism explains the three stable downstream proxy-failure programmes",
+    "counting the eight qualitative blocked programmes as quantitative replications or using their category frequencies as global prevalence"
   ],
-  "remaining_scientific_gate": [],
+  "remaining_scientific_gate": [
+    "current full CI green with Supplementary Table S6 qualitative external audit and anonymous reviewer-package reproduction"
+  ],
   "remaining_human_blockers": [
     "final author list",
     "affiliations",
@@ -173,16 +178,11 @@
     "final all-author approval"
   ],
   "scientific_validation": {
-    "full_contract_run_id": 37089505747,
-    "conclusion": "success",
-    "current_revision_status": "validated",
-    "current_revision_validated": true,
-    "scale_aware_manuscript": true,
-    "proxy_failure_audit": true,
-    "sign_uncertainty_audit": true,
-    "double_anonymous": true,
-    "figures_tables_reproduced": true,
-    "anonymous_reviewer_package_reproduced": true
+    "previous_green_run_id": 37089986196,
+    "previous_conclusion": "success",
+    "current_revision_status": "pending",
+    "current_revision_validated": false,
+    "reason": "qualitative external frozen-denominator audit promoted into Discussion and Supplementary Table S6"
   },
   "if_sign_geometry": {
     "status": "scale_stable_descriptive_ecology",
@@ -259,6 +259,21 @@
   },
   "proxy_failure_novelty_audit": {
     "path": "manuscript/IF_PROXY_FAILURE_NOVELTY_AUDIT_2026-10-01.md",
-    "blob_sha": "99752ac1d13bcf9dcb3a8ab5dddcbee604a8ffd4"
+    "blob_sha": "db220b3991a17cf4e848f0c6e0ec850cd7dd5aa1"
+  },
+  "qualitative_external_if_audit": {
+    "status": "frozen_denominator_qualitative_context_not_quantitative_replication",
+    "programmes": 8,
+    "qualitative_nonmonotonic": 5,
+    "resilient_no_detected_loss": 2,
+    "concordant_population_size_effect": 1,
+    "hidden_function_loss": 1,
+    "table": "evidence/meta_extraction/qualitative_external_if_audit_v1.csv",
+    "table_blob_sha": "1f9d1d2313190a703235786c2ea21365fb9aa643",
+    "note": "manuscript/QUALITATIVE_EXTERNAL_IF_AUDIT_2026-10-03.md",
+    "note_blob_sha": "d9446f4a1310c9ea83024b9720a86a3bcf6e9585",
+    "checker": "scripts/check_qualitative_external_if_audit.py",
+    "checker_blob_sha": "0e1bab4ac06c73aceb56b020026663d35c05bd71",
+    "claim": "blocked qualitative evidence broadens proxy non-monotonicity but does not support a one-sided prevalence rule"
   }
 }
