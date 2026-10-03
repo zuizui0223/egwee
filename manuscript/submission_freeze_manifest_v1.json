@@ -1,7 +1,7 @@
 {
   "schema_version": 6,
   "updated_on": "2026-10-01",
-  "status": "scientific_validation_pending_after_proxy_failure_promotion",
+  "status": "scientific_validation_green_human_admin_pending",
   "submission_ready": false,
   "supersedes_submission_freeze": true,
   "revision_base_commit": "e94722fe99dd40b1bebac42fa311f40d9e412ab4",
@@ -162,9 +162,7 @@
     "estimating global prevalence of interaction-quantity proxy failure from three programmes",
     "claiming one mechanism explains the three stable downstream proxy-failure programmes"
   ],
-  "remaining_scientific_gate": [
-    "current full CI green after proxy-failure title Figure 3 uncertainty hierarchy and anonymous-package reproduction"
-  ],
+  "remaining_scientific_gate": [],
   "remaining_human_blockers": [
     "final author list",
     "affiliations",
@@ -175,11 +173,16 @@
     "final all-author approval"
   ],
   "scientific_validation": {
-    "previous_green_full_contract_run_id": 36542416391,
-    "previous_conclusion": "success",
-    "current_revision_status": "pending",
-    "current_revision_validated": false,
-    "reason": "main ecological lead promoted to scale-stable interaction-quantity proxy failure; Figure 3 now separates resolved programme mismatches from point-sign uncertainty"
+    "full_contract_run_id": 37089505747,
+    "conclusion": "success",
+    "current_revision_status": "validated",
+    "current_revision_validated": true,
+    "scale_aware_manuscript": true,
+    "proxy_failure_audit": true,
+    "sign_uncertainty_audit": true,
+    "double_anonymous": true,
+    "figures_tables_reproduced": true,
+    "anonymous_reviewer_package_reproduced": true
   },
   "if_sign_geometry": {
     "status": "scale_stable_descriptive_ecology",
