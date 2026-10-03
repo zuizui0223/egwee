@@ -1,6 +1,6 @@
-# EGWEE submission state — TRANSLATION-MAP REVISION VALIDATION PENDING 2026-10-03
+# EGWEE submission state — SCIENTIFIC VALIDATION GREEN 2026-10-03
 
-> **STATUS: SCIENTIFIC REVALIDATION PENDING.** The previously green scale-aware package has been extended with a frozen 16-programme interaction–function translation map (Supplementary Figure S2 / Table S7). Submission remains on hold until the current full CI and anonymous reviewer package reproduce this revision. Full CI run `37109896871` reproduces the denominator-frozen qualitative I–F audit, Supplementary Table S6, scale-aware figure/table package, double-anonymous manuscript and anonymous reviewer package. Submission remains unauthorised only until human author/declaration metadata and final approval are complete.
+> **STATUS: SCIENTIFICALLY VALIDATED, HUMAN ADMINISTRATION PENDING.** Full CI run `37112411828` reproduces the scale-aware manuscript, frozen 16-programme interaction–function translation map, Supplementary Figure S2 / Table S7, double-anonymous checks and anonymous reviewer package. Submission remains unauthorised until human author/declaration metadata and final approval are complete.
 
 ## Why the freeze was reopened
 
