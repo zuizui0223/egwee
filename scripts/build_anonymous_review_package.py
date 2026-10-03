@@ -26,6 +26,7 @@ FILES = [
     "manuscript/IF_PROXY_FAILURE_NOVELTY_AUDIT_2026-10-01.md",
     "manuscript/QUALITATIVE_EXTERNAL_IF_AUDIT_2026-10-03.md",
     "manuscript/IF_TRANSLATION_NONIDENTIFIABILITY_2026-10-03.md",
+    "manuscript/INTERACTION_DECLINE_NECESSITY_SUFFICIENCY_2026-10-03.md",
     "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-29_EFFECT_SCALE.md",
     "manuscript/ECOLOGICAL_IF_DIRECTION_CENSUS_2026-09-27.md",
     "manuscript/ECOLOGICAL_PROCESS_FUNCTION_CENSUS_2026-09-27.md",
@@ -44,6 +45,7 @@ FILES = [
     "scripts/check_if_sign_uncertainty.py",
     "scripts/check_qualitative_external_if_audit.py",
     "scripts/check_if_translation_map.py",
+    "scripts/check_interaction_decline_necessity_sufficiency.py",
     "scripts/check_ecological_if_programme_census.py",
     "scripts/check_ecological_process_function_programme_census.py",
     "scripts/check_ecological_bottleneck_direction_influence.py",
@@ -143,7 +145,7 @@ def copy_scrubbed(rel: str) -> None:
 
 
 def write_readme() -> None:
-    text = """# Anonymous review package\n\nThis package contains the analysis-ready tables and minimal code needed to reproduce the historical five-cluster Hedges-g synthesis, the mandatory Hedges-g versus lnRR estimand-scale audit, covariance sensitivity/certification, the exploratory process-function censuses, separate continuous-gradient evidence, the four main manuscript figures, the complete registered-cluster recovery flow, and all 17 admitted primary marginal effects. It intentionally excludes version-control history, author metadata and identity-bearing title-page material.\n\n## Reproduce the synthesis\n\n```bash\npython scripts/synthesize_state_separation.py\n```\n\nThe command prints a machine-readable `STATE_SEPARATION` record containing the primary five-cluster Fisher result and leave-one-cluster-out diagnostics.\n\n## Reproduce authoritative estimand-scale sensitivity
+    text = """# Anonymous review package\n\nThis package contains the analysis-ready tables and minimal code needed to reproduce the historical five-cluster Hedges-g synthesis, the mandatory Hedges-g versus lnRR estimand-scale audit, covariance sensitivity/certification, the exploratory process-function censuses, separate continuous-gradient evidence, the five main manuscript figures, the complete registered-cluster recovery flow, and all 17 admitted primary marginal effects. It intentionally excludes version-control history, author metadata and identity-bearing title-page material.\n\n## Reproduce the synthesis\n\n```bash\npython scripts/synthesize_state_separation.py\n```\n\nThe command prints a machine-readable `STATE_SEPARATION` record containing the primary five-cluster Fisher result and leave-one-cluster-out diagnostics.\n\n## Reproduce authoritative estimand-scale sensitivity
 
 ```bash
 python scripts/check_estimand_scale_robustness.py
@@ -171,7 +173,15 @@ This checks all eight already-screened but quantitatively blocked I-F programmes
 
 The earlier `check_estimand_scale_sensitivity.py` carried-rho analysis is retained as provenance only and is not the authoritative lnRR covariance reconstruction.
 
-## Reproduce the covariance sensitivity\n\n```bash\npython scripts/check_covariance_robustness.py\n```\n\nThis verifies the frozen paired-covariance result, the zero-covariance working sensitivity and the pairwise Cauchy–Schwarz covariance-free certification bound against Supplementary Table S2 and the manuscript.\n\n## Reproduce the process-function bottleneck census and I-F subset\n\n```bash\npython scripts/check_ecological_process_function_programme_census.py\npython scripts/check_ecological_if_programme_census.py\n```\n\nThis first verifies the complete 12-programme paired process-function registry: 11 pair-testable, four resolved mismatches (three downstream F-dominant and one upstream process-dominant), seven unresolved and one not-testable programme. The second verifies the eight-programme I-F subset and its measurement gap: all eight current I endpoints are quantity-only measures and none directly measures effective mating quality. Both censuses are descriptive and do not pool Hedges-g and Fisher-z effects.\n\n## Reproduce bottleneck-direction influence\n\n```bash\npython scripts/check_ecological_bottleneck_direction_influence.py\n```\n\nThis verifies that the two-direction resolved pattern is not leave-one-programme-out robust: omitting ML001 removes the only upstream resolved programme and leaves three downstream F-dominant resolved programmes.\n\n## Audit all 17 primary marginal effects\n\n```bash\npython scripts/check_primary_effect_supplement.py\npython scripts/build_primary_effect_forest.py\n```\n\nThe first command reconstructs Supplementary Table S3 from the source effect files and verifies each Hedges-g value, sampling variance, independent-unit count, standard error and marginal 95% confidence interval. The second generates Supplementary Figure S1, using an explicitly separate horizontal scale for the extreme ML001 Serapias effects so the other 14 effects remain legible. The dual scale is display-only and does not alter inference.\n\n## Reproduce the main Figures 1–5 and Tables 1–2\n\n```bash\npython scripts/build_journal_of_ecology_figures.py\n```\n\nOutputs are written under `manuscript/figures/` and `manuscript/tables/`. Supplementary Table S1 records all 16 formal cluster attempts and their terminal admission/closure status. Supplementary Table S2 records the three dependence regimes. Supplementary Table S3 records all 17 primary marginal effects. Supplementary Table S6 records the complete frozen qualitative blocked I-F denominator.\n\n## Scope\n\nThe package contains analysis-ready evidence rather than every raw source file from the original publications. Source studies and DOIs are documented in the anonymous manuscript and evidence tables.\n"""
+## Reproduce the covariance sensitivity\n\n```bash\npython scripts/check_covariance_robustness.py\n```\n\nThis verifies the frozen paired-covariance result, the zero-covariance working sensitivity and the pairwise Cauchy–Schwarz covariance-free certification bound against Supplementary Table S2 and the manuscript.\n\n## Reproduce the process-function bottleneck census and I-F subset\n\n```bash\npython scripts/check_ecological_process_function_programme_census.py\npython scripts/check_ecological_if_programme_census.py\n```\n\nThis first verifies the complete 12-programme paired process-function registry: 11 pair-testable, four resolved mismatches (three downstream F-dominant and one upstream process-dominant), seven unresolved and one not-testable programme. The second verifies the eight-programme I-F subset and its measurement gap: all eight current I endpoints are quantity-only measures and none directly measures effective mating quality. Both censuses are descriptive and do not pool Hedges-g and Fisher-z effects.
+
+## Reproduce interaction-decline necessity/sufficiency
+
+```bash
+python scripts/check_interaction_decline_necessity_sufficiency.py
+```
+
+This verifies the frozen 16-programme logical result: interaction decline is neither necessary nor sufficient for reproductive decline in the mixed quantitative + source-explicit qualitative evidence universe. Both counterexample classes survive deletion of every single programme. Quantitative-only leave-one-out robustness is not claimed.\n\n## Reproduce bottleneck-direction influence\n\n```bash\npython scripts/check_ecological_bottleneck_direction_influence.py\n```\n\nThis verifies that the two-direction resolved pattern is not leave-one-programme-out robust: omitting ML001 removes the only upstream resolved programme and leaves three downstream F-dominant resolved programmes.\n\n## Audit all 17 primary marginal effects\n\n```bash\npython scripts/check_primary_effect_supplement.py\npython scripts/build_primary_effect_forest.py\n```\n\nThe first command reconstructs Supplementary Table S3 from the source effect files and verifies each Hedges-g value, sampling variance, independent-unit count, standard error and marginal 95% confidence interval. The second generates Supplementary Figure S1, using an explicitly separate horizontal scale for the extreme ML001 Serapias effects so the other 14 effects remain legible. The dual scale is display-only and does not alter inference.\n\n## Reproduce the main Figures 1–5 and Tables 1–2\n\n```bash\npython scripts/build_journal_of_ecology_figures.py\n```\n\nOutputs are written under `manuscript/figures/` and `manuscript/tables/`. Supplementary Table S1 records all 16 formal cluster attempts and their terminal admission/closure status. Supplementary Table S2 records the three dependence regimes. Supplementary Table S3 records all 17 primary marginal effects. Supplementary Table S6 records the complete frozen qualitative blocked I-F denominator.\n\n## Scope\n\nThe package contains analysis-ready evidence rather than every raw source file from the original publications. Source studies and DOIs are documented in the anonymous manuscript and evidence tables.\n"""
     (PKG / "README_REVIEW_PACKAGE.md").write_text(text, encoding="utf-8")
 
 
@@ -299,6 +309,16 @@ def verify_reproduction() -> None:
     )
     if "IF_TRANSLATION_MAP_OK programmes=16 quantitative=8 qualitative=8 unique_sources=16 I_lower_maps_to=lower+higher+no_detected_loss I_no_detected_loss_maps_to=lower+no_detected_loss I_higher_maps_to=lower+similar resolved_downstream_quantitative=3 qualitative_hidden_function_loss=1 prevalence_inference=false" not in translation_map.stdout:
         raise AssertionError(translation_map.stdout)
+
+    interaction_logic = subprocess.run(
+        [sys.executable, "scripts/check_interaction_decline_necessity_sufficiency.py"],
+        cwd=PKG,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    if "INTERACTION_DECLINE_LOGIC_OK programmes=16 necessity_counterexamples=2 sufficiency_counterexamples=3 mixed_tier_LOO_both_failures=true quantitative_not_necessary_anchor=ML015 quantitative_not_sufficient_anchor=P2_CF01_MILKWEED_URBAN_2023 prevalence_inference=false" not in interaction_logic.stdout:
+        raise AssertionError(interaction_logic.stdout)
 
     census = subprocess.run(
         [sys.executable, "scripts/check_ecological_if_programme_census.py"],
