@@ -33,6 +33,8 @@ QUAL_EXTERNAL_CHECKER = ROOT / "scripts/check_qualitative_external_if_audit.py"
 TRANSLATION_TABLE = ROOT / "evidence/meta_extraction/if_translation_map_v1.csv"
 TRANSLATION_NOTE = ROOT / "manuscript/IF_TRANSLATION_NONIDENTIFIABILITY_2026-10-03.md"
 TRANSLATION_CHECKER = ROOT / "scripts/check_if_translation_map.py"
+INTERACTION_LOGIC_CHECKER = ROOT / "scripts/check_interaction_decline_necessity_sufficiency.py"
+INTERACTION_LOGIC_NOTE = ROOT / "manuscript/INTERACTION_DECLINE_NECESSITY_SUFFICIENCY_2026-10-03.md"
 
 FIGURE_BUILDER = ROOT / "scripts/build_journal_of_ecology_figures.py"
 FIGURE_CAPTIONS = ROOT / "manuscript/JOURNAL_OF_ECOLOGY_FIGURE_CAPTIONS.md"
@@ -95,8 +97,8 @@ def main() -> None:
     assert git_blob_sha(MANUSCRIPT) == man["blob_sha"]
     assert man["title"] == "Habitat fragmentation across plant reproductive life cycles: scale-stable deterioration and recurrent interaction–function proxy failure"
     assert man["target_journal"] == "Journal of Ecology"
-    assert man["main_text_words"] == 7999
-    assert man["abstract_words"] == 350
+    assert man["main_text_words"] == 8000
+    assert man["abstract_words"] == 348
     assert manuscript.startswith("# " + man["title"])
 
     g = m["historical_primary_g"]
@@ -172,6 +174,14 @@ def main() -> None:
     assert translation["qualitative_blocked_programmes"] == 8
     assert translation["unique_sources"] == 16
     assert translation["prevalence_inference"] is False
+    logic = m["interaction_decline_logic"]
+    assert git_blob_sha(INTERACTION_LOGIC_CHECKER) == logic["checker_blob_sha"]
+    assert git_blob_sha(INTERACTION_LOGIC_NOTE) == logic["note_blob_sha"]
+    assert set(logic["necessity_counterexample_programmes"]) == {"ML015", "QIF008"}
+    assert set(logic["sufficiency_counterexample_programmes"]) == {"P2_CF01_MILKWEED_URBAN_2023", "QIF002", "QIF003"}
+    assert logic["mixed_tier_leave_one_out_both_failures"] is True
+    assert logic["quantitative_tier_leave_one_out"] is False
+    assert logic["prevalence_inference"] is False
 
     geom = m["cross_scale_process_function_geometry"]
     assert git_blob_sha(BOTTLENECK_SCALE_TABLE) == geom["scale_table_blob_sha"]
@@ -222,6 +232,7 @@ def main() -> None:
         "no audited I-F programme provides an equally representation-stable resolved upstream mismatch",
         "zero of those six have both marginal endpoint directions individually resolved at 95 percent",
         "the frozen 16-programme I-F translation map shows that identical qualitative interaction signals coexist with multiple reproductive-function states",
+        "interaction decline is neither necessary nor sufficient for reproductive decline in the frozen mixed-tier evidence universe",
     ):
         assert token in claims, token
 
@@ -231,6 +242,7 @@ def main() -> None:
         "claiming flower visitation being an imperfect proxy for pollination effectiveness is newly discovered",
         "using the 16-programme translation map as a prevalence or frequency estimate",
         "treating qualitative-blocked programmes as quantitatively equivalent replications",
+        "claiming quantitative-only necessity or sufficiency failure is leave-one-programme-out robust",
     ):
         assert token in claims, token
 
@@ -247,13 +259,14 @@ def main() -> None:
         assert "scale_aware_proxy_failure_scientific_validation_green_human_admin_pending" in metadata
         assert "Scientific validation complete" in metadata
     assert "Supplementary Figure S2" in note
-    assert "current automated count: 7999 words" in metadata
+    assert "current automated count: 8000 words" in metadata
 
     assert "scale-stable deterioration and recurrent interaction–function proxy failure" in manuscript
     assert "all **17/17 primary direct effects were negative on both oriented g and oriented lnRR**" in manuscript
     assert "three representation-stable resolved mismatches all had reproductive function worse" in manuscript
     assert "none has both marginal endpoint directions individually resolved at 95%" in manuscript
     assert "directional coherence without translational coherence" in manuscript
+    assert "Interaction decline is neither necessary nor sufficient for reproductive decline" in manuscript
 
     assert "SUPERSEDED" not in scale_result
     assert "raw-unit delta covariance" in scale_result
