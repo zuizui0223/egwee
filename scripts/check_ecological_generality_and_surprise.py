@@ -17,6 +17,8 @@ HIDDEN_NOTE = ROOT / "manuscript/HIDDEN_EFFECTIVE_MATING_LAYER_HYPOTHESIS_2026-1
 TRANSLATION_NOTE = ROOT / "manuscript/IF_TRANSLATION_NONIDENTIFIABILITY_2026-10-03.md"
 SENTINEL_NOTE = ROOT / "manuscript/FRAGMENTATION_SENTINEL_SUFFICIENCY_2026-10-03.md"
 INFLUENCE = ROOT / "scripts/check_if_translation_influence.py"
+LOGIC_NOTE = ROOT / "manuscript/INTERACTION_DECLINE_NECESSITY_SUFFICIENCY_2026-10-03.md"
+LOGIC_CHECKER = ROOT / "scripts/check_interaction_decline_necessity_sufficiency.py"
 
 
 def rows(path: Path) -> list[dict[str, str]]:
@@ -36,6 +38,8 @@ def main() -> None:
     translation_note = TRANSLATION_NOTE.read_text(encoding="utf-8")
     sentinel_note = SENTINEL_NOTE.read_text(encoding="utf-8")
     influence = INFLUENCE.read_text(encoding="utf-8")
+    logic_note = LOGIC_NOTE.read_text(encoding="utf-8")
+    logic_checker = LOGIC_CHECKER.read_text(encoding="utf-8")
 
     # Frozen 16-programme translation universe.
     assert len(translation) == 16
@@ -133,6 +137,9 @@ def main() -> None:
 
     assert 'assert len(amb) >= 2' in influence
     assert 'quantitative_ambiguity_without_milkweed=0' in influence
+    assert "neither necessary nor sufficient" in logic_note
+    assert "necessity_counterexamples=2" in logic_checker
+    assert "sufficiency_counterexamples=3" in logic_checker
 
     print(
         "ECOLOGICAL_GENERALITY_OK "
@@ -141,7 +148,8 @@ def main() -> None:
         "stable_false_reassurance=3 continents=3 families=3 "
         "effective_mating_measured=0_of_8 "
         "movement_mating_point_order=3 adult_offspring_common_lag=false "
-        "hidden_mating_mechanism_external_context=4 prevalence_inference=false"
+        "hidden_mating_mechanism_external_context=4 "
+        "interaction_decline_neither_necessary_nor_sufficient=true prevalence_inference=false"
     )
 
 
