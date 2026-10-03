@@ -5,7 +5,7 @@
 - **Working title:** Habitat fragmentation across plant reproductive life cycles: scale-stable deterioration and recurrent interaction–function proxy failure
 - **Source manuscript:** `manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md`
 - **Protocol:** `manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md`
-- **Submission state:** `scale_aware_proxy_failure_scientific_validation_green_human_admin_pending`
+- **Submission state:** `scale_aware_proxy_failure_translation_map_validation_pending`
 - **Article type:** Research Article / empirical research synthesis
 - **Primary target journal:** **Journal of Ecology**
 - **Fallback venues:** Ecology (Article or Concepts & Synthesis, if reframed for broader ecological generality); Oikos (Meta-analysis)
@@ -38,7 +38,7 @@ The paper now distinguishes scale-robust response direction from scale-dependent
 
 Finite-model NEE/EGWE work is not the framing, estimand, admission rule or inferential target of this paper. It may be cited only as downstream comparative theory where useful.
 
-> **Scientific validation complete:** the denominator-frozen qualitative I–F audit, Supplementary Table S6, scale-aware figures/tables, double-anonymous manuscript and anonymous reviewer package all reproduce in current full CI run `37109896871`. Submission remains pending only on human author/declaration metadata and final approval.
+> **Scientific revalidation pending:** the denominator-frozen qualitative I–F audit, Supplementary Table S6, scale-aware figures/tables, double-anonymous manuscript and anonymous reviewer package all reproduce in current full CI run `37109896871`. Submission remains pending only on human author/declaration metadata and final approval.
 
 ## Current quantitative state
 
@@ -116,7 +116,7 @@ Not authorised:
 - [x] primary venue selected: Journal of Ecology;
 - [x] journal-specific abstract and keywords shaped;
 - [x] main text converted to Journal of Ecology IMRaD structure;
-- [x] main-text word count audited against the ~8000-word research-article target (current automated count: 7878 words from Introduction onward);
+- [x] main-text word count audited against the ~8000-word research-article target (current automated count: 7992 words from Introduction onward);
 - [x] current Figure 3 proxy-failure / sign-uncertainty hierarchy plus scale-aware figure/table package revalidated in full CI;
 - [x] current anonymous reviewer package reproduces the proxy-failure Figure 3, sign-uncertainty audit, qualitative external S6 and authoritative 2026-09-29 scale audits;
 - [x] estimand-scale audit completed: Hedges-g and lnRR yield materially different response geometry / robustness classifications;
