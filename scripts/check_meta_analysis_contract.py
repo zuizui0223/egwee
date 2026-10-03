@@ -71,7 +71,7 @@ def main() -> None:
     assert phase2_contract["phase1_reference"]["n_primary_clusters"] == 5
     assert phase2_contract["phase1_reference"]["n_primary_marginal_effects"] == 17
     assert phase2_contract["pair_specific_analysis_gate"]["min_independent_programmes"] == 5
-    assert "scale_aware_proxy_failure_revision_validation_pending" in metadata
+    assert "scale_aware_proxy_failure_scientific_validation_green_human_admin_pending" in metadata
     assert "p = 0.01212432" in metadata
     assert "p = 0.18194353" in metadata
 
@@ -155,7 +155,7 @@ def main() -> None:
     print(
         "EGWEE multilayer meta-analysis contract: PASS; "
         f"{len(primary)} verified studies, {len(candidates)} candidates, {len(queue)} queued; "
-        "active paper is scale-aware with recurrent interaction-function proxy-failure revision pending full validation; "
+        "active paper is scale-aware with recurrent interaction-function proxy-failure science green and human administration pending; "
         "systematic coverage/moderator expansion is frozen separately"
     )
 
