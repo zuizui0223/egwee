@@ -53,16 +53,17 @@ def main() -> None:
 
     assert m["schema_version"] == 6
     assert m["updated_on"] == "2026-10-01"
-    assert m["status"] == "scientific_validation_pending_after_proxy_failure_promotion"
+    assert m["status"] == "scientific_validation_green_human_admin_pending"
     assert m["submission_ready"] is False
     assert m["supersedes_submission_freeze"] is True
     sv = m["scientific_validation"]
-    assert sv["previous_conclusion"] == "success"
-    assert sv["current_revision_status"] == "pending"
-    assert sv["current_revision_validated"] is False
-    assert "proxy failure" in sv["reason"]
-    assert len(m["remaining_scientific_gate"]) == 1
-    assert "current full CI green" in m["remaining_scientific_gate"][0]
+    assert sv["conclusion"] == "success"
+    assert sv["current_revision_status"] == "validated"
+    assert sv["current_revision_validated"] is True
+    assert sv["full_contract_run_id"] == 37089505747
+    assert sv["proxy_failure_audit"] is True
+    assert sv["sign_uncertainty_audit"] is True
+    assert len(m["remaining_scientific_gate"]) == 0
 
     man = m["manuscript"]
     assert git_blob_sha(MANUSCRIPT) == man["blob_sha"]
@@ -169,12 +170,12 @@ def main() -> None:
     ):
         assert token in claims, token
 
-    assert "**STATUS: SCIENTIFIC REVALIDATION PENDING.**" in note
+    assert "**STATUS: SCIENTIFICALLY VALIDATED, HUMAN ADMINISTRATION PENDING.**" in note
     assert "Scale-stable interaction–function proxy failure" in note
     assert "0/6 have both marginal endpoint directions individually resolved" in note
 
-    assert "scale_aware_proxy_failure_revision_validation_pending" in metadata
-    assert "Scientific revalidation pending" in metadata
+    assert "scale_aware_proxy_failure_scientific_validation_green_human_admin_pending" in metadata
+    assert "Scientific validation complete" in metadata
     assert "current automated count: 7811 words" in metadata
 
     assert "scale-stable deterioration and recurrent interaction–function proxy failure" in manuscript
@@ -187,8 +188,8 @@ def main() -> None:
     assert "### 2. Mandatory scale sensitivity" in amendment
 
     print(
-        "PROXY_FAILURE_MAIN_REVISION_PENDING_OK "
-        "submission_ready=false stable_downstream=3 stable_upstream=0 "
+         "PROXY_FAILURE_SCIENTIFIC_VALIDATION_GREEN_OK "
+        "submission_ready=false human_admin_pending=true stable_downstream=3 stable_upstream=0 "
         "point_opposite=6 both_endpoint_resolved_opposite=0 "
         "primary_negative_g=17 primary_negative_lnRR=17 sign_discordance=0"
     )
