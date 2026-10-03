@@ -1,6 +1,6 @@
-# EGWEE submission state — PROXY-FAILURE MAIN-FIGURE REVALIDATION PENDING 2026-10-01
+# EGWEE submission state — SCIENTIFIC VALIDATION GREEN 2026-10-03
 
-> **STATUS: SCIENTIFIC REVALIDATION PENDING.** The previous scale-aware package was green, but the manuscript now promotes scale-stable interaction–function proxy failure as the ecological lead and makes Figure 3 explicitly uncertainty-aware. The revised title, Figure 3 hierarchy and anonymous reviewer package must pass the current full CI before submission can return to human-administration-only status.
+> **STATUS: SCIENTIFICALLY VALIDATED, HUMAN ADMINISTRATION PENDING.** Full CI run `37089505747` reproduced the proxy-failure title, uncertainty-aware Figure 3, scale audits, figures/tables, double-anonymous checks and anonymous reviewer package. Submission is not authorised until authorship/declaration metadata and final approval are complete.
 
 ## Why the freeze was reopened
 
@@ -71,7 +71,7 @@ The 2026-09-27 carried-rho sensitivity files are retained as provenance but are 
 
 ## Submission gate
 
-Journal of Ecology remains the target. The scientific gate is now **closed successfully**: the current full contract passed with the scale-aware manuscript, Figure 4/Table 2, Supplementary Table S4, double-anonymous check and anonymous reviewer package.
+Journal of Ecology remains the target. The scientific gate is **closed successfully**: full CI run `37089505747` passed with the scale-aware proxy-failure manuscript, uncertainty-aware Figure 3, Figure 4/Table 2, supplementary outputs, double-anonymous check and anonymous reviewer package.
 
 The only remaining gate is human administration: final authorship, affiliations, corresponding-author details, contributions, funding/permits, conflicts and all-author approval. `submission_ready=false` remains intentional until those fields are approved.
 
