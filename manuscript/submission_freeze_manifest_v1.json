@@ -303,7 +303,7 @@
     "note": "manuscript/IF_TRANSLATION_NONIDENTIFIABILITY_2026-10-03.md",
     "note_blob_sha": "344e4e829f32fa8cfd178822696176a8cb71f343",
     "checker": "scripts/check_if_translation_map.py",
-    "checker_blob_sha": "958d970d6b049b476688f09cde9f752f29e4a6b4",
+    "checker_blob_sha": "a5c37502734fb48a2eaa81e3a9594895651f3801",
     "claim": "the same qualitative interaction signal maps to multiple reproductive-function states; interaction quantity is a non-identifying stand-alone sentinel",
     "prevalence_inference": false
   }
