@@ -66,6 +66,23 @@ Among four multi-panel programmes sharing one registered exposure frame, three c
 
 This supports the view that landscape exposure alone does not determine interaction→function translation. However, species-specific fragmentation responses are already well established in the literature, so this pattern is supporting context rather than the central novelty claim.
 
+### E. Frozen qualitative blocked evidence broadens proxy insufficiency but not the one-sided asymmetry
+
+A denominator-complete qualitative audit was added for eight already-screened programmes that shared an I/F biological frame but were excluded from quantitative synthesis because fragmentation-level dispersion, covariance, effect-unit recovery or public source access was insufficient.
+
+The eight source-reported geometries are mixed:
+
+- two resilient/no-detected-loss systems (*Erica discolor*, *Lithraea molleoides*);
+- two interaction-loss / function-not-detectably-lower systems (*Haloxylon ammodendron*, *Caragana korshinskii*);
+- two interaction-increase-or-shift / function-similar systems (*Myrtus communis*, *Psychotria suterella*);
+- one concordant population-size response (*Phyteuma spicatum*);
+- one qualitative hidden-function-loss fragmentation experiment (Hulting et al.).
+
+This audit is intentionally not converted into effect sizes or prevalence. Its value is directional: the broader blocked literature contains multiple ways in which interaction quantity and reproductive output fail to map monotonically, plus genuine resilience and concordance.
+
+Therefore the **three-programme downstream asymmetry remains the quantitative resolved result**, whereas the broader ecological generalization is that interaction quantity is an unreliable stand-alone sentinel of downstream function across fragmentation contexts.
+
+
 ## Strongest ecological lead
 
 > **When matched interaction quantity and reproductive function separate clearly under fragmentation, the stable repeated mismatch in the current audited corpus is one-sided: reproductive function is worse than the interaction-quantity proxy.**
@@ -106,6 +123,7 @@ Allowed:
 - six opposite-sign point-estimate panels occur across five programmes, but none has both endpoint directions individually resolved at 95%;
 - three of four multi-panel programmes show more than one point-sign topology under one registered exposure frame;
 - interaction quantity is insufficient as a stand-alone sentinel of reproductive function;
+- the frozen qualitative blocked denominator contains mixed buffering, resilience, concordance and hidden-function-loss geometries, supporting proxy non-monotonicity but not one-sided prevalence;
 - fresh tests should measure effective mating / interaction quality, not quantity alone.
 
 Not allowed:
@@ -116,7 +134,8 @@ Not allowed:
 - reverse `I−/F+` compensation is absent in nature;
 - species-specific fragmentation response is newly discovered;
 - flower visitation being an imperfect pollination proxy is newly discovered;
-- one pollen-quality mechanism explains all three programmes.
+- one pollen-quality mechanism explains all three programmes;
+- the eight qualitative blocked programmes count as quantitative replications or establish a prevalence of proxy failure.
 
 ## Closest literature boundary
 
