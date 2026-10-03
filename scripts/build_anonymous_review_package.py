@@ -24,6 +24,7 @@ FILES = [
     "manuscript/IF_SIGN_GEOMETRY_2026-09-29.md",
     "manuscript/IF_SIGN_UNCERTAINTY_2026-10-01.md",
     "manuscript/IF_PROXY_FAILURE_NOVELTY_AUDIT_2026-10-01.md",
+    "manuscript/QUALITATIVE_EXTERNAL_IF_AUDIT_2026-10-03.md",
     "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-29_EFFECT_SCALE.md",
     "manuscript/ECOLOGICAL_IF_DIRECTION_CENSUS_2026-09-27.md",
     "manuscript/ECOLOGICAL_PROCESS_FUNCTION_CENSUS_2026-09-27.md",
@@ -40,6 +41,7 @@ FILES = [
     "scripts/check_transition_specific_filtering.py",
     "scripts/check_if_sign_geometry.py",
     "scripts/check_if_sign_uncertainty.py",
+    "scripts/check_qualitative_external_if_audit.py",
     "scripts/check_ecological_if_programme_census.py",
     "scripts/check_ecological_process_function_programme_census.py",
     "scripts/check_ecological_bottleneck_direction_influence.py",
@@ -78,6 +80,7 @@ FILES = [
     "evidence/meta_extraction/phase2_gpair_synthesis_v1.json",
     "evidence/meta_extraction/if_sign_geometry_census_v1.csv",
     "evidence/meta_extraction/if_sign_uncertainty_v1.csv",
+    "evidence/meta_extraction/qualitative_external_if_audit_v1.csv",
     "evidence/meta_extraction/estimand_scale_cluster_summary_v2.csv",
     "evidence/meta_extraction/estimand_scale_fisher_sensitivity_v2.csv",
     "evidence/meta_extraction/exploratory_transition_filtering_v1.csv",
@@ -153,9 +156,17 @@ python scripts/check_transition_specific_filtering.py
 
 These checks verify the three cross-context downstream proxy-failure programmes, the 8/8 quantity-only measurement gap, the cross-scale movement/mating point ordering, and the five-programme negative adult–offspring lag result. They are exploratory ecological synthesis checks, not confirmatory prevalence tests.
 
+## Reproduce the frozen qualitative external I-F audit
+
+```bash
+python scripts/check_qualitative_external_if_audit.py
+```
+
+This checks all eight already-screened but quantitatively blocked I-F programmes in the frozen denominator. The source-reported geometries include buffering, resilience, concordant response and one qualitative hidden-function-loss programme. No detected effects are not recoded as zero/equality, and the category counts are not prevalence estimates.
+
 The earlier `check_estimand_scale_sensitivity.py` carried-rho analysis is retained as provenance only and is not the authoritative lnRR covariance reconstruction.
 
-## Reproduce the covariance sensitivity\n\n```bash\npython scripts/check_covariance_robustness.py\n```\n\nThis verifies the frozen paired-covariance result, the zero-covariance working sensitivity and the pairwise Cauchy–Schwarz covariance-free certification bound against Supplementary Table S2 and the manuscript.\n\n## Reproduce the process-function bottleneck census and I-F subset\n\n```bash\npython scripts/check_ecological_process_function_programme_census.py\npython scripts/check_ecological_if_programme_census.py\n```\n\nThis first verifies the complete 12-programme paired process-function registry: 11 pair-testable, four resolved mismatches (three downstream F-dominant and one upstream process-dominant), seven unresolved and one not-testable programme. The second verifies the eight-programme I-F subset and its measurement gap: all eight current I endpoints are quantity-only measures and none directly measures effective mating quality. Both censuses are descriptive and do not pool Hedges-g and Fisher-z effects.\n\n## Reproduce bottleneck-direction influence\n\n```bash\npython scripts/check_ecological_bottleneck_direction_influence.py\n```\n\nThis verifies that the two-direction resolved pattern is not leave-one-programme-out robust: omitting ML001 removes the only upstream resolved programme and leaves three downstream F-dominant resolved programmes.\n\n## Audit all 17 primary marginal effects\n\n```bash\npython scripts/check_primary_effect_supplement.py\npython scripts/build_primary_effect_forest.py\n```\n\nThe first command reconstructs Supplementary Table S3 from the source effect files and verifies each Hedges-g value, sampling variance, independent-unit count, standard error and marginal 95% confidence interval. The second generates Supplementary Figure S1, using an explicitly separate horizontal scale for the extreme ML001 Serapias effects so the other 14 effects remain legible. The dual scale is display-only and does not alter inference.\n\n## Reproduce the main figures and Tables 1–2\n\n```bash\npython scripts/build_journal_of_ecology_figures.py\n```\n\nOutputs are written under `manuscript/figures/` and `manuscript/tables/`. Supplementary Table S1 records all 16 formal cluster attempts and their terminal admission/closure status. Supplementary Table S2 records the three dependence regimes. Supplementary Table S3 records all 17 primary marginal effects.\n\n## Scope\n\nThe package contains analysis-ready evidence rather than every raw source file from the original publications. Source studies and DOIs are documented in the anonymous manuscript and evidence tables.\n"""
+## Reproduce the covariance sensitivity\n\n```bash\npython scripts/check_covariance_robustness.py\n```\n\nThis verifies the frozen paired-covariance result, the zero-covariance working sensitivity and the pairwise Cauchy–Schwarz covariance-free certification bound against Supplementary Table S2 and the manuscript.\n\n## Reproduce the process-function bottleneck census and I-F subset\n\n```bash\npython scripts/check_ecological_process_function_programme_census.py\npython scripts/check_ecological_if_programme_census.py\n```\n\nThis first verifies the complete 12-programme paired process-function registry: 11 pair-testable, four resolved mismatches (three downstream F-dominant and one upstream process-dominant), seven unresolved and one not-testable programme. The second verifies the eight-programme I-F subset and its measurement gap: all eight current I endpoints are quantity-only measures and none directly measures effective mating quality. Both censuses are descriptive and do not pool Hedges-g and Fisher-z effects.\n\n## Reproduce bottleneck-direction influence\n\n```bash\npython scripts/check_ecological_bottleneck_direction_influence.py\n```\n\nThis verifies that the two-direction resolved pattern is not leave-one-programme-out robust: omitting ML001 removes the only upstream resolved programme and leaves three downstream F-dominant resolved programmes.\n\n## Audit all 17 primary marginal effects\n\n```bash\npython scripts/check_primary_effect_supplement.py\npython scripts/build_primary_effect_forest.py\n```\n\nThe first command reconstructs Supplementary Table S3 from the source effect files and verifies each Hedges-g value, sampling variance, independent-unit count, standard error and marginal 95% confidence interval. The second generates Supplementary Figure S1, using an explicitly separate horizontal scale for the extreme ML001 Serapias effects so the other 14 effects remain legible. The dual scale is display-only and does not alter inference.\n\n## Reproduce the main figures and Tables 1–2\n\n```bash\npython scripts/build_journal_of_ecology_figures.py\n```\n\nOutputs are written under `manuscript/figures/` and `manuscript/tables/`. Supplementary Table S1 records all 16 formal cluster attempts and their terminal admission/closure status. Supplementary Table S2 records the three dependence regimes. Supplementary Table S3 records all 17 primary marginal effects. Supplementary Table S6 records the complete frozen qualitative blocked I-F denominator.\n\n## Scope\n\nThe package contains analysis-ready evidence rather than every raw source file from the original publications. Source studies and DOIs are documented in the anonymous manuscript and evidence tables.\n"""
     (PKG / "README_REVIEW_PACKAGE.md").write_text(text, encoding="utf-8")
 
 
@@ -264,6 +275,16 @@ def verify_reproduction() -> None:
     if "IF_SIGN_UNCERTAINTY_OK panels=18 point_opposite=6 programmes_point_opposite=5 both_resolved_opposite=0 one_resolved_opposite=2 both_unresolved_opposite=4" not in sign_uncertainty.stdout:
         raise AssertionError(sign_uncertainty.stdout)
 
+    qualitative_external = subprocess.run(
+        [sys.executable, "scripts/check_qualitative_external_if_audit.py"],
+        cwd=PKG,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    if "QUALITATIVE_EXTERNAL_IF_AUDIT_OK programmes=8 quantitative_blocked=8 qualitative_nonmonotonic=5 resilient_no_detected_loss=2 concordant_size_effect=1 hidden_function_loss=1 no_prevalence_inference=true" not in qualitative_external.stdout:
+        raise AssertionError(qualitative_external.stdout)
+
     census = subprocess.run(
         [sys.executable, "scripts/check_ecological_if_programme_census.py"],
         cwd=PKG,
@@ -311,6 +332,7 @@ def verify_reproduction() -> None:
         "manuscript/tables/table2_estimand_scale_sensitivity.csv",
         "manuscript/tables/table_s4_process_function_census.csv",
         "manuscript/tables/table_s5_if_sign_geometry.csv",
+        "manuscript/tables/table_s6_qualitative_external_if_audit.csv",
         "manuscript/tables/table_s1_cluster_recovery_flow.csv",
         "manuscript/tables/table_s2_covariance_robustness.csv",
         "manuscript/tables/table_s3_primary_marginal_effects.csv",
