@@ -97,6 +97,8 @@ on:
       - 'scripts/check_if_translation_map.py'
       - 'scripts/check_if_translation_influence.py'
       - 'scripts/check_fragmentation_sentinel_sufficiency.py'
+      - 'scripts/check_interaction_decline_necessity_sufficiency.py'
+      - 'manuscript/INTERACTION_DECLINE_NECESSITY_SUFFICIENCY_2026-10-03.md'
       - 'manuscript/FRAGMENTATION_SENTINEL_SUFFICIENCY_2026-10-03.md'
       - 'evidence/meta_extraction/if_translation_map_v1.csv'
       - 'manuscript/IF_TRANSLATION_NONIDENTIFIABILITY_2026-10-03.md'
@@ -186,6 +188,8 @@ jobs:
         run: python scripts/check_if_translation_influence.py
       - name: Audit fragmentation sentinel sufficiency
         run: python scripts/check_fragmentation_sentinel_sufficiency.py
+      - name: Audit necessity and sufficiency of interaction decline
+        run: python scripts/check_interaction_decline_necessity_sufficiency.py
       - name: Check covariance robustness and certification boundary
         run: python scripts/check_covariance_robustness.py
       - name: Validate unified ecological process-function census
