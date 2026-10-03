@@ -105,3 +105,100 @@ The new contribution is narrower:
 ## Current paper-level ecological message
 
 > **Habitat fragmentation often pushes measured plant processes in a common detrimental direction, yet the translation from interaction to reproductive function is not fixed: opposite-sign responses recur in both directions, and focal species sharing the same landscape exposure can occupy different sign geometries. The repeated hidden-function-loss cases make interaction quantity an insufficient stand-alone proxy, while broader transition-filtering mechanisms remain prospective hypotheses.**
+
+
+## Stronger synthesis after the 16-programme translation audit
+
+The frozen 16-programme existence map sharpens the ecological result.
+
+### Directional coherence does not imply translational coherence
+
+The primary direct corpus is directionally coherent: all 17/17 admitted effects are negative on both oriented g and oriented lnRR.
+
+But matched interaction–function evidence is **translationally non-identifying**. The same qualitative interaction signal maps to multiple reproductive-function states:
+
+- lower interaction → lower, higher-point, or no-detected-loss F;
+- no detected interaction loss → no detected F loss or lower F;
+- higher interaction → lower or similar F.
+
+Thus a broad stressor can produce a general direction of deterioration without a general rule for how that deterioration propagates between biological stages.
+
+> **Fragmentation shows directional coherence at coarse scale but no one-to-one interaction→function translation at matched-system scale.**
+
+This resolves an apparent tension in the literature: global syntheses can correctly detect average negative coupling while individual systems still show buffering, hidden function loss, resilience or sign reversal.
+
+### Two monitoring error modes exist
+
+The translation map contains both directions of sentinel failure.
+
+**False reassurance**
+
+Interaction quantity appears intact, elevated or only weakly affected while reproductive function deteriorates.
+
+Strong quantitative anchors:
+- *Eucalyptus wandoo*;
+- *Cardiopetalum calophyllum*;
+- Kakamega *Acanthopale pubescens*.
+
+Qualitative external support:
+- Hulting fragmentation experiment.
+
+**False alarm / apparent over-warning**
+
+Interaction quantity declines while reproductive function is retained, not detectably lower or positive as a point estimate.
+
+Examples include:
+- Sevenello LARO / POAR;
+- Toronto common milkweed;
+- *Haloxylon ammodendron*;
+- *Caragana korshinskii*.
+
+The corpus does not estimate how often either error occurs. It establishes that **both errors are biologically possible**, so interaction quantity alone is insufficient for functional diagnosis.
+
+## Hidden effective-mating layer hypothesis
+
+The most interesting mechanistic synthesis is not simply that visitation is noisy.
+
+The three stable downstream proxy-failure anchors span different measurement depths:
+
+- visitor abundance;
+- visitation occurrence;
+- pollen tubes at the base of the style.
+
+Thus proxy failure can persist even after pollen has germinated and grown substantially through the pistil.
+
+Independent literature gives a coherent missing mechanism:
+
+- Duncan et al. (2004; doi:10.1111/j.1365-2745.2004.00933.x): isolation reduced **outcross pollen receipt** even though inferred visitation did not decline;
+- Scobie & Wilcock (2009; doi:10.1093/aob/mcp007): natural pollination was high but fruit set was low because compatible mates and pollen exchange were limited;
+- Torres-Vanegas et al. (2021; doi:10.1111/1365-2745.13594): deforestation altered pollinator functional composition and thereby reduced mating quality;
+- Delnevo et al. (2020; doi:10.1016/j.biocon.2020.108824): fragmentation increased pollen-quality limitation, particularly in small fragments.
+
+This supports a prospective hidden-layer model:
+
+`interaction quantity → effective mating / compatible pollen → reproductive function`
+
+The current quantitative I–F corpus measures the first and last terms but directly measures the middle term in **0/8 programmes**.
+
+The resulting hypothesis is stronger and more specific than generic proxy failure:
+
+> **Fragmentation may preserve the amount of biological interaction while degrading the identity, compatibility or genetic diversity of what is transferred.**
+
+This is especially plausible because fragmentation changes spatial donor pools and pollinator movement, not merely encounter frequency.
+
+## Why this is surprising
+
+A natural expectation from the classic fragmentation meta-analysis is monotonic propagation: less pollination should generally mean less reproductive success, and more pollination should imply better reproductive performance.
+
+The current evidence instead supports a two-level picture:
+
+1. **average direction can be coherent** across systems;
+2. **within-system translation can be non-monotonic and non-identifying**.
+
+That combination is more surprising than either result alone.
+
+## Best current general ecological statement
+
+> **Habitat fragmentation broadly pushes plant reproductive processes toward deterioration, but interaction quantity is not a sufficient state variable for downstream reproductive function. Identical interaction responses can translate into different reproductive outcomes, and the strongest repeated resolved failure mode is false reassurance—apparently intact interaction quantity accompanying poorer reproductive function.**
+
+The hidden effective-mating layer is the most plausible mechanistic hypothesis generated by this pattern, but it remains prospective rather than confirmed.
