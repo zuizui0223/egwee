@@ -24,6 +24,14 @@ King et al. (2013) showed that visitation data can misrepresent pollinator effec
 
 Therefore 'visitation is not enough' is not itself the novel result.
 
+### 4. Response–effect ecology already provides the general conceptual distinction
+
+Lavorel & Garnier (2002) and subsequent response–effect work distinguish how organisms respond to environmental change from how those responses affect ecosystem functioning. Roquer-Beni et al. (2021) explicitly applied a response–effect trait framework to pollinator communities and pollination service.
+
+Therefore this manuscript does **not** claim that the response–effect distinction, or its application to pollination services, is new.
+
+The narrower addition is a fragmentation-specific **process→function translation audit** in which interaction quantity and reproductive function are measured under matched landscape exposures within the same plant programmes.
+
 ## What the present synthesis adds
 
 ### A. Complete matched fragmentation-specific denominator
@@ -83,6 +91,12 @@ This audit is intentionally not converted into effect sizes or prevalence. Its v
 Therefore the **three-programme downstream asymmetry remains the quantitative resolved result**, whereas the broader ecological generalization is that interaction quantity is an unreliable stand-alone sentinel of downstream function across fragmentation contexts.
 
 
+### F. Frozen 16-programme translation map broadens the result without estimating prevalence
+
+The eight quantitatively admitted programmes and eight non-overlapping qualitative-blocked programmes form a frozen 16-programme existence map. The same qualitative interaction signal maps to multiple reproductive-function states. This supports interaction quantity as a **non-identifying stand-alone sentinel** across the audited fragmentation contexts.
+
+The evidence tiers remain separate: the map demonstrates multiple possible translations but does not estimate their frequencies.
+
 ## Strongest ecological lead
 
 > **When matched interaction quantity and reproductive function separate clearly under fragmentation, the stable repeated mismatch in the current audited corpus is one-sided: reproductive function is worse than the interaction-quantity proxy.**
@@ -141,6 +155,8 @@ Not allowed:
 
 - Aguilar et al. 2006 / 2025: average negative coupling of pollination and reproductive fitness across species;
 - Dauber et al. 2010: strong plant-species-specific visitation and seed-set responses to fragmentation;
+- Lavorel & Garnier 2002 / response–effect ecology: environmental response and functional effect are distinct conceptual roles;
+- Roquer-Beni et al. 2021: response–effect trait framework applied to pollinator communities and pollination service;
 - King et al. 2013: flower visitation is a poor proxy for pollination effectiveness;
 - Burns et al. 2022: individual-community evidence that fewer or different visitors can coexist with equal or greater reproductive output.
 
