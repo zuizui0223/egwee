@@ -1,6 +1,6 @@
-# EGWEE submission state — QUALITATIVE EXTERNAL S6 REVALIDATION PENDING 2026-10-03
+# EGWEE submission state — SCIENTIFIC VALIDATION GREEN 2026-10-03
 
-> **STATUS: SCIENTIFIC REVALIDATION PENDING.** The previous scale-aware package is green, but a denominator-frozen qualitative I–F audit is now included in the Discussion and Supplementary Table S6. Submission is not authorised until the current package reproduces S6 and the anonymous reviewer package, after which only human administration should remain.
+> **STATUS: SCIENTIFICALLY VALIDATED, HUMAN ADMINISTRATION PENDING.** Full CI run `37109896871` reproduces the denominator-frozen qualitative I–F audit, Supplementary Table S6, scale-aware figure/table package, double-anonymous manuscript and anonymous reviewer package. Submission remains unauthorised only until human author/declaration metadata and final approval are complete.
 
 ## Why the freeze was reopened
 
