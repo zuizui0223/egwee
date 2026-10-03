@@ -1,6 +1,6 @@
-# EGWEE submission state — SCIENTIFIC VALIDATION GREEN 2026-10-03
+# EGWEE submission state — FIGURE 5 SENTINEL SYNTHESIS VALIDATION PENDING 2026-10-03
 
-> **STATUS: SCIENTIFICALLY VALIDATED, HUMAN ADMINISTRATION PENDING.** Full CI run `37112411828` reproduces the scale-aware manuscript, frozen 16-programme interaction–function translation map, Supplementary Figure S2 / Table S7, double-anonymous checks and anonymous reviewer package. Submission remains unauthorised until human author/declaration metadata and final approval are complete.
+> **STATUS: CURRENT REVISION NOT SUBMISSION-READY.** The scale-aware analyses remain authoritative, but the frozen 16-programme interaction→function non-identifiability result is newly promoted to the Abstract and main Figure 5. Full CI and anonymous-package reproduction must pass on this exact revision before scientific validation is closed again.
 
 ## Why the freeze was reopened
 
