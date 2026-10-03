@@ -74,6 +74,32 @@ Required panels:
 Do not place g and lnRR magnitudes on a common numerical axis. The figure compares inferential geometry and qualitative direction, not raw effect-size values across estimands. Label the raw-unit lnRR covariance as a delta-method approximation.
 
 
+## Figure 5 — Directional coherence versus sentinel sufficiency
+
+**Purpose:** make the manuscript's most general ecological result visible in one figure.
+
+Panel A must show the scale-stable coarse result:
+
+- 17/17 primary direct effects negative on oriented Hedges g;
+- 17/17 same effects negative on oriented lnRR;
+- no claim that the 17 effects are independent sign trials.
+
+Panel B must show the frozen 16-programme interaction→function existence map:
+
+- 8 quantitatively admitted matched I–F programmes;
+- 8 non-overlapping source-explicit programmes blocked from quantitative synthesis;
+- lower interaction mapping to at least three F evidence states;
+- no detected interaction loss mapping to at least two F evidence states;
+- higher/shifted interaction mapping to at least two F evidence states;
+- mixed within-programme rows retained separately.
+
+Required interpretation:
+
+> **Coarse directional coherence does not imply a one-to-one interaction→function translation.**
+
+The mixed-tier many-to-many structure survives deletion of every single programme. This is a structural existence statement about the frozen evidence map, not a prevalence estimate and not a pooled quantitative meta-analysis. Evidence tiers must be visually distinguished. No-detected-loss must never be rendered as zero effect or equality.
+
+Figure 5 is the paper-level ecology synthesis. Figure 3 remains the stronger quantitative proxy-failure anchor; Figure 4 remains the mandatory effect-scale audit.
 ## Table 1 — Admitted primary clusters
 
 One row per independent primary programme/study cluster. Columns:
@@ -179,6 +205,6 @@ ML001 *Serapias lingua* uses an explicitly labelled separate horizontal Hedges-g
 
 ## Generation contract
 
-`scripts/build_journal_of_ecology_figures.py` is the deterministic source for Figures 1–4 and Tables 1–2. It reads the canonical registry/effect files, the complete process–function census, and `scripts/synthesize_state_separation.py`; it must fail if the five-cluster result, programme censuses or registered response geometry drift from their canonical sources.
+`scripts/build_journal_of_ecology_figures.py` is the deterministic source for Figures 1–5 and Tables 1–2. It reads the canonical registry/effect files, the complete process–function census, and `scripts/synthesize_state_separation.py`; it must fail if the five-cluster result, programme censuses or registered response geometry drift from their canonical sources.
 
 `scripts/check_primary_effect_supplement.py` independently reconstructs Supplementary Table S3 from the source effect CSVs and checks all 17 effects, variances, independent-unit counts, standard errors and 95% confidence intervals. `scripts/build_primary_effect_forest.py` then builds Supplementary Figure S1 only from the checked S3 table.
