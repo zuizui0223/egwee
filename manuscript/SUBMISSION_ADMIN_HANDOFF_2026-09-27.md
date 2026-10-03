@@ -2,7 +2,7 @@
 
 ## Automated scientific package
 
-The scale-aware proxy-failure revision is scientifically validated. The reviewer-facing package reproduced in full CI includes:
+The prior scale-aware proxy-failure package is validated, but the newly added frozen qualitative S6 audit is awaiting current full-CI revalidation. The intended reviewer-facing package includes:
 
 - ecology-first manuscript title, abstract, keywords and IMRaD structure;
 - primary 5-cluster / 17-effect synthesis and influence analysis;
@@ -16,7 +16,7 @@ The scale-aware proxy-failure revision is scientifically validated. The reviewer
 - anonymous reviewer code/data package reproduction;
 - fresh-validation preregistration kept separate from the current discovery/synthesis manuscript.
 
-The scientific gate has passed. Do not reopen scientific files merely to fill administrative metadata; proceed only with the human submission fields below.
+Do not proceed to human-only submission completion until the qualitative external S6 revision and anonymous reviewer package are green in the current full CI.
 
 ## Human-only items still required
 
@@ -134,6 +134,6 @@ Administrative state:
 
 ## Submission boundary
 
-Current blockers are **human administration only**: author list, affiliations, corresponding-author details, contributions, funding/permits, conflicts and final approval.
+Current blockers are: (1) scientific revalidation of the frozen qualitative I–F S6 package; then (2) human administration: author list, affiliations, corresponding-author details, contributions, funding/permits, conflicts and final approval.
 
 Human administrative fields are intentionally not auto-filled from account information, repository history or inferred identity.
