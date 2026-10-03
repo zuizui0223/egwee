@@ -166,6 +166,8 @@ jobs:
         run: python scripts/check_estimand_scale_robustness.py
       - name: Audit cross-scale process-function geometry
         run: python scripts/check_bottleneck_scale_robustness.py
+      - name: Audit qualitative process-function sign geometry
+        run: python scripts/check_qualitative_process_function_sign_geometry.py
       - name: Audit scale-stable interaction-quantity proxy failure
         run: python scripts/check_scale_stable_quantity_function_proxy_failure.py
       - name: Audit transition-specific filtering topology
