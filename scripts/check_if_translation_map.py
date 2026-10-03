@@ -73,7 +73,10 @@ def main() -> None:
     resolved_downstream = {
         r["programme_id"]
         for r in mapping
-        if r["resolution_status"] == "resolved_downstream"
+        if r["resolution_status"] in {
+            "resolved_downstream",
+            "one_resolved_downstream_panel",
+        }
     }
     assert resolved_downstream == {
         "ML015",
