@@ -19,6 +19,8 @@ Canonical audits:
 - [`manuscript/SCALE_STABLE_QUANTITY_FUNCTION_PROXY_FAILURE_2026-09-29.md`](manuscript/SCALE_STABLE_QUANTITY_FUNCTION_PROXY_FAILURE_2026-09-29.md)
 - [`manuscript/IF_SIGN_UNCERTAINTY_2026-10-01.md`](manuscript/IF_SIGN_UNCERTAINTY_2026-10-01.md)
 - [`manuscript/IF_PROXY_FAILURE_NOVELTY_AUDIT_2026-10-01.md`](manuscript/IF_PROXY_FAILURE_NOVELTY_AUDIT_2026-10-01.md)
+- [`manuscript/ECOLOGICAL_GENERALITY_AND_SURPRISE_2026-09-29.md`](manuscript/ECOLOGICAL_GENERALITY_AND_SURPRISE_2026-09-29.md) — canonical synthesis of directional coherence, translation non-identifiability, false-reassurance/false-alarm modes and transition-filtering hypotheses.
+- [`manuscript/HIDDEN_EFFECTIVE_MATING_LAYER_HYPOTHESIS_2026-10-03.md`](manuscript/HIDDEN_EFFECTIVE_MATING_LAYER_HYPOTHESIS_2026-10-03.md) — mechanistic triangulation: fragmentation may preserve interaction quantity while degrading partner identity / compatible mating quality.
 - [`manuscript/IF_TRANSLATION_NONIDENTIFIABILITY_2026-10-03.md`](manuscript/IF_TRANSLATION_NONIDENTIFIABILITY_2026-10-03.md)
 - [`scripts/check_estimand_scale_robustness.py`](scripts/check_estimand_scale_robustness.py)
 - [`scripts/check_scale_stable_quantity_function_proxy_failure.py`](scripts/check_scale_stable_quantity_function_proxy_failure.py)
