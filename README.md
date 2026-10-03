@@ -22,6 +22,7 @@ Canonical audits:
 - [`manuscript/ECOLOGICAL_GENERALITY_AND_SURPRISE_2026-09-29.md`](manuscript/ECOLOGICAL_GENERALITY_AND_SURPRISE_2026-09-29.md) — canonical synthesis of directional coherence, translation non-identifiability, false-reassurance/false-alarm modes and transition-filtering hypotheses.
 - [`manuscript/HIDDEN_EFFECTIVE_MATING_LAYER_HYPOTHESIS_2026-10-03.md`](manuscript/HIDDEN_EFFECTIVE_MATING_LAYER_HYPOTHESIS_2026-10-03.md) — mechanistic triangulation: fragmentation may preserve interaction quantity while degrading partner identity / compatible mating quality.
 - [`manuscript/IF_TRANSLATION_NONIDENTIFIABILITY_2026-10-03.md`](manuscript/IF_TRANSLATION_NONIDENTIFIABILITY_2026-10-03.md)
+- [`manuscript/INTERACTION_DECLINE_NECESSITY_SUFFICIENCY_2026-10-03.md`](manuscript/INTERACTION_DECLINE_NECESSITY_SUFFICIENCY_2026-10-03.md) — frozen logical audit showing that interaction decline is neither necessary nor sufficient for reproductive decline in the mixed-tier evidence universe.
 - [`scripts/check_estimand_scale_robustness.py`](scripts/check_estimand_scale_robustness.py)
 - [`scripts/check_scale_stable_quantity_function_proxy_failure.py`](scripts/check_scale_stable_quantity_function_proxy_failure.py)
 - [`scripts/check_if_sign_uncertainty.py`](scripts/check_if_sign_uncertainty.py)
@@ -75,9 +76,11 @@ At the same time, all **8/8** registered I–F programmes measure interaction/po
 
 The resulting exploratory generalization is:
 
-> **Apparently intact interaction quantity is not a sufficient stand-alone proxy for reproductive function under fragmentation.**
+> **Interaction decline is neither necessary nor sufficient for reproductive decline in the frozen matched evidence universe.**
 
 A frozen 16-programme translation map now broadens this without changing the quantitative denominator: 8 quantitatively admitted I–F programmes plus 8 non-overlapping qualitative-blocked programmes show that the **same interaction signal can map to multiple reproductive-function states**. The stronger general statement is therefore that interaction quantity is a **non-identifying stand-alone sentinel** of reproductive function across the audited fragmentation contexts. This is an existence/topology result, not a prevalence estimate.
+
+The logical form is stronger and easier to interpret: reproductive decline occurs without interaction decline (so I decline is not necessary), and interaction decline occurs without reproductive decline (so I decline is not sufficient). Both counterexample classes survive every single-programme deletion in the mixed-tier 16-programme map; quantitative-only leave-one-out robustness is not claimed.
 
 This is not a prevalence estimate and does not imply one shared mechanism. The canonical audit is `manuscript/SCALE_STABLE_QUANTITY_FUNCTION_PROXY_FAILURE_2026-09-29.md`.
 
