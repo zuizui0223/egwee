@@ -19,6 +19,7 @@ Canonical audits:
 - [`manuscript/SCALE_STABLE_QUANTITY_FUNCTION_PROXY_FAILURE_2026-09-29.md`](manuscript/SCALE_STABLE_QUANTITY_FUNCTION_PROXY_FAILURE_2026-09-29.md)
 - [`manuscript/IF_SIGN_UNCERTAINTY_2026-10-01.md`](manuscript/IF_SIGN_UNCERTAINTY_2026-10-01.md)
 - [`manuscript/IF_PROXY_FAILURE_NOVELTY_AUDIT_2026-10-01.md`](manuscript/IF_PROXY_FAILURE_NOVELTY_AUDIT_2026-10-01.md)
+- [`manuscript/IF_TRANSLATION_NONIDENTIFIABILITY_2026-10-03.md`](manuscript/IF_TRANSLATION_NONIDENTIFIABILITY_2026-10-03.md)
 - [`scripts/check_estimand_scale_robustness.py`](scripts/check_estimand_scale_robustness.py)
 - [`scripts/check_scale_stable_quantity_function_proxy_failure.py`](scripts/check_scale_stable_quantity_function_proxy_failure.py)
 - [`scripts/check_if_sign_uncertainty.py`](scripts/check_if_sign_uncertainty.py)
@@ -73,6 +74,8 @@ At the same time, all **8/8** registered I–F programmes measure interaction/po
 The resulting exploratory generalization is:
 
 > **Apparently intact interaction quantity is not a sufficient stand-alone proxy for reproductive function under fragmentation.**
+
+A frozen 16-programme translation map now broadens this without changing the quantitative denominator: 8 quantitatively admitted I–F programmes plus 8 non-overlapping qualitative-blocked programmes show that the **same interaction signal can map to multiple reproductive-function states**. The stronger general statement is therefore that interaction quantity is a **non-identifying stand-alone sentinel** of reproductive function across the audited fragmentation contexts. This is an existence/topology result, not a prevalence estimate.
 
 This is not a prevalence estimate and does not imply one shared mechanism. The canonical audit is `manuscript/SCALE_STABLE_QUANTITY_FUNCTION_PROXY_FAILURE_2026-09-29.md`.
 
