@@ -1,0 +1,7 @@
+programme_id,endpoint_role,layer,endpoint,effect_stream,n_independent,exposure,r,fisher_z,variance,primary_or_sensitivity,source_location
+P2_CF01_CARDIOPETALUM_2012,I_primary,I_interaction,pollinator_abundance_per_flower,fisher_z_gradient,10,negative_log_fragment_area_ha,-0.240368634378,-0.245165314917,0.142857142857,primary,Elias et al. 2012 Table 1
+P2_CF01_CARDIOPETALUM_2012,F_primary,F_reproductive_function,fruit_set_per_flower,fisher_z_gradient,10,negative_log_fragment_area_ha,-0.933352657717,-1.683797866540,0.142857142857,primary,Elias et al. 2012 Table 1
+P2_CF01_CARDIOPETALUM_2012,F_sensitivity_follicles,F_reproductive_function,follicles_set_per_flower,fisher_z_gradient,10,negative_log_fragment_area_ha,-0.735574715967,-0.940767577280,0.142857142857,sensitivity,Elias et al. 2012 Table 1
+P2_CF01_CARDIOPETALUM_2012,F_sensitivity_seed,F_reproductive_function,seed_set_per_flower,fisher_z_gradient,9,negative_log_fragment_area_ha,-0.955640770637,-1.893076194323,0.166666666667,sensitivity,Elias et al. 2012 Table 1
+P2_CF01_CARDIOPETALUM_2012,I_sensitivity_isolation,I_interaction,pollinator_abundance_per_flower,fisher_z_gradient,10,log_nearest_fragment_distance_m,-0.279219984247,-0.286835901519,0.142857142857,sensitivity,Elias et al. 2012 Table 1
+P2_CF01_CARDIOPETALUM_2012,F_sensitivity_isolation,F_reproductive_function,fruit_set_per_flower,fisher_z_gradient,10,log_nearest_fragment_distance_m,-0.856243054787,-1.279092933989,0.142857142857,sensitivity,Elias et al. 2012 Table 1

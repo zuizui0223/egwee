@@ -1,34 +1,157 @@
+## Proxy-failure main revision — scientific validation green
+
+The mandatory Hedges-g versus oriented-lnRR audit, proxy-failure audit, sign-uncertainty audit, figures/tables, double-anonymous manuscript and reviewer package are all green in full CI run `37089505747`.
+
+Current scientific status:
+
+- the historical Hedges-g primary analysis remains exactly reproducible;
+- its relative-magnitude / leave-one-*Serapias* interpretation is not scale-invariant;
+- all 17/17 primary direct effects remain negative on both oriented g and oriented lnRR;
+- three independent matched I–F programmes show a representation-stable resolved downstream mismatch (Wandoo, Cardiopetalum and Kakamega);
+- no audited I–F programme has an equally representation-stable resolved upstream mismatch;
+- 6/18 panels have opposite I/F point estimates, but 0/6 have both marginal endpoint directions individually resolved at 95%;
+- species-specific point topology and transition-filtering patterns are supporting, hypothesis-generating results rather than the sole novelty claim.
+
+The scientific gate is closed. `submission_ready=false` remains intentional because final authorship/declaration metadata and all-author approval are still pending.
+
+Canonical audits:
+- [`manuscript/ESTIMAND_SCALE_ROBUSTNESS_2026-09-29.md`](manuscript/ESTIMAND_SCALE_ROBUSTNESS_2026-09-29.md)
+- [`manuscript/SCALE_STABLE_QUANTITY_FUNCTION_PROXY_FAILURE_2026-09-29.md`](manuscript/SCALE_STABLE_QUANTITY_FUNCTION_PROXY_FAILURE_2026-09-29.md)
+- [`manuscript/IF_SIGN_UNCERTAINTY_2026-10-01.md`](manuscript/IF_SIGN_UNCERTAINTY_2026-10-01.md)
+- [`manuscript/IF_PROXY_FAILURE_NOVELTY_AUDIT_2026-10-01.md`](manuscript/IF_PROXY_FAILURE_NOVELTY_AUDIT_2026-10-01.md)
+- [`manuscript/ECOLOGICAL_GENERALITY_AND_SURPRISE_2026-09-29.md`](manuscript/ECOLOGICAL_GENERALITY_AND_SURPRISE_2026-09-29.md) — canonical synthesis of directional coherence, translation non-identifiability, false-reassurance/false-alarm modes and transition-filtering hypotheses.
+- [`manuscript/HIDDEN_EFFECTIVE_MATING_LAYER_HYPOTHESIS_2026-10-03.md`](manuscript/HIDDEN_EFFECTIVE_MATING_LAYER_HYPOTHESIS_2026-10-03.md) — mechanistic triangulation: fragmentation may preserve interaction quantity while degrading partner identity / compatible mating quality.
+- [`manuscript/IF_TRANSLATION_NONIDENTIFIABILITY_2026-10-03.md`](manuscript/IF_TRANSLATION_NONIDENTIFIABILITY_2026-10-03.md)
+- [`manuscript/INTERACTION_DECLINE_NECESSITY_SUFFICIENCY_2026-10-03.md`](manuscript/INTERACTION_DECLINE_NECESSITY_SUFFICIENCY_2026-10-03.md) — frozen logical audit showing that interaction decline is neither necessary nor sufficient for reproductive decline in the mixed-tier evidence universe.
+- [`scripts/check_estimand_scale_robustness.py`](scripts/check_estimand_scale_robustness.py)
+- [`scripts/check_scale_stable_quantity_function_proxy_failure.py`](scripts/check_scale_stable_quantity_function_proxy_failure.py)
+- [`scripts/check_if_sign_uncertainty.py`](scripts/check_if_sign_uncertainty.py)
+
+The earlier 2026-09-27 carried-rho and registered-scale bottleneck files remain provenance and hypothesis-generation material.
+
 # EGWEE — empirical multilayer fragmentation synthesis
 
-This repository is the authoritative development home for the **natural-data empirical counterpart to the NEE eco-genetic fragmentation theory**.
+This repository is the authoritative development home for an **independent natural-data synthesis of multilayer fragmentation responses in flowering-plant systems**.
 
 ## Scientific role
 
-The active paper is a cluster-first empirical synthesis asking whether fragmentation responses across biological layers can be treated as one common deterioration state.
+The active paper is a cluster-first empirical synthesis. Its questions are defined from natural-system exposures, effect units and biological endpoints rather than from a finite theoretical model:
 
-The NEE theory asks:
+1. **Which features of cross-process fragmentation responses are robust to effect-size representation: response direction, relative amplitude, or neither?**
+2. **Do the recovered systems suggest filtering, buffering or cohort-lag patterns across mating, reproduction and genetic states that deserve prospective ecological tests?**
 
-1. **Does fragmentation produce one biological deterioration state?**
-2. **If not, which cross-layer processes and remaining functional reserve determine divergent futures?**
-
-EGWEE tests the empirical counterpart across flowering-plant systems:
-
-1. **Do interaction, movement, reproduction and genetic responses have exchangeable fragmentation effects within natural systems?**
-2. **If not, is state separation robust across independent systems, or is it conditional on particular biological contexts?**
+EGWEE therefore studies how fragmentation responses propagate across plant interaction, mating, reproductive and genetic processes while explicitly separating scale-stable direction from scale-dependent response amplitude. Theory may motivate downstream interpretation, but it is not an admission criterion, estimator, stopping rule or source of empirical endpoint values.
 
 The active manuscript spine is [`manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md`](manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md). The locked protocol is [`manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md`](manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md).
 
 ## Current empirical conclusion
 
-The primary direct-effect family now contains **five independent programme/study clusters / 17 marginal effects**. The five-cluster Fisher synthesis rejects complete layer exchangeability (`p = 0.01212432`), but the result is **not Serapias-independent**: omitting ML001 *Serapias lingua* gives `p = 0.18194353`.
+The historical primary direct analysis contains **five independent programme/study clusters / 17 marginal effects**. On the registered Hedges-g estimand, the five-cluster Fisher synthesis rejects equality of within-system standardized response magnitudes (`p = 0.01212432`), but omitting ML001 *Serapias lingua* gives `p = 0.18194353`.
 
-The fifth cluster, the replicated Aizen–Feinsinger Chaco programme, was admitted regardless of significance and shows fragmentation-associated deterioration in both pollination interaction and reproductive function without detectable I–F separation (`p_ML020 = 1.0`).
+That robustness classification is **not scale-invariant**.
 
-The defensible paper-level conclusion is therefore:
+A mandatory oriented-lnRR sensitivity constructed from the same positive fragmented/reference summaries changes endpoint ordering and leave-one-cluster interpretation:
 
-> **Fragmented plant systems include both separated and concordant biological response regimes. The present corpus contains strong state separation, but the pooled direct-effect rejection is materially dependent on Serapias and does not support a universal fragmentation state-separation syndrome.**
+- under raw-unit multivariate delta covariance reconstructed from aligned independent units, omit-*Serapias* rejection remains below 0.05 (`p = 8.31e-05`);
+- under zero covariance, omit-*Serapias* rejection also remains below 0.05;
+- under a covariance-free Cauchy maximum-variance boundary, omit-*Serapias* rejection is **not certified**.
 
-This is the natural-data analogue of NEE state separation, but it does not claim that the finite NEE operators are literally validated in nature.
+The strongest paper-level conclusion is therefore:
+
+> **Fragmentation-associated deterioration is directionally consistent across the primary direct corpus, but relative response amplitude and layer-separation/robustness conclusions depend on the declared effect-size scale and dependence assumptions.**
+
+All **17/17 primary direct effects are negative** on both oriented Hedges g and oriented lnRR. This is descriptive scale-stable evidence for a common direction of deterioration, not a sign test and not evidence that response magnitudes are equal.
+
+### Strongest ecological lead: interaction quantity can provide false reassurance
+
+Across the current process–function catalogue, the **representation-stable resolved mismatches are asymmetric**. The three programmes that remain clearly downstream function-dominant under their audited representations are:
+
+- *Eucalyptus wandoo* — pollen-tube quantity increases while seed production declines;
+- *Cardiopetalum calophyllum* — pollinator abundance changes weakly while fruit set declines strongly;
+- Kakamega *Acanthopale pubescens* — visitation occurrence is maintained/slightly elevated while fruit set declines, and the geometry survives g→lnRR re-expression.
+
+These programmes span Western Australia, Brazilian cerrado and western Kenya; Myrtaceae, Annonaceae and Acanthaceae; and very different pollination/mating systems.
+
+At the same time, all **8/8** registered I–F programmes measure interaction/pollen **quantity**, while **0/8** directly measure compatible mating quality on the same frame.
+
+The resulting exploratory generalization is:
+
+> **Interaction decline is neither necessary nor sufficient for reproductive decline in the frozen matched evidence universe.**
+
+A frozen 16-programme translation map now broadens this without changing the quantitative denominator: 8 quantitatively admitted I–F programmes plus 8 non-overlapping qualitative-blocked programmes show that the **same interaction signal can map to multiple reproductive-function states**. The stronger general statement is therefore that interaction quantity is a **non-identifying stand-alone sentinel** of reproductive function across the audited fragmentation contexts. This is an existence/topology result, not a prevalence estimate.
+
+The logical form is stronger and easier to interpret: reproductive decline occurs without interaction decline (so I decline is not necessary), and interaction decline occurs without reproductive decline (so I decline is not sufficient). Both counterexample classes survive every single-programme deletion in the mixed-tier 16-programme map; quantitative-only leave-one-out robustness is not claimed.
+
+This is not a prevalence estimate and does not imply one shared mechanism. The canonical audit is `manuscript/SCALE_STABLE_QUANTITY_FUNCTION_PROXY_FAILURE_2026-09-29.md`.
+
+### Exploratory transition-filtering principle
+
+The current data also motivate a broader non-monotonic propagation hypothesis:
+
+- interaction quantity → F can amplify or invert;
+- movement/mating → F shows the same process-more-negative point ordering in all three direct anchors on both g and lnRR, although significance is scale-sensitive;
+- adult → offspring genetic lag is **not** general: the preregistered five-programme contrast is +0.129 with 95% CI spanning zero.
+
+The proposed general principle is **transition-specific filtering**, not one universal bottleneck or one monotonic upstream→downstream gradient. See `manuscript/TRANSITION_SPECIFIC_FILTERING_AUDIT_2026-09-29.md`.
+
+Canonical synthesis: `manuscript/ECOLOGICAL_GENERALITY_AND_SURPRISE_2026-09-29.md`.
+
+
+ML020 Chaco remains the key same-direction low-power counterexample: its registered programme difference test gives `p_ML020=1.0`. With four independent habitat units per condition, this means **the I–F magnitude difference is unresolved**, not that the true interaction and reproductive effects are demonstrated equal or biologically coupled.
+
+### Why the old Serapias bottleneck headline was withdrawn
+
+ML001 *Serapias* illustrates the scale problem directly:
+
+- Hedges-g absolute ordering: `G > C > F`;
+- oriented-lnRR absolute ordering: `C > F > G`;
+- Hedges-g C–F difference: resolved;
+- lnRR C–F difference under raw-unit multivariate delta covariance: unresolved (`p = 0.6364`).
+
+Thus the earlier claim that *Serapias* supplies a resolved upstream movement/connectivity bottleneck is not scale-stable.
+
+### Supporting point-sign topology — uncertainty matters
+
+The broader matched I–F evidence contains **18 primary panels from 8 programmes**. Six panels have opposite I/F **point-estimate** signs across five programmes, in both directions.
+
+However, the uncertainty audit changes how this result is described:
+
+- both marginal endpoint directions individually resolved opposite at 95%: **0 / 6**;
+- one endpoint resolved and the other unresolved: **2 / 6** (*Eucalyptus wandoo*; Kakamega *Acanthopale*);
+- both endpoints unresolved: **4 / 6** (Sevenello ×2; Zurich *Onobrychis*; Toronto milkweed).
+
+Three of four multi-panel programmes also contain more than one point-sign topology under one registered exposure frame, but species-specific fragmentation responses are already known and these categories are often imprecise. This is therefore **supporting descriptive topology**, not six confirmed sign reversals and not the sole novelty claim.
+
+Canonical uncertainty audit:
+- [`manuscript/IF_SIGN_UNCERTAINTY_2026-10-01.md`](manuscript/IF_SIGN_UNCERTAINTY_2026-10-01.md)
+- [`evidence/meta_extraction/if_sign_uncertainty_v1.csv`](evidence/meta_extraction/if_sign_uncertainty_v1.csv)
+- [`scripts/check_if_sign_uncertainty.py`](scripts/check_if_sign_uncertainty.py)
+
+### Exploratory ecological hypotheses
+
+The lnRR sensitivity exposes biologically interesting but post hoc patterns:
+
+- ML002 *Brosimum*: movement/connectivity declines more strongly than one-year progeny vigour;
+- ML014 *Eucalyptus socialis*: mating-support decline is much larger than family growth decline;
+- ML003 *Spondias*: juvenile and seed H_O decline more strongly than adult H_O.
+
+These motivate a **filtering / buffering / cohort-lag hypothesis**: fragmentation effects may be attenuated, amplified or delayed as they propagate across mating, reproduction and demographic/genetic states.
+
+This is **hypothesis-generating only**. It is not a confirmed macroecological law and is explicitly separated from the scale-stable primary conclusion.
+
+### Canonical scale audit
+
+Authoritative 2026-09-29 files:
+
+- [`manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-29_EFFECT_SCALE.md`](manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-29_EFFECT_SCALE.md)
+- [`manuscript/ESTIMAND_SCALE_ROBUSTNESS_2026-09-29.md`](manuscript/ESTIMAND_SCALE_ROBUSTNESS_2026-09-29.md)
+- [`manuscript/BOTTLENECK_SCALE_ROBUSTNESS_2026-09-29.md`](manuscript/BOTTLENECK_SCALE_ROBUSTNESS_2026-09-29.md)
+- [`evidence/meta_extraction/estimand_scale_robustness_v1.csv`](evidence/meta_extraction/estimand_scale_robustness_v1.csv)
+- [`evidence/meta_extraction/bottleneck_scale_robustness_v1.csv`](evidence/meta_extraction/bottleneck_scale_robustness_v1.csv)
+- [`scripts/check_estimand_scale_robustness.py`](scripts/check_estimand_scale_robustness.py)
+- [`scripts/check_bottleneck_scale_robustness.py`](scripts/check_bottleneck_scale_robustness.py)
+
+The earlier 2026-09-27 estimand sensitivity and registered-scale bottleneck files remain provenance. The 12-programme process–function catalogue is now **exploratory registered-scale evidence**: downstream identity is stable across the audited representations, but upstream system attribution changes with effect scale.
 
 ## Meta-analysis architecture
 
@@ -55,25 +178,77 @@ Primary direct clusters:
 - `ML014` *Eucalyptus socialis*: G_mating / F;
 - `ML020` Aizen–Feinsinger Chaco programme: three dependent species × I / F, counted once.
 
-Separate generalisation evidence:
+Separate gradient/generalisation evidence now contains **six programmes / 19 primary Fisher-z marginal effects**:
 
-- `ML015` *Eucalyptus wandoo*: I / F / G_adult on a Fisher-z continuous-gradient scale; it is never pooled into the primary Hedges-g Fisher statistic.
+- `ML015` *Eucalyptus wandoo*: I / F / G_adult on the response-free fragmentation PC;
+- `P2_CF01_ZURICH_2026`: four dependent phytometer I/F panels on the Urban_500 gradient;
+- `P2_CF01_MILKWEED_URBAN_2023`: population-level I/F responses along the Toronto urbanisation gradient;
+- `P2_CF01_ACER_MIYABEI_2014`: retrospective forest-level C/F isolation-gradient recovery;
+- `P2_CF01_CARDIOPETALUM_2012`: retrospective fragment-size I/F recovery, including the resolved interaction-persistence / reproductive-collapse contrast;
+- `P2_CF01_PRITCHARD_2005`: retrospective nested-frame orchard-isolation I/F recovery with cluster-robust dependence fallback.
+
+These Fisher-z programmes remain separate from the primary Hedges-g Fisher statistic.
+
+Pair-specific Phase-2 direct coverage is currently:
+
+- **I-F: 3/5 independent programmes** — `ML020`, `P2_CF01_SEVENELLO_2026` and `P2_CF01_BERGSDORF_KAKAMEGA_2006`;
+- **C-F: 2/5 independent programmes** — `ML001` plus `ML002`;
+- **G_adult-G_offspring: 5/5**, so that preregistered pair-specific analysis gate is open.
+
+The direct **C-F family is now coverage-closed rather than search-pending**. CF01 screened all
+**360/360** candidates, **24 C-F-targeted records reached full-text gating**, and **0** of those
+records retain a `pending_*` quantitative status. The direct C-F analysis-opening gate therefore
+remains closed at 2/5 because no additional candidate satisfied the frozen common-exposure,
+effect-unit and marginal-variance rules. EGWEE does not start a new search merely to force K=5.
+See `manuscript/PHASE2_CF01_CF_FAMILY_CLOSURE_2026-09-27.md`.
+
+The direct **I-F family is likewise coverage-closed**. After resolving the remaining dissertation,
+estimand, graphical-vector and fragmentation-unit variance gates, the full-text ledger contains
+**0 `pending_*` quantitative statuses**. Direct I-F coverage is **3/5 independent programmes**
+(`ML020`, `P2_CF01_SEVENELLO_2026`, `P2_CF01_BERGSDORF_KAKAMEGA_2006`), so the preregistered
+five-programme pooled-analysis gate remains closed. No new search is opened to force K=5; terminal
+programmes may be reopened only if their already-specified missing evidence becomes available.
+See `manuscript/PHASE2_CF01_IF_FAMILY_CLOSURE_2026-09-27.md`.
+
+Sevenello was recovered after search completion from public raw data under a frozen Edge-versus-Core contract. Its three primary species panels are dependent outcomes inside one programme, all paired covariance blocks are positive definite, and the internal three-panel Bonferroni p is 1.0.
+
+Bergsdorf's Kakamega dissertation was then recovered retrospectively from source site tables under an all-recoverable-panel rule. Four dependent species×campaign panels were retained; *Dracaena fragrans* remains explicitly blocked rather than coded as zero. The programme-level Bonferroni p is 0.006535, driven by strong Acanthopale interaction–function separation, while the other three recovered panels are individually imprecise. Bergsdorf therefore raises **I-F coverage to 3/5**, but, like Sevenello, it does not add a sixth cluster to the frozen Phase-1 five-cluster Fisher synthesis.
 
 The canonical current-state documents are:
 
 - [`manuscript/META_ANALYSIS_CLUSTER_STATUS_2026-09-12.md`](manuscript/META_ANALYSIS_CLUSTER_STATUS_2026-09-12.md)
 - [`manuscript/STATE_SEPARATION_SYNTHESIS_RESULT_2026-09-13.md`](manuscript/STATE_SEPARATION_SYNTHESIS_RESULT_2026-09-13.md)
 - [`manuscript/AIZEN_FEINSINGER_1994_RECOVERY_RESULT.md`](manuscript/AIZEN_FEINSINGER_1994_RECOVERY_RESULT.md)
+- [`manuscript/PHASE2_CF01_CF_FAMILY_CLOSURE_2026-09-27.md`](manuscript/PHASE2_CF01_CF_FAMILY_CLOSURE_2026-09-27.md)
+- [`manuscript/PHASE2_CF01_IF_FAMILY_CLOSURE_2026-09-27.md`](manuscript/PHASE2_CF01_IF_FAMILY_CLOSURE_2026-09-27.md)
+- [`manuscript/ECOLOGICAL_RESPONSE_REGIMES_2026-09-27.md`](manuscript/ECOLOGICAL_RESPONSE_REGIMES_2026-09-27.md) — ecology-first synthesis of coupled decline, quantity–function decoupling and unresolved I–F regimes.
+- [`manuscript/ECOLOGICAL_IF_DIRECTION_CENSUS_2026-09-27.md`](manuscript/ECOLOGICAL_IF_DIRECTION_CENSUS_2026-09-27.md) — complete 8-programme I–F direction census and claim ceiling.
+- [`manuscript/ECOLOGICAL_IF_MEASUREMENT_GAP_2026-09-27.md`](manuscript/ECOLOGICAL_IF_MEASUREMENT_GAP_2026-09-27.md) — complete 8/8 quantity-level versus 0/8 effective-mating measurement audit.
+- [`manuscript/ECOLOGICAL_BOTTLENECK_POSITION_AUDIT_2026-09-27.md`](manuscript/ECOLOGICAL_BOTTLENECK_POSITION_AUDIT_2026-09-27.md) — secondary 4-programme audit showing that bottleneck position is not fixed; current auxiliary programmes are burned for fresh H2 validation.
+- [`manuscript/ECOLOGICAL_PROCESS_FUNCTION_CENSUS_2026-09-27.md`](manuscript/ECOLOGICAL_PROCESS_FUNCTION_CENSUS_2026-09-27.md) — canonical unified 12-programme denominator: 11 testable, 4 resolved (3 downstream F-dominant, 1 upstream process-dominant), 7 unresolved, 1 not testable.
+- [`manuscript/ECOLOGICAL_BOTTLENECK_DIRECTION_INFLUENCE_2026-09-27.md`](manuscript/ECOLOGICAL_BOTTLENECK_DIRECTION_INFLUENCE_2026-09-27.md) — leave-one-programme-out claim ceiling: the upstream resolved direction is ML001-dependent.
+- [`manuscript/ECOLOGICAL_QUANTITY_FUNCTION_MECHANISM_AUDIT_2026-09-27.md`](manuscript/ECOLOGICAL_QUANTITY_FUNCTION_MECHANISM_AUDIT_2026-09-27.md) — evidence-graded mechanism audit separating source-supported pollen-quality/mating constraints from unresolved mechanism.
+- [`manuscript/ECOLOGICAL_NEAREST_NEIGHBOR_NOVELTY_AUDIT_2026-09-27.md`](manuscript/ECOLOGICAL_NEAREST_NEIGHBOR_NOVELTY_AUDIT_2026-09-27.md) — novelty firewall: prior syntheses establish average pollination–reproduction coupling; EGWEE contributes paired within-programme response geometry and the complete direction census.
+- [`manuscript/FRESH_ECOLOGICAL_IF_VALIDATION_PREREGISTRATION_2026-09-27.md`](manuscript/FRESH_ECOLOGICAL_IF_VALIDATION_PREREGISTRATION_2026-09-27.md) — future-only validation of the downstream reproductive-bottleneck hypothesis; all current eight I–F programmes are burned discovery systems.
+- [`manuscript/FRESH_ECOLOGICAL_IF_VALIDATION_AMENDMENT_2026-09-27_BOTTLENECK_LOCALIZATION.md`](manuscript/FRESH_ECOLOGICAL_IF_VALIDATION_AMENDMENT_2026-09-27_BOTTLENECK_LOCALIZATION.md) — prospective H2-v2 amendment: effective mating localizes the bottleneck; primary fresh contrast is ΔQE = Q−E rather than mandatory recoupling.
+- [`manuscript/FRESH_ECOLOGICAL_IF_SYNCHRONIZED_FIELD_MODULE_V1.md`](manuscript/FRESH_ECOLOGICAL_IF_SYNCHRONIZED_FIELD_MODULE_V1.md) — synchronized quantity → effective mating → reproductive-function field design for genuinely fresh systems.
+- [`manuscript/SUBMISSION_FREEZE_2026-09-27.md`](manuscript/SUBMISSION_FREEZE_2026-09-27.md) — ecology-first submission freeze and remaining human-only blockers.
+- [`manuscript/SUBMISSION_ADMIN_HANDOFF_2026-09-27.md`](manuscript/SUBMISSION_ADMIN_HANDOFF_2026-09-27.md) — exact human-only fields to complete before submission; anonymous scientific files should remain identity-free.
+- [`manuscript/REVIEWER_RISK_AUDIT_2026-09-27.md`](manuscript/REVIEWER_RISK_AUDIT_2026-09-27.md) — red-team audit of novelty, post-hoc integration, effect-family heterogeneity, bottleneck terminology and Serapias influence.
 
 ## Search stop and claim discipline
 
-The requested fifth same-effect-family robustness test is complete. A sixth-cluster search is **not** initiated merely because removal of ML001 eliminates significance. Any future expansion must have a separately declared coverage or biological-moderator goal before candidate outcomes are inspected.
+The primary five-cluster direct-effect corpus remains frozen. A sixth primary cluster is **not** sought merely because removal of ML001 eliminates significance.
+
+The separately preregistered Phase-2 CF01 coverage expansion is now **search-complete: 360/360 target-pair candidates screened, pending screen = 0**. This satisfies the coverage programme's stopping rule because the deterministic candidate queue is exhausted—not because any pair reached a desired K or significance threshold.
+
+Search completion does **not** mean every full-text/effect-unit gate is resolved. Design-valid candidates with access, variance, common-frame, publication-identity or estimand blockers remain explicitly open/STOPped under their frozen rules and may be reopened only when the stated missing evidence becomes available.
 
 The current evidence does not yet support headline claims for a universal cohort/history lag or a general process-compensation law. Those remain secondary hypotheses until the number of independent same-frame clusters is sufficient.
 
 ## Search basis
 
-Screening started from major existing meta-analysis datasets/reference lists and extended forward through 2026-09-11. See [`manuscript/meta_analysis_seed_sources.md`](manuscript/meta_analysis_seed_sources.md).
+The initial synthesis search started from major existing meta-analysis datasets/reference lists through 2026-09-11. Phase-2 then expanded the CF01 citation graph under the separately frozen coverage contract through its 2026-09-18 cutoff. The resulting target-pair queue contains **360 candidates and is fully screened**. See [`manuscript/meta_analysis_seed_sources.md`](manuscript/meta_analysis_seed_sources.md), [`manuscript/CF01_CANDIDATE_SCREENING_CONTRACT_2026-09-23.md`](manuscript/CF01_CANDIDATE_SCREENING_CONTRACT_2026-09-23.md), and [`manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE36_2026-09-25.md`](manuscript/PHASE2_CF01_TARGET_PAIR_SCREEN_WAVE36_2026-09-25.md).
 
 Repository-audited systems such as *Crepis sancta*, Miyake-jima *Camellia japonica–Zosterops japonicus*, *Conospermum undulatum* and *Spondias purpurea* remain mechanistic anchors, not automatic quantitative inclusions. The candidate ledger is [`manuscript/meta_analysis_candidate_ledger.csv`](manuscript/meta_analysis_candidate_ledger.csv).
 
@@ -100,8 +275,10 @@ The historical spine is [`manuscript/natural_data_ecological_indicators_spine.md
 - `evidence/` — locked quantitative evidence and historical natural-data analyses.
 - `background/` — natural mechanism audits and measurement crosswalk.
 
-## Relationship to EGC / EGWE
+## Hard boundary with EGC / EGWE
 
-[`zuizui0223/egc`](https://github.com/zuizui0223/egc) provides state-separation evidence used by the NEE theory programme. [`zuizui0223/egwe`](https://github.com/zuizui0223/egwe) owns the active NEE manuscript and operator/reserve theory.
+[`zuizui0223/egc`](https://github.com/zuizui0223/egc) and [`zuizui0223/egwe`](https://github.com/zuizui0223/egwe) belong to the NEE theory/mechanism programme. In particular, `egwe` owns the finite-model operator and functional-reserve claims.
 
-EGWEE is the **empirical synthesis**. It can support, qualify, or challenge NEE predictions, but it is not allowed to manufacture agreement by selecting only illustrative systems, treating nested observations as independent, or pooling incompatible effect measures.
+EGWEE owns the **natural-data empirical synthesis**. It does not import simulated endpoint values, operator outputs or theoretical success criteria into screening or estimation. Candidate ordering, effect-unit admission, endpoint assignment, Phase-2 stopping and promotion are fixed by empirical contracts independently of whether a result agrees with NEE.
+
+The permitted connection is downstream interpretation: EGWEE can constrain which empirical phenomena a useful theory must explain, and NEE can cite EGWEE as external natural evidence. Neither repository may relabel EGWEE results as validation of a specific finite operator sequence.

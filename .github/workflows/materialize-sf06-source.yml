@@ -1,0 +1,44 @@
+name: Materialize SF06 source universe
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - 'scripts/build_phase2_sf06_study_universe.py'
+      - '.github/workflows/materialize-sf06-source.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Download public SF06 supplementary Table S1
+        env:
+          SF06_URL: "https://oup.silverchair-cdn.com/oup/backfile/Content_public/Journal/aob/135/1-2/10.1093_aob_mcae076/3/mcae076_suppl_supplementary_table_s1.docx?Expires=2147483647&Key-Pair-Id=APKAIE5G5CRDK6RD3PGA&Signature=rle~osXl4raEfRMlNTM5s1~kCtSQwInJCzqnYA0y~mDQpFSv35J1z8f22RgYswXL-TfqgP1hqwVPZMVRMZv00bdVmYaEOgs7wbNHRN~FXXssVHSrQNbs7Lffp5YM3uqC-IPM24Yustxqj--BikcriS~Emzlvb~4kLJU9EdI564kD7U-KIZExe3lrgyRP761ed3OWLJv-5Qvdx3X7~oI3RK7l5Dzu1PJI2hZ6MdupGwuPqh~OHhe32BNCyWzVUbt1Ym~Qx1rFKmM0IX4XTxLtYrEAbbabVALTSXXwGLRugUivL5NtVBhr4kwLL6HrfY9IDOnpX1~g69ymeWGP7E3O7A__"
+        run: |
+          curl --fail --location --retry 3 --retry-delay 2 "$SF06_URL" -o /tmp/sf06_table_s1.docx
+          test -s /tmp/sf06_table_s1.docx
+      - name: Build outcome-blind SF06 publication universe
+        run: |
+          python scripts/build_phase2_sf06_study_universe.py             /tmp/sf06_table_s1.docx evidence/meta_extraction
+          test -s evidence/meta_extraction/phase2_sf06_publication_universe_v1.csv
+          test -s evidence/meta_extraction/phase2_sf06_source_frame_summary_v1.json
+          test -s manuscript/PHASE2_SF06_MATERIALIZATION_2026-09-20.md
+      - name: Commit SF06 materialization
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add             evidence/meta_extraction/phase2_sf06_publication_universe_v1.csv             evidence/meta_extraction/phase2_sf06_source_frame_summary_v1.json             manuscript/PHASE2_SF06_MATERIALIZATION_2026-09-20.md
+          if git diff --cached --quiet; then
+            echo 'No SF06 materialization changes'
+          else
+            git commit -m 'Materialize SF06 publication universe'
+            git push origin HEAD:meta/systematic-coverage-moderator-expansion-2026-09-16
+          fi

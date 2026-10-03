@@ -1,42 +1,46 @@
-# Testing whether fragmentation acts as a single biological state: a cluster-first synthesis of plant interaction, reproduction and genetic responses
+# Habitat fragmentation across plant reproductive life cycles: scale-stable deterioration and recurrent interaction–function proxy failure
 
 ## Abstract
 
-1. Habitat fragmentation affects pollination, movement, reproduction and genetic state, but these responses are usually analysed separately. We asked whether multiple biological layers measured within the same fragmented plant systems can be treated as one exchangeable deterioration state.
+1. Habitat fragmentation alters pollination, movement, reproduction and genetic structure, yet interaction responses need not translate directly into reproductive function. We asked which features of within-system cross-process responses are robust to effect-size scale and whether matched interaction–function trajectories recur across plant species and programmes.
 
-2. A protocol-first recovery workflow began from 20 named system/program candidates and 19 source-verified primary-study records, and materialised 16 formal multilayer cluster attempts. Five independent direct fragmented-versus-reference clusters comprising 17 Hedges-g marginal effects met the primary admission contract; one additional continuous-gradient cluster was retained separately.
+2. A protocol-first recovery produced five independent direct fragmented-versus-reference clusters comprising 17 primary Hedges-g effects; a separate gradient stream was retained outside that synthesis. Phase-2 screening subsequently completed 360/360 target-pair candidates.
 
-3. The five-cluster Fisher synthesis rejected complete layer exchangeability (`chi-square(10)=22.65`, `p=0.0121`), but the result did not survive removal of the influential *Serapias lingua* cluster (`p=0.1819`). Thus the pooled direct-effect result is not leave-one-cluster-out robust.
+3. The historical Hedges-g synthesis rejected equality of within-system standardized responses across the five direct clusters (`p=0.0121`), but not after omitting *Serapias lingua* (`p=0.1819`). Reconstructing oriented log-response ratios from the same independent units reversed that robustness classification: omit-*Serapias* Fisher `p=8.31×10^-5` using raw-unit multivariate delta covariance and `p=0.00434` with zero covariance. In *Serapias*, absolute response ordering changed from G > C > F on g to C > F > G on lnRR, and the C–F lnRR contrast was unresolved (`p=0.636`).
 
-4. A fifth independent replicated Chaco programme provided a direct robustness test. Across three dependent species subsystems, fragmentation reduced both pollen-tube interaction support and fruit set, but their effect magnitudes were not detectably separated (`p_programme=1.0`). A separate continuous-gradient *Eucalyptus wandoo* system showed strong layer discordance but remained outside the primary Hedges-g synthesis.
+4. Two ecological features were more stable. First, all 17 primary direct effects were negative on both oriented g and oriented lnRR. Second, interaction quantity did not uniquely identify reproductive function. Among eight quantitative matched programmes, three representation-stable resolved mismatches all had reproductive function worse than the measured interaction/pollen-quantity endpoint. Extending only to eight additional already-screened, source-explicit but quantitatively blocked programmes produced a frozen 16-programme translation map in which each interpretable interaction state (lower, no detected loss, higher/shifted) co-occurred with more than one reproductive-function state; this many-to-many structure survived every single-programme deletion. The quantitative-only category map was weaker and was not used for prevalence inference.
 
-5. **Synthesis.** Multi-layer deterioration and state separation are distinct ecological outcomes. Fragmented plant systems can exhibit either separated or concordant response regimes, and the current evidence does not support a universal fragmentation state-separation syndrome. The next empirical problem is to identify the biological conditions that determine which response geometry occurs.
+5. **Synthesis.** Habitat fragmentation can show **directional coherence without translational coherence**: broad deterioration is common, yet the same observed interaction signal can correspond to different reproductive outcomes. Interaction decline is neither necessary nor sufficient for reproductive decline in the frozen evidence universe. The strongest resolved failure mode is false reassurance—apparently intact or less-affected interaction quantity with poorer reproductive function—replicated in three independent programmes, while apparent over-warning and resilience also occur. Relative response amplitude remains estimand-scale dependent. Prospective tests should measure interaction quantity, effective mating and reproductive output together rather than assume a one-step interaction→function mapping.
 
 ## Keywords
 
-eco-genetics; forest fragmentation; genetic diversity; meta-analysis; plant-pollinator interactions; reproductive function; response heterogeneity; state separation
+effect-size sensitivity; habitat fragmentation; interaction–function decoupling; plant reproduction; pollination; population genetics; species-specific responses; transition filtering
 
 ## Introduction
 
-Habitat fragmentation can alter plant density, pollinator visitation, pollen and seed movement, reproductive output, mating patterns and genetic diversity. Those responses are commonly synthesized one endpoint class at a time. Existing quantitative reviews have documented fragmentation effects on pollination and reproductive success, plant genetic diversity, progeny genetic and performance responses, fine-scale genetic structure and pollinator abundance (Aguilar et al., 2006, 2008, 2019; Miguel-Peñaloza et al., 2023; Olhnuud et al., 2025). This literature establishes that fragmentation is often detrimental. It does not, by itself, establish whether the affected biological layers behave as one common deterioration state within the same systems.
+Habitat fragmentation changes more than habitat area. It can alter local plant density, pollinator visitation, pollen and seed movement, mating opportunities, reproductive output and population genetic structure. These processes are linked, but they do not operate on the same clock or spatial scale. Pollinator visitation can respond within a flowering season, reproductive output integrates events over a season, contemporary gene flow reflects successful movement and mating, and standing adult genetic diversity may retain the signature of earlier landscape conditions for generations. Fragmentation can therefore propagate through a plant population as a coupled cascade, or different processes can become ecologically decoupled.
 
-That distinction matters because a decline in multiple endpoints is not equivalent to equal decline across endpoints. A fragmented population could experience strong disruption of interaction or mating processes while adult standing genetic diversity remains relatively buffered by demographic and generation-time lags. Conversely, interaction and reproductive-function layers could deteriorate together at similar magnitudes. Treating these alternatives as one phenomenon can obscure which biological state has actually changed and which ecological function remains buffered.
+Previous syntheses show that fragmentation affects pollination, reproduction, genetic structure and progeny performance (Aguilar et al., 2006, 2008, 2019, 2025; Ibáñez et al., 2014; Miguel-Peñaloza et al., 2023; Olhnuud et al., 2025). Pollination and reproductive effects are positively associated on average (Aguilar et al., 2006, 2025), and species-specific visitation and seed-set responses are already documented (Dauber et al., 2010). Visitation is an imperfect proxy for pollination effectiveness (King et al., 2013), while mutualism-effectiveness frameworks already separate interaction quantity from quality and delayed fitness consequences (Schupp et al., 2017). Our fragmentation-specific question is whether **one observed interaction response identifies downstream reproductive function across programmes, or the same interaction state can yield different reproductive outcomes**, while separating scale-sensitive magnitude inference from scale-stable qualitative evidence.
 
-This synthesis therefore asks a stricter within-system question: when multiple biological layers are measured under the same fragmentation contrast, are their standardized responses exchangeable, or do they separate? The focal layers are demographic/resource support (`D`), realised interaction or pollen receipt (`I`), movement or mating connectivity (`C`), reproductive function (`F`), adult standing genetic state (`G_adult`) and offspring or juvenile genetic/mating state (`G_offspring`). We distinguish two propositions that are often conflated: fragmentation can affect multiple biological layers, and fragmentation can separate those layers so that effect magnitudes differ beyond sampling uncertainty. The second proposition is stronger.
+The distinction matters for mechanism and conservation. A population may experience immediate loss of pollination or mating connectivity while adult genetic diversity changes little because long-lived individuals carry historical variation. Conversely, reductions in interaction and reproductive function may track one another closely when pollen delivery directly limits fruit or seed production. In other systems, behavioural compensation, reproductive assurance, spatial scale or life-history differences may weaken the correspondence among processes. Thus, observing deterioration in one layer does not automatically identify the condition of the others.
 
-### Primary hypothesis — response layers are not universally exchangeable
+We therefore synthesize fragmentation responses within biological systems rather than asking only for endpoint-specific grand means. The focal processes are demographic/resource support (`D`), realised interaction or pollen receipt (`I`), movement or mating connectivity (`C`), reproductive function (`F`), adult standing genetic variation (`G_adult`) and offspring or juvenile genetic/mating state (`G_offspring`). The historical primary analysis asked whether standardized Hedges-g responses were equal within systems. The estimand-scale audit showed that this is not equivalent to a scale-invariant ecological question: endpoint-specific SD standardization can change response ordering and influence conclusions. We therefore distinguish two targets. **Response direction** asks whether fragmentation is associated with deterioration or improvement; **relative response amplitude** asks which process changes more strongly on a declared effect-size scale. Only conclusions that survive explicit scale sensitivity are treated as scale-robust.
 
-Our primary hypothesis was that biological layers need not share one fragmentation response. We therefore tested equality of admitted layer effects within each study/programme cluster and then asked whether evidence against exchangeability persisted across independent systems. Importantly, leave-one-cluster-out influence was treated as part of the claim rather than as an optional robustness appendix.
+### Primary questions — response direction, relative amplitude and scale dependence
 
-The current evidence also motivated two extensions: cohort/history lag between adult and offspring genetics, and process compensation linking movement or interaction responses to reproductive function. However, those extensions require more independently replicated same-frame systems than are currently available. They are retained as secondary hypotheses rather than used to enlarge the present conclusion.
+The historical protocol tested equality of admitted Hedges-g responses within each direct cluster and combined cluster-level evidence across systems. We retain that analysis as the registered primary estimand and reproduce it exactly.
+
+After identifying scale sensitivity, we added a mandatory post hoc audit rather than replacing the primary estimand. For positive-valued endpoints we compare the same fragmented-versus-reference summaries on an oriented log-response-ratio scale. We also record the sign of every oriented direct effect. A biological claim about relative layer severity, separation or bottleneck position is not treated as scale-robust when the interpretation changes between g and lnRR or depends on one convenient covariance assumption.
+
+Patterns suggesting attenuation, compensation or temporal/cohort lag are treated as exploratory ecological hypotheses because they were recognized after inspecting the recovered effects.
 
 ## Materials and Methods
 
 ### Protocol and study universe
 
-The meta-analysis protocol was frozen on 11 September 2026 before the current synthesis. Screening started from major prior quantitative syntheses of plant pollination/reproduction, plant genetics, progeny responses, fine-scale genetic structure and pollinator responses to fragmentation, then extended backward and forward through the primary literature. Previously curated candidate systems were used as search seeds rather than automatic inclusions.
+The meta-analysis protocol was frozen on 11 September 2026 before synthesis. Screening started from major prior quantitative syntheses of plant pollination/reproduction, plant genetics, progeny responses, fine-scale genetic structure and pollinator responses to fragmentation, then extended backward and forward through the primary literature. Previously curated candidate systems were used as search seeds rather than automatic inclusions.
 
-The primary target population comprised flowering-plant studies with a direct fragmented-versus-reference comparison or an equivalent source-defined two-group fragmentation contrast. Continuous-only fragmentation gradients were retained in a separate correlation-effect stream and were not converted into the direct primary effect family merely to enlarge sample size.
+The target population comprised flowering-plant studies with a direct fragmented-versus-reference comparison or an equivalent source-defined two-group fragmentation contrast. Continuous-only fragmentation gradients were retained in a separate correlation-effect stream and were not converted into the direct primary effect family merely to enlarge sample size.
 
 A study/programme entered the primary state-separation synthesis only when at least two predeclared biological layers could be represented under the same fragmentation comparison with valid independent units and recoverable sampling uncertainty. Nested plants, flowers, fruits, progeny, loci or repeated observations were not promoted to fragmentation replicates. Duplicate reports and shared biological observations were linked at the programme/study level.
 
@@ -47,6 +51,18 @@ This was a targeted, protocol-first evidence-recovery synthesis rather than a cl
 Sixteen multilayer cluster attempts were formally registered (`ML001`–`ML015` plus `ML020`; Supplementary Table S1). Five ultimately met the direct Hedges-g primary admission contract (`ML001`, `ML002`, `ML003`, `ML014`, `ML020`). One additional system (`ML015`) met a common-population continuous-gradient contract and was retained as Fisher-z generalisation evidence rather than converted into a direct binary effect. Ten registered attempts were closed without primary admission. Eight closures reflected inability to reconstruct the required same-frame exposure, signed effect, sampling variance/covariance, or source data from the public material under the frozen effect-unit rules. Two closures (`ML009`, `ML013`) were structural non-identifiability cases because only one independent landscape/reference population represented one condition, so lower-level mothers, progeny or loci could not supply fragmentation-level replication.
 
 A closure due to inaccessible or non-reconstructable data was never interpreted as a biological null. Likewise, a non-significant published endpoint was never entered as a zero effect. This admission flow fixes the denominator by estimand and effect-unit validity rather than by whether a candidate supports state separation.
+
+### Phase-2 systematic pair-coverage expansion
+
+The five-cluster primary corpus above was frozen before a separate coverage programme was opened on 18 September 2026. The Phase-2 purpose was to increase empirical coverage of prespecified layer pairs and future moderator information, not to repair the Phase-1 p-value. Candidate admission, endpoint assignment, independent-unit rules and search stopping were fixed independently of effect direction.
+
+A deterministic citation-expanded target-pair queue was screened through the frozen 18 September 2026 cutoff. Screening decisions used title, abstract, methods, exposure structure and effect-unit recoverability without opening newly discovered effect magnitudes for inclusion decisions. The final queue contained **360 candidates; all 360 were screened and no title/abstract/method screen remained pending**.
+
+Pair-specific direct analyses had a preregistered opening gate of five independent programmes. Exhausting the search did not authorize relaxed endpoints, lower-level pseudo-replication or additional searching merely to reach that gate. The direct I–F family closed search-complete at **3/5 programmes** (ML020 Chaco, Sevenello and Bergsdorf Kakamega), while direct C–F closed at **2/5** (ML001 and ML002); neither pooled pair-specific analysis was opened.
+
+Continuous fragmentation and landscape gradients were retained in a separate Fisher-z generalisation registry rather than converted to binary contrasts. By search completion this registry contained **six independent programmes / 19 primary Fisher-z marginal effects**: *Eucalyptus wandoo*, Zurich BetterBlooms, Toronto common milkweed, *Acer miyabei*, *Cardiopetalum calophyllum* and Pritchard orchard isolation. Five of those six programmes contain I and F; *Acer miyabei* instead contains C and F.
+
+Consequently, the complete registered I–F programme denominator used in the descriptive direction census is **eight independent programmes: three direct Hedges-g programmes plus five gradient Fisher-z programmes**. Effect families remain numerically separate throughout.
 
 ### Response layers, effect orientation and the direct-effect estimand
 
@@ -86,6 +102,28 @@ First, a zero-covariance working sensitivity set every off-diagonal `Cov_ij` to 
 
 Second, we calculated a covariance-free certification bound from the Cauchy–Schwarz constraint `Cov_ij >= -sqrt(V_i V_j)`. For each endpoint pair, setting `Cov_ij = -sqrt(V_i V_j)` maximises `V(g_i-g_j)` and therefore maximises that pair's two-sided p-value. We propagated these pairwise p-value upper bounds through the unchanged Bonferroni and Fisher rules. Because the separately maximising pairwise covariance bounds need not constitute one jointly realisable full covariance matrix, this calculation is not an alternative biological covariance model. It is a conservative certification question: can rejection be guaranteed from the marginal effects and variances alone when dependence is otherwise unknown?
 
+### Estimand-scale sensitivity
+
+The historical primary test compares endpoint-specific Hedges g values. Because g divides each response by its own within-group SD, equality of g across biological endpoints is not invariant to the measurement scale or to endpoint-specific dispersion.
+
+We therefore added a mandatory post hoc scale audit for every positive-valued primary direct endpoint. Using the same fragmented/reference group summaries, we calculated an oriented log response ratio,
+
+`lnRR = orientation_multiplier × log(mean_fragmented / mean_reference)`,
+
+so that negative values retain the same biological-support orientation as the primary analysis. Marginal uncertainty used the delta approximation
+
+`V(lnRR) = SD_f^2/(n_f mean_f^2) + SD_r^2/(n_r mean_r^2)`.
+
+For ML020, means and SDs were recomputed from the committed four-site Appendix-I habitat-unit table. For the other direct clusters, the committed group summaries were used directly.
+
+For the authoritative lnRR sensitivity, cross-endpoint covariance was approximated directly from the aligned independent units rather than transferred from the g analysis. Within each habitat group, we calculated the sample covariance of the two raw endpoint vectors and propagated it by the multivariate delta method, so that for endpoints X and Y the covariance of their log response ratios is the sum of the fragmented- and reference-group mean-covariance terms, with the same biological-orientation multipliers used for the marginal effects. ML001, ML002, ML003 and ML020 use committed population/site tables; ML014 uses the same public TERN maternal-family table as the existing recovery script. This is still an asymptotic small-sample approximation, not known design-based sampling covariance.
+
+We repeated the pairwise, within-cluster Bonferroni and cross-cluster Fisher calculations under (1) this raw-unit multivariate-delta covariance, (2) zero off-diagonal covariance, and (3) the pairwise Cauchy–Schwarz maximum-contrast-variance boundary. The third is a covariance-free non-certification bound, not a fitted covariance model. The earlier sensitivity that carried the dimensionless g-scale correlation proxy onto lnRR variances is retained only as provenance and is superseded for the main scale audit by the raw-unit delta reconstruction.
+
+Finally, we recorded only the sign of each oriented primary direct effect on both g and lnRR. The 17 effects are dependent within five clusters, so this sign audit is descriptive and is not analysed as 17 independent Bernoulli trials.
+
+A claim about relative layer severity, magnitude separation, bottleneck position or leave-one-cluster robustness is called scale-robust only when its qualitative interpretation survives the historical g analysis and the lnRR sensitivity without relying on one convenient dependence treatment.
+
 ### Cross-cluster state-separation test and estimand
 
 The five admitted primary clusters are distinct study/programme systems, so only their single cluster-level p-values were treated as cross-cluster inputs. We combined them using Fisher's statistic `X = -2 sum_k log(p_k)`. Under the global null with independent uniform cluster-level p-values, `X` has a chi-square reference distribution with `2K` degrees of freedom (`K=5` in the final primary synthesis). Because the within-cluster Bonferroni p-values can be conservative rather than exactly uniform, the chi-square calibration is correspondingly conservative relative to ideal uniform inputs.
@@ -100,6 +138,27 @@ For ML020, each species used four small-fragment habitat-unit means and four con
 
 The *Eucalyptus wandoo* programme of Llorens et al. (2018; `ML015`) was retained as a separate Fisher-z gradient generalisation cluster. It included interaction, reproductive-function and adult-genetic effects against a response-free fragmentation geometry. Pairwise endpoint differences and the same Bonferroni cluster rule were computed on the Fisher-z scale using its paired-population covariance proxy, but ML015 contributed zero direct Hedges-g primary effects and its p-value was never combined with the primary Fisher statistic.
 
+### Post hoc scale-stable interaction–function sign audit
+
+After the g-versus-lnRR audit exposed scale-dependent magnitude inference, we added a **post hoc descriptive** sign audit; it was not preregistered and generates no confirmatory p-value or prevalence estimate. The denominator is all 18 primary I–F panels nested within the closed eight-programme I–F evidence set. Direct positive-valued contrasts retain sign under g→lnRR re-expression, while gradient programmes retain their registered Fisher-z sign.
+
+Each panel was classified as I−/F−, I+/F+, I+/F− or I−/F+. We report panel counts, the number of independent programmes containing sign discordance, and whether multi-panel programmes contain multiple geometries under one registered exposure frame. Panels within a programme are not independent trials, so no binomial/sign test is applied. Opposite signs describe qualitative mismatch only and do not by themselves establish compensation, pollen-quality failure or another mechanism.
+
+
+### Complete descriptive process–function censuses
+
+After the Phase-2 I–F search and recovery programme was closed, we constructed a descriptive census of every registered programme containing both an interaction/pollen-quantity endpoint (I) and reproductive function (F). This secondary summary was defined after the individual programme analyses existed and is therefore not treated as a preregistered directional test.
+
+A programme was called pair-testable only when its registered analysis supported a within-programme I–F comparison with a reconstructed covariance or other already-declared dependence rule. Where a programme contained multiple dependent species, phytometers or endpoint pairs, we retained its existing multiplicity correction rather than selecting the strongest panel. A mismatch was described as resolved only when the registered programme-level or pair-family-adjusted p-value was below 0.05. Direction was then recorded as F more negative than I or I more negative than F. Programmes without reconstructable paired dependence remained explicitly not testable.
+
+Direct Hedges-g and gradient Fisher-z programmes were never pooled numerically in this census. We counted the direction of resolved within-programme mismatches only. No binomial sign test, cross-programme pooled effect, prevalence estimate or new significance threshold was calculated.
+
+For a separate descriptive measurement-coverage audit, each registered I endpoint was classified from its source definition as `quantity_only` or `effective_mating_quality`, without reference to the I–F result. Quantity-only endpoints include visitation/abundance and total pollen or pollen-tube measures that do not identify compatible donor diversity or realised mating success. Effective-mating endpoints would require compatible-pollen information, realised paternity/donor diversity or another source-validated measure incorporating mating quality. This classification was not used as a moderator test in the current corpus.
+
+For the descriptive census, a resolved **downstream function-dominant** mismatch means F is more negative than the paired upstream process; a resolved **upstream process-dominant** mismatch means the process is more negative than F. These labels identify the position of the larger standardized fragmentation response only. They do not establish causal mediation, demographic limitation or temporal order.
+
+To place the I–F subset in a broader life-cycle context, we also audited every independent registered programme containing reproductive function together with a movement/connectivity or mating-support endpoint under a common fragmentation frame. Four such programmes were available: ML001 *Serapias lingua*, ML002 *Brosimum alicastrum*, ML014 *Eucalyptus socialis* and P2_CF01_ACER_MIYABEI_2014. These programme IDs are disjoint from the eight I–F programmes. We therefore formed a unified descriptive process–function census of **12 independent programmes**. The same within-programme multiplicity decisions were retained, and a mismatch was called resolved only when the programme-adjusted comparison was below 0.05. Direction was recorded as reproductive function more negative than process or process more negative than reproductive function. Hedges-g and Fisher-z values were never pooled numerically, and no cross-programme sign test or prevalence estimate was calculated.
+
 ### Search-stop rule
 
 The fifth same-effect-family robustness test was treated as a terminal test of the current claim. A sixth cluster was not sought merely because removal of ML001 remained non-significant. Any future corpus expansion must be justified by a separately declared coverage or moderator goal before candidate outcomes are inspected.
@@ -112,9 +171,9 @@ The audit therefore progressed from 20 candidate system/program entries and 19 s
 
 This flow matters for interpretation of the final denominator. The five primary clusters were not the five systems with the strongest state-separation results: ML020 entered despite a programme p-value of 1.0, whereas several biologically suggestive systems remained excluded because their fragmentation-level effect or covariance could not be reconstructed without pseudo-replication or an exposure substitution. Supplementary Table S1 records each registered attempt and its terminal status.
 
-### Primary direct-effect synthesis
+### Historical primary direct-effect synthesis on Hedges g
 
-The five admitted direct clusters produced the following cluster-level p-values:
+The five admitted direct clusters produced the registered Hedges-g cluster-level p-values:
 
 - ML001 *Serapias*: `0.00354530`;
 - ML002 *Brosimum*: `0.19911670`;
@@ -122,29 +181,37 @@ The five admitted direct clusters produced the following cluster-level p-values:
 - ML014 *Eucalyptus socialis*: `0.09831774`;
 - ML020 Chaco programme: `1.00000000`.
 
-Combining the five cluster p-values gave `chi-square(10)=22.64771647`, **`p = 0.01212432`**. The pooled direct-effect corpus therefore rejected the global null that all five admitted systems satisfy within-system layer exchangeability. This rejection is a global test of discordance somewhere in the corpus, not an estimate of a common layer effect or a claim that each cluster individually separates.
+Combining the five cluster p-values gave `chi-square(10)=22.64771647`, **`p = 0.01212432`**. On the registered g scale this rejects the intersection null that all five systems satisfy within-system equality of standardized response magnitudes.
 
-### Dependence sensitivity
+### Hedges-g dependence and influence sensitivity
 
-The full conclusion was not restricted to the fitted non-zero covariance proxies. With all within-cluster off-diagonal covariances set to zero, the five-cluster statistic was `X=19.13332192` and remained below the 0.05 threshold (**`p=0.03860161`**). Thus the full rejection does not require the reconstructed covariance proxies to have their observed non-zero values.
+With all within-cluster off-diagonal covariances set to zero, the five-cluster g statistic remained below 0.05 (**`p=0.03860161`**). The covariance-free Cauchy–Schwarz maximum-variance bound did not reject (**`p=0.28061178`**), so marginal g effects and variances alone do not certify the global rejection under arbitrary dependence.
 
-The stronger covariance-free certification question did not reject. Using the pairwise Cauchy–Schwarz maximum-contrast-variance bounds produced `X=12.06678382`, **`p=0.28061178`**. Marginal effects and variances alone therefore do not certify rejection for every dependence structure allowed by their variances. This bound is deliberately more adversarial than a realised covariance sensitivity and should not be interpreted as a fitted alternative covariance matrix.
+On the canonical paired-covariance g analysis, omitting ML001 *Serapias* gave **`p = 0.18194353`**. The other leave-one-cluster-out analyses retained rejection. Under zero covariance the omit-ML001 g result was `p=0.57123438`, and the covariance-free certification bound was `p=0.92060125`. Thus the registered g-scale rejection is not Serapias-independent.
 
-The Serapias dependence strengthened under both calculations. Omitting ML001 gave **`p=0.57123438`** with zero covariance and a covariance-free certification bound of **`p=0.92060125`**. Full and cluster-specific values are reported in Supplementary Table S2.
+### Estimand-scale sensitivity
 
-### Influence of ML001 Serapias
+The biological interpretation changed materially when the same group summaries were represented as oriented lnRR.
 
-The canonical paired-covariance rejection is not leave-one-cluster-out robust. Removing ML001 after admission of the fifth cluster retained ML002, ML003, ML014 and ML020 and gave `chi-square(8)=11.36345148`, **`p = 0.18194353`**. Thus the direct cross-system rejection did not survive removal of *Serapias*.
+In *Serapias*, absolute Hedges-g magnitudes rank **G > C > F** (`-26.07`, `-10.10`, `-4.55`), whereas absolute lnRR magnitudes rank **C > F > G** (`-1.157`, `-1.102`, `-0.650`). The C–F lnRR contrast was unresolved under the raw-unit delta covariance (`p=0.6364`). Thus the recently used interpretation of *Serapias* as a resolved movement/connectivity-dominant process–F bottleneck is not effect-scale stable.
 
-The other canonical leave-one-cluster-out analyses retained rejection: omit ML002, `p=0.01276794`; omit ML003, `p=0.01407214`; omit ML014, `p=0.02116199`; omit ML020, `p=0.00384724`. The last value recovers the previous four-cluster synthesis.
+The cross-cluster robustness classification also changed. Under lnRR:
 
-### Independent fifth-cluster test: concordant I and F deterioration
+- raw-unit multivariate-delta covariance gave full Fisher `p=1.19×10^-12` and omit-ML001 `p=8.31×10^-5`;
+- zero covariance gave full Fisher `p=1.72×10^-9` and omit-ML001 `p=0.00434`;
+- the covariance-free maximum-variance boundary gave full Fisher `p≈9.95×10^-5` but omit-ML001 `p≈0.111`.
 
-ML020 provided the independent same-effect-family robustness test using the replicated Aizen–Feinsinger Chaco programme (Aizen & Feinsinger, 1994). Fragmentation reduced both pollen-tube interaction support and fruit set in all three retained species, but their effect magnitudes were not detectably separated.
+Accordingly, lnRR does not supply a new uniquely correct robustness verdict: common working dependence treatments retain rejection without *Serapias*, whereas the covariance-free bound does not certify it. The defensible conclusion is that **the leave-one-Serapias robustness classification depends jointly on effect-size scale and dependence assumptions**.
 
-For *Atamisquea emarginata*, I was `g=-0.71280256` and F was `g=-1.00477681`, with covariance-aware I–F `p=0.79824355`. For *Cercidium australe*, I was `g=-0.63733120` and F was `g=-1.13852812`, with `p=0.61830903`. For *Prosopis nigra*, I was `g=-0.48057139` and F was `g=-1.13549676`, with `p=0.55736567`.
+A scale-independent qualitative feature did remain: all **17/17 primary direct effects were negative on both oriented g and oriented lnRR**. The direct primary stream therefore consistently indicates deterioration across its measured biological layers, but contains no qualitative sign discordance that would by itself establish cross-layer separation.
 
-The frozen within-programme Bonferroni gate was therefore **`p_ML020=1.0`**. ML020 was admitted regardless of significance. Its result provides no detected I–F separation under the frozen test while both layers generally deteriorate in the same direction; it is not evidence that their true fragmentation effects are exactly equal.
+### Fifth direct cluster: same-direction I and F responses with unresolved difference
+
+ML020 provided the independent same-effect-family fifth cluster using the replicated Aizen–Feinsinger Chaco programme (Aizen & Feinsinger, 1994). Fragmentation reduced both pollen-tube interaction support and fruit set in all three retained species.
+
+For *Atamisquea emarginata*, I was `g=-0.7128` and F was `g=-1.0048`; for *Cercidium australe*, I was `g=-0.6373` and F was `g=-1.1385`; for *Prosopis nigra*, I was `g=-0.4806` and F was `g=-1.1355`. The registered programme gate was **`p_ML020=1.0`**.
+
+This is a failure to resolve an I–F difference at four independent habitat units per condition, not evidence that the true responses are equal or biologically coupled. The same-direction signs are informative descriptively, but the magnitude comparison is low-precision.
 
 ### Separate gradient evidence
 
@@ -152,63 +219,147 @@ The separate *Eucalyptus wandoo* gradient system (Llorens et al., 2018) showed s
 
 This gradient result provides independent evidence that strong layer discordance occurs in nature, but because its exposure representation and effect family differ from the primary direct stream it was treated as generalisation evidence rather than a sixth primary replicate.
 
+### Phase-2 search completion and I–F programme denominator
+
+The separately frozen Phase-2 target-pair search screened **360/360 candidates** and ended with no pending screening decisions. Deterministic recovery of already-screened sources added Sevenello and Bergsdorf Kakamega to the direct I–F family, raising direct I–F coverage from one to **3/5 independent programmes**. The five-programme pooled direct I–F gate therefore remained closed.
+
+The separate gradient/generalisation registry expanded from *Eucalyptus wandoo* alone to **six programmes / 19 primary Fisher-z marginal effects**. Five registry programmes contained I and F (*Eucalyptus wandoo*, Zurich BetterBlooms, common milkweed, *Cardiopetalum calophyllum* and Pritchard orchard isolation); *Acer miyabei* contained C and F. Thus the complete registered I–F denominator comprised **3 direct + 5 gradient = 8 independent programmes**. This accounting determines the denominator for the descriptive direction census below; it does not authorize cross-family numerical pooling.
+
+### Scale-stable interaction–function sign geometry
+
+Because relative magnitude depends on effect representation, we separately audited only the **sign** of the registered interaction (I) and reproductive-function (F) effects. The complete I–F evidence contains 18 primary panels from eight independent programmes. Six panels had opposite I/F signs, and those panels occurred in five independent programmes.
+
+Both directions of qualitative decoupling occurred. *Eucalyptus wandoo* and the Kakamega *Acanthopale pubescens* panel showed interaction/pollen quantity retained or increased while reproductive function declined (I+,F−). Sevenello (LARO and POAR), Zurich *Onobrychis viciifolia* and Toronto common milkweed showed the opposite point geometry (I−,F+), in which interaction quantity declined while reproductive function was retained or increased. These are sign statements only; they do not require comparison of Hedges-g and Fisher-z magnitudes.
+
+The more surprising pattern occurred within shared landscape frames. Four programmes contained multiple primary species/panels under one registered exposure. Three showed qualitative within-programme heterogeneity: Sevenello contained both I+,F+ and I−,F+ species; Kakamega contained I+,F− and I+,F+ panels; Zurich contained I−,F+ and I−,F− phytometers. Only Chaco was sign-uniform, with I−,F− in all three retained species. Thus landscape exposure alone did not determine the sign of the interaction→function trajectory.
+
+For positive-valued direct endpoints, switching from Hedges g to lnRR cannot change the sign of the fragmented/reference mean ratio, and the continuous-gradient programmes retain their native Fisher-z signs. This sign audit is therefore more effect-scale robust than the magnitude-separation catalogue. It is descriptive: dependent panels are not treated as independent trials, and the presence of at least one discordant panel in five programmes is not used as a prevalence estimate.
+
+### Registered-scale process–function census and cross-scale geometry audit
+
+The previously assembled 12-programme process–function census is retained for transparency as a **registered-scale exploratory census** (Supplementary Table S4), not as a scale-invariant main inferential result. It contains eight interaction/pollen-quantity–F programmes and four movement/connectivity or mating-support–F programmes. On each programme's registered scale, 11 were pair-testable, four resolved a process–F mismatch, seven were unresolved and one was not testable.
+
+The estimand-scale audit changes how those classifications should be interpreted. For the direct Hedges-g programmes that can be re-expressed as lnRR, the identity of the resolved upstream system changes. On the registered g scale, *Serapias lingua* supplies the upstream process-dominant case. On lnRR, the *Serapias* C–F difference is unresolved (`p=0.6364`), whereas *Brosimum alicastrum* (`p=0.0226`) and *Eucalyptus socialis* (`p=0.00118`) show resolved upstream process-dominant contrasts.
+
+By contrast, the three resolved downstream function-dominant systems are stable across the available scale representations: *Eucalyptus wandoo* and *Cardiopetalum calophyllum* remain on their registered Fisher-z gradient scales, and the Kakamega *Acanthopale pubescens* panel remains resolved when its direct Hedges-g comparison is re-expressed as lnRR (four-panel programme `p=0.00138`; *Acanthopale* I–F `p=0.000346`). Chaco and Sevenello remain unresolved under the lnRR re-expression.
+
+Thus both downstream function-dominant and upstream process-dominant response geometries occur under both scale representations, but **attribution of the upstream geometry to a particular direct system is scale-sensitive**. This cross-scale persistence of geometry is hypothesis-generating only. The programme census combines heterogeneous effect families, was assembled after the individual analyses, and does not estimate the prevalence of ecological regimes.
+
+The interaction–function subset also exposes a scale-independent measurement gap: all eight registered I endpoints are quantity-level interaction/pollen measures and none directly measures compatible mating quality, realised paternity or effective pollen-donor diversity on the same I–F frame. This coverage result motivates the prospective synchronized `quantity → effective mating → reproductive function` design independently of any magnitude ranking.
+
+
+
 ## Discussion
 
-### Conditional state separation, not a universal syndrome
+### The scale-robust result is common direction, not a universal ordering of response magnitude
 
-The primary synthesis separates two ecological statements that are easy to conflate. Fragmentation can affect multiple biological layers, yet those layers need not differ from one another in effect magnitude. Under the frozen paired-unit covariance reconstruction, the five-cluster Fisher test rejected complete exchangeability; the rejection also survived the simpler zero-covariance sensitivity. However, the result was materially dependent on ML001 *Serapias*, and it could not be certified from marginal effects alone when within-cluster covariance was treated as entirely unknown. Once *Serapias* was removed, no dependence regime examined supported the cross-system rejection.
+The historical Hedges-g analysis is fully reproducible, but the estimand-scale audit changes its biological interpretation. On g, the five-cluster Fisher test rejects equality of standardized response magnitudes and that rejection is not robust to removal of *Serapias lingua*. On oriented lnRR, endpoint ordering changes materially and common working dependence treatments retain rejection even after *Serapias* is removed, whereas a covariance-free maximum-variance boundary does not certify that result. Thus neither “Serapias-dependent separation” nor its opposite is a scale-independent ecological conclusion.
 
-The defensible conclusion is therefore conditional state separation. The available systems do not support a universal single deterioration axis, because some clusters show strong layer discordance. They also do not support a robust universal state-separation syndrome, because the independent Chaco programme showed interaction and reproductive function declining together without detectable separation, the canonical pooled result failed the key leave-*Serapias*-out test, and the strongest full-corpus rejection uses paired dependence information that is absent from a marginal-only certification analysis.
+What does survive the scale change is response direction. All 17 primary direct effects are negative on both oriented g and oriented lnRR. Across these direct systems, fragmentation is consistently associated with deterioration in the measured interaction, movement/mating, reproductive or genetic-support endpoints. This does not mean the layers are equal, nor does it prove that they differ. It is a weaker but more defensible statement: the primary direct corpus contains no qualitative sign reversal among its biological layers.
 
-### Multi-layer deterioration is not state separation
+This distinction matters because standardized mean differences and response ratios answer different biological questions. Hedges g measures a difference relative to endpoint-specific within-group dispersion; lnRR measures proportional change in the endpoint mean. A layer with very small between-unit SD can therefore dominate the g ordering even when its proportional change is modest. *Serapias* makes that problem unusually visible: adult H_O is extreme on g because its within-group SD is tiny, but its proportional decline is weaker than the declines in pollen immigration and fruit set.
 
-ML020 is especially informative because it was not excluded when it failed to reproduce layer separation. In all three Chaco species, both pollen-tube support and fruit set were lower in small fragments than in continuous forest. If the analysis had been based only on whether each endpoint declined, the system would have appeared to support a generic multi-layer fragmentation syndrome. The within-system comparison shows something different: the data do not resolve an I–F difference under the frozen covariance-aware test.
+### Genuine qualitative decoupling exists outside the primary direct stream
 
-This distinction matters for ecological interpretation. A system in which interaction and reproductive function fall together may require different mechanistic explanations and monitoring priorities from a system in which interaction, movement, reproduction and genetic state decouple. Endpoint-specific syntheses can establish average vulnerability; a cluster-first synthesis is needed to ask whether the response geometry itself is concordant or separated.
+The clearest scale-independent process mismatch in the current corpus is the separate *Eucalyptus wandoo* gradient. Pollen-tube quantity increases along the registered fragmentation severity axis while seed production declines. Because the two responses have opposite signs on the same Fisher-z gradient representation, this discordance does not depend on ranking endpoint-specific standardized mean differences.
 
-### Why the influential-system result is scientifically useful
+Other Phase-2 systems remain ecologically suggestive but should be interpreted more cautiously. *Cardiopetalum calophyllum* shows a weak pollinator-abundance gradient and a much stronger fruit-set gradient, while the Kakamega *Acanthopale pubescens* panel shows maintained/slightly higher pollinator occurrence with much lower fruit set. The Kakamega contrast remains resolved after direct re-expression as lnRR, so the downstream function-dominant geometry is not solely a Hedges-g standardization artifact in that system.
 
-The loss of significance after removing *Serapias* is not simply a weakness to be hidden by adding more studies until the p-value changes sign. It defines the current claim boundary. The five-cluster corpus is small and heterogeneous in which layer pairs are represented. Under those conditions, a statistically significant pooled result can coexist with substantial influence from one system. Reporting that influence explicitly prevents the synthesis from being presented as a general mechanistic law that the data do not support.
+The complementary upstream geometry is less attributable to any one system. *Serapias* is upstream process-dominant on g but not on lnRR, whereas *Brosimum* and *Eucalyptus socialis* become resolved upstream cases on lnRR. Therefore the ecological signal worth carrying forward is **transition-specific filtering with scale-sensitive system attribution**, not a fixed catalogue of which species has which bottleneck.
 
-The result also reframes the next empirical question. Rather than asking whether fragmentation always separates biological states, future work should ask which system properties determine separation versus concordant decline. Candidate moderators include mating system, reproductive assurance, pollination mode, life history, fragmentation age and the distinction between standing adult genetic state and contemporary process measures. Those moderators should be tested only after sufficient independent same-frame systems accumulate.
+### Interaction quantity is not a monotonic proxy for reproductive function
 
-### Status of the original H2 and H3 extensions
+The sign census provides a more scale-stable ecological result than magnitude ranking. Global syntheses show that land-use change reduces pollination and female fitness on average and that their effect sizes are positively associated across species (Aguilar et al., 2006, 2025). At the matched-programme level, however, interaction quantity and reproductive function do not necessarily move together.
 
-Adult-versus-offspring genetic differences remain biologically motivated, especially in *Spondias* and *Conospermum*, but the current admissible primary corpus does not support a sufficiently replicated cross-system cohort-lag test for a headline conclusion. In *Spondias*, adult–juvenile and adult–seed covariance-aware contrasts cross zero. Cohort/history lag therefore remains a secondary hypothesis rather than a current paper-level result.
+The **representation-stable resolved mismatches are asymmetric**. *Eucalyptus wandoo*, *Cardiopetalum calophyllum* and Kakamega *Acanthopale pubescens* remain downstream function-dominant under their audited representations. They span Western Australia, Brazilian cerrado and western Kenya; three plant families; and contrasting pollination/mating systems. Kakamega survives direct g→lnRR re-expression, Cardiopetalum retains the geometry across alternate reproductive endpoints and an isolation sensitivity, and Wandoo shows the strongest qualitative case: pollen-tube quantity increases while seed production declines. No correspondingly stable upstream process-dominant programme is identified across the audited representations.
 
-Likewise, the original plan proposed C–F and I–F cross-system relationships to test whether movement or interaction responses predict reproductive function. The number of independent same-frame paired clusters is currently too small for a stable moderator model. Mechanistic examples remain useful interpretation anchors, but they do not yet support a fitted general compensation law.
+This convergence is the strongest ecological lead in the current corpus: **apparently intact interaction quantity can provide false reassurance about reproductive function under fragmentation**. It does not imply a universal downstream bottleneck. I−,F+ cases in Sevenello, Zurich and common milkweed show the converse possibility, and the present data do not identify one common mechanism.
 
-Neither extension is used to inflate the present conclusion.
+A denominator-frozen qualitative audit of eight additional, design-valid but quantitatively blocked programmes gives the same broader caution without supporting a one-sided rule (Table S6). It contains buffering (interaction loss with no detected function loss), resilience, concordant response, interaction increase with similar reproductive output, and one qualitative hidden-function-loss experiment. Thus the blocked literature strengthens **non-monotonic proxy insufficiency**, while the representation-stable downstream asymmetry remains a narrower three-programme quantitative result.
 
-### Relationship to eco-genetic fragmentation theory
+A frozen **16-programme response-translation map** combines the eight quantitative programmes with eight non-overlapping source-explicit blocked programmes (Supplementary Figure S2; Table S7). Evidence tiers remain separate. Lower interaction occurs with lower, higher-point and no-detected-loss F states; no detected interaction loss occurs with lower or no detected F loss; and higher interaction occurs with lower or similar F. Thus interaction quantity is a **non-identifying sentinel**: the same upstream signal is compatible with multiple downstream states. This establishes topology existence, not prevalence.
 
-The synthesis was motivated by theoretical frameworks in which fragmentation can reorganize multiple ecological and genetic states. The present analysis does not validate any specific finite-model operator sequence in nature. Instead, it tests the more basic empirical premise that biological response layers need not behave as one state under fragmentation.
+The quantity–quality distinction itself is not new: visitation can poorly represent pollination effectiveness (King et al., 2013), pollen limitation has quantity and quality components (Aizen & Harder, 2007), and mutualism-effectiveness theory explicitly separates quantity from delayed functional quality (Schupp et al., 2017). The new lead is fragmentation-specific **translation non-identifiability** in matched natural systems. Within-programme heterogeneity strengthens it: Sevenello, Kakamega and Zurich contain focal plants with different I/F sign geometries under the same registered landscape frame, so landscape exposure alone does not determine the interaction→function trajectory.
 
-The natural evidence supports that premise conditionally: separated and concordant regimes both occur. That result is more informative for theory than an unconditional confirmation would be, because it implies that any useful mechanistic framework must explain not only why states can separate, but also why they sometimes remain concordant.
+### The missing intermediate measurement remains biologically important
+
+All eight registered interaction–function programmes quantify visits, pollinator abundance/occurrence or total pollen/pollen tubes; none directly measures compatible pollen, realised paternity or effective pollen-donor diversity on the same I–F frame. This measurement gap is scale-independent.
+
+A stronger future design should therefore synchronize:
+
+`interaction quantity → effective mating / compatible pollen → reproductive function`
+
+on the same fragmented populations. That design can distinguish failure of effective mating from later post-pollination filtering or downstream buffering.
+
+### Exploratory hypothesis: fragmentation effects are filtered across transitions and response times
+
+Although no scale-invariant layer ordering is established, the lnRR sensitivity reveals a coherent hypothesis worth testing prospectively.
+
+The exploratory audits suggest that different transitions may filter fragmentation in different directions. In all three direct movement/mating–F systems, upstream point estimates are more negative than F on both g and lnRR, although statistical resolution changes with scale. *Spondias* shows a different temporal pattern: juvenile and seed H_O decline more strongly than adult H_O on lnRR. These post hoc observations motivate attenuation, compensation or cohort-lag hypotheses, but Chaco provides counterexamples to any monotonic upstream-to-downstream rule. The appropriate prospective hypothesis is therefore **transition-specific filtering**, tested in genuinely new systems with synchronized sampling and effect scales fixed before outcomes are inspected.
+
+### Adult genetic state may act as a slow variable, but a general cohort lag is not established
+
+The adult-versus-offspring family provides an important negative test of this broader filtering idea. Across five independent programmes, the pooled adult-minus-offspring contrast is `+0.129` with modified-Knapp–Hartung 95% CI `[-0.655, +0.912]` and `p=0.672`. Three programme point estimates are positive and two are negative; no single omission creates a stable directional lag. The lnRR pattern in *Spondias* is therefore an illustrative mechanism-generating case, not confirmation of a universal genetic debt. **Temporal legacy is system-dependent rather than a general downstream rule in the current replicated family.**
+
+A useful future distinction is therefore between fast interaction/reproduction variables and slower standing state variables; prospective work can test response times directly rather than assume a fixed I/C/F/G hierarchy.
+
+### Implications for fragmentation monitoring
+
+The scale audit strengthens one practical conclusion while weakening another. It weakens any recommendation to rank biological layers by one standardized effect-size metric. But it strengthens the case for multi-stage monitoring: a single layer cannot reveal whether upstream perturbation is transmitted, buffered or delayed downstream.
+
+Monitoring should therefore pair interaction quantity with reproductive function on the same sites and time window, adding compatible mating or paternity where feasible. The goal is not to rank one universally sensitive layer, but to detect when apparently intact upstream interaction fails to translate into downstream function.
+
+### Ecological scope
+
+This study is an empirical plant-fragmentation synthesis. The historical g analysis, the lnRR sensitivity and the registered gradient analyses are all empirical summaries of natural systems. No finite simulator or operator sequence defines study admission, effect construction, stopping rules or the biological conclusion. Mechanistic ideas about buffering, lag or propagation are treated only as ecological hypotheses to be tested with natural data.
 
 ### Limitations
 
-The primary direct-effect denominator is five independent programme/study clusters. That is sufficient for the declared cluster-first global test and influence analysis, but insufficient for stable cross-system moderator estimation. The admitted clusters also differ in which biological layers are jointly represented, so the current synthesis tests non-exchangeability within systems rather than estimating one fully crossed layer-by-layer meta-regression across all taxa.
+The primary direct-effect denominator is five independent programme/study clusters. This is sufficient to reproduce the registered cluster-first Hedges-g analysis and its influence diagnostics, but it is too small for stable cross-system moderator inference or a fully crossed layer-by-layer model.
 
-The evidence-recovery universe was targeted rather than an exhaustive all-database systematic review. The candidate and primary-study ledgers make the audited search path explicit, and the cluster registry records every formal quantitative recovery attempt, but unseeded literature may still exist outside that universe. This limits claims about prevalence: the present analysis can establish that separated and concordant response geometries both occur among the audited systems, but it cannot estimate their global frequencies.
+The most important limitation is **estimand-scale dependence**. Hedges g standardizes each endpoint by its own pooled within-group SD, whereas lnRR represents proportional change in the endpoint mean. These are not interchangeable biological estimands. In *Serapias*, tiny within-group SD for adult H_O produces an extreme g and reverses the absolute response ordering relative to lnRR. The historical g result and the lnRR sensitivity also give different leave-one-*Serapias* robustness classifications under common working covariance assumptions. Therefore the manuscript cannot treat equality or separation of g values as a scale-invariant ecological statement.
 
-The primary Fisher statistic combines valid cluster-level evidence but has no common-effect parameter attached to it. It should not be read as a meta-analytic estimate of the magnitude or frequency of state separation. The paired-unit covariance proxies are reconstructed from available aligned independent units rather than known design-based sampling covariances. The zero-covariance sensitivity shows that the full rejection does not require the fitted off-diagonal values themselves, but the Cauchy–Schwarz certification analysis shows that rejection cannot be guaranteed from marginal effects and variances alone. Consequently, the strongest global rejection is conditional on using source-supported paired dependence information; uncertainty in those covariance proxies is not separately estimated as another variance component.
+The lnRR sensitivity does not solve this problem by supplying a uniquely correct alternative scale. Several direct clusters have only two or three independent units per habitat group, so delta-method normal approximations and the raw-unit multivariate-delta covariance may be poor at such sample sizes. The zero-covariance and Cauchy–Schwarz calculations show that dependence assumptions still matter. In addition, fruit set, heterozygosity, paternity correlation and growth are biologically different metrics, some bounded and some unbounded, so equal lnRR need not imply equal ecological importance.
 
-Standardized effects also depend on endpoint-specific between-unit dispersion. An extreme Hedges-g magnitude can therefore reflect a small standardizing SD as well as a large raw biological contrast. This is especially relevant to ML001 *Serapias*, whose adult heterozygosity effect is standardized by very small between-population SD within the source-defined habitat groups. Full sampling variances are retained, and the primary interpretation is therefore based on cluster tests plus explicit influence analyses rather than ranking raw Hedges-g magnitudes as a common scale of biological severity.
+The scale-independent sign audit is deliberately weak. All 17 primary direct effects are negative on both oriented g and oriented lnRR, but those effects are dependent within five clusters and cannot be treated as 17 independent sign trials. Uniform sign therefore supports common direction of deterioration only; it does not establish equality, separation or one response hierarchy.
 
-The overall meta-analysis is retrospective. ML014 was recovered under a prospectively locked additional-cluster contract, whereas ML020 was an external retrospective recovery whose Appendix I values were visible during discovery. The ML020 analysis therefore retained all source-explicit four-site species and a common endpoint pair to reduce within-paper selection, but it is not presented as an outcome-blind prospective validation.
+The broader I–F sign-geometry audit is also descriptive. Its 18 panels are nested within eight programmes, and multi-species programmes contribute unequal numbers of dependent panels. The statement that five programmes contain at least one sign-discordant panel is therefore an existence result, not a frequency estimate. Opposite signs also do not identify a causal mechanism: I−,F+ does not by itself prove compensation, and I+,F− does not by itself prove pollen-quality failure.
 
-Finally, the strong *Eucalyptus wandoo* gradient result is deliberately kept outside the primary Hedges-g synthesis. Its concordance with the broader state-separation concept strengthens generalisation, but mixing effect families would create a larger denominator at the cost of a less defensible estimand.
+The post hoc 12-programme process–function catalogue is also exploratory. Upstream system identity changes from *Serapias* on g to *Brosimum* and *Eucalyptus socialis* on lnRR, so it cannot provide a scale-invariant bottleneck map or regime-prevalence estimate.
+
+The evidence-recovery universe was targeted rather than an exhaustive all-database systematic review. Phase-2 screening was complete within its frozen 360-candidate queue, but unseeded literature outside that universe may exist. The present analysis cannot estimate global frequencies of attenuation, amplification, coupling or sign discordance.
+
+The primary Fisher statistic combines cluster-level evidence but has no common-effect parameter attached to it. Its paired-unit covariance proxies are reconstructed from aligned independent units rather than known design-based sampling covariances. The covariance-free certification analysis already shows that the g rejection cannot be guaranteed from marginal effects and variances alone.
+
+ML020 additionally illustrates the limits of non-significance. Each retained species has only four independent habitat units per condition. Its programme p-value of 1.0 means the registered test did not resolve an I–F magnitude difference; it is not evidence of true equality or biological coupling.
+
+Finally, the exploratory attenuation and cohort-lag patterns were recognized after inspecting the recovered data. They are useful for generating a more ecological next hypothesis, but they are not confirmatory results and should not be used to rescue the current manuscript from the scale-sensitivity finding.
 
 ## Conclusion
 
-Habitat fragmentation affects multiple biological layers, but the available natural systems do not support a single universal response geometry. Under the source-supported paired covariance reconstruction, the pooled direct-effect synthesis rejects the global null of layer exchangeability, and that rejection also survives a zero-covariance sensitivity. It does not survive removal of the influential *Serapias* system and cannot be certified from marginal effects alone when within-cluster covariance is left entirely unknown. The empirical result is therefore conditional state separation, not a universal fragmentation syndrome.
+The historical five-cluster Hedges-g synthesis is reproducible, but its ecological headline is not scale-robust. On g, complete equality of standardized within-system responses is rejected and that rejection does not survive removal of *Serapias*. On an oriented lnRR sensitivity, response ordering changes materially and common working dependence treatments retain rejection without *Serapias*, whereas a covariance-free maximum-variance boundary does not. The correct conclusion is therefore that **relative response amplitude and robustness classification are estimand-scale dependent**.
 
-The current manuscript may claim five admitted direct same-effect-family programme/study clusters, a canonical paired-covariance Fisher rejection at `p = 0.01212432`, a zero-covariance full sensitivity at `p=0.03860161`, a covariance-free certification bound of `p=0.28061178`, loss of the canonical rejection after omitting ML001 at `p = 0.18194353`, an independent ML020 concordant-decline result with `p_ML020=1.0`, and separate gradient discordance. It may not claim covariance-free global rejection, robust universal state separation, a universal layer ordering, a confirmed cohort lag, a general compensation mechanism, direct validation of a specific finite eco-genetic model, or that a sixth cluster should be sought merely to restore Serapias-independent significance.
+One result is more stable: all 17 primary direct effects are negative on both oriented g and oriented lnRR. The current direct corpus therefore supports a common direction of fragmentation-associated deterioration across its measured biological layers, but does not establish a scale-independent ordering or magnitude separation among them.
+
+A second scale-stable result emerges from the matched I–F evidence, but it is narrower than simple species specificity. Species-specific visitation and seed-set responses to fragmentation are already known (Dauber et al., 2010), and visitation is an established imperfect proxy for pollination effectiveness (King et al., 2013). The cross-programme addition is a directional asymmetry in the **resolved** matched evidence: the three programme-level I–F mismatches that remain stable under their audited representations are all downstream function-dominant, while no upstream I–F programme has equally stable resolved attribution. Six panels in five programmes have opposite point-estimate signs, but none has both marginal endpoint directions individually resolved at 95%, so those sign topologies remain descriptive rather than confirmatory.
+
+The strongest repeated ecological mismatch is therefore **interaction-quantity proxy failure**. *Eucalyptus wandoo*, *Cardiopetalum calophyllum* and Kakamega *Acanthopale pubescens* span three continents, three plant families and sharply different pollination/mating systems, yet in every case measured interaction or pollen quantity looks better than realised reproductive function under the same registered landscape frame. No I–F programme has an equally representation-stable resolved mismatch in the opposite direction. This does not estimate how frequent the pattern is in nature, but it shows why apparently intact pollinator activity or pollen receipt can provide false reassurance about plant reproductive function under fragmentation.
+
+Across the frozen 16-programme map (eight quantitative + eight qualitative-blocked), identical interaction signals coexist with divergent F states, and this non-identifiability survives every single-programme deletion. Interaction decline is neither necessary nor sufficient for reproductive decline; evidence tiers remain separate and no prevalence is inferred.
+
+A broader transition-filtering principle remains exploratory. In all three direct movement/mating–F anchors (*Serapias*, *Brosimum*, *Eucalyptus socialis*), the upstream process point estimate is more negative than F on both g and lnRR, although which contrasts resolve statistically changes with scale. This suggests possible attenuation or compensation across the mating-to-performance transition. By contrast, the preregistered five-programme adult-versus-offspring synthesis does not resolve a common directional cohort lag (mean +0.129; mKH 95% CI −0.655 to +0.912; p=0.672). Thus fragmentation responses appear **transition-filtered rather than monotonically propagated**: some transitions amplify, some attenuate, and temporal legacy is system-dependent.
+
+Future work should test this non-monotonic propagation prospectively using synchronized measurements of interaction quantity, effective mating, reproduction and age/cohort-specific state variables on the same fragmented populations, with the effect scale declared before outcomes are inspected.
+
+Accordingly, the manuscript may report the registered Hedges-g analysis, the mandatory lnRR sensitivity, the 17/17 common deterioration direction, the separate gradient sign discordance and the exploratory filtering/lag hypothesis. It may not currently claim a scale-invariant layer-separation syndrome, a scale-invariant variable bottleneck ordering, a universal attenuation pattern, or a confirmed cohort lag.
 
 ## References
 
 Aguilar, R., Ashworth, L., Galetto, L. & Aizen, M.A. (2006). Plant reproductive susceptibility to habitat fragmentation: review and synthesis through a meta-analysis. *Ecology Letters*, 9, 968–980. https://doi.org/10.1111/j.1461-0248.2006.00927.x
+
+Aguilar, R., Cristóbal-Pérez, E.J., Marquez, V., Carbone, L.M., Paglia, I., Freitas, L., Ashworth, L., Martén-Rodríguez, S., Fernandes, G.W., Lobo, J., Fuchs, E.J. & Quesada, M. (2025). Anthropogenic land-use change decreases pollination and male and female fitness in terrestrial flowering plants. *Annals of Botany*, 135, 57–70. https://doi.org/10.1093/aob/mcae076
+
+Aizen, M.A. & Harder, L.D. (2007). Expanding the limits of the pollen-limitation concept: effects of pollen quantity and quality. *Ecology*, 88, 271–281. https://doi.org/10.1890/06-1017
 
 Aguilar, R., Quesada, M., Ashworth, L., Herrerías-Diego, Y. & Lobo, J. (2008). Genetic consequences of habitat fragmentation in plant populations: susceptible signals in plant traits and methodological approaches. *Molecular Ecology*, 17, 5177–5188. https://doi.org/10.1111/j.1365-294X.2008.03971.x
 
@@ -218,9 +369,32 @@ Aguilar-Aguilar, M.J., Cristóbal-Pérez, E.J., Lobo, J., Fuchs, E.J., Oyama, K.
 
 Aizen, M.A. & Feinsinger, P. (1994). Forest fragmentation, pollination, and plant reproduction in a Chaco dry forest, Argentina. *Ecology*, 75, 330–351. https://doi.org/10.2307/1939538
 
+
+Bergsdorf, T. (2006). *Forest fragmentation and plant-pollinator interactions in Western Kenya*. PhD dissertation, Rheinische Friedrich-Wilhelms-Universität Bonn. urn:nbn:de:hbz:5N-08143
+
 Breed, M.F., Marklund, M.H.K., Ottewell, K.M., Gardner, M.G., Harris, J.B.C. & Lowe, A.J. (2012). Pollen diversity matters: revealing the neglected effect of pollen diversity on fitness in fragmented landscapes. *Molecular Ecology*, 21, 5955–5968. https://doi.org/10.1111/mec.12056
 
+Breitbart, S., Tomchyshyn, A., Wagner, H.H. & Johnson, M.T.J. (2023). Urbanization and a green corridor influence reproductive success and pollinators of common milkweed. *Urban Ecosystems*, 26, 1–13. https://doi.org/10.1007/s11252-022-01278-9
+
+Byers, D.L. (1995). Pollen quantity and quality as explanations for low seed set in small populations exemplified by *Eupatorium* (Asteraceae). *American Journal of Botany*, 82, 1000–1006. https://doi.org/10.1002/j.1537-2197.1995.tb11564.x
+
 Cristóbal-Pérez, E.J., Fuchs, E.J., Martén-Rodríguez, S. & Quesada, M. (2021). Habitat fragmentation negatively affects effective gene flow via pollen, and male and female fitness in the dioecious tree, *Spondias purpurea* (Anacardiaceae). *Biological Conservation*, 256, 109007. https://doi.org/10.1016/j.biocon.2021.109007
+
+Elias, M.A.S., Franceschinelli, E.V., Juen, L., Borges, F.J.A., Ferreira, G.M. & Carvalho, F.M.V. (2012). Reproductive success of *Cardiopetalum calophyllum* (Annonaceae) treelets in fragments of Brazilian savanna. *Journal of Tropical Ecology*, 28, 317–320. https://doi.org/10.1017/S0266467412000120
+
+Dauber, J., Biesmeijer, J.C., Gabriel, D., Kunin, W.E., Lamborn, E., Meyer, B., Nielsen, A., Potts, S.G., Roberts, S.P.M., Sõber, V., Settele, J., Steffan-Dewenter, I., Stout, J.C., Teder, T., Tscheulin, T., Vivarelli, D. & Petanidou, T. (2010). Effects of patch size and density on flower visitation and seed set of wild plants: a pan-European approach. *Journal of Ecology*, 98, 188–196. https://doi.org/10.1111/j.1365-2745.2009.01590.x\n\nHulting, K.A., Brudvig, L.A., Damschen, E.I., Levey, D.J., Resasco, J., Tewksbury, J.J. & Haddad, N.M. (2025). Habitat edges decrease plant reproductive output in fragmented landscapes. *Journal of Ecology*, 113, 531–541. https://doi.org/10.1111/1365-2745.14452
+
+Brudvig, L.A., Damschen, E.I., Haddad, N.M., Levey, D.J. & Tewksbury, J.J. (2015). The influence of habitat fragmentation on multiple plant–animal interactions and plant reproduction. *Ecology*, 96, 2669–2678. https://doi.org/10.1890/14-2275.1
+
+King, C., Ballantyne, G. & Willmer, P.G. (2013). Why flower visitation is a poor proxy for pollination: measuring single-visit pollen deposition, with implications for pollination networks and conservation. *Methods in Ecology and Evolution*, 4, 811–818. https://doi.org/10.1111/2041-210X.12074
+
+Schupp, E.W., Jordano, P. & Gómez, J.M. (2017). A general framework for effectiveness concepts in mutualisms. *Ecology Letters*, 20, 577–590. https://doi.org/10.1111/ele.12764
+
+Lázaro, A., Fuster, F., Alomar, D. & Totland, Ø. (2020). Disentangling direct and indirect effects of habitat fragmentation on wild plants' pollinator visits and seed production. *Ecological Applications*, 30, e02099. https://doi.org/10.1002/eap.2099
+
+Ibáñez, I., Katz, D.S.W., Peltier, D., Wolf, S.M. & Connor Barrie, B.T. (2014). Assessing the integrated effects of landscape fragmentation on plants and plant communities: the challenge of multiprocess–multiresponse dynamics. *Journal of Ecology*, 102, 882–895. https://doi.org/10.1111/1365-2745.12223
+
+Koricheva, J. & Gurevitch, J. (2014). Uses and misuses of meta-analysis in plant ecology. *Journal of Ecology*, 102, 828–844. https://doi.org/10.1111/1365-2745.12224
 
 Llorens, T.M., Yates, C.J., Byrne, M., Elliott, C.P., Sampson, J., Fairman, R., Macdonald, B. & Coates, D.J. (2018). Altered soil properties inhibit fruit set but increase progeny performance for a foundation tree in a highly fragmented landscape. *Frontiers in Ecology and Evolution*, 6, 39. https://doi.org/10.3389/fevo.2018.00039
 

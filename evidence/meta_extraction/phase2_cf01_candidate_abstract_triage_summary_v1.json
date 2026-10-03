@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "candidate_queue_units": 17472,
+  "ready_for_ecological_screen": 16851,
+  "requested_openalex_abstract_units": 16851,
+  "openalex_metadata_resolved_units": 16851,
+  "failed_batches": [],
+  "abstract_available_ready_units": 11493,
+  "triage_counts": {
+    "fragmentation_no_registered_layer_hint": 1226,
+    "layer_hint_no_fragmentation_term": 7223,
+    "low_metadata_relevance_needs_screen": 6289,
+    "not_in_ecological_screening_set": 621,
+    "priority_multilayer_fragmentation": 1120,
+    "priority_single_layer_fragmentation": 993
+  },
+  "triage_is_priority_not_inclusion": true,
+  "all_ready_candidates_must_eventually_be_screened": true,
+  "forbidden_inputs": [
+    "effect_direction",
+    "effect_magnitude",
+    "variance",
+    "p_value",
+    "reported_significance"
+  ],
+  "effect_outcomes_opened": false
+}

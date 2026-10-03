@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "programme_id": "P2_CF01_MILKWEED_URBAN_2023",
+  "queue_id": "CFTQ0044",
+  "article_doi": "10.1007/s11252-022-01278-9",
+  "preprint_doi": "10.1101/2022.03.11.483986",
+  "archive_doi": "10.5281/zenodo.6985410",
+  "source_repository": "sbreitbart/observ_study_phenotype",
+  "source_commit": "83e56d790410a134fa099425459aefb6f2d07f12",
+  "source_files": {
+    "README.md": "5698322cdee45e187f42975886024c9c1d35f7e9",
+    "Q1_Q2_stats.Rmd": "1eaaf3ec0e2e852d5e858509a30cc8d9893d03ab",
+    "Q3_Q4_stats_figures.rmd": "6b6d01982d249ea949148778af63be5af0ea8471",
+    "raw_data/Pollinator_PivotTable_byPop_Coded.csv": "4d5cbc61c8e6389b7f3f1f89272f06226713561b",
+    "clean_data/fertile.csv": "99a3f4d8591bd3eb70e5fd55c934bc23214bbca4"
+  },
+  "primary_exposure": "greater_urbanization = -City_dist_km",
+  "secondary_exposure_sensitivity": "Urb_score",
+  "primary_year": 2019,
+  "independent_unit": "population_patch",
+  "primary_I": "sum(MS_01:MS_42 / Plants_surveyed) after source nonzero-diversity construction",
+  "primary_F": "mean plant pods_per_ped within Patch_ID in 2019; pods_per_ped=Total_Pods/Peduncles",
+  "primary_common_populations": 31,
+  "zero_retaining_sensitivity_populations": 38,
+  "zero_pollinator_common_patches": [
+    "MW011",
+    "MW028",
+    "MW040",
+    "MW041",
+    "MW042",
+    "MW061",
+    "MW074"
+  ],
+  "primary_direct_Hedges_increment": 0,
+  "effect_outcomes_opened": true
+}

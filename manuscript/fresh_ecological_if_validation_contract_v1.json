@@ -1,0 +1,111 @@
+{
+  "schema_version": 3,
+  "frozen_on": "2026-09-27",
+  "programme": "fresh_ecological_IF_decoupling_validation",
+  "discovery_cutoff": "2026-09-18",
+  "burned_programmes": [
+    "ML020",
+    "P2_CF01_SEVENELLO_2026",
+    "P2_CF01_BERGSDORF_KAKAMEGA_2006",
+    "ML015",
+    "P2_CF01_CARDIOPETALUM_2012",
+    "P2_CF01_ZURICH_2026",
+    "P2_CF01_MILKWEED_URBAN_2023",
+    "P2_CF01_PRITCHARD_2005"
+  ],
+  "hypotheses": {
+    "H1": "quantity-only interaction measurements can remain buffered while reproductive function deteriorates because effective mating/post-pollination processes are downstream",
+    "H2": "in fresh synchronized Q-E-F programmes, effective mating should localize the bottleneck; primary prediction Delta_QE=Q-E > 0 when mating quality is the missing stage, while Delta_EF distinguishes propagation, compensation, or later filtering",
+    "H3": "F-dominant mismatch should be stronger or more frequent under source-supported outcrossing dependence and absent autonomous reproductive assurance"
+  },
+  "effect_family_boundary": {
+    "direct_primary": "oriented_lnRR_for_positive_Q_E_F",
+    "direct_mandatory_sensitivity": "Hedges_g_same_independent_units",
+    "gradient_primary": "Fisher_z_or_prespecified_native_model_scale",
+    "cross_family_pooling": false
+  },
+  "primary_estimand": "Fresh direct programmes: primary Delta_QE=lnRR_Q-lnRR_E; secondary Delta_QF=lnRR_Q-lnRR_F and Delta_EF=lnRR_E-lnRR_F; Hedges-g repeats all direct contrasts as mandatory sensitivity",
+  "fresh_gate": {
+    "min_programmes_per_effect_family": 5,
+    "min_programmes_per_categorical_level": 4,
+    "leave_one_programme_out_required": true
+  },
+  "fresh_lanes": [
+    "post_2026-09-18_new_primary_programme",
+    "prospective_synchronized_field_programme"
+  ],
+  "primary_moderators": [
+    "interaction_measurement_class",
+    "autonomous_reproductive_assurance",
+    "outcrossing_dependence",
+    "pollination_specialisation",
+    "fragmentation_component"
+  ],
+  "forbidden": [
+    "reuse_burned_programmes_as_fresh_confirmation",
+    "outcome_based_moderator_coding",
+    "self_compatibility_as_assurance_without_measurement",
+    "cross_family_delta_pooling",
+    "endpoint_switch_after_outcome",
+    "search_until_significance",
+    "unresolved_as_zero",
+    "reuse_burned_auxiliary_process_function_programmes_as_fresh_H2_confirmation",
+    "outcome_selected_effect_scale",
+    "scale_general_bottleneck_claim_under_contradictory_ordering"
+  ],
+  "field_module": "manuscript/FRESH_ECOLOGICAL_IF_SYNCHRONIZED_FIELD_MODULE_V1.md",
+  "current_manuscript_role": "scale_sensitive_discovery_synthesis_not_fresh_confirmation",
+  "moderator_schema": "manuscript/fresh_ecological_if_moderator_schema_v1.csv",
+  "burned_auxiliary_process_function_programmes": [
+    "ML001",
+    "ML002",
+    "ML014",
+    "P2_CF01_ACER_MIYABEI_2014"
+  ],
+  "auxiliary_discovery_audit": "manuscript/ECOLOGICAL_BOTTLENECK_POSITION_AUDIT_2026-09-27.md",
+  "amended_on": "2026-09-29",
+  "amendment": "manuscript/FRESH_ECOLOGICAL_IF_VALIDATION_AMENDMENT_2026-09-29_EFFECT_SCALE.md",
+  "h2_v2": {
+    "endpoint_chain": [
+      "I_quantity",
+      "I_effective_mating_quality",
+      "F_reproductive"
+    ],
+    "primary_contrast": "Delta_QE=Q-E",
+    "primary_direction": "Delta_QE>0",
+    "secondary_contrasts": [
+      "Delta_QF=Q-F",
+      "Delta_EF=E-F"
+    ],
+    "min_fresh_QEF_programmes_per_effect_family": 5,
+    "regimes": {
+      "B1": "Delta_QF>0; Delta_QE>0; Delta_EF approximately zero: direct mating-quality propagation",
+      "B2": "Delta_QF>0; Delta_QE>0; Delta_EF<0: mating bottleneck with downstream compensation",
+      "B3": "Delta_QF>0; Delta_QE approximately zero; Delta_EF>0: post-mating/post-pollination bottleneck",
+      "B4": "Q E F all deteriorate with unresolved/small contrasts: coupled chain deterioration"
+    }
+  },
+  "previous_amendment": "manuscript/FRESH_ECOLOGICAL_IF_VALIDATION_AMENDMENT_2026-09-27_BOTTLENECK_LOCALIZATION.md",
+  "direct_effect_scale": {
+    "primary": "oriented_lnRR_for_positive_Q_E_F",
+    "mandatory_sensitivity": "Hedges_g_same_independent_units",
+    "outcome_selected_scale_forbidden": true,
+    "contradictory_direction_blocks_scale_general_bottleneck_claim": true
+  },
+  "h2_v3": {
+    "endpoint_chain": [
+      "I_quantity",
+      "I_effective_mating_quality",
+      "F_reproductive"
+    ],
+    "primary_direct_contrast": "Delta_QE=lnRR_Q-lnRR_E",
+    "primary_direction": "Delta_QE>0",
+    "secondary_direct_contrasts": [
+      "Delta_QF=lnRR_Q-lnRR_F",
+      "Delta_EF=lnRR_E-lnRR_F"
+    ],
+    "hedges_g_sensitivity_required": true,
+    "scale_general_promotion_requires_noncontradictory_ordering": true,
+    "leave_one_programme_out_required_after_gate": true
+  }
+}

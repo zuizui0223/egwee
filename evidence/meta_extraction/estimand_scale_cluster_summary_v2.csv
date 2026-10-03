@@ -1,0 +1,8 @@
+row_type,row_id,hedges_g_p,lnRR_raw_delta_cov_p,lnRR_zero_cov_p,lnRR_cauchy_maxvar_p,interpretation
+cluster,ML001,0.003545300915,0.000000000113012832,0.000000002815531975,0.0000125974455452,Serapias cluster remains unequal overall but C-F contrast and endpoint ordering reverse across scales
+cluster,ML002,0.199116700635,0.022611197391,0.102632841970,0.2386657003895470,Brosimum relative amplitude is scale sensitive and resolves only under raw-delta lnRR
+cluster,ML003,0.174067740612,0.003925668326,0.055759907173,0.3834801118471982,Spondias relative amplitude is scale sensitive; cohort contrasts motivate exploratory lag hypothesis
+cluster,ML014,0.098317737740,0.001177842475,0.003011658092,0.0163146192296734,Eucalyptus socialis upstream-vs-function contrast strengthens on proportional-change scale
+cluster,ML020,1.000000000000,0.938056344283,0.822733131968,1.0000000000000000,Chaco remains unresolved in relative magnitude
+fisher,FULL,0.012124326106,0.000000000001191708,0.000000001722779518,0.0000994600018128,Full-corpus rejection occurs on both scales but does not define a scale-invariant magnitude ordering
+fisher,OMIT_ML001,0.181943527111,0.000083144271,0.004344181486,0.1113789244205897,Leave-one-Serapias robustness classification depends on effect scale and dependence treatment

@@ -1,0 +1,9 @@
+cluster_id,citation,doi,patch,patch_size_class,isolation_class,adult_n,seedling_n,G_adult_HS,G_offspring_HS,source_location,independent_unit_note
+P2_CF01_GPAIR_002,Yineger et al. 2014,10.1186/1471-2156-15-31,Bradi,large,less_isolated,26,36,0.817,0.746,Table_1,forest_patch_is_independent_fragmentation_unit
+P2_CF01_GPAIR_002,Yineger et al. 2014,10.1186/1471-2156-15-31,DarabaSigsi,large,less_isolated,29,20,0.793,0.713,Table_1,forest_patch_is_independent_fragmentation_unit
+P2_CF01_GPAIR_002,Yineger et al. 2014,10.1186/1471-2156-15-31,Demba,small,less_isolated,25,30,0.758,0.716,Table_1,forest_patch_is_independent_fragmentation_unit
+P2_CF01_GPAIR_002,Yineger et al. 2014,10.1186/1471-2156-15-31,Dishi,small,isolated,33,49,0.767,0.738,Table_1,forest_patch_is_independent_fragmentation_unit
+P2_CF01_GPAIR_002,Yineger et al. 2014,10.1186/1471-2156-15-31,Kambo,large,less_isolated,44,28,0.768,0.739,Table_1,forest_patch_is_independent_fragmentation_unit
+P2_CF01_GPAIR_002,Yineger et al. 2014,10.1186/1471-2156-15-31,Metin,small,isolated,12,10,0.732,0.654,Table_1,forest_patch_is_independent_fragmentation_unit
+P2_CF01_GPAIR_002,Yineger et al. 2014,10.1186/1471-2156-15-31,Temcha,small,isolated,24,30,0.757,0.692,Table_1,forest_patch_is_independent_fragmentation_unit
+P2_CF01_GPAIR_002,Yineger et al. 2014,10.1186/1471-2156-15-31,Wonse,large,isolated,17,29,0.760,0.711,Table_1,forest_patch_is_independent_fragmentation_unit

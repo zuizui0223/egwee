@@ -4,10 +4,12 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 MANUSCRIPT = ROOT / "manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md"
+SCALE_RESULT = ROOT / "manuscript/ESTIMAND_SCALE_ROBUSTNESS_2026-09-29.md"
 
 
 def main() -> None:
     text = MANUSCRIPT.read_text(encoding="utf-8")
+    scale = SCALE_RESULT.read_text(encoding="utf-8")
 
     required = (
         "d = (M_frag - M_ref) / s_p",
@@ -22,7 +24,7 @@ def main() -> None:
         "chi-square reference distribution with `2K` degrees of freedom",
         "does **not** estimate a common mean layer difference",
         "it is not affirmative evidence that biological layers are exchangeable",
-        "not evidence that their true fragmentation effects are exactly equal",
+        "not evidence that the true responses are equal or biologically coupled",
     )
     for token in required:
         assert token in text, token
@@ -36,9 +38,20 @@ def main() -> None:
         "p = 0.01212432",
         "p = 0.18194353",
         "p_ML020=1.0",
-        "conditional state separation",
+        "relative response amplitude and robustness classification are estimand-scale dependent",
+        "all **17/17 primary direct effects were negative on both oriented g and oriented lnRR**",
     ):
         assert token in text, token
+
+    for token in (
+        "ML001",
+        "0.63640",
+        "8.3144e-05",
+        "17/17",
+        "estimand-scale dependent",
+        "raw-unit delta covariance",
+    ):
+        assert token in scale, token
 
     # Guard against common overclaims that the clarified estimand explicitly rejects.
     forbidden = (

@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "cluster_id": "P2_SF05_71",
+  "source": {
+    "citation": "Cortes et al. 2013",
+    "doi": "10.1111/mec.12495",
+    "site_order": [
+      "CF1",
+      "CF2",
+      "F1",
+      "F2",
+      "F3"
+    ],
+    "exposure_groups": [
+      "reference",
+      "reference",
+      "fragmented",
+      "fragmented",
+      "fragmented"
+    ]
+  },
+  "method": {
+    "label": "approximate_reconstructed_sampling_covariance_from_group_residual_correlations",
+    "residual_model": "endpoint ~ intercept + fragmented_indicator",
+    "covariance_formula": "V_ij = R_ij * sqrt(v_i * v_j)",
+    "marginal_variance_rule": "canonical_EGWEE_Hedges_g_LS",
+    "note": "Site-level paired endpoint values are residualized on the fixed fragment/continuous exposure before residual correlations are mapped onto marginal sampling variances."
+  },
+  "endpoints": [
+    "C",
+    "G_adult",
+    "G_offspring"
+  ],
+  "residuals": {
+    "C": [
+      -8.5,
+      8.5,
+      -3.666666666666668,
+      2.333333333333332,
+      1.3333333333333321
+    ],
+    "G_adult": [
+      -0.036,
+      0.036,
+      -0.009,
+      0.004,
+      0.005
+    ],
+    "G_offspring": [
+      -0.035,
+      0.035,
+      -0.02833333333333332,
+      0.01966666666666661,
+      0.0086666666666666
+    ]
+  },
+  "residual_correlation_matrix": [
+    [
+      1,
+      0.987268625553921,
+      0.965588566749388
+    ],
+    [
+      0.987268625553921,
+      1,
+      0.912396581013755
+    ],
+    [
+      0.965588566749388,
+      0.912396581013755,
+      1
+    ]
+  ],
+  "marginal_variances": [
+    0.9326336477331799,
+    0.922260658436715,
+    0.87263729113889
+  ],
+  "working_covariance_matrix": [
+    [
+      0.93263364773318,
+      0.915625158592176,
+      0.871093030066347
+    ],
+    [
+      0.915625158592176,
+      0.922260658436715,
+      0.818516379810539
+    ],
+    [
+      0.871093030066347,
+      0.818516379810539,
+      0.87263729113889
+    ]
+  ],
+  "full_three_layer": {
+    "determinant": 0.000028971993889585982,
+    "eigenvalues_ascending": [
+      0.0001371353540791199,
+      0.07979518745840308,
+      2.647599274496303
+    ],
+    "positive_definite": true,
+    "status": "full_three_layer_covariance_admissible"
+  },
+  "primary_pair": {
+    "pair_id": "G_adult-G_offspring",
+    "endpoints": [
+      "G_adult",
+      "G_offspring"
+    ],
+    "residual_correlation": 0.912396581013755,
+    "covariance_matrix": [
+      [
+        0.922260658436715,
+        0.818516379810539
+      ],
+      [
+        0.818516379810539,
+        0.87263729113889
+      ]
+    ],
+    "eigenvalues_ascending": [
+      0.078556623093366,
+      1.716341326482239
+    ],
+    "positive_definite": true,
+    "status": "pair_covariance_admissible",
+    "effect_difference_Gadult_minus_Goffspring": 0.3160841717818875,
+    "difference_variance": 0.15786518995452647
+  },
+  "admission": {
+    "marginal_effects_recovered": [
+      "C",
+      "G_adult",
+      "G_offspring"
+    ],
+    "pair_specific_admissible": [
+      "G_adult-G_offspring"
+    ],
+    "full_three_layer_joint_cluster_admissible": true,
+    "phase1_baseline_changed": false
+  }
+}

@@ -1,0 +1,13 @@
+study_id,population,fragmentation_group,source_fragmentation_label,layer,endpoint,value,orientation_multiplier,independent_unit,n_individuals,n_loci,source_location,provenance_note
+SF05-93,Saki,NCP,non_cotton_limited_fragmentation,C,pollen_immigration_rate_percent,74,1,population,NA,10,Table 4,"NMpi population estimate; source reports mean estimate ± SE but population remains the fragmentation unit"
+SF05-93,Cassou,NCP,non_cotton_limited_fragmentation,C,pollen_immigration_rate_percent,34,1,population,NA,10,Table 4,"NMpi population estimate; population remains the fragmentation unit"
+SF05-93,Walley,CP,cotton_high_fragmentation,C,pollen_immigration_rate_percent,46,1,population,NA,10,Table 4,"NMpi population estimate; population remains the fragmentation unit"
+SF05-93,Vouza,CP,cotton_high_fragmentation,C,pollen_immigration_rate_percent,48,1,population,NA,10,Table 4,"NMpi population estimate; population remains the fragmentation unit"
+SF05-93,Saki,NCP,non_cotton_limited_fragmentation,G_adult,large_tree_observed_heterozygosity_Ho,0.78,1,population,144,10,Table 2,"large trees DBH >35 cm; individual trees and loci are nested"
+SF05-93,Cassou,NCP,non_cotton_limited_fragmentation,G_adult,large_tree_observed_heterozygosity_Ho,0.79,1,population,88,10,Table 2,"large trees DBH >35 cm; individual trees and loci are nested"
+SF05-93,Walley,CP,cotton_high_fragmentation,G_adult,large_tree_observed_heterozygosity_Ho,0.80,1,population,137,10,Table 2,"large trees DBH >35 cm; individual trees and loci are nested"
+SF05-93,Vouza,CP,cotton_high_fragmentation,G_adult,large_tree_observed_heterozygosity_Ho,0.81,1,population,167,10,Table 2,"large trees DBH >35 cm; individual trees and loci are nested"
+SF05-93,Saki,NCP,non_cotton_limited_fragmentation,G_offspring,embryo_observed_heterozygosity_Ho,0.76,1,population,408,10,Table 2,"one embryo per pod was genotyped to reduce full-sib duplication; embryos remain nested within population"
+SF05-93,Cassou,NCP,non_cotton_limited_fragmentation,G_offspring,embryo_observed_heterozygosity_Ho,0.79,1,population,456,10,Table 2,"embryos remain nested within population"
+SF05-93,Walley,CP,cotton_high_fragmentation,G_offspring,embryo_observed_heterozygosity_Ho,0.80,1,population,419,10,Table 2,"embryos remain nested within population"
+SF05-93,Vouza,CP,cotton_high_fragmentation,G_offspring,embryo_observed_heterozygosity_Ho,0.80,1,population,464,10,Table 2,"embryos remain nested within population"
