@@ -95,6 +95,13 @@ Thus there is no contradiction between:
 1. broad directional coupling in global meta-analysis; and
 2. non-identifying translation in matched systems.
 
+## Robustness and evidence-tier boundary
+
+The full 16-programme sentinel non-identifiability result survives deletion of every single programme: after each leave-one-out deletion, at least two upstream interaction evidence states still map to multiple F states.
+
+This robustness belongs to the **mixed quantitative + source-explicit qualitative evidence map**, not to a homogeneous quantitative meta-analysis.
+
+Within the quantitative eight-programme tier alone, category-level ambiguity depends on the unresolved common-milkweed point estimate. The quantitative result that does not depend on that ambiguity is narrower: three independent programmes provide representation-stable resolved false-reassurance mismatches.
 ## Conservation interpretation
 
 Interaction monitoring can still be valuable for diagnosing pressure on ecological processes.
