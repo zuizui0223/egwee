@@ -56,17 +56,22 @@ def main() -> None:
 
     assert m["schema_version"] == 6
     assert m["updated_on"] == "2026-10-03"
-    assert m["status"] == "scientific_validation_pending_after_qualitative_external_audit"
+    assert m["status"] == "scale_aware_proxy_failure_scientific_validation_green_human_admin_pending"
     assert m["submission_ready"] is False
     assert m["supersedes_submission_freeze"] is True
     sv = m["scientific_validation"]
     assert sv["previous_conclusion"] == "success"
-    assert sv["previous_green_run_id"] == 37089986196
-    assert sv["current_revision_status"] == "pending"
-    assert sv["current_revision_validated"] is False
-    assert "qualitative external" in sv["reason"].lower()
-    assert len(m["remaining_scientific_gate"]) == 1
-    assert "Supplementary Table S6 qualitative external audit" in m["remaining_scientific_gate"][0]
+    assert sv["full_contract_run_id"] == 37109896871
+    assert sv["conclusion"] == "success"
+    assert sv["current_revision_status"] == "validated"
+    assert sv["current_revision_validated"] is True
+    assert sv["proxy_failure_audit"] is True
+    assert sv["sign_uncertainty_audit"] is True
+    assert sv["qualitative_external_audit"] is True
+    assert sv["figures_tables_reproduced"] is True
+    assert sv["double_anonymous"] is True
+    assert sv["anonymous_reviewer_package_reproduced"] is True
+    assert len(m["remaining_scientific_gate"]) == 0
 
     man = m["manuscript"]
     assert git_blob_sha(MANUSCRIPT) == man["blob_sha"]
@@ -186,12 +191,12 @@ def main() -> None:
     ):
         assert token in claims, token
 
-    assert "**STATUS: SCIENTIFIC REVALIDATION PENDING.**" in note
+    assert "**STATUS: SCIENTIFICALLY VALIDATED, HUMAN ADMINISTRATION PENDING.**" in note
     assert "Scale-stable interaction–function proxy failure" in note
     assert "0/6 have both marginal endpoint directions individually resolved" in note
 
-    assert "scale_aware_proxy_failure_qualitative_external_validation_pending" in metadata
-    assert "Scientific revalidation pending" in metadata
+    assert "scale_aware_proxy_failure_scientific_validation_green_human_admin_pending" in metadata
+    assert "Scientific validation complete" in metadata
     assert "current automated count: 7878 words" in metadata
 
     assert "scale-stable deterioration and recurrent interaction–function proxy failure" in manuscript
