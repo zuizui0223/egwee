@@ -527,6 +527,132 @@ def table_s6_qualitative_external_if_audit() -> None:
         writer.writerows(audit)
 
 
+
+def figure5_direction_translation_synthesis() -> None:
+    effects = rows(SCALE_EFFECTS)
+    data = rows(IF_TRANSLATION_MAP)
+
+    assert len(effects) == 17
+    assert sum(float(r["hedges_g"]) < 0 for r in effects) == 17
+    assert sum(float(r["oriented_lnRR"]) < 0 for r in effects) == 17
+    assert len(data) == 16
+    assert sum(r["evidence_tier"] == "quantitative" for r in data) == 8
+    assert sum(r["evidence_tier"] == "qualitative" for r in data) == 8
+
+    label = {
+        "ML020": "Chaco",
+        "P2_CF01_SEVENELLO_2026": "Sevenello",
+        "P2_CF01_BERGSDORF_KAKAMEGA_2006": "Kakamega",
+        "ML015": "Wandoo",
+        "P2_CF01_CARDIOPETALUM_2012": "Cardiopetalum",
+        "P2_CF01_ZURICH_2026": "Zurich",
+        "P2_CF01_MILKWEED_URBAN_2023": "Milkweed",
+        "P2_CF01_PRITCHARD_2005": "Pritchard",
+        "QIF001": "Erica",
+        "QIF002": "Haloxylon",
+        "QIF003": "Caragana",
+        "QIF004": "Lithraea",
+        "QIF005": "Myrtus",
+        "QIF006": "Phyteuma",
+        "QIF007": "Psychotria",
+        "QIF008": "Hulting",
+    }
+
+    def i_class(value: str) -> str:
+        if value == "lower":
+            return "Interaction lower"
+        if value == "no_detected_loss":
+            return "No detected I loss"
+        if value in {"higher", "higher_or_shifted"}:
+            return "Interaction higher / shifted"
+        if value == "mixed":
+            return "Mixed within programme"
+        raise AssertionError(value)
+
+    def f_class(value: str) -> str:
+        if value == "lower":
+            return "Function lower"
+        if value in {"no_detected_loss", "similar"}:
+            return "Function similar / no detected loss"
+        if value == "higher":
+            return "Function higher"
+        if value == "mixed":
+            return "Mixed within programme"
+        raise AssertionError(value)
+
+    rows_order = [
+        "Interaction lower",
+        "No detected I loss",
+        "Interaction higher / shifted",
+        "Mixed within programme",
+    ]
+    cols_order = [
+        "Function lower",
+        "Function similar / no detected loss",
+        "Function higher",
+        "Mixed within programme",
+    ]
+    cells: dict[tuple[str, str], list[str]] = {}
+    for r in data:
+        key = (i_class(r["interaction_signal"]), f_class(r["function_signal"]))
+        prefix = "Q" if r["evidence_tier"] == "quantitative" else "B"
+        cells.setdefault(key, []).append(f'{prefix}: {label[r["programme_id"]]}')
+
+    # Every interpretable upstream state maps to >1 downstream state.
+    for signal in ("lower", "no_detected_loss"):
+        states = {f_class(r["function_signal"]) for r in data if r["interaction_signal"] == signal}
+        assert len(states) >= 2
+    states = {
+        f_class(r["function_signal"])
+        for r in data
+        if r["interaction_signal"] in {"higher", "higher_or_shifted"}
+    }
+    assert len(states) >= 2
+
+    width, height = 1280, 900
+    body: list[str] = [
+        svg_text(30, 34, "Figure 5. Directional coherence does not imply interaction–function identifiability", size=18, weight="bold"),
+        svg_text(30, 60, "Coarse deterioration can be consistent while matched interaction signals map to multiple reproductive-function states.", size=11),
+        svg_text(35, 102, "A. Coarse-scale directional coherence", size=14, weight="bold"),
+        svg_text(55, 132, "Primary direct effects negative on oriented Hedges g", size=11),
+        svg_text(570, 132, "17 / 17", size=16, weight="bold"),
+        svg_text(55, 164, "Same primary effects negative on oriented lnRR", size=11),
+        svg_text(570, 164, "17 / 17", size=16, weight="bold"),
+        svg_text(720, 132, "Interpretation", size=12, weight="bold"),
+        svg_text(720, 158, "Fragmentation-associated deterioration is directionally coherent", size=10),
+        svg_text(720, 180, "in the admitted direct corpus, without implying equal amplitudes.", size=10),
+    ]
+
+    body.append(f'<line x1="30" y1="210" x2="1250" y2="210" stroke="black" stroke-width="1.2"/>')
+    body.append(svg_text(35, 245, "B. Frozen 16-programme interaction → reproductive-function translation map", size=14, weight="bold"))
+    body.append(svg_text(35, 268, "Q = quantitatively admitted; B = source-explicit qualitative but quantitatively blocked. Cell occupancy is existence, not prevalence.", size=10))
+
+    left, top = 245, 335
+    cell_w, cell_h = 245, 118
+    for j, col in enumerate(cols_order):
+        x = left + j * cell_w + cell_w / 2
+        body.append(svg_text(x, top - 32, col, anchor="middle", size=9, weight="bold"))
+
+    for i, row_name in enumerate(rows_order):
+        y = top + i * cell_h
+        body.append(svg_text(25, y + 50, row_name, size=10, weight="bold"))
+        for j, col in enumerate(cols_order):
+            x = left + j * cell_w
+            body.append(f'<rect x="{x}" y="{y}" width="{cell_w}" height="{cell_h}" fill="white" stroke="black" stroke-width="1"/>')
+            vals = cells.get((row_name, col), [])
+            ty = y + 22
+            for item in vals:
+                body.append(svg_text(x + 10, ty, item, size=8))
+                ty += 17
+
+    footer_y = top + len(rows_order) * cell_h + 30
+    body.append(svg_text(35, footer_y, "Ecological result", size=13, weight="bold"))
+    body.append(svg_text(35, footer_y + 26, "Each represented interaction evidence state is compatible with more than one reproductive-function state.", size=11, weight="bold"))
+    body.append(svg_text(35, footer_y + 50, "The many-to-many structure survives deletion of every single programme in the mixed-tier frozen universe.", size=10))
+    body.append(svg_text(35, footer_y + 74, "Therefore interaction quantity is not a sufficient stand-alone sentinel of reproductive function; no category frequency is interpreted as prevalence.", size=10))
+
+    write_svg(FIGDIR / "figure5_direction_translation_synthesis.svg", width, height, body)
+
 def figure_s2_if_translation_map() -> None:
     data = rows(IF_TRANSLATION_MAP)
     assert len(data) == 16
@@ -664,6 +790,7 @@ def main() -> None:
     figure2_influence(result)
     figure3_if_sign_geometry()
     figure4_estimand_scale_sensitivity()
+    figure5_direction_translation_synthesis()
     table1(result)
     table2_estimand_scale_sensitivity()
     table_s4_process_function_census()
@@ -676,18 +803,19 @@ def main() -> None:
         FIGDIR / "figure2_leave_one_out_influence.svg",
         FIGDIR / "figure3_if_sign_geometry.svg",
         FIGDIR / "figure4_estimand_scale_sensitivity.svg",
+        FIGDIR / "figure5_direction_translation_synthesis.svg",
         TABLEDIR / "table1_primary_cluster_summary.csv",
         TABLEDIR / "table2_estimand_scale_sensitivity.csv",
         TABLEDIR / "table_s4_process_function_census.csv",
         TABLEDIR / "table_s5_if_sign_geometry.csv",
         TABLEDIR / "table_s6_qualitative_external_if_audit.csv",
     ]
-    assert all(p.is_file() and p.stat().st_size > 500 for p in expected[:4])
-    assert expected[4].is_file() and expected[4].stat().st_size > 200
-    assert expected[5].is_file() and expected[5].stat().st_size > 400
+    assert all(p.is_file() and p.stat().st_size > 500 for p in expected[:5])
+    assert expected[5].is_file() and expected[5].stat().st_size > 200
     assert expected[6].is_file() and expected[6].stat().st_size > 400
     assert expected[7].is_file() and expected[7].stat().st_size > 400
-    assert expected[8].is_file() and expected[8].stat().st_size > 500
+    assert expected[8].is_file() and expected[8].stat().st_size > 400
+    assert expected[9].is_file() and expected[9].stat().st_size > 500
     print("JOURNAL_OF_ECOLOGY_FIGURES_OK " + " ".join(str(p.relative_to(ROOT)) for p in expected))
 
 
