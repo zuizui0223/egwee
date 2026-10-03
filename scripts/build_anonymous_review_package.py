@@ -25,6 +25,7 @@ FILES = [
     "manuscript/IF_SIGN_UNCERTAINTY_2026-10-01.md",
     "manuscript/IF_PROXY_FAILURE_NOVELTY_AUDIT_2026-10-01.md",
     "manuscript/QUALITATIVE_EXTERNAL_IF_AUDIT_2026-10-03.md",
+    "manuscript/IF_TRANSLATION_NONIDENTIFIABILITY_2026-10-03.md",
     "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-29_EFFECT_SCALE.md",
     "manuscript/ECOLOGICAL_IF_DIRECTION_CENSUS_2026-09-27.md",
     "manuscript/ECOLOGICAL_PROCESS_FUNCTION_CENSUS_2026-09-27.md",
@@ -42,6 +43,7 @@ FILES = [
     "scripts/check_if_sign_geometry.py",
     "scripts/check_if_sign_uncertainty.py",
     "scripts/check_qualitative_external_if_audit.py",
+    "scripts/check_if_translation_map.py",
     "scripts/check_ecological_if_programme_census.py",
     "scripts/check_ecological_process_function_programme_census.py",
     "scripts/check_ecological_bottleneck_direction_influence.py",
@@ -81,6 +83,7 @@ FILES = [
     "evidence/meta_extraction/if_sign_geometry_census_v1.csv",
     "evidence/meta_extraction/if_sign_uncertainty_v1.csv",
     "evidence/meta_extraction/qualitative_external_if_audit_v1.csv",
+    "evidence/meta_extraction/if_translation_map_v1.csv",
     "evidence/meta_extraction/phase2_if_quantitative_gate_v1.csv",
     "evidence/meta_extraction/PS014_hulting_extraction_v1.csv",
     "evidence/meta_extraction/estimand_scale_cluster_summary_v2.csv",
@@ -287,6 +290,16 @@ def verify_reproduction() -> None:
     if "QUALITATIVE_EXTERNAL_IF_AUDIT_OK programmes=8 quantitative_blocked=8 qualitative_nonmonotonic=5 resilient_no_detected_loss=2 concordant_size_effect=1 hidden_function_loss=1 no_prevalence_inference=true" not in qualitative_external.stdout:
         raise AssertionError(qualitative_external.stdout)
 
+    translation_map = subprocess.run(
+        [sys.executable, "scripts/check_if_translation_map.py"],
+        cwd=PKG,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    if "IF_TRANSLATION_MAP_OK programmes=16 quantitative=8 qualitative=8 unique_sources=16 I_lower_maps_to=lower+higher+no_detected_loss I_no_detected_loss_maps_to=lower+no_detected_loss I_higher_maps_to=lower+similar resolved_downstream_quantitative=3 qualitative_hidden_function_loss=1 prevalence_inference=false" not in translation_map.stdout:
+        raise AssertionError(translation_map.stdout)
+
     census = subprocess.run(
         [sys.executable, "scripts/check_ecological_if_programme_census.py"],
         cwd=PKG,
@@ -330,11 +343,13 @@ def verify_reproduction() -> None:
         "manuscript/figures/figure3_if_sign_geometry.svg",
         "manuscript/figures/figure4_estimand_scale_sensitivity.svg",
         "manuscript/figures/figure_s1_all_primary_marginal_effects.svg",
+        "manuscript/figures/figure_s2_if_translation_map.svg",
         "manuscript/tables/table1_primary_cluster_summary.csv",
         "manuscript/tables/table2_estimand_scale_sensitivity.csv",
         "manuscript/tables/table_s4_process_function_census.csv",
         "manuscript/tables/table_s5_if_sign_geometry.csv",
         "manuscript/tables/table_s6_qualitative_external_if_audit.csv",
+        "manuscript/tables/table_s7_if_translation_map.csv",
         "manuscript/tables/table_s1_cluster_recovery_flow.csv",
         "manuscript/tables/table_s2_covariance_robustness.csv",
         "manuscript/tables/table_s3_primary_marginal_effects.csv",
