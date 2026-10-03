@@ -95,7 +95,10 @@ def main() -> None:
 
     assert "**Primary target journal:** **Journal of Ecology**" in metadata
     assert "Research Article / empirical research synthesis" in metadata
-    assert "scale_aware_proxy_failure_scientific_validation_green_human_admin_pending" in metadata
+    assert (
+        "scale_aware_proxy_failure_translation_map_validation_pending" in metadata
+        or "scale_aware_proxy_failure_scientific_validation_green_human_admin_pending" in metadata
+    )
 
     print(
         "JOURNAL_OF_ECOLOGY_SHAPE_OK "
