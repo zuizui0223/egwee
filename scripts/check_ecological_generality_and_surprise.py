@@ -14,6 +14,9 @@ HIDDEN = ROOT / "evidence/meta_extraction/hidden_effective_mating_mechanism_cont
 GPAIR = ROOT / "evidence/meta_extraction/phase2_gpair_synthesis_v1.json"
 GENERALITY = ROOT / "manuscript/ECOLOGICAL_GENERALITY_AND_SURPRISE_2026-09-29.md"
 HIDDEN_NOTE = ROOT / "manuscript/HIDDEN_EFFECTIVE_MATING_LAYER_HYPOTHESIS_2026-10-03.md"
+TRANSLATION_NOTE = ROOT / "manuscript/IF_TRANSLATION_NONIDENTIFIABILITY_2026-10-03.md"
+SENTINEL_NOTE = ROOT / "manuscript/FRAGMENTATION_SENTINEL_SUFFICIENCY_2026-10-03.md"
+INFLUENCE = ROOT / "scripts/check_if_translation_influence.py"
 
 
 def rows(path: Path) -> list[dict[str, str]]:
@@ -30,6 +33,9 @@ def main() -> None:
     gpair = json.loads(GPAIR.read_text(encoding="utf-8"))
     generality = GENERALITY.read_text(encoding="utf-8")
     hidden_note = HIDDEN_NOTE.read_text(encoding="utf-8")
+    translation_note = TRANSLATION_NOTE.read_text(encoding="utf-8")
+    sentinel_note = SENTINEL_NOTE.read_text(encoding="utf-8")
+    influence = INFLUENCE.read_text(encoding="utf-8")
 
     # Frozen 16-programme translation universe.
     assert len(translation) == 16
@@ -110,6 +116,23 @@ def main() -> None:
         "not established by the current corpus",
     ):
         assert token in hidden_note, token
+
+    for token in (
+        "at least two interaction evidence states that map to multiple reproductive-function states",
+        "quantitative-only tier is weaker",
+        "three representation-stable quantitative false-reassurance anchors",
+    ):
+        assert token in translation_note, token
+
+    for token in (
+        "survives deletion of every single programme",
+        "mixed quantitative + source-explicit qualitative evidence map",
+        "category-level ambiguity depends on the unresolved common-milkweed point estimate",
+    ):
+        assert token in sentinel_note, token
+
+    assert 'assert len(amb) >= 2' in influence
+    assert 'quantitative_ambiguity_without_milkweed=0' in influence
 
     print(
         "ECOLOGICAL_GENERALITY_OK "
