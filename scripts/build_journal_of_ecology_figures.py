@@ -22,6 +22,7 @@ IF_SIGN_GEOMETRY = ROOT / "evidence/meta_extraction/if_sign_geometry_census_v1.c
 IF_SIGN_UNCERTAINTY = ROOT / "evidence/meta_extraction/if_sign_uncertainty_v1.csv"
 QUALITATIVE_EXTERNAL_IF = ROOT / "evidence/meta_extraction/qualitative_external_if_audit_v1.csv"
 PROXY_FAILURE = ROOT / "evidence/meta_extraction/scale_stable_quantity_function_proxy_failure_v1.csv"
+IF_TRANSLATION_MAP = ROOT / "evidence/meta_extraction/if_translation_map_v1.csv"
 SCALE_EFFECTS = ROOT / "evidence/meta_extraction/estimand_scale_sensitivity_v1.csv"
 SCALE_SUMMARY = ROOT / "evidence/meta_extraction/estimand_scale_cluster_summary_v2.csv"
 REGISTRY = ROOT / "evidence/meta_extraction/multilayer_cluster_registry_v1.csv"
@@ -525,6 +526,138 @@ def table_s6_qualitative_external_if_audit() -> None:
         writer.writeheader()
         writer.writerows(audit)
 
+
+def figure_s2_if_translation_map() -> None:
+    data = rows(IF_TRANSLATION_MAP)
+    assert len(data) == 16
+    assert sum(r["evidence_tier"] == "quantitative" for r in data) == 8
+    assert sum(r["evidence_tier"] == "qualitative" for r in data) == 8
+
+    label = {
+        "ML020": "Chaco",
+        "P2_CF01_SEVENELLO_2026": "Sevenello",
+        "P2_CF01_BERGSDORF_KAKAMEGA_2006": "Kakamega",
+        "ML015": "Wandoo",
+        "P2_CF01_CARDIOPETALUM_2012": "Cardiopetalum",
+        "P2_CF01_ZURICH_2026": "Zurich",
+        "P2_CF01_MILKWEED_URBAN_2023": "Milkweed",
+        "P2_CF01_PRITCHARD_2005": "Pritchard",
+        "QIF001": "Erica",
+        "QIF002": "Haloxylon",
+        "QIF003": "Caragana",
+        "QIF004": "Lithraea",
+        "QIF005": "Myrtus",
+        "QIF006": "Phyteuma",
+        "QIF007": "Psychotria",
+        "QIF008": "Hulting",
+    }
+
+    def i_class(value: str) -> str:
+        if value == "lower":
+            return "Interaction lower"
+        if value == "no_detected_loss":
+            return "No detected I loss"
+        if value in {"higher", "higher_or_shifted"}:
+            return "Interaction higher / shifted"
+        if value == "mixed":
+            return "Mixed within programme"
+        raise AssertionError(value)
+
+    def f_class(value: str) -> str:
+        if value == "lower":
+            return "Function lower"
+        if value in {"no_detected_loss", "similar"}:
+            return "Function similar / no detected loss"
+        if value == "higher":
+            return "Function higher"
+        if value == "mixed":
+            return "Mixed within programme"
+        raise AssertionError(value)
+
+    rows_order = [
+        "Interaction lower",
+        "No detected I loss",
+        "Interaction higher / shifted",
+        "Mixed within programme",
+    ]
+    cols_order = [
+        "Function lower",
+        "Function similar / no detected loss",
+        "Function higher",
+        "Mixed within programme",
+    ]
+    cells: dict[tuple[str, str], list[str]] = {}
+    for r in data:
+        key = (i_class(r["interaction_signal"]), f_class(r["function_signal"]))
+        prefix = "Q" if r["evidence_tier"] == "quantitative" else "B"
+        cells.setdefault(key, []).append(f'{prefix}: {label[r["programme_id"]]}')
+
+    assert {"Function lower", "Function higher", "Function similar / no detected loss"} <= {
+        f_class(r["function_signal"]) for r in data if r["interaction_signal"] == "lower"
+    }
+    assert {"Function lower", "Function similar / no detected loss"} <= {
+        f_class(r["function_signal"]) for r in data if r["interaction_signal"] == "no_detected_loss"
+    }
+    assert {"Function lower", "Function similar / no detected loss"} <= {
+        f_class(r["function_signal"]) for r in data if r["interaction_signal"] in {"higher", "higher_or_shifted"}
+    }
+
+    width, height = 1280, 780
+    left, top = 245, 145
+    cell_w, cell_h = 245, 125
+    body: list[str] = [
+        svg_text(30, 34, "Supplementary Figure S2. Frozen interaction–function translation map", size=18, weight="bold"),
+        svg_text(30, 60, "Same qualitative interaction signals map to multiple reproductive-function states across the frozen evidence universe.", size=11),
+        svg_text(30, 82, "Q = quantitatively admitted programme; B = quantitatively blocked but source-explicit qualitative programme.", size=10),
+    ]
+
+    for j, col in enumerate(cols_order):
+        x = left + j * cell_w + cell_w / 2
+        body.append(svg_text(x, top - 36, col, anchor="middle", size=10, weight="bold"))
+
+    for i, row_name in enumerate(rows_order):
+        y = top + i * cell_h
+        body.append(svg_text(25, y + 54, row_name, size=10, weight="bold"))
+        for j, col in enumerate(cols_order):
+            x = left + j * cell_w
+            body.append(
+                f'<rect x="{x}" y="{y}" width="{cell_w}" height="{cell_h}" fill="white" stroke="black" stroke-width="1"/>'
+            )
+            vals = cells.get((row_name, col), [])
+            ty = y + 24
+            for item in vals:
+                body.append(svg_text(x + 10, ty, item, size=9))
+                ty += 18
+
+    footer_y = top + len(rows_order) * cell_h + 35
+    body.append(svg_text(30, footer_y, "Interpretation", size=12, weight="bold"))
+    body.append(svg_text(30, footer_y + 24, "Cell occupancy demonstrates existence of multiple I→F translations; it is not a frequency or prevalence estimate.", size=10))
+    body.append(svg_text(30, footer_y + 46, "No-detected-effect categories are not recoded as zero or equality, and B programmes do not increment the quantitative denominator.", size=10))
+    write_svg(FIGDIR / "figure_s2_if_translation_map.svg", width, height, body)
+
+
+def table_s7_if_translation_map() -> None:
+    data = rows(IF_TRANSLATION_MAP)
+    assert len(data) == 16
+    TABLEDIR.mkdir(parents=True, exist_ok=True)
+    out = TABLEDIR / "table_s7_if_translation_map.csv"
+    fields = [
+        "evidence_tier",
+        "programme_id",
+        "system",
+        "source_id",
+        "interaction_signal",
+        "function_signal",
+        "translation_topology",
+        "resolution_status",
+        "interpretation",
+    ]
+    with out.open("w", newline="", encoding="utf-8") as fh:
+        writer = csv.DictWriter(fh, fieldnames=fields)
+        writer.writeheader()
+        for r in data:
+            writer.writerow({k: r[k] for k in fields})
+
 def main() -> None:
     result = canonical_result()
     figure1_coverage()
@@ -536,6 +669,8 @@ def main() -> None:
     table_s4_process_function_census()
     table_s5_if_sign_geometry()
     table_s6_qualitative_external_if_audit()
+    figure_s2_if_translation_map()
+    table_s7_if_translation_map()
     expected = [
         FIGDIR / "figure1_primary_evidence_geometry.svg",
         FIGDIR / "figure2_leave_one_out_influence.svg",
