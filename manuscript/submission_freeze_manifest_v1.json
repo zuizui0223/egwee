@@ -97,7 +97,9 @@
     "the separate Eucalyptus wandoo gradient contains qualitative sign discordance between interaction and reproductive function",
     "interaction quantity is not a monotonic proxy for reproductive function across the broader matched I-F evidence",
     "opposite-sign I-F panels occur in both directions across five independent programmes",
-    "three shared-exposure multi-panel programmes contain more than one I-F sign geometry among focal species or panels"
+    "three shared-exposure multi-panel programmes contain more than one I-F sign geometry among focal species or panels",
+    "the frozen 16-programme map has leave-one-programme-out robust interaction-to-function non-identifiability",
+    "interaction quantity can produce both false reassurance and apparent over-warning about reproductive function"
   ],
   "scale_sensitive_claims": [
     "relative layer response amplitude",
@@ -170,7 +172,8 @@
     "claiming one mechanism explains the three stable downstream proxy-failure programmes",
     "counting the eight qualitative blocked programmes as quantitative replications or using their category frequencies as global prevalence",
     "using the 16-programme translation map as a prevalence or frequency estimate",
-    "treating qualitative-blocked programmes as quantitatively equivalent replications"
+    "treating qualitative-blocked programmes as quantitatively equivalent replications",
+    "claiming quantitative-only category-level non-identifiability is leave-one-programme-out robust"
   ],
   "remaining_scientific_gate": [],
   "remaining_human_blockers": [
@@ -294,18 +297,21 @@
     "claim": "blocked qualitative evidence broadens proxy non-monotonicity but does not support a one-sided prevalence rule"
   },
   "if_translation_nonidentifiability": {
-    "status": "frozen_16_programme_topology_validated",
+    "status": "frozen_16_programme_topology_leave_one_out_robust",
     "programmes": 16,
     "quantitative_programmes": 8,
     "qualitative_blocked_programmes": 8,
-    "unique_sources": 16,
-    "table": "evidence/meta_extraction/if_translation_map_v1.csv",
-    "table_blob_sha": "51b30d999fec10256f677859b1d4805ea9a10c46",
-    "note": "manuscript/IF_TRANSLATION_NONIDENTIFIABILITY_2026-10-03.md",
-    "note_blob_sha": "344e4e829f32fa8cfd178822696176a8cb71f343",
-    "checker": "scripts/check_if_translation_map.py",
-    "checker_blob_sha": "a5c37502734fb48a2eaa81e3a9594895651f3801",
-    "claim": "the same qualitative interaction signal maps to multiple reproductive-function states; interaction quantity is a non-identifying stand-alone sentinel",
+    "translation_note": "manuscript/IF_TRANSLATION_NONIDENTIFIABILITY_2026-10-03.md",
+    "translation_note_blob_sha": "2d8d7ac1ae9706d22cee3043e2306294c5a9d192",
+    "sentinel_note": "manuscript/FRAGMENTATION_SENTINEL_SUFFICIENCY_2026-10-03.md",
+    "sentinel_note_blob_sha": "d04212710c4b4967e1139f2f25c86586323ac673",
+    "influence_checker": "scripts/check_if_translation_influence.py",
+    "influence_checker_blob_sha": "96dd3175907459ca4110e4c3b82507e649aab297",
+    "generality_checker": "scripts/check_ecological_generality_and_surprise.py",
+    "generality_checker_blob_sha": "6aac3f0cd57af797131e56ccdec36378ea0e396f",
+    "full_map_leave_one_out_min_ambiguous_inputs": 2,
+    "quantitative_only_ambiguity_without_milkweed": 0,
+    "claim": "interaction quantity is a non-identifying stand-alone sentinel; full mixed-tier topology survives every single-programme deletion",
     "prevalence_inference": false
   },
   "hidden_effective_mating_hypothesis": {
