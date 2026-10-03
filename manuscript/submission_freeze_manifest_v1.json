@@ -1,16 +1,16 @@
 {
   "schema_version": 6,
   "updated_on": "2026-10-03",
-  "status": "scale_aware_proxy_failure_scientific_validation_green_human_admin_pending",
+  "status": "scale_aware_proxy_failure_translation_map_validation_pending",
   "submission_ready": false,
   "supersedes_submission_freeze": true,
   "revision_base_commit": "e94722fe99dd40b1bebac42fa311f40d9e412ab4",
   "manuscript": {
     "path": "manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md",
-    "blob_sha": "f96ab57e1c36585921fdc14de306500ebc86294e",
+    "blob_sha": "a30c59c7f0a928df68a35233f5e9387021290c84",
     "title": "Habitat fragmentation across plant reproductive life cycles: scale-stable deterioration and recurrent interaction–function proxy failure",
     "target_journal": "Journal of Ecology",
-    "main_text_words": 7878,
+    "main_text_words": 7992,
     "abstract_words": 334
   },
   "historical_primary_g": {
@@ -115,23 +115,26 @@
     "registered_scale_census_output": "manuscript/tables/table_s4_process_function_census.csv"
   },
   "figure_table_revision": {
-    "builder_blob_sha": "f78d5ccc45a3752a01988b8a5f69c39a76be2d9a",
-    "captions_blob_sha": "6a3a8c79ef0a96a8cdf9924705a5d50b1c52147d",
+    "builder_blob_sha": "6b7bab15c7f3aa6ea4c563484ee6fd6ca6e49b5a",
+    "captions_blob_sha": "ed99b58bbcacc816fce01b9d23c4bf9ad905f6f3",
     "main_figure4": "manuscript/figures/figure4_estimand_scale_sensitivity.svg",
     "main_table2": "manuscript/tables/table2_estimand_scale_sensitivity.csv",
     "supplementary_table_s4": "manuscript/tables/table_s4_process_function_census.csv",
     "supplementary_table_s5": "manuscript/tables/table_s5_if_sign_geometry.csv",
     "main_figure3": "manuscript/figures/figure3_if_sign_geometry.svg",
-    "supplementary_table_s6": "manuscript/tables/table_s6_qualitative_external_if_audit.csv"
+    "supplementary_table_s6": "manuscript/tables/table_s6_qualitative_external_if_audit.csv",
+    "supplementary_figure_s2": "manuscript/figures/figure_s2_if_translation_map.svg",
+    "supplementary_table_s7": "manuscript/tables/table_s7_if_translation_map.csv"
   },
   "anonymous_package": {
-    "builder_blob_sha": "d2f267eaa727a613fbdbef45606eae569f54f106",
+    "builder_blob_sha": "73e1e930eba1af34730760b0ea223839165f5805",
     "reproduces_authoritative_raw_delta_scale_audit": true,
     "reproduces_bottleneck_cross_scale_audit": true,
     "reproduces_historical_g": true,
     "external_requirement": "No live ML014 source download is required for CI or anonymous reproduction. A CC-BY source-derived sufficient-statistics snapshot is pinned; Dryad/TERN probes are optional provenance refreshes.",
     "ml014_sufficient_stats_snapshot": "evidence/meta_extraction/PS020_eucalyptus_socialis_sufficient_stats_v1.json",
-    "ml014_sufficient_stats_snapshot_blob_sha": "ff108c6d832c04e7c3b47d0acc9581cbddd9cb44"
+    "ml014_sufficient_stats_snapshot_blob_sha": "ff108c6d832c04e7c3b47d0acc9581cbddd9cb44",
+    "reproduces_if_translation_map": true
   },
   "current_claim_ceiling": [
     "historical Hedges-g synthesis is exactly reproducible",
@@ -143,7 +146,9 @@
     "six of 18 primary I-F panels have opposite point-estimate signs across five programmes but zero of those six have both marginal endpoint directions individually resolved at 95 percent",
     "species-specific point-sign topology under shared exposure is supporting descriptive context rather than the sole novelty claim",
     "transition filtering buffering amplification and cohort lag are exploratory hypotheses only",
-    "the frozen qualitative blocked I-F denominator contains mixed buffering resilience concordance and hidden-function-loss geometries; it supports proxy non-monotonicity but not a one-sided prevalence rule"
+    "the frozen qualitative blocked I-F denominator contains mixed buffering resilience concordance and hidden-function-loss geometries; it supports proxy non-monotonicity but not a one-sided prevalence rule",
+    "the frozen 16-programme I-F translation map shows that identical qualitative interaction signals coexist with multiple reproductive-function states",
+    "interaction quantity is a non-identifying stand-alone sentinel of reproductive function across the audited fragmentation contexts"
   ],
   "not_authorized": [
     "scale-invariant global layer-separation syndrome",
@@ -163,9 +168,13 @@
     "claiming flower visitation being an imperfect proxy for pollination effectiveness is newly discovered",
     "estimating global prevalence of interaction-quantity proxy failure from three programmes",
     "claiming one mechanism explains the three stable downstream proxy-failure programmes",
-    "counting the eight qualitative blocked programmes as quantitative replications or using their category frequencies as global prevalence"
+    "counting the eight qualitative blocked programmes as quantitative replications or using their category frequencies as global prevalence",
+    "using the 16-programme translation map as a prevalence or frequency estimate",
+    "treating qualitative-blocked programmes as quantitatively equivalent replications"
   ],
-  "remaining_scientific_gate": [],
+  "remaining_scientific_gate": [
+    "current full CI green with frozen 16-programme translation-map checker Supplementary Figure S2 Table S7 and anonymous-package reproduction"
+  ],
   "remaining_human_blockers": [
     "final author list",
     "affiliations",
@@ -176,19 +185,20 @@
     "final all-author approval"
   ],
   "scientific_validation": {
-    "previous_green_run_id": 37089986196,
+    "previous_green_run_id": 37110044197,
     "previous_conclusion": "success",
     "full_contract_run_id": 37109896871,
     "conclusion": "success",
-    "current_revision_status": "validated",
-    "current_revision_validated": true,
+    "current_revision_status": "translation_map_validation_pending",
+    "current_revision_validated": false,
     "proxy_failure_audit": true,
     "sign_uncertainty_audit": true,
     "qualitative_external_audit": true,
-    "figures_tables_reproduced": true,
+    "figures_tables_reproduced": false,
     "double_anonymous": true,
-    "anonymous_reviewer_package_reproduced": true,
-    "reason": "qualitative external frozen-denominator audit and Supplementary Table S6 reproduced successfully in current full CI"
+    "anonymous_reviewer_package_reproduced": false,
+    "reason": "16-programme translation-map supplement added after prior green state",
+    "translation_map_audit": false
   },
   "if_sign_geometry": {
     "status": "scale_stable_descriptive_ecology",
@@ -281,5 +291,20 @@
     "checker": "scripts/check_qualitative_external_if_audit.py",
     "checker_blob_sha": "0e1bab4ac06c73aceb56b020026663d35c05bd71",
     "claim": "blocked qualitative evidence broadens proxy non-monotonicity but does not support a one-sided prevalence rule"
+  },
+  "if_translation_nonidentifiability": {
+    "status": "frozen_16_programme_topology_validation_pending",
+    "programmes": 16,
+    "quantitative_programmes": 8,
+    "qualitative_blocked_programmes": 8,
+    "unique_sources": 16,
+    "table": "evidence/meta_extraction/if_translation_map_v1.csv",
+    "table_blob_sha": "51b30d999fec10256f677859b1d4805ea9a10c46",
+    "note": "manuscript/IF_TRANSLATION_NONIDENTIFIABILITY_2026-10-03.md",
+    "note_blob_sha": "344e4e829f32fa8cfd178822696176a8cb71f343",
+    "checker": "scripts/check_if_translation_map.py",
+    "checker_blob_sha": "958d970d6b049b476688f09cde9f752f29e4a6b4",
+    "claim": "the same qualitative interaction signal maps to multiple reproductive-function states; interaction quantity is a non-identifying stand-alone sentinel",
+    "prevalence_inference": false
   }
 }
