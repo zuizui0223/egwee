@@ -81,6 +81,8 @@ FILES = [
     "evidence/meta_extraction/if_sign_geometry_census_v1.csv",
     "evidence/meta_extraction/if_sign_uncertainty_v1.csv",
     "evidence/meta_extraction/qualitative_external_if_audit_v1.csv",
+    "evidence/meta_extraction/phase2_if_quantitative_gate_v1.csv",
+    "evidence/meta_extraction/PS014_hulting_extraction_v1.csv",
     "evidence/meta_extraction/estimand_scale_cluster_summary_v2.csv",
     "evidence/meta_extraction/estimand_scale_fisher_sensitivity_v2.csv",
     "evidence/meta_extraction/exploratory_transition_filtering_v1.csv",
