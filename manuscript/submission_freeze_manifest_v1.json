@@ -255,7 +255,10 @@
   },
   "ecological_generality_and_surprise": {
     "path": "manuscript/ECOLOGICAL_GENERALITY_AND_SURPRISE_2026-09-29.md",
-    "blob_sha": "be0d5c67be858cdd16454a67e27729d90722c8bf"
+    "blob_sha": "aaad4a421bb3381289720385d3b303c3c79c1383",
+    "general_claim": "directional coherence can coexist with non-identifying interaction-to-function translation",
+    "monitoring_implication": "interaction quantity alone can produce both false reassurance and false alarm about reproductive function",
+    "prevalence_inference": false
   },
   "if_sign_uncertainty": {
     "status": "descriptive_point_sign_uncertainty_audit",
@@ -304,5 +307,15 @@
     "checker_blob_sha": "a5c37502734fb48a2eaa81e3a9594895651f3801",
     "claim": "the same qualitative interaction signal maps to multiple reproductive-function states; interaction quantity is a non-identifying stand-alone sentinel",
     "prevalence_inference": false
+  },
+  "hidden_effective_mating_hypothesis": {
+    "status": "mechanistic_triangulation_hypothesis_not_quantitative_replication",
+    "note": "manuscript/HIDDEN_EFFECTIVE_MATING_LAYER_HYPOTHESIS_2026-10-03.md",
+    "note_blob_sha": "c9f812899081e2bf6639acf2e037d1b566fa49f2",
+    "context_table": "evidence/meta_extraction/hidden_effective_mating_mechanism_context_v1.csv",
+    "context_table_blob_sha": "6b9886c74eec1b0b148af2db10126059023ae08c",
+    "quantitative_IF_effective_mating_measured": 0,
+    "quantitative_IF_programmes": 8,
+    "claim": "fragmentation may preserve interaction quantity while degrading transfer identity compatibility or mating quality"
   }
 }
