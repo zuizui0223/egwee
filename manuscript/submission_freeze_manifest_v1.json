@@ -1,17 +1,17 @@
 {
   "schema_version": 6,
   "updated_on": "2026-10-03",
-  "status": "scale_aware_proxy_failure_scientific_validation_green_human_admin_pending",
+  "status": "scale_aware_sentinel_figure5_revision_validation_pending",
   "submission_ready": false,
   "supersedes_submission_freeze": true,
-  "revision_base_commit": "e94722fe99dd40b1bebac42fa311f40d9e412ab4",
+  "revision_base_commit": "45bbf42cac0408cdfc548bc741ac678856d9ba68",
   "manuscript": {
     "path": "manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md",
-    "blob_sha": "a0034a89bb0b1f8120ed393b5fee0b0363f5f805",
+    "blob_sha": "996e61a9271d23b3199c0918a45af5801ef03624",
     "title": "Habitat fragmentation across plant reproductive life cycles: scale-stable deterioration and recurrent interaction–function proxy failure",
     "target_journal": "Journal of Ecology",
     "main_text_words": 7999,
-    "abstract_words": 334
+    "abstract_words": 350
   },
   "historical_primary_g": {
     "independent_clusters": 5,
@@ -117,8 +117,8 @@
     "registered_scale_census_output": "manuscript/tables/table_s4_process_function_census.csv"
   },
   "figure_table_revision": {
-    "builder_blob_sha": "6b7bab15c7f3aa6ea4c563484ee6fd6ca6e49b5a",
-    "captions_blob_sha": "ed99b58bbcacc816fce01b9d23c4bf9ad905f6f3",
+    "builder_blob_sha": "076b5f4f55ca6869c10c8627be193170ad9054ba",
+    "captions_blob_sha": "11618e37ac0b0a9c79775df87b242c89ffa54216",
     "main_figure4": "manuscript/figures/figure4_estimand_scale_sensitivity.svg",
     "main_table2": "manuscript/tables/table2_estimand_scale_sensitivity.csv",
     "supplementary_table_s4": "manuscript/tables/table_s4_process_function_census.csv",
@@ -126,10 +126,12 @@
     "main_figure3": "manuscript/figures/figure3_if_sign_geometry.svg",
     "supplementary_table_s6": "manuscript/tables/table_s6_qualitative_external_if_audit.csv",
     "supplementary_figure_s2": "manuscript/figures/figure_s2_if_translation_map.svg",
-    "supplementary_table_s7": "manuscript/tables/table_s7_if_translation_map.csv"
+    "supplementary_table_s7": "manuscript/tables/table_s7_if_translation_map.csv",
+    "main_figure5": "manuscript/figures/figure5_direction_translation_synthesis.svg",
+    "main_figure_count": 5
   },
   "anonymous_package": {
-    "builder_blob_sha": "73e1e930eba1af34730760b0ea223839165f5805",
+    "builder_blob_sha": "63d9870e94248335318fc251a08d40bbdcc8f856",
     "reproduces_authoritative_raw_delta_scale_audit": true,
     "reproduces_bottleneck_cross_scale_audit": true,
     "reproduces_historical_g": true,
@@ -175,7 +177,10 @@
     "treating qualitative-blocked programmes as quantitatively equivalent replications",
     "claiming quantitative-only category-level non-identifiability is leave-one-programme-out robust"
   ],
-  "remaining_scientific_gate": [],
+  "remaining_scientific_gate": [
+    "current full CI green with Figure 5",
+    "current anonymous reviewer package reproduces Figure 5 and frozen translation map"
+  ],
   "remaining_human_blockers": [
     "final author list",
     "affiliations",
@@ -186,19 +191,19 @@
     "final all-author approval"
   ],
   "scientific_validation": {
-    "previous_green_run_id": 37110044197,
+    "previous_green_run_id": 37112411828,
     "previous_conclusion": "success",
-    "full_contract_run_id": 37112411828,
-    "conclusion": "success",
-    "current_revision_status": "validated",
-    "current_revision_validated": true,
+    "full_contract_run_id": null,
+    "conclusion": null,
+    "current_revision_status": "pending",
+    "current_revision_validated": false,
     "proxy_failure_audit": true,
     "sign_uncertainty_audit": true,
     "qualitative_external_audit": true,
-    "figures_tables_reproduced": true,
+    "figures_tables_reproduced": false,
     "double_anonymous": true,
-    "anonymous_reviewer_package_reproduced": true,
-    "reason": "16-programme translation-map audit, Supplementary Figure S2/Table S7 and anonymous reviewer package reproduced successfully in full CI",
+    "anonymous_reviewer_package_reproduced": false,
+    "reason": "Figure 5 promotes the frozen 16-programme sentinel-sufficiency synthesis to the main package; current head requires full revalidation.",
     "translation_map_audit": true
   },
   "if_sign_geometry": {
