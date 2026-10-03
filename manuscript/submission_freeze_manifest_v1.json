@@ -273,7 +273,7 @@
   },
   "proxy_failure_novelty_audit": {
     "path": "manuscript/IF_PROXY_FAILURE_NOVELTY_AUDIT_2026-10-01.md",
-    "blob_sha": "db220b3991a17cf4e848f0c6e0ec850cd7dd5aa1"
+    "blob_sha": "1d88f9350340d50cfb5a505345ae8fd7424881cd"
   },
   "qualitative_external_if_audit": {
     "status": "frozen_denominator_qualitative_context_not_quantitative_replication",
