@@ -649,7 +649,7 @@ def figure5_direction_translation_synthesis() -> None:
     body.append(svg_text(35, footer_y, "Ecological result", size=13, weight="bold"))
     body.append(svg_text(35, footer_y + 26, "Each represented interaction evidence state is compatible with more than one reproductive-function state.", size=11, weight="bold"))
     body.append(svg_text(35, footer_y + 50, "The many-to-many structure survives deletion of every single programme in the mixed-tier frozen universe.", size=10))
-    body.append(svg_text(35, footer_y + 74, "Therefore interaction quantity is not a sufficient stand-alone sentinel of reproductive function; no category frequency is interpreted as prevalence.", size=10))
+    body.append(svg_text(35, footer_y + 74, "Observed interaction decline is neither necessary nor sufficient for observed reproductive decline; no category frequency is interpreted as prevalence.", size=10))
 
     write_svg(FIGDIR / "figure5_direction_translation_synthesis.svg", width, height, body)
 
