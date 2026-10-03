@@ -103,6 +103,25 @@ One row per primary direct cluster plus FULL and OMIT_ML001 cross-cluster rows. 
 The table must show that the omit-ML001 classification crosses the 0.05 threshold across estimand/dependence treatments. It must not imply that lnRR is the uniquely correct scale. The former carried-rho sensitivity is provenance only and is not shown as the authoritative lnRR covariance reconstruction.
 
 
+## Supplementary Figure S2 — Frozen I–F translation map
+
+**Purpose:** show that interaction quantity is not a one-to-one sentinel of reproductive function without merging quantitative and qualitative evidence precision.
+
+Required content:
+
+- 16 unique source programmes = 8 quantitative + 8 qualitative-blocked;
+- evidence tier shown explicitly as Q or B;
+- interaction categories: lower, no detected loss, higher/shifted, mixed within programme;
+- function categories: lower, similar/no detected loss, higher, mixed within programme;
+- the I-lower row must contain examples mapping to lower, higher and no-detected-loss F states;
+- the no-detected-I-loss row must map to both lower and no-detected-loss F states;
+- the I-higher/shifted row must map to both lower and similar F states.
+
+Do not use cell counts as prevalence. Do not recode no-detected-effect as zero/equality. Do not imply that B-tier evidence is quantitatively equivalent to Q-tier evidence.
+
+## Supplementary Table S7 — Frozen I–F translation map
+
+One row per source programme in Supplementary Figure S2, with evidence tier, programme/source identity, qualitative I and F signals, translation topology, resolution status and interpretation. Exactly 16 rows and 16 unique source IDs are required.
 ## Supplementary Table S6 — Frozen qualitative external I–F audit
 
 **Purpose:** expose the complete pre-existing denominator of design-valid but quantitatively blocked direct I–F programmes so qualitative corroboration cannot be selected post outcome.
