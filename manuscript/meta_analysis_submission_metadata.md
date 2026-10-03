@@ -74,6 +74,7 @@ Authorised manuscript-level ecological claims:
 - among the four multi-panel programmes sharing one registered exposure frame, **Sevenello, Kakamega and Zurich each contain more than one point-estimate I/F sign geometry among focal species/panels**; because species-specific fragmentation responses are already known and endpoint uncertainty is often wide, this is supporting context rather than the sole novelty claim;
 - lnRR patterns suggesting stronger mating/connectivity responses than downstream performance in ML002/ML014, and stronger juvenile/seed than adult genetic responses in ML003, may be presented only as **post hoc exploratory filtering/lag hypotheses** requiring prospective validation;
 - the earlier 12-programme process–function census remains exploratory: both upstream and downstream resolved geometries occur under g/registered and lnRR representations, but upstream system attribution changes from ML001 *Serapias* on g to ML002 *Brosimum* and ML014 *Eucalyptus socialis* on lnRR; system-specific bottleneck attribution is therefore scale-sensitive.
+- the frozen 16-programme I–F translation map (8 quantitative + 8 qualitative-blocked, all source-non-overlapping) shows that identical qualitative interaction signals coexist with multiple reproductive-function states; this supports interaction quantity as an insufficient/non-identifying stand-alone sentinel, without estimating regime prevalence;
 
 Not authorised:
 
@@ -94,6 +95,7 @@ Not authorised:
 - treating dependent species/panels inside one programme as independent sign trials;
 - inferring one common compensation mechanism for I−,F+ cases or one common pollen-quality mechanism for I+,F− cases;
 - treating pollinator abundance, reproductive output or genetic diversity alone as a sufficient proxy for whole-system condition;
+- converting the 16-programme translation map into a frequency/prevalence estimate or treating qualitative-blocked programmes as quantitative replications;
 - claiming lnRR is the uniquely correct effect scale; it is a mandatory sensitivity estimand with small-n delta-method limitations;
 - direct empirical validation of finite EGWE/NEE operators;
 - searching for additional systems merely to restore a preferred p-value or force a pair family to K=5.
