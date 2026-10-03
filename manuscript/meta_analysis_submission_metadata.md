@@ -114,7 +114,7 @@ Not authorised:
 - [x] primary venue selected: Journal of Ecology;
 - [x] journal-specific abstract and keywords shaped;
 - [x] main text converted to Journal of Ecology IMRaD structure;
-- [x] main-text word count audited against the ~8000-word research-article target (current automated count: 7811 words from Introduction onward);
+- [x] main-text word count audited against the ~8000-word research-article target (current automated count: 7878 words from Introduction onward);
 - [x] current Figure 3 proxy-failure / sign-uncertainty hierarchy plus scale-aware figure/table package revalidated in full CI;
 - [ ] current anonymous reviewer package reproduces the proxy-failure Figure 3, sign-uncertainty audit, qualitative external S6 and authoritative 2026-09-29 scale audits;
 - [x] estimand-scale audit completed: Hedges-g and lnRR yield materially different response geometry / robustness classifications;
