@@ -30,6 +30,9 @@ NOVELTY_AUDIT = ROOT / "manuscript/IF_PROXY_FAILURE_NOVELTY_AUDIT_2026-10-01.md"
 QUAL_EXTERNAL_TABLE = ROOT / "evidence/meta_extraction/qualitative_external_if_audit_v1.csv"
 QUAL_EXTERNAL_NOTE = ROOT / "manuscript/QUALITATIVE_EXTERNAL_IF_AUDIT_2026-10-03.md"
 QUAL_EXTERNAL_CHECKER = ROOT / "scripts/check_qualitative_external_if_audit.py"
+TRANSLATION_TABLE = ROOT / "evidence/meta_extraction/if_translation_map_v1.csv"
+TRANSLATION_NOTE = ROOT / "manuscript/IF_TRANSLATION_NONIDENTIFIABILITY_2026-10-03.md"
+TRANSLATION_CHECKER = ROOT / "scripts/check_if_translation_map.py"
 
 FIGURE_BUILDER = ROOT / "scripts/build_journal_of_ecology_figures.py"
 FIGURE_CAPTIONS = ROOT / "manuscript/JOURNAL_OF_ECOLOGY_FIGURE_CAPTIONS.md"
@@ -56,28 +59,35 @@ def main() -> None:
 
     assert m["schema_version"] == 6
     assert m["updated_on"] == "2026-10-03"
-    assert m["status"] == "scale_aware_proxy_failure_scientific_validation_green_human_admin_pending"
+    assert m["status"] in {
+        "scale_aware_proxy_failure_translation_map_validation_pending",
+        "scale_aware_proxy_failure_scientific_validation_green_human_admin_pending",
+    }
     assert m["submission_ready"] is False
     assert m["supersedes_submission_freeze"] is True
     sv = m["scientific_validation"]
     assert sv["previous_conclusion"] == "success"
-    assert sv["full_contract_run_id"] == 37109896871
-    assert sv["conclusion"] == "success"
-    assert sv["current_revision_status"] == "validated"
-    assert sv["current_revision_validated"] is True
-    assert sv["proxy_failure_audit"] is True
-    assert sv["sign_uncertainty_audit"] is True
-    assert sv["qualitative_external_audit"] is True
-    assert sv["figures_tables_reproduced"] is True
-    assert sv["double_anonymous"] is True
-    assert sv["anonymous_reviewer_package_reproduced"] is True
-    assert len(m["remaining_scientific_gate"]) == 0
+    if m["status"] == "scale_aware_proxy_failure_translation_map_validation_pending":
+        assert sv["current_revision_status"] == "translation_map_validation_pending"
+        assert sv["current_revision_validated"] is False
+        assert sv["translation_map_audit"] is False
+        assert sv["figures_tables_reproduced"] is False
+        assert sv["anonymous_reviewer_package_reproduced"] is False
+        assert len(m["remaining_scientific_gate"]) == 1
+    else:
+        assert sv["current_revision_status"] == "validated"
+        assert sv["current_revision_validated"] is True
+        assert sv["translation_map_audit"] is True
+        assert sv["figures_tables_reproduced"] is True
+        assert sv["double_anonymous"] is True
+        assert sv["anonymous_reviewer_package_reproduced"] is True
+        assert len(m["remaining_scientific_gate"]) == 0
 
     man = m["manuscript"]
     assert git_blob_sha(MANUSCRIPT) == man["blob_sha"]
     assert man["title"] == "Habitat fragmentation across plant reproductive life cycles: scale-stable deterioration and recurrent interaction–function proxy failure"
     assert man["target_journal"] == "Journal of Ecology"
-    assert man["main_text_words"] == 7878
+    assert man["main_text_words"] == 7992
     assert man["abstract_words"] == 334
     assert manuscript.startswith("# " + man["title"])
 
@@ -145,6 +155,16 @@ def main() -> None:
     assert qual["hidden_function_loss"] == 1
     assert qual["status"] == "frozen_denominator_qualitative_context_not_quantitative_replication"
 
+    translation = m["if_translation_nonidentifiability"]
+    assert git_blob_sha(TRANSLATION_TABLE) == translation["table_blob_sha"]
+    assert git_blob_sha(TRANSLATION_NOTE) == translation["note_blob_sha"]
+    assert git_blob_sha(TRANSLATION_CHECKER) == translation["checker_blob_sha"]
+    assert translation["programmes"] == 16
+    assert translation["quantitative_programmes"] == 8
+    assert translation["qualitative_blocked_programmes"] == 8
+    assert translation["unique_sources"] == 16
+    assert translation["prevalence_inference"] is False
+
     geom = m["cross_scale_process_function_geometry"]
     assert git_blob_sha(BOTTLENECK_SCALE_TABLE) == geom["scale_table_blob_sha"]
     assert git_blob_sha(BOTTLENECK_SCALE_NOTE) == geom["result_note_blob_sha"]
@@ -157,10 +177,14 @@ def main() -> None:
     assert ft["main_figure3"] == "manuscript/figures/figure3_if_sign_geometry.svg"
     assert ft["main_figure4"] == "manuscript/figures/figure4_estimand_scale_sensitivity.svg"
     assert ft["main_table2"] == "manuscript/tables/table2_estimand_scale_sensitivity.csv"
+    assert ft["supplementary_figure_s2"] == "manuscript/figures/figure_s2_if_translation_map.svg"
+    assert ft["supplementary_table_s7"] == "manuscript/tables/table_s7_if_translation_map.csv"
     assert "IF_SIGN_UNCERTAINTY" in builder
     assert "PROXY_FAILURE" in builder
     assert "Figure 3. Scale-stable interaction–function proxy failure and sign uncertainty" in captions
     assert "Figure 4. Relative response geometry is estimand-scale dependent" in captions
+    assert "Supplementary Figure S2. Frozen interaction–function translation map" in captions
+    assert "Supplementary Table S7. Frozen interaction–function translation map" in captions
 
     ap = m["anonymous_package"]
     assert git_blob_sha(ANON_BUILDER) == ap["builder_blob_sha"]
@@ -172,6 +196,10 @@ def main() -> None:
     assert "check_if_sign_uncertainty.py" in anon
     assert "scale_stable_quantity_function_proxy_failure_v1.csv" in anon
     assert "qualitative_external_if_audit_v1.csv" in anon
+    assert "check_if_translation_map.py" in anon
+    assert "if_translation_map_v1.csv" in anon
+    assert "figure_s2_if_translation_map.svg" in anon
+    assert "table_s7_if_translation_map.csv" in anon
     assert "table_s6_qualitative_external_if_audit.csv" in builder
     assert "figure3_if_sign_geometry.svg" in anon
 
@@ -181,6 +209,7 @@ def main() -> None:
         "three independent I-F programmes provide representation-stable downstream function-dominant mismatches",
         "no audited I-F programme provides an equally representation-stable resolved upstream mismatch",
         "zero of those six have both marginal endpoint directions individually resolved at 95 percent",
+        "the frozen 16-programme I-F translation map shows that identical qualitative interaction signals coexist with multiple reproductive-function states",
     ):
         assert token in claims, token
 
@@ -188,16 +217,21 @@ def main() -> None:
         "claiming the six opposite-sign point estimates are six resolved sign reversals",
         "claiming species-specific visitation or reproductive responses to fragmentation are newly discovered",
         "claiming flower visitation being an imperfect proxy for pollination effectiveness is newly discovered",
+        "using the 16-programme translation map as a prevalence or frequency estimate",
+        "treating qualitative-blocked programmes as quantitatively equivalent replications",
     ):
         assert token in claims, token
 
-    assert "**STATUS: SCIENTIFICALLY VALIDATED, HUMAN ADMINISTRATION PENDING.**" in note
-    assert "Scale-stable interaction–function proxy failure" in note
-    assert "0/6 have both marginal endpoint directions individually resolved" in note
-
-    assert "scale_aware_proxy_failure_scientific_validation_green_human_admin_pending" in metadata
-    assert "Scientific validation complete" in metadata
-    assert "current automated count: 7878 words" in metadata
+    if m["status"] == "scale_aware_proxy_failure_translation_map_validation_pending":
+        assert "**STATUS: SCIENTIFIC REVALIDATION PENDING.**" in note
+        assert "scale_aware_proxy_failure_translation_map_validation_pending" in metadata
+        assert "Scientific revalidation pending" in metadata
+    else:
+        assert "**STATUS: SCIENTIFICALLY VALIDATED, HUMAN ADMINISTRATION PENDING.**" in note
+        assert "scale_aware_proxy_failure_scientific_validation_green_human_admin_pending" in metadata
+        assert "Scientific validation complete" in metadata
+    assert "Supplementary Figure S2" in note
+    assert "current automated count: 7992 words" in metadata
 
     assert "scale-stable deterioration and recurrent interaction–function proxy failure" in manuscript
     assert "all **17/17 primary direct effects were negative on both oriented g and oriented lnRR**" in manuscript
