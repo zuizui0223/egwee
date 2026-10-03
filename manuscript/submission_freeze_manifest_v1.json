@@ -1,7 +1,7 @@
 {
   "schema_version": 6,
   "updated_on": "2026-10-03",
-  "status": "scientific_validation_pending_after_qualitative_external_audit",
+  "status": "scale_aware_proxy_failure_scientific_validation_green_human_admin_pending",
   "submission_ready": false,
   "supersedes_submission_freeze": true,
   "revision_base_commit": "e94722fe99dd40b1bebac42fa311f40d9e412ab4",
@@ -165,9 +165,7 @@
     "claiming one mechanism explains the three stable downstream proxy-failure programmes",
     "counting the eight qualitative blocked programmes as quantitative replications or using their category frequencies as global prevalence"
   ],
-  "remaining_scientific_gate": [
-    "current full CI green with Supplementary Table S6 qualitative external audit and anonymous reviewer-package reproduction"
-  ],
+  "remaining_scientific_gate": [],
   "remaining_human_blockers": [
     "final author list",
     "affiliations",
@@ -180,9 +178,17 @@
   "scientific_validation": {
     "previous_green_run_id": 37089986196,
     "previous_conclusion": "success",
-    "current_revision_status": "pending",
-    "current_revision_validated": false,
-    "reason": "qualitative external frozen-denominator audit promoted into Discussion and Supplementary Table S6"
+    "full_contract_run_id": 37109896871,
+    "conclusion": "success",
+    "current_revision_status": "validated",
+    "current_revision_validated": true,
+    "proxy_failure_audit": true,
+    "sign_uncertainty_audit": true,
+    "qualitative_external_audit": true,
+    "figures_tables_reproduced": true,
+    "double_anonymous": true,
+    "anonymous_reviewer_package_reproduced": true,
+    "reason": "qualitative external frozen-denominator audit and Supplementary Table S6 reproduced successfully in current full CI"
   },
   "if_sign_geometry": {
     "status": "scale_stable_descriptive_ecology",
