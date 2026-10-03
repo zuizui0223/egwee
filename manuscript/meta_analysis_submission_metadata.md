@@ -5,7 +5,7 @@
 - **Working title:** Habitat fragmentation across plant reproductive life cycles: scale-stable deterioration and recurrent interaction–function proxy failure
 - **Source manuscript:** `manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md`
 - **Protocol:** `manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md`
-- **Submission state:** `scale_aware_proxy_failure_revision_validation_pending`
+- **Submission state:** `scale_aware_proxy_failure_scientific_validation_green_human_admin_pending`
 - **Article type:** Research Article / empirical research synthesis
 - **Primary target journal:** **Journal of Ecology**
 - **Fallback venues:** Ecology (Article or Concepts & Synthesis, if reframed for broader ecological generality); Oikos (Meta-analysis)
@@ -38,7 +38,7 @@ The paper now distinguishes scale-robust response direction from scale-dependent
 
 Finite-model NEE/EGWE work is not the framing, estimand, admission rule or inferential target of this paper. It may be cited only as downstream comparative theory where useful.
 
-> **Scientific revalidation pending:** the estimand-scale, proxy-failure and sign-uncertainty audits are complete, but the proxy-failure title, uncertainty-aware Figure 3 and anonymous reviewer package must reproduce together in the current full CI before the scientific gate is closed again.
+> **Scientific validation complete:** full CI run `37089505747` reproduced the estimand-scale audit, proxy-failure and sign-uncertainty audits, scale-aware figures/tables, double-anonymous manuscript and anonymous reviewer package. Submission remains pending only on human author/declaration metadata and final approval.
 
 ## Current quantitative state
 
@@ -115,12 +115,12 @@ Not authorised:
 - [x] journal-specific abstract and keywords shaped;
 - [x] main text converted to Journal of Ecology IMRaD structure;
 - [x] main-text word count audited against the ~8000-word research-article target (current automated count: 7811 words from Introduction onward);
-- [ ] current Figure 3 proxy-failure / sign-uncertainty hierarchy plus scale-aware figure/table package revalidated in full CI;
-- [ ] current anonymous reviewer package reproduces the proxy-failure Figure 3, sign-uncertainty audit and authoritative 2026-09-29 scale audits;
+- [x] current Figure 3 proxy-failure / sign-uncertainty hierarchy plus scale-aware figure/table package revalidated in full CI;
+- [x] current anonymous reviewer package reproduces the proxy-failure Figure 3, sign-uncertainty audit and authoritative 2026-09-29 scale audits;
 - [x] estimand-scale audit completed: Hedges-g and lnRR yield materially different response geometry / robustness classifications;
 - [x] manuscript headline revised so no scale-dependent separation/bottleneck claim is presented as scale-invariant;
 - [x] scale-stable interaction–function sign geometry audited across all 18 primary I–F panels;
-- [ ] proxy-failure title / uncertainty-aware Methods / main Figure 3 revision revalidated in current full CI and anonymous reviewer package;
+- [x] proxy-failure title / uncertainty-aware Methods / main Figure 3 revision revalidated in current full CI and anonymous reviewer package;
 - [x] g and lnRR sensitivity reported in Methods, Results, Limitations and figure/table package (Figure 4 + Table 2);
 - [x] submission freeze renewed after scale-aware manuscript + figure/table revision;
 - [ ] author/declaration metadata approved.
