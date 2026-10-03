@@ -1,6 +1,6 @@
-# EGWEE submission state — SCIENTIFIC VALIDATION GREEN 2026-10-03
+# EGWEE submission state — QUALITATIVE EXTERNAL S6 REVALIDATION PENDING 2026-10-03
 
-> **STATUS: SCIENTIFICALLY VALIDATED, HUMAN ADMINISTRATION PENDING.** Full CI run `37089505747` reproduced the proxy-failure title, uncertainty-aware Figure 3, scale audits, figures/tables, double-anonymous checks and anonymous reviewer package. Submission is not authorised until authorship/declaration metadata and final approval are complete.
+> **STATUS: SCIENTIFIC REVALIDATION PENDING.** The previous scale-aware package is green, but a denominator-frozen qualitative I–F audit is now included in the Discussion and Supplementary Table S6. Submission is not authorised until the current package reproduces S6 and the anonymous reviewer package, after which only human administration should remain.
 
 ## Why the freeze was reopened
 
@@ -69,6 +69,11 @@ The revised main package uses:
 
 The 2026-09-27 carried-rho sensitivity files are retained as provenance but are superseded for main lnRR dependence reconstruction by the 2026-09-29 raw-unit delta audit.
 
+## Frozen qualitative external I–F audit
+
+Eight already-screened but quantitatively blocked programmes are now retained as a complete qualitative denominator. Their source-reported geometries are mixed: five show qualitative non-monotonic I–F translation, two show no detected loss in either layer, and one shows a concordant population-size response.
+
+These counts are descriptive only. No detected effect is not coded as zero/equality, the eight rows do not increment the quantitative denominator, and their category frequencies are not prevalence estimates. The audit is reproduced as Supplementary Table S6.
 ## Submission gate
 
 Journal of Ecology remains the target. The scientific gate is **closed successfully**: full CI run `37089505747` passed with the scale-aware proxy-failure manuscript, uncertainty-aware Figure 3, Figure 4/Table 2, supplementary outputs, double-anonymous check and anonymous reviewer package.
