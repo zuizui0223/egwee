@@ -1,7 +1,7 @@
 {
   "schema_version": 6,
   "updated_on": "2026-10-03",
-  "status": "scale_aware_proxy_failure_translation_map_validation_pending",
+  "status": "scale_aware_proxy_failure_scientific_validation_green_human_admin_pending",
   "submission_ready": false,
   "supersedes_submission_freeze": true,
   "revision_base_commit": "e94722fe99dd40b1bebac42fa311f40d9e412ab4",
@@ -172,9 +172,7 @@
     "using the 16-programme translation map as a prevalence or frequency estimate",
     "treating qualitative-blocked programmes as quantitatively equivalent replications"
   ],
-  "remaining_scientific_gate": [
-    "current full CI green with frozen 16-programme translation-map checker Supplementary Figure S2 Table S7 and anonymous-package reproduction"
-  ],
+  "remaining_scientific_gate": [],
   "remaining_human_blockers": [
     "final author list",
     "affiliations",
@@ -187,18 +185,18 @@
   "scientific_validation": {
     "previous_green_run_id": 37110044197,
     "previous_conclusion": "success",
-    "full_contract_run_id": 37109896871,
+    "full_contract_run_id": 37112411828,
     "conclusion": "success",
-    "current_revision_status": "translation_map_validation_pending",
-    "current_revision_validated": false,
+    "current_revision_status": "validated",
+    "current_revision_validated": true,
     "proxy_failure_audit": true,
     "sign_uncertainty_audit": true,
     "qualitative_external_audit": true,
-    "figures_tables_reproduced": false,
+    "figures_tables_reproduced": true,
     "double_anonymous": true,
-    "anonymous_reviewer_package_reproduced": false,
-    "reason": "16-programme translation-map supplement added after prior green state",
-    "translation_map_audit": false
+    "anonymous_reviewer_package_reproduced": true,
+    "reason": "16-programme translation-map audit, Supplementary Figure S2/Table S7 and anonymous reviewer package reproduced successfully in full CI",
+    "translation_map_audit": true
   },
   "if_sign_geometry": {
     "status": "scale_stable_descriptive_ecology",
@@ -293,7 +291,7 @@
     "claim": "blocked qualitative evidence broadens proxy non-monotonicity but does not support a one-sided prevalence rule"
   },
   "if_translation_nonidentifiability": {
-    "status": "frozen_16_programme_topology_validation_pending",
+    "status": "frozen_16_programme_topology_validated",
     "programmes": 16,
     "quantitative_programmes": 8,
     "qualitative_blocked_programmes": 8,
