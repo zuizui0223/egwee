@@ -1,6 +1,6 @@
-## Proxy-failure main revision — scientific revalidation pending
+## Proxy-failure main revision — scientific validation green
 
-The mandatory Hedges-g versus oriented-lnRR audit remains green, but the ecology-forward main result has been tightened after an explicit sign-uncertainty audit.
+The mandatory Hedges-g versus oriented-lnRR audit, proxy-failure audit, sign-uncertainty audit, figures/tables, double-anonymous manuscript and reviewer package are all green in full CI run `37089505747`.
 
 Current scientific status:
 
@@ -12,7 +12,7 @@ Current scientific status:
 - 6/18 panels have opposite I/F point estimates, but 0/6 have both marginal endpoint directions individually resolved at 95%;
 - species-specific point topology and transition-filtering patterns are supporting, hypothesis-generating results rather than the sole novelty claim.
 
-The current manuscript title, uncertainty-aware Figure 3 and anonymous reviewer package must pass the active full CI before the scientific gate returns to human-administration-only status.
+The scientific gate is closed. `submission_ready=false` remains intentional because final authorship/declaration metadata and all-author approval are still pending.
 
 Canonical audits:
 - [`manuscript/ESTIMAND_SCALE_ROBUSTNESS_2026-09-29.md`](manuscript/ESTIMAND_SCALE_ROBUSTNESS_2026-09-29.md)
