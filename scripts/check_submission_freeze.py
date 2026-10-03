@@ -211,6 +211,8 @@ def main() -> None:
     assert git_blob_sha(ANON_BUILDER) == ap["builder_blob_sha"]
     assert ap["reproduces_authoritative_raw_delta_scale_audit"] is True
     assert ap["reproduces_bottleneck_cross_scale_audit"] is True
+    assert ap["reproduces_interaction_decline_logic"] is True
+    assert ap["reproduces_main_figure5"] is True
     assert "check_estimand_scale_robustness.py" in anon
     assert "check_bottleneck_scale_robustness.py" in anon
     assert "check_if_sign_geometry.py" in anon
@@ -218,6 +220,7 @@ def main() -> None:
     assert "scale_stable_quantity_function_proxy_failure_v1.csv" in anon
     assert "qualitative_external_if_audit_v1.csv" in anon
     assert "check_if_translation_map.py" in anon
+    assert "check_interaction_decline_necessity_sufficiency.py" in anon
     assert "if_translation_map_v1.csv" in anon
     assert "figure_s2_if_translation_map.svg" in anon
     assert "figure5_direction_translation_synthesis.svg" in anon
