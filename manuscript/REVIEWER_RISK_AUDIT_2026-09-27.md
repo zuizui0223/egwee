@@ -103,3 +103,11 @@ The paper should not be sold as discovering multiprocess fragmentation, a univer
 - Ibáñez et al. (2014), *Journal of Ecology* 102:882–895, doi:10.1111/1365-2745.12223.
 - Koricheva & Gurevitch (2014), *Journal of Ecology* 102:828–844, doi:10.1111/1365-2745.12224.
 - Aguilar et al. (2025), *Annals of Botany* 135:57–70, doi:10.1093/aob/mcae076.
+
+## Risk 11 — “Is this just the response–effect framework?”
+
+**Likely objection:** Ecology already distinguishes response variables/traits from effect variables/traits, including applications to pollination service.
+
+**Response:** Agree. The manuscript does not claim a new response–effect theory. The contribution is empirical and fragmentation-specific: matched plant programmes show that interaction quantity does not uniquely identify reproductive-function state, while three independent quantitative programmes provide representation-stable false-reassurance examples. The frozen 16-programme map broadens this to multiple I→F translations without estimating prevalence.
+
+**Boundary:** cite Lavorel & Garnier (2002) and Roquer-Beni et al. (2021) in reviewer response / conceptual framing if requested; do not relabel the result as invention of the response–effect framework.
