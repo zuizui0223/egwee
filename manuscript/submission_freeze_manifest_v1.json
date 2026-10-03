@@ -4,14 +4,14 @@
   "status": "scale_aware_sentinel_figure5_revision_validation_pending",
   "submission_ready": false,
   "supersedes_submission_freeze": true,
-  "revision_base_commit": "69e32c3d0894317886c1b685d0610d9e411a787d",
+  "revision_base_commit": "19a15a336fe10b3ed1770567058aaadf4c98478a",
   "manuscript": {
     "path": "manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md",
-    "blob_sha": "1cc1541a48af429ee72b3f37d71d28959fa75b4b",
+    "blob_sha": "3ace6b37b86d1305e022edf0a0e4026247375d42",
     "title": "Habitat fragmentation across plant reproductive life cycles: scale-stable deterioration and recurrent interaction–function proxy failure",
     "target_journal": "Journal of Ecology",
-    "main_text_words": 7999,
-    "abstract_words": 350
+    "main_text_words": 8000,
+    "abstract_words": 348
   },
   "historical_primary_g": {
     "independent_clusters": 5,
@@ -117,8 +117,8 @@
     "registered_scale_census_output": "manuscript/tables/table_s4_process_function_census.csv"
   },
   "figure_table_revision": {
-    "builder_blob_sha": "076b5f4f55ca6869c10c8627be193170ad9054ba",
-    "captions_blob_sha": "11618e37ac0b0a9c79775df87b242c89ffa54216",
+    "builder_blob_sha": "a80ad4985755a451ec8ded2f8802faaf2269ac1a",
+    "captions_blob_sha": "dde5ed1a7703a8936264d6dd2eca04ab7ce8d629",
     "main_figure4": "manuscript/figures/figure4_estimand_scale_sensitivity.svg",
     "main_table2": "manuscript/tables/table2_estimand_scale_sensitivity.csv",
     "supplementary_table_s4": "manuscript/tables/table_s4_process_function_census.csv",
@@ -152,7 +152,8 @@
     "transition filtering buffering amplification and cohort lag are exploratory hypotheses only",
     "the frozen qualitative blocked I-F denominator contains mixed buffering resilience concordance and hidden-function-loss geometries; it supports proxy non-monotonicity but not a one-sided prevalence rule",
     "the frozen 16-programme I-F translation map shows that identical qualitative interaction signals coexist with multiple reproductive-function states",
-    "interaction quantity is a non-identifying stand-alone sentinel of reproductive function across the audited fragmentation contexts"
+    "interaction quantity is a non-identifying stand-alone sentinel of reproductive function across the audited fragmentation contexts",
+    "interaction decline is neither necessary nor sufficient for reproductive decline in the frozen mixed-tier evidence universe"
   ],
   "not_authorized": [
     "scale-invariant global layer-separation syndrome",
@@ -175,7 +176,8 @@
     "counting the eight qualitative blocked programmes as quantitative replications or using their category frequencies as global prevalence",
     "using the 16-programme translation map as a prevalence or frequency estimate",
     "treating qualitative-blocked programmes as quantitatively equivalent replications",
-    "claiming quantitative-only category-level non-identifiability is leave-one-programme-out robust"
+    "claiming quantitative-only category-level non-identifiability is leave-one-programme-out robust",
+    "claiming quantitative-only necessity or sufficiency failure is leave-one-programme-out robust"
   ],
   "remaining_scientific_gate": [
     "current full CI green with Figure 5",
@@ -328,5 +330,25 @@
     "quantitative_IF_effective_mating_measured": 0,
     "quantitative_IF_programmes": 8,
     "claim": "fragmentation may preserve interaction quantity while degrading transfer identity compatibility or mating quality"
+  },
+  "interaction_decline_logic": {
+    "status": "frozen_16_programme_mixed_tier_LOO_robust_existence",
+    "checker": "scripts/check_interaction_decline_necessity_sufficiency.py",
+    "checker_blob_sha": "1c0c3ad7f5a593abea1a589306d2ba1dd56c8347",
+    "note": "manuscript/INTERACTION_DECLINE_NECESSITY_SUFFICIENCY_2026-10-03.md",
+    "note_blob_sha": "6c138f11e1ccf60bf0aa433c3a49990940b9e862",
+    "necessity_counterexample_programmes": [
+      "ML015",
+      "QIF008"
+    ],
+    "sufficiency_counterexample_programmes": [
+      "P2_CF01_MILKWEED_URBAN_2023",
+      "QIF002",
+      "QIF003"
+    ],
+    "mixed_tier_leave_one_out_both_failures": true,
+    "quantitative_tier_leave_one_out": false,
+    "prevalence_inference": false,
+    "claim": "interaction decline is neither necessary nor sufficient for reproductive decline in the frozen mixed-tier evidence universe"
   }
 }
