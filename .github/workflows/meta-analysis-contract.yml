@@ -95,6 +95,9 @@ on:
       - 'scripts/check_if_sign_uncertainty.py'
       - 'scripts/check_qualitative_external_if_audit.py'
       - 'scripts/check_if_translation_map.py'
+      - 'scripts/check_if_translation_influence.py'
+      - 'scripts/check_fragmentation_sentinel_sufficiency.py'
+      - 'manuscript/FRAGMENTATION_SENTINEL_SUFFICIENCY_2026-10-03.md'
       - 'evidence/meta_extraction/if_translation_map_v1.csv'
       - 'manuscript/IF_TRANSLATION_NONIDENTIFIABILITY_2026-10-03.md'
       - 'evidence/meta_extraction/qualitative_external_if_audit_v1.csv'
@@ -177,6 +180,10 @@ jobs:
         run: python scripts/check_qualitative_external_if_audit.py
       - name: Audit frozen I-F translation non-identifiability
         run: python scripts/check_if_translation_map.py
+      - name: Audit I-F translation influence
+        run: python scripts/check_if_translation_influence.py
+      - name: Audit fragmentation sentinel sufficiency
+        run: python scripts/check_fragmentation_sentinel_sufficiency.py
       - name: Check covariance robustness and certification boundary
         run: python scripts/check_covariance_robustness.py
       - name: Validate unified ecological process-function census
