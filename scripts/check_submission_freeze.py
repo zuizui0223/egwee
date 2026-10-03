@@ -27,6 +27,9 @@ PROXY_TABLE = ROOT / "evidence/meta_extraction/scale_stable_quantity_function_pr
 PROXY_CHECKER = ROOT / "scripts/check_scale_stable_quantity_function_proxy_failure.py"
 PROXY_NOTE = ROOT / "manuscript/SCALE_STABLE_QUANTITY_FUNCTION_PROXY_FAILURE_2026-09-29.md"
 NOVELTY_AUDIT = ROOT / "manuscript/IF_PROXY_FAILURE_NOVELTY_AUDIT_2026-10-01.md"
+QUAL_EXTERNAL_TABLE = ROOT / "evidence/meta_extraction/qualitative_external_if_audit_v1.csv"
+QUAL_EXTERNAL_NOTE = ROOT / "manuscript/QUALITATIVE_EXTERNAL_IF_AUDIT_2026-10-03.md"
+QUAL_EXTERNAL_CHECKER = ROOT / "scripts/check_qualitative_external_if_audit.py"
 
 FIGURE_BUILDER = ROOT / "scripts/build_journal_of_ecology_figures.py"
 FIGURE_CAPTIONS = ROOT / "manuscript/JOURNAL_OF_ECOLOGY_FIGURE_CAPTIONS.md"
@@ -52,24 +55,24 @@ def main() -> None:
     anon = ANON_BUILDER.read_text(encoding="utf-8")
 
     assert m["schema_version"] == 6
-    assert m["updated_on"] == "2026-10-01"
-    assert m["status"] == "scientific_validation_green_human_admin_pending"
+    assert m["updated_on"] == "2026-10-03"
+    assert m["status"] == "scientific_validation_pending_after_qualitative_external_audit"
     assert m["submission_ready"] is False
     assert m["supersedes_submission_freeze"] is True
     sv = m["scientific_validation"]
-    assert sv["conclusion"] == "success"
-    assert sv["current_revision_status"] == "validated"
-    assert sv["current_revision_validated"] is True
-    assert sv["full_contract_run_id"] == 37089505747
-    assert sv["proxy_failure_audit"] is True
-    assert sv["sign_uncertainty_audit"] is True
-    assert len(m["remaining_scientific_gate"]) == 0
+    assert sv["previous_conclusion"] == "success"
+    assert sv["previous_green_run_id"] == 37089986196
+    assert sv["current_revision_status"] == "pending"
+    assert sv["current_revision_validated"] is False
+    assert "qualitative external" in sv["reason"].lower()
+    assert len(m["remaining_scientific_gate"]) == 1
+    assert "Supplementary Table S6 qualitative external audit" in m["remaining_scientific_gate"][0]
 
     man = m["manuscript"]
     assert git_blob_sha(MANUSCRIPT) == man["blob_sha"]
     assert man["title"] == "Habitat fragmentation across plant reproductive life cycles: scale-stable deterioration and recurrent interaction–function proxy failure"
     assert man["target_journal"] == "Journal of Ecology"
-    assert man["main_text_words"] == 7811
+    assert man["main_text_words"] == 7878
     assert man["abstract_words"] == 334
     assert manuscript.startswith("# " + man["title"])
 
@@ -126,6 +129,17 @@ def main() -> None:
     assert len(proxy["plant_families"]) == 3
     assert git_blob_sha(NOVELTY_AUDIT) == m["proxy_failure_novelty_audit"]["blob_sha"]
 
+    qual = m["qualitative_external_if_audit"]
+    assert git_blob_sha(QUAL_EXTERNAL_TABLE) == qual["table_blob_sha"]
+    assert git_blob_sha(QUAL_EXTERNAL_NOTE) == qual["note_blob_sha"]
+    assert git_blob_sha(QUAL_EXTERNAL_CHECKER) == qual["checker_blob_sha"]
+    assert qual["programmes"] == 8
+    assert qual["qualitative_nonmonotonic"] == 5
+    assert qual["resilient_no_detected_loss"] == 2
+    assert qual["concordant_population_size_effect"] == 1
+    assert qual["hidden_function_loss"] == 1
+    assert qual["status"] == "frozen_denominator_qualitative_context_not_quantitative_replication"
+
     geom = m["cross_scale_process_function_geometry"]
     assert git_blob_sha(BOTTLENECK_SCALE_TABLE) == geom["scale_table_blob_sha"]
     assert git_blob_sha(BOTTLENECK_SCALE_NOTE) == geom["result_note_blob_sha"]
@@ -152,6 +166,8 @@ def main() -> None:
     assert "check_if_sign_geometry.py" in anon
     assert "check_if_sign_uncertainty.py" in anon
     assert "scale_stable_quantity_function_proxy_failure_v1.csv" in anon
+    assert "qualitative_external_if_audit_v1.csv" in anon
+    assert "table_s6_qualitative_external_if_audit.csv" in builder
     assert "figure3_if_sign_geometry.svg" in anon
 
     claims = json.dumps(m)
@@ -174,9 +190,9 @@ def main() -> None:
     assert "Scale-stable interaction–function proxy failure" in note
     assert "0/6 have both marginal endpoint directions individually resolved" in note
 
-    assert "scale_aware_proxy_failure_scientific_validation_green_human_admin_pending" in metadata
-    assert "Scientific validation complete" in metadata
-    assert "current automated count: 7811 words" in metadata
+    assert "scale_aware_proxy_failure_qualitative_external_validation_pending" in metadata
+    assert "Scientific revalidation pending" in metadata
+    assert "current automated count: 7878 words" in metadata
 
     assert "scale-stable deterioration and recurrent interaction–function proxy failure" in manuscript
     assert "all **17/17 primary direct effects were negative on both oriented g and oriented lnRR**" in manuscript
