@@ -125,7 +125,7 @@
     "supplementary_table_s6": "manuscript/tables/table_s6_qualitative_external_if_audit.csv"
   },
   "anonymous_package": {
-    "builder_blob_sha": "b889fde5f9e0478efafda01da8bb79dcc61fb054",
+    "builder_blob_sha": "d2f267eaa727a613fbdbef45606eae569f54f106",
     "reproduces_authoritative_raw_delta_scale_audit": true,
     "reproduces_bottleneck_cross_scale_audit": true,
     "reproduces_historical_g": true,
