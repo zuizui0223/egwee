@@ -2,7 +2,7 @@
 
 ## Automated scientific package
 
-The prior scale-aware proxy-failure package is validated, but the newly added frozen qualitative S6 audit is awaiting current full-CI revalidation. The intended reviewer-facing package includes:
+The complete scale-aware scientific package is validated in full CI run `37112411828`. The reviewer-facing package includes:
 
 - ecology-first manuscript title, abstract, keywords and IMRaD structure;
 - primary 5-cluster / 17-effect synthesis and influence analysis;
@@ -11,12 +11,13 @@ The prior scale-aware proxy-failure package is validated, but the newly added fr
 - Figure 4 estimand-scale sensitivity and main Table 2 g-versus-lnRR sensitivity;
 - the 12-programme registered-scale process–function census retained as Supplementary Table S4 / exploratory provenance;
 - interaction-measurement coverage audit (8/8 quantity-level, 0/8 effective-mating-quality);
-- Figures 1–4, Tables 1–2, Supplementary Tables S1–S4 and Supplementary Figure S1;
+- frozen 16-programme interaction–function translation map (8 quantitative + 8 qualitative-blocked), Supplementary Figure S2 / Table S7;
+- Figures 1–4, Tables 1–2, Supplementary Tables S1–S7 and Supplementary Figures S1–S2;
 - double-anonymous main manuscript check;
 - anonymous reviewer code/data package reproduction;
 - fresh-validation preregistration kept separate from the current discovery/synthesis manuscript.
 
-Do not proceed to human-only submission completion until the qualitative external S6 revision and anonymous reviewer package are green in the current full CI.
+The scientific gate is closed. Do not reopen scientific files merely to fill administrative metadata; proceed only with the human submission fields below.
 
 ## Human-only items still required
 
@@ -134,6 +135,6 @@ Administrative state:
 
 ## Submission boundary
 
-Current blockers are: (1) scientific revalidation of the frozen qualitative I–F S6 package; then (2) human administration: author list, affiliations, corresponding-author details, contributions, funding/permits, conflicts and final approval.
+Current blockers are **human administration only**: author list, affiliations, corresponding-author details, contributions, funding/permits, conflicts and final approval.
 
 Human administrative fields are intentionally not auto-filled from account information, repository history or inferred identity.
