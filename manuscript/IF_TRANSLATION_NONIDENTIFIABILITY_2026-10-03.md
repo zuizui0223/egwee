@@ -61,6 +61,21 @@ They establish a repeated **false-reassurance failure mode**: interaction quanti
 
 The 16-programme translation map adds a different result. It shows that the broader I→F mapping is not one-to-one even when the quantitative admission filter is relaxed only to source-explicit qualitative geometry. Thus the proxy-failure signal is not simply an artefact of which programmes supplied reconstructable variances/covariances.
 
+## Leave-one-programme-out robustness
+
+The full 16-programme translation non-identifiability result is not carried by one source.
+
+After deleting any single programme, the remaining map still contains **at least two interaction evidence states that map to multiple reproductive-function states**.
+
+Thus the existence of a many-to-many translation structure is leave-one-programme-out robust within the frozen mixed-tier evidence universe.
+
+The quantitative-only tier is weaker. Its category-level ambiguity is carried by the unresolved opposite-sign point estimate in common milkweed; removing that programme leaves no quantitative interaction category with more than one programme-level F category. This does **not** erase the three representation-stable quantitative false-reassurance anchors, which are a different claim based on resolved within-programme contrasts.
+
+Therefore the hierarchy is:
+
+1. **full 16-programme map:** robust existence of non-identifying translation;
+2. **quantitative 8-programme map:** no robust category-frequency or multi-state mapping claim;
+3. **quantitative resolved evidence:** three stable false-reassurance programmes.
 ## Why this is not a prevalence analysis
 
 The evidence tiers differ in precision and estimand:
