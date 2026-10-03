@@ -103,6 +103,23 @@ One row per primary direct cluster plus FULL and OMIT_ML001 cross-cluster rows. 
 The table must show that the omit-ML001 classification crosses the 0.05 threshold across estimand/dependence treatments. It must not imply that lnRR is the uniquely correct scale. The former carried-rho sensitivity is provenance only and is not shown as the authoritative lnRR covariance reconstruction.
 
 
+## Supplementary Table S6 — Frozen qualitative external I–F audit
+
+**Purpose:** expose the complete pre-existing denominator of design-valid but quantitatively blocked direct I–F programmes so qualitative corroboration cannot be selected post outcome.
+
+Required content:
+
+- exactly 8 independent programmes: IFQ003, IFQ006, IFQ007, IFQ008, IFQ015, IFQ020, IFQ022 and ML007;
+- source-reported I direction/status and F direction/status;
+- quantitative blocker that prevented effect admission;
+- qualitative geometry without manufacturing effect sizes.
+
+Required safeguards:
+
+- `no detected effect` is never recoded as zero, equality or coupling;
+- the eight rows do not increment the quantitative I–F denominator;
+- 5/8 non-monotonic qualitative patterns are descriptive and must not be interpreted as prevalence;
+- retain the two resilient/no-detected-loss systems and the concordant Phyteuma system as counterevidence to one-sided proxy failure.
 ## Supplementary Table S5 — Scale-stable I–F sign geometry
 
 **Purpose:** expose the scale-stable qualitative interaction→function result without treating dependent panels as independent studies.
