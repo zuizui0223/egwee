@@ -61,6 +61,7 @@ def main() -> None:
     assert m["updated_on"] == "2026-10-03"
     assert m["status"] in {
         "scale_aware_proxy_failure_translation_map_validation_pending",
+        "scale_aware_sentinel_figure5_revision_validation_pending",
         "scale_aware_proxy_failure_scientific_validation_green_human_admin_pending",
     }
     assert m["submission_ready"] is False
@@ -74,6 +75,13 @@ def main() -> None:
         assert sv["figures_tables_reproduced"] is False
         assert sv["anonymous_reviewer_package_reproduced"] is False
         assert len(m["remaining_scientific_gate"]) == 1
+    elif m["status"] == "scale_aware_sentinel_figure5_revision_validation_pending":
+        assert sv["current_revision_status"] == "pending"
+        assert sv["current_revision_validated"] is False
+        assert sv["translation_map_audit"] is True
+        assert sv["figures_tables_reproduced"] is False
+        assert sv["anonymous_reviewer_package_reproduced"] is False
+        assert len(m["remaining_scientific_gate"]) == 2
     else:
         assert sv["current_revision_status"] == "validated"
         assert sv["current_revision_validated"] is True
@@ -87,8 +95,8 @@ def main() -> None:
     assert git_blob_sha(MANUSCRIPT) == man["blob_sha"]
     assert man["title"] == "Habitat fragmentation across plant reproductive life cycles: scale-stable deterioration and recurrent interaction–function proxy failure"
     assert man["target_journal"] == "Journal of Ecology"
-    assert man["main_text_words"] == 7992
-    assert man["abstract_words"] == 334
+    assert man["main_text_words"] == 7999
+    assert man["abstract_words"] == 350
     assert manuscript.startswith("# " + man["title"])
 
     g = m["historical_primary_g"]
@@ -176,6 +184,8 @@ def main() -> None:
     assert git_blob_sha(FIGURE_CAPTIONS) == ft["captions_blob_sha"]
     assert ft["main_figure3"] == "manuscript/figures/figure3_if_sign_geometry.svg"
     assert ft["main_figure4"] == "manuscript/figures/figure4_estimand_scale_sensitivity.svg"
+    assert ft["main_figure5"] == "manuscript/figures/figure5_direction_translation_synthesis.svg"
+    assert ft["main_figure_count"] == 5
     assert ft["main_table2"] == "manuscript/tables/table2_estimand_scale_sensitivity.csv"
     assert ft["supplementary_figure_s2"] == "manuscript/figures/figure_s2_if_translation_map.svg"
     assert ft["supplementary_table_s7"] == "manuscript/tables/table_s7_if_translation_map.csv"
@@ -183,6 +193,7 @@ def main() -> None:
     assert "PROXY_FAILURE" in builder
     assert "Figure 3. Scale-stable interaction–function proxy failure and sign uncertainty" in captions
     assert "Figure 4. Relative response geometry is estimand-scale dependent" in captions
+    assert "Figure 5. Directional coherence does not imply interaction–function identifiability" in captions
     assert "Supplementary Figure S2. Frozen interaction–function translation map" in captions
     assert "Supplementary Table S7. Frozen interaction–function translation map" in captions
 
@@ -199,6 +210,7 @@ def main() -> None:
     assert "check_if_translation_map.py" in anon
     assert "if_translation_map_v1.csv" in anon
     assert "figure_s2_if_translation_map.svg" in anon
+    assert "figure5_direction_translation_synthesis.svg" in anon
     assert "table_s7_if_translation_map.csv" in anon
     assert "table_s6_qualitative_external_if_audit.csv" in builder
     assert "figure3_if_sign_geometry.svg" in anon
@@ -226,17 +238,22 @@ def main() -> None:
         assert "**STATUS: SCIENTIFIC REVALIDATION PENDING.**" in note
         assert "scale_aware_proxy_failure_translation_map_validation_pending" in metadata
         assert "Scientific revalidation pending" in metadata
+    elif m["status"] == "scale_aware_sentinel_figure5_revision_validation_pending":
+        assert "**STATUS: CURRENT REVISION NOT SUBMISSION-READY.**" in note
+        assert "scale_aware_sentinel_figure5_revision_validation_pending" in metadata
+        assert "Current revision validation pending" in metadata
     else:
         assert "**STATUS: SCIENTIFICALLY VALIDATED, HUMAN ADMINISTRATION PENDING.**" in note
         assert "scale_aware_proxy_failure_scientific_validation_green_human_admin_pending" in metadata
         assert "Scientific validation complete" in metadata
     assert "Supplementary Figure S2" in note
-    assert "current automated count: 7992 words" in metadata
+    assert "current automated count: 7999 words" in metadata
 
     assert "scale-stable deterioration and recurrent interaction–function proxy failure" in manuscript
     assert "all **17/17 primary direct effects were negative on both oriented g and oriented lnRR**" in manuscript
-    assert "three programme-level I–F mismatches that remain stable" in manuscript
+    assert "three representation-stable resolved mismatches all had reproductive function worse" in manuscript
     assert "none has both marginal endpoint directions individually resolved at 95%" in manuscript
+    assert "directional coherence without translational coherence" in manuscript
 
     assert "SUPERSEDED" not in scale_result
     assert "raw-unit delta covariance" in scale_result
