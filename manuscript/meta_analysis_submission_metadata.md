@@ -5,7 +5,7 @@
 - **Working title:** Habitat fragmentation across plant reproductive life cycles: scale-stable deterioration and recurrent interaction–function proxy failure
 - **Source manuscript:** `manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md`
 - **Protocol:** `manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md`
-- **Submission state:** `scale_aware_proxy_failure_translation_map_validation_pending`
+- **Submission state:** `scale_aware_proxy_failure_scientific_validation_green_human_admin_pending`
 - **Article type:** Research Article / empirical research synthesis
 - **Primary target journal:** **Journal of Ecology**
 - **Fallback venues:** Ecology (Article or Concepts & Synthesis, if reframed for broader ecological generality); Oikos (Meta-analysis)
@@ -38,7 +38,7 @@ The paper now distinguishes scale-robust response direction from scale-dependent
 
 Finite-model NEE/EGWE work is not the framing, estimand, admission rule or inferential target of this paper. It may be cited only as downstream comparative theory where useful.
 
-> **Scientific revalidation pending:** the denominator-frozen qualitative I–F audit, Supplementary Table S6, scale-aware figures/tables, double-anonymous manuscript and anonymous reviewer package all reproduce in current full CI run `37109896871`. Submission remains pending only on human author/declaration metadata and final approval.
+> **Scientific validation complete:** full CI run `37112411828` reproduces the scale-aware manuscript, frozen 16-programme I–F translation map, Supplementary Figure S2 / Table S7, double-anonymous manuscript and anonymous reviewer package. Submission remains pending only on human author/declaration metadata and final approval.
 
 ## Current quantitative state
 
