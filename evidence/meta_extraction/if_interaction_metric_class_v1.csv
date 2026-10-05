@@ -1,0 +1,17 @@
+programme_id,evidence_tier,system,interaction_metric_class,interaction_metric_note
+ML020,quantitative,Aizen-Feinsinger Chaco programme,pollen_quantity,pollen tubes per flower/style
+P2_CF01_SEVENELLO_2026,quantitative,Sevenello edge-core annual forbs,visitation_abundance,all bees per transect
+P2_CF01_BERGSDORF_KAKAMEGA_2006,quantitative,Kakamega multi-species programme,visitation_abundance,standardized pollinator visit occurrence
+ML015,quantitative,Eucalyptus wandoo,pollen_quantity,pollen tubes at base of style
+P2_CF01_CARDIOPETALUM_2012,quantitative,Cardiopetalum calophyllum,visitation_abundance,pollinator abundance per flower
+P2_CF01_ZURICH_2026,quantitative,Zurich BetterBlooms phytometers,visitation_abundance,all-pollinator capture rate per 9 h
+P2_CF01_MILKWEED_URBAN_2023,quantitative,Common milkweed Toronto gradient,visitation_abundance,total pollinator abundance per surveyed plant
+P2_CF01_PRITCHARD_2005,quantitative,Custard-apple orchard isolation,visitation_abundance,total floral visitor abundance
+QIF001,qualitative,Erica discolor,visitation_abundance,source-reported visitation response
+QIF002,qualitative,Haloxylon ammodendron,visitation_abundance,pollinator visitation frequency
+QIF003,qualitative,Caragana korshinskii,visitation_abundance,pollinator activity / visitation
+QIF004,qualitative,Lithraea molleoides,pollination_level,source-reported pollination level
+QIF005,qualitative,Myrtus communis,visitation_abundance,visitation and pollinator assemblage
+QIF006,qualitative,Phyteuma spicatum,visitation_abundance,pollinator visitation
+QIF007,qualitative,Psychotria suterella,visitation_abundance,visitor richness and frequency
+QIF008,qualitative,Hulting five-species fragmentation experiment,visitation_abundance,pollination rate
