@@ -314,7 +314,7 @@ def main() -> None:
     assert "three representation-stable resolved mismatches all had reproductive function worse" in manuscript
     assert "none has both marginal endpoint directions individually resolved at 95%" in manuscript
     assert "directional coherence without translational coherence" in manuscript
-    assert "Interaction decline is neither necessary nor sufficient for reproductive decline" in manuscript
+    assert "detected interaction decline is neither necessary nor sufficient for detected reproductive decline" in manuscript
 
     assert "SUPERSEDED" not in scale_result
     assert "raw-unit delta covariance" in scale_result
