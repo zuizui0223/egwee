@@ -26,6 +26,7 @@ FILES = [
     "manuscript/IF_PROXY_FAILURE_NOVELTY_AUDIT_2026-10-01.md",
     "manuscript/QUALITATIVE_EXTERNAL_IF_AUDIT_2026-10-03.md",
     "manuscript/IF_TRANSLATION_NONIDENTIFIABILITY_2026-10-03.md",
+    "manuscript/IF_TRANSLATION_CATEGORY_SENSITIVITY_2026-10-05.md",
     "manuscript/INTERACTION_DECLINE_NECESSITY_SUFFICIENCY_2026-10-03.md",
     "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-29_EFFECT_SCALE.md",
     "manuscript/ECOLOGICAL_IF_DIRECTION_CENSUS_2026-09-27.md",
@@ -45,6 +46,7 @@ FILES = [
     "scripts/check_if_sign_uncertainty.py",
     "scripts/check_qualitative_external_if_audit.py",
     "scripts/check_if_translation_map.py",
+    "scripts/check_if_translation_category_sensitivity.py",
     "scripts/check_interaction_decline_necessity_sufficiency.py",
     "scripts/check_ecological_if_programme_census.py",
     "scripts/check_ecological_process_function_programme_census.py",
@@ -309,6 +311,16 @@ def verify_reproduction() -> None:
     )
     if "IF_TRANSLATION_MAP_OK programmes=16 quantitative=8 qualitative=8 unique_sources=16 I_lower_maps_to=lower+higher+no_detected_loss I_no_detected_loss_maps_to=lower+no_detected_loss I_higher_maps_to=lower+similar resolved_downstream_quantitative=3 qualitative_hidden_function_loss=1 prevalence_inference=false" not in translation_map.stdout:
         raise AssertionError(translation_map.stdout)
+
+    translation_category_sensitivity = subprocess.run(
+        [sys.executable, "scripts/check_if_translation_category_sensitivity.py"],
+        cwd=PKG,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    if "IF_TRANSLATION_CATEGORY_SENSITIVITY_OK full_programmes=16 strict_programmes=8 removed_no_detected_or_mixed=true lower_maps=lower+higher higher_maps=lower+similar strict_LOO_min_ambiguous_inputs=1 prevalence_inference=false" not in translation_category_sensitivity.stdout:
+        raise AssertionError(translation_category_sensitivity.stdout)
 
     interaction_logic = subprocess.run(
         [sys.executable, "scripts/check_interaction_decline_necessity_sufficiency.py"],
