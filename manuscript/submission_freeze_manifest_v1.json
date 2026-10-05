@@ -119,7 +119,7 @@
   },
   "figure_table_revision": {
     "builder_blob_sha": "a80ad4985755a451ec8ded2f8802faaf2269ac1a",
-    "captions_blob_sha": "39cb890c03bcaa9c5072d5dd0c974246b6dd719c",
+    "captions_blob_sha": "5ad5257166d9fe2e6b4ddf8e5fcfc6613529bc24",
     "main_figure4": "manuscript/figures/figure4_estimand_scale_sensitivity.svg",
     "main_table2": "manuscript/tables/table2_estimand_scale_sensitivity.csv",
     "supplementary_table_s4": "manuscript/tables/table_s4_process_function_census.csv",
@@ -132,7 +132,7 @@
     "main_figure_count": 5
   },
   "anonymous_package": {
-    "builder_blob_sha": "1fa309e4b631802a8e860f8b04aab8d1e1889ec5",
+    "builder_blob_sha": "209017b646edf86d26ec9452bc524dfe8ee2058c",
     "reproduces_authoritative_raw_delta_scale_audit": true,
     "reproduces_bottleneck_cross_scale_audit": true,
     "reproduces_historical_g": true,
