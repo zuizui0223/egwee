@@ -18,11 +18,11 @@ Dauber et al. (2010) examined flower visitation and seed set across 10 wild plan
 
 Therefore the present manuscript does not claim that species-specific visitation or seed-set responses are newly discovered.
 
-### 3. Visitation is already known to be an imperfect proxy for pollination effectiveness
+### 3. Visitation is already known to be an imperfect proxy for pollination effectiveness and reproductive output
 
-King et al. (2013) showed that visitation data can misrepresent pollinator effectiveness and that direct single-visit pollen deposition gives different information. Subsequent work has likewise shown that more visitors need not imply greater reproductive output.
+King et al. (2013) showed that visitation data can misrepresent pollinator effectiveness and that direct single-visit pollen deposition gives different information. More directly in a fragmentation context, Lázaro et al. (2020) found no direct link between visitation rates and reproductive success in four focal wild plant species and concluded that understanding seed production requires going beyond overall interaction frequencies.
 
-Therefore 'visitation is not enough' is not itself the novel result.
+Therefore neither 'visitation is not enough' nor 'fragmentation can affect seed production independently of visitation' is itself the novel result.
 
 ### 4. Response–effect ecology already provides the general conceptual distinction
 
@@ -105,7 +105,7 @@ This supports a practical ecological inference:
 
 > **Interaction quantity can provide false reassurance about reproductive function under fragmentation.**
 
-The novelty is the cross-program, fragmentation-specific, scale-audited recurrence of that failure mode—not the general idea that visitors differ in pollination effectiveness.
+The novelty is the **frozen cross-program translation test**: matched fragmentation programmes are placed on one interaction-state → reproductive-state map, quantitative and blocked qualitative evidence tiers remain explicit, both logical counterexample classes are retained, and mixed-tier non-identifiability is leave-one-programme robust. The contribution is therefore the audited many-to-many translation structure, not the general idea that visitation can fail to predict reproduction.
 
 ## Mechanistic interpretation
 
@@ -167,3 +167,8 @@ Lead the paper with scale-stable direction in the primary five-cluster stream an
 Keep the six opposite-sign panels and within-programme species heterogeneity as descriptive, hypothesis-generating support.
 
 Do not use 'species-specific translation' as the sole novelty claim.
+
+
+## Additional nearest-neighbour
+
+- Lázaro, A., Fuster, F., Alomar, D. & Totland, Ø. (2020). Disentangling direct and indirect effects of habitat fragmentation on wild plants' pollinator visits and seed production. *Ecological Applications*, 30, e02099. https://doi.org/10.1002/eap.2099
