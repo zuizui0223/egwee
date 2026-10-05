@@ -99,7 +99,8 @@
     "opposite-sign I-F panels occur in both directions across five independent programmes",
     "three shared-exposure multi-panel programmes contain more than one I-F sign geometry among focal species or panels",
     "the frozen 16-programme map has leave-one-programme-out robust interaction-to-function non-identifiability",
-    "interaction quantity can produce both false reassurance and apparent over-warning about reproductive function"
+    "interaction quantity can produce both false reassurance and apparent over-warning about reproductive function",
+    "translation non-identifiability persists after removing no-detected-loss and mixed programme states"
   ],
   "scale_sensitive_claims": [
     "relative layer response amplitude",
@@ -363,5 +364,19 @@
     "quantitative_tier_leave_one_out": false,
     "prevalence_inference": false,
     "claim": "interaction decline is neither necessary nor sufficient for reproductive decline in the frozen mixed-tier evidence universe"
+  },
+  "if_translation_category_sensitivity": {
+    "status": "strict_category_exclusion_leave_one_out_robust",
+    "checker": "scripts/check_if_translation_category_sensitivity.py",
+    "checker_blob_sha": "7d0fd7d893df571f745a5550aa1e01d7ceca5252",
+    "note": "manuscript/IF_TRANSLATION_CATEGORY_SENSITIVITY_2026-10-05.md",
+    "note_blob_sha": "7ed816f93c3fe96e33c2f7c32f9340379ba0291f",
+    "strict_programmes": 8,
+    "removed_categories": [
+      "no_detected_loss",
+      "mixed"
+    ],
+    "strict_LOO_nonidentifiability": true,
+    "prevalence_inference": false
   }
 }
