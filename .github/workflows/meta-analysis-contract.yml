@@ -96,6 +96,8 @@ on:
       - 'scripts/check_qualitative_external_if_audit.py'
       - 'scripts/check_if_translation_map.py'
       - 'scripts/check_if_translation_influence.py'
+      - 'scripts/check_if_translation_category_sensitivity.py'
+      - 'manuscript/IF_TRANSLATION_CATEGORY_SENSITIVITY_2026-10-05.md'
       - 'scripts/check_fragmentation_sentinel_sufficiency.py'
       - 'scripts/check_interaction_decline_necessity_sufficiency.py'
       - 'manuscript/INTERACTION_DECLINE_NECESSITY_SUFFICIENCY_2026-10-03.md'
@@ -186,6 +188,8 @@ jobs:
         run: python scripts/check_if_translation_map.py
       - name: Audit I-F translation influence
         run: python scripts/check_if_translation_influence.py
+      - name: Audit I-F translation category sensitivity
+        run: python scripts/check_if_translation_category_sensitivity.py
       - name: Audit fragmentation sentinel sufficiency
         run: python scripts/check_fragmentation_sentinel_sufficiency.py
       - name: Audit necessity and sufficiency of interaction decline
