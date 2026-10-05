@@ -27,6 +27,7 @@ FILES = [
     "manuscript/QUALITATIVE_EXTERNAL_IF_AUDIT_2026-10-03.md",
     "manuscript/IF_TRANSLATION_NONIDENTIFIABILITY_2026-10-03.md",
     "manuscript/IF_TRANSLATION_CATEGORY_SENSITIVITY_2026-10-05.md",
+    "manuscript/IF_SENTINEL_DETERMINISM_2026-10-05.md",
     "manuscript/INTERACTION_DECLINE_NECESSITY_SUFFICIENCY_2026-10-03.md",
     "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-29_EFFECT_SCALE.md",
     "manuscript/ECOLOGICAL_IF_DIRECTION_CENSUS_2026-09-27.md",
@@ -47,6 +48,7 @@ FILES = [
     "scripts/check_qualitative_external_if_audit.py",
     "scripts/check_if_translation_map.py",
     "scripts/check_if_translation_category_sensitivity.py",
+    "scripts/check_if_sentinel_determinism.py",
     "scripts/check_interaction_decline_necessity_sufficiency.py",
     "scripts/check_ecological_if_programme_census.py",
     "scripts/check_ecological_process_function_programme_census.py",
@@ -321,6 +323,16 @@ def verify_reproduction() -> None:
     )
     if "IF_TRANSLATION_CATEGORY_SENSITIVITY_OK full_programmes=16 strict_programmes=8 removed_no_detected_or_mixed=true lower_maps=lower+higher higher_maps=lower+similar strict_LOO_min_ambiguous_inputs=1 prevalence_inference=false" not in translation_category_sensitivity.stdout:
         raise AssertionError(translation_category_sensitivity.stdout)
+
+    sentinel_determinism = subprocess.run(
+        [sys.executable, "scripts/check_if_sentinel_determinism.py"],
+        cwd=PKG,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    if "IF_SENTINEL_DETERMINISM_OK programmes=16 full_min_misclassified=5 strict_programmes=8 strict_min_misclassified=2 strict_quantitative_programmes=5 strict_quantitative_min_misclassified=1 full_LOO_min_misclassified=4 strict_LOO_min_misclassified=1 prevalence_inference=false" not in sentinel_determinism.stdout:
+        raise AssertionError(sentinel_determinism.stdout)
 
     interaction_logic = subprocess.run(
         [sys.executable, "scripts/check_interaction_decline_necessity_sufficiency.py"],
