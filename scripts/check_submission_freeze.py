@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -50,6 +51,12 @@ def git_blob_sha(path: Path) -> str:
     data = path.read_bytes()
     payload = f"blob {len(data)}\0".encode("utf-8") + data
     return hashlib.sha1(payload).hexdigest()
+
+def word_count(text: str) -> int:
+    text = re.sub(r"`[^`]*`", " ", text)
+    text = re.sub(r"\[[^\]]*\]\([^\)]*\)", " ", text)
+    return len(re.findall(r"[A-Za-z0-9][A-Za-z0-9'’._–—/-]*", text))
+
 
 
 def main() -> None:
@@ -101,8 +108,16 @@ def main() -> None:
     assert git_blob_sha(MANUSCRIPT) == man["blob_sha"]
     assert man["title"] == "Habitat fragmentation across plant reproductive life cycles: scale-stable deterioration and recurrent interaction–function proxy failure"
     assert man["target_journal"] == "Journal of Ecology"
-    assert man["main_text_words"] == 8000
-    assert man["abstract_words"] == 348
+    abstract_start = manuscript.index("## Abstract") + len("## Abstract")
+    abstract_end = manuscript.index("## Keywords", abstract_start)
+    abstract_words = word_count(manuscript[abstract_start:abstract_end].strip())
+    main_start = manuscript.index("## Introduction")
+    main_words = word_count(manuscript[main_start:])
+
+    assert man["main_text_words"] == main_words
+    assert man["abstract_words"] == abstract_words
+    assert main_words <= 8000
+    assert abstract_words <= 350
     assert manuscript.startswith("# " + man["title"])
 
     g = m["historical_primary_g"]
@@ -292,7 +307,7 @@ def main() -> None:
         assert "scale_aware_proxy_failure_scientific_validation_green_human_admin_pending" in metadata
         assert "Scientific validation complete" in metadata
     assert "Supplementary Figure S2" in note
-    assert "current automated count: 8000 words" in metadata
+    assert f"current automated count: {main_words} words" in metadata
 
     assert "scale-stable deterioration and recurrent interaction–function proxy failure" in manuscript
     assert "all **17/17 primary direct effects were negative on both oriented g and oriented lnRR**" in manuscript
