@@ -50,9 +50,14 @@ The former life-cycle-bottleneck Figure 4 / Table 2 are superseded as main infer
 
 The revised main package uses:
 
+- Figure 3: scale-stable interaction–function proxy failure and sign-uncertainty hierarchy;
 - Figure 4: estimand-scale sensitivity;
+- Figure 5: directional coherence versus interaction→function identifiability;
 - Table 2: cluster/Fisher g-versus-lnRR sensitivity summary;
-- Supplementary Table S4: the former 12-programme registered-scale process–function census, retained for transparency and hypothesis generation.
+- Supplementary Table S4: historical registered-scale process–function census;
+- Supplementary Table S6: frozen qualitative external I–F audit;
+- Supplementary Table S7: frozen 16-programme I–F translation map;
+- Supplementary Figure S2: interaction→function translation topology.
 
 ## Canonical audit files
 
@@ -76,9 +81,11 @@ Eight already-screened but quantitatively blocked programmes are now retained as
 These counts are descriptive only. No detected effect is not coded as zero/equality, the eight rows do not increment the quantitative denominator, and their category frequencies are not prevalence estimates. The audit is reproduced as Supplementary Table S6.
 ## Submission gate
 
-Journal of Ecology remains the target. The scientific gate is **closed successfully**: full CI run `37089505747` passed with the scale-aware proxy-failure manuscript, uncertainty-aware Figure 3, Figure 4/Table 2, supplementary outputs, double-anonymous check and anonymous reviewer package.
+Journal of Ecology remains the target.
 
-The only remaining gate is human administration: final authorship, affiliations, corresponding-author details, contributions, funding/permits, conflicts and all-author approval. `submission_ready=false` remains intentional until those fields are approved.
+A previous scale-aware revision passed full CI, but the current revision promotes the frozen 16-programme sentinel/translation synthesis to main Figure 5. **That promotion reopens scientific validation.** The current scientific gate closes only when the exact Figure-5 revision passes the full contract, including double-anonymous checks, Figures 1–5, Tables 1–2, Supplementary Figure S2, Supplementary Tables S1–S7 and anonymous reviewer-package reproduction.
+
+Human administration is a separate later gate: final authorship, affiliations, corresponding-author details, contributions, funding/permits, conflicts and all-author approval. `submission_ready=false` remains intentional until both the current scientific validation and those human fields are complete.
 
 
 ## Scale-stable interaction–function sign geometry
