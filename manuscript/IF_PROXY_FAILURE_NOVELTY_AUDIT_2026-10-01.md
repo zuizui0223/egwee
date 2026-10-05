@@ -97,6 +97,15 @@ The eight quantitatively admitted programmes and eight non-overlapping qualitati
 
 The evidence tiers remain separate: the map demonstrates multiple possible translations but does not estimate their frequencies.
 
+### G. Post-freeze nearest-neighbour stress test is not added to the denominator
+
+During the later novelty audit, Lázaro et al. (2020; doi:10.1002/eap.2099) was identified as a particularly close fragmentation-specific study. It used structural equation models across 24 agricultural-landscape fragments and four focal wild plant species, found no direct link between visitation rates and reproductive success, and found direct, species-specific landscape effects on seed production.
+
+This study was **not part of the frozen 16-programme translation denominator** and is not added post hoc. Its role is external contextual corroboration only. Qualitatively, it points in the same direction as the translation-non-identifiability hypothesis: landscape effects on reproduction need not be mediated by overall visitation frequency. Because its exposure structure is multidimensional and its species-level SEM outputs were not admitted under the frozen I–F recovery contract, it does not increment either the quantitative or qualitative-blocked denominator.
+
+This post-freeze check strengthens the novelty boundary rather than the denominator: the phenomenon is not new at the level of individual systems, while the present contribution remains the frozen cross-program translation audit and its explicit influence/necessity-sufficiency logic.
+
+
 ## Strongest ecological lead
 
 > **When matched interaction quantity and reproductive function separate clearly under fragmentation, the stable repeated mismatch in the current audited corpus is one-sided: reproductive function is worse than the interaction-quantity proxy.**
