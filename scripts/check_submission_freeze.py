@@ -33,6 +33,8 @@ QUAL_EXTERNAL_CHECKER = ROOT / "scripts/check_qualitative_external_if_audit.py"
 TRANSLATION_TABLE = ROOT / "evidence/meta_extraction/if_translation_map_v1.csv"
 TRANSLATION_NOTE = ROOT / "manuscript/IF_TRANSLATION_NONIDENTIFIABILITY_2026-10-03.md"
 TRANSLATION_CHECKER = ROOT / "scripts/check_if_translation_map.py"
+TRANSLATION_CATEGORY_CHECKER = ROOT / "scripts/check_if_translation_category_sensitivity.py"
+TRANSLATION_CATEGORY_NOTE = ROOT / "manuscript/IF_TRANSLATION_CATEGORY_SENSITIVITY_2026-10-05.md"
 INTERACTION_LOGIC_CHECKER = ROOT / "scripts/check_interaction_decline_necessity_sufficiency.py"
 INTERACTION_LOGIC_NOTE = ROOT / "manuscript/INTERACTION_DECLINE_NECESSITY_SUFFICIENCY_2026-10-03.md"
 
@@ -174,6 +176,15 @@ def main() -> None:
     assert translation["qualitative_blocked_programmes"] == 8
     assert translation["unique_sources"] == 16
     assert translation["prevalence_inference"] is False
+
+    cat = m["if_translation_category_sensitivity"]
+    assert git_blob_sha(TRANSLATION_CATEGORY_CHECKER) == cat["checker_blob_sha"]
+    assert git_blob_sha(TRANSLATION_CATEGORY_NOTE) == cat["note_blob_sha"]
+    assert cat["status"] == "strict_category_exclusion_leave_one_out_robust"
+    assert cat["strict_programmes"] == 8
+    assert set(cat["removed_categories"]) == {"no_detected_loss", "mixed"}
+    assert cat["strict_LOO_nonidentifiability"] is True
+    assert cat["prevalence_inference"] is False
     logic = m["interaction_decline_logic"]
     assert git_blob_sha(INTERACTION_LOGIC_CHECKER) == logic["checker_blob_sha"]
     assert git_blob_sha(INTERACTION_LOGIC_NOTE) == logic["note_blob_sha"]
@@ -220,6 +231,8 @@ def main() -> None:
     assert "scale_stable_quantity_function_proxy_failure_v1.csv" in anon
     assert "qualitative_external_if_audit_v1.csv" in anon
     assert "check_if_translation_map.py" in anon
+    assert "check_if_translation_category_sensitivity.py" in anon
+    assert "IF_TRANSLATION_CATEGORY_SENSITIVITY_2026-10-05.md" in anon
     assert "check_interaction_decline_necessity_sufficiency.py" in anon
     assert "if_translation_map_v1.csv" in anon
     assert "figure_s2_if_translation_map.svg" in anon
@@ -235,6 +248,7 @@ def main() -> None:
         "no audited I-F programme provides an equally representation-stable resolved upstream mismatch",
         "zero of those six have both marginal endpoint directions individually resolved at 95 percent",
         "the frozen 16-programme I-F translation map shows that identical qualitative interaction signals coexist with multiple reproductive-function states",
+        "translation non-identifiability persists after removing no-detected-loss and mixed programme states",
         "interaction decline is neither necessary nor sufficient for reproductive decline in the frozen mixed-tier evidence universe",
     ):
         assert token in claims, token
