@@ -27,6 +27,7 @@ FILES = [
     "manuscript/QUALITATIVE_EXTERNAL_IF_AUDIT_2026-10-03.md",
     "manuscript/IF_TRANSLATION_NONIDENTIFIABILITY_2026-10-03.md",
     "manuscript/IF_TRANSLATION_CATEGORY_SENSITIVITY_2026-10-05.md",
+    "manuscript/IF_TRANSLATION_METRIC_SENSITIVITY_2026-10-05.md",
     "manuscript/IF_SENTINEL_DETERMINISM_2026-10-05.md",
     "manuscript/INTERACTION_DECLINE_NECESSITY_SUFFICIENCY_2026-10-03.md",
     "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-29_EFFECT_SCALE.md",
@@ -48,6 +49,7 @@ FILES = [
     "scripts/check_qualitative_external_if_audit.py",
     "scripts/check_if_translation_map.py",
     "scripts/check_if_translation_category_sensitivity.py",
+    "scripts/check_if_interaction_metric_sensitivity.py",
     "scripts/check_if_sentinel_determinism.py",
     "scripts/check_interaction_decline_necessity_sufficiency.py",
     "scripts/check_ecological_if_programme_census.py",
@@ -90,6 +92,7 @@ FILES = [
     "evidence/meta_extraction/if_sign_uncertainty_v1.csv",
     "evidence/meta_extraction/qualitative_external_if_audit_v1.csv",
     "evidence/meta_extraction/if_translation_map_v1.csv",
+    "evidence/meta_extraction/if_interaction_metric_class_v1.csv",
     "evidence/meta_extraction/phase2_if_quantitative_gate_v1.csv",
     "evidence/meta_extraction/PS014_hulting_extraction_v1.csv",
     "evidence/meta_extraction/estimand_scale_cluster_summary_v2.csv",
@@ -323,6 +326,16 @@ def verify_reproduction() -> None:
     )
     if "IF_TRANSLATION_CATEGORY_SENSITIVITY_OK full_programmes=16 strict_programmes=8 removed_no_detected_or_mixed=true lower_maps=lower+higher higher_maps=lower+similar strict_LOO_min_ambiguous_inputs=1 prevalence_inference=false" not in translation_category_sensitivity.stdout:
         raise AssertionError(translation_category_sensitivity.stdout)
+
+    metric_sensitivity = subprocess.run(
+        [sys.executable, "scripts/check_if_interaction_metric_sensitivity.py"],
+        cwd=PKG,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    if "IF_METRIC_SENSITIVITY_OK programmes=16 visitation_abundance_programmes=13 visitation_lower_maps_to=lower+higher+no_detected_loss visitation_no_detected_loss_maps_to=lower+no_detected_loss visitation_only_LOO_nonidentifying=true strict_visitation_programmes=6 strict_lower_maps_to=lower+higher strict_lower_ambiguity_milkweed_dependent=true prevalence_inference=false" not in metric_sensitivity.stdout:
+        raise AssertionError(metric_sensitivity.stdout)
 
     sentinel_determinism = subprocess.run(
         [sys.executable, "scripts/check_if_sentinel_determinism.py"],
