@@ -133,7 +133,7 @@
     "main_figure_count": 5
   },
   "anonymous_package": {
-    "builder_blob_sha": "209017b646edf86d26ec9452bc524dfe8ee2058c",
+    "builder_blob_sha": "34bc4e495770f0211dc22eb05bc2e763d54ed5c9",
     "reproduces_authoritative_raw_delta_scale_audit": true,
     "reproduces_bottleneck_cross_scale_audit": true,
     "reproduces_historical_g": true,
