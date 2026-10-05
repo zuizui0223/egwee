@@ -35,6 +35,8 @@ TRANSLATION_NOTE = ROOT / "manuscript/IF_TRANSLATION_NONIDENTIFIABILITY_2026-10-
 TRANSLATION_CHECKER = ROOT / "scripts/check_if_translation_map.py"
 TRANSLATION_CATEGORY_CHECKER = ROOT / "scripts/check_if_translation_category_sensitivity.py"
 TRANSLATION_CATEGORY_NOTE = ROOT / "manuscript/IF_TRANSLATION_CATEGORY_SENSITIVITY_2026-10-05.md"
+SENTINEL_DETERMINISM_CHECKER = ROOT / "scripts/check_if_sentinel_determinism.py"
+SENTINEL_DETERMINISM_NOTE = ROOT / "manuscript/IF_SENTINEL_DETERMINISM_2026-10-05.md"
 INTERACTION_LOGIC_CHECKER = ROOT / "scripts/check_interaction_decline_necessity_sufficiency.py"
 INTERACTION_LOGIC_NOTE = ROOT / "manuscript/INTERACTION_DECLINE_NECESSITY_SUFFICIENCY_2026-10-03.md"
 
@@ -185,6 +187,17 @@ def main() -> None:
     assert set(cat["removed_categories"]) == {"no_detected_loss", "mixed"}
     assert cat["strict_LOO_nonidentifiability"] is True
     assert cat["prevalence_inference"] is False
+
+    det = m["if_sentinel_determinism"]
+    assert git_blob_sha(SENTINEL_DETERMINISM_CHECKER) == det["checker_blob_sha"]
+    assert git_blob_sha(SENTINEL_DETERMINISM_NOTE) == det["note_blob_sha"]
+    assert det["full_programmes"] == 16
+    assert det["full_min_misclassified"] == 5
+    assert det["strict_programmes"] == 8
+    assert det["strict_min_misclassified"] == 2
+    assert det["strict_quantitative_programmes"] == 5
+    assert det["strict_quantitative_min_misclassified"] == 1
+    assert det["prevalence_inference"] is False
     logic = m["interaction_decline_logic"]
     assert git_blob_sha(INTERACTION_LOGIC_CHECKER) == logic["checker_blob_sha"]
     assert git_blob_sha(INTERACTION_LOGIC_NOTE) == logic["note_blob_sha"]
@@ -232,6 +245,8 @@ def main() -> None:
     assert "qualitative_external_if_audit_v1.csv" in anon
     assert "check_if_translation_map.py" in anon
     assert "check_if_translation_category_sensitivity.py" in anon
+    assert "check_if_sentinel_determinism.py" in anon
+    assert "IF_SENTINEL_DETERMINISM_2026-10-05.md" in anon
     assert "IF_TRANSLATION_CATEGORY_SENSITIVITY_2026-10-05.md" in anon
     assert "check_interaction_decline_necessity_sufficiency.py" in anon
     assert "if_translation_map_v1.csv" in anon
@@ -249,6 +264,7 @@ def main() -> None:
         "zero of those six have both marginal endpoint directions individually resolved at 95 percent",
         "the frozen 16-programme I-F translation map shows that identical qualitative interaction signals coexist with multiple reproductive-function states",
         "translation non-identifiability persists after removing no-detected-loss and mixed programme states",
+        "no deterministic interaction-state-only lookup reproduces all observed reproductive-function states in the frozen map",
         "interaction decline is neither necessary nor sufficient for reproductive decline in the frozen mixed-tier evidence universe",
     ):
         assert token in claims, token
