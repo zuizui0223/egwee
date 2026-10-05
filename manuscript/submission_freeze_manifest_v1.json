@@ -7,10 +7,10 @@
   "revision_base_commit": "19a15a336fe10b3ed1770567058aaadf4c98478a",
   "manuscript": {
     "path": "manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md",
-    "blob_sha": "3ace6b37b86d1305e022edf0a0e4026247375d42",
+    "blob_sha": "460324cddab51e75d95db8b74a516311669591ec",
     "title": "Habitat fragmentation across plant reproductive life cycles: scale-stable deterioration and recurrent interaction–function proxy failure",
     "target_journal": "Journal of Ecology",
-    "main_text_words": 8000,
+    "main_text_words": 7985,
     "abstract_words": 348
   },
   "historical_primary_g": {
@@ -288,7 +288,7 @@
   },
   "proxy_failure_novelty_audit": {
     "path": "manuscript/IF_PROXY_FAILURE_NOVELTY_AUDIT_2026-10-01.md",
-    "blob_sha": "1d88f9350340d50cfb5a505345ae8fd7424881cd"
+    "blob_sha": "28393a45ac16a3ba17dc76eb5e8b06fda41c96cf"
   },
   "qualitative_external_if_audit": {
     "status": "frozen_denominator_qualitative_context_not_quantitative_replication",
