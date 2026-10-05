@@ -288,7 +288,12 @@
   },
   "proxy_failure_novelty_audit": {
     "path": "manuscript/IF_PROXY_FAILURE_NOVELTY_AUDIT_2026-10-01.md",
-    "blob_sha": "28393a45ac16a3ba17dc76eb5e8b06fda41c96cf"
+    "blob_sha": "b8d8ebd7af34c27f6cf09d2aa6e19b8a83b32b8f",
+    "postfreeze_nearest_neighbor": {
+      "citation": "Lazaro et al. 2020 Ecological Applications 30:e02099",
+      "doi": "10.1002/eap.2099",
+      "denominator_status": "external_context_only_not_added_post_hoc"
+    }
   },
   "qualitative_external_if_audit": {
     "status": "frozen_denominator_qualitative_context_not_quantitative_replication",
