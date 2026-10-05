@@ -76,11 +76,11 @@ At the same time, all **8/8** registered I–F programmes measure interaction/po
 
 The resulting exploratory generalization is:
 
-> **Interaction decline is neither necessary nor sufficient for reproductive decline in the frozen matched evidence universe.**
+> **Observed interaction evidence state is non-identifying for observed reproductive-function state in the frozen matched evidence universe.**
 
 A frozen 16-programme translation map now broadens this without changing the quantitative denominator: 8 quantitatively admitted I–F programmes plus 8 non-overlapping qualitative-blocked programmes show that the **same interaction signal can map to multiple reproductive-function states**. The stronger general statement is therefore that interaction quantity is a **non-identifying stand-alone sentinel** of reproductive function across the audited fragmentation contexts. This is an existence/topology result, not a prevalence estimate.
 
-The logical form is stronger and easier to interpret: reproductive decline occurs without interaction decline (so I decline is not necessary), and interaction decline occurs without reproductive decline (so I decline is not sufficient). Both counterexample classes survive every single-programme deletion in the mixed-tier 16-programme map; quantitative-only leave-one-out robustness is not claimed.
+The logical audit contains both counterexample classes at the level of observed evidence states: reproductive decline is observed without detected interaction decline, and interaction decline is observed with more than one reproductive state. Both classes survive every single-programme deletion in the mixed-tier 16-programme map; quantitative-only leave-one-out robustness is not claimed.
 
 This is not a prevalence estimate and does not imply one shared mechanism. The canonical audit is `manuscript/SCALE_STABLE_QUANTITY_FUNCTION_PROXY_FAILURE_2026-09-29.md`.
 
