@@ -321,7 +321,13 @@
     "full_map_leave_one_out_min_ambiguous_inputs": 2,
     "quantitative_only_ambiguity_without_milkweed": 0,
     "claim": "interaction quantity is a non-identifying stand-alone sentinel; full mixed-tier topology survives every single-programme deletion",
-    "prevalence_inference": false
+    "prevalence_inference": false,
+    "table": "evidence/meta_extraction/if_translation_map_v1.csv",
+    "table_blob_sha": "51b30d999fec10256f677859b1d4805ea9a10c46",
+    "note_blob_sha": "2d8d7ac1ae9706d22cee3043e2306294c5a9d192",
+    "checker": "scripts/check_if_translation_map.py",
+    "checker_blob_sha": "a5c37502734fb48a2eaa81e3a9594895651f3801",
+    "unique_sources": 16
   },
   "hidden_effective_mating_hypothesis": {
     "status": "mechanistic_triangulation_hypothesis_not_quantitative_replication",
