@@ -97,6 +97,9 @@ on:
       - 'scripts/check_if_translation_map.py'
       - 'scripts/check_if_translation_influence.py'
       - 'scripts/check_if_translation_category_sensitivity.py'
+      - 'evidence/meta_extraction/if_interaction_metric_class_v1.csv'
+      - 'manuscript/IF_TRANSLATION_METRIC_SENSITIVITY_2026-10-05.md'
+      - 'scripts/check_if_interaction_metric_sensitivity.py'
       - 'scripts/check_if_sentinel_determinism.py'
       - 'manuscript/IF_SENTINEL_DETERMINISM_2026-10-05.md'
       - 'manuscript/IF_TRANSLATION_CATEGORY_SENSITIVITY_2026-10-05.md'
@@ -192,6 +195,8 @@ jobs:
         run: python scripts/check_if_translation_influence.py
       - name: Audit I-F translation category sensitivity
         run: python scripts/check_if_translation_category_sensitivity.py
+      - name: Audit I-F interaction-metric sensitivity
+        run: python scripts/check_if_interaction_metric_sensitivity.py
       - name: Audit I-F sentinel determinism
         run: python scripts/check_if_sentinel_determinism.py
       - name: Audit fragmentation sentinel sufficiency
