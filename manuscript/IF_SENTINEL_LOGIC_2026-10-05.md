@@ -116,5 +116,5 @@ Not allowed:
 - `scripts/check_if_translation_map.py`
 - `scripts/check_if_translation_category_sensitivity.py`
 - `scripts/check_if_sentinel_determinism.py`
-- `scripts/check_if_necessity_sufficiency.py`
+- `scripts/check_interaction_decline_necessity_sufficiency.py`
 - `evidence/meta_extraction/if_translation_map_v1.csv`
