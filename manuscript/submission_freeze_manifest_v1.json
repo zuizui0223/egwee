@@ -100,7 +100,8 @@
     "three shared-exposure multi-panel programmes contain more than one I-F sign geometry among focal species or panels",
     "the frozen 16-programme map has leave-one-programme-out robust interaction-to-function non-identifiability",
     "interaction quantity can produce both false reassurance and apparent over-warning about reproductive function",
-    "translation non-identifiability persists after removing no-detected-loss and mixed programme states"
+    "translation non-identifiability persists after removing no-detected-loss and mixed programme states",
+    "no deterministic interaction-state-only lookup reproduces all observed reproductive-function states in the frozen map"
   ],
   "scale_sensitive_claims": [
     "relative layer response amplitude",
@@ -377,6 +378,20 @@
       "mixed"
     ],
     "strict_LOO_nonidentifiability": true,
+    "prevalence_inference": false
+  },
+  "if_sentinel_determinism": {
+    "status": "frozen_map_no_perfect_deterministic_interaction_only_rule",
+    "checker": "scripts/check_if_sentinel_determinism.py",
+    "checker_blob_sha": "f9cece9e824d5ff4198bdedfb14c0378edfa91d9",
+    "note": "manuscript/IF_SENTINEL_DETERMINISM_2026-10-05.md",
+    "note_blob_sha": "4f78fc3c972347e7bb5ea7eab40df7c6659ccc54",
+    "full_programmes": 16,
+    "full_min_misclassified": 5,
+    "strict_programmes": 8,
+    "strict_min_misclassified": 2,
+    "strict_quantitative_programmes": 5,
+    "strict_quantitative_min_misclassified": 1,
     "prevalence_inference": false
   }
 }
