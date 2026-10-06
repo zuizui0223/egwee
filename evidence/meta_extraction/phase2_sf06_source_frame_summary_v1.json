@@ -1,8 +1,34 @@
 {
+  "materialization_schema_version": 2,
   "source_frame": "SF06",
   "source_article_doi": "10.1093/aob/mcae076",
   "source_sha256": "3635c9d39804332559c7f23ce6b4d754e2dce94ddbc0cd6e5d534a6c9324a84e",
   "docx_tables": 7,
+  "docx_data_rows_by_table": [
+    0,
+    79,
+    79,
+    79,
+    79,
+    79,
+    31
+  ],
+  "paper_reported_hierarchical_input_counts": {
+    "Female fitness": 312,
+    "Male fitness": 105,
+    "Pollination": 83
+  },
+  "public_s1_physical_row_counts": {
+    "Female fitness": 267,
+    "Male fitness": 88,
+    "Pollination": 71
+  },
+  "paper_minus_public_s1_shortfall": {
+    "Female fitness": 45,
+    "Male fitness": 17,
+    "Pollination": 12
+  },
+  "public_s1_coverage_boundary": "accessible DOCX contains 426 response-labelled C-through-Z physical rows; paper reports 500 hierarchical input effects; missing 74 inputs are not reconstructed",
   "materialized": {
     "source_effect_rows": 426,
     "deduplicated_source_publications": 255,
@@ -18,6 +44,13 @@
     "Hedges_d",
     "V(d)"
   ],
+  "exact_pairing_manifest": {
+    "all_pollination_female_pairs_metadata_only": 59,
+    "habitat_fragmentation_pairs_metadata_only": 55,
+    "habitat_fragmentation_SC_SI_pairs_metadata_only": 49,
+    "metadata_rows_file": "phase2_sf06_metadata_rows_v1.csv",
+    "pair_manifest_file": "phase2_sf06_translation_pair_manifest_v1.csv"
+  },
   "publication_universe_file": "phase2_sf06_publication_universe_v1.csv",
-  "completion_status": "publication_rows_materialized_screening_pending"
+  "completion_status": "public_s1_426_rows_materialized_with_74_paper_input_shortfall"
 }
