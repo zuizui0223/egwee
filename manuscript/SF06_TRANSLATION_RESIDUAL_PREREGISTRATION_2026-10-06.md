@@ -138,3 +138,55 @@ Not allowed:
 Aguilar et al. test compatibility as a moderator of the **marginal average effect** on pollination and on female fitness separately and report a positive overall pollination–female-fitness association.
 
 This preregistration instead tests whether compatibility explains the **residual translation between the two responses within paired source units**.
+
+
+## Pre-outcome amendment: scale-stable external topology
+
+This amendment was frozen **before any row-level Hedges-d outcome cells or generated SF06 pair/result files were stored in EGWEE**. It does not replace the compatibility model above. It separates the external test into a scale-stable generality lane and a scale-dependent mechanistic lane.
+
+### Primary external-generality target
+
+The main external generality question is now:
+
+> **Among species/studies that measured pollination and female fitness under the same land-use contrast, does the sign of the pollination response deterministically identify the sign of the female-fitness response?**
+
+For every exact paired unit define:
+
+- `I_sign = lower` if `d_I < 0`, otherwise `nonlower`;
+- `F_sign = lower` if `d_F < 0`, otherwise `nonlower`.
+
+Because standardization by a positive SD cannot reverse the sign of a mean contrast, this point-sign topology is more effect-scale stable than comparing Hedges-d amplitudes.
+
+For the habitat-fragmentation subset, calculate the **best deterministic lookup** from `I_sign` to `F_sign`. For each observed I-sign state, choose the F-sign state that minimizes mismatches. Sum the remaining mismatches across I-sign states.
+
+This is a structural compatibility diagnostic, not an out-of-sample error rate.
+
+### Primary decision rule
+
+Classify the external SF06 sign map as `external_sign_translation_nonidentifiability_supported` only when:
+
+1. the full habitat-fragmentation paired set has at least one deterministic mismatch; and
+2. after deleting every whole source publication in turn, the best deterministic I-sign→F-sign lookup still has at least one mismatch.
+
+If the full map is non-identifying but at least one publication deletion removes all mismatches, classify as influence-sensitive.
+
+### Conservative uncertainty sensitivity
+
+For each endpoint separately, call a sign **resolved lower** only when the 95% marginal interval `d ± 1.96*sqrt(V)` lies below zero, and **resolved nonlower** only when the interval lies above zero. Pairs with either unresolved endpoint are excluded from this sensitivity.
+
+The resolved-only topology is descriptive unless enough pairs remain; it is not required for the primary structural decision because marginal non-resolution does not make a point estimate equal to zero.
+
+### Compatibility remains a secondary mechanism test
+
+The preregistered model
+
+`d_F = alpha + beta*d_I + gamma*SC + error`
+
+remains unchanged as a **representation-specific mechanistic test**. A positive `gamma_SC` can support compatibility as one translation modifier on the source Hedges-d scale, but it is not used to establish the scale-stable external generality claim.
+
+Thus the evidence hierarchy is:
+
+1. **scale-stable external generality:** sign-level I→F non-identifiability;
+2. **scale-dependent mechanism probe:** compatibility residual on source Hedges d.
+
+Neither lane estimates the prevalence of false reassurance in nature.

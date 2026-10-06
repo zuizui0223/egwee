@@ -141,6 +141,77 @@ def cluster_fit(y: np.ndarray, X: np.ndarray, groups: list[str]) -> dict:
     }
 
 
+def endpoint_resolved_sign(d: float, variance: float) -> str:
+    se = math.sqrt(variance)
+    lo = d - 1.96 * se
+    hi = d + 1.96 * se
+    if hi < 0:
+        return "lower"
+    if lo > 0:
+        return "nonlower"
+    return "unresolved"
+
+
+def deterministic_mismatch(rows: list[dict], resolved_only: bool = False) -> dict:
+    counts = defaultdict(lambda: defaultdict(int))
+    used = 0
+    for r in rows:
+        if resolved_only:
+            i_state = endpoint_resolved_sign(r["d_I"], r["var_I"])
+            f_state = endpoint_resolved_sign(r["d_F"], r["var_F"])
+            if "unresolved" in {i_state, f_state}:
+                continue
+        else:
+            i_state = "lower" if r["d_I"] < 0 else "nonlower"
+            f_state = "lower" if r["d_F"] < 0 else "nonlower"
+        counts[i_state][f_state] += 1
+        used += 1
+
+    mismatch = 0
+    for f_counts in counts.values():
+        total = sum(f_counts.values())
+        mismatch += total - max(f_counts.values())
+
+    return {
+        "n_used": used,
+        "counts": {k: dict(v) for k, v in counts.items()},
+        "minimum_deterministic_mismatches": int(mismatch),
+        "nonidentifying": bool(mismatch > 0),
+    }
+
+
+def topology_audit(pairs: list[dict], label: str) -> dict:
+    point = deterministic_mismatch(pairs, resolved_only=False)
+    pubs = sorted({r["source_publication"] for r in pairs})
+    loo = {}
+    for pub in pubs:
+        kept = [r for r in pairs if r["source_publication"] != pub]
+        loo[pub] = deterministic_mismatch(kept, resolved_only=False)["minimum_deterministic_mismatches"]
+
+    loo_min = min(loo.values()) if loo else 0
+    if point["nonidentifying"] and loo_min > 0:
+        decision = "external_sign_translation_nonidentifiability_supported"
+    elif point["nonidentifying"]:
+        decision = "external_sign_translation_nonidentifiability_influence_sensitive"
+    else:
+        decision = "external_sign_translation_nonidentifiability_not_supported"
+
+    resolved = deterministic_mismatch(pairs, resolved_only=True)
+    return {
+        "label": label,
+        "point_sign": point,
+        "publication_leave_one_out_minimum_mismatches": loo,
+        "minimum_mismatch_across_publication_deletions": int(loo_min),
+        "publication_LOO_nonidentifying": bool(loo_min > 0),
+        "resolved_95pct_marginal_sign_sensitivity": resolved,
+        "decision": decision,
+        "interpretation": (
+            "Structural sign-topology diagnostic only; mismatch counts are not prevalence "
+            "or out-of-sample prediction-error estimates."
+        ),
+    }
+
+
 def analyse(pairs: list[dict], label: str) -> dict:
     primary = [r for r in pairs if r["compatibility"] in {"SC", "SI"}]
     if len(primary) < 10:
@@ -284,12 +355,17 @@ def main() -> None:
     pairs.sort(key=lambda r: (r["source_publication"], r["species"], r["land_use_factor_normalized"]))
     frag = [r for r in pairs if r["land_use_factor_normalized"] == "habitat fragmentation"]
 
+    topology_frag = topology_audit(frag, "habitat_fragmentation_only")
+    topology_all = topology_audit(pairs, "all_land_use_factors")
+
     result = {
         "status": "post_publication_prospectively_specified_reanalysis_of_previously_unopened_row_level_effect_cells",
         "source_rows": len(parsed),
         "usable_pollination_or_female_rows": len(usable),
         "all_exact_paired_units": len(pairs),
         "habitat_fragmentation_exact_paired_units": len(frag),
+        "scale_stable_external_topology": topology_frag,
+        "scale_stable_external_topology_all_land_use_sensitivity": topology_all,
         "primary": analyse(frag, "habitat_fragmentation_only"),
         "sensitivity_all_land_use": analyse(pairs, "all_land_use_factors"),
     }
@@ -304,8 +380,19 @@ def main() -> None:
     out_json.write_text(json.dumps(result, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
     p = result["primary"]
+    topo = result["scale_stable_external_topology"]
     lines = [
         "# SF06 pollination→female-fitness translation-residual result — 2026-10-06",
+        "",
+        "## Scale-stable external sign topology",
+        "",
+        f"- minimum deterministic mismatches = **{topo['point_sign']['minimum_deterministic_mismatches']}**",
+        f"- minimum mismatches after deleting each whole publication = **{topo['minimum_mismatch_across_publication_deletions']}**",
+        f"- decision = **{topo['decision']}**",
+        f"- resolved-only pairs = **{topo['resolved_95pct_marginal_sign_sensitivity']['n_used']}**",
+        f"- resolved-only minimum mismatches = **{topo['resolved_95pct_marginal_sign_sensitivity']['minimum_deterministic_mismatches']}**",
+        "",
+        "These mismatch counts certify only whether pollination sign can deterministically identify female-fitness sign in the external paired set. They are not prevalence or prediction-error estimates.",
         "",
         f"Exact paired units (all land-use): **{len(pairs)}**.",
         f"Exact paired habitat-fragmentation units: **{len(frag)}**.",
@@ -337,6 +424,9 @@ def main() -> None:
         "ci95": p["gamma_SC_ci95"],
         "p_two_sided": p["gamma_SC_p_two_sided"],
         "decision": p["decision"],
+        "topology_decision": topo["decision"],
+        "topology_min_mismatches": topo["point_sign"]["minimum_deterministic_mismatches"],
+        "topology_LOO_min_mismatches": topo["minimum_mismatch_across_publication_deletions"],
     }, sort_keys=True))
 
 
