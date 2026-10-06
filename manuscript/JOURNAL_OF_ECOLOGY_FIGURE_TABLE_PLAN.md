@@ -76,30 +76,35 @@ Do not place g and lnRR magnitudes on a common numerical axis. The figure compar
 
 ## Figure 5 — Directional coherence versus sentinel sufficiency
 
-**Purpose:** make the manuscript's most general ecological result visible in one figure.
+**Purpose:** make the manuscript's promoted ecological generality and surprise visible in one figure.
 
-Panel A must show the scale-stable coarse result:
+Panel A must show scale-stable directional coherence:
 
 - 17/17 primary direct effects negative on oriented Hedges g;
-- 17/17 same effects negative on oriented lnRR;
+- 17/17 the same effects negative on oriented lnRR;
 - no claim that the 17 effects are independent sign trials.
 
 Panel B must show the frozen 16-programme interaction→function existence map:
 
 - 8 quantitatively admitted matched I–F programmes;
 - 8 non-overlapping source-explicit programmes blocked from quantitative synthesis;
-- lower interaction mapping to at least three F evidence states;
-- no detected interaction loss mapping to at least two F evidence states;
-- higher/shifted interaction mapping to at least two F evidence states;
-- mixed within-programme rows retained separately.
+- each interpretable upstream interaction state maps to multiple downstream F states;
+- the full map is leave-one-programme non-identifying;
+- no category frequency is a prevalence estimate.
+
+Panel C must show the measurement-artifact stress test for the three resolved false-reassurance anchors:
+
+- Wandoo, Cardiopetalum and Kakamega Acanthopale;
+- recovered I/F reliability proxies;
+- equal-latent attenuation null misfit `p<0.01` in each;
+- explicit statement that anchor selection was post hoc and the three-programme diagnostic is not a formal joint p-value.
 
 Required interpretation:
 
-> **Coarse directional coherence does not imply a one-to-one interaction→function translation.**
+> **Directional coherence does not imply functional identifiability; the strongest resolved quantitative failure mode is false reassurance, and simple differential measurement reliability is insufficient to explain the three audited anchors.**
 
-The mixed-tier many-to-many structure survives deletion of every single programme. This is a structural existence statement about the frozen evidence map, not a prevalence estimate and not a pooled quantitative meta-analysis. Evidence tiers must be visually distinguished. No-detected-loss must never be rendered as zero effect or equality.
+Figure 5 is the paper-level ecology synthesis. Figure 3 remains the quantitative programme-level proxy-failure view; Figure 4 remains the mandatory effect-scale audit.
 
-Figure 5 is the paper-level ecology synthesis. Figure 3 remains the stronger quantitative proxy-failure anchor; Figure 4 remains the mandatory effect-scale audit.
 ## Table 1 — Admitted primary clusters
 
 One row per independent primary programme/study cluster. Columns:
