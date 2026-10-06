@@ -89,7 +89,7 @@ def parse_metadata(cells: list[str]) -> dict[str, str]:
         family = metadata[response_idx - 1].strip()
 
     d = first_float(cells[-2])
-    variance = first_float(cells[-1])
+    variance = leading_float(cells[-1])
     return {
         "species": species,
         "family": family,
