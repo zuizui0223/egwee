@@ -2,7 +2,7 @@
 
 ## Automated scientific package
 
-The complete scale-aware scientific package is validated in full CI run `37112411828`. The reviewer-facing package includes:
+The previous scale-aware package was green, but the 2026-10-06 ecological-generality promotion changed the manuscript. The current reviewer-facing package must be revalidated before administrative submission completion. It includes:
 
 - ecology-first manuscript title, abstract, keywords and IMRaD structure;
 - primary 5-cluster / 17-effect synthesis and influence analysis;
@@ -17,7 +17,7 @@ The complete scale-aware scientific package is validated in full CI run `3711241
 - anonymous reviewer code/data package reproduction;
 - fresh-validation preregistration kept separate from the current discovery/synthesis manuscript.
 
-The scientific gate is closed. Do not reopen scientific files merely to fill administrative metadata; proceed only with the human submission fields below.
+The scientific gate is temporarily reopened only for the promoted generality/reliability revision. Do not proceed to administrative completion until the current full CI and anonymous-package reproduction are green.
 
 ## Human-only items still required
 
