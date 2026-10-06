@@ -12,6 +12,7 @@ from xml.etree import ElementTree as ET
 
 SOURCE_FRAME = "SF06"
 SOURCE_ARTICLE_DOI = "10.1093/aob/mcae076"
+MATERIALIZATION_SCHEMA_VERSION = 2
 NS = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
 RESPONSES = ("Female fitness", "Male fitness", "Pollination")
 EXPECTED_RESPONSE_COUNTS = {
@@ -261,6 +262,7 @@ def main() -> None:
         writer.writerows(output)
 
     summary = {
+        "materialization_schema_version": MATERIALIZATION_SCHEMA_VERSION,
         "source_frame": SOURCE_FRAME,
         "source_article_doi": SOURCE_ARTICLE_DOI,
         "source_sha256": hashlib.sha256(source.read_bytes()).hexdigest(),
