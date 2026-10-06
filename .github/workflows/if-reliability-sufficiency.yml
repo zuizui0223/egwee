@@ -1,0 +1,33 @@
+name: I-F reliability sufficiency
+
+on:
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - 'scripts/check_if_reliability_sufficiency.py'
+      - 'evidence/meta_extraction/if_reliability_sufficiency_v1.csv'
+      - 'evidence/meta_extraction/if_reliability_wandoo_table6_v1.csv'
+      - 'evidence/meta_extraction/phase2_cf01_cardiopetalum_table1_v1.csv'
+      - 'evidence/meta_extraction/phase2_cf01_bergsdorf_kakamega_site_values_v1.csv'
+      - 'evidence/meta_extraction/PS019_eucalyptus_wandoo_2018_gradient_covariance_v1.csv'
+      - 'evidence/meta_extraction/phase2_cf01_cardiopetalum_gradient_covariance_v1.json'
+      - 'evidence/meta_extraction/phase2_cf01_bergsdorf_kakamega_direct_covariance_v1.json'
+      - '.github/workflows/if-reliability-sufficiency.yml'
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run deterministic reliability audit
+        run: python scripts/check_if_reliability_sufficiency.py
+      - name: Run reliability Monte Carlo
+        env:
+          RUN_RELIABILITY_MONTE_CARLO: '1'
+          RELIABILITY_MONTE_CARLO_N: '2000000'
+        run: python scripts/check_if_reliability_sufficiency.py
