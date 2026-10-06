@@ -1,6 +1,6 @@
-# EGWEE submission state — FIGURE 5 SENTINEL SYNTHESIS VALIDATION PENDING 2026-10-03
+# EGWEE submission state — ECOLOGICAL GENERALITY PROMOTION VALIDATION PENDING 2026-10-06
 
-> **STATUS: CURRENT REVISION NOT SUBMISSION-READY.** The scale-aware analyses remain authoritative, but the frozen 16-programme interaction→function non-identifiability result is newly promoted to the Abstract and main Figure 5. Full CI and anonymous-package reproduction must pass on this exact revision before scientific validation is closed again.
+> **STATUS: CURRENT REVISION NOT SUBMISSION-READY.** The scale-aware analyses remain authoritative, but the manuscript now promotes directional coherence without interaction–function identifiability and a reliability-stressed false-reassurance result. Full CI and anonymous-package reproduction must pass on this exact revision before scientific validation is closed again.
 
 ## Why the freeze was reopened
 
