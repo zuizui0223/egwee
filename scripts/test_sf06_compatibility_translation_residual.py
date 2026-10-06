@@ -248,8 +248,12 @@ def topology_audit(pairs: list[dict], label: str) -> dict:
         )["minimum_deterministic_mismatches"]
 
     loo_min = min(loo.values()) if loo else 0
-    if point["nonidentifying"] and loo_min > 0:
+    n_publications = len(pubs)
+    coverage_gate = point["n_used"] >= 10 and n_publications >= 5
+    if coverage_gate and point["nonidentifying"] and loo_min > 0:
         decision = "external_sign_translation_nonidentifiability_supported"
+    elif not coverage_gate:
+        decision = "external_sign_translation_nonidentifiability_coverage_insufficient"
     elif point["nonidentifying"]:
         decision = "external_sign_translation_nonidentifiability_influence_sensitive"
     else:
@@ -264,6 +268,8 @@ def topology_audit(pairs: list[dict], label: str) -> dict:
     return {
         "label": label,
         "component_consensus_sign": point,
+        "consensus_n_publications": n_publications,
+        "minimum_coverage_gate_passed": bool(coverage_gate),
         "publication_leave_one_out_minimum_mismatches": loo,
         "minimum_mismatch_across_publication_deletions": int(loo_min),
         "publication_LOO_nonidentifying": bool(loo_min > 0),
@@ -458,6 +464,8 @@ def main() -> None:
         "",
         f"- consensus-sign paired units = **{topo['component_consensus_sign']['n_used']}**",
         f"- minimum deterministic mismatches = **{topo['component_consensus_sign']['minimum_deterministic_mismatches']}**",
+        f"- consensus source publications = **{topo['consensus_n_publications']}**",
+        f"- minimum coverage gate passed = **{topo['minimum_coverage_gate_passed']}**",
         f"- minimum mismatches after deleting each whole publication = **{topo['minimum_mismatch_across_publication_deletions']}**",
         f"- decision = **{topo['decision']}**",
         f"- component-resolved-only pairs = **{topo['component_resolved_95pct_sign_sensitivity']['n_used']}**",
