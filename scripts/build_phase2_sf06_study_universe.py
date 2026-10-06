@@ -14,6 +14,11 @@ SOURCE_FRAME = "SF06"
 SOURCE_ARTICLE_DOI = "10.1093/aob/mcae076"
 NS = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
 RESPONSES = ("Female fitness", "Male fitness", "Pollination")
+EXPECTED_RESPONSE_COUNTS = {
+    "Female fitness": 312,
+    "Male fitness": 105,
+    "Pollination": 83,
+}
 
 
 def q(tag: str) -> str:
@@ -127,15 +132,31 @@ def main() -> None:
     assert len(tables) == 7, len(tables)
 
     parsed = []
-    for table in tables[1:]:
+    table_data_rows = []
+    for table in tables:
+        n_data = 0
         for row in table.findall("./" + q("tr")):
             cells = [cell_text(c) for c in row.findall("./" + q("tc"))]
-            if not any(cells):
+            if not any(cells) or len(cells) < 11:
+                continue
+            metadata = cells[:-2]
+            has_response = any(
+                candidate.casefold() in value.casefold()
+                for value in metadata
+                for candidate in RESPONSES
+            )
+            if not has_response:
                 continue
             parsed.append(parse_row(cells))
+            n_data += 1
+        table_data_rows.append(n_data)
 
-    assert len(parsed) == 426, len(parsed)
     response_counts = Counter(r["response"] for r in parsed)
+    assert response_counts == Counter(EXPECTED_RESPONSE_COUNTS), (
+        response_counts,
+        table_data_rows,
+    )
+    assert len(parsed) == sum(EXPECTED_RESPONSE_COUNTS.values()) == 500
 
     # Freeze the exact row-level metadata and candidate pairing universe before
     # opening any Hedges-d or variance cells. These files contain no outcomes.
@@ -244,6 +265,8 @@ def main() -> None:
         "source_article_doi": SOURCE_ARTICLE_DOI,
         "source_sha256": hashlib.sha256(source.read_bytes()).hexdigest(),
         "docx_tables": len(tables),
+        "docx_data_rows_by_table": table_data_rows,
+        "published_response_count_gate": EXPECTED_RESPONSE_COUNTS,
         "materialized": {
             "source_effect_rows": len(parsed),
             "deduplicated_source_publications": len(output),

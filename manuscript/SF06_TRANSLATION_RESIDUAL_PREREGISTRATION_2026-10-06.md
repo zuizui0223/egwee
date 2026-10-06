@@ -23,6 +23,17 @@ Fixed public source:
 - source file hash must match or be recorded by the analysis workflow;
 - no alternative dataset is substituted after outcomes are opened.
 
+### Published-count completeness gate
+
+Before any SF06 result is accepted, the DOCX parser must recover exactly the effect-size totals reported by Aguilar et al.:
+
+- female fitness: **312**;
+- male fitness: **105**;
+- pollination: **83**;
+- total: **500**.
+
+The earlier metadata parser recovered only 426 rows because it skipped the first Word table. That materialization is now classified as incomplete. The corrected parser scans all Word tables, admits only rows carrying one of the three declared response labels, and stops unless the response counts exactly match the published totals. This coverage gate is evaluated before interpreting any SF06 result.
+
 ## Frozen-input gate
 
 Before any row-level Hedges-d or variance cell is used for inference:

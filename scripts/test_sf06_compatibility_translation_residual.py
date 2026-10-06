@@ -16,6 +16,11 @@ import statsmodels.api as sm
 
 NS = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
 RESPONSES = ("Female fitness", "Male fitness", "Pollination")
+EXPECTED_RESPONSE_COUNTS = {
+    "Female fitness": 312,
+    "Male fitness": 105,
+    "Pollination": 83,
+}
 
 ROOT = Path(__file__).resolve().parents[1]
 PAIR_MANIFEST = ROOT / "evidence/meta_extraction/phase2_sf06_translation_pair_manifest_v1.csv"
@@ -471,13 +476,33 @@ def main() -> None:
     assert len(tables) == 7, len(tables)
 
     parsed = []
-    for table in tables[1:]:
+    table_data_rows = []
+    for table in tables:
+        n_data = 0
         for row in table.findall("./" + q("tr")):
             cells = [cell_text(c) for c in row.findall("./" + q("tc"))]
-            if not any(cells):
+            if not any(cells) or len(cells) < 11:
+                continue
+            metadata = cells[:-2]
+            has_response = any(
+                candidate.casefold() in value.casefold()
+                for value in metadata
+                for candidate in RESPONSES
+            )
+            if not has_response:
                 continue
             parsed.append(parse_metadata(cells))
-    assert len(parsed) == 426, len(parsed)
+            n_data += 1
+        table_data_rows.append(n_data)
+
+    response_counts = defaultdict(int)
+    for r in parsed:
+        response_counts[r["response"]] += 1
+    assert dict(response_counts) == EXPECTED_RESPONSE_COUNTS, (
+        dict(response_counts),
+        table_data_rows,
+    )
+    assert len(parsed) == sum(EXPECTED_RESPONSE_COUNTS.values()) == 500
 
     grouped_all = defaultdict(lambda: defaultdict(list))
     meta = {}
