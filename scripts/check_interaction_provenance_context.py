@@ -20,7 +20,7 @@ def main() -> None:
     assert MANUSCRIPT.is_file()
 
     r = rows(TABLE)
-    assert len(r) == 9
+    assert len(r) == 10
     assert all(x["quantitative_denominator_role"] == "none" for x in r)
 
     false_reassurance = {
@@ -43,6 +43,13 @@ def main() -> None:
     }
     assert direct_external == {"Dianella revoluta", "Rhododendron ferrugineum"}
 
+    translation_contrast = [
+        x for x in r if x["evidence_role"] == "external_simultaneous_translation_contrast"
+    ]
+    assert len(translation_contrast) == 1
+    assert translation_contrast[0]["system"] == "Rhododendron ferrugineum"
+    assert translation_contrast[0]["survivor_filter_relevance"] == "reproductive_assurance_buffer"
+
     survivor_rows = [
         x for x in r if x["survivor_filter_relevance"] in {"direct_clue", "direct_survivor_filter"}
     ]
@@ -57,6 +64,8 @@ def main() -> None:
     assert "not a confirmed common mechanism" in note
     assert "Eucalyptus socialis" in note
     assert "16.6%" in note
+    assert "Translation modifier: reproductive assurance" in note
+    assert "mating system and reproductive assurance determine" in note
 
     assert "two-stage masking hypothesis" in manuscript
     assert "surviving-progeny mating estimates" in manuscript

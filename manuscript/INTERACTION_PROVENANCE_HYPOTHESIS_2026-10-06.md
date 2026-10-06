@@ -104,6 +104,20 @@ The resulting observational pattern can be deceptive at both ends: an upstream c
 
 We treat this as a **two-stage masking hypothesis**, not a confirmed common mechanism. The current evidence does not establish its prevalence, temporal ordering across species, or mediation of all three false-reassurance anchors. Its value is that it makes the next measurement window explicit: incoming pollen/donor provenance and very early embryos should be measured before viability selection whenever possible.
 
+## Translation modifier: reproductive assurance
+
+The provenance hypothesis does **not** predict that degraded provenance must always produce an immediate decline in seed number. The plant mating system can change the translation from provenance to function.
+
+A particularly useful external counterexample is *Rhododendron ferrugineum*. Across the same 28 natural patches, the source jointly measured flower visitation, pollen limitation from seed set and progeny-array outcrossing. Small patches had high visitation but lower outcrossing / more selfing; nevertheless, pollinator-mediated selfing and geitonogamy reduced pollen limitation and provided reproductive assurance. In other words, provenance quality deteriorated while a quantity-like reproductive endpoint was partly buffered.
+
+The opposite biological boundary is visible in *Conospermum undulatum*. It is strongly self-incompatible: experimental self-pollination can initiate fruits, but the embryos abort and no viable seeds are produced. Such a system cannot use the same selfing route to convert locally concentrated visitation into equivalent viable reproduction.
+
+This contrast suggests a prospective modifier:
+
+> **mating system and reproductive assurance determine whether provenance loss appears as immediate functional decline or as temporarily buffered function with degraded mating quality.**
+
+This is not a fitted moderator result for EGWEE. The formal moderator gate remains separate, and the present comparison was assembled after the interaction→function pattern was recognized. It is retained because it turns the many-to-many translation map into a specific biological prediction rather than treating every mismatch as unrelated noise.
+
 ## External mechanistic triangulation
 
 ### Dianella revoluta
