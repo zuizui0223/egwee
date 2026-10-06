@@ -25,11 +25,11 @@ Fixed public source:
 
 ## Pair construction
 
-Rows are parsed exactly from Supplementary Table S1.
+Rows are parsed exactly from Supplementary Table S1. Publication identity is normalized only for case and whitespace when constructing pair and cluster keys; the original citation string is retained for display.
 
 Primary paired unit:
 
-`source publication × plant species × land-use factor`.
+`normalized source publication identity × plant species × land-use factor`.
 
 A unit is eligible only when it contains both:
 

@@ -110,6 +110,10 @@ def normalize_land_use(x: str) -> str:
     return " ".join(x.casefold().split())
 
 
+def normalize_publication(x: str) -> str:
+    return " ".join(x.casefold().split())
+
+
 def main() -> None:
     if len(sys.argv) != 3:
         raise SystemExit("usage: build_phase2_sf06_study_universe.py INPUT.docx OUTPUT_DIR")
@@ -153,7 +157,7 @@ def main() -> None:
     by_pair: dict[tuple[str, str, str], list[dict[str, str]]] = defaultdict(list)
     for row in parsed:
         key = (
-            row["source_publication"],
+            normalize_publication(row["source_publication"]),
             row["species"],
             normalize_land_use(row["land_use_factor"]),
         )
@@ -169,7 +173,8 @@ def main() -> None:
         land_use = key[2]
         pair_manifest.append({
             "pair_id": f"SF06PAIR{len(pair_manifest)+1:03d}",
-            "source_publication": key[0],
+            "source_publication": rr[0]["source_publication"],
+            "source_publication_key": key[0],
             "species": key[1],
             "land_use_factor_normalized": land_use,
             "compatibility": compatibility,
@@ -196,7 +201,7 @@ def main() -> None:
 
     by_pub: dict[str, list[dict[str, str]]] = defaultdict(list)
     for row in parsed:
-        key = " ".join(row["source_publication"].casefold().split())
+        key = normalize_publication(row["source_publication"])
         by_pub[key].append(row)
 
     output = []

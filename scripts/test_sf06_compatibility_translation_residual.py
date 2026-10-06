@@ -116,6 +116,10 @@ def normalize_land_use(x: str) -> str:
     return " ".join(x.casefold().split())
 
 
+def normalize_publication(x: str) -> str:
+    return " ".join(x.casefold().split())
+
+
 def ivw(rows: list[dict]) -> tuple[float, float]:
     vals = [(r["hedges_d"], r["variance"]) for r in rows]
     vals = [(d, v) for d, v in vals if d is not None and v is not None and v > 0]
@@ -236,13 +240,13 @@ def deterministic_mismatch(
 def topology_audit(pairs: list[dict], label: str) -> dict:
     point = deterministic_mismatch(pairs, state_source="consensus", resolved_only=False)
     pubs = sorted({
-        r["source_publication"] for r in pairs
+        r["source_publication_key"] for r in pairs
         if r["I_component_consensus_sign"] not in {"mixed", "missing"}
         and r["F_component_consensus_sign"] not in {"mixed", "missing"}
     })
     loo = {}
     for pub in pubs:
-        kept = [r for r in pairs if r["source_publication"] != pub]
+        kept = [r for r in pairs if r["source_publication_key"] != pub]
         loo[pub] = deterministic_mismatch(
             kept, state_source="consensus", resolved_only=False
         )["minimum_deterministic_mismatches"]
@@ -292,7 +296,7 @@ def analyse(pairs: list[dict], label: str) -> dict:
     y = np.array([r["d_F"] for r in primary], dtype=float)
     dI = np.array([r["d_I"] for r in primary], dtype=float)
     sc = np.array([1.0 if r["compatibility"] == "SC" else 0.0 for r in primary])
-    groups = [r["source_publication"] for r in primary]
+    groups = [r["source_publication_key"] for r in primary]
 
     X = np.column_stack([np.ones(len(primary)), dI, sc])
     main = cluster_fit(y, X, groups)
@@ -329,7 +333,7 @@ def analyse(pairs: list[dict], label: str) -> dict:
         rr = [r for r in primary if r["compatibility"] == c]
         by_compat[c] = {
             "n": len(rr),
-            "n_publications": len({r["source_publication"] for r in rr}),
+            "n_publications": len({r["source_publication_key"] for r in rr}),
             "mean_d_I": float(np.mean([r["d_I"] for r in rr])),
             "mean_d_F": float(np.mean([r["d_F"] for r in rr])),
             "mean_delta_F_minus_I": float(np.mean([r["d_F"] - r["d_I"] for r in rr])),
@@ -395,7 +399,11 @@ def main() -> None:
     grouped = defaultdict(lambda: defaultdict(list))
     meta = {}
     for r in usable:
-        key = (r["source_publication"], r["species"], normalize_land_use(r["land_use_factor"]))
+        key = (
+            normalize_publication(r["source_publication"]),
+            r["species"],
+            normalize_land_use(r["land_use_factor"]),
+        )
         grouped[key][r["response"]].append(r)
         meta[key] = r
 
@@ -409,7 +417,8 @@ def main() -> None:
         comp_vals = {x["compatibility"] for xs in rr.values() for x in xs if x["compatibility"]}
         compatibility = next(iter(comp_vals)) if len(comp_vals) == 1 else "MIXED_METADATA"
         pairs.append({
-            "source_publication": key[0],
+            "source_publication": base["source_publication"],
+            "source_publication_key": key[0],
             "species": key[1],
             "land_use_factor_normalized": key[2],
             "compatibility": compatibility,
