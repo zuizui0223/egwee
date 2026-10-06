@@ -98,6 +98,7 @@ def main() -> None:
     assert (
         "scale_aware_proxy_failure_translation_map_validation_pending" in metadata
         or "scale_aware_proxy_failure_scientific_validation_green_human_admin_pending" in metadata
+        or "ecological_generality_promotion_validation_pending" in metadata
     )
 
     print(
