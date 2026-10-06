@@ -23,6 +23,16 @@ Fixed public source:
 - source file hash must match or be recorded by the analysis workflow;
 - no alternative dataset is substituted after outcomes are opened.
 
+## Frozen-input gate
+
+Before any row-level Hedges-d or variance cell is used for inference:
+
+1. the metadata-only exact pair manifest must already exist in EGWEE with `outcome_opened=no`;
+2. the downloaded Supplementary Table S1 SHA256 must exactly equal the source hash recorded by the metadata-only SF06 materialization;
+3. re-parsing source metadata must reproduce exactly the frozen `normalized publication × species × land-use` pair-key universe.
+
+Failure of any gate stops the analysis before inferential results are generated.
+
 ## Pair construction
 
 Rows are parsed exactly from Supplementary Table S1. Publication identity is normalized only for case and whitespace when constructing pair and cluster keys; the original citation string is retained for display.
@@ -42,7 +52,7 @@ Primary exposure restriction:
 
 Male-fitness rows are excluded from this analysis.
 
-If more than one row exists for one response inside the same paired unit, rows are combined **within response** by inverse-variance fixed-effect weighting before I–F pairing. No outcome-based endpoint selection is allowed.
+If more than one row exists for one response inside the same paired unit, rows are combined **within response** by inverse-variance fixed-effect weighting before I–F pairing. For the Hedges-d residual model, **every constituent row** in both responses must have a finite Hedges d and positive variance; otherwise the whole paired unit is numeric-model-ineligible rather than dropping incomplete constituent rows. The sign-topology lane remains separate: it requires all constituent Hedges-d signs to be present and concordant within a response but does not require variance except for the resolved-95% sensitivity. No outcome-based endpoint selection is allowed.
 
 Compatibility is taken only from the source metadata:
 

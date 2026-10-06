@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import csv
+import hashlib
 import json
 import math
 import re
@@ -15,6 +16,10 @@ import statsmodels.api as sm
 
 NS = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
 RESPONSES = ("Female fitness", "Male fitness", "Pollination")
+
+ROOT = Path(__file__).resolve().parents[1]
+PAIR_MANIFEST = ROOT / "evidence/meta_extraction/phase2_sf06_translation_pair_manifest_v1.csv"
+SOURCE_SUMMARY = ROOT / "evidence/meta_extraction/phase2_sf06_source_frame_summary_v1.json"
 
 FROZEN_EGWEE_IF_OVERLAP_PUBLICATIONS = {
     "aizen & feinsinger (1994) ecology 75:330- 351",
@@ -134,18 +139,17 @@ def normalize_publication(x: str) -> str:
 
 def ivw(rows: list[dict]) -> tuple[float, float]:
     vals = [(r["hedges_d"], r["variance"]) for r in rows]
-    vals = [(d, v) for d, v in vals if d is not None and v is not None and v > 0]
-    if not vals:
-        raise ValueError("no finite effect+variance rows")
+    if not rows or any(d is None or v is None or v <= 0 for d, v in vals):
+        raise ValueError("incomplete constituent effect or variance")
     w = np.array([1.0 / v for _, v in vals], dtype=float)
     d = np.array([x for x, _ in vals], dtype=float)
     return float(np.sum(w * d) / np.sum(w)), float(1.0 / np.sum(w))
 
 
 def component_consensus_sign(rows: list[dict]) -> str:
-    vals = [r["hedges_d"] for r in rows if r["hedges_d"] is not None]
-    if not vals:
+    if not rows or any(r["hedges_d"] is None for r in rows):
         return "missing"
+    vals = [r["hedges_d"] for r in rows]
     if all(x < 0 for x in vals):
         return "lower"
     if all(x >= 0 for x in vals):
@@ -243,7 +247,11 @@ def deterministic_mismatch(
                 if i_state in {"mixed", "missing"} or f_state in {"mixed", "missing"}:
                     continue
         elif state_source == "ivw_hedges_d":
+            if r["d_I"] is None or r["d_F"] is None:
+                continue
             if resolved_only:
+                if r["var_I"] is None or r["var_F"] is None:
+                    continue
                 i_state = endpoint_resolved_sign(r["d_I"], r["var_I"])
                 f_state = endpoint_resolved_sign(r["d_F"], r["var_F"])
                 if "unresolved" in {i_state, f_state}:
@@ -432,6 +440,31 @@ def main() -> None:
     outdir = Path(sys.argv[2])
     outdir.mkdir(parents=True, exist_ok=True)
 
+    # Hard pre-outcome gates: no numerical SF06 inference is allowed unless
+    # the metadata-only pair universe and source hash are already frozen.
+    assert PAIR_MANIFEST.is_file(), PAIR_MANIFEST
+    assert SOURCE_SUMMARY.is_file(), SOURCE_SUMMARY
+
+    with PAIR_MANIFEST.open(newline="", encoding="utf-8") as fh:
+        frozen_manifest = list(csv.DictReader(fh))
+    assert frozen_manifest
+    assert all(r["outcome_opened"] == "no" for r in frozen_manifest)
+    frozen_keys = {
+        (
+            r["source_publication_key"],
+            r["species"],
+            r["land_use_factor_normalized"],
+        )
+        for r in frozen_manifest
+    }
+
+    frozen_summary = json.loads(SOURCE_SUMMARY.read_text(encoding="utf-8"))
+    actual_source_sha256 = hashlib.sha256(source.read_bytes()).hexdigest()
+    assert actual_source_sha256 == frozen_summary["source_sha256"], (
+        actual_source_sha256,
+        frozen_summary["source_sha256"],
+    )
+
     with zipfile.ZipFile(source) as zf:
         root = ET.fromstring(zf.read("word/document.xml"))
     tables = root.findall(".//" + q("tbl"))
@@ -446,33 +479,48 @@ def main() -> None:
             parsed.append(parse_metadata(cells))
     assert len(parsed) == 426, len(parsed)
 
-    # Only rows with numeric d and variance can contribute.
-    usable = [
-        r for r in parsed
-        if r["hedges_d"] is not None and r["variance"] is not None and r["variance"] > 0
-        and r["response"] in {"Pollination", "Female fitness"}
-    ]
-
-    grouped = defaultdict(lambda: defaultdict(list))
+    grouped_all = defaultdict(lambda: defaultdict(list))
     meta = {}
-    for r in usable:
+    for r in parsed:
+        if r["response"] not in {"Pollination", "Female fitness"}:
+            continue
         key = (
             normalize_publication(r["source_publication"]),
             r["species"],
             normalize_land_use(r["land_use_factor"]),
         )
-        grouped[key][r["response"]].append(r)
+        grouped_all[key][r["response"]].append(r)
         meta[key] = r
 
+    parsed_pair_keys = {
+        key for key, rr in grouped_all.items()
+        if {"Pollination", "Female fitness"} <= set(rr)
+    }
+    assert parsed_pair_keys == frozen_keys, {
+        "missing_from_analysis_parser": sorted(frozen_keys - parsed_pair_keys),
+        "unexpected_in_analysis_parser": sorted(parsed_pair_keys - frozen_keys),
+    }
+
     pairs = []
-    for key, rr in grouped.items():
-        if not {"Pollination", "Female fitness"} <= set(rr):
-            continue
-        dI, vI = ivw(rr["Pollination"])
-        dF, vF = ivw(rr["Female fitness"])
+    for key in sorted(frozen_keys):
+        rr = grouped_all[key]
         base = meta[key]
         comp_vals = {x["compatibility"] for xs in rr.values() for x in xs if x["compatibility"]}
         compatibility = next(iter(comp_vals)) if len(comp_vals) == 1 else "MIXED_METADATA"
+
+        i_rows = rr["Pollination"]
+        f_rows = rr["Female fitness"]
+        numeric_eligible = all(
+            r["hedges_d"] is not None and r["variance"] is not None and r["variance"] > 0
+            for r in i_rows + f_rows
+        )
+        if numeric_eligible:
+            dI, vI = ivw(i_rows)
+            dF, vF = ivw(f_rows)
+            delta = dF - dI
+        else:
+            dI = vI = dF = vF = delta = None
+
         pairs.append({
             "source_publication": base["source_publication"],
             "source_publication_key": key[0],
@@ -481,24 +529,30 @@ def main() -> None:
             "compatibility": compatibility,
             "family": base["family"],
             "pollination_context": base["pollination_context"],
+            "numeric_model_eligible": "yes" if numeric_eligible else "no",
             "d_I": dI,
             "var_I": vI,
             "d_F": dF,
             "var_F": vF,
-            "delta_F_minus_I": dF - dI,
-            "I_component_consensus_sign": component_consensus_sign(rr["Pollination"]),
-            "F_component_consensus_sign": component_consensus_sign(rr["Female fitness"]),
-            "I_resolved_consensus_sign": component_resolved_consensus_sign(rr["Pollination"]),
-            "F_resolved_consensus_sign": component_resolved_consensus_sign(rr["Female fitness"]),
-            "n_I_rows_combined": len(rr["Pollination"]),
-            "n_F_rows_combined": len(rr["Female fitness"]),
+            "delta_F_minus_I": delta,
+            "I_component_consensus_sign": component_consensus_sign(i_rows),
+            "F_component_consensus_sign": component_consensus_sign(f_rows),
+            "I_resolved_consensus_sign": component_resolved_consensus_sign(i_rows),
+            "F_resolved_consensus_sign": component_resolved_consensus_sign(f_rows),
+            "n_I_rows_combined": len(i_rows),
+            "n_F_rows_combined": len(f_rows),
         })
 
-    pairs.sort(key=lambda r: (r["source_publication"], r["species"], r["land_use_factor_normalized"]))
+    pairs.sort(key=lambda r: (r["source_publication_key"], r["species"], r["land_use_factor_normalized"]))
+    numeric_pairs = [r for r in pairs if r["numeric_model_eligible"] == "yes"]
     frag = [r for r in pairs if r["land_use_factor_normalized"] == "habitat fragmentation"]
+    frag_numeric = [r for r in frag if r["numeric_model_eligible"] == "yes"]
     frag_nonoverlap = [
         r for r in frag
         if r["source_publication_key"] not in FROZEN_EGWEE_IF_OVERLAP_PUBLICATIONS
+    ]
+    frag_nonoverlap_numeric = [
+        r for r in frag_nonoverlap if r["numeric_model_eligible"] == "yes"
     ]
 
     topology_frag = topology_audit(frag, "habitat_fragmentation_only")
@@ -510,25 +564,28 @@ def main() -> None:
     result = {
         "status": "post_publication_prospectively_specified_reanalysis_of_previously_unopened_row_level_effect_cells",
         "source_rows": len(parsed),
-        "usable_pollination_or_female_rows": len(usable),
+        "source_sha256": actual_source_sha256,
+        "frozen_manifest_pairs": len(frozen_manifest),
         "all_exact_paired_units": len(pairs),
+        "numeric_model_eligible_pairs": len(numeric_pairs),
         "habitat_fragmentation_exact_paired_units": len(frag),
+        "habitat_fragmentation_numeric_model_eligible_pairs": len(frag_numeric),
         "scale_stable_external_topology": topology_frag,
         "scale_stable_external_topology_nonoverlap_sensitivity": topology_frag_nonoverlap,
         "scale_stable_external_topology_all_land_use_sensitivity": topology_all,
-        "primary": analyse(frag, "habitat_fragmentation_only"),
+        "primary": analyse(frag_numeric, "habitat_fragmentation_only"),
         "primary_nonoverlap_sensitivity": (
-            analyse(frag_nonoverlap, "habitat_fragmentation_nonoverlap")
-            if len([r for r in frag_nonoverlap if r["compatibility"] in {"SC", "SI"}]) >= 10
+            analyse(frag_nonoverlap_numeric, "habitat_fragmentation_nonoverlap")
+            if len([r for r in frag_nonoverlap_numeric if r["compatibility"] in {"SC", "SI"}]) >= 10
             else {
                 "status": "not_estimable_fewer_than_10_SC_SI_pairs",
-                "n_pairs": len(frag_nonoverlap),
+                "n_pairs": len(frag_nonoverlap_numeric),
                 "n_SC_SI_pairs": len([
-                    r for r in frag_nonoverlap if r["compatibility"] in {"SC", "SI"}
+                    r for r in frag_nonoverlap_numeric if r["compatibility"] in {"SC", "SI"}
                 ]),
             }
         ),
-        "sensitivity_all_land_use": analyse(pairs, "all_land_use_factors"),
+        "sensitivity_all_land_use": analyse(numeric_pairs, "all_land_use_factors"),
     }
 
     out_csv = outdir / "sf06_translation_residual_pairs_v1.csv"
@@ -573,6 +630,7 @@ def main() -> None:
         "",
         f"Exact paired units (all land-use): **{len(pairs)}**.",
         f"Exact paired habitat-fragmentation units: **{len(frag)}**.",
+        f"Numeric-model-eligible habitat-fragmentation units: **{len(frag_numeric)}**.",
         "",
         "## Primary model",
         "",
@@ -597,6 +655,7 @@ def main() -> None:
     print("SF06_TRANSLATION_RESIDUAL " + json.dumps({
         "all_pairs": len(pairs),
         "fragmentation_pairs": len(frag),
+        "fragmentation_numeric_pairs": len(frag_numeric),
         "gamma_SC": p["gamma_SC"],
         "ci95": p["gamma_SC_ci95"],
         "p_two_sided": p["gamma_SC_p_two_sided"],
