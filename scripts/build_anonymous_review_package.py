@@ -30,6 +30,10 @@ FILES = [
     "manuscript/IF_TRANSLATION_METRIC_SENSITIVITY_2026-10-05.md",
     "manuscript/IF_SENTINEL_DETERMINISM_2026-10-05.md",
     "manuscript/INTERACTION_DECLINE_NECESSITY_SUFFICIENCY_2026-10-03.md",
+    "manuscript/IF_RELIABILITY_SUFFICIENCY_2026-10-06.md",
+    "manuscript/ECOLOGICAL_GENERALITY_AND_SURPRISE_2026-09-29.md",
+    "manuscript/HIDDEN_EFFECTIVE_MATING_LAYER_HYPOTHESIS_2026-10-03.md",
+    "manuscript/FRAGMENTATION_SENTINEL_SUFFICIENCY_2026-10-03.md",
     "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-29_EFFECT_SCALE.md",
     "manuscript/ECOLOGICAL_IF_DIRECTION_CENSUS_2026-09-27.md",
     "manuscript/ECOLOGICAL_PROCESS_FUNCTION_CENSUS_2026-09-27.md",
@@ -52,6 +56,8 @@ FILES = [
     "scripts/check_if_interaction_metric_sensitivity.py",
     "scripts/check_if_sentinel_determinism.py",
     "scripts/check_interaction_decline_necessity_sufficiency.py",
+    "scripts/check_if_reliability_sufficiency.py",
+    "scripts/check_ecological_generality_and_surprise.py",
     "scripts/check_ecological_if_programme_census.py",
     "scripts/check_ecological_process_function_programme_census.py",
     "scripts/check_ecological_bottleneck_direction_influence.py",
@@ -93,6 +99,11 @@ FILES = [
     "evidence/meta_extraction/qualitative_external_if_audit_v1.csv",
     "evidence/meta_extraction/if_translation_map_v1.csv",
     "evidence/meta_extraction/if_interaction_metric_class_v1.csv",
+    "evidence/meta_extraction/if_reliability_sufficiency_v1.csv",
+    "evidence/meta_extraction/if_reliability_wandoo_table6_v1.csv",
+    "evidence/meta_extraction/phase2_cf01_cardiopetalum_table1_v1.csv",
+    "evidence/meta_extraction/hidden_effective_mating_mechanism_context_v1.csv",
+    "evidence/meta_extraction/ecological_generality_surprise_promotion_v1.json",
     "evidence/meta_extraction/phase2_if_quantitative_gate_v1.csv",
     "evidence/meta_extraction/PS014_hulting_extraction_v1.csv",
     "evidence/meta_extraction/estimand_scale_cluster_summary_v2.csv",
@@ -356,6 +367,26 @@ def verify_reproduction() -> None:
     )
     if "INTERACTION_DECLINE_LOGIC_OK programmes=16 necessity_counterexamples=2 sufficiency_counterexamples=3 mixed_tier_LOO_both_failures=true quantitative_not_necessary_anchor=ML015 quantitative_not_sufficient_anchor=P2_CF01_MILKWEED_URBAN_2023 prevalence_inference=false" not in interaction_logic.stdout:
         raise AssertionError(interaction_logic.stdout)
+
+    reliability_sufficiency = subprocess.run(
+        [sys.executable, "scripts/check_if_reliability_sufficiency.py"],
+        cwd=PKG,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    if "IF_RELIABILITY_SUFFICIENCY " not in reliability_sufficiency.stdout:
+        raise AssertionError(reliability_sufficiency.stdout)
+
+    generality = subprocess.run(
+        [sys.executable, "scripts/check_ecological_generality_and_surprise.py"],
+        cwd=PKG,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    if "ECOLOGICAL_GENERALITY_SURPRISE_PROMOTED " not in generality.stdout:
+        raise AssertionError(generality.stdout)
 
     census = subprocess.run(
         [sys.executable, "scripts/check_ecological_if_programme_census.py"],
