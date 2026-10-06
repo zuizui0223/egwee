@@ -182,6 +182,24 @@ This formulation also shows why **nominal self-compatibility is not the right mo
 
 The prospective modifier is therefore **effective reproductive assurance**, defined by successful viable output rather than by mating-system label alone.
 
+## Effective assurance capacity, not mating-system label
+
+The current contrasts sharpen the proposed modifier one step further.
+
+A categorical mating-system label is too coarse. What matters is **effective assurance capacity**: whether an alternative reproductive route actually bypasses the damaged provenance step and still yields **viable offspring**.
+
+Five source-explicit examples make the distinction concrete:
+
+- *Eucalyptus wandoo* can self, but preferential loss of selfed progeny means that selfing does not provide complete viable reproductive assurance; high pollen-tube quantity can therefore coexist with lower seed production.
+- *Conospermum undulatum* can initiate fruits after self-pollination, but selfed embryos abort and viable seeds are not produced; provenance loss is therefore difficult to bypass.
+- *Haloxylon ammodendron* has a documented wind-pollination route, so reduced insect visitation need not map directly to lower natural seed set.
+- *Lithraea molleoides* combines ambophily with apomictic seed production, providing multiple routes by which reproductive output can remain stable.
+- *Rhododendron ferrugineum* uses pollinator-mediated selfing/geitonogamy as reproductive assurance: small patches can retain seed production while realised outcrossing falls.
+
+This is **not a moderator test** and does not estimate effect frequencies. The examples were assembled after the translation structure was known and span different evidence tiers. Their role is conceptual: they show why a mating-system label alone can misclassify the actual ability of a plant to compensate for provenance loss.
+
+The prospective variable should therefore be measured directly as **effective assurance capacity**, preferably by experimental bagging/crossing or an explicit alternative-pollination route linked to viable seed production.
+
 ## Fresh predictions
 
 A genuinely new synchronized test should measure Q, P and F on the same individuals and flowering episode.
