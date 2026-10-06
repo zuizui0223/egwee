@@ -119,8 +119,8 @@
     "registered_scale_census_output": "manuscript/tables/table_s4_process_function_census.csv"
   },
   "figure_table_revision": {
-    "builder_blob_sha": "a80ad4985755a451ec8ded2f8802faaf2269ac1a",
-    "captions_blob_sha": "5ad5257166d9fe2e6b4ddf8e5fcfc6613529bc24",
+    "builder_blob_sha": "0212d57f735eb73f3e090a3dafcf63ce027b135f",
+    "captions_blob_sha": "4e540e148fc342f0e8eb849617b6f316880681e4",
     "main_figure4": "manuscript/figures/figure4_estimand_scale_sensitivity.svg",
     "main_table2": "manuscript/tables/table2_estimand_scale_sensitivity.csv",
     "supplementary_table_s4": "manuscript/tables/table_s4_process_function_census.csv",
@@ -133,7 +133,7 @@
     "main_figure_count": 5
   },
   "anonymous_package": {
-    "builder_blob_sha": "34bc4e495770f0211dc22eb05bc2e763d54ed5c9",
+    "builder_blob_sha": "9b4fdb91dcf6e5728230f78e20f8caf83d3c0c58",
     "reproduces_authoritative_raw_delta_scale_audit": true,
     "reproduces_bottleneck_cross_scale_audit": true,
     "reproduces_historical_g": true,
@@ -142,7 +142,9 @@
     "ml014_sufficient_stats_snapshot_blob_sha": "ff108c6d832c04e7c3b47d0acc9581cbddd9cb44",
     "reproduces_if_translation_map": true,
     "reproduces_interaction_decline_logic": true,
-    "reproduces_main_figure5": true
+    "reproduces_main_figure5": true,
+    "reproduces_ecological_generality_promotion": true,
+    "reproduces_reliability_sufficiency_audit": true
   },
   "current_claim_ceiling": [
     "historical Hedges-g synthesis is exactly reproducible",
