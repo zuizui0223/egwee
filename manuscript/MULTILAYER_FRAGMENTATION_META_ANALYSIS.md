@@ -285,11 +285,13 @@ The quantity–quality distinction itself is not new: visitation can poorly repr
 
 All eight registered interaction–function programmes quantify visits, pollinator abundance/occurrence or total pollen/pollen tubes; none directly measures compatible pollen, realised paternity or effective pollen-donor diversity on the same I–F frame. This measurement gap is scale-independent.
 
+The source biology sharpens what that missing state could be. In *Eucalyptus wandoo*, smaller populations received more pollen tubes, yet the source also reports lower multilocus outcrossing on maternal plants with more pollen tubes and proposes concentrated within-plant foraging and self-pollen transfer as a likely explanation. This suggests a specific prospective mechanism: fragmentation can retain or concentrate the **amount** of local transfer while degrading its **provenance**—the donor identity, compatibility, spatial origin or diversity that makes transfer reproductively effective. The same source cautions that outcrossing estimated from surviving seeds can itself be filtered by preferential abortion of selfed progeny, so the intermediate state should be measured before strong post-zygotic selection where possible. These observations motivate the mechanism but do not establish it across the three false-reassurance anchors.
+
 A stronger future design should therefore synchronize:
 
-`interaction quantity → effective mating / compatible pollen → reproductive function`
+`interaction quantity → transfer provenance / effective mating → reproductive function`
 
-on the same fragmented populations. That design can distinguish failure of effective mating from later post-pollination filtering or downstream buffering.
+on the same fragmented populations and flowering episode. That design can distinguish failure of effective mating from later post-pollination filtering or downstream buffering.
 
 ### Exploratory hypothesis: fragmentation effects are filtered across transitions and response times
 
