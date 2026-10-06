@@ -1,33 +1,38 @@
-## Proxy-failure main revision — scientific validation green
+## Ecological generality promotion — scientific validation pending refresh
 
-The mandatory Hedges-g versus oriented-lnRR audit, proxy-failure audit, sign-uncertainty audit, figures/tables, double-anonymous manuscript and reviewer package are all green in full CI run `37089505747`.
+The current revision promotes one ecological principle beyond the earlier proxy-failure wording:
 
-Current scientific status:
+> **Fragmentation can be directionally coherent yet functionally non-identifying: broad deterioration recurs, but interaction quantity alone does not determine reproductive state.**
 
-- the historical Hedges-g primary analysis remains exactly reproducible;
-- its relative-magnitude / leave-one-*Serapias* interpretation is not scale-invariant;
-- all 17/17 primary direct effects remain negative on both oriented g and oriented lnRR;
-- three independent matched I–F programmes show a representation-stable resolved downstream mismatch (Wandoo, Cardiopetalum and Kakamega);
-- no audited I–F programme has an equally representation-stable resolved upstream mismatch;
-- 6/18 panels have opposite I/F point estimates, but 0/6 have both marginal endpoint directions individually resolved at 95%;
-- species-specific point topology and transition-filtering patterns are supporting, hypothesis-generating results rather than the sole novelty claim.
+The promotion gate now requires all of the following to hold simultaneously:
 
-The scientific gate is closed. `submission_ready=false` remains intentional because final authorship/declaration metadata and all-author approval are still pending.
+- all **17/17** primary direct effects are negative on both oriented Hedges g and oriented lnRR;
+- the frozen **16-programme** interaction→function map remains non-identifying after deletion of every single programme;
+- removing all `no_detected_loss` and `mixed` states leaves an **8-programme** explicit-direction map that remains non-identifying after every single-programme deletion;
+- restricting to **13 visitation/abundance programmes** still leaves a leave-one-out non-identifying map;
+- the best deterministic interaction-only lookup still leaves at least **5** mismatches in the full map, **2** in the strict map and **1** in the strict quantitative-only subset;
+- observed interaction decline is **neither necessary nor sufficient** for observed reproductive decline in the mixed-tier evidence universe, and both logical failures survive every single-programme deletion.
 
-Canonical audits:
-- [`manuscript/ESTIMAND_SCALE_ROBUSTNESS_2026-09-29.md`](manuscript/ESTIMAND_SCALE_ROBUSTNESS_2026-09-29.md)
-- [`manuscript/SCALE_STABLE_QUANTITY_FUNCTION_PROXY_FAILURE_2026-09-29.md`](manuscript/SCALE_STABLE_QUANTITY_FUNCTION_PROXY_FAILURE_2026-09-29.md)
-- [`manuscript/IF_SIGN_UNCERTAINTY_2026-10-01.md`](manuscript/IF_SIGN_UNCERTAINTY_2026-10-01.md)
-- [`manuscript/IF_PROXY_FAILURE_NOVELTY_AUDIT_2026-10-01.md`](manuscript/IF_PROXY_FAILURE_NOVELTY_AUDIT_2026-10-01.md)
-- [`manuscript/ECOLOGICAL_GENERALITY_AND_SURPRISE_2026-09-29.md`](manuscript/ECOLOGICAL_GENERALITY_AND_SURPRISE_2026-09-29.md) — canonical synthesis of directional coherence, translation non-identifiability, false-reassurance/false-alarm modes and transition-filtering hypotheses.
-- [`manuscript/HIDDEN_EFFECTIVE_MATING_LAYER_HYPOTHESIS_2026-10-03.md`](manuscript/HIDDEN_EFFECTIVE_MATING_LAYER_HYPOTHESIS_2026-10-03.md) — mechanistic triangulation: fragmentation may preserve interaction quantity while degrading partner identity / compatible mating quality.
+The strongest resolved quantitative surprise is narrower and asymmetric: **false reassurance**. Three independent programmes—*Eucalyptus wandoo*, *Cardiopetalum calophyllum* and Kakamega *Acanthopale pubescens*—show representation-stable downstream mismatch, span three continents and three plant families, and use upstream indicators ranging from visitation/abundance to pollen tubes.
+
+A source-level reliability audit makes a simple measurement-noise explanation less plausible: equal-latent-effect attenuation models misfit all three anchors (descriptive `p<0.01` for each), and the fitted artifact-null probability of a downstream-resolved contrast is <0.03 in each programme. These are post hoc diagnostics, not a joint confirmatory p-value or prevalence estimate.
+
+The mechanistic interpretation remains prospective. All **8/8** quantitative I–F programmes measure interaction/pollen quantity, while **0/8** directly measure compatible mating quality on the same frame. The leading fresh hypothesis is therefore:
+
+`interaction quantity → effective mating / compatible pollen / donor identity → reproductive function`
+
+Current scientific files have changed since the last green full-package run, so `submission_ready=false` remains intentional until the refreshed full CI and anonymous reviewer package pass again.
+
+Canonical promotion files:
+- [`evidence/meta_extraction/ecological_generality_surprise_promotion_v1.json`](evidence/meta_extraction/ecological_generality_surprise_promotion_v1.json)
+- [`manuscript/ECOLOGICAL_GENERALITY_AND_SURPRISE_2026-09-29.md`](manuscript/ECOLOGICAL_GENERALITY_AND_SURPRISE_2026-09-29.md)
 - [`manuscript/IF_TRANSLATION_NONIDENTIFIABILITY_2026-10-03.md`](manuscript/IF_TRANSLATION_NONIDENTIFIABILITY_2026-10-03.md)
-- [`manuscript/INTERACTION_DECLINE_NECESSITY_SUFFICIENCY_2026-10-03.md`](manuscript/INTERACTION_DECLINE_NECESSITY_SUFFICIENCY_2026-10-03.md) — frozen logical audit showing that interaction decline is neither necessary nor sufficient for reproductive decline in the mixed-tier evidence universe.
-- [`scripts/check_estimand_scale_robustness.py`](scripts/check_estimand_scale_robustness.py)
-- [`scripts/check_scale_stable_quantity_function_proxy_failure.py`](scripts/check_scale_stable_quantity_function_proxy_failure.py)
-- [`scripts/check_if_sign_uncertainty.py`](scripts/check_if_sign_uncertainty.py)
+- [`manuscript/IF_SENTINEL_DETERMINISM_2026-10-05.md`](manuscript/IF_SENTINEL_DETERMINISM_2026-10-05.md)
+- [`manuscript/INTERACTION_DECLINE_NECESSITY_SUFFICIENCY_2026-10-03.md`](manuscript/INTERACTION_DECLINE_NECESSITY_SUFFICIENCY_2026-10-03.md)
+- [`manuscript/IF_RELIABILITY_SUFFICIENCY_2026-10-06.md`](manuscript/IF_RELIABILITY_SUFFICIENCY_2026-10-06.md)
+- [`manuscript/HIDDEN_EFFECTIVE_MATING_LAYER_HYPOTHESIS_2026-10-03.md`](manuscript/HIDDEN_EFFECTIVE_MATING_LAYER_HYPOTHESIS_2026-10-03.md)
+- [`scripts/check_ecological_generality_and_surprise.py`](scripts/check_ecological_generality_and_surprise.py)
 
-The earlier 2026-09-27 carried-rho and registered-scale bottleneck files remain provenance and hypothesis-generation material.
 
 # EGWEE — empirical multilayer fragmentation synthesis
 
