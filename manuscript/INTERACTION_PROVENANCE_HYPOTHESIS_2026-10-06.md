@@ -79,6 +79,31 @@ The source project report also noted that high visitation in a highly degraded f
 
 This is compatible with local interaction concentration, but donor identity and mating quality were not measured. The mechanism therefore remains unresolved in this programme.
 
+## Independent internal bridges: provenance is biologically consequential
+
+The missing coordinate is not hypothetical elsewhere in the EGWEE corpus.
+
+### *Eucalyptus socialis* — donor diversity predicts progeny fitness
+
+The recovered Monarto family frame shows that isolated-pasture mothers have higher correlated paternity than small-remnant mothers, meaning fewer effective pollen donors. In the source analysis across families, correlated paternity had a negative effect on progeny growth and explained **16.6% of deviance**, while the number of half-sibships explained 15.2%. The source concluded that reduced pollen diversity affected fitness over and above inbreeding.
+
+This is not an additional false-reassurance I–F replication because local interaction quantity was not measured on that recovered frame. It is an independent internal bridge showing that the proposed provenance coordinate can itself carry fitness-relevant information.
+
+### *Spondias purpurea* — fragmentation spatially compresses realised pollen flow
+
+The same EGWEE corpus also contains a direct spatial example: fragmented *Spondias* sites show shorter realised pollen flow and higher correlated paternity, while juvenile and seed cohorts have lower heterozygosity and higher inbreeding than adults in fragmented habitat. The programme does not prove the Wandoo/Cardiopetalum/Acanthopale mechanism, but it demonstrates that fragmentation can alter **where successful pollen comes from and how many sires contribute**, rather than only how many pollinator visits occur.
+
+## Two-stage masking hypothesis
+
+Putting these observations together suggests a more precise mechanism than generic proxy noise.
+
+1. **local-count masking** — fragmentation can maintain or concentrate visits/pollen deposition while spatially compressing donor origin, compatible mating or donor diversity;
+2. **survivor-filter masking** — poor/selfed matings can be preferentially removed before seed or seedling genotyping, so a late mating estimate from survivors can look healthier than the incoming mating pool.
+
+The resulting observational pattern can be deceptive at both ends: an upstream count can look intact, and a downstream survivor-based genetic metric can also look relatively intact, while absolute reproductive output is already reduced.
+
+We treat this as a **two-stage masking hypothesis**, not a confirmed common mechanism. The current evidence does not establish its prevalence, temporal ordering across species, or mediation of all three false-reassurance anchors. Its value is that it makes the next measurement window explicit: incoming pollen/donor provenance and very early embryos should be measured before viability selection whenever possible.
+
 ## External mechanistic triangulation
 
 ### Dianella revoluta
