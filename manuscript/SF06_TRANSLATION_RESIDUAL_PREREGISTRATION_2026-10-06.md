@@ -101,7 +101,11 @@ These topology counts are descriptive and not prevalence estimates.
 
 - all eligible land-use factors, without the habitat-fragmentation-only restriction;
 - inverse-variance weighted Delta regression using `V_F + V_I` as a zero-covariance working variance;
-- publication-balanced summary in which each publication contributes equally within compatibility class.
+- publication-balanced regression in which each publication contributes equal total weight;
+- **non-overlap external sensitivity:** delete every source publication already represented in the frozen EGWEE 16-programme I–F translation map, then rerun the consensus-sign topology and, when numerically estimable, the compatibility residual model.
+
+The frozen overlapping SF06 publications are Aizen & Feinsinger (1994), Angoh et al. (2021), Chen & Zuo (2019), Chen et al. (2019), Chiapero et al. (2021), da Silva Elias et al. (2012), González-Varo et al. (2009), Kolb (2008), and Lopes & Buzato (2007). Whole publications are deleted even when SF06 contains additional focal species.
+
 
 Unknown within-pair covariance is **not** estimated from outcomes and is not silently assumed known. The unweighted cluster-robust primary model avoids using a fabricated I–F sampling covariance.
 
@@ -123,7 +127,8 @@ No result can establish "effective reproductive assurance" because SF06 records 
 Allowed if supported:
 
 - compatibility system explains residual pollination→female-fitness translation in this external source database;
-- this provides external evidence that average pollination damage does not uniquely determine female-fitness damage.
+- this provides external evidence that average pollination damage does not uniquely determine female-fitness damage;
+- **independent external generalization** may be claimed only when the non-overlap publication subset also passes the coverage gate and remains sign-non-identifying under whole-publication leave-one-out. Otherwise the result is external-source confirmation with partial source overlap, not independent replication.
 
 Not allowed:
 

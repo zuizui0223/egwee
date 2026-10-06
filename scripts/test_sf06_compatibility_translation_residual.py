@@ -16,6 +16,18 @@ import statsmodels.api as sm
 NS = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
 RESPONSES = ("Female fitness", "Male fitness", "Pollination")
 
+FROZEN_EGWEE_IF_OVERLAP_PUBLICATIONS = {
+    "aizen & feinsinger (1994) ecology 75:330- 351",
+    "angoh et al. (2021) south african journal of botany 141:196- 199",
+    "chen & zuo (2019) frontiers in plant science 10:327",
+    "chen et al. (2019) science of the total environment 654:1056- 1063",
+    "chiapero et al. (2021) forest ecology and management 492:119215",
+    "da silva elias et al. (2012) journal of tropical ecology 28:317- 320",
+    "gonzález-varo et al. (2009) biological conservation 142:1058- 1065",
+    "kolb (2008) biological conservation 141:2540- 2549",
+    "lopes & buzato (2007) oecologia 154:305- 314",
+}
+
 
 def q(tag: str) -> str:
     return f"{{{NS}}}{tag}"
@@ -179,6 +191,27 @@ def cluster_fit(y: np.ndarray, X: np.ndarray, groups: list[str]) -> dict:
     }
 
 
+def publication_balanced_fit(y: np.ndarray, X: np.ndarray, groups: list[str]) -> dict:
+    counts = defaultdict(int)
+    for g in groups:
+        counts[g] += 1
+    weights = np.array([1.0 / counts[g] for g in groups], dtype=float)
+    codes = {g: i for i, g in enumerate(sorted(set(groups)))}
+    grp = np.array([codes[g] for g in groups], dtype=int)
+    fit = sm.WLS(y, X, weights=weights).fit(
+        cov_type="cluster", cov_kwds={"groups": grp, "use_correction": True}
+    )
+    return {
+        "params": [float(x) for x in fit.params],
+        "se": [float(x) for x in fit.bse],
+        "p_two_sided": [float(x) for x in fit.pvalues],
+        "ci95": [[float(a), float(b)] for a, b in fit.conf_int(alpha=0.05)],
+        "n": int(fit.nobs),
+        "n_publications": len(set(groups)),
+        "r2": float(fit.rsquared),
+    }
+
+
 def endpoint_resolved_sign(d: float, variance: float) -> str:
     se = math.sqrt(variance)
     lo = d - 1.96 * se
@@ -300,6 +333,7 @@ def analyse(pairs: list[dict], label: str) -> dict:
 
     X = np.column_stack([np.ones(len(primary)), dI, sc])
     main = cluster_fit(y, X, groups)
+    publication_balanced = publication_balanced_fit(y, X, groups)
 
     delta = y - dI
     Xd = np.column_stack([np.ones(len(primary)), sc])
@@ -351,6 +385,7 @@ def analyse(pairs: list[dict], label: str) -> dict:
     return {
         "label": label,
         "primary_model_dF_on_dI_plus_SC": main,
+        "publication_balanced_model_dF_on_dI_plus_SC": publication_balanced,
         "gamma_SC": gamma,
         "gamma_SC_ci95": [lo, hi],
         "gamma_SC_p_two_sided": main["p_two_sided"][2],
@@ -439,8 +474,15 @@ def main() -> None:
 
     pairs.sort(key=lambda r: (r["source_publication"], r["species"], r["land_use_factor_normalized"]))
     frag = [r for r in pairs if r["land_use_factor_normalized"] == "habitat fragmentation"]
+    frag_nonoverlap = [
+        r for r in frag
+        if r["source_publication_key"] not in FROZEN_EGWEE_IF_OVERLAP_PUBLICATIONS
+    ]
 
     topology_frag = topology_audit(frag, "habitat_fragmentation_only")
+    topology_frag_nonoverlap = topology_audit(
+        frag_nonoverlap, "habitat_fragmentation_nonoverlap_with_frozen_EGWEE_IF_map"
+    )
     topology_all = topology_audit(pairs, "all_land_use_factors")
 
     result = {
@@ -450,8 +492,20 @@ def main() -> None:
         "all_exact_paired_units": len(pairs),
         "habitat_fragmentation_exact_paired_units": len(frag),
         "scale_stable_external_topology": topology_frag,
+        "scale_stable_external_topology_nonoverlap_sensitivity": topology_frag_nonoverlap,
         "scale_stable_external_topology_all_land_use_sensitivity": topology_all,
         "primary": analyse(frag, "habitat_fragmentation_only"),
+        "primary_nonoverlap_sensitivity": (
+            analyse(frag_nonoverlap, "habitat_fragmentation_nonoverlap")
+            if len([r for r in frag_nonoverlap if r["compatibility"] in {"SC", "SI"}]) >= 10
+            else {
+                "status": "not_estimable_fewer_than_10_SC_SI_pairs",
+                "n_pairs": len(frag_nonoverlap),
+                "n_SC_SI_pairs": len([
+                    r for r in frag_nonoverlap if r["compatibility"] in {"SC", "SI"}
+                ]),
+            }
+        ),
         "sensitivity_all_land_use": analyse(pairs, "all_land_use_factors"),
     }
 
@@ -466,6 +520,11 @@ def main() -> None:
 
     p = result["primary"]
     topo = result["scale_stable_external_topology"]
+    topo_nonoverlap = result["scale_stable_external_topology_nonoverlap_sensitivity"]
+    independent_external = (
+        topo["decision"] == "external_sign_translation_nonidentifiability_supported"
+        and topo_nonoverlap["decision"] == "external_sign_translation_nonidentifiability_supported"
+    )
     lines = [
         "# SF06 pollination→female-fitness translation-residual result — 2026-10-06",
         "",
@@ -480,6 +539,11 @@ def main() -> None:
         f"- component-resolved-only pairs = **{topo['component_resolved_95pct_sign_sensitivity']['n_used']}**",
         f"- component-resolved-only minimum mismatches = **{topo['component_resolved_95pct_sign_sensitivity']['minimum_deterministic_mismatches']}**",
         f"- IVW-Hedges-d sign sensitivity mismatches = **{topo['ivw_hedges_d_sign_sensitivity']['minimum_deterministic_mismatches']}**",
+        f"- non-overlap consensus-sign pairs = **{topo_nonoverlap['component_consensus_sign']['n_used']}**",
+        f"- non-overlap source publications = **{topo_nonoverlap['consensus_n_publications']}**",
+        f"- non-overlap minimum mismatches = **{topo_nonoverlap['component_consensus_sign']['minimum_deterministic_mismatches']}**",
+        f"- non-overlap LOO minimum mismatches = **{topo_nonoverlap['minimum_mismatch_across_publication_deletions']}**",
+        f"- independent external generalization = **{independent_external}**",
         "",
         "These mismatch counts certify only whether pollination sign can deterministically identify female-fitness sign in the external paired set. They are not prevalence or prediction-error estimates.",
         "",
@@ -517,6 +581,10 @@ def main() -> None:
         "topology_consensus_n": topo["component_consensus_sign"]["n_used"],
         "topology_min_mismatches": topo["component_consensus_sign"]["minimum_deterministic_mismatches"],
         "topology_LOO_min_mismatches": topo["minimum_mismatch_across_publication_deletions"],
+        "nonoverlap_topology_decision": topo_nonoverlap["decision"],
+        "nonoverlap_topology_min_mismatches": topo_nonoverlap["component_consensus_sign"]["minimum_deterministic_mismatches"],
+        "nonoverlap_topology_LOO_min_mismatches": topo_nonoverlap["minimum_mismatch_across_publication_deletions"],
+        "independent_external_generalization": independent_external,
     }, sort_keys=True))
 
 
