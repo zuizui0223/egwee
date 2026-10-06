@@ -76,6 +76,7 @@ def main() -> None:
         or "scale_aware_proxy_failure_scientific_validation_green_human_admin_pending" in metadata
         or "scale_aware_sentinel_figure5_revision_validation_pending" in metadata
         or "scale_aware_sentinel_scientific_validation_green_human_admin_pending" in metadata
+        or "ecological_generality_promotion_validation_pending" in metadata
     )
     assert "p = 0.01212432" in metadata
     assert "p = 0.18194353" in metadata
