@@ -57,7 +57,8 @@ def main() -> None:
     assert "All **17/17 primary direct effects are negative**" in readme
     assert "Primary questions — response direction, relative amplitude and scale dependence" in manuscript
     assert "The scale-robust result is common direction, not a universal ordering of response magnitude" in manuscript
-    assert "relative response amplitude and robustness classification are estimand-scale dependent" in manuscript
+    assert "Relative response amplitude remains estimand-scale dependent" in manuscript
+    assert "the leave-one-Serapias robustness classification depends jointly on effect-size scale and dependence assumptions" in manuscript
     assert "hypothesis-generating" in manuscript
     assert "primary meta-analysis requires a direct fragmented-versus-reference comparison" in protocol.lower()
     assert "pseudo-replication firewall" in effect_amendment.lower()
