@@ -126,6 +126,40 @@ def ivw(rows: list[dict]) -> tuple[float, float]:
     return float(np.sum(w * d) / np.sum(w)), float(1.0 / np.sum(w))
 
 
+def component_consensus_sign(rows: list[dict]) -> str:
+    vals = [r["hedges_d"] for r in rows if r["hedges_d"] is not None]
+    if not vals:
+        return "missing"
+    if all(x < 0 for x in vals):
+        return "lower"
+    if all(x >= 0 for x in vals):
+        return "nonlower"
+    return "mixed"
+
+
+def component_resolved_consensus_sign(rows: list[dict]) -> str:
+    states = []
+    for r in rows:
+        d = r["hedges_d"]
+        v = r["variance"]
+        if d is None or v is None or v <= 0:
+            return "unresolved"
+        se = math.sqrt(v)
+        lo = d - 1.96 * se
+        hi = d + 1.96 * se
+        if hi < 0:
+            states.append("lower")
+        elif lo > 0:
+            states.append("nonlower")
+        else:
+            return "unresolved"
+    if states and all(x == "lower" for x in states):
+        return "lower"
+    if states and all(x == "nonlower" for x in states):
+        return "nonlower"
+    return "unresolved"
+
+
 def cluster_fit(y: np.ndarray, X: np.ndarray, groups: list[str]) -> dict:
     codes = {g: i for i, g in enumerate(sorted(set(groups)))}
     grp = np.array([codes[g] for g in groups], dtype=int)
@@ -152,18 +186,37 @@ def endpoint_resolved_sign(d: float, variance: float) -> str:
     return "unresolved"
 
 
-def deterministic_mismatch(rows: list[dict], resolved_only: bool = False) -> dict:
+def deterministic_mismatch(
+    rows: list[dict],
+    state_source: str = "consensus",
+    resolved_only: bool = False,
+) -> dict:
     counts = defaultdict(lambda: defaultdict(int))
     used = 0
     for r in rows:
-        if resolved_only:
-            i_state = endpoint_resolved_sign(r["d_I"], r["var_I"])
-            f_state = endpoint_resolved_sign(r["d_F"], r["var_F"])
-            if "unresolved" in {i_state, f_state}:
-                continue
+        if state_source == "consensus":
+            if resolved_only:
+                i_state = r["I_resolved_consensus_sign"]
+                f_state = r["F_resolved_consensus_sign"]
+                if "unresolved" in {i_state, f_state}:
+                    continue
+            else:
+                i_state = r["I_component_consensus_sign"]
+                f_state = r["F_component_consensus_sign"]
+                if i_state in {"mixed", "missing"} or f_state in {"mixed", "missing"}:
+                    continue
+        elif state_source == "ivw_hedges_d":
+            if resolved_only:
+                i_state = endpoint_resolved_sign(r["d_I"], r["var_I"])
+                f_state = endpoint_resolved_sign(r["d_F"], r["var_F"])
+                if "unresolved" in {i_state, f_state}:
+                    continue
+            else:
+                i_state = "lower" if r["d_I"] < 0 else "nonlower"
+                f_state = "lower" if r["d_F"] < 0 else "nonlower"
         else:
-            i_state = "lower" if r["d_I"] < 0 else "nonlower"
-            f_state = "lower" if r["d_F"] < 0 else "nonlower"
+            raise ValueError(state_source)
+
         counts[i_state][f_state] += 1
         used += 1
 
@@ -181,12 +234,18 @@ def deterministic_mismatch(rows: list[dict], resolved_only: bool = False) -> dic
 
 
 def topology_audit(pairs: list[dict], label: str) -> dict:
-    point = deterministic_mismatch(pairs, resolved_only=False)
-    pubs = sorted({r["source_publication"] for r in pairs})
+    point = deterministic_mismatch(pairs, state_source="consensus", resolved_only=False)
+    pubs = sorted({
+        r["source_publication"] for r in pairs
+        if r["I_component_consensus_sign"] not in {"mixed", "missing"}
+        and r["F_component_consensus_sign"] not in {"mixed", "missing"}
+    })
     loo = {}
     for pub in pubs:
         kept = [r for r in pairs if r["source_publication"] != pub]
-        loo[pub] = deterministic_mismatch(kept, resolved_only=False)["minimum_deterministic_mismatches"]
+        loo[pub] = deterministic_mismatch(
+            kept, state_source="consensus", resolved_only=False
+        )["minimum_deterministic_mismatches"]
 
     loo_min = min(loo.values()) if loo else 0
     if point["nonidentifying"] and loo_min > 0:
@@ -196,18 +255,25 @@ def topology_audit(pairs: list[dict], label: str) -> dict:
     else:
         decision = "external_sign_translation_nonidentifiability_not_supported"
 
-    resolved = deterministic_mismatch(pairs, resolved_only=True)
+    resolved = deterministic_mismatch(
+        pairs, state_source="consensus", resolved_only=True
+    )
+    ivw = deterministic_mismatch(
+        pairs, state_source="ivw_hedges_d", resolved_only=False
+    )
     return {
         "label": label,
-        "point_sign": point,
+        "component_consensus_sign": point,
         "publication_leave_one_out_minimum_mismatches": loo,
         "minimum_mismatch_across_publication_deletions": int(loo_min),
         "publication_LOO_nonidentifying": bool(loo_min > 0),
-        "resolved_95pct_marginal_sign_sensitivity": resolved,
+        "component_resolved_95pct_sign_sensitivity": resolved,
+        "ivw_hedges_d_sign_sensitivity": ivw,
         "decision": decision,
         "interpretation": (
-            "Structural sign-topology diagnostic only; mismatch counts are not prevalence "
-            "or out-of-sample prediction-error estimates."
+            "Primary structural topology uses constituent-row sign consensus before aggregation; "
+            "mixed-sign response sets are excluded. IVW Hedges-d sign is representation-specific "
+            "sensitivity only. Mismatch counts are not prevalence or prediction-error estimates."
         ),
     }
 
@@ -348,6 +414,10 @@ def main() -> None:
             "d_F": dF,
             "var_F": vF,
             "delta_F_minus_I": dF - dI,
+            "I_component_consensus_sign": component_consensus_sign(rr["Pollination"]),
+            "F_component_consensus_sign": component_consensus_sign(rr["Female fitness"]),
+            "I_resolved_consensus_sign": component_resolved_consensus_sign(rr["Pollination"]),
+            "F_resolved_consensus_sign": component_resolved_consensus_sign(rr["Female fitness"]),
             "n_I_rows_combined": len(rr["Pollination"]),
             "n_F_rows_combined": len(rr["Female fitness"]),
         })
@@ -386,11 +456,13 @@ def main() -> None:
         "",
         "## Scale-stable external sign topology",
         "",
-        f"- minimum deterministic mismatches = **{topo['point_sign']['minimum_deterministic_mismatches']}**",
+        f"- consensus-sign paired units = **{topo['component_consensus_sign']['n_used']}**",
+        f"- minimum deterministic mismatches = **{topo['component_consensus_sign']['minimum_deterministic_mismatches']}**",
         f"- minimum mismatches after deleting each whole publication = **{topo['minimum_mismatch_across_publication_deletions']}**",
         f"- decision = **{topo['decision']}**",
-        f"- resolved-only pairs = **{topo['resolved_95pct_marginal_sign_sensitivity']['n_used']}**",
-        f"- resolved-only minimum mismatches = **{topo['resolved_95pct_marginal_sign_sensitivity']['minimum_deterministic_mismatches']}**",
+        f"- component-resolved-only pairs = **{topo['component_resolved_95pct_sign_sensitivity']['n_used']}**",
+        f"- component-resolved-only minimum mismatches = **{topo['component_resolved_95pct_sign_sensitivity']['minimum_deterministic_mismatches']}**",
+        f"- IVW-Hedges-d sign sensitivity mismatches = **{topo['ivw_hedges_d_sign_sensitivity']['minimum_deterministic_mismatches']}**",
         "",
         "These mismatch counts certify only whether pollination sign can deterministically identify female-fitness sign in the external paired set. They are not prevalence or prediction-error estimates.",
         "",
@@ -425,7 +497,8 @@ def main() -> None:
         "p_two_sided": p["gamma_SC_p_two_sided"],
         "decision": p["decision"],
         "topology_decision": topo["decision"],
-        "topology_min_mismatches": topo["point_sign"]["minimum_deterministic_mismatches"],
+        "topology_consensus_n": topo["component_consensus_sign"]["n_used"],
+        "topology_min_mismatches": topo["component_consensus_sign"]["minimum_deterministic_mismatches"],
         "topology_LOO_min_mismatches": topo["minimum_mismatch_across_publication_deletions"],
     }, sort_keys=True))
 

@@ -150,14 +150,17 @@ The main external generality question is now:
 
 > **Among species/studies that measured pollination and female fitness under the same land-use contrast, does the sign of the pollination response deterministically identify the sign of the female-fitness response?**
 
-For every exact paired unit define:
+For the **scale-stable primary topology**, response sign is defined from the constituent source rows *before* inverse-variance aggregation:
 
-- `I_sign = lower` if `d_I < 0`, otherwise `nonlower`;
-- `F_sign = lower` if `d_F < 0`, otherwise `nonlower`.
+- `lower` only when **all** constituent effects for that response are negative;
+- `nonlower` only when **all** constituent effects are zero or positive;
+- `mixed` when constituent effects span both sides of zero.
 
-Because standardization by a positive SD cannot reverse the sign of a mean contrast, this point-sign topology is more effect-scale stable than comparing Hedges-d amplitudes.
+A paired unit enters the scale-stable topology only when both I and F have consensus signs. This is deliberately stricter than using the sign of an inverse-variance weighted Hedges-d summary. Standardization by a positive SD cannot reverse each constituent mean-contrast sign, whereas changing effect representation can change relative weights and could in principle reverse the sign of an aggregated summary.
 
-For the habitat-fragmentation subset, calculate the **best deterministic lookup** from `I_sign` to `F_sign`. For each observed I-sign state, choose the F-sign state that minimizes mismatches. Sum the remaining mismatches across I-sign states.
+For the habitat-fragmentation subset, calculate the **best deterministic lookup** from consensus `I_sign` to consensus `F_sign`. For each observed I-sign state, choose the F-sign state that minimizes mismatches. Sum the remaining mismatches across I-sign states.
+
+The sign of the inverse-variance weighted Hedges-d summaries is retained only as a **representation-specific sensitivity**, not as the scale-stable primary topology.
 
 This is a structural compatibility diagnostic, not an out-of-sample error rate.
 
@@ -165,8 +168,8 @@ This is a structural compatibility diagnostic, not an out-of-sample error rate.
 
 Classify the external SF06 sign map as `external_sign_translation_nonidentifiability_supported` only when:
 
-1. the full habitat-fragmentation paired set has at least one deterministic mismatch; and
-2. after deleting every whole source publication in turn, the best deterministic I-sign→F-sign lookup still has at least one mismatch.
+1. the full habitat-fragmentation **consensus-sign** paired set has at least one deterministic mismatch; and
+2. after deleting every whole source publication in turn, the best deterministic consensus I-sign→F-sign lookup still has at least one mismatch.
 
 If the full map is non-identifying but at least one publication deletion removes all mismatches, classify as influence-sensitive.
 
