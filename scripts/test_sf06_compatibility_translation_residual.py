@@ -272,11 +272,14 @@ def deterministic_mismatch(
 
 def topology_audit(pairs: list[dict], label: str) -> dict:
     point = deterministic_mismatch(pairs, state_source="consensus", resolved_only=False)
-    pubs = sorted({
-        r["source_publication_key"] for r in pairs
+    consensus_pairs = [
+        r for r in pairs
         if r["I_component_consensus_sign"] not in {"mixed", "missing"}
         and r["F_component_consensus_sign"] not in {"mixed", "missing"}
-    })
+    ]
+    pubs = sorted({r["source_publication_key"] for r in consensus_pairs})
+    species = sorted({r["species"].casefold() for r in consensus_pairs})
+
     loo = {}
     for pub in pubs:
         kept = [r for r in pairs if r["source_publication_key"] != pub]
@@ -284,10 +287,24 @@ def topology_audit(pairs: list[dict], label: str) -> dict:
             kept, state_source="consensus", resolved_only=False
         )["minimum_deterministic_mismatches"]
 
+    species_loo = {}
+    for sp in species:
+        kept = [r for r in pairs if r["species"].casefold() != sp]
+        species_loo[sp] = deterministic_mismatch(
+            kept, state_source="consensus", resolved_only=False
+        )["minimum_deterministic_mismatches"]
+
     loo_min = min(loo.values()) if loo else 0
+    species_loo_min = min(species_loo.values()) if species_loo else 0
     n_publications = len(pubs)
-    coverage_gate = point["n_used"] >= 10 and n_publications >= 5
-    if coverage_gate and point["nonidentifying"] and loo_min > 0:
+    n_species = len(species)
+    coverage_gate = point["n_used"] >= 10 and n_species >= 10 and n_publications >= 5
+    if (
+        coverage_gate
+        and point["nonidentifying"]
+        and loo_min > 0
+        and species_loo_min > 0
+    ):
         decision = "external_sign_translation_nonidentifiability_supported"
     elif not coverage_gate:
         decision = "external_sign_translation_nonidentifiability_coverage_insufficient"
@@ -306,16 +323,21 @@ def topology_audit(pairs: list[dict], label: str) -> dict:
         "label": label,
         "component_consensus_sign": point,
         "consensus_n_publications": n_publications,
+        "consensus_n_species": n_species,
         "minimum_coverage_gate_passed": bool(coverage_gate),
         "publication_leave_one_out_minimum_mismatches": loo,
         "minimum_mismatch_across_publication_deletions": int(loo_min),
         "publication_LOO_nonidentifying": bool(loo_min > 0),
+        "species_leave_one_out_minimum_mismatches": species_loo,
+        "minimum_mismatch_across_species_deletions": int(species_loo_min),
+        "species_LOO_nonidentifying": bool(species_loo_min > 0),
         "component_resolved_95pct_sign_sensitivity": resolved,
         "ivw_hedges_d_sign_sensitivity": ivw,
         "decision": decision,
         "interpretation": (
             "Primary structural topology uses constituent-row sign consensus before aggregation; "
-            "mixed-sign response sets are excluded. IVW Hedges-d sign is representation-specific "
+            "mixed-sign response sets are excluded. Generality requires both publication- and "
+            "species-level leave-one-out persistence. IVW Hedges-d sign is representation-specific "
             "sensitivity only. Mismatch counts are not prevalence or prediction-error estimates."
         ),
     }
@@ -531,10 +553,12 @@ def main() -> None:
         "## Scale-stable external sign topology",
         "",
         f"- consensus-sign paired units = **{topo['component_consensus_sign']['n_used']}**",
+        f"- consensus-sign unique species = **{topo['consensus_n_species']}**",
         f"- minimum deterministic mismatches = **{topo['component_consensus_sign']['minimum_deterministic_mismatches']}**",
         f"- consensus source publications = **{topo['consensus_n_publications']}**",
         f"- minimum coverage gate passed = **{topo['minimum_coverage_gate_passed']}**",
         f"- minimum mismatches after deleting each whole publication = **{topo['minimum_mismatch_across_publication_deletions']}**",
+        f"- minimum mismatches after deleting each whole species = **{topo['minimum_mismatch_across_species_deletions']}**",
         f"- decision = **{topo['decision']}**",
         f"- component-resolved-only pairs = **{topo['component_resolved_95pct_sign_sensitivity']['n_used']}**",
         f"- component-resolved-only minimum mismatches = **{topo['component_resolved_95pct_sign_sensitivity']['minimum_deterministic_mismatches']}**",
@@ -581,6 +605,7 @@ def main() -> None:
         "topology_consensus_n": topo["component_consensus_sign"]["n_used"],
         "topology_min_mismatches": topo["component_consensus_sign"]["minimum_deterministic_mismatches"],
         "topology_LOO_min_mismatches": topo["minimum_mismatch_across_publication_deletions"],
+        "topology_species_LOO_min_mismatches": topo["minimum_mismatch_across_species_deletions"],
         "nonoverlap_topology_decision": topo_nonoverlap["decision"],
         "nonoverlap_topology_min_mismatches": topo_nonoverlap["component_consensus_sign"]["minimum_deterministic_mismatches"],
         "nonoverlap_topology_LOO_min_mismatches": topo_nonoverlap["minimum_mismatch_across_publication_deletions"],

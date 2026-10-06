@@ -14,9 +14,10 @@ Primary object: constituent-row consensus signs for pollination and female fitne
 
 Requirements:
 
-- each subset passes its preregistered minimum coverage gate;
+- each subset passes its preregistered minimum coverage gate, including unique-species coverage;
 - deterministic pollination-sign -> female-fitness-sign lookup has at least one mismatch;
-- mismatch remains after deletion of every whole source publication.
+- mismatch remains after deletion of every whole source publication;
+- mismatch remains after deletion of every whole plant species.
 
 Interpretation:
 

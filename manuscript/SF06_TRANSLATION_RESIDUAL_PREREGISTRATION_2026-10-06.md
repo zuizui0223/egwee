@@ -173,11 +173,12 @@ This is a structural compatibility diagnostic, not an out-of-sample error rate.
 
 Classify the external SF06 sign map as `external_sign_translation_nonidentifiability_supported` only when:
 
-1. the habitat-fragmentation consensus-sign subset passes a **minimum coverage gate of at least 10 paired units from at least 5 source publications**;
-2. the full habitat-fragmentation **consensus-sign** paired set has at least one deterministic mismatch; and
-3. after deleting every whole source publication in turn, the best deterministic consensus I-sign→F-sign lookup still has at least one mismatch.
+1. the habitat-fragmentation consensus-sign subset passes a **minimum coverage gate of at least 10 paired units, at least 10 unique plant species and at least 5 source publications**;
+2. the full habitat-fragmentation **consensus-sign** paired set has at least one deterministic mismatch;
+3. after deleting every whole source publication in turn, the best deterministic consensus I-sign→F-sign lookup still has at least one mismatch; and
+4. after deleting every whole plant species in turn, the best deterministic consensus I-sign→F-sign lookup still has at least one mismatch.
 
-The minimum coverage gate is fixed before outcome opening to prevent a sparse consensus subset from being promoted as broad external generality. The source paper reports 82 species with simultaneous pollination and female-fitness effects before this stricter consensus filtering; the gate does not assume how many will remain.
+The minimum coverage gate and the whole-species influence rule are fixed before outcome opening to prevent repeated measurements of a few species from being promoted as broad external generality. The source paper reports 82 species with simultaneous pollination and female-fitness effects before this stricter consensus filtering; the gate does not assume how many will remain.
 
 If the full map is non-identifying but at least one publication deletion removes all mismatches, classify as influence-sensitive.
 
