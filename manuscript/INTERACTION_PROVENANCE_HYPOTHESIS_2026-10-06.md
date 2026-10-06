@@ -156,6 +156,32 @@ The second term can fall because of selfing, incompatibility, repeated donors, r
 
 This product is a heuristic, not a fitted model: different mating systems require different definitions of effective provenance.
 
+## Translation decomposition: why the same Q can map to different F
+
+The frozen many-to-many map becomes easier to interpret if the biological conversion is decomposed into four distinct coordinates:
+
+- **Q — interaction quantity:** visits, pollinator abundance, pollen receipt or pollen-tube number;
+- **P — transfer provenance:** compatible/outcross fraction, donor identity, donor diversity and spatial origin;
+- **V — post-transfer viability:** fertilization success, selective abortion, embryo/seed survival and other post-zygotic filters;
+- **A — effective reproductive assurance:** a biologically independent or compensating route that can still produce viable offspring, such as effective autonomous selfing, wind pollination or apomixis.
+
+A heuristic expression is:
+
+`F ∝ Q × P × V + A`
+
+This is **not a fitted equation, an exact identity or a claim that all pathways are additive**. It is a bookkeeping device for the biological fact that local interaction counts identify reproductive function only when the hidden conversion coordinates remain sufficiently stable.
+
+Under this decomposition the observed response geometries have explicit interpretations:
+
+- **concordant deterioration:** Q declines and compensation is insufficient, with P or V possibly declining as well;
+- **false reassurance:** Q is maintained or elevated but P and/or V deteriorate, while A is insufficient;
+- **apparent over-warning / buffering:** Q declines, yet A or another conversion route preserves F;
+- **apparent resilience:** both the focal route and compensatory conversion remain sufficient over the observed range.
+
+This formulation also shows why **nominal self-compatibility is not the right moderator**. Wandoo can self, but selfed progeny can be preferentially removed; the route exists genetically but is weak as *effective* reproductive assurance. By contrast, wind pollination in *Haloxylon*, ambophily/apomixis in *Lithraea*, and pollinator-mediated selfing in *Rhododendron* can bypass part of the disrupted focal route and preserve a quantity-like reproductive endpoint.
+
+The prospective modifier is therefore **effective reproductive assurance**, defined by successful viable output rather than by mating-system label alone.
+
 ## Fresh predictions
 
 A genuinely new synchronized test should measure Q, P and F on the same individuals and flowering episode.

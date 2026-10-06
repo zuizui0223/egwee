@@ -291,6 +291,8 @@ An independent internal bridge supports the biological relevance of that missing
 
 This motivates a **two-stage masking hypothesis**. First, local interaction counts can miss spatial or genetic compression of transfer provenance. Second, surviving-progeny mating estimates can miss poor matings already removed by selective abortion or early viability filtering. Thus both an upstream count and a late genetic readout may look less impaired than the reproductive process between them. This is **not a confirmed common mechanism**; it is a source-grounded hypothesis that fixes where fresh measurements should be made. A corollary is that mating system and reproductive assurance should modify this translation: provenance loss may cause immediate reproductive decline in systems lacking compensation, but can be temporarily buffered by selfing where that route remains viable.
 
+A compact biological decomposition makes the observed many-to-many translation explicit. Let Q denote interaction quantity, P the compatible/donor-provenance fraction, V post-transfer viability, and A an effective compensating reproductive route. Heuristically, reproductive function behaves as `F ∝ Q × P × V + A`. This is not a fitted model or literal additive identity. It shows why the same Q can accompany different F states: fragmentation can change P, V or A independently of local interaction counts. It also clarifies that nominal self-compatibility is less informative than **effective reproductive assurance**—whether an alternative route actually produces viable offspring.
+
 A stronger future design should therefore synchronize:
 
 `interaction quantity → transfer provenance / effective mating → reproductive function`
