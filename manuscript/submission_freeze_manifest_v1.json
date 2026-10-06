@@ -1,17 +1,17 @@
 {
   "schema_version": 6,
   "updated_on": "2026-10-03",
-  "status": "scale_aware_sentinel_figure5_revision_validation_pending",
+  "status": "ecological_generality_promotion_validation_pending",
   "submission_ready": false,
   "supersedes_submission_freeze": true,
   "revision_base_commit": "19a15a336fe10b3ed1770567058aaadf4c98478a",
   "manuscript": {
     "path": "manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md",
-    "blob_sha": "61788ef86eac80fd6b70b22ed61b0ddd63caad70",
+    "blob_sha": "9fa73e60769637ceeb034e707a4a1a860e4d96f0",
     "title": "Habitat fragmentation across plant reproductive life cycles: scale-stable deterioration and recurrent interaction–function proxy failure",
     "target_journal": "Journal of Ecology",
-    "main_text_words": 7962,
-    "abstract_words": 343
+    "main_text_words": 7979,
+    "abstract_words": 261
   },
   "historical_primary_g": {
     "independent_clusters": 5,
@@ -157,7 +157,14 @@
     "the frozen qualitative blocked I-F denominator contains mixed buffering resilience concordance and hidden-function-loss geometries; it supports proxy non-monotonicity but not a one-sided prevalence rule",
     "the frozen 16-programme I-F translation map shows that identical qualitative interaction signals coexist with multiple reproductive-function states",
     "interaction quantity is a non-identifying stand-alone sentinel of reproductive function across the audited fragmentation contexts",
-    "observed interaction evidence state is non-identifying for observed reproductive-function state in the frozen mixed-tier evidence universe"
+    "observed interaction evidence state is non-identifying for observed reproductive-function state in the frozen mixed-tier evidence universe",
+    "directional coherence without interaction-function identifiability is the promoted general ecological principle",
+    "interaction decline is neither necessary nor sufficient for reproductive decline in the frozen mixed-tier evidence universe",
+    "the full 16-programme translation map remains non-identifying under leave-one-programme-out, strict-category and visitation-only sensitivities",
+    "no deterministic interaction-only state rule fits the full, strict or strict quantitative-only map perfectly",
+    "the strongest representation-stable resolved quantitative failure mode is false reassurance in three independent programmes",
+    "simple classical differential-reliability attenuation is inadequate for the three audited false-reassurance anchors under the recovered reliability proxies",
+    "the hidden effective-mating layer remains a prospective mechanism hypothesis rather than a confirmed explanation"
   ],
   "not_authorized": [
     "scale-invariant global layer-separation syndrome",
@@ -181,11 +188,15 @@
     "using the 16-programme translation map as a prevalence or frequency estimate",
     "treating qualitative-blocked programmes as quantitatively equivalent replications",
     "claiming quantitative-only category-level non-identifiability is leave-one-programme-out robust",
-    "claiming quantitative-only necessity or sufficiency failure is leave-one-programme-out robust"
+    "claiming quantitative-only necessity or sufficiency failure is leave-one-programme-out robust",
+    "treating deterministic mismatch counts as prediction error or prevalence estimates",
+    "treating the reliability-audit joint simulation frequency as a formal p-value",
+    "claiming false reassurance is more common than apparent over-warning in nature",
+    "claiming effective mating quality is the confirmed common mechanism"
   ],
   "remaining_scientific_gate": [
-    "current full CI green with Figure 5",
-    "current anonymous reviewer package reproduces Figure 5 and frozen translation map"
+    "current full CI green after ecological generality/surprise promotion",
+    "current anonymous reviewer package reproduces the promoted generality and reliability-stressed manuscript"
   ],
   "remaining_human_blockers": [
     "final author list",
@@ -201,7 +212,7 @@
     "previous_conclusion": "success",
     "full_contract_run_id": null,
     "conclusion": null,
-    "current_revision_status": "pending",
+    "current_revision_status": "pending_generality_promotion",
     "current_revision_validated": false,
     "proxy_failure_audit": true,
     "sign_uncertainty_audit": true,
@@ -209,7 +220,7 @@
     "figures_tables_reproduced": false,
     "double_anonymous": true,
     "anonymous_reviewer_package_reproduced": false,
-    "reason": "Figure 5 promotes the frozen 16-programme sentinel-sufficiency synthesis to the main package; current head requires full revalidation.",
+    "reason": "Manuscript and promotion artifacts changed on 2026-10-06; full revalidation required.",
     "translation_map_audit": true
   },
   "if_sign_geometry": {
@@ -393,5 +404,27 @@
     "strict_quantitative_programmes": 5,
     "strict_quantitative_min_misclassified": 1,
     "prevalence_inference": false
+  },
+  "ecological_generality_surprise_promotion": {
+    "manifest": "evidence/meta_extraction/ecological_generality_surprise_promotion_v1.json",
+    "manifest_blob_sha": "7564af0ac66215779047b21b82df10fe62864cdd",
+    "note": "manuscript/ECOLOGICAL_GENERALITY_AND_SURPRISE_2026-09-29.md",
+    "note_blob_sha": "d24b486386880e033649127d94114e715f296987",
+    "checker": "scripts/check_ecological_generality_and_surprise.py",
+    "checker_blob_sha": "711e41c9fa8ce6663df2925c7180917e58d66a0b",
+    "generality_gate": "pass",
+    "surprise_gate": "pass",
+    "main_principle": "directional_coherence_without_interaction_function_identifiability",
+    "strongest_resolved_failure_mode": "false_reassurance",
+    "mechanism_status": "hidden_effective_mating_hypothesis_not_confirmed"
+  },
+  "if_reliability_sufficiency": {
+    "note": "manuscript/IF_RELIABILITY_SUFFICIENCY_2026-10-06.md",
+    "note_blob_sha": "582d0c9eadf8afec6d163200fc1bf05147baa7e2",
+    "table": "evidence/meta_extraction/if_reliability_sufficiency_v1.csv",
+    "table_blob_sha": "3c032d0940dd4c79ee561551642820942277a825",
+    "audited_anchors": 3,
+    "simple_differential_reliability_inadequate": true,
+    "formal_joint_p_value": false
   }
 }
