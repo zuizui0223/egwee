@@ -15,10 +15,15 @@ SOURCE_ARTICLE_DOI = "10.1093/aob/mcae076"
 MATERIALIZATION_SCHEMA_VERSION = 2
 NS = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
 RESPONSES = ("Female fitness", "Male fitness", "Pollination")
-EXPECTED_RESPONSE_COUNTS = {
+PAPER_REPORTED_HIERARCHICAL_INPUT_COUNTS = {
     "Female fitness": 312,
     "Male fitness": 105,
     "Pollination": 83,
+}
+PUBLIC_S1_PHYSICAL_ROW_COUNTS = {
+    "Female fitness": 267,
+    "Male fitness": 88,
+    "Pollination": 71,
 }
 
 
@@ -153,11 +158,21 @@ def main() -> None:
         table_data_rows.append(n_data)
 
     response_counts = Counter(r["response"] for r in parsed)
-    assert response_counts == Counter(EXPECTED_RESPONSE_COUNTS), (
+    assert response_counts == Counter(PUBLIC_S1_PHYSICAL_ROW_COUNTS), (
         response_counts,
         table_data_rows,
     )
-    assert len(parsed) == sum(EXPECTED_RESPONSE_COUNTS.values()) == 500
+    assert len(parsed) == sum(PUBLIC_S1_PHYSICAL_ROW_COUNTS.values()) == 426
+    assert table_data_rows == [0, 79, 79, 79, 79, 79, 31], table_data_rows
+    public_shortfall = {
+        key: PAPER_REPORTED_HIERARCHICAL_INPUT_COUNTS[key] - PUBLIC_S1_PHYSICAL_ROW_COUNTS[key]
+        for key in PAPER_REPORTED_HIERARCHICAL_INPUT_COUNTS
+    }
+    assert public_shortfall == {
+        "Female fitness": 45,
+        "Male fitness": 17,
+        "Pollination": 12,
+    }
 
     # Freeze the exact row-level metadata and candidate pairing universe before
     # opening any Hedges-d or variance cells. These files contain no outcomes.
@@ -268,7 +283,13 @@ def main() -> None:
         "source_sha256": hashlib.sha256(source.read_bytes()).hexdigest(),
         "docx_tables": len(tables),
         "docx_data_rows_by_table": table_data_rows,
-        "published_response_count_gate": EXPECTED_RESPONSE_COUNTS,
+        "paper_reported_hierarchical_input_counts": PAPER_REPORTED_HIERARCHICAL_INPUT_COUNTS,
+        "public_s1_physical_row_counts": PUBLIC_S1_PHYSICAL_ROW_COUNTS,
+        "paper_minus_public_s1_shortfall": public_shortfall,
+        "public_s1_coverage_boundary": (
+            "accessible DOCX contains 426 response-labelled C-through-Z physical rows; "
+            "paper reports 500 hierarchical input effects; missing 74 inputs are not reconstructed"
+        ),
         "materialized": {
             "source_effect_rows": len(parsed),
             "deduplicated_source_publications": len(output),
@@ -285,7 +306,7 @@ def main() -> None:
             "pair_manifest_file": pair_csv.name,
         },
         "publication_universe_file": out_csv.name,
-        "completion_status": "publication_rows_materialized_screening_pending",
+        "completion_status": "public_s1_426_rows_materialized_with_74_paper_input_shortfall",
     }
     (outdir / "phase2_sf06_source_frame_summary_v1.json").write_text(
         json.dumps(summary, indent=2, ensure_ascii=False) + "\n",
@@ -299,9 +320,12 @@ def main() -> None:
 SF06 (Aguilar et al. 2024 online / 2025 volume; doi:{SOURCE_ARTICLE_DOI}) has
 been row-materialized from public Supplementary Table S1.
 
-The source DOCX contains:
+The accessible public source DOCX contains **426 response-labelled physical rows**. The article reports 500 hierarchical meta-analysis input effect values (312 female, 105 male, 83 pollination), so the public file is not a complete row-level representation of those reported inputs. Structural audit shows that its first Word table is header-only and the response-labelled data begin at *Calystegia*; no missing first data table can be recovered by simply scanning `tables[0]`.
 
-- source effect rows: **{len(parsed)}**;
+The public DOCX contains:
+
+- source physical effect rows: **{len(parsed)}**;
+- paper-reported minus public-row shortfall: **{sum(public_shortfall.values())}** (=45 female + 17 male + 12 pollination);
 - deduplicated source publications: **{len(output)}**;
 - unique plant species represented: **{len(species_all)}**;
 - female-fitness rows: **{response_counts.get('Female fitness', 0)}**;
@@ -317,7 +341,7 @@ The Phase-2 publication universe retains publication identity, species, family,
 response family, land-use factor and ecological/life-history metadata.
 
 The numerical source-result cells `Hedges' d` and `V(d)` are deliberately
-excluded from the materialized ledger. No new EGWEE effect magnitude is opened.
+excluded from the metadata ledger. No missing A/B or otherwise absent paper-reported effect is reconstructed from article summaries, figures or aggregate counts.
 
 The row-level metadata ledger and exact pair manifest are also frozen here so
 pair construction cannot be changed after numerical outcomes are opened.

@@ -4,7 +4,7 @@
 
 The **core compatibility-residual hypothesis and decision rule** in this document were genuinely frozen at commit `a49af606` (2026-10-06 14:13:10 UTC), before any project-computed SF06 row-level result existed.
 
-GitHub Actions run `37477126333` was triggered from that commit and the runner was first provisioned at **14:36:24 UTC**. Its analysis emitted the first project-computed SF06 result at **14:36:47 UTC**. That run used the original parser, which skipped the first Word table and therefore parsed only **426/500 published effect rows**. Its numerical output is retained only as an **outcome-exposure/provenance record**, not as an authoritative scientific result.
+GitHub Actions run `37477126333` was triggered from that commit and the runner was first provisioned at **14:36:24 UTC**. Its analysis emitted the first project-computed SF06 result at **14:36:47 UTC**. A later structural audit showed that the accessible public Table S1 DOCX itself contains **426 response-labelled physical rows** (267 female fitness, 88 male fitness, 71 pollination); its first Word table is header-only. The article reports **500 hierarchical meta-analysis input effects** (312/105/83), so the 74-value discrepancy is a **public-source coverage boundary**, not a recoverable skipped-table parser error. The first numerical output is therefore retained as a preliminary result for the available public-S1 subset, with later implementation/robustness changes tracked separately.
 
 The timing classification used below is therefore:
 
@@ -13,7 +13,7 @@ The timing classification used below is therefore:
 - **concurrent / not cleanly confirmatory:** the metadata pair-manifest change `a079f11` (14:36:36 UTC), committed after the first runner had started but 11 seconds before its logged numerical output;
 - **post-exposure robustness or implementation correction:** all gates and sensitivities added after 14:36:47 UTC, including the minimum-coverage gate, publication normalization, source-overlap sensitivity, decision tree, species-level leave-one-out, frozen source/pair hard gate and the 500-row completeness repair.
 
-Accordingly, the corrected 500-row analysis tests a **preregistered biological target with a post-exposure implementation repair**. It must not be described as a clean untouched confirmatory replication. See `SF06_OUTCOME_EXPOSURE_TIMELINE_2026-10-06.md`.
+Accordingly, the public-S1 reanalysis tests a **preregistered biological target in the complete accessible 426-row supplement, with post-exposure provenance and robustness corrections**. It must not be described as a clean untouched confirmatory replication. See `SF06_OUTCOME_EXPOSURE_TIMELINE_2026-10-06.md`.
 
 ## Status
 
@@ -38,16 +38,11 @@ Fixed public source:
 - source file hash must match or be recorded by the analysis workflow;
 - no alternative dataset is substituted after outcomes are opened.
 
-### Post-exposure implementation correction: published-count completeness gate
+### Post-exposure source-coverage correction: public S1 versus paper-reported input counts
 
-Before any SF06 result is accepted, the DOCX parser must recover exactly the effect-size totals reported by Aguilar et al.:
+Aguilar et al. report hierarchical meta-analysis input counts of 312 female-fitness, 105 male-fitness and 83 pollination effects (500 total). The accessible Supplementary Table S1 DOCX contains only 267, 88 and 71 response-labelled physical rows (426 total). Structural audit of all seven Word tables shows a header-only first table followed by six data tables with 79/79/79/79/79/31 rows; the first data row is *Calystegia collina*. Thus scanning the first Word table cannot recover the 74-count shortfall.
 
-- female fitness: **312**;
-- male fitness: **105**;
-- pollination: **83**;
-- total: **500**.
-
-The earlier metadata parser recovered only 426 rows because it skipped the first Word table. That materialization is now classified as incomplete. The corrected parser scans all Word tables, admits only rows carrying one of the three declared response labels, and stops unless the response counts exactly match the published totals. This coverage gate is evaluated before interpreting any SF06 result.
+The authoritative public-source reanalysis therefore targets **all 426 rows actually present in the accessible S1 file** and records the paper-versus-public shortfall explicitly. It does not reconstruct the missing 74 paper-reported inputs. Any result is a public-S1 subset validation, not a reanalysis of the complete 500-input database.
 
 ## Post-exposure reproducibility gate for corrected reruns
 

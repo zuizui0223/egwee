@@ -8,6 +8,10 @@ It is therefore **not a preregistration**. It is a conservative post-exposure in
 
 Its purpose is to prevent any further result-contingent broadening after the incomplete 426-row preliminary exposure.
 
+## Public-source coverage ceiling
+
+The accessible Supplementary Table S1 DOCX contains 426 response-labelled C-through-Z physical rows, whereas the article reports 500 hierarchical input effects. Therefore every lane below applies only to the **public-S1 subset**. Even a robust source-disjoint result cannot be described as validation across the complete 500-input SF06 database unless the missing 74 inputs become available.
+
 ## Lane 1 — scale-stable translation topology
 
 Primary object: constituent-row consensus signs for pollination and female fitness under habitat fragmentation.
@@ -25,7 +29,7 @@ Interpretation:
 
 > The EGWEE interaction->function non-identifiability principle generalizes beyond the frozen 16-programme map, including a source-publication-disjoint external subset.
 
-Allowed wording: **robust external generalization of sign-level translation non-identifiability, under post-exposure robustness criteria**. Do not call this a preregistered confirmatory replication.
+Allowed wording: **robust external generalization within the accessible public-S1 subset, under post-exposure robustness criteria**. Do not call this a preregistered confirmatory replication.
 
 ### B. Full SF06 passes, non-overlap subset does not
 

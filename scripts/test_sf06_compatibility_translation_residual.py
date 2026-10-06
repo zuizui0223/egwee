@@ -16,10 +16,15 @@ import statsmodels.api as sm
 
 NS = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
 RESPONSES = ("Female fitness", "Male fitness", "Pollination")
-EXPECTED_RESPONSE_COUNTS = {
+PAPER_REPORTED_HIERARCHICAL_INPUT_COUNTS = {
     "Female fitness": 312,
     "Male fitness": 105,
     "Pollination": 83,
+}
+PUBLIC_S1_PHYSICAL_ROW_COUNTS = {
+    "Female fitness": 267,
+    "Male fitness": 88,
+    "Pollination": 71,
 }
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -498,11 +503,17 @@ def main() -> None:
     response_counts = defaultdict(int)
     for r in parsed:
         response_counts[r["response"]] += 1
-    assert dict(response_counts) == EXPECTED_RESPONSE_COUNTS, (
+    assert dict(response_counts) == PUBLIC_S1_PHYSICAL_ROW_COUNTS, (
         dict(response_counts),
         table_data_rows,
     )
-    assert len(parsed) == sum(EXPECTED_RESPONSE_COUNTS.values()) == 500
+    assert len(parsed) == sum(PUBLIC_S1_PHYSICAL_ROW_COUNTS.values()) == 426
+    assert table_data_rows == [0, 79, 79, 79, 79, 79, 31], table_data_rows
+    public_shortfall = {
+        key: PAPER_REPORTED_HIERARCHICAL_INPUT_COUNTS[key] - PUBLIC_S1_PHYSICAL_ROW_COUNTS[key]
+        for key in PAPER_REPORTED_HIERARCHICAL_INPUT_COUNTS
+    }
+    assert public_shortfall == {"Female fitness": 45, "Male fitness": 17, "Pollination": 12}
 
     grouped_all = defaultdict(lambda: defaultdict(list))
     meta = {}
@@ -589,6 +600,10 @@ def main() -> None:
     result = {
         "status": "post_publication_prospectively_specified_reanalysis_of_previously_unopened_row_level_effect_cells",
         "source_rows": len(parsed),
+        "source_coverage": "public_S1_426_row_subset_not_full_500_paper_reported_inputs",
+        "paper_reported_hierarchical_input_counts": PAPER_REPORTED_HIERARCHICAL_INPUT_COUNTS,
+        "public_s1_physical_row_counts": PUBLIC_S1_PHYSICAL_ROW_COUNTS,
+        "paper_minus_public_s1_shortfall": public_shortfall,
         "source_sha256": actual_source_sha256,
         "frozen_manifest_pairs": len(frozen_manifest),
         "all_exact_paired_units": len(pairs),

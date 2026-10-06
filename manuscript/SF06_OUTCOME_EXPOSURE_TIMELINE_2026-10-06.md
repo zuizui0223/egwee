@@ -21,7 +21,8 @@ The boundary is the **first logged project-computed numerical result**, not whet
 | 14:36:47 | generated files committed inside runner, but push rejected as non-fast-forward | result existed even though branch files did not |
 | 14:39:17 onward | coverage, publication normalization, non-overlap, decision-tree, species-LOO and frozen-input gates added | **post-exposure robustness / repair** |
 | 14:48:42 | run `37478175906` on parser-hardened `21fc409f` reproduces the same preliminary compatibility estimate | still based on incomplete 426-row table scan |
-| 15:00:02 | `b4216301`: parser corrected to require the published 500-row totals | **post-exposure implementation correction** |
+| 15:00:02 | `b4216301`: attempted 500-row count gate | **post-exposure hypothesis later falsified by DOCX structural audit** |
+| 23:24:44 | structural audit of the public DOCX | **426 response-labelled physical rows confirmed; table 0 is header-only; paper/public shortfall reclassified as source coverage** |
 
 ## First exposed numerical result
 
@@ -36,20 +37,15 @@ Run `37477126333`, job `112315344981`, emitted:
 
 Run `37478175906`, job `112319033704`, later reproduced the same estimate to numerical precision after the leading-variance parser fixes.
 
-These numbers are **non-authoritative preliminary outputs** because both successful runs still used the 426-row scan that skipped the first Word table.
+These numbers are retained as **preliminary public-S1 outputs**. The later structural audit showed that 426 rows are all response-labelled physical rows in the accessible S1 DOCX; the first Word table contains headers only. Their limitation is therefore public-source coverage plus later implementation/robustness changes, not a skipped recoverable data table.
 
-## Why the preliminary result is not the final SF06 result
+## Why 426 and 500 are different quantities
 
-Aguilar et al. report:
+Aguilar et al. report 312 female-fitness, 105 male-fitness and 83 pollination **hierarchical meta-analysis input effects** (500 total). Structural inspection of the downloadable Supplementary Table S1 DOCX finds 426 response-labelled physical rows: 267 female, 88 male and 71 pollination. The document's first Word table is header-only, followed by six data tables (79, 79, 79, 79, 79 and 31 rows), and the materialized species range begins at *Calystegia* rather than A/B taxa.
 
-- female-fitness effects: **312**;
-- male-fitness effects: **105**;
-- pollination effects: **83**;
-- total effects: **500**.
+Therefore the 74-effect difference (45 female, 17 male, 12 pollination) is treated as a **public-supplement coverage shortfall**, not as a parser omission that can be repaired by reading `tables[0]`. The missing paper-reported inputs are not reconstructed.
 
-The original implementation iterated over `tables[1:]` and parsed only **426** rows. The corrected implementation now scans all Word tables and refuses to proceed unless the exact published 312/105/83 totals are recovered.
-
-Therefore the preliminary `gamma_SC` is retained for provenance and outcome-exposure timing only. It is not used as the paper's SF06 estimate.
+The preliminary `gamma_SC` remains visible because it was genuinely computed from all rows available to the original public-file parser. A new gated rerun is still required for the current exact-pair, publication-normalized and consensus-sign implementation; any such result must be labelled a **public-S1 subset** result rather than a full 500-input SF06 replication.
 
 ## Inferential classification going forward
 
@@ -86,7 +82,8 @@ The biologically richer concept of **effective reproductive assurance** remains 
 - Do not call post-14:36:47 gates pre-outcome.
 - Do not change the compatibility prediction after seeing the preliminary result.
 - Do not promote a new SF06 moderator because compatibility was negative/unresolved.
-- The corrected 500-row route must pass the frozen source hash and exact pair-universe gates before interpretation.
+- The public-S1 426-row route must pass the frozen source hash and exact pair-universe gates before interpretation.
+- Do not describe the accessible S1 as the complete 500-input database.
 
 ## Preliminary topology output from the incomplete source scan
 
