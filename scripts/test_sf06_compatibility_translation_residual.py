@@ -42,9 +42,8 @@ def first_float(s: str) -> float | None:
 
 def leading_float(s: str) -> float | None:
     s = norm_minus(s).strip()
-    m = re.match(r"^[+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+)(?:[Ee][+-]?\\d+)?", s)
+    m = re.match(r"^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[Ee][+-]?\d+)?", s)
     return float(m.group(0)) if m else None
-
 
 def strip_variance_from_source(text: str) -> str:
     text = norm_minus(text).strip()
