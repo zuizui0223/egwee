@@ -106,6 +106,10 @@ def uniq(rows: list[dict[str, str]], field: str) -> str:
     return "; ".join(out)
 
 
+def normalize_land_use(x: str) -> str:
+    return " ".join(x.casefold().split())
+
+
 def main() -> None:
     if len(sys.argv) != 3:
         raise SystemExit("usage: build_phase2_sf06_study_universe.py INPUT.docx OUTPUT_DIR")
@@ -128,6 +132,67 @@ def main() -> None:
 
     assert len(parsed) == 426, len(parsed)
     response_counts = Counter(r["response"] for r in parsed)
+
+    # Freeze the exact row-level metadata and candidate pairing universe before
+    # opening any Hedges-d or variance cells. These files contain no outcomes.
+    metadata_rows = []
+    for i, row in enumerate(parsed, start=1):
+        metadata_rows.append({
+            "source_row_id": f"SF06R{i:03d}",
+            **row,
+            "land_use_factor_normalized": normalize_land_use(row["land_use_factor"]),
+            "outcome_opened": "no",
+        })
+
+    metadata_csv = outdir / "phase2_sf06_metadata_rows_v1.csv"
+    with metadata_csv.open("w", newline="", encoding="utf-8") as fh:
+        writer = csv.DictWriter(fh, fieldnames=list(metadata_rows[0]))
+        writer.writeheader()
+        writer.writerows(metadata_rows)
+
+    by_pair: dict[tuple[str, str, str], list[dict[str, str]]] = defaultdict(list)
+    for row in parsed:
+        key = (
+            row["source_publication"],
+            row["species"],
+            normalize_land_use(row["land_use_factor"]),
+        )
+        by_pair[key].append(row)
+
+    pair_manifest = []
+    for i, (key, rr) in enumerate(sorted(by_pair.items(), key=lambda kv: kv[0]), start=1):
+        responses = {r["response"] for r in rr}
+        if not {"Pollination", "Female fitness"} <= responses:
+            continue
+        comps = {r["compatibility"] for r in rr if r["compatibility"]}
+        compatibility = next(iter(comps)) if len(comps) == 1 else "MIXED_METADATA"
+        land_use = key[2]
+        pair_manifest.append({
+            "pair_id": f"SF06PAIR{len(pair_manifest)+1:03d}",
+            "source_publication": key[0],
+            "species": key[1],
+            "land_use_factor_normalized": land_use,
+            "compatibility": compatibility,
+            "family": uniq(rr, "family"),
+            "pollination_context": uniq(rr, "pollination_context"),
+            "n_pollination_rows": str(sum(r["response"] == "Pollination" for r in rr)),
+            "n_female_fitness_rows": str(sum(r["response"] == "Female fitness" for r in rr)),
+            "habitat_fragmentation_pair": "yes" if land_use == "habitat fragmentation" else "no",
+            "compatibility_model_metadata_eligible": (
+                "yes" if land_use == "habitat fragmentation" and compatibility in {"SC", "SI"}
+                else "no"
+            ),
+            "outcome_opened": "no",
+        })
+
+    pair_csv = outdir / "phase2_sf06_translation_pair_manifest_v1.csv"
+    with pair_csv.open("w", newline="", encoding="utf-8") as fh:
+        writer = csv.DictWriter(fh, fieldnames=list(pair_manifest[0]))
+        writer.writeheader()
+        writer.writerows(pair_manifest)
+
+    n_frag_pairs = sum(r["habitat_fragmentation_pair"] == "yes" for r in pair_manifest)
+    n_frag_scsi = sum(r["compatibility_model_metadata_eligible"] == "yes" for r in pair_manifest)
 
     by_pub: dict[str, list[dict[str, str]]] = defaultdict(list)
     for row in parsed:
@@ -182,6 +247,13 @@ def main() -> None:
         },
         "outcome_fields_materialized": False,
         "excluded_source_fields": ["Hedges_d", "V(d)"],
+        "exact_pairing_manifest": {
+            "all_pollination_female_pairs_metadata_only": len(pair_manifest),
+            "habitat_fragmentation_pairs_metadata_only": n_frag_pairs,
+            "habitat_fragmentation_SC_SI_pairs_metadata_only": n_frag_scsi,
+            "metadata_rows_file": metadata_csv.name,
+            "pair_manifest_file": pair_csv.name,
+        },
         "publication_universe_file": out_csv.name,
         "completion_status": "publication_rows_materialized_screening_pending",
     }
@@ -204,7 +276,10 @@ The source DOCX contains:
 - unique plant species represented: **{len(species_all)}**;
 - female-fitness rows: **{response_counts.get('Female fitness', 0)}**;
 - male-fitness rows: **{response_counts.get('Male fitness', 0)}**;
-- pollination rows: **{response_counts.get('Pollination', 0)}**.
+- pollination rows: **{response_counts.get('Pollination', 0)}**;
+- exact metadata-only pollination–female-fitness paired units: **{len(pair_manifest)}**;
+- exact habitat-fragmentation paired units before numeric eligibility: **{n_frag_pairs}**;
+- habitat-fragmentation paired units with unambiguous SC/SI metadata: **{n_frag_scsi}**.
 
 ## Outcome-blind firewall
 
@@ -213,6 +288,9 @@ response family, land-use factor and ecological/life-history metadata.
 
 The numerical source-result cells `Hedges' d` and `V(d)` are deliberately
 excluded from the materialized ledger. No new EGWEE effect magnitude is opened.
+
+The row-level metadata ledger and exact pair manifest are also frozen here so
+pair construction cannot be changed after numerical outcomes are opened.
 
 ## Next operation
 
