@@ -1,10 +1,12 @@
-# SF06 external validation decision tree — frozen before outcome opening (2026-10-06)
+# SF06 external validation interpretation ledger — post-exposure correction (2026-10-06)
 
 ## Purpose
 
-This file fixes how the SF06 reanalysis will change the EGWEE claim **before** any row-level Hedges-d result files are stored.
+This file was committed at `297bcd47` (14:48:47 UTC), **after** the first preliminary SF06 numerical output had already been emitted at 14:36:47 UTC in Actions run `37477126333`.
 
-It prevents the external reanalysis from becoming a post hoc rescue of the current manuscript.
+It is therefore **not a preregistration**. It is a conservative post-exposure interpretation ledger for corrected reruns. The initial compatibility prediction and the basic sign-topology target have earlier provenance; later coverage, non-overlap and influence gates may restrict claims but cannot confer confirmatory status.
+
+Its purpose is to prevent any further result-contingent broadening after the incomplete 426-row preliminary exposure.
 
 ## Lane 1 — scale-stable translation topology
 
@@ -23,7 +25,7 @@ Interpretation:
 
 > The EGWEE interaction->function non-identifiability principle generalizes beyond the frozen 16-programme map, including a source-publication-disjoint external subset.
 
-Allowed wording: **independent external generalization of sign-level translation non-identifiability**.
+Allowed wording: **robust external generalization of sign-level translation non-identifiability, under post-exposure robustness criteria**. Do not call this a preregistered confirmatory replication.
 
 ### B. Full SF06 passes, non-overlap subset does not
 

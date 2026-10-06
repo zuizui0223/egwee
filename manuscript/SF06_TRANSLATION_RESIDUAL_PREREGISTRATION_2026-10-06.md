@@ -1,5 +1,20 @@
 # SF06 pollination→female-fitness translation-residual reanalysis — preregistration 2026-10-06
 
+## Provenance correction after the first numerical execution
+
+The **core compatibility-residual hypothesis and decision rule** in this document were genuinely frozen at commit `a49af606` (2026-10-06 14:13:10 UTC), before any project-computed SF06 row-level result existed.
+
+GitHub Actions run `37477126333` was triggered from that commit and the runner was first provisioned at **14:36:24 UTC**. Its analysis emitted the first project-computed SF06 result at **14:36:47 UTC**. That run used the original parser, which skipped the first Word table and therefore parsed only **426/500 published effect rows**. Its numerical output is retained only as an **outcome-exposure/provenance record**, not as an authoritative scientific result.
+
+The timing classification used below is therefore:
+
+- **initial preregistration:** the compatibility-residual question, exact paired unit, Hedges-d model, `gamma_SC > 0` prediction and decision rule present at `a49af606`;
+- **pre-exposure topology specification:** the sign-topology target (`990a235`, 14:27:01 UTC) and constituent-sign consensus rule (`d5e02c2`, 14:32:51 UTC), both committed before the first runner was provisioned;
+- **concurrent / not cleanly confirmatory:** the metadata pair-manifest change `a079f11` (14:36:36 UTC), committed after the first runner had started but 11 seconds before its logged numerical output;
+- **post-exposure robustness or implementation correction:** all gates and sensitivities added after 14:36:47 UTC, including the minimum-coverage gate, publication normalization, source-overlap sensitivity, decision tree, species-level leave-one-out, frozen source/pair hard gate and the 500-row completeness repair.
+
+Accordingly, the corrected 500-row analysis tests a **preregistered biological target with a post-exposure implementation repair**. It must not be described as a clean untouched confirmatory replication. See `SF06_OUTCOME_EXPOSURE_TIMELINE_2026-10-06.md`.
+
 ## Status
 
 Prospectively specified **before opening or storing the row-level Hedges-d outcome cells** from Aguilar et al. (2024 online / 2025 volume), Supplementary Table S1 (doi:10.1093/aob/mcae076).
@@ -23,7 +38,7 @@ Fixed public source:
 - source file hash must match or be recorded by the analysis workflow;
 - no alternative dataset is substituted after outcomes are opened.
 
-### Published-count completeness gate
+### Post-exposure implementation correction: published-count completeness gate
 
 Before any SF06 result is accepted, the DOCX parser must recover exactly the effect-size totals reported by Aguilar et al.:
 
@@ -34,7 +49,7 @@ Before any SF06 result is accepted, the DOCX parser must recover exactly the eff
 
 The earlier metadata parser recovered only 426 rows because it skipped the first Word table. That materialization is now classified as incomplete. The corrected parser scans all Word tables, admits only rows carrying one of the three declared response labels, and stops unless the response counts exactly match the published totals. This coverage gate is evaluated before interpreting any SF06 result.
 
-## Frozen-input gate
+## Post-exposure reproducibility gate for corrected reruns
 
 Before any row-level Hedges-d or variance cell is used for inference:
 
@@ -149,7 +164,7 @@ Allowed if supported:
 
 - compatibility system explains residual pollination→female-fitness translation in this external source database;
 - this provides external evidence that average pollination damage does not uniquely determine female-fitness damage;
-- **independent external generalization** may be claimed only when the non-overlap publication subset also passes the coverage gate and remains sign-non-identifying under whole-publication leave-one-out. Otherwise the result is external-source confirmation with partial source overlap, not independent replication.
+- a corrected result may be described as **robust external generalization with a source-disjoint sensitivity** only when the non-overlap publication subset also passes the post-exposure coverage/influence gates. It must not be labelled a preregistered confirmatory replication. Otherwise the result is external-source confirmation with partial source overlap.
 
 Not allowed:
 
@@ -166,9 +181,11 @@ Aguilar et al. test compatibility as a moderator of the **marginal average effec
 This preregistration instead tests whether compatibility explains the **residual translation between the two responses within paired source units**.
 
 
-## Pre-outcome amendment: scale-stable external topology
+## Pre-exposure topology definition and post-exposure robustness extensions
 
-This amendment was frozen **before any row-level Hedges-d outcome cells or generated SF06 pair/result files were stored in EGWEE**. It does not replace the compatibility model above. It separates the external test into a scale-stable generality lane and a scale-dependent mechanistic lane.
+The **topology question** was committed at `990a235` (14:27:01 UTC) and the stricter **constituent-sign consensus rule** at `d5e02c2` (14:32:51 UTC), both before the first SF06 runner was provisioned at 14:36:24 UTC and before the first numerical result was emitted at 14:36:47 UTC. Those two elements were therefore specified before project-computed outcome exposure.
+
+Later additions in this section are not preregistered confirmatory criteria. The minimum coverage gate, source-overlap sensitivity, publication-normalization repair, species-level leave-one-out, frozen-input gates and 500-row completeness repair were added after the first numerical exposure and are retained as conservative **post-exposure robustness / implementation controls**.
 
 ### Primary external-generality target
 
@@ -199,7 +216,7 @@ Classify the external SF06 sign map as `external_sign_translation_nonidentifiabi
 3. after deleting every whole source publication in turn, the best deterministic consensus I-sign→F-sign lookup still has at least one mismatch; and
 4. after deleting every whole plant species in turn, the best deterministic consensus I-sign→F-sign lookup still has at least one mismatch.
 
-The minimum coverage gate and the whole-species influence rule are fixed before outcome opening to prevent repeated measurements of a few species from being promoted as broad external generality. The source paper reports 82 species with simultaneous pollination and female-fitness effects before this stricter consensus filtering; the gate does not assume how many will remain.
+The minimum coverage gate and whole-species influence rule were added **after the first preliminary numerical exposure**. They therefore cannot upgrade the SF06 route to confirmatory status. They are retained only as conservative promotion criteria for the corrected reanalysis, preventing repeated measurements of a few species from being presented as broad external generality. The source paper reports 82 species with simultaneous pollination and female-fitness effects before this stricter consensus filtering.
 
 If the full map is non-identifying but at least one publication deletion removes all mismatches, classify as influence-sensitive.
 

@@ -6,6 +6,9 @@ on:
       - meta/systematic-coverage-moderator-expansion-2026-09-16
     paths:
       - 'manuscript/SF06_TRANSLATION_RESIDUAL_PREREGISTRATION_2026-10-06.md'
+      - 'manuscript/SF06_OUTCOME_EXPOSURE_TIMELINE_2026-10-06.md'
+      - 'manuscript/SF06_EXTERNAL_VALIDATION_DECISION_TREE_2026-10-06.md'
+      - 'scripts/check_sf06_provenance_timeline.py'
       - 'scripts/test_sf06_compatibility_translation_residual.py'
       - 'evidence/meta_extraction/phase2_sf06_translation_pair_manifest_v1.csv'
       - 'evidence/meta_extraction/phase2_sf06_source_frame_summary_v1.json'
@@ -27,6 +30,8 @@ jobs:
           python-version: '3.11'
       - name: Install analysis dependencies
         run: python -m pip install --quiet numpy scipy statsmodels
+      - name: Audit SF06 outcome-exposure provenance
+        run: python scripts/check_sf06_provenance_timeline.py
       - name: Require frozen outcome-blind SF06 inputs
         run: |
           test -s evidence/meta_extraction/phase2_sf06_translation_pair_manifest_v1.csv
