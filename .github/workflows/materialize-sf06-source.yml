@@ -45,5 +45,7 @@ jobs:
             echo 'No SF06 materialization changes'
           else
             git commit -m 'Materialize SF06 publication universe'
+            git fetch origin meta/systematic-coverage-moderator-expansion-2026-09-16
+            git rebase origin/meta/systematic-coverage-moderator-expansion-2026-09-16
             git push origin HEAD:meta/systematic-coverage-moderator-expansion-2026-09-16
           fi
