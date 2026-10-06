@@ -23,6 +23,7 @@ IF_SIGN_UNCERTAINTY = ROOT / "evidence/meta_extraction/if_sign_uncertainty_v1.cs
 QUALITATIVE_EXTERNAL_IF = ROOT / "evidence/meta_extraction/qualitative_external_if_audit_v1.csv"
 PROXY_FAILURE = ROOT / "evidence/meta_extraction/scale_stable_quantity_function_proxy_failure_v1.csv"
 IF_TRANSLATION_MAP = ROOT / "evidence/meta_extraction/if_translation_map_v1.csv"
+IF_RELIABILITY = ROOT / "evidence/meta_extraction/if_reliability_sufficiency_v1.csv"
 SCALE_EFFECTS = ROOT / "evidence/meta_extraction/estimand_scale_sensitivity_v1.csv"
 SCALE_SUMMARY = ROOT / "evidence/meta_extraction/estimand_scale_cluster_summary_v2.csv"
 REGISTRY = ROOT / "evidence/meta_extraction/multilayer_cluster_registry_v1.csv"
@@ -531,6 +532,7 @@ def table_s6_qualitative_external_if_audit() -> None:
 def figure5_direction_translation_synthesis() -> None:
     effects = rows(SCALE_EFFECTS)
     data = rows(IF_TRANSLATION_MAP)
+    reliability = rows(IF_RELIABILITY)
 
     assert len(effects) == 17
     assert sum(float(r["hedges_g"]) < 0 for r in effects) == 17
@@ -538,6 +540,9 @@ def figure5_direction_translation_synthesis() -> None:
     assert len(data) == 16
     assert sum(r["evidence_tier"] == "quantitative" for r in data) == 8
     assert sum(r["evidence_tier"] == "qualitative" for r in data) == 8
+    assert len(reliability) == 3
+    assert all(float(r["null_misfit_p"]) < 0.01 for r in reliability)
+    assert all(float(r["artifact_downstream_probability"]) < 0.03 for r in reliability)
 
     label = {
         "ML020": "Chaco",
@@ -609,7 +614,7 @@ def figure5_direction_translation_synthesis() -> None:
     }
     assert len(states) >= 2
 
-    width, height = 1280, 900
+    width, height = 1280, 1100
     body: list[str] = [
         svg_text(30, 34, "Figure 5. Directional coherence does not imply interaction–function identifiability", size=18, weight="bold"),
         svg_text(30, 60, "Coarse deterioration can be consistent while matched interaction signals map to multiple reproductive-function states.", size=11),
@@ -650,6 +655,27 @@ def figure5_direction_translation_synthesis() -> None:
     body.append(svg_text(35, footer_y + 26, "Each represented interaction evidence state is compatible with more than one reproductive-function state.", size=11, weight="bold"))
     body.append(svg_text(35, footer_y + 50, "The many-to-many structure survives deletion of every single programme in the mixed-tier frozen universe.", size=10))
     body.append(svg_text(35, footer_y + 74, "Observed interaction decline is neither necessary nor sufficient for observed reproductive decline; no category frequency is interpreted as prevalence.", size=10))
+
+    panel_c_y = footer_y + 112
+    body.append(f'<line x1="30" y1="{panel_c_y - 22}" x2="1250" y2="{panel_c_y - 22}" stroke="black" stroke-width="1.2"/>')
+    body.append(svg_text(35, panel_c_y, "C. Resolved false reassurance survives a simple reliability-artifact stress test", size=14, weight="bold"))
+
+    rel_label = {
+        "ML015_Wandoo": "Wandoo",
+        "P2_CARDIOPETALUM": "Cardiopetalum",
+        "P2_KAKAMEGA_AP": "Kakamega Acanthopale",
+    }
+    for k, row in enumerate(reliability):
+        y = panel_c_y + 34 + 31 * k
+        label_text = rel_label[row["programme"]]
+        p = float(row["null_misfit_p"])
+        ri = float(row["R_I"])
+        rf = float(row["R_F"])
+        body.append(svg_text(55, y, label_text, size=10, weight="bold"))
+        body.append(svg_text(250, y, f"R_I={ri:.3f}; R_F={rf:.3f}", size=10))
+        body.append(svg_text(500, y, f"equal-latent attenuation misfit p={p:.4f}", size=10))
+    body.append(svg_text(55, panel_c_y + 140, "All three descriptive null-misfit p-values are <0.01; anchor selection was post hoc, so this is not a joint confirmatory test.", size=10))
+    body.append(svg_text(55, panel_c_y + 164, "Surprise: apparently retained interaction quantity can understate reproductive impairment even when simple differential reliability is insufficient.", size=10, weight="bold"))
 
     write_svg(FIGDIR / "figure5_direction_translation_synthesis.svg", width, height, body)
 
