@@ -40,6 +40,11 @@ SENTINEL_DETERMINISM_CHECKER = ROOT / "scripts/check_if_sentinel_determinism.py"
 SENTINEL_DETERMINISM_NOTE = ROOT / "manuscript/IF_SENTINEL_DETERMINISM_2026-10-05.md"
 INTERACTION_LOGIC_CHECKER = ROOT / "scripts/check_interaction_decline_necessity_sufficiency.py"
 INTERACTION_LOGIC_NOTE = ROOT / "manuscript/INTERACTION_DECLINE_NECESSITY_SUFFICIENCY_2026-10-03.md"
+PROMOTION_MANIFEST = ROOT / "evidence/meta_extraction/ecological_generality_surprise_promotion_v1.json"
+GENERALITY_NOTE = ROOT / "manuscript/ECOLOGICAL_GENERALITY_AND_SURPRISE_2026-09-29.md"
+GENERALITY_CHECKER = ROOT / "scripts/check_ecological_generality_and_surprise.py"
+RELIABILITY_TABLE = ROOT / "evidence/meta_extraction/if_reliability_sufficiency_v1.csv"
+RELIABILITY_NOTE = ROOT / "manuscript/IF_RELIABILITY_SUFFICIENCY_2026-10-06.md"
 
 FIGURE_BUILDER = ROOT / "scripts/build_journal_of_ecology_figures.py"
 FIGURE_CAPTIONS = ROOT / "manuscript/JOURNAL_OF_ECOLOGY_FIGURE_CAPTIONS.md"
@@ -69,6 +74,9 @@ def main() -> None:
     builder = FIGURE_BUILDER.read_text(encoding="utf-8")
     captions = FIGURE_CAPTIONS.read_text(encoding="utf-8")
     anon = ANON_BUILDER.read_text(encoding="utf-8")
+    promotion = json.loads(PROMOTION_MANIFEST.read_text(encoding="utf-8"))
+    generality_note = GENERALITY_NOTE.read_text(encoding="utf-8")
+    reliability_note = RELIABILITY_NOTE.read_text(encoding="utf-8")
 
     assert m["schema_version"] == 6
     assert m["updated_on"] == "2026-10-03"
@@ -76,6 +84,7 @@ def main() -> None:
         "scale_aware_proxy_failure_translation_map_validation_pending",
         "scale_aware_sentinel_figure5_revision_validation_pending",
         "scale_aware_proxy_failure_scientific_validation_green_human_admin_pending",
+        "ecological_generality_promotion_validation_pending",
     }
     assert m["submission_ready"] is False
     assert m["supersedes_submission_freeze"] is True
@@ -94,6 +103,10 @@ def main() -> None:
         assert sv["translation_map_audit"] is True
         assert sv["figures_tables_reproduced"] is False
         assert sv["anonymous_reviewer_package_reproduced"] is False
+        assert len(m["remaining_scientific_gate"]) == 2
+    elif m["status"] == "ecological_generality_promotion_validation_pending":
+        assert sv["current_revision_status"] == "pending_generality_promotion"
+        assert sv["current_revision_validated"] is False
         assert len(m["remaining_scientific_gate"]) == 2
     else:
         assert sv["current_revision_status"] == "validated"
@@ -222,6 +235,27 @@ def main() -> None:
     assert logic["quantitative_tier_leave_one_out"] is False
     assert logic["prevalence_inference"] is False
 
+    promo = m["ecological_generality_surprise_promotion"]
+    assert git_blob_sha(PROMOTION_MANIFEST) == promo["manifest_blob_sha"]
+    assert git_blob_sha(GENERALITY_NOTE) == promo["note_blob_sha"]
+    assert git_blob_sha(GENERALITY_CHECKER) == promo["checker_blob_sha"]
+    assert promo["generality_gate"] == "pass"
+    assert promo["surprise_gate"] == "pass"
+    assert promo["main_principle"] == "directional_coherence_without_interaction_function_identifiability"
+    assert promo["strongest_resolved_failure_mode"] == "false_reassurance"
+    assert promo["mechanism_status"] == "hidden_effective_mating_hypothesis_not_confirmed"
+    assert promotion["generality_gate"] == "pass"
+    assert promotion["surprise_gate"] == "pass"
+    assert "Promotion decision — 2026-10-06" in generality_note
+
+    rel = m["if_reliability_sufficiency"]
+    assert git_blob_sha(RELIABILITY_TABLE) == rel["table_blob_sha"]
+    assert git_blob_sha(RELIABILITY_NOTE) == rel["note_blob_sha"]
+    assert rel["audited_anchors"] == 3
+    assert rel["simple_differential_reliability_inadequate"] is True
+    assert rel["formal_joint_p_value"] is False
+    assert "not readily explained by the audited difference in endpoint measurement reliability" in reliability_note
+
     geom = m["cross_scale_process_function_geometry"]
     assert git_blob_sha(BOTTLENECK_SCALE_TABLE) == geom["scale_table_blob_sha"]
     assert git_blob_sha(BOTTLENECK_SCALE_NOTE) == geom["result_note_blob_sha"]
@@ -240,9 +274,11 @@ def main() -> None:
     assert ft["supplementary_table_s7"] == "manuscript/tables/table_s7_if_translation_map.csv"
     assert "IF_SIGN_UNCERTAINTY" in builder
     assert "PROXY_FAILURE" in builder
+    assert "IF_RELIABILITY" in builder
     assert "Figure 3. Scale-stable interaction–function proxy failure and sign uncertainty" in captions
     assert "Figure 4. Relative response geometry is estimand-scale dependent" in captions
     assert "Figure 5. Directional coherence does not imply interaction–function identifiability" in captions
+    assert "Panel C stress-tests the three representation-stable resolved false-reassurance anchors" in captions
     assert "Supplementary Figure S2. Frozen interaction–function translation map" in captions
     assert "Supplementary Table S7. Frozen interaction–function translation map" in captions
 
@@ -264,6 +300,9 @@ def main() -> None:
     assert "IF_SENTINEL_DETERMINISM_2026-10-05.md" in anon
     assert "IF_TRANSLATION_CATEGORY_SENSITIVITY_2026-10-05.md" in anon
     assert "check_interaction_decline_necessity_sufficiency.py" in anon
+    assert "check_if_reliability_sufficiency.py" in anon
+    assert "check_ecological_generality_and_surprise.py" in anon
+    assert "ecological_generality_surprise_promotion_v1.json" in anon
     assert "if_translation_map_v1.csv" in anon
     assert "figure_s2_if_translation_map.svg" in anon
     assert "figure5_direction_translation_synthesis.svg" in anon
@@ -281,6 +320,9 @@ def main() -> None:
         "translation non-identifiability persists after removing no-detected-loss and mixed programme states",
         "no deterministic interaction-state-only lookup reproduces all observed reproductive-function states in the frozen map",
         "interaction decline is neither necessary nor sufficient for reproductive decline in the frozen mixed-tier evidence universe",
+        "directional coherence without interaction-function identifiability is the promoted general ecological principle",
+        "the strongest representation-stable resolved quantitative failure mode is false reassurance in three independent programmes",
+        "simple classical differential-reliability attenuation is inadequate for the three audited false-reassurance anchors under the recovered reliability proxies",
     ):
         assert token in claims, token
 
@@ -291,6 +333,9 @@ def main() -> None:
         "using the 16-programme translation map as a prevalence or frequency estimate",
         "treating qualitative-blocked programmes as quantitatively equivalent replications",
         "claiming quantitative-only necessity or sufficiency failure is leave-one-programme-out robust",
+        "treating deterministic mismatch counts as prediction error or prevalence estimates",
+        "treating the reliability-audit joint simulation frequency as a formal p-value",
+        "claiming false reassurance is more common than apparent over-warning in nature",
     ):
         assert token in claims, token
 
@@ -302,6 +347,10 @@ def main() -> None:
         assert "**STATUS: CURRENT REVISION NOT SUBMISSION-READY.**" in note
         assert "scale_aware_sentinel_figure5_revision_validation_pending" in metadata
         assert "Current revision validation pending" in metadata
+    elif m["status"] == "ecological_generality_promotion_validation_pending":
+        assert "**STATUS: CURRENT REVISION NOT SUBMISSION-READY.**" in note
+        assert "ecological_generality_promotion_validation_pending" in metadata
+        assert "generality" in note.casefold()
     else:
         assert "**STATUS: SCIENTIFICALLY VALIDATED, HUMAN ADMINISTRATION PENDING.**" in note
         assert "scale_aware_proxy_failure_scientific_validation_green_human_admin_pending" in metadata
