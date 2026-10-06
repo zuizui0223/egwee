@@ -7,6 +7,7 @@ on:
       - meta/systematic-coverage-moderator-expansion-2026-09-16
     paths:
       - 'scripts/build_phase2_sf06_study_universe.py'
+      - 'scripts/audit_sf06_docx_structure.py'
       - '.github/workflows/materialize-sf06-source.yml'
 
 permissions:
@@ -25,6 +26,8 @@ jobs:
         run: |
           curl --fail --location --retry 3 --retry-delay 2 "$SF06_URL" -o /tmp/sf06_table_s1.docx
           test -s /tmp/sf06_table_s1.docx
+      - name: Audit SF06 DOCX table structure
+        run: python scripts/audit_sf06_docx_structure.py /tmp/sf06_table_s1.docx
       - name: Build outcome-blind SF06 publication universe
         run: |
           python scripts/build_phase2_sf06_study_universe.py             /tmp/sf06_table_s1.docx evidence/meta_extraction
