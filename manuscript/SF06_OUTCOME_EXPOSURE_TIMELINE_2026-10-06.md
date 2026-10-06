@@ -87,3 +87,19 @@ The biologically richer concept of **effective reproductive assurance** remains 
 - Do not change the compatibility prediction after seeing the preliminary result.
 - Do not promote a new SF06 moderator because compatibility was negative/unresolved.
 - The corrected 500-row route must pass the frozen source hash and exact pair-universe gates before interpretation.
+
+## Preliminary topology output from the incomplete source scan
+
+A later queued workflow from commit `990a235` completed at 15:02:12 UTC. It still used the incomplete **426-row** scan and the older IVW-Hedges-d sign definition, but it executed the sign-topology target that had been specified before the first numerical exposure.
+
+Its logged output was:
+
+- exact paired units: **59**;
+- habitat-fragmentation pairs: **55**;
+- minimum deterministic mismatches: **0**;
+- whole-publication LOO minimum mismatches: **0**;
+- topology decision: `external_sign_translation_nonidentifiability_not_supported`.
+
+This is **not the corrected external-topology result**. It is retained because it is directionally inconvenient evidence and therefore must not disappear from the audit trail. The final topology requires the corrected 500-row source scan and the stricter constituent-row consensus-sign rule.
+
+If the corrected analysis also remains identifying, EGWEE must not claim broad sign-level external generalization. The biologically interesting conclusion would instead become a scale contrast: matched fragmentation programmes can show translation failures that are obscured when heterogeneous literature is pooled at a coarser response-summary level.

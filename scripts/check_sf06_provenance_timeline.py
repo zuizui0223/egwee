@@ -20,6 +20,8 @@ def main() -> None:
         "non-authoritative preliminary outputs",
         "post-exposure corrected implementation",
         "pre-exposure-defined target with post-exposure robustness gates",
+        "external_sign_translation_nonidentifiability_not_supported",
+        "minimum deterministic mismatches: **0**",
     ):
         assert token in timeline, token
 
