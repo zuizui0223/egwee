@@ -15,6 +15,20 @@ The timing classification used below is therefore:
 
 Accordingly, the public-S1 reanalysis tests a **preregistered biological target in the complete accessible 426-row supplement, with post-exposure provenance and robustness corrections**. It must not be described as a clean untouched confirmatory replication. See `SF06_OUTCOME_EXPOSURE_TIMELINE_2026-10-06.md`.
 
+## Post-exposure sign-parser correction — 2026-10-07
+
+A raw Word-XML audit after outcome exposure showed that Hedges-d cells encode negative values with a space between sign and magnitude (for example, `- 1.733`). The original `first_float()` parser silently dropped these spaced minus signs. Commit `800ccfa` repaired the parser and added explicit invariants for ASCII and Unicode minus signs.
+
+The corrected public-S1 result is therefore the authoritative implementation of the preregistered biological target, but the repair occurred after numerical exposure. The route remains classified as a preregistered biological question with a post-exposure implementation repair, not as an untouched confirmatory test.
+
+Corrected headline results:
+
+- external sign topology: 12/54 minimum mismatches, publication-LOO minimum 8, species-LOO minimum 11;
+- source-publication-disjoint topology: 7/31 mismatches, publication-LOO minimum 5, species-LOO minimum 6;
+- gamma_SC = +0.0639, 95% CI [-0.2627,+0.3905], p=0.701, directionally consistent but unresolved.
+
+The earlier negative gamma and zero-mismatch topology remain archived only as invalidated parser outputs.
+
 ## Status
 
 Prospectively specified **before opening or storing the row-level Hedges-d outcome cells** from Aguilar et al. (2024 online / 2025 volume), Supplementary Table S1 (doi:10.1093/aob/mcae076).
