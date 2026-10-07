@@ -681,8 +681,8 @@ def figure5_direction_translation_synthesis() -> None:
 
     panel_c_y = footer_y + 92
     body.append(f'<line x1="30" y1="{panel_c_y - 22}" x2="1250" y2="{panel_c_y - 22}" stroke="black" stroke-width="1.2"/>')
-    body.append(svg_text(35, panel_c_y, "C. Independent external public-S1 validation: association without sentinel sufficiency", size=14, weight="bold"))
-    body.append(svg_text(35, panel_c_y + 24, "Aguilar et al. (2025) habitat-fragmentation pairs; corrected constituent-sign consensus.", size=10))
+    body.append(svg_text(35, panel_c_y, "C. External public-S1 validation + source-disjoint sensitivity", size=14, weight="bold"))
+    body.append(svg_text(35, panel_c_y + 24, "Aguilar et al. (2025) publication × species × land-use strata; corrected sign consensus.", size=10))
 
     c_left, c_top = 235, panel_c_y + 75
     c_w, c_h = 180, 68
@@ -704,7 +704,7 @@ def figure5_direction_translation_synthesis() -> None:
     body.append(svg_text(sx, sy, "54 consensus pairs; minimum mismatches = 12", size=11, weight="bold"))
     body.append(svg_text(sx, sy + 24, "Publication LOO minimum = 8; species LOO minimum = 11", size=10))
     body.append(svg_text(sx, sy + 48, "Source-publication-disjoint: 7 / 31 mismatches; LOO minimum = 5", size=10))
-    body.append(svg_text(sx, sy + 72, f"Continuous coupling: beta={beta:+.3f}, p={beta_p:.4f}", size=10))
+    body.append(svg_text(sx, sy + 72, f"Coupling: pair beta={beta:+.3f} (p={beta_p:.3f}); pub-balanced beta=+0.200 (p=0.104)", size=10))
     body.append(svg_text(sx, sy + 96, "Best sign lookup errors = baseline errors = 12 → incremental sign gain = 0", size=10, weight="bold"))
     body.append(svg_text(sx, sy + 120, "Association can be real while the upstream state remains non-identifying.", size=10))
 
