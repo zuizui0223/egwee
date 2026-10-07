@@ -80,8 +80,13 @@ Authorised manuscript-level ecological claims:
 - in the mixed-tier frozen map, observed interaction decline is neither necessary nor sufficient for observed reproductive decline; both logical counterexample classes survive every single-programme deletion;
 - the three representation-stable resolved false-reassurance anchors are not readily explained by simple classical differential-reliability attenuation under the audited source-level reliability proxies: each equal-latent-effect null has descriptive misfit `p<0.01`;
 - the accessible Aguilar et al. (2025) Supplementary Table S1 contains 426 response-labelled physical rows versus 500 hierarchical input effects reported for the full source meta-analysis; this is a public-source coverage boundary;
-- the generated SF06 row-level translation outputs are **not currently authorised as biological results** because raw Word result-column/sign mapping is under audit: the generated table gives uniformly positive endpoint d values, including for *Cardiopetalum calophyllum*, which conflicts with the source-study direction and with Aguilar et al.'s published sign convention;
-- all preliminary SF06 numerical outputs remain preserved for provenance and may not be hidden or selectively replaced, but they do not set the current manuscript claim ceiling until the source-column audit is closed;
+- the SF06 raw-column audit identified and corrected a parser bug in which Word cells such as `- 1.733` lost their spaced minus sign; the corrected output now reproduces source directions (for example, *Cardiopetalum* female-fitness `d=-1.733`, pollination `d=-0.048`);
+- the corrected accessible public-S1 habitat-fragmentation topology contains 54 consensus-sign pairs from 32 publications / 52 species and is many-to-many: 35 I−F−, 9 I−F+, 7 I+F− and 3 I+F+; the minimum deterministic mismatch count is 12/54, with publication-LOO minimum 8 and species-LOO minimum 11;
+- after deleting every SF06 publication overlapping the frozen EGWEE I–F map, the source-publication-disjoint subset retains 31 consensus pairs and 7 deterministic mismatches, with publication-LOO minimum 5 and species-LOO minimum 6; this supports external generalization of sign-level translation non-identifiability under the corrected public-S1 analysis;
+- pollination sign adds **zero incremental binary sentinel gain** over the fragmentation-context baseline in both the full public-S1 subset (12 baseline errors vs 12 best-lookup errors) and the source-disjoint subset (7 vs 7), even though the continuous Hedges-d pollination slope is positive (`beta=0.190`, `p=0.0053`, model `R²=0.069`);
+- the preregistered SF06 self-compatibility residual coefficient is positive but unresolved (`gamma_SC=+0.0639`, 95% CI `[-0.263,+0.390]`, `p=0.701`); nominal compatibility is not promoted as the missing mechanism;
+- the external sign topology is a point-estimate structural result: only 3 pairs have both endpoint signs marginally resolved at 95%, all concordant lower/lower, so the 12 mismatches are not described as 12 individually resolved sign reversals;
+- all preliminary buggy SF06 numerical outputs remain preserved for provenance and may not be hidden or retroactively described as valid biology;
 - the promoted general ecological principle is therefore restricted to the validated matched evidence: **directional coherence without guaranteed local quantitative translation**; the strongest resolved quantitative failure mode is **false reassurance**;
 
 
@@ -110,9 +115,11 @@ Not authorised:
 - claiming false reassurance is more common than apparent over-warning in nature;
 - claiming the hidden effective-mating layer is established rather than a prospective mechanistic hypothesis;
 - claiming universal sign-level interaction→function non-identifiability beyond the frozen matched-programme EGWEE evidence map;
-- claiming any current SF06 generated sign-topology or compatibility-residual coefficient as biologically interpretable before the raw result-column/sign audit is closed;
+- claiming that the corrected SF06 mismatch count is a prevalence estimate or an out-of-sample prediction-error rate;
+- claiming that the 12 SF06 sign mismatches are 12 individually 95%-resolved sign reversals;
 - claiming that self-compatibility explains residual pollination→female-fitness translation in SF06;
 - treating the accessible 426-row SF06 public supplement as the complete 500-input Aguilar et al. meta-analysis database;
+- hiding or deleting the earlier sign-parser outputs now known to be invalid;
 
 - claiming lnRR is the uniquely correct effect scale; it is a mandatory sensitivity estimand with small-n delta-method limitations;
 - direct empirical validation of finite EGWE/NEE operators;
