@@ -26,7 +26,7 @@ def main() -> None:
         "minimum deterministic mismatches = 12",
         "publication-LOO minimum = 8",
         "species-LOO minimum = 11",
-        "source-publication-disjoint sensitivity",
+        "Source-publication-disjoint sensitivity",
     ):
         assert token in timeline, token
 
