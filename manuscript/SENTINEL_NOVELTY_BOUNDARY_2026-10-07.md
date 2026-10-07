@@ -15,11 +15,9 @@ Therefore EGWEE should not claim to discover that “correlation is not predicti
 
 The narrower contribution has four linked parts.
 
-### 1. Same causal chain, not cross-taxon surrogacy
+### 1. Same reproductive life cycle, not cross-taxon surrogacy
 
-The putative sentinel and target are adjacent biological processes in the same plant reproductive pathway:
-
-interaction / pollination → reproductive function.
+The putative sentinel and target are mechanistically linked processes within the same plant reproductive life cycle. Pollination contributes to reproduction directly, but final reproductive performance also integrates mating quality, plant condition, post-pollination survival and, in some systems, later mutualisms such as seed dispersal.
 
 This is a stronger intuitive surrogate relationship than using one taxonomic group to represent another. Failure is therefore biologically more informative than generic cross-taxon incongruence.
 
@@ -77,11 +75,12 @@ fragmentation → interaction quantity
 fragmentation → mating provenance / compatibility  
 fragmentation → plant condition and post-transfer viability  
 fragmentation → compensatory reproductive routes  
+fragmentation → later dispersal / recruitment branches  
 all → reproductive function.
 
 Because several branches share the same disturbance driver, upstream and downstream effects can remain correlated even when the upstream state is insufficient for downstream diagnosis.
 
-This gives a biological reason—not merely a statistical reason—for the association–sufficiency gap.
+This gives a biological reason—not merely a statistical reason—for the association–sufficiency gap. Source-disjoint external examples show both directions with different mechanisms: *Samanea saman* buffers seed output despite reduced effective pollination but pays downstream progeny-quality costs, whereas *Tristerix corymbosus* retains or improves pollination near edges while overall reproductive success collapses because seed dispersal fails. The same statistical sentinel failure therefore emerges from different branches of the reproductive life cycle.
 
 ## Claim ceiling
 
