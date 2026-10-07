@@ -21,7 +21,7 @@ def main() -> None:
         "500",
         "gamma_SC = -0.087740",
         "not biologically valid",
-        "spaced minus signs",
+        "spaced-minus parser defect",
         "gamma_SC = +0.063904",
         "minimum deterministic mismatches = 12",
         "publication-LOO minimum = 8",
