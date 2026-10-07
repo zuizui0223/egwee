@@ -18,6 +18,8 @@ on:
       - 'manuscript/SF06_LOPO_PREDICTIVE_VALUE_2026-10-07.md'
       - 'scripts/check_sf06_lopo_sign_probability_value.py'
       - 'manuscript/SF06_LOPO_SIGN_PROBABILITY_VALUE_2026-10-07.md'
+      - 'scripts/check_sf06_sign_confidence_sweep.py'
+      - 'manuscript/SF06_SIGN_CONFIDENCE_SWEEP_2026-10-07.md'
       - 'evidence/meta_extraction/phase2_sf06_translation_pair_manifest_v1.csv'
       - 'evidence/meta_extraction/phase2_sf06_source_frame_summary_v1.json'
       - '.github/workflows/sf06-translation-residual.yml'
@@ -64,6 +66,8 @@ jobs:
         run: python scripts/check_sf06_lopo_predictive_value.py
       - name: Audit SF06 probabilistic sign-sentinel value
         run: python scripts/check_sf06_lopo_sign_probability_value.py
+      - name: Audit SF06 sign-confidence sweep
+        run: python scripts/check_sf06_sign_confidence_sweep.py
       - name: Commit external validation result
         run: |
           git config user.name 'github-actions[bot]'
