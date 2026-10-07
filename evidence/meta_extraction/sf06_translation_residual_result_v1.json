@@ -26,116 +26,120 @@
   "scale_stable_external_topology": {
     "label": "habitat_fragmentation_only",
     "component_consensus_sign": {
-      "n_used": 55,
+      "n_used": 54,
       "counts": {
+        "lower": {
+          "lower": 35,
+          "nonlower": 9
+        },
         "nonlower": {
-          "nonlower": 55
+          "lower": 7,
+          "nonlower": 3
         }
       },
-      "minimum_deterministic_mismatches": 0,
-      "nonidentifying": false
+      "minimum_deterministic_mismatches": 12,
+      "nonidentifying": true
     },
-    "consensus_n_publications": 33,
+    "consensus_n_publications": 32,
     "consensus_n_species": 52,
     "minimum_coverage_gate_passed": true,
     "publication_leave_one_out_minimum_mismatches": {
-      "abrahamczyk et al. (2021) plant ecology 222:613- 623": 0,
-      "aguilar (2005) phd thesis, national university of córdoba pp. 1- 169": 0,
-      "aizen & feinsinger (1994) ecology 75:330- 351": 0,
-      "angoh et al. (2021) south african journal of botany 141:196- 199": 0,
-      "barreto et al. (2018) botanical journal of the linnean society 187:319- 326": 0,
-      "cascante et al. (2002) conservation biology 16:137- 147": 0,
-      "chen & zuo (2019) frontiers in plant science 10:327": 0,
-      "chen et al. (2019) science of the total environment 654:1056- 1063": 0,
-      "chiapero et al. (2021) forest ecology and management 492:119215": 0,
-      "coombs et al. (2009) austral ecology 34:688- 697": 0,
-      "cristobal-pérez et al. (2021) biological conservation 256:109007": 0,
-      "da silva elias et al. (2012) journal of tropical ecology 28:317- 320": 0,
-      "duffy et al. (2013) journal of ecology 101:953- 962": 0,
-      "ehlers (1999) nordic journal of botany 19:653- 663": 0,
-      "favarin et al. (2022) flora 296:152165": 0,
-      "garcía & chacoff (2007) conservation biology 21:400- 411": 0,
-      "gonzález-varo et al. (2009) biological conservation 142:1058- 1065": 0,
-      "hadley et al. (2014) ecology 95:2202- 2212": 0,
-      "hauber et al. (2022) south african journal of botany 146:48- 57": 0,
-      "hendrix & kyhl (2000) conservation biology 14:304- 313": 0,
-      "johnson et al. (2009) biology letters 5:282- 285": 0,
-      "kolb (2008) biological conservation 141:2540- 2549": 0,
-      "kunin (1997) journal of ecology 225- 234": 0,
-      "lopes & buzato (2007) oecologia 154:305- 314": 0,
-      "magrach et al. (2013) journal of ecology 101:713- 721": 0,
-      "pierce et al. (2018) biodiversity and conservation 27:891- 905": 0,
-      "van kleulen & johnson (2005) american journal of botany 92:1124- 1130": 0,
-      "wagenius & lyon (2010) ecology 91:733- 742": 0,
-      "wagenius (2006) ecology 87:931- 941": 0,
-      "woods et al. (2022) landscape ecology 37:1059- 1073": 0,
-      "yates & ladd (2004) austral ecology 29:189- 200": 0,
-      "young & pickup (2010) journal of applied ecology 47:541- 548": 0,
-      "zhang & lou (2015) journal of plant ecology 8:154- 158": 0
+      "abrahamczyk et al. (2021) plant ecology 222:613- 623": 12,
+      "aguilar (2005) phd thesis, national university of córdoba pp. 1- 169": 10,
+      "aizen & feinsinger (1994) ecology 75:330- 351": 8,
+      "angoh et al. (2021) south african journal of botany 141:196- 199": 12,
+      "barreto et al. (2018) botanical journal of the linnean society 187:319- 326": 12,
+      "cascante et al. (2002) conservation biology 16:137- 147": 11,
+      "chen & zuo (2019) frontiers in plant science 10:327": 12,
+      "chen et al. (2019) science of the total environment 654:1056- 1063": 12,
+      "chiapero et al. (2021) forest ecology and management 492:119215": 11,
+      "coombs et al. (2009) austral ecology 34:688- 697": 11,
+      "cristobal-pérez et al. (2021) biological conservation 256:109007": 12,
+      "da silva elias et al. (2012) journal of tropical ecology 28:317- 320": 12,
+      "duffy et al. (2013) journal of ecology 101:953- 962": 12,
+      "ehlers (1999) nordic journal of botany 19:653- 663": 12,
+      "favarin et al. (2022) flora 296:152165": 12,
+      "garcía & chacoff (2007) conservation biology 21:400- 411": 12,
+      "gonzález-varo et al. (2009) biological conservation 142:1058- 1065": 12,
+      "hadley et al. (2014) ecology 95:2202- 2212": 12,
+      "hauber et al. (2022) south african journal of botany 146:48- 57": 11,
+      "hendrix & kyhl (2000) conservation biology 14:304- 313": 12,
+      "johnson et al. (2009) biology letters 5:282- 285": 12,
+      "kolb (2008) biological conservation 141:2540- 2549": 12,
+      "kunin (1997) journal of ecology 225- 234": 11,
+      "lopes & buzato (2007) oecologia 154:305- 314": 12,
+      "magrach et al. (2013) journal of ecology 101:713- 721": 12,
+      "pierce et al. (2018) biodiversity and conservation 27:891- 905": 12,
+      "van kleulen & johnson (2005) american journal of botany 92:1124- 1130": 11,
+      "wagenius & lyon (2010) ecology 91:733- 742": 12,
+      "wagenius (2006) ecology 87:931- 941": 12,
+      "yates & ladd (2004) austral ecology 29:189- 200": 12,
+      "young & pickup (2010) journal of applied ecology 47:541- 548": 12,
+      "zhang & lou (2015) journal of plant ecology 8:154- 158": 12
     },
-    "minimum_mismatch_across_publication_deletions": 0,
-    "publication_LOO_nonidentifying": false,
+    "minimum_mismatch_across_publication_deletions": 8,
+    "publication_LOO_nonidentifying": true,
     "species_leave_one_out_minimum_mismatches": {
-      "caragana_korshinskii": 0,
-      "cardiopetalum_calophyllum": 0,
-      "centaurea_scabiosa": 0,
-      "crataegus_monogyna": 0,
-      "echinacea_angustifolia": 0,
-      "erica_discolor": 0,
-      "erythrostemon_gilliesii": 0,
-      "gentiana_pneumonanthe": 0,
-      "geoffroea_decorticans": 0,
-      "gomphocarpus_physocarpus": 0,
-      "haloxylon_ammodendron": 0,
-      "heimia_salicifolia": 0,
-      "heliconia_tortuosa": 0,
-      "ipomoea_purpurea": 0,
-      "justicia_aequilabris": 0,
-      "justicia_squarrosa": 0,
-      "kniphofia_linearifolia": 0,
-      "lepismium_lumbricoides": 0,
-      "ligaria_cuneifolia": 0,
-      "limonium_narbonense": 0,
-      "lithraea_molleoides": 0,
-      "lycium_cestroides": 0,
-      "mandevilla_laxa": 0,
-      "mandevilla_pentlandiana": 0,
-      "mimosa_detinens": 0,
-      "myrtus_communis": 0,
-      "neltuma_nigra": 0,
-      "opuntia_quimilo": 0,
-      "parkinsonia_praecox": 0,
-      "phlox_pilosa": 0,
-      "phyteuma_spicatum": 0,
-      "porlieria_microphylla": 0,
-      "portulaca_umbraticola": 0,
-      "psychotria_suterella": 0,
-      "rutidosis_leptorrhynchoides": 0,
-      "samanea_saman": 0,
-      "satyrium_longicauda": 0,
-      "senegalia_praecox": 0,
-      "senna_aphylla": 0,
-      "senna_didymobotrya": 0,
-      "sinapis_arvensis": 0,
-      "solanum_chenopodioides": 0,
-      "solanum_rostratum": 0,
-      "spondias_purpurea": 0,
-      "tillandsia_ixioides": 0,
-      "trichodiadema_strumosum": 0,
-      "tristerix_corymbosus": 0,
-      "vachellia_aroma": 0,
-      "vachellia_atramentaria": 0,
-      "vachellia_caven": 0,
-      "vachellia_furcatispina": 0,
-      "verticordia_staminosa": 0
+      "caragana_korshinskii": 12,
+      "cardiopetalum_calophyllum": 12,
+      "centaurea_scabiosa": 12,
+      "crataegus_monogyna": 12,
+      "echinacea_angustifolia": 12,
+      "erica_discolor": 12,
+      "erythrostemon_gilliesii": 12,
+      "gentiana_pneumonanthe": 12,
+      "geoffroea_decorticans": 11,
+      "gomphocarpus_physocarpus": 11,
+      "haloxylon_ammodendron": 12,
+      "heimia_salicifolia": 12,
+      "heliconia_tortuosa": 12,
+      "ipomoea_purpurea": 11,
+      "justicia_aequilabris": 12,
+      "justicia_squarrosa": 12,
+      "kniphofia_linearifolia": 12,
+      "lepismium_lumbricoides": 12,
+      "ligaria_cuneifolia": 12,
+      "limonium_narbonense": 12,
+      "lithraea_molleoides": 11,
+      "lycium_cestroides": 12,
+      "mandevilla_laxa": 12,
+      "mandevilla_pentlandiana": 12,
+      "mimosa_detinens": 12,
+      "myrtus_communis": 12,
+      "neltuma_nigra": 12,
+      "opuntia_quimilo": 11,
+      "parkinsonia_praecox": 12,
+      "phlox_pilosa": 12,
+      "phyteuma_spicatum": 12,
+      "porlieria_microphylla": 12,
+      "portulaca_umbraticola": 12,
+      "psychotria_suterella": 12,
+      "rutidosis_leptorrhynchoides": 12,
+      "samanea_saman": 11,
+      "satyrium_longicauda": 12,
+      "senegalia_praecox": 11,
+      "senna_aphylla": 12,
+      "senna_didymobotrya": 11,
+      "sinapis_arvensis": 11,
+      "solanum_chenopodioides": 12,
+      "solanum_rostratum": 12,
+      "spondias_purpurea": 12,
+      "tillandsia_ixioides": 12,
+      "trichodiadema_strumosum": 11,
+      "tristerix_corymbosus": 12,
+      "vachellia_aroma": 12,
+      "vachellia_atramentaria": 11,
+      "vachellia_caven": 12,
+      "vachellia_furcatispina": 11,
+      "verticordia_staminosa": 12
     },
-    "minimum_mismatch_across_species_deletions": 0,
-    "species_LOO_nonidentifying": false,
+    "minimum_mismatch_across_species_deletions": 11,
+    "species_LOO_nonidentifying": true,
     "component_resolved_95pct_sign_sensitivity": {
       "n_used": 3,
       "counts": {
-        "nonlower": {
-          "nonlower": 3
+        "lower": {
+          "lower": 3
         }
       },
       "minimum_deterministic_mismatches": 0,
@@ -144,97 +148,106 @@
     "ivw_hedges_d_sign_sensitivity": {
       "n_used": 55,
       "counts": {
+        "lower": {
+          "lower": 36,
+          "nonlower": 9
+        },
         "nonlower": {
-          "nonlower": 55
+          "lower": 7,
+          "nonlower": 3
         }
       },
-      "minimum_deterministic_mismatches": 0,
-      "nonidentifying": false
+      "minimum_deterministic_mismatches": 12,
+      "nonidentifying": true
     },
-    "decision": "external_sign_translation_nonidentifiability_not_supported",
+    "decision": "external_sign_translation_nonidentifiability_supported",
     "interpretation": "Primary structural topology uses constituent-row sign consensus before aggregation; mixed-sign response sets are excluded. Generality requires both publication- and species-level leave-one-out persistence. IVW Hedges-d sign is representation-specific sensitivity only. Mismatch counts are not prevalence or prediction-error estimates."
   },
   "scale_stable_external_topology_nonoverlap_sensitivity": {
     "label": "habitat_fragmentation_nonoverlap_with_frozen_EGWEE_IF_map",
     "component_consensus_sign": {
-      "n_used": 32,
+      "n_used": 31,
       "counts": {
+        "lower": {
+          "lower": 20,
+          "nonlower": 6
+        },
         "nonlower": {
-          "nonlower": 32
+          "lower": 4,
+          "nonlower": 1
         }
       },
-      "minimum_deterministic_mismatches": 0,
-      "nonidentifying": false
+      "minimum_deterministic_mismatches": 7,
+      "nonidentifying": true
     },
-    "consensus_n_publications": 24,
+    "consensus_n_publications": 23,
     "consensus_n_species": 29,
     "minimum_coverage_gate_passed": true,
     "publication_leave_one_out_minimum_mismatches": {
-      "abrahamczyk et al. (2021) plant ecology 222:613- 623": 0,
-      "aguilar (2005) phd thesis, national university of córdoba pp. 1- 169": 0,
-      "barreto et al. (2018) botanical journal of the linnean society 187:319- 326": 0,
-      "cascante et al. (2002) conservation biology 16:137- 147": 0,
-      "coombs et al. (2009) austral ecology 34:688- 697": 0,
-      "cristobal-pérez et al. (2021) biological conservation 256:109007": 0,
-      "duffy et al. (2013) journal of ecology 101:953- 962": 0,
-      "ehlers (1999) nordic journal of botany 19:653- 663": 0,
-      "favarin et al. (2022) flora 296:152165": 0,
-      "garcía & chacoff (2007) conservation biology 21:400- 411": 0,
-      "hadley et al. (2014) ecology 95:2202- 2212": 0,
-      "hauber et al. (2022) south african journal of botany 146:48- 57": 0,
-      "hendrix & kyhl (2000) conservation biology 14:304- 313": 0,
-      "johnson et al. (2009) biology letters 5:282- 285": 0,
-      "kunin (1997) journal of ecology 225- 234": 0,
-      "magrach et al. (2013) journal of ecology 101:713- 721": 0,
-      "pierce et al. (2018) biodiversity and conservation 27:891- 905": 0,
-      "van kleulen & johnson (2005) american journal of botany 92:1124- 1130": 0,
-      "wagenius & lyon (2010) ecology 91:733- 742": 0,
-      "wagenius (2006) ecology 87:931- 941": 0,
-      "woods et al. (2022) landscape ecology 37:1059- 1073": 0,
-      "yates & ladd (2004) austral ecology 29:189- 200": 0,
-      "young & pickup (2010) journal of applied ecology 47:541- 548": 0,
-      "zhang & lou (2015) journal of plant ecology 8:154- 158": 0
+      "abrahamczyk et al. (2021) plant ecology 222:613- 623": 7,
+      "aguilar (2005) phd thesis, national university of córdoba pp. 1- 169": 5,
+      "barreto et al. (2018) botanical journal of the linnean society 187:319- 326": 7,
+      "cascante et al. (2002) conservation biology 16:137- 147": 6,
+      "coombs et al. (2009) austral ecology 34:688- 697": 6,
+      "cristobal-pérez et al. (2021) biological conservation 256:109007": 7,
+      "duffy et al. (2013) journal of ecology 101:953- 962": 7,
+      "ehlers (1999) nordic journal of botany 19:653- 663": 7,
+      "favarin et al. (2022) flora 296:152165": 7,
+      "garcía & chacoff (2007) conservation biology 21:400- 411": 7,
+      "hadley et al. (2014) ecology 95:2202- 2212": 7,
+      "hauber et al. (2022) south african journal of botany 146:48- 57": 6,
+      "hendrix & kyhl (2000) conservation biology 14:304- 313": 7,
+      "johnson et al. (2009) biology letters 5:282- 285": 7,
+      "kunin (1997) journal of ecology 225- 234": 6,
+      "magrach et al. (2013) journal of ecology 101:713- 721": 7,
+      "pierce et al. (2018) biodiversity and conservation 27:891- 905": 7,
+      "van kleulen & johnson (2005) american journal of botany 92:1124- 1130": 6,
+      "wagenius & lyon (2010) ecology 91:733- 742": 7,
+      "wagenius (2006) ecology 87:931- 941": 7,
+      "yates & ladd (2004) austral ecology 29:189- 200": 7,
+      "young & pickup (2010) journal of applied ecology 47:541- 548": 7,
+      "zhang & lou (2015) journal of plant ecology 8:154- 158": 7
     },
-    "minimum_mismatch_across_publication_deletions": 0,
-    "publication_LOO_nonidentifying": false,
+    "minimum_mismatch_across_publication_deletions": 5,
+    "publication_LOO_nonidentifying": true,
     "species_leave_one_out_minimum_mismatches": {
-      "centaurea_scabiosa": 0,
-      "crataegus_monogyna": 0,
-      "echinacea_angustifolia": 0,
-      "gentiana_pneumonanthe": 0,
-      "geoffroea_decorticans": 0,
-      "gomphocarpus_physocarpus": 0,
-      "heimia_salicifolia": 0,
-      "heliconia_tortuosa": 0,
-      "ipomoea_purpurea": 0,
-      "justicia_aequilabris": 0,
-      "kniphofia_linearifolia": 0,
-      "limonium_narbonense": 0,
-      "lycium_cestroides": 0,
-      "mandevilla_laxa": 0,
-      "mandevilla_pentlandiana": 0,
-      "phlox_pilosa": 0,
-      "porlieria_microphylla": 0,
-      "rutidosis_leptorrhynchoides": 0,
-      "samanea_saman": 0,
-      "satyrium_longicauda": 0,
-      "senna_didymobotrya": 0,
-      "sinapis_arvensis": 0,
-      "solanum_chenopodioides": 0,
-      "solanum_rostratum": 0,
-      "spondias_purpurea": 0,
-      "trichodiadema_strumosum": 0,
-      "tristerix_corymbosus": 0,
-      "vachellia_caven": 0,
-      "verticordia_staminosa": 0
+      "centaurea_scabiosa": 7,
+      "crataegus_monogyna": 7,
+      "echinacea_angustifolia": 7,
+      "gentiana_pneumonanthe": 7,
+      "geoffroea_decorticans": 6,
+      "gomphocarpus_physocarpus": 6,
+      "heimia_salicifolia": 7,
+      "heliconia_tortuosa": 7,
+      "ipomoea_purpurea": 6,
+      "justicia_aequilabris": 7,
+      "kniphofia_linearifolia": 7,
+      "limonium_narbonense": 7,
+      "lycium_cestroides": 7,
+      "mandevilla_laxa": 7,
+      "mandevilla_pentlandiana": 7,
+      "phlox_pilosa": 7,
+      "porlieria_microphylla": 7,
+      "rutidosis_leptorrhynchoides": 7,
+      "samanea_saman": 6,
+      "satyrium_longicauda": 7,
+      "senna_didymobotrya": 6,
+      "sinapis_arvensis": 6,
+      "solanum_chenopodioides": 7,
+      "solanum_rostratum": 7,
+      "spondias_purpurea": 7,
+      "trichodiadema_strumosum": 6,
+      "tristerix_corymbosus": 7,
+      "vachellia_caven": 7,
+      "verticordia_staminosa": 7
     },
-    "minimum_mismatch_across_species_deletions": 0,
-    "species_LOO_nonidentifying": false,
+    "minimum_mismatch_across_species_deletions": 6,
+    "species_LOO_nonidentifying": true,
     "component_resolved_95pct_sign_sensitivity": {
       "n_used": 3,
       "counts": {
-        "nonlower": {
-          "nonlower": 3
+        "lower": {
+          "lower": 3
         }
       },
       "minimum_deterministic_mismatches": 0,
@@ -243,137 +256,146 @@
     "ivw_hedges_d_sign_sensitivity": {
       "n_used": 32,
       "counts": {
+        "lower": {
+          "lower": 21,
+          "nonlower": 6
+        },
         "nonlower": {
-          "nonlower": 32
+          "lower": 4,
+          "nonlower": 1
         }
       },
-      "minimum_deterministic_mismatches": 0,
-      "nonidentifying": false
+      "minimum_deterministic_mismatches": 7,
+      "nonidentifying": true
     },
-    "decision": "external_sign_translation_nonidentifiability_not_supported",
+    "decision": "external_sign_translation_nonidentifiability_supported",
     "interpretation": "Primary structural topology uses constituent-row sign consensus before aggregation; mixed-sign response sets are excluded. Generality requires both publication- and species-level leave-one-out persistence. IVW Hedges-d sign is representation-specific sensitivity only. Mismatch counts are not prevalence or prediction-error estimates."
   },
   "scale_stable_external_topology_all_land_use_sensitivity": {
     "label": "all_land_use_factors",
     "component_consensus_sign": {
-      "n_used": 59,
+      "n_used": 58,
       "counts": {
+        "lower": {
+          "lower": 39,
+          "nonlower": 9
+        },
         "nonlower": {
-          "nonlower": 59
+          "lower": 7,
+          "nonlower": 3
         }
       },
-      "minimum_deterministic_mismatches": 0,
-      "nonidentifying": false
+      "minimum_deterministic_mismatches": 12,
+      "nonidentifying": true
     },
-    "consensus_n_publications": 37,
+    "consensus_n_publications": 36,
     "consensus_n_species": 56,
     "minimum_coverage_gate_passed": true,
     "publication_leave_one_out_minimum_mismatches": {
-      "abrahamczyk et al. (2021) plant ecology 222:613- 623": 0,
-      "aguilar (2005) phd thesis, national university of córdoba pp. 1- 169": 0,
-      "aizen & feinsinger (1994) ecology 75:330- 351": 0,
-      "albrecht et al. (2007) journal of applied ecology 44:813- 822": 0,
-      "angoh et al. (2021) south african journal of botany 141:196- 199": 0,
-      "barreto et al. (2018) botanical journal of the linnean society 187:319- 326": 0,
-      "cascante et al. (2002) conservation biology 16:137- 147": 0,
-      "chen & zuo (2019) frontiers in plant science 10:327": 0,
-      "chen et al. (2019) science of the total environment 654:1056- 1063": 0,
-      "chiapero et al. (2021) forest ecology and management 492:119215": 0,
-      "coombs et al. (2009) austral ecology 34:688- 697": 0,
-      "cristobal-pérez et al. (2021) biological conservation 256:109007": 0,
-      "da silva elias et al. (2012) journal of tropical ecology 28:317- 320": 0,
-      "duffy et al. (2013) journal of ecology 101:953- 962": 0,
-      "ehlers (1999) nordic journal of botany 19:653- 663": 0,
-      "favarin et al. (2022) flora 296:152165": 0,
-      "garcía & chacoff (2007) conservation biology 21:400- 411": 0,
-      "garcía-robledo (2010) restoration ecology 18:94- 102": 0,
-      "gonzález-varo et al. (2009) biological conservation 142:1058- 1065": 0,
-      "hadley et al. (2014) ecology 95:2202- 2212": 0,
-      "hauber et al. (2022) south african journal of botany 146:48- 57": 0,
-      "hendrix & kyhl (2000) conservation biology 14:304- 313": 0,
-      "jha & dick (2010) pnas 107:13760- 13764": 0,
-      "johnson et al. (2009) biology letters 5:282- 285": 0,
-      "kolb (2008) biological conservation 141:2540- 2549": 0,
-      "kunin (1997) journal of ecology 225- 234": 0,
-      "leong et al. (2014) plos one 9: e86357": 0,
-      "lopes & buzato (2007) oecologia 154:305- 314": 0,
-      "magrach et al. (2013) journal of ecology 101:713- 721": 0,
-      "pierce et al. (2018) biodiversity and conservation 27:891- 905": 0,
-      "van kleulen & johnson (2005) american journal of botany 92:1124- 1130": 0,
-      "wagenius & lyon (2010) ecology 91:733- 742": 0,
-      "wagenius (2006) ecology 87:931- 941": 0,
-      "woods et al. (2022) landscape ecology 37:1059- 1073": 0,
-      "yates & ladd (2004) austral ecology 29:189- 200": 0,
-      "young & pickup (2010) journal of applied ecology 47:541- 548": 0,
-      "zhang & lou (2015) journal of plant ecology 8:154- 158": 0
+      "abrahamczyk et al. (2021) plant ecology 222:613- 623": 12,
+      "aguilar (2005) phd thesis, national university of córdoba pp. 1- 169": 10,
+      "aizen & feinsinger (1994) ecology 75:330- 351": 8,
+      "albrecht et al. (2007) journal of applied ecology 44:813- 822": 12,
+      "angoh et al. (2021) south african journal of botany 141:196- 199": 12,
+      "barreto et al. (2018) botanical journal of the linnean society 187:319- 326": 12,
+      "cascante et al. (2002) conservation biology 16:137- 147": 11,
+      "chen & zuo (2019) frontiers in plant science 10:327": 12,
+      "chen et al. (2019) science of the total environment 654:1056- 1063": 12,
+      "chiapero et al. (2021) forest ecology and management 492:119215": 11,
+      "coombs et al. (2009) austral ecology 34:688- 697": 11,
+      "cristobal-pérez et al. (2021) biological conservation 256:109007": 12,
+      "da silva elias et al. (2012) journal of tropical ecology 28:317- 320": 12,
+      "duffy et al. (2013) journal of ecology 101:953- 962": 12,
+      "ehlers (1999) nordic journal of botany 19:653- 663": 12,
+      "favarin et al. (2022) flora 296:152165": 12,
+      "garcía & chacoff (2007) conservation biology 21:400- 411": 12,
+      "garcía-robledo (2010) restoration ecology 18:94- 102": 12,
+      "gonzález-varo et al. (2009) biological conservation 142:1058- 1065": 12,
+      "hadley et al. (2014) ecology 95:2202- 2212": 12,
+      "hauber et al. (2022) south african journal of botany 146:48- 57": 11,
+      "hendrix & kyhl (2000) conservation biology 14:304- 313": 12,
+      "jha & dick (2010) pnas 107:13760- 13764": 12,
+      "johnson et al. (2009) biology letters 5:282- 285": 12,
+      "kolb (2008) biological conservation 141:2540- 2549": 12,
+      "kunin (1997) journal of ecology 225- 234": 11,
+      "leong et al. (2014) plos one 9: e86357": 12,
+      "lopes & buzato (2007) oecologia 154:305- 314": 12,
+      "magrach et al. (2013) journal of ecology 101:713- 721": 12,
+      "pierce et al. (2018) biodiversity and conservation 27:891- 905": 12,
+      "van kleulen & johnson (2005) american journal of botany 92:1124- 1130": 11,
+      "wagenius & lyon (2010) ecology 91:733- 742": 12,
+      "wagenius (2006) ecology 87:931- 941": 12,
+      "yates & ladd (2004) austral ecology 29:189- 200": 12,
+      "young & pickup (2010) journal of applied ecology 47:541- 548": 12,
+      "zhang & lou (2015) journal of plant ecology 8:154- 158": 12
     },
-    "minimum_mismatch_across_publication_deletions": 0,
-    "publication_LOO_nonidentifying": false,
+    "minimum_mismatch_across_publication_deletions": 8,
+    "publication_LOO_nonidentifying": true,
     "species_leave_one_out_minimum_mismatches": {
-      "campanula_glomerata": 0,
-      "caragana_korshinskii": 0,
-      "cardiopetalum_calophyllum": 0,
-      "centaurea_scabiosa": 0,
-      "centaurea_solstitialis": 0,
-      "crataegus_monogyna": 0,
-      "echinacea_angustifolia": 0,
-      "erica_discolor": 0,
-      "erythrostemon_gilliesii": 0,
-      "gentiana_pneumonanthe": 0,
-      "geoffroea_decorticans": 0,
-      "gomphocarpus_physocarpus": 0,
-      "haloxylon_ammodendron": 0,
-      "heimia_salicifolia": 0,
-      "heliconia_tortuosa": 0,
-      "ipomoea_purpurea": 0,
-      "justicia_aequilabris": 0,
-      "justicia_squarrosa": 0,
-      "kniphofia_linearifolia": 0,
-      "lepismium_lumbricoides": 0,
-      "ligaria_cuneifolia": 0,
-      "limonium_narbonense": 0,
-      "lithraea_molleoides": 0,
-      "lycium_cestroides": 0,
-      "mandevilla_laxa": 0,
-      "mandevilla_pentlandiana": 0,
-      "miconia_affinis": 0,
-      "mimosa_detinens": 0,
-      "myrtus_communis": 0,
-      "neltuma_nigra": 0,
-      "opuntia_quimilo": 0,
-      "parkinsonia_praecox": 0,
-      "phlox_pilosa": 0,
-      "phyteuma_spicatum": 0,
-      "porlieria_microphylla": 0,
-      "portulaca_umbraticola": 0,
-      "psychotria_suterella": 0,
-      "rutidosis_leptorrhynchoides": 0,
-      "samanea_saman": 0,
-      "satyrium_longicauda": 0,
-      "senegalia_praecox": 0,
-      "senna_aphylla": 0,
-      "senna_didymobotrya": 0,
-      "sinapis_arvensis": 0,
-      "solanum_chenopodioides": 0,
-      "solanum_rostratum": 0,
-      "spondias_purpurea": 0,
-      "tillandsia_ixioides": 0,
-      "trichodiadema_strumosum": 0,
-      "tristerix_corymbosus": 0,
-      "vachellia_aroma": 0,
-      "vachellia_atramentaria": 0,
-      "vachellia_caven": 0,
-      "vachellia_furcatispina": 0,
-      "verticordia_staminosa": 0,
-      "xanthosoma_daguense": 0
+      "campanula_glomerata": 12,
+      "caragana_korshinskii": 12,
+      "cardiopetalum_calophyllum": 12,
+      "centaurea_scabiosa": 12,
+      "centaurea_solstitialis": 12,
+      "crataegus_monogyna": 12,
+      "echinacea_angustifolia": 12,
+      "erica_discolor": 12,
+      "erythrostemon_gilliesii": 12,
+      "gentiana_pneumonanthe": 12,
+      "geoffroea_decorticans": 11,
+      "gomphocarpus_physocarpus": 11,
+      "haloxylon_ammodendron": 12,
+      "heimia_salicifolia": 12,
+      "heliconia_tortuosa": 12,
+      "ipomoea_purpurea": 11,
+      "justicia_aequilabris": 12,
+      "justicia_squarrosa": 12,
+      "kniphofia_linearifolia": 12,
+      "lepismium_lumbricoides": 12,
+      "ligaria_cuneifolia": 12,
+      "limonium_narbonense": 12,
+      "lithraea_molleoides": 11,
+      "lycium_cestroides": 12,
+      "mandevilla_laxa": 12,
+      "mandevilla_pentlandiana": 12,
+      "miconia_affinis": 12,
+      "mimosa_detinens": 12,
+      "myrtus_communis": 12,
+      "neltuma_nigra": 12,
+      "opuntia_quimilo": 11,
+      "parkinsonia_praecox": 12,
+      "phlox_pilosa": 12,
+      "phyteuma_spicatum": 12,
+      "porlieria_microphylla": 12,
+      "portulaca_umbraticola": 12,
+      "psychotria_suterella": 12,
+      "rutidosis_leptorrhynchoides": 12,
+      "samanea_saman": 11,
+      "satyrium_longicauda": 12,
+      "senegalia_praecox": 11,
+      "senna_aphylla": 12,
+      "senna_didymobotrya": 11,
+      "sinapis_arvensis": 11,
+      "solanum_chenopodioides": 12,
+      "solanum_rostratum": 12,
+      "spondias_purpurea": 12,
+      "tillandsia_ixioides": 12,
+      "trichodiadema_strumosum": 11,
+      "tristerix_corymbosus": 12,
+      "vachellia_aroma": 12,
+      "vachellia_atramentaria": 11,
+      "vachellia_caven": 12,
+      "vachellia_furcatispina": 11,
+      "verticordia_staminosa": 12,
+      "xanthosoma_daguense": 12
     },
-    "minimum_mismatch_across_species_deletions": 0,
-    "species_LOO_nonidentifying": false,
+    "minimum_mismatch_across_species_deletions": 11,
+    "species_LOO_nonidentifying": true,
     "component_resolved_95pct_sign_sensitivity": {
       "n_used": 3,
       "counts": {
-        "nonlower": {
-          "nonlower": 3
+        "lower": {
+          "lower": 3
         }
       },
       "minimum_deterministic_mismatches": 0,
@@ -382,192 +404,202 @@
     "ivw_hedges_d_sign_sensitivity": {
       "n_used": 59,
       "counts": {
+        "lower": {
+          "lower": 40,
+          "nonlower": 9
+        },
         "nonlower": {
-          "nonlower": 59
+          "lower": 7,
+          "nonlower": 3
         }
       },
-      "minimum_deterministic_mismatches": 0,
-      "nonidentifying": false
+      "minimum_deterministic_mismatches": 12,
+      "nonidentifying": true
     },
-    "decision": "external_sign_translation_nonidentifiability_not_supported",
+    "decision": "external_sign_translation_nonidentifiability_supported",
     "interpretation": "Primary structural topology uses constituent-row sign consensus before aggregation; mixed-sign response sets are excluded. Generality requires both publication- and species-level leave-one-out persistence. IVW Hedges-d sign is representation-specific sensitivity only. Mismatch counts are not prevalence or prediction-error estimates."
   },
   "primary": {
     "label": "habitat_fragmentation_only",
     "primary_model_dF_on_dI_plus_SC": {
       "params": [
-        0.5622352205596084,
-        0.11311174075703775,
-        -0.08774033947879964
+        -0.4134509711326792,
+        0.19042084675810994,
+        0.06390397386984187
       ],
       "se": [
-        0.15627547082755466,
-        0.10312484168935464,
-        0.10315243369973663
+        0.15537767511574765,
+        0.06830612339238619,
+        0.16662429154730996
       ],
       "p_two_sided": [
-        0.0003210202467616932,
-        0.2727101140889434,
-        0.3949976263360486
+        0.007792239412064965,
+        0.005307440248158357,
+        0.7013332403907209
       ],
       "ci95": [
         [
-          0.2559409260705614,
-          0.8685295150486554
+          -0.71798561836111,
+          -0.10891632390424844
         ],
         [
-          -0.08900923486549203,
-          0.3152327163795675
+          0.0565433049854841,
+          0.3242983885307358
         ],
         [
-          -0.28991539444793923,
-          0.11443471549033993
+          -0.2626736365123874,
+          0.39048158425207113
         ]
       ],
       "n": 49,
       "n_publications": 27,
-      "r2": 0.02819995012678478
+      "r2": 0.06858968049806335
     },
     "publication_balanced_model_dF_on_dI_plus_SC": {
       "params": [
-        0.5271532581990859,
-        0.12729600682815922,
-        -0.10605992829092965
+        -0.4375492198943945,
+        0.20024520815421104,
+        0.12113574188648264
       ],
       "se": [
-        0.20169403238387124,
-        0.17933725058876826,
-        0.17174890655557243
+        0.16443926463001968,
+        0.1230050068938838,
+        0.1856566840376923
       ],
       "p_two_sided": [
-        0.008958640527640449,
-        0.47781977796845354,
-        0.5368858677609664
+        0.007794226065469252,
+        0.10353685497064669,
+        0.5140968900518217
       ],
       "ci95": [
         [
-          0.13184021883004293,
-          0.9224662975681288
+          -0.7598442562134842,
+          -0.11525418357530476
         ],
         [
-          -0.22419854541226114,
-          0.4787905590685796
+          -0.04084017527590228,
+          0.44133059158432436
         ],
         [
-          -0.4426815995239868,
-          0.2305617429421275
+          -0.24274467231652663,
+          0.4850161560894919
         ]
       ],
       "n": 49,
       "n_publications": 27,
-      "r2": 0.031609558886646516
+      "r2": 0.07967531962057617
     },
-    "gamma_SC": -0.08774033947879964,
+    "gamma_SC": 0.06390397386984187,
     "gamma_SC_ci95": [
-      -0.28991539444793923,
-      0.11443471549033993
+      -0.2626736365123874,
+      0.39048158425207113
     ],
-    "gamma_SC_p_two_sided": 0.3949976263360486,
-    "decision": "compatibility_translation_prediction_not_supported",
+    "gamma_SC_p_two_sided": 0.7013332403907209,
+    "decision": "directionally_consistent_unresolved",
     "delta_model_F_minus_I_on_SC": {
       "params": [
-        -0.11996062073933891,
-        0.01384362946122229
+        0.0858177635964818,
+        -0.17506971989739678
       ],
       "se": [
-        0.18021367482467776,
-        0.17797614340462625
+        0.21520234255190138,
+        0.2327049945134522
       ],
       "p_two_sided": [
-        0.5056299150275225,
-        0.9380001729463355
+        0.6900574604873477,
+        0.4518558053160968
       ],
       "ci95": [
         [
-          -0.47317293291732,
-          0.23325169143864213
+          -0.33597107719389646,
+          0.5076066043868601
         ],
         [
-          -0.334983201719181,
-          0.3626704606416256
+          -0.6311631281663539,
+          0.2810236883715604
         ]
       ],
       "n": 49,
       "n_publications": 27,
-      "r2": 8.953369502162634e-05
+      "r2": 0.009822001615263254
     },
     "interaction_model_dF_on_dI_SC_dIxSC": {
       "params": [
-        0.5103381378004579,
-        0.18058050940331485,
-        0.018524898835593093,
-        -0.1505164656262509
+        -0.33721332189457304,
+        0.3140424701886656,
+        -0.054519151060488644,
+        -0.2548284323033124
       ],
       "se": [
-        0.1983888866011421,
-        0.1835361522394073,
-        0.22983633023777256,
-        0.2537492231765743
+        0.18988381044326838,
+        0.12362070214412195,
+        0.2164550014894882,
+        0.17914385911781647
       ],
       "p_two_sided": [
-        0.010099235461723498,
-        0.325166588052928,
-        0.9357597526419379,
-        0.5530672849443008
+        0.07575056179447924,
+        0.011073487511711761,
+        0.8011392995242416,
+        0.1548871549854303
       ],
       "ci95": [
         [
-          0.12150306512921849,
-          0.8991732104716973
+          -0.7093787516106096,
+          0.034952107821463574
         ],
         [
-          -0.17914373884698384,
-          0.5403047576536135
+          0.07175034624263313,
+          0.5563345941346981
         ],
         [
-          -0.4319460307692953,
-          0.4689958284404815
+          -0.4787631582534493,
+          0.36972485613247197
         ],
         [
-          -0.6478558041573529,
-          0.34682287290485103
+          -0.6059439442257502,
+          0.09628707961912525
         ]
       ],
       "n": 49,
       "n_publications": 27,
-      "r2": 0.036202748549871044
+      "r2": 0.09508953218530347
     },
     "zero_covariance_weighted_delta_sensitivity": {
-      "gamma_SC": 0.45424714872551814,
-      "se": 0.2965475553920817,
-      "p_two_sided": 0.12557545584529364,
+      "gamma_SC": -0.3836969036712302,
+      "se": 0.22583319126606144,
+      "p_two_sided": 0.08931391772691415,
       "ci95": [
-        -0.1269753795463588,
-        1.035469676997395
+        -0.8263218250664561,
+        0.058928017723995696
       ]
     },
     "by_compatibility": {
       "SI": {
         "n": 28,
         "n_publications": 18,
-        "mean_d_I": 0.7692015698587128,
-        "mean_d_F": 0.6492409491193738,
-        "mean_delta_F_minus_I": -0.11996062073933896
+        "mean_d_I": -0.6167015698587128,
+        "mean_d_F": -0.5308838062622309,
+        "mean_delta_F_minus_I": 0.08581776359648183
       },
       "SC": {
         "n": 21,
         "n_publications": 11,
-        "mean_d_I": 0.6546618092052874,
-        "mean_d_F": 0.5485448179271708,
-        "mean_delta_F_minus_I": -0.10611699127811655
+        "mean_d_I": -0.3215189520624304,
+        "mean_d_F": -0.4107709083633453,
+        "mean_delta_F_minus_I": -0.08925195630091498
       }
     },
     "topology_counts": {
       "SI": {
-        "concordant_non_deterioration": 28
+        "concordant_deterioration": 18,
+        "apparent_overwarning_buffering_point_geometry": 6,
+        "concordant_non_deterioration": 2,
+        "false_reassurance_point_geometry": 2
       },
       "SC": {
-        "concordant_non_deterioration": 21
+        "apparent_overwarning_buffering_point_geometry": 3,
+        "concordant_deterioration": 14,
+        "false_reassurance_point_geometry": 4
       }
     }
   },
@@ -575,178 +607,182 @@
     "label": "habitat_fragmentation_nonoverlap",
     "primary_model_dF_on_dI_plus_SC": {
       "params": [
-        0.5277650513522998,
-        0.31874370459680873,
-        -0.006225065836521687
+        -0.47015790287980574,
+        0.2922665692127199,
+        0.15654750486589272
       ],
       "se": [
-        0.24084492208153166,
-        0.19020439117221966,
-        0.19050255757506798
+        0.2727585040806532,
+        0.18656608548704245,
+        0.24814752846788704
       ],
       "p_two_sided": [
-        0.02842961757680914,
-        0.0937782128317096,
-        0.9739321078239127
+        0.08475932032704632,
+        0.11721807227651282,
+        0.5281290242116254
       ],
       "ci95": [
         [
-          0.05571767821314216,
-          0.9998124244914575
+          -1.0047547473549074,
+          0.06443894159529595
         ],
         [
-          -0.05405005180210998,
-          0.6915374609957274
+          -0.07339623907850423,
+          0.657929377503944
         ],
         [
-          -0.379603217646423,
-          0.3671530859733796
+          -0.3298127137837936,
+          0.6429077235155791
         ]
       ],
       "n": 26,
       "n_publications": 18,
-      "r2": 0.1099105281144811
+      "r2": 0.10359234550960361
     },
     "publication_balanced_model_dF_on_dI_plus_SC": {
       "params": [
-        0.4229911342444098,
-        0.2940945391319697,
-        0.002751996677270385
+        -0.3163758960126542,
+        0.3065195173024143,
+        0.045397590713171704
       ],
       "se": [
-        0.2792097615095165,
-        0.2456847551572291,
-        0.23912417631620678
+        0.30093760613814113,
+        0.2564629579518966,
+        0.2744019601060504
       ],
       "p_two_sided": [
-        0.12978297503969075,
-        0.23129086938618515,
-        0.9908176277967163
+        0.29312053617708134,
+        0.2320165292952031,
+        0.8685961505934435
       ],
       "ci95": [
         [
-          -0.12424994244626031,
-          0.9702322109350799
+          -0.9062027656371108,
+          0.2734509736118023
         ],
         [
-          -0.18743873252674065,
-          0.77562781079068
+          -0.1961386436519133,
+          0.8091776782567419
         ],
         [
-          -0.4659227767353007,
-          0.47142677008984146
+          -0.49242036838188374,
+          0.5832155498082272
         ]
       ],
       "n": 26,
       "n_publications": 18,
-      "r2": 0.1130467735957763
+      "r2": 0.1004689042634277
     },
-    "gamma_SC": -0.006225065836521687,
+    "gamma_SC": 0.15654750486589272,
     "gamma_SC_ci95": [
-      -0.379603217646423,
-      0.3671530859733796
+      -0.3298127137837936,
+      0.6429077235155791
     ],
-    "gamma_SC_p_two_sided": 0.9739321078239127,
-    "decision": "compatibility_translation_prediction_not_supported",
+    "gamma_SC_p_two_sided": 0.5281290242116254,
+    "decision": "directionally_consistent_unresolved",
     "delta_model_F_minus_I_on_SC": {
       "params": [
-        -0.008706955764392135,
-        0.30583555436102144
+        0.08584981290724933,
+        -0.22554073643385072
       ],
       "se": [
-        0.21650773230851805,
-        0.2087827995848747
+        0.2466530614456892,
+        0.23035933758727173
       ],
       "p_two_sided": [
-        0.967921360713299,
-        0.1429617548525211
+        0.7277958899145427,
+        0.3275393457402238
       ],
       "ci95": [
         [
-          -0.4330543134635266,
-          0.41564040193474233
+          -0.39758130420284643,
+          0.5692809300173451
         ],
         [
-          -0.10337121341677713,
-          0.71504232213882
+          -0.6770367416074072,
+          0.2259552687397058
         ]
       ],
       "n": 26,
       "n_publications": 18,
-      "r2": 0.053433846138711605
+      "r2": 0.020844888417412943
     },
     "interaction_model_dF_on_dI_SC_dIxSC": {
       "params": [
-        0.5533983328541132,
-        0.28619245464658716,
-        -0.05193812109624624,
-        0.09350837191559283
+        -0.5005415440856255,
+        0.25359171269572833,
+        0.20158523299067993,
+        0.09830697788113624
       ],
       "se": [
-        0.29139610227381535,
-        0.30411872932193607,
-        0.3049579740826263,
-        0.3430721799730715
+        0.29879830670441165,
+        0.30886146807459725,
+        0.30077811565543533,
+        0.42587392417966513
       ],
       "p_two_sided": [
-        0.057547722457901726,
-        0.3466766681448086,
-        0.8647644686247393,
-        0.785190077329025
+        0.09389852871583008,
+        0.4116159364200854,
+        0.5027223786109056,
+        0.8174423132943537
       ],
       "ci95": [
         [
-          -0.01772753283791506,
-          1.1245241985461414
+          -1.0861754638678254,
+          0.08509237569657435
         ],
         [
-          -0.3098693018484928,
-          0.8822542111416671
+          -0.35176564094264995,
+          0.8589490663341066
         ],
         [
-          -0.6496447670964931,
-          0.5457685249040005
+          -0.3879290410317963,
+          0.7910995070131561
         ],
         [
-          -0.5789007449292709,
-          0.7659174887604565
+          -0.7363905754657492,
+          0.9330045312280215
         ]
       ],
       "n": 26,
       "n_publications": 18,
-      "r2": 0.1116996756498071
+      "r2": 0.10503794927738863
     },
     "zero_covariance_weighted_delta_sensitivity": {
-      "gamma_SC": 0.7736076705737411,
-      "se": 0.2680882121461752,
-      "p_two_sided": 0.003906112701801969,
+      "gamma_SC": -0.5467428936219938,
+      "se": 0.23598500035684403,
+      "p_two_sided": 0.02051166282156709,
       "ci95": [
-        0.24816443008750433,
-        1.299050911059978
+        -1.0092649952130799,
+        -0.08422079203090771
       ]
     },
     "by_compatibility": {
       "SI": {
         "n": 14,
         "n_publications": 12,
-        "mean_d_I": 0.7874745682888539,
-        "mean_d_F": 0.7787676125244619,
-        "mean_delta_F_minus_I": -0.008706955764392146
+        "mean_d_I": -0.7856174254317111,
+        "mean_d_F": -0.6997676125244618,
+        "mean_delta_F_minus_I": 0.08584981290724933
       },
       "SC": {
         "n": 12,
         "n_publications": 7,
-        "mean_d_I": 0.32940816610925305,
-        "mean_d_F": 0.6265367647058823,
-        "mean_delta_F_minus_I": 0.29712859859662927
+        "mean_d_I": -0.24574149944258641,
+        "mean_d_F": -0.3854324229691876,
+        "mean_delta_F_minus_I": -0.13969092352660123
       }
     },
     "topology_counts": {
       "SI": {
-        "concordant_non_deterioration": 14
+        "concordant_deterioration": 10,
+        "apparent_overwarning_buffering_point_geometry": 3,
+        "false_reassurance_point_geometry": 1
       },
       "SC": {
-        "concordant_non_deterioration": 12
+        "apparent_overwarning_buffering_point_geometry": 3,
+        "concordant_deterioration": 7,
+        "false_reassurance_point_geometry": 2
       }
     }
   },
@@ -754,178 +790,183 @@
     "label": "all_land_use_factors",
     "primary_model_dF_on_dI_plus_SC": {
       "params": [
-        0.5242454643001353,
-        0.1339349725613806,
-        -0.06338275782585827
+        -0.403984448280073,
+        0.19423894183599855,
+        0.05566504094555336
       ],
       "se": [
-        0.1306052200136912,
-        0.09747843239182176,
-        0.09080701526296138
+        0.13110784704308953,
+        0.06880367858788168,
+        0.1448997373642977
       ],
       "p_two_sided": [
-        5.970588157126598e-05,
-        0.1694429357936149,
-        0.48518090494138033
+        0.002060891710040736,
+        0.004756329345433882,
+        0.7008580329744312
       ],
       "ci95": [
         [
-          0.26826393688037065,
-          0.7802269917199
+          -0.6609511065751148,
+          -0.1470177899850313
         ],
         [
-          -0.057119244196012664,
-          0.32498918931877385
+          0.05938620979988077,
+          0.32909167387211635
         ],
         [
-          -0.24136123728484155,
-          0.11459572163312502
+          -0.2283332256577829,
+          0.3396633075488896
         ]
       ],
       "n": 53,
       "n_publications": 31,
-      "r2": 0.031790059999915576
+      "r2": 0.07011586793028857
     },
     "publication_balanced_model_dF_on_dI_plus_SC": {
       "params": [
-        0.4833975458903246,
-        0.1517169757330185,
-        -0.07825037603174692
+        -0.4185117442605908,
+        0.20668037783532567,
+        0.10481654172758734
       ],
       "se": [
-        0.1588361965289371,
-        0.16551960053289913,
-        0.1478310137930582
+        0.13162510953484957,
+        0.12039129173487366,
+        0.15978729265403524
       ],
       "p_two_sided": [
-        0.0023394336803418702,
-        0.35934686913529057,
-        0.5965813077436368
+        0.001474918278126605,
+        0.08602694370161881,
+        0.5118399181674957
       ],
       "ci95": [
         [
-          0.1720843212522819,
-          0.7947107705283672
+          -0.6764922184100356,
+          -0.16053127011114598
         ],
         [
-          -0.17269548004692054,
-          0.47612943151295756
+          -0.029282218017281397,
+          0.4426429736879327
         ],
         [
-          -0.367993838864185,
-          0.21149308680069115
+          -0.20836079706148328,
+          0.417993880516658
         ]
       ],
       "n": 53,
       "n_publications": 31,
-      "r2": 0.03650981243476281
+      "r2": 0.08164976818152936
     },
-    "gamma_SC": -0.06338275782585827,
+    "gamma_SC": 0.05566504094555336,
     "gamma_SC_ci95": [
-      -0.24136123728484155,
-      0.11459572163312502
+      -0.2283332256577829,
+      0.3396633075488896
     ],
-    "gamma_SC_p_two_sided": 0.48518090494138033,
-    "decision": "compatibility_translation_prediction_not_supported",
+    "gamma_SC_p_two_sided": 0.7008580329744312,
+    "decision": "directionally_consistent_unresolved",
     "delta_model_F_minus_I_on_SC": {
       "params": [
-        -0.08780929314692157,
-        -0.018307698131195028
+        0.057934293146921674,
+        -0.14718624944783668
       ],
       "se": [
-        0.1628602669092644,
-        0.17651883059163012
+        0.193117939498212,
+        0.2150832916061826
       ],
       "p_two_sided": [
-        0.5897698845874937,
-        0.9173953084989092
+        0.7641814557739744,
+        0.49377179566194584
       ],
       "ci95": [
         [
-          -0.4070095508016601,
-          0.23139096450781696
+          -0.32056991303815896,
+          0.4364384993320023
         ],
         [
-          -0.36427824868391717,
-          0.3276628524215271
+          -0.5687417546722806,
+          0.2743692557766073
         ]
       ],
       "n": 53,
       "n_publications": 31,
-      "r2": 0.00016359990847014672
+      "r2": 0.007308481917415621
     },
     "interaction_model_dF_on_dI_SC_dIxSC": {
       "params": [
-        0.47046395909717453,
-        0.21003646546305368,
-        0.05839907753887678,
-        -0.1799724216859895
+        -0.3337552789496458,
+        0.3167451852909579,
+        -0.057977194005415525,
+        -0.2575311474056048
       ],
       "se": [
-        0.15843860472018784,
-        0.1644600614374605,
-        0.1979228931423991,
-        0.23605116672383372
+        0.1591415056551662,
+        0.11785630857503435,
+        0.18647442103764467,
+        0.17140360024699736
       ],
       "p_two_sided": [
-        0.002984041850768677,
-        0.20155724105512873,
-        0.7679482434877568,
-        0.4458035821538945
+        0.03597380990010835,
+        0.007197747818485572,
+        0.755867281839977,
+        0.13297218640170236
       ],
       "ci95": [
         [
-          0.15993000008482855,
-          0.7809979181095206
+          -0.6456668984792489,
+          -0.021843659420042738
         ],
         [
-          -0.11229933184961347,
-          0.5323722627757208
+          0.08575106513305145,
+          0.5477393054488644
         ],
         [
-          -0.3295226647361951,
-          0.4463208198139487
+          -0.42346034327715726,
+          0.30750595526632624
         ],
         [
-          -0.6426242069733633,
-          0.28267936360138424
+          -0.5934760307102203,
+          0.07841373589901074
         ]
       ],
       "n": 53,
       "n_publications": 31,
-      "r2": 0.043576735407775735
+      "r2": 0.09758536046042132
     },
     "zero_covariance_weighted_delta_sensitivity": {
-      "gamma_SC": 0.3663724184354132,
-      "se": 0.29218154836740895,
-      "p_two_sided": 0.20987092139709185,
+      "gamma_SC": -0.2962023445904581,
+      "se": 0.2216165874485931,
+      "p_two_sided": 0.18136854548432446,
       "ci95": [
-        -0.20629289331185624,
-        0.9390377301826827
+        -0.7305628743663719,
+        0.1381581851854558
       ]
     },
     "by_compatibility": {
       "SI": {
         "n": 32,
         "n_publications": 22,
-        "mean_d_I": 0.7067076236263736,
-        "mean_d_F": 0.6188983304794521,
-        "mean_delta_F_minus_I": -0.08780929314692157
+        "mean_d_I": -0.5732701236263736,
+        "mean_d_F": -0.5153358304794521,
+        "mean_delta_F_minus_I": 0.0579342931469216
       },
       "SC": {
         "n": 21,
         "n_publications": 11,
-        "mean_d_I": 0.6546618092052874,
-        "mean_d_F": 0.5485448179271708,
-        "mean_delta_F_minus_I": -0.10611699127811655
+        "mean_d_I": -0.3215189520624304,
+        "mean_d_F": -0.4107709083633453,
+        "mean_delta_F_minus_I": -0.08925195630091498
       }
     },
     "topology_counts": {
       "SI": {
-        "concordant_non_deterioration": 32
+        "concordant_deterioration": 22,
+        "apparent_overwarning_buffering_point_geometry": 6,
+        "concordant_non_deterioration": 2,
+        "false_reassurance_point_geometry": 2
       },
       "SC": {
-        "concordant_non_deterioration": 21
+        "apparent_overwarning_buffering_point_geometry": 3,
+        "concordant_deterioration": 14,
+        "false_reassurance_point_geometry": 4
       }
     }
   }
