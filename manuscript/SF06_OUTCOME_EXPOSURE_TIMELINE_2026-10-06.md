@@ -1,102 +1,140 @@
-# SF06 outcome-exposure timeline and inferential provenance — 2026-10-06
+# SF06 outcome-exposure timeline and inferential provenance — updated 2026-10-07
 
 ## Purpose
 
-This file records when SF06 numerical outcomes first existed, which analysis decisions genuinely preceded that exposure, and which later changes are implementation repairs or post-exposure robustness checks.
+Record when SF06 numerical outcomes first existed, which decisions preceded exposure, which later changes were robustness additions, and how the spaced-minus parser defect changes interpretation.
 
-The boundary is the **first logged project-computed numerical result**, not whether a generated result file successfully reached the Git branch.
+The exposure boundary remains the first logged project-computed numerical result, even though that result is now known to be numerically invalid.
 
 ## Timeline
 
 | UTC time | event | inferential status |
 |---|---|---|
-| 14:13:10 | commit `a49af606`: compatibility translation-residual preregistration | **pre-outcome** |
-| 14:13:15 | Actions run `37477126333` created from `a49af606` | queued; no runner yet |
-| 14:15:35–14:20:45 | parser hardening commits `dc885d6`, `b39de7f7`, `21fc409f` | pre-exposure implementation work |
-| 14:27:01 | `990a235`: sign-level external topology target added | **pre-exposure specification** |
-| 14:32:51 | `d5e02c2`: topology changed to constituent-row sign consensus | **pre-exposure specification** |
-| 14:36:24 | first runner provisioned for run `37477126333` | numerical execution begins |
-| 14:36:36 | `a079f11`: metadata-only exact pair manifest change committed | concurrent with first run; not treated as clean confirmatory gate |
-| 14:36:47 | run `37477126333` emits first SF06 numerical output | **outcome-exposure boundary** |
-| 14:36:47 | generated files committed inside runner, but push rejected as non-fast-forward | result existed even though branch files did not |
-| 14:39:17 onward | coverage, publication normalization, non-overlap, decision-tree, species-LOO and frozen-input gates added | **post-exposure robustness / repair** |
-| 14:48:42 | run `37478175906` on parser-hardened `21fc409f` reproduces the same preliminary compatibility estimate | still based on incomplete 426-row table scan |
-| 15:00:02 | `b4216301`: attempted 500-row count gate | **post-exposure hypothesis later falsified by DOCX structural audit** |
-| 23:24:44 | structural audit of the public DOCX | **426 response-labelled physical rows confirmed; table 0 is header-only; paper/public shortfall reclassified as source coverage** |
+| 2026-10-06 14:13:10 | a49af606: compatibility residual preregistration | pre-outcome biological target |
+| 14:13:15 | Actions run 37477126333 created | queued |
+| 14:27:01 | 990a235: sign-level external topology target | pre-exposure specification |
+| 14:32:51 | d5e02c2: constituent-sign consensus rule | pre-exposure specification |
+| 14:36:24 | first SF06 runner provisioned | numerical execution begins |
+| 14:36:47 | first numerical result emitted | outcome-exposure boundary |
+| 14:39 onward | coverage, source-overlap, species-LOO and other promotion gates | post-exposure robustness |
+| 23:24–23:34 | public DOCX structure audited | 426 physical response rows confirmed; 500 vs 426 reclassified as source-coverage boundary |
+| 2026-10-07 11:52 | raw result-column audit | Hedges-d cells confirmed to contain spaced signs, e.g. "- 1.733" |
+| 13:31 | 800ccfa: first_float parser fixed for spaced signs | post-exposure implementation repair |
+| 13:32 | corrected gated rerun | authoritative public-S1 result generated and committed |
 
-## First exposed numerical result
+## The initial numerical exposure
 
-Run `37477126333`, job `112315344981`, emitted:
+The first run emitted:
 
-- all paired units: **59**;
-- habitat-fragmentation pairs: **55**;
-- `gamma_SC = -0.0877403395`;
-- 95% CI: **[-0.2899153944, 0.1144347155]**;
-- two-sided p = **0.3949976263**;
-- preregistered decision label: `compatibility_translation_prediction_not_supported`.
+- all paired units: 59;
+- habitat-fragmentation pairs: 55;
+- gamma_SC = -0.087740;
+- 95% CI [-0.2899, +0.1144];
+- p = 0.395;
+- preliminary sign-topology mismatch count = 0.
 
-Run `37478175906`, job `112319033704`, later reproduced the same estimate to numerical precision after the leading-variance parser fixes.
+Those values are retained in the audit trail but are **not biologically valid**.
 
-These numbers are retained as **preliminary public-S1 outputs**. The later structural audit showed that 426 rows are all response-labelled physical rows in the accessible S1 DOCX; the first Word table contains headers only. Their limitation is therefore public-source coverage plus later implementation/robustness changes, not a skipped recoverable data table.
+### Why they were invalid
 
-## Why 426 and 500 are different quantities
+The source Word cells store negative Hedges d with a space between sign and magnitude:
 
-Aguilar et al. report 312 female-fitness, 105 male-fitness and 83 pollination **hierarchical meta-analysis input effects** (500 total). Structural inspection of the downloadable Supplementary Table S1 DOCX finds 426 response-labelled physical rows: 267 female, 88 male and 71 pollination. The document's first Word table is header-only, followed by six data tables (79, 79, 79, 79, 79 and 31 rows), and the materialized species range begins at *Calystegia* rather than A/B taxa.
+- Cardiopetalum female fitness: "- 1.733";
+- Cardiopetalum pollination: "- 0.048";
+- Spondias pollination: "- 1.225";
+- Spondias female fitness: "- 0.796".
 
-Therefore the 74-effect difference (45 female, 17 male, 12 pollination) is treated as a **public-supplement coverage shortfall**, not as a parser omission that can be repaired by reading `tables[0]`. The missing paper-reported inputs are not reconstructed.
+The original parser used a regular expression that only retained a sign directly attached to the number. Thus "- 1.733" became +1.733.
 
-The preliminary `gamma_SC` remains visible because it was genuinely computed from all rows available to the original public-file parser. A new gated rerun is still required for the current exact-pair, publication-normalized and consensus-sign implementation; any such result must be labelled a **public-S1 subset** result rather than a full 500-input SF06 replication.
+The result-column mapping itself was correct:
 
-## Inferential classification going forward
+- penultimate data cell = Hedges d;
+- final data cell = V(d) followed by source citation.
 
-### 1. Compatibility residual
+The defect was specifically sign parsing.
 
-The biological question, paired unit, primary model, directional prediction `gamma_SC > 0` and decision rule were fixed at `a49af606` before numerical exposure.
+## Corrected authoritative public-S1 result
 
-However, the implementation required a post-exposure completeness repair. The authoritative public-S1 426-row gated rerun must therefore be described as:
+After commit 800ccfa fixed spaced-sign parsing and added parser assertions, the same frozen public-S1 source produced:
 
-> **a preregistered biological hypothesis evaluated with a post-exposure corrected implementation**
+### Sign topology
 
-not as an untouched confirmatory test.
+Habitat-fragmentation constituent-consensus pairs:
 
-The preliminary incomplete run did **not** support the predicted positive compatibility modifier. That fact is retained and no alternative moderator may be substituted because it looks better after this exposure.
+- n = 54;
+- I lower, F lower = 35;
+- I lower, F nonlower = 9;
+- I nonlower, F lower = 7;
+- I nonlower, F nonlower = 3;
+- minimum deterministic mismatches = 12;
+- publication-LOO minimum = 8;
+- species-LOO minimum = 11;
+- decision = external_sign_translation_nonidentifiability_supported.
 
-### 2. Sign topology
+Source-publication-disjoint sensitivity:
 
-The topology question (`990a235`) and constituent-sign consensus rule (`d5e02c2`) were committed before the first runner was provisioned and before the first numerical output.
+- n = 31;
+- minimum mismatches = 7;
+- publication-LOO minimum = 5;
+- species-LOO minimum = 6;
+- decision = external_sign_translation_nonidentifiability_supported.
 
-Later coverage, source-overlap and species-influence requirements were added after exposure. Thus the corrected topology analysis has a **pre-exposure-defined target with post-exposure robustness gates**.
+### Compatibility residual
 
-Any positive corrected result may support generality, but the paper must state this mixed provenance and must not call the entire robustness stack preregistered.
+Primary model:
 
-### 3. Effective reproductive assurance
+- gamma_SC = +0.063904;
+- 95% CI [-0.262674, +0.390482];
+- p = 0.701333;
+- decision = directionally_consistent_unresolved.
 
-The failed preliminary compatibility prediction does not justify switching the SF06 moderator from compatibility to another trait.
+The positive pollination coefficient is beta = +0.190421, p = 0.00531.
 
-The biologically richer concept of **effective reproductive assurance** remains a prospective hypothesis generated from the independent EGWEE mechanistic synthesis. It is not tested by SF06 compatibility labels.
+## Public-source coverage boundary
+
+The downloadable Supplementary Table S1 contains:
+
+- 267 female-fitness physical rows;
+- 88 male-fitness physical rows;
+- 71 pollination physical rows;
+- total = 426 response-labelled rows.
+
+The source article reports 500 hierarchical meta-analysis input effects. The missing 74 paper-reported inputs are not reconstructed. Every EGWEE SF06 row-level result is therefore a **public-S1 subset result**, not a complete 500-input reanalysis.
+
+## Inferential classification
+
+### Compatibility residual
+
+The biological question, paired unit, primary model, directional prediction gamma_SC > 0 and decision rule were fixed before numerical exposure.
+
+The corrected result must be described as:
+
+> a preregistered biological hypothesis evaluated with a post-exposure implementation repair.
+
+It is not an untouched confirmatory test. The result is directionally consistent but unresolved.
+
+### Sign topology
+
+The topology target and constituent-sign consensus rule were specified before first numerical exposure.
+
+The corrected result supports external sign-level translation non-identifiability. However, publication/species coverage gates, source-overlap deletion and the parser repair were post-exposure additions or repairs. Therefore the allowed wording is:
+
+> robust external generalization within the accessible public-S1 subset, with a pre-exposure-defined topology target and post-exposure implementation/robustness controls.
+
+Do not call the entire route a preregistered confirmatory replication.
+
+### Resolved-sign sensitivity
+
+Only three pairs have both marginal endpoint signs resolved at 95%, and all three are lower/lower.
+
+Therefore the external result is structural point-sign non-identifiability, not 12 individually resolved sign reversals.
 
 ## Hard rules
 
-- Do not delete or hide the preliminary negative compatibility output.
-- Do not call the 426-row result final.
-- Do not call post-14:36:47 gates pre-outcome.
-- Do not change the compatibility prediction after seeing the preliminary result.
-- Do not promote a new SF06 moderator because compatibility was negative/unresolved.
-- The public-S1 426-row route must pass the frozen source hash and exact pair-universe gates before interpretation.
-- Do not describe the accessible S1 as the complete 500-input database.
-
-## Preliminary topology output from the incomplete source scan
-
-A later queued workflow from commit `990a235` completed at 15:02:12 UTC. It still used the incomplete **426-row** scan and the older IVW-Hedges-d sign definition, but it executed the sign-topology target that had been specified before the first numerical exposure.
-
-Its logged output was:
-
-- exact paired units: **59**;
-- habitat-fragmentation pairs: **55**;
-- minimum deterministic mismatches: **0**;
-- whole-publication LOO minimum mismatches: **0**;
-- topology decision: `external_sign_translation_nonidentifiability_not_supported`.
-
-This is **not the corrected external-topology result**. It is retained because it is directionally inconvenient evidence and therefore must not disappear from the audit trail. The authoritative topology requires the complete accessible 426-row public-S1 scan, the frozen exact-pair universe, and the stricter constituent-row consensus-sign rule.
-
-If the corrected analysis also remains identifying, EGWEE must not claim broad sign-level external generalization. The biologically interesting conclusion would instead become a scale contrast: matched fragmentation programmes can show translation failures that are obscured when heterogeneous literature is pooled at a coarser response-summary level.
+- preserve the invalid initial outputs for provenance;
+- never cite the invalid negative gamma_SC or zero-mismatch topology as biology;
+- do not call post-exposure gates preregistered;
+- do not describe public S1 as the complete 500-input database;
+- do not promote self-compatibility as a supported mechanism;
+- do not convert mismatch counts into prevalence or out-of-sample prediction error;
+- do not describe the 12 mismatches as 12 significant sign reversals.
