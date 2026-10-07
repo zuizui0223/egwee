@@ -49,16 +49,22 @@ def main() -> None:
     assert audit(rows) == (50, 31, 9, 7, 3, 12, 12)
     assert loo(rows, 'source_publication_key') == 8
     assert loo(rows, 'species') == 11
+    assert len({r['family'] for r in rows}) == 26
+    assert loo(rows, 'family') == 6
 
     ext = [r for r in rows if r['source_publication_key'] not in OVERLAP]
     assert audit(ext) == (27, 16, 6, 4, 1, 7, 7)
     assert loo(ext, 'source_publication_key') == 5
     assert loo(ext, 'species') == 6
+    assert len({r['family'] for r in ext}) == 18
+    assert loo(ext, 'family') == 4
 
     note = NOTE.read_text(encoding='utf-8')
     assert '**12/50**' in note
     assert '**7/27**' in note
     assert 'publication × species × land-use stratum' in note
+    assert 'minimum after deleting any family = **6**' in note
+    assert 'minimum after deleting any family = **4**' in note
 
     print('SF06_PAIRING_GRANULARITY: PASS')
 
