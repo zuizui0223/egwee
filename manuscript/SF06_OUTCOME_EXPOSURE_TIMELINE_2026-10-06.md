@@ -53,7 +53,7 @@ The preliminary `gamma_SC` remains visible because it was genuinely computed fro
 
 The biological question, paired unit, primary model, directional prediction `gamma_SC > 0` and decision rule were fixed at `a49af606` before numerical exposure.
 
-However, the implementation required a post-exposure completeness repair. The corrected 500-row run must therefore be described as:
+However, the implementation required a post-exposure completeness repair. The authoritative public-S1 426-row gated rerun must therefore be described as:
 
 > **a preregistered biological hypothesis evaluated with a post-exposure corrected implementation**
 
@@ -97,6 +97,6 @@ Its logged output was:
 - whole-publication LOO minimum mismatches: **0**;
 - topology decision: `external_sign_translation_nonidentifiability_not_supported`.
 
-This is **not the corrected external-topology result**. It is retained because it is directionally inconvenient evidence and therefore must not disappear from the audit trail. The final topology requires the corrected 500-row source scan and the stricter constituent-row consensus-sign rule.
+This is **not the corrected external-topology result**. It is retained because it is directionally inconvenient evidence and therefore must not disappear from the audit trail. The authoritative topology requires the complete accessible 426-row public-S1 scan, the frozen exact-pair universe, and the stricter constituent-row consensus-sign rule.
 
 If the corrected analysis also remains identifying, EGWEE must not claim broad sign-level external generalization. The biologically interesting conclusion would instead become a scale contrast: matched fragmentation programmes can show translation failures that are obscured when heterogeneous literature is pooled at a coarser response-summary level.
