@@ -5,6 +5,7 @@ TIMELINE = ROOT / "manuscript/SF06_OUTCOME_EXPOSURE_TIMELINE_2026-10-06.md"
 PREREG = ROOT / "manuscript/SF06_TRANSLATION_RESIDUAL_PREREGISTRATION_2026-10-06.md"
 DECISION = ROOT / "manuscript/SF06_EXTERNAL_VALIDATION_DECISION_TREE_2026-10-06.md"
 COVERAGE = ROOT / "manuscript/SF06_PUBLIC_SUPPLEMENT_COVERAGE_BOUNDARY_2026-10-07.md"
+INVALIDATED = ROOT / "manuscript/SF06_SIGN_TOPOLOGY_MONOTONICITY_BOUNDARY_2026-10-07.md"
 
 
 def main() -> None:
@@ -12,30 +13,38 @@ def main() -> None:
     prereg = PREREG.read_text(encoding="utf-8")
     decision = DECISION.read_text(encoding="utf-8")
     coverage = COVERAGE.read_text(encoding="utf-8")
+    invalidated = INVALIDATED.read_text(encoding="utf-8")
 
     for token in (
         "14:36:47",
         "426",
         "500",
-        "gamma_SC = -0.0877403395",
-        "compatibility_translation_prediction_not_supported",
-        "preliminary public-S1 outputs",
-        "public-supplement coverage shortfall",
-        "pre-exposure-defined target with post-exposure robustness gates",
-        "external_sign_translation_nonidentifiability_not_supported",
-        "minimum deterministic mismatches: **0**",
+        "gamma_SC = -0.087740",
+        "not biologically valid",
+        "spaced minus signs",
+        "gamma_SC = +0.063904",
+        "minimum deterministic mismatches = 12",
+        "publication-LOO minimum = 8",
+        "species-LOO minimum = 11",
+        "source-publication-disjoint sensitivity",
     ):
         assert token in timeline, token
 
-    assert "Provenance correction after the first numerical execution" in prereg
-    assert "Post-exposure source-coverage correction: public S1 versus paper-reported input counts" in prereg
-    assert "Post-exposure reproducibility gate for corrected reruns" in prereg
-    assert "Pre-exposure topology definition and post-exposure robustness extensions" in prereg
-    assert "must not be labelled a preregistered confirmatory replication" in prereg
+    for token in (
+        "Post-exposure sign-parser correction",
+        "800ccfa",
+        "12/54",
+        "7/31",
+        "directionally consistent but unresolved",
+        "preregistered biological target",
+    ):
+        assert token in prereg, token
 
     assert "post-exposure correction" in decision
     assert "not a preregistration" in decision
-    assert "Do not call this a preregistered confirmatory replication" in decision
+    assert "Corrected outcome classification" in decision
+    assert "robust external generalization" in decision
+    assert "gamma_SC = +0.0639" in decision
     assert "Public-source coverage ceiling" in decision
 
     for token in (
@@ -46,6 +55,11 @@ def main() -> None:
         "public-supplement subset",
     ):
         assert token in coverage, token
+
+    assert "INVALIDATED BY SIGN-PARSER BUG" in invalidated
+    assert "800ccfa" in invalidated
+    assert "12/54" in invalidated
+    assert "7/31" in invalidated
 
     print("SF06_PROVENANCE_TIMELINE: PASS")
 
