@@ -38,13 +38,14 @@ Across the 24 species in those two multi-species publications:
 For comparison:
 
 - simple slope across all 55 fragmentation pairs = **+0.220**;
-- slope among the 33 publication means = **+0.243**.
+- slope among the 33 publication means = **+0.243**;
+- removing both multi-species publications entirely leaves 31 one-pair publications with slope **+0.246**.
 
 ## Interpretation
 
 The positive coupling in the external source is not obviously produced only by between-publication differences: both available multi-species publications show positive within-publication relationships, and the pooled within slope is close to the overall and between-publication slopes.
 
-This strengthens the “tracks” part of the paper's title while leaving the sentinel conclusion unchanged. Positive within-publication coupling can coexist with many-to-many sign translation and weak incremental prediction.
+This strengthens the “tracks” part of the paper's title while leaving the sentinel conclusion unchanged. Positive coupling is visible within both available multi-species publications and remains positive across the 31 singleton publications after those large sources are removed. Positive within-publication coupling can coexist with many-to-many sign translation and weak incremental prediction.
 
 ## Claim ceiling
 
