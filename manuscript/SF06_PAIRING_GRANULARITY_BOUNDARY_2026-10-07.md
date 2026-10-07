@@ -64,6 +64,16 @@ After additionally deleting every publication overlapping the frozen EGWEE I–F
 Again, the result is unchanged in the quantity that matters for non-identifiability.
 
 
+
+## Publication spread of opposite-sign pairs
+
+Using the corrected IVW pair signs descriptively:
+
+- the full 55-pair fragmentation set contains **16 opposite-sign pairs distributed across 11 source publications**;
+- after deleting every publication overlapping the frozen EGWEE I–F map, **10 opposite-sign pairs remain across 8 source publications**.
+
+This is distinct from the minimum deterministic mismatch count (12 full; 7 source-disjoint), which asks how many cases any best sign lookup must miss. The publication spread shows that raw sign discordance is not confined to one or two source papers.
+
 ## Whole-family influence
 
 The one-row-per-response result also survives deletion of any whole plant family.
