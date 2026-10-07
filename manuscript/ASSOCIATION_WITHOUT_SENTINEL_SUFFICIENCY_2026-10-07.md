@@ -27,6 +27,7 @@ fragmentation → interaction quantity
 fragmentation → transfer provenance / effective mating  
 fragmentation → post-transfer viability / plant condition  
 fragmentation → compensatory routes / reproductive assurance  
+fragmentation → later dispersal / recruitment processes  
 all of these → reproductive function.
 
 Under this structure, interaction quantity can remain correlated with function because both respond to the same disturbance and because interaction quantity genuinely contributes to reproduction. But it need not be a sufficient state variable because other branches can change independently.
@@ -42,7 +43,7 @@ Observed I-nonlower / F-lower states can arise when fragmentation affects a bran
 - plant condition/resource limitation reduces fruit or seed maturation;
 - interaction counts are locally concentrated but mating quality deteriorates.
 
-Wandoo provides a mechanistic clue: substantial pollen-tube arrival can coexist with poorer effective mating and reduced seed production.
+Wandoo provides a mechanistic clue: substantial pollen-tube arrival can coexist with poorer effective mating and reduced seed production. A source-disjoint external example shows a different route: in *Tristerix corymbosus*, dominant pollinator visitation was unaffected and pollen-tube formation increased near forest edges, while overall reproductive success declined because fruit removal/seed dispersal collapsed.
 
 ### Apparent over-warning / buffering: interaction impaired, function retained
 
@@ -53,7 +54,7 @@ Observed I-lower / F-nonlower states can arise when alternative routes compensat
 - selfing/geitonogamy provides short-term reproductive assurance;
 - other pollinator guilds or rewiring maintain function.
 
-Haloxylon, Lithraea and Rhododendron provide source-supported examples of such routes, although their long-term fitness consequences differ.
+Haloxylon, Lithraea and Rhododendron provide source-supported examples of such routes, although their long-term fitness consequences differ. *Samanea saman* gives a source-disjoint example in which effective pollination declined while seed output remained high, followed by greater progeny relatedness/inbreeding and lower vigor.
 
 ## Why average coupling can coexist with zero sentinel gain
 
