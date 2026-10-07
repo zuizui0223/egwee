@@ -10,6 +10,8 @@ on:
       - 'manuscript/SF06_EXTERNAL_VALIDATION_DECISION_TREE_2026-10-06.md'
       - 'scripts/check_sf06_provenance_timeline.py'
       - 'scripts/test_sf06_compatibility_translation_residual.py'
+      - 'scripts/check_sf06_incremental_sentinel_value.py'
+      - 'manuscript/SF06_INCREMENTAL_SENTINEL_VALUE_2026-10-07.md'
       - 'evidence/meta_extraction/phase2_sf06_translation_pair_manifest_v1.csv'
       - 'evidence/meta_extraction/phase2_sf06_source_frame_summary_v1.json'
       - '.github/workflows/sf06-translation-residual.yml'
@@ -48,6 +50,8 @@ jobs:
           test -s evidence/meta_extraction/sf06_translation_residual_pairs_v1.csv
           test -s evidence/meta_extraction/sf06_translation_residual_result_v1.json
           test -s manuscript/SF06_TRANSLATION_RESIDUAL_RESULT_2026-10-06.md
+      - name: Audit SF06 incremental sentinel value
+        run: python scripts/check_sf06_incremental_sentinel_value.py
       - name: Commit external validation result
         run: |
           git config user.name 'github-actions[bot]'
