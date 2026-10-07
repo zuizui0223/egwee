@@ -20,7 +20,7 @@ effect-size sensitivity; habitat fragmentation; interaction–function decouplin
 
 Habitat fragmentation changes more than habitat area. It can alter local plant density, pollinator visitation, pollen and seed movement, mating opportunities, reproductive output and population genetic structure. These processes are linked, but they do not operate on the same clock or spatial scale. Pollinator visitation can respond within a flowering season, reproductive output integrates events over a season, contemporary gene flow reflects successful movement and mating, and standing adult genetic diversity may retain the signature of earlier landscape conditions for generations. Fragmentation can therefore propagate through a plant population as a coupled cascade, or different processes can become ecologically decoupled.
 
-Previous syntheses show that fragmentation affects pollination, reproduction, genetic structure and progeny performance (Aguilar et al., 2006, 2008, 2019, 2025; Ibáñez et al., 2014; Miguel-Peñaloza et al., 2023; Olhnuud et al., 2025). Pollination and reproductive effects are positively associated on average (Aguilar et al., 2006, 2025), and species-specific visitation and seed-set responses are already documented (Dauber et al., 2010). Visitation can misrepresent pollination effectiveness (King et al., 2013), and under fragmentation it need not directly predict seed production (Lázaro et al., 2020). Mutualism-effectiveness frameworks already distinguish interaction quantity, quality and delayed fitness consequences (Schupp et al., 2017). We therefore ask a narrower question: across a frozen set of matched plant programmes, **does one observed interaction state identify downstream reproductive function, or can the same state map to multiple reproductive outcomes?** Scale-sensitive magnitude inference is kept separate from scale-stable qualitative evidence.
+Previous syntheses show that fragmentation affects pollination, reproduction, genetic structure and progeny performance (Aguilar et al., 2006, 2008, 2019, 2025; Ibáñez et al., 2014; Miguel-Peñaloza et al., 2023; Olhnuud et al., 2025), and pollination and reproductive effects are positively associated on average (Aguilar et al., 2006, 2025). Ecological-surrogate research nevertheless shows that statistically significant associations can have weak predictive utility (Heino, 2010; Hunter et al., 2016; Tälle et al., 2023). Pollination ecology likewise distinguishes visitation from effectiveness (King et al., 2013), and fragmentation need not link visitation directly to seed production (Lázaro et al., 2020). We therefore ask a stricter question: **when an upstream interaction response is genuinely associated with reproductive function, does observing its state materially improve diagnosis of downstream reproductive impairment?**
 
 Mechanistically, these links need not be one-to-one. Long-lived adults can retain historical genetic variation despite contemporary pollination loss; reproduction may track interaction loss when pollen delivery limits seed production; and compensation, reproductive assurance or spatial scale can decouple them. Deterioration in one layer therefore cannot be assumed to identify another.
 
@@ -404,7 +404,11 @@ Delmas, C.E.L., Escaravage, N., Cheptou, P.-O., Charrier, O., Ruzafa, S., Winter
 
 Delmas, C.E.L., Fort, T.L.C., Escaravage, N. & Pornon, A. (2016). Pollen transfer in fragmented plant populations: insight from the pollen loads of pollinators and stigmas in a mass-flowering species. *Ecology and Evolution*, 6, 5663–5673. https://doi.org/10.1002/ece3.2280
 
+Heino, J. (2010). Are indicator groups and cross-taxon congruence useful for predicting biodiversity in aquatic ecosystems? *Ecological Indicators*, 10, 112–117. https://doi.org/10.1016/j.ecolind.2009.04.013
+
 Hulting, K.A., Brudvig, L.A., Damschen, E.I., Levey, D.J., Resasco, J., Tewksbury, J.J. & Haddad, N.M. (2025). Habitat edges decrease plant reproductive output in fragmented landscapes. *Journal of Ecology*, 113, 531–541. https://doi.org/10.1111/1365-2745.14452
+
+Hunter, M., Westgate, M., Barton, P., Calhoun, A., Pierson, J., Tulloch, A., Beger, M., Branquinho, C., Caro, T., Gross, J., Heino, J., Lane, P., Longo, C., Martin, K., McDowell, W.H., Mellin, C., Salo, H. & Lindenmayer, D. (2016). Two roles for ecological surrogacy: indicator surrogates and management surrogates. *Ecological Indicators*, 63, 121–125. https://doi.org/10.1016/j.ecolind.2015.11.049
 
 Brudvig, L.A., Damschen, E.I., Haddad, N.M., Levey, D.J. & Tewksbury, J.J. (2015). The influence of habitat fragmentation on multiple plant–animal interactions and plant reproduction. *Ecology*, 96, 2669–2678. https://doi.org/10.1890/14-2275.1
 
@@ -412,7 +416,9 @@ Cascante, A., Quesada, M., Lobo, J.J. & Fuchs, E.A. (2002). Effects of dry tropi
 
 King, C., Ballantyne, G. & Willmer, P.G. (2013). Why flower visitation is a poor proxy for pollination: measuring single-visit pollen deposition, with implications for pollination networks and conservation. *Methods in Ecology and Evolution*, 4, 811–818. https://doi.org/10.1111/2041-210X.12074
 
-Schupp, E.W., Jordano, P. & Gómez, J.M. (2017). A general framework for effectiveness concepts in mutualisms. *Ecology Letters*, 20, 577–590. https://doi.org/10.1111/ele.12764
+Schupp, E.W., Jordano, P. & Gómez, J.M. (2017). A general framework for effectiveness concepts in mutualisms. *Ecology Letters*, 20, 577–590.
+
+Tälle, M., Ranius, T. & Öckinger, E. (2023). The usefulness of surrogates in biodiversity conservation: a synthesis. *Biological Conservation*, 288, 110384. https://doi.org/10.1016/j.biocon.2023.110384 https://doi.org/10.1111/ele.12764
 
 Lázaro, A., Fuster, F., Alomar, D. & Totland, Ø. (2020). Disentangling direct and indirect effects of habitat fragmentation on wild plants' pollinator visits and seed production. *Ecological Applications*, 30, e02099. https://doi.org/10.1002/eap.2099
 
