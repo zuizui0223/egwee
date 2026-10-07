@@ -128,9 +128,17 @@ This is a direct demonstration that event/visit quantity can be retained while d
 
 ### Rhododendron ferrugineum
 
-At low plant density, visitation rate was highest while the proportion of conspecific pollen transported and deposited by pollinators was lowest.
+The linked *Rhododendron ferrugineum* fragmentation programme provides an unusually complete external example of the proposed masking sequence.
 
-This provides an especially clear counterexample to a monotone "more visits = better pollination" mapping.
+- In the pollen-transfer study (Delmas et al. 2016; doi:10.1002/ece3.2280), low-density patches had the **highest flower visitation rates** but the **lowest proportion of conspecific pollen** transported and deposited by pollinators. Self-pollen could buffer the immediate pollen-transfer deficit.
+- In the 28-patch mating study (Delmas et al. 2015; doi:10.1111/plb.12200), small floral displays combined high visitation with **lower realised outcrossing / higher selfing**, while pollinator-mediated selfing and geitonogamy reduced pollen limitation.
+- In the linked 28-patch lifetime-fitness study (Delmas et al. 2014; doi:10.1186/s12862-014-0243-7), reproductive assurance increased seed production by about **27%** on average and was stronger toward smaller floral displays, yet lifetime inbreeding depression was about **0.9** and adult inbreeding was far lower than expected from progeny selfing. The authors concluded that poor survival of selfed offspring counteracted the apparent reproductive-assurance benefit.
+
+Together these studies show a sequence very close to the two-stage masking hypothesis:
+
+`high local visitation → degraded pollen provenance / more selfing → short-term seed assurance → strong later fitness filtering`.
+
+The key point is not merely that "more visits ≠ better pollination." Even **short-term reproductive output can look buffered while long-term realised fitness is not**. Effective reproductive assurance therefore has to be defined at the life-history stage relevant to persistence, not simply by seed production in the flowering season.
 
 ### Fragmented pollen-transport networks
 
