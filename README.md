@@ -2,7 +2,7 @@
 
 The current revision promotes one ecological principle beyond the earlier proxy-failure wording:
 
-> **Fragmentation can be directionally coherent yet functionally non-identifying: broad deterioration recurs, but interaction quantity alone does not determine reproductive state.**
+> **Fragmentation can be directionally coherent yet diagnostically insufficient: pollination can track reproductive decline on average without uniquely identifying reproductive state in a focal system.**
 
 The promotion gate now requires all of the following to hold simultaneously:
 
@@ -20,9 +20,7 @@ The strongest resolved quantitative surprise is narrower and asymmetric: **false
 
 A source-level reliability audit makes a simple measurement-noise explanation less plausible: equal-latent-effect attenuation models misfit all three anchors (descriptive `p<0.01` for each), and the fitted artifact-null probability of a downstream-resolved contrast is <0.03 in each programme. These are post hoc diagnostics, not a joint confirmatory p-value or prevalence estimate.
 
-The mechanistic interpretation remains prospective. All **8/8** quantitative I–F programmes measure interaction/pollen quantity, while **0/8** directly measure compatible mating quality on the same frame. The leading fresh hypothesis is therefore:
-
-`interaction quantity → effective mating / compatible pollen / donor identity → reproductive function`
+The mechanistic interpretation remains prospective. All **8/8** quantitative I–F programmes measure interaction/pollen quantity, while **0/8** directly measure compatible mating quality on the same frame. Source-disjoint external mismatches show that one hidden mating layer is too narrow: *Samanea* buffers seed output despite reduced effective pollination, whereas *Tristerix* retains pollination while seed dispersal collapses. The leading biological hypothesis is therefore a **branching reproductive life cycle** in which fragmentation can alter interaction quantity, mating provenance, plant/post-transfer condition, compensatory reproduction and later dispersal/recruitment semi-independently before they converge on reproductive function.
 
 Current scientific files have changed since the last green full-package run, so `submission_ready=false` remains intentional until the refreshed full CI and anonymous reviewer package pass again.
 
@@ -33,6 +31,8 @@ Canonical promotion files:
 - [`manuscript/IF_SENTINEL_DETERMINISM_2026-10-05.md`](manuscript/IF_SENTINEL_DETERMINISM_2026-10-05.md)
 - [`manuscript/SF06_TRANSLATION_RESIDUAL_RESULT_2026-10-06.md`](manuscript/SF06_TRANSLATION_RESIDUAL_RESULT_2026-10-06.md)
 - [`manuscript/SF06_INCREMENTAL_SENTINEL_VALUE_2026-10-07.md`](manuscript/SF06_INCREMENTAL_SENTINEL_VALUE_2026-10-07.md)
+- [`manuscript/SF06_SOURCE_DISJOINT_BRANCHING_ANCHORS_2026-10-07.md`](manuscript/SF06_SOURCE_DISJOINT_BRANCHING_ANCHORS_2026-10-07.md)
+- [`manuscript/SENTINEL_NOVELTY_BOUNDARY_2026-10-07.md`](manuscript/SENTINEL_NOVELTY_BOUNDARY_2026-10-07.md)
 - [`manuscript/SF06_OUTCOME_EXPOSURE_TIMELINE_2026-10-06.md`](manuscript/SF06_OUTCOME_EXPOSURE_TIMELINE_2026-10-06.md)
 - [`manuscript/INTERACTION_DECLINE_NECESSITY_SUFFICIENCY_2026-10-03.md`](manuscript/INTERACTION_DECLINE_NECESSITY_SUFFICIENCY_2026-10-03.md)
 - [`manuscript/IF_RELIABILITY_SUFFICIENCY_2026-10-06.md`](manuscript/IF_RELIABILITY_SUFFICIENCY_2026-10-06.md)
@@ -87,7 +87,7 @@ At the same time, all **8/8** registered I–F programmes measure interaction/po
 
 The resulting exploratory generalization is:
 
-> **Observed interaction evidence state is non-identifying for observed reproductive-function state in the frozen matched evidence universe.**
+> **Observed interaction evidence state is non-identifying for observed reproductive-function state in the frozen matched evidence universe, and the same many-to-many logic persists in a source-publication-disjoint external public-S1 subset.**
 
 A frozen 16-programme translation map now broadens this without changing the quantitative denominator: 8 quantitatively admitted I–F programmes plus 8 non-overlapping qualitative-blocked programmes show that the **same interaction signal can map to multiple reproductive-function states**. The stronger general statement is therefore that interaction quantity is a **non-identifying stand-alone sentinel** of reproductive function across the audited fragmentation contexts. The corrected external SF06 public-S1 analysis now extends this beyond the frozen EGWEE source set: association can remain positive on the continuous effect scale while the upstream sign fails to improve binary diagnosis of downstream impairment. This is an existence/topology and diagnostic-sufficiency result, not a prevalence estimate.
 
