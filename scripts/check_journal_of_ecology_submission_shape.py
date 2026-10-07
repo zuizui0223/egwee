@@ -29,7 +29,7 @@ def main() -> None:
     cover_letter = COVER_LETTER.read_text(encoding="utf-8")
 
     assert manuscript.startswith(
-        "# Habitat fragmentation across plant reproductive life cycles:"
+        "# Pollination tracks but does not diagnose plant reproductive decline under habitat fragmentation"
     )
     for heading in (
         "## Abstract",

@@ -2,7 +2,7 @@
 
 ## Manuscript title
 
-Habitat fragmentation across plant reproductive life cycles: scale-stable deterioration and recurrent interaction–function proxy failure
+Pollination tracks but does not diagnose plant reproductive decline under habitat fragmentation
 
 ## Authors
 

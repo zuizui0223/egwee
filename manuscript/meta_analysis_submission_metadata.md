@@ -2,7 +2,7 @@
 
 ## Manuscript identity
 
-- **Working title:** Habitat fragmentation across plant reproductive life cycles: scale-stable deterioration and recurrent interaction–function proxy failure
+- **Working title:** Pollination tracks but does not diagnose plant reproductive decline under habitat fragmentation
 - **Source manuscript:** `manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md`
 - **Protocol:** `manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md`
 - **Submission state:** `scale_aware_sentinel_figure5_revision_validation_pending`
