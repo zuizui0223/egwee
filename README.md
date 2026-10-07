@@ -10,6 +10,9 @@ The promotion gate now requires all of the following to hold simultaneously:
 - the frozen **16-programme** interaction→function map remains non-identifying after deletion of every single programme;
 - removing all `no_detected_loss` and `mixed` states leaves an **8-programme** explicit-direction map that remains non-identifying after every single-programme deletion;
 - restricting to **13 visitation/abundance programmes** still leaves a leave-one-out non-identifying map;
+- a corrected external Aguilar et al. public-S1 reanalysis independently generalizes the same structure: **12/54** minimum sign mismatches across habitat-fragmentation pairs, with publication-LOO minimum **8** and species-LOO minimum **11**;
+- after deleting every publication overlapping the frozen EGWEE I–F map, **31** external pairs still retain **7** mismatches (publication-LOO minimum **5**, species-LOO minimum **6**);
+- in that external subset, pollination effect magnitude is positively associated with female-fitness effect (`beta=+0.190`, `p=0.0053`), yet pollination sign gives **zero incremental binary classification gain** over simply knowing that the system is fragmented (12 vs 12 errors; source-disjoint 7 vs 7);
 - the best deterministic interaction-only lookup still leaves at least **5** mismatches in the full map, **2** in the strict map and **1** in the strict quantitative-only subset;
 - observed interaction decline is **neither necessary nor sufficient** for observed reproductive decline in the mixed-tier evidence universe, and both logical failures survive every single-programme deletion.
 
@@ -28,6 +31,9 @@ Canonical promotion files:
 - [`manuscript/ECOLOGICAL_GENERALITY_AND_SURPRISE_2026-09-29.md`](manuscript/ECOLOGICAL_GENERALITY_AND_SURPRISE_2026-09-29.md)
 - [`manuscript/IF_TRANSLATION_NONIDENTIFIABILITY_2026-10-03.md`](manuscript/IF_TRANSLATION_NONIDENTIFIABILITY_2026-10-03.md)
 - [`manuscript/IF_SENTINEL_DETERMINISM_2026-10-05.md`](manuscript/IF_SENTINEL_DETERMINISM_2026-10-05.md)
+- [`manuscript/SF06_TRANSLATION_RESIDUAL_RESULT_2026-10-06.md`](manuscript/SF06_TRANSLATION_RESIDUAL_RESULT_2026-10-06.md)
+- [`manuscript/SF06_INCREMENTAL_SENTINEL_VALUE_2026-10-07.md`](manuscript/SF06_INCREMENTAL_SENTINEL_VALUE_2026-10-07.md)
+- [`manuscript/SF06_OUTCOME_EXPOSURE_TIMELINE_2026-10-06.md`](manuscript/SF06_OUTCOME_EXPOSURE_TIMELINE_2026-10-06.md)
 - [`manuscript/INTERACTION_DECLINE_NECESSITY_SUFFICIENCY_2026-10-03.md`](manuscript/INTERACTION_DECLINE_NECESSITY_SUFFICIENCY_2026-10-03.md)
 - [`manuscript/IF_RELIABILITY_SUFFICIENCY_2026-10-06.md`](manuscript/IF_RELIABILITY_SUFFICIENCY_2026-10-06.md)
 - [`manuscript/HIDDEN_EFFECTIVE_MATING_LAYER_HYPOTHESIS_2026-10-03.md`](manuscript/HIDDEN_EFFECTIVE_MATING_LAYER_HYPOTHESIS_2026-10-03.md)
@@ -83,7 +89,7 @@ The resulting exploratory generalization is:
 
 > **Observed interaction evidence state is non-identifying for observed reproductive-function state in the frozen matched evidence universe.**
 
-A frozen 16-programme translation map now broadens this without changing the quantitative denominator: 8 quantitatively admitted I–F programmes plus 8 non-overlapping qualitative-blocked programmes show that the **same interaction signal can map to multiple reproductive-function states**. The stronger general statement is therefore that interaction quantity is a **non-identifying stand-alone sentinel** of reproductive function across the audited fragmentation contexts. This is an existence/topology result, not a prevalence estimate.
+A frozen 16-programme translation map now broadens this without changing the quantitative denominator: 8 quantitatively admitted I–F programmes plus 8 non-overlapping qualitative-blocked programmes show that the **same interaction signal can map to multiple reproductive-function states**. The stronger general statement is therefore that interaction quantity is a **non-identifying stand-alone sentinel** of reproductive function across the audited fragmentation contexts. The corrected external SF06 public-S1 analysis now extends this beyond the frozen EGWEE source set: association can remain positive on the continuous effect scale while the upstream sign fails to improve binary diagnosis of downstream impairment. This is an existence/topology and diagnostic-sufficiency result, not a prevalence estimate.
 
 The logical audit contains both counterexample classes at the level of observed evidence states: reproductive decline is observed without detected interaction decline, and interaction decline is observed with more than one reproductive state. Both classes survive every single-programme deletion in the mixed-tier 16-programme map; quantitative-only leave-one-out robustness is not claimed.
 
