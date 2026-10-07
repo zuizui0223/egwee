@@ -61,7 +61,8 @@ def main() -> None:
     conclusion = manuscript.index("## Conclusion")
     assert intro < methods < results < discussion < conclusion
 
-    main_text = manuscript[intro:]
+    references = manuscript.index("## References", conclusion)
+    main_text = manuscript[intro:references]
     main_words = len(words(main_text))
     assert main_words <= 8000, main_words
 
