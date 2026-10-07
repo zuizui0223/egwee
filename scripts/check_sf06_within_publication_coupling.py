@@ -67,9 +67,19 @@ def main() -> None:
     between = slope_corr(means)[0]
     assert math.isclose(between, 0.242534143709277, rel_tol=1e-12)
 
+    big_publications = {
+        g for g, rr in groups.items() if len(rr) > 1
+    }
+    singleton_rows = [r for r in rows if r["group"] not in big_publications]
+    assert len(singleton_rows) == 31
+    assert len({r["group"] for r in singleton_rows}) == 31
+    singleton_slope = slope_corr(singleton_rows)[0]
+    assert math.isclose(singleton_slope, 0.24626408482564643, rel_tol=1e-12)
+
     note = NOTE.read_text(encoding="utf-8")
     assert "pooled within-publication slope = **+0.239**" in note
     assert "simple slope across all 55 fragmentation pairs = **+0.220**" in note
+    assert "31 one-pair publications with slope **+0.246**" in note
 
     print("SF06_WITHIN_PUBLICATION_COUPLING: PASS")
 
