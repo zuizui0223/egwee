@@ -24,6 +24,7 @@ QUALITATIVE_EXTERNAL_IF = ROOT / "evidence/meta_extraction/qualitative_external_
 PROXY_FAILURE = ROOT / "evidence/meta_extraction/scale_stable_quantity_function_proxy_failure_v1.csv"
 IF_TRANSLATION_MAP = ROOT / "evidence/meta_extraction/if_translation_map_v1.csv"
 IF_RELIABILITY = ROOT / "evidence/meta_extraction/if_reliability_sufficiency_v1.csv"
+SF06_RESULT = ROOT / "evidence/meta_extraction/sf06_translation_residual_result_v1.json"
 SCALE_EFFECTS = ROOT / "evidence/meta_extraction/estimand_scale_sensitivity_v1.csv"
 SCALE_SUMMARY = ROOT / "evidence/meta_extraction/estimand_scale_cluster_summary_v2.csv"
 REGISTRY = ROOT / "evidence/meta_extraction/multilayer_cluster_registry_v1.csv"
@@ -533,6 +534,7 @@ def figure5_direction_translation_synthesis() -> None:
     effects = rows(SCALE_EFFECTS)
     data = rows(IF_TRANSLATION_MAP)
     reliability = rows(IF_RELIABILITY)
+    sf06 = json.loads(SF06_RESULT.read_text(encoding="utf-8"))
 
     assert len(effects) == 17
     assert sum(float(r["hedges_g"]) < 0 for r in effects) == 17
@@ -543,6 +545,29 @@ def figure5_direction_translation_synthesis() -> None:
     assert len(reliability) == 3
     assert all(float(r["null_misfit_p"]) < 0.01 for r in reliability)
     assert all(float(r["artifact_downstream_probability"]) < 0.03 for r in reliability)
+
+    topo = sf06["scale_stable_external_topology"]
+    topo_ext = sf06["scale_stable_external_topology_nonoverlap_sensitivity"]
+    sf06_primary = sf06["primary"]["primary_model_dF_on_dI_plus_SC"]
+    counts = topo["component_consensus_sign"]["counts"]
+    assert counts == {
+        "lower": {"lower": 35, "nonlower": 9},
+        "nonlower": {"lower": 7, "nonlower": 3},
+    }
+    assert topo["component_consensus_sign"]["n_used"] == 54
+    assert topo["component_consensus_sign"]["minimum_deterministic_mismatches"] == 12
+    assert topo["minimum_mismatch_across_publication_deletions"] == 8
+    assert topo["minimum_mismatch_across_species_deletions"] == 11
+    assert topo["decision"] == "external_sign_translation_nonidentifiability_supported"
+    assert topo_ext["component_consensus_sign"]["n_used"] == 31
+    assert topo_ext["component_consensus_sign"]["minimum_deterministic_mismatches"] == 7
+    assert topo_ext["minimum_mismatch_across_publication_deletions"] == 5
+    assert topo_ext["minimum_mismatch_across_species_deletions"] == 6
+    assert topo_ext["decision"] == "external_sign_translation_nonidentifiability_supported"
+    beta = float(sf06_primary["params"][1])
+    beta_p = float(sf06_primary["p_two_sided"][1])
+    assert abs(beta - 0.19042084675810994) < 1e-10
+    assert abs(beta_p - 0.005307440248158357) < 1e-10
 
     label = {
         "ML020": "Chaco",
@@ -603,7 +628,6 @@ def figure5_direction_translation_synthesis() -> None:
         prefix = "Q" if r["evidence_tier"] == "quantitative" else "B"
         cells.setdefault(key, []).append(f'{prefix}: {label[r["programme_id"]]}')
 
-    # Every interpretable upstream state maps to >1 downstream state.
     for signal in ("lower", "no_detected_loss"):
         states = {f_class(r["function_signal"]) for r in data if r["interaction_signal"] == signal}
         assert len(states) >= 2
@@ -614,10 +638,10 @@ def figure5_direction_translation_synthesis() -> None:
     }
     assert len(states) >= 2
 
-    width, height = 1280, 1100
+    width, height = 1280, 1450
     body: list[str] = [
-        svg_text(30, 34, "Figure 5. Directional coherence does not imply interaction–function identifiability", size=18, weight="bold"),
-        svg_text(30, 60, "Coarse deterioration can be consistent while matched interaction signals map to multiple reproductive-function states.", size=11),
+        svg_text(30, 34, "Figure 5. Directional coherence does not imply diagnostic sufficiency", size=18, weight="bold"),
+        svg_text(30, 60, "Broad declines and positive coupling can coexist with many-to-many interaction → reproductive-function states.", size=11),
         svg_text(35, 102, "A. Coarse-scale directional coherence", size=14, weight="bold"),
         svg_text(55, 132, "Primary direct effects negative on oriented Hedges g", size=11),
         svg_text(570, 132, "17 / 17", size=16, weight="bold"),
@@ -632,33 +656,61 @@ def figure5_direction_translation_synthesis() -> None:
     body.append(svg_text(35, 245, "B. Frozen 16-programme interaction → reproductive-function translation map", size=14, weight="bold"))
     body.append(svg_text(35, 268, "Q = quantitatively admitted; B = source-explicit qualitative but quantitatively blocked. Cell occupancy is existence, not prevalence.", size=10))
 
-    left, top = 245, 335
-    cell_w, cell_h = 245, 118
+    left, top = 245, 330
+    cell_w, cell_h = 245, 100
     for j, col in enumerate(cols_order):
         x = left + j * cell_w + cell_w / 2
-        body.append(svg_text(x, top - 32, col, anchor="middle", size=9, weight="bold"))
+        body.append(svg_text(x, top - 25, col, anchor="middle", size=9, weight="bold"))
 
     for i, row_name in enumerate(rows_order):
         y = top + i * cell_h
-        body.append(svg_text(25, y + 50, row_name, size=10, weight="bold"))
+        body.append(svg_text(25, y + 44, row_name, size=10, weight="bold"))
         for j, col in enumerate(cols_order):
             x = left + j * cell_w
             body.append(f'<rect x="{x}" y="{y}" width="{cell_w}" height="{cell_h}" fill="white" stroke="black" stroke-width="1"/>')
             vals = cells.get((row_name, col), [])
-            ty = y + 22
+            ty = y + 20
             for item in vals:
                 body.append(svg_text(x + 10, ty, item, size=8))
-                ty += 17
+                ty += 16
 
-    footer_y = top + len(rows_order) * cell_h + 30
-    body.append(svg_text(35, footer_y, "Ecological result", size=13, weight="bold"))
-    body.append(svg_text(35, footer_y + 26, "Each represented interaction evidence state is compatible with more than one reproductive-function state.", size=11, weight="bold"))
-    body.append(svg_text(35, footer_y + 50, "The many-to-many structure survives deletion of every single programme in the mixed-tier frozen universe.", size=10))
-    body.append(svg_text(35, footer_y + 74, "Observed interaction decline is neither necessary nor sufficient for observed reproductive decline; no category frequency is interpreted as prevalence.", size=10))
+    footer_y = top + len(rows_order) * cell_h + 25
+    body.append(svg_text(35, footer_y, "Matched-programme result", size=13, weight="bold"))
+    body.append(svg_text(35, footer_y + 24, "The same observed interaction state is compatible with multiple reproductive-function states.", size=11, weight="bold"))
+    body.append(svg_text(35, footer_y + 46, "The many-to-many structure survives deletion of every single programme in the frozen mixed-tier universe.", size=10))
 
-    panel_c_y = footer_y + 112
+    panel_c_y = footer_y + 92
     body.append(f'<line x1="30" y1="{panel_c_y - 22}" x2="1250" y2="{panel_c_y - 22}" stroke="black" stroke-width="1.2"/>')
-    body.append(svg_text(35, panel_c_y, "C. Resolved false reassurance survives a simple reliability-artifact stress test", size=14, weight="bold"))
+    body.append(svg_text(35, panel_c_y, "C. Independent external public-S1 validation: association without sentinel sufficiency", size=14, weight="bold"))
+    body.append(svg_text(35, panel_c_y + 24, "Aguilar et al. (2025) habitat-fragmentation pairs; corrected constituent-sign consensus.", size=10))
+
+    c_left, c_top = 235, panel_c_y + 75
+    c_w, c_h = 180, 68
+    c_cols = ["F lower", "F nonlower"]
+    c_rows = ["I lower", "I nonlower"]
+    c_vals = [[35, 9], [7, 3]]
+    for j, col in enumerate(c_cols):
+        body.append(svg_text(c_left + j * c_w + c_w / 2, c_top - 18, col, anchor="middle", size=10, weight="bold"))
+    for i, row_name in enumerate(c_rows):
+        y = c_top + i * c_h
+        body.append(svg_text(70, y + 40, row_name, size=11, weight="bold"))
+        for j in range(2):
+            x = c_left + j * c_w
+            body.append(f'<rect x="{x}" y="{y}" width="{c_w}" height="{c_h}" fill="white" stroke="black" stroke-width="1.1"/>')
+            body.append(svg_text(x + c_w / 2, y + 42, str(c_vals[i][j]), anchor="middle", size=18, weight="bold"))
+
+    sx = 660
+    sy = c_top + 5
+    body.append(svg_text(sx, sy, "54 consensus pairs; minimum mismatches = 12", size=11, weight="bold"))
+    body.append(svg_text(sx, sy + 24, "Publication LOO minimum = 8; species LOO minimum = 11", size=10))
+    body.append(svg_text(sx, sy + 48, "Source-publication-disjoint: 7 / 31 mismatches; LOO minimum = 5", size=10))
+    body.append(svg_text(sx, sy + 72, f"Continuous coupling: beta={beta:+.3f}, p={beta_p:.4f}", size=10))
+    body.append(svg_text(sx, sy + 96, "Best sign lookup errors = baseline errors = 12 → incremental sign gain = 0", size=10, weight="bold"))
+    body.append(svg_text(sx, sy + 120, "Association can be real while the upstream state remains non-identifying.", size=10))
+
+    panel_d_y = c_top + 2 * c_h + 70
+    body.append(f'<line x1="30" y1="{panel_d_y - 22}" x2="1250" y2="{panel_d_y - 22}" stroke="black" stroke-width="1.2"/>')
+    body.append(svg_text(35, panel_d_y, "D. Resolved false reassurance survives a simple reliability-artifact stress test", size=14, weight="bold"))
 
     rel_label = {
         "ML015_Wandoo": "Wandoo",
@@ -666,7 +718,7 @@ def figure5_direction_translation_synthesis() -> None:
         "P2_KAKAMEGA_AP": "Kakamega Acanthopale",
     }
     for k, row in enumerate(reliability):
-        y = panel_c_y + 34 + 31 * k
+        y = panel_d_y + 34 + 31 * k
         label_text = rel_label[row["programme"]]
         p = float(row["null_misfit_p"])
         ri = float(row["R_I"])
@@ -674,10 +726,11 @@ def figure5_direction_translation_synthesis() -> None:
         body.append(svg_text(55, y, label_text, size=10, weight="bold"))
         body.append(svg_text(250, y, f"R_I={ri:.3f}; R_F={rf:.3f}", size=10))
         body.append(svg_text(500, y, f"equal-latent attenuation misfit p={p:.4f}", size=10))
-    body.append(svg_text(55, panel_c_y + 140, "All three descriptive null-misfit p-values are <0.01; anchor selection was post hoc, so this is not a joint confirmatory test.", size=10))
-    body.append(svg_text(55, panel_c_y + 164, "Surprise: apparently retained interaction quantity can understate reproductive impairment even when simple differential reliability is insufficient.", size=10, weight="bold"))
+    body.append(svg_text(55, panel_d_y + 140, "All three descriptive null-misfit p-values are <0.01; anchor selection was post hoc, so this is not a joint confirmatory test.", size=10))
+    body.append(svg_text(55, panel_d_y + 164, "Resolved matched-programme surprise: retained interaction quantity can understate reproductive impairment.", size=10, weight="bold"))
 
     write_svg(FIGDIR / "figure5_direction_translation_synthesis.svg", width, height, body)
+
 
 def figure_s2_if_translation_map() -> None:
     data = rows(IF_TRANSLATION_MAP)
