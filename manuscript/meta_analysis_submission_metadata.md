@@ -87,7 +87,7 @@ Authorised manuscript-level ecological claims:
 - the preregistered SF06 self-compatibility residual coefficient is positive but unresolved (`gamma_SC=+0.0639`, 95% CI `[-0.263,+0.390]`, `p=0.701`); nominal compatibility is not promoted as the missing mechanism;
 - the external sign topology is a point-estimate structural result: only 3 pairs have both endpoint signs marginally resolved at 95%, all concordant lower/lower, so the 12 mismatches are not described as 12 individually resolved sign reversals;
 - all preliminary buggy SF06 numerical outputs remain preserved for provenance and may not be hidden or retroactively described as valid biology;
-- the promoted general ecological principle is therefore restricted to the validated matched evidence: **directional coherence without guaranteed local quantitative translation**; the strongest resolved quantitative failure mode is **false reassurance**;
+- the promoted general ecological principle is **directional coherence without sentinel sufficiency**: interaction/pollination responses can covary with reproductive function yet remain many-to-many with downstream state and add little incremental diagnostic or cross-publication predictive value; this is supported by both the frozen matched evidence and the source-publication-disjoint SF06 public-S1 subset. The strongest individually resolved quantitative failure mode remains **false reassurance**;
 
 
 Not authorised:
