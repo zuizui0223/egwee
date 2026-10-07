@@ -112,3 +112,59 @@ The current paper hierarchy is updated only as follows:
 5. transfer provenance and effective reproductive assurance remain prospective unless directly measured in synchronized new data.
 
 No SF06 outcome changes the frozen 16-programme denominator.
+
+
+## Corrected outcome classification — 2026-10-07
+
+The spaced-minus parser defect was corrected at commit `800ccfa`. Applying the decision tree to the corrected public-S1 output gives:
+
+### Lane 1: A — robust external generalization
+
+Full habitat-fragmentation subset:
+
+- 54 consensus-sign pairs;
+- 12 minimum deterministic mismatches;
+- publication-LOO minimum 8;
+- species-LOO minimum 11;
+- coverage gate passed.
+
+Source-publication-disjoint subset:
+
+- 31 consensus-sign pairs;
+- 7 minimum mismatches;
+- publication-LOO minimum 5;
+- species-LOO minimum 6;
+- coverage gate passed.
+
+Therefore the corrected result satisfies Lane 1A:
+
+> **robust external generalization of sign-level interaction→function non-identifiability within the accessible public-S1 subset, under post-exposure robustness criteria.**
+
+This is not labelled a preregistered confirmatory replication because the parser repair and several promotion gates were post-exposure.
+
+### Lane 2: M2 — directionally consistent but unresolved compatibility modifier
+
+Corrected primary compatibility coefficient:
+
+- gamma_SC = +0.0639;
+- 95% CI [-0.2627, +0.3905];
+- p = 0.701.
+
+The coefficient sign matches the preregistered prediction but the interval includes zero.
+
+Decision: **directionally_consistent_unresolved**.
+
+### Lane 3: no sign reversal under publication balance
+
+Publication-balanced gamma_SC = +0.1211 with 95% CI [-0.2427, +0.4850].
+
+The sign remains positive, so the compatibility result is not classified as sign-reversing under publication leverage. It remains unresolved.
+
+### Additional sentinel diagnostic
+
+The corrected sign table yields zero incremental binary classification gain over the fragmentation-context baseline:
+
+- full public-S1 subset: 12 baseline errors vs 12 best pollination-sign lookup errors;
+- source-disjoint subset: 7 baseline errors vs 7 best lookup errors.
+
+This diagnostic is post-exposure interpretation, not part of the frozen decision tree.
