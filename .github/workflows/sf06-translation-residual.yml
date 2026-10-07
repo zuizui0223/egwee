@@ -59,5 +59,7 @@ jobs:
             echo 'No SF06 translation-result changes'
           else
             git commit -m 'Add SF06 compatibility translation residual result'
+            git fetch origin meta/systematic-coverage-moderator-expansion-2026-09-16
+            git rebase origin/meta/systematic-coverage-moderator-expansion-2026-09-16
             git push origin HEAD:meta/systematic-coverage-moderator-expansion-2026-09-16
           fi
