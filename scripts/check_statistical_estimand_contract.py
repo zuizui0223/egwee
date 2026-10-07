@@ -38,7 +38,7 @@ def main() -> None:
         "p = 0.01212432",
         "p = 0.18194353",
         "p_ML020=1.0",
-        "Relative response amplitude remains estimand-scale dependent",
+        "magnitude-separation headline is not estimand-scale robust",
         "all **17/17 primary direct effects were negative on both oriented g and oriented lnRR**",
     ):
         assert token in text, token
