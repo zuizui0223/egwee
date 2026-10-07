@@ -63,8 +63,14 @@ def norm_minus(s: str) -> str:
 
 def first_float(s: str) -> float | None:
     s = norm_minus(s).strip()
-    m = re.search(r"[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[Ee][+-]?\d+)?", s)
-    return float(m.group(0)) if m else None
+    m = re.search(
+        r"(?P<sign>[+-])?\s*(?P<num>(?:\d+(?:\.\d*)?|\.\d+)(?:[Ee][+-]?\d+)?)",
+        s,
+    )
+    if not m:
+        return None
+    value = float(m.group("num"))
+    return -value if m.group("sign") == "-" else value
 
 
 def leading_float(s: str) -> float | None:
@@ -444,6 +450,13 @@ def analyse(pairs: list[dict], label: str) -> dict:
 
 
 def main() -> None:
+    # Word-generated SF06 cells separate the sign and magnitude with a space.
+    # These invariants prevent silent sign loss in future parser edits.
+    assert first_float("- 1.733") == -1.733
+    assert first_float("− 0.048") == -0.048
+    assert first_float("+ 0.125") == 0.125
+    assert first_float("0.500") == 0.5
+
     if len(sys.argv) != 3:
         raise SystemExit("usage: test_sf06_compatibility_translation_residual.py INPUT.docx OUTPUT_DIR")
     source = Path(sys.argv[1])
