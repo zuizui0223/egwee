@@ -79,7 +79,11 @@ Authorised manuscript-level ecological claims:
 - no deterministic interaction-state→F-state lookup fits the frozen evidence map perfectly: minimum mismatches are 5/16 in the full map, 2/8 in the strict category map and 1/5 in the strict quantitative-only subset; these are structural compatibility diagnostics, not prediction-error estimates;
 - in the mixed-tier frozen map, observed interaction decline is neither necessary nor sufficient for observed reproductive decline; both logical counterexample classes survive every single-programme deletion;
 - the three representation-stable resolved false-reassurance anchors are not readily explained by simple classical differential-reliability attenuation under the audited source-level reliability proxies: each equal-latent-effect null has descriptive misfit `p<0.01`;
-- the promoted general ecological principle is **directional coherence without interaction–function identifiability**; the strongest resolved quantitative failure mode is **false reassurance**;
+- the accessible Aguilar et al. (2025) public-S1 reanalysis contains 55 exact habitat-fragmentation pollination–female-fitness pairs and gives **0** deterministic constituent-sign mismatches; the minimum remains 0 after whole-publication deletion, whole-species deletion and removal of publications overlapping the frozen EGWEE map;
+- the same public-S1 reanalysis does not support the preregistered self-compatibility translation modifier (`gamma_SC=-0.0877`, 95% CI `[-0.290,+0.114]`, `p=0.395`);
+- the public Supplementary Table S1 contains 426 response-labelled physical rows, whereas Aguilar et al. report 500 hierarchical meta-analysis input effects; SF06 is therefore a public-S1 subset boundary, not a complete 500-input replication;
+- only one of the three stable quantitative EGWEE false-reassurance anchors overlaps the accessible SF06 paired subset: *Cardiopetalum calophyllum*, whose robust failure is a same-sign **amplitude** mismatch; Wandoo and Kakamega *Acanthopale* are absent;
+- the promoted general ecological principle is therefore **directional coherence without local quantitative sufficiency**: pollination direction can be informative in aggregate while interaction quantity can still fail to calibrate reproductive severity or diagnose local reproductive state; the strongest resolved quantitative failure mode is **false reassurance**;
 
 
 Not authorised:
@@ -106,6 +110,9 @@ Not authorised:
 - treating the reliability-audit joint simulation frequency as a formal p-value or confirmatory 3-programme test;
 - claiming false reassurance is more common than apparent over-warning in nature;
 - claiming the hidden effective-mating layer is established rather than a prospective mechanistic hypothesis;
+- claiming universal sign-level interaction→function non-identifiability beyond the frozen matched-programme EGWEE evidence map;
+- claiming that self-compatibility explains residual pollination→female-fitness translation in SF06;
+- treating the accessible 426-row SF06 public supplement as the complete 500-input Aguilar et al. meta-analysis database;
 
 - claiming lnRR is the uniquely correct effect scale; it is a mandatory sensitivity estimand with small-n delta-method limitations;
 - direct empirical validation of finite EGWE/NEE operators;
