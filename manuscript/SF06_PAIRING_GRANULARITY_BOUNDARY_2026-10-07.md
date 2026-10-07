@@ -1,0 +1,86 @@
+# SF06 pairing-granularity boundary — 2026-10-07
+
+## Source granularity
+
+The public Supplementary Table S1 identifies source publication, plant species, response family and land-use factor, but does not expose a site/year/contrast identifier that would prove synchronized sampling of pollination and female fitness.
+
+Therefore the external paired unit is conservatively described as:
+
+> publication × species × land-use stratum
+
+rather than a synchronized same-site/same-season matched frame.
+
+This is intentionally weaker than the matched-programme effect-unit standard used for the core EGWEE quantitative anchors.
+
+## Row multiplicity
+
+Among the 55 habitat-fragmentation I–F strata:
+
+- **50** contain exactly one pollination row and one female-fitness row;
+- **5** combine multiple source effects in at least one response.
+
+The five multi-effect strata are:
+
+- *Kniphofia linearifolia* — 2 I / 1 F;
+- *Satyrium longicauda* — 2 I / 1 F;
+- *Echinacea angustifolia* (Wagenius & Lyon 2010) — 2 I / 2 F;
+- *Echinacea angustifolia* (Wagenius 2006) — 2 I / 2 F;
+- *Heliconia tortuosa* (Woods et al. 2022) — 2 I / 2 F.
+
+## One-row-per-response sensitivity
+
+Removing all five multi-effect strata leaves 50 one-I-row / one-F-row fragmentation strata.
+
+Corrected sign table:
+
+| pollination sign | female fitness lower | female fitness nonlower |
+|---|---:|---:|
+| lower | 31 | 9 |
+| nonlower | 7 | 3 |
+
+Results:
+
+- minimum deterministic mismatches = **12/50**;
+- publication-LOO minimum = **8**;
+- species-LOO minimum = **11**;
+- baseline always-F-lower errors = **12/50**.
+
+The multi-effect rows therefore contribute **none** of the minimum mismatch count.
+
+## Source-publication-disjoint one-row sensitivity
+
+After additionally deleting every publication overlapping the frozen EGWEE I–F map:
+
+- n = **27**;
+- I−F− = 16;
+- I−F+ = 6;
+- I+F− = 4;
+- I+F+ = 1;
+- minimum mismatches = **7/27**;
+- publication-LOO minimum = **5**;
+- species-LOO minimum = **6**;
+- baseline errors = **7/27**.
+
+Again, the result is unchanged in the quantity that matters for non-identifiability.
+
+## Interpretation
+
+The external result does not depend on inverse-variance aggregation of multiple endpoint effects.
+
+However, the public source still does not certify same-site/same-season synchronization. The correct evidence hierarchy is:
+
+1. EGWEE matched programmes: stronger biological alignment and effect-unit control;
+2. SF06 public-S1 strata: broader external generalization at publication × species × land-use resolution.
+
+## Claim ceiling
+
+Allowed:
+
+- external non-identifiability persists after restricting to one source row per response;
+- the external result is independent of within-response IVW combination.
+
+Not allowed:
+
+- call all SF06 pairs synchronized biological measurements;
+- treat publication × species × land-use pairing as equivalent to the core matched-programme design;
+- infer the prevalence of mismatch in nature.
