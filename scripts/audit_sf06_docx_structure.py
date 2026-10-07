@@ -31,6 +31,20 @@ def main() -> None:
 
     total_response_rows = 0
     print(f"SF06_DOCX_STRUCTURE tables={len(tables)}")
+
+    # Numerical outcomes are already exposed. Print the complete header table
+    # and a few fixed diagnostic source rows to verify that the parser maps
+    # the final result columns correctly.
+    if tables:
+        for ri, row in enumerate(tables[0].findall("./" + q("tr"))):
+            cells = [cell_text(c) for c in row.findall("./" + q("tc"))]
+            print(f"RAW_HEADER_TABLE0 row={ri} cells={cells}")
+
+    diagnostic_species = {
+        "Calystegia_collina",
+        "Cardiopetalum_calophyllum",
+        "Spondias_purpurea",
+    }
     for ti, table in enumerate(tables):
         shapes = Counter()
         response_rows = Counter()
@@ -54,6 +68,11 @@ def main() -> None:
             if labels:
                 total_response_rows += 1
                 effect_cell = cells[-2] if len(cells) >= 2 else ""
+                if cells and cells[0] in diagnostic_species:
+                    print(
+                        f"RAW_RESULT_ROW table={ti} row={ri} species={cells[0]} "
+                        f"cells={cells}"
+                    )
                 nums = re.findall(r"[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[Ee][+-]?\d+)?", effect_cell.replace("−", "-").replace("–", "-"))
                 numeric_tokens_in_effect_cells += len(nums)
                 if len(nums) > 1:
