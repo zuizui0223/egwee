@@ -16,6 +16,8 @@ on:
       - 'manuscript/SF06_SIGN_MARGIN_SENSITIVITY_2026-10-07.md'
       - 'scripts/check_sf06_lopo_predictive_value.py'
       - 'manuscript/SF06_LOPO_PREDICTIVE_VALUE_2026-10-07.md'
+      - 'scripts/check_sf06_severity_diagnostic_threshold_sweep.py'
+      - 'manuscript/SF06_SEVERITY_DIAGNOSTIC_THRESHOLD_SWEEP_2026-10-07.md'
       - 'scripts/check_sf06_lopo_sign_probability_value.py'
       - 'manuscript/SF06_LOPO_SIGN_PROBABILITY_VALUE_2026-10-07.md'
       - 'scripts/check_sf06_sign_confidence_sweep.py'
@@ -68,6 +70,8 @@ jobs:
         run: python scripts/check_sf06_sign_margin_sensitivity.py
       - name: Audit SF06 leave-one-publication predictive value
         run: python scripts/check_sf06_lopo_predictive_value.py
+      - name: Audit SF06 reproductive-severity diagnostic thresholds
+        run: python scripts/check_sf06_severity_diagnostic_threshold_sweep.py
       - name: Audit SF06 probabilistic sign-sentinel value
         run: python scripts/check_sf06_lopo_sign_probability_value.py
       - name: Audit SF06 sign-confidence sweep
