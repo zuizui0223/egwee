@@ -145,8 +145,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Install raw-data reader
-        run: python -m pip install --quiet openpyxl
+      - name: Install analysis readers
+        run: python -m pip install --quiet openpyxl numpy
       - name: Validate protocol-first meta-analysis state
         run: python scripts/check_meta_analysis_contract.py
       - name: Validate systematic coverage and moderator expansion
