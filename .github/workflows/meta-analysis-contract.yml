@@ -115,6 +115,8 @@ on:
       - 'manuscript/IF_TRANSLATION_METRIC_SENSITIVITY_2026-10-05.md'
       - 'scripts/check_if_interaction_metric_sensitivity.py'
       - 'scripts/check_if_sentinel_determinism.py'
+      - 'scripts/check_if_sentinel_incremental_value.py'
+      - 'manuscript/IF_SENTINEL_INCREMENTAL_VALUE_2026-10-07.md'
       - 'manuscript/IF_SENTINEL_DETERMINISM_2026-10-05.md'
       - 'manuscript/IF_TRANSLATION_CATEGORY_SENSITIVITY_2026-10-05.md'
       - 'scripts/check_fragmentation_sentinel_sufficiency.py'
@@ -223,6 +225,8 @@ jobs:
         run: python scripts/check_if_interaction_metric_sensitivity.py
       - name: Audit I-F sentinel determinism
         run: python scripts/check_if_sentinel_determinism.py
+      - name: Audit I-F incremental sentinel value
+        run: python scripts/check_if_sentinel_incremental_value.py
       - name: Audit fragmentation sentinel sufficiency
         run: python scripts/check_fragmentation_sentinel_sufficiency.py
       - name: Audit necessity and sufficiency of interaction decline
