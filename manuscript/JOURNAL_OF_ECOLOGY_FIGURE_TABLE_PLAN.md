@@ -76,32 +76,62 @@ Do not place g and lnRR magnitudes on a common numerical axis. The figure compar
 
 ## Figure 5 — Directional coherence versus sentinel sufficiency
 
-**Purpose:** make the manuscript's promoted ecological generality and surprise visible in one figure.
+**Purpose:** make the manuscript's promoted ecological result visible as a hierarchy from shared deterioration to matched and external sentinel failure.
 
-Panel A must show scale-stable directional coherence:
+### Panel A — coarse-scale directional coherence
+
+Show:
 
 - 17/17 primary direct effects negative on oriented Hedges g;
 - 17/17 the same effects negative on oriented lnRR;
 - no claim that the 17 effects are independent sign trials.
 
-Panel B must show the frozen 16-programme interaction→function existence map:
+Interpretation: fragmentation-associated deterioration is directionally coherent in the admitted direct corpus, without implying scale-invariant response amplitudes.
+
+### Panel B — frozen matched-programme translation map
+
+Show the frozen 16-programme interaction→function map:
 
 - 8 quantitatively admitted matched I–F programmes;
 - 8 non-overlapping source-explicit programmes blocked from quantitative synthesis;
-- each interpretable upstream interaction state maps to multiple downstream F states;
-- the full map is leave-one-programme non-identifying;
-- no category frequency is a prevalence estimate.
+- evidence tier shown explicitly as Q or B;
+- each interpretable interaction state maps to multiple downstream F states;
+- full map remains non-identifying after every single-programme deletion;
+- cell occupancy is existence/topology, not prevalence.
 
-Panel C must show the measurement-artifact stress test for the three resolved false-reassurance anchors:
+### Panel C — external public-S1 validation
 
-- Wandoo, Cardiopetalum and Kakamega Acanthopale;
+Show the corrected Aguilar et al. public-S1 habitat-fragmentation sign table:
+
+| | F lower | F nonlower |
+|---|---:|---:|
+| I lower | 35 | 9 |
+| I nonlower | 7 | 3 |
+
+Required annotations:
+
+- constituent-consensus n = 54;
+- minimum deterministic mismatches = 12;
+- publication-LOO minimum = 8;
+- species-LOO minimum = 11;
+- source-publication-disjoint subset = 7/31 mismatches, publication-LOO minimum 5;
+- continuous pollination coupling remains positive on pair weighting (`beta=+0.190`, `p=0.0053`) and positive but unresolved under equal-total-publication weighting (`beta≈+0.200`, `p≈0.104`);
+- best pollination-sign lookup errors equal the fragmentation-context baseline errors (12 vs 12), so incremental deterministic sign gain = 0.
+
+The external pairs are publication × species × land-use strata, not guaranteed same-site/same-season synchronized observations. The 426-row public supplement is not the complete 500-input source database.
+
+### Panel D — resolved false reassurance and reliability stress test
+
+Show:
+
+- Wandoo, Cardiopetalum and Kakamega *Acanthopale*;
 - recovered I/F reliability proxies;
 - equal-latent attenuation null misfit `p<0.01` in each;
 - explicit statement that anchor selection was post hoc and the three-programme diagnostic is not a formal joint p-value.
 
-Required interpretation:
+Required paper-level interpretation:
 
-> **Directional coherence does not imply functional identifiability; the strongest resolved quantitative failure mode is false reassurance, and simple differential measurement reliability is insufficient to explain the three audited anchors.**
+> **Directional coherence and positive average coupling do not imply diagnostic sufficiency; interaction→function translation is many-to-many in matched evidence and an external source-disjoint subset, while the strongest individually resolved quantitative failure mode is false reassurance.**
 
 Figure 5 is the paper-level ecology synthesis. Figure 3 remains the quantitative programme-level proxy-failure view; Figure 4 remains the mandatory effect-scale audit.
 
