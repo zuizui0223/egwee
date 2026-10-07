@@ -1,72 +1,68 @@
-# SF06 published coupling boundary — 2026-10-06
+# SF06 published coupling boundary — updated after corrected sign parsing (2026-10-07)
 
-## Status
+## Published aggregate result
 
-Post hoc interpretation of **already published aggregate results** from Aguilar et al. (2024 online / 2025 volume), not a new row-level SF06 test and not part of the frozen 16-programme EGWEE denominator.
+Aguilar et al. report, for species with simultaneous land-use effects on pollination and female fitness:
 
-## Published result
+- Pearson r = 0.421;
+- P < 0.01;
+- n = 82 species.
 
-For plant species in which land-use effects on pollination and female fitness were both assessed, Aguilar et al. report:
+The simple squared correlation is 0.177. This is a positive average association, not a one-to-one calibration.
 
-- Pearson `r = 0.421`;
-- `P < 0.01`;
-- `n = 82` species.
+## Corrected public-S1 fragmentation result
 
-The simple squared correlation is:
+The accessible public Supplementary Table S1 contains 426 response-labelled physical rows rather than all 500 hierarchical input effects reported in the paper. Within the public-S1 subset, 55 exact habitat-fragmentation pollination–female-fitness pairs are available and 54 have unambiguous constituent-sign consensus after correcting the spaced-minus parser bug.
 
-`r^2 = 0.177241`.
+Their topology is:
 
-Thus the published relationship is clearly positive, but it is not a one-to-one calibration between pollination response and female-fitness response.
+| pollination sign | female fitness lower | female fitness nonlower |
+|---|---:|---:|
+| lower | 35 | 9 |
+| nonlower | 7 | 3 |
 
-## What this does and does not mean
+Thus the best deterministic sign lookup leaves 12/54 mismatches. The result persists under whole-publication and whole-species deletion and in a source-publication-disjoint subset.
 
-In a simple bivariate linear descriptive sense, the published pollination-effect coordinate shares about **17.7%** of variance with female-fitness effect across the 82 simultaneous species. The complement (**82.3%**) must not be described as causal unexplained variance: it can include biological heterogeneity, measurement error, endpoint construction, sampling error and nonlinear structure.
+## Association versus diagnostic sufficiency
 
-The important distinction is logical:
+The corrected fragmentation-only Hedges-d model also retains positive continuous coupling:
 
-- **average coupling:** pollination and female-fitness effects tend to move together across species;
-- **diagnostic sufficiency:** knowing the pollination effect would be enough to identify or accurately calibrate the female-fitness effect for a focal system.
+- beta_pollination = +0.190;
+- 95% CI [0.057, 0.324];
+- p = 0.0053;
+- model R² = 0.069.
 
-The first can be true while the second fails.
+Therefore the external evidence now makes the distinction sharper rather than weaker:
 
-## Relevance to EGWEE
+- **association:** pollination and female-fitness effects covary positively on average;
+- **diagnostic sufficiency:** pollination state does not uniquely identify female-fitness state.
 
-This gives the external validation two separate targets.
-
-1. **Direction / sign translation.**  
-   The corrected SF06 consensus-sign analysis asks whether pollination sign uniquely identifies female-fitness sign. This result is still pending the corrected 500-row materialization.
-
-2. **Amplitude calibration.**  
-   The already published `r=0.421` establishes only moderate cross-species coupling. Even if the corrected sign map is identifying, a monitoring rule based on pollination alone would still need an independently validated conversion model before it could estimate the severity of reproductive impairment.
-
-This distinction prevents an all-or-nothing interpretation of the external test. A positive mean relationship is not evidence that interaction quantity is a sufficient stand-alone quantitative sentinel.
+At the binary sign level, knowing pollination sign adds zero classification gain beyond the fragmentation-context baseline in this public subset: always predicting female-fitness decline gives 12/54 errors, the same as the best pollination-sign lookup.
 
 ## Compatibility boundary
 
-Aguilar et al. already report stronger marginal negative responses in self-incompatible species. EGWEE therefore does not claim that compatibility moderation itself is new.
+The preregistered residual compatibility model gives:
 
-The preregistered SF06 residual question is narrower: whether compatibility explains **female-fitness response after conditioning on the observed pollination response**.
+- gamma_SC = +0.0639;
+- 95% CI [-0.263, +0.390];
+- p = 0.701.
 
-The first incomplete 426-row execution did not support the predicted positive residual modifier, but that output is non-authoritative because of the source-row omission. The corrected 500-row result remains required.
+The direction is consistent with the original prediction but unresolved. Publication-balanced weighting remains positive but unresolved.
 
-If the corrected compatibility residual is also null/negative, EGWEE must retain the stronger biological distinction already suggested internally:
-
-> nominal self-compatibility is not equivalent to effective reproductive assurance.
-
-No alternative SF06 moderator is selected after seeing that result.
+This does not establish self-compatibility as the translation mechanism and does not test effective reproductive assurance directly.
 
 ## Claim ceiling
 
 Allowed:
 
-- published SF06 evidence shows positive average pollination–female-fitness coupling;
-- the published correlation is moderate rather than a one-to-one calibration;
-- average coupling and programme-level diagnostic sufficiency are different questions;
-- an identifying external sign map would not by itself validate quantitative severity prediction from pollination.
+- positive average pollination–female-fitness coupling can coexist with sign-level translation non-identifiability;
+- the corrected public-S1 fragmentation subset externally generalizes a many-to-many pollination→female-fitness sign map;
+- association and sentinel value are distinct ecological properties;
+- nominal compatibility does not resolve the translation in this external test.
 
 Not allowed:
 
-- `1-r^2` is a causal variance fraction;
-- pollination explains exactly 17.7% of reproductive biology;
-- the published correlation proves or disproves the EGWEE mechanism;
-- a post hoc moderator search is justified if compatibility fails.
+- the 12 sign mismatches are 12 individually significant reversals;
+- the public-S1 subset represents all 500 hierarchical inputs used by Aguilar et al.;
+- zero incremental binary sign gain implies zero ecological relationship;
+- post hoc moderator searching is justified because compatibility is unresolved.
