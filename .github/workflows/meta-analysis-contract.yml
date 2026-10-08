@@ -251,6 +251,8 @@ jobs:
         run: python scripts/check_fresh_ecological_if_validation_contract.py
       - name: Guard recruitment-stage source and opportunity arithmetic
         run: python scripts/check_stage_opportunity_ledger.py
+      - name: Reproduce Heliconia longitudinal source-locked cohort audit
+        run: python scripts/check_heliconia_longitudinal_recruitment.py
       - name: Audit all 17 primary marginal effects
         run: python scripts/check_primary_effect_supplement.py
       - name: Build supplementary primary-effect forest
