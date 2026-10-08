@@ -38,6 +38,18 @@ Confirmed status among eligible seedlings:
 
 First-year conditional-on-known survival is similarly close. But the missingness fraction is quite heterogeneous, with CF-6 alone having 51 unknown of 72 eligible seedlings. Extreme missing-outcome assumptions change the FF–CF difference from positive (unknown all dead) to negative (unknown all alive). **Do not claim survival is unaffected, or that the conditional comparison identifies a common vital rate.** Outcome ascertainment and year-dependent drought could select the observed individuals.
 
+## Verified reappearance after a missing census
+
+The apparent-survival caveat is not hypothetical. Restricting entry to **1999–2004** makes both the +1 and +2 subsequent census available in every plot through 2006. Of the first-census incident seedlings that were recorded as `missing` at +1, the next census at +2 contains:
+
+| Initial habitat | Incident seedlings 1999–2004 | Missing at +1 | Found alive at +2 | Recorded dead at +2 | Still missing at +2 |
+|---|---:|---:|---:|---:|---:|
+| Continuous forest (six plots) | 1,437 | 146 | **81** | 22 | 43 |
+| Fragmented forest (seven plots) | 932 | 64 | **19** | 10 | 35 |
+| **Total** | **2,369** | **210** | **100** | 32 | 78 |
+
+Thus **100/210 (47.6%)** of the initially missing seedlings were *subsequently alive*, demonstrating directly that the `missing` category cannot be mapped to mortality. The raw post-missing reappearance proportions (81/146 versus 19/64) differ across habitats but are conditional on being missing; without a detection model, they are **not estimates of habitat-specific survival or detection probability**. Different plant densities, observer detection and plot conditions can select distinct missing subsets. Even `measured/(measured+dead)` conditions on ascertainment and may be biased. A principled next model requires separating a latent alive state from plot/year observation probability and accounting for recorded deaths and later reappearances.
+
 ## Habitat-size and sensitivity warnings
 
 The four 1-ha fragment plots average 12.46 newly detected seedlings per plot-year; the three 10-ha fragment plots average 32.86; continuous plots average 36.93. One-ha-versus-10-ha exact permutation is p=0.0857 (35 assignments), exploratory and extremely low-powered. Lagged-abundance-normalized means are 6.26, 8.43 and 7.25 per 100 plant-years, respectively. These are **three observational groups**, not 13 independently randomized landscapes. In the 13-plot leave-one-plot-out exercise, the sign of the raw mean difference remains negative; the sign of the abundance-normalized difference flips depending on which plot is removed.
