@@ -66,6 +66,12 @@ It does **not** establish that fragmentation causes the difference solely throug
 
 Thus the source-derived competing explanations now include not only mating quality versus safe-site opportunity, but also **population stock, life-stage structure and detection**. A claim that a stage is *the* fragmentation bottleneck requires a common outcome (new reproductive individuals or recruits per footprint), stage-resolved measurement, and held-out landscape-level test beyond normalizing away historical population differences.
 
+## Three-year outcome does not rescue a single-stage explanation
+
+The [multiyear Heliconia ascertainment audit](HELICONIA_MULTYEAR_SURVIVAL_AUDIT_2026-10-08.md) adds a critical falsification of a tempting alternative: comparing only the records present three years later falsely suggests a +3.75 percentage-point fragment survival advantage. Carrying forward every recorded death changes the 3-year plot-mean known-fate values to continuous 0.69455 versus fragment 0.69265 (ranch-restricted label-reallocation p≈0.954). Unknown states persist, and some missing individuals are later found alive. Thus an apparent reversal in long-term survival can be produced by the record structure alone. This is an **observation-process artifact**, not evidence of stage-specific compensation, and it does not identify biological survival equivalence.
+
+The strongest ecological claim remains that raw recruitment, stock-normalized recruitment, true stage-specific survival, and population renewal are different quantities. A universal 'limiting stage moved' law is not identified. Source archives should not be treated as independent cross-species replications just because they contain many individual-year records.
+
 ## Stop rules and novelty ceiling
 
 1. Do not add these case reports to the frozen 5-cluster direct synthesis, the 8 matched I-F programmes, the 16-programme topology or the SF06 public-S1 denominator.
