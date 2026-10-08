@@ -46,6 +46,7 @@ The leave-one-ranch-out design holds out **all plots** within each of three geog
 
 ## Nearest prior work and actual novelty ceiling
 - **Bruna (2002), doi:10.1007/s00442-002-0956-y**: an experimental seed recruitment comparison reported 3–7 times lower establishment in fragments; lower germination implicated. This is *stronger causal evidence of a process* than our observational annual seedling count.
+- **Bruna (2003), doi:10.1890/0012-9658(2003)084[0932:APPIFH]2.0.CO;2**: three years of the same 13-population series were integrated with establishment experiments and demographic models to test the level of recruitment needed for population growth, explicitly making the demographic relevance of recruitment deficits a prior-art result.
 - **Bruna & Oli (2005), doi:10.1890/04-1716**: LTRE already demonstrated that approximately similar reductions in population growth rate can be attributable to *fertility* in 10-ha fragments and *fertility plus plant growth* in 1-ha fragments. We cannot claim to discover habitat-dependent demographic bottlenecks in Heliconia.
 - **Uriarte et al. (2010), doi:10.1890/09-0785.1**: explicit seed supply / dispersal / safe-site models found safe-site limitation central.
 - **Scott, Uriarte & Bruna (2022), doi:10.1111/gcb.15900**: delayed climatic effects on survival, growth and flowering and fragmentation-specific climate sensitivity were already identified with the long-term record.
