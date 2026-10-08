@@ -253,6 +253,8 @@ jobs:
         run: python scripts/check_stage_opportunity_ledger.py
       - name: Audit Heliconia plot-level recruitment and missingness
         run: python scripts/check_heliconia_plot_recruitment_audit.py
+      - name: Audit Heliconia held-out population-size diagnostic
+        run: python scripts/check_heliconia_density_predictive_value.py
       - name: Reproduce Heliconia longitudinal source-locked cohort audit
         run: python scripts/check_heliconia_longitudinal_recruitment.py
       - name: Audit all 17 primary marginal effects
