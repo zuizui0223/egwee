@@ -39,9 +39,9 @@ for token in (
     "intervention",
     "Primula vulgaris",
     "held-out",
-    "not three independent",
 ):
     assert token.lower() in note.lower(), token
+assert "Do not count 2010/2012/2015 Myrtus as three independent" in note
 assert "standing bottleneck" in stage
 assert "source reports approximately 44-fold" in stage
 print(
