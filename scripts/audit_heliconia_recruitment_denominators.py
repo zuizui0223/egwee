@@ -54,7 +54,8 @@ def exact_plot_permutation(values: list[float], is_fragment: list[bool]) -> dict
 
 
 def main() -> None:
-    plots = {r["plot_id"]: r["habitat"] for r in load_csv("HDP_plots.csv")}
+    metadata = {r["plot_id"]: r for r in load_csv("HDP_plots.csv")}
+    plots = {p: r["habitat"] for p, r in metadata.items()}
     assert len(plots) == 13
     survey = load_csv("HDP_survey.csv")
     assert len(survey) == 66396
@@ -99,7 +100,8 @@ def main() -> None:
                                    for later in range(year + 2, 2010))
         assert nnew == alive + dead + missing
         out.append({
-            "plot": plot, "habitat": group, "new_cohort": nnew,
+            "plot": plot, "habitat": group, "ranch": metadata[plot]["ranch"],
+            "initial_measured_1998": per_year[(plot, 1998)]["measured"], "new_cohort": nnew,
             "mean_new_per_year": nnew / len(YEARS),
             "mean_measured_per_year": nmeasured / len(YEARS),
             # This is NOT fecundity; measured standing stock includes new seedlings.
