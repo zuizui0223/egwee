@@ -22,6 +22,8 @@ The most accurate majority-class decision under either I state is therefore F lo
 
 Using plug-in observed frequencies, the in-sample mutual information between the two sign states is **0.00543 bits per pair**, small but positive (0.00377 nats). The in-sample binary Brier score changes from 0.17284 for the unconditional baseline to 0.17146 using the conditional sign frequencies, a modest improvement.
 
+This is a **plug-in sample estimate**, which is positively biased in sparse categorical tables even under true independence; it is not evidence of nonzero population mutual information. Its role is only to show that a zero change in 0/1 accuracy is not mathematically equivalent to identical conditional probabilities.
+
 ## Out-of-publication probability test
 
 For each source publication in turn, exclude **all its pairs**, fit probabilities from the remaining pairs, and predict the omitted publication.
