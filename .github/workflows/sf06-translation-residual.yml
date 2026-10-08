@@ -23,6 +23,8 @@ on:
       - 'scripts/check_sf06_conditional_fitness_offset.py'
       - 'manuscript/SF06_CONDITIONAL_FITNESS_OFFSET_2026-10-07.md'
       - 'scripts/check_sf06_lopo_sign_probability_value.py'
+      - 'scripts/check_sf06_probability_information.py'
+      - 'manuscript/SF06_PROBABILISTIC_SENTINEL_VALIDATION_2026-10-08.md'
       - 'manuscript/SF06_LOPO_SIGN_PROBABILITY_VALUE_2026-10-07.md'
       - 'scripts/check_sf06_sign_confidence_sweep.py'
       - 'manuscript/SF06_SIGN_CONFIDENCE_SWEEP_2026-10-07.md'
@@ -82,6 +84,8 @@ jobs:
         run: python scripts/check_sf06_conditional_fitness_offset.py
       - name: Audit SF06 probabilistic sign-sentinel value
         run: python scripts/check_sf06_lopo_sign_probability_value.py
+      - name: Audit SF06 consensus-sign probability information
+        run: python scripts/check_sf06_probability_information.py
       - name: Audit SF06 sign-confidence sweep
         run: python scripts/check_sf06_sign_confidence_sweep.py
       - name: Audit SF06 pairing granularity
