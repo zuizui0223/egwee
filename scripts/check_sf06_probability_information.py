@@ -134,7 +134,8 @@ def main() -> None:
                 expected[(name, block)],
             ):
                 approx(result[field], target)
-                assert result[field[:-1] + "1"] > result[field[:-1] + "0"] if field.endswith("0") else True
+            assert result["brier1"] > result["brier0"]
+            assert result["logloss1"] > result["logloss0"]
 
         # Even when beta-binomial smoothing is varied after exposure, the same
         # direction of relative out-of-publication scores persists.
