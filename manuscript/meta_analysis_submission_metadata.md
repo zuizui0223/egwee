@@ -84,6 +84,7 @@ Authorised manuscript-level ecological claims:
 - the corrected accessible public-S1 habitat-fragmentation topology contains 54 consensus-sign pairs from 32 publications / 52 species and is many-to-many: 35 I−F−, 9 I−F+, 7 I+F− and 3 I+F+; the minimum deterministic mismatch count is 12/54, with publication-LOO minimum 8 and species-LOO minimum 11;
 - after deleting every SF06 publication overlapping the frozen EGWEE I–F map, the source-publication-disjoint subset retains 31 consensus pairs and 7 deterministic mismatches, with publication-LOO minimum 5 and species-LOO minimum 6; this supports external generalization of sign-level translation non-identifiability under the corrected public-S1 analysis;
 - pollination sign adds **zero incremental binary sentinel gain** over the fragmentation-context baseline in both the full public-S1 subset (12 baseline errors vs 12 best-lookup errors) and the source-disjoint subset (7 vs 7); the pollination slope is positive under both pair weighting (`beta=0.190`, `p=0.0053`) and equal-total-publication weighting (`beta=0.200`, `p=0.104`), so direction is stable but subset-level inferential strength is weighting-sensitive;
+- zero binary classification gain **does not mean zero statistical information**: the 54-pair plug-in mutual information is small but positive (0.00543 bits). In post-exposure constituent-consensus sensitivity, a simple smoothed conditional-sign probability model worsens Brier and log loss under whole-publication and whole-species holdout versus the training-set prevalence model; this does not rule out other predictors or severity thresholds;
 - the preregistered SF06 self-compatibility residual coefficient is positive but unresolved (`gamma_SC=+0.0639`, 95% CI `[-0.263,+0.390]`, `p=0.701`); nominal compatibility is not promoted as the missing mechanism;
 - the external sign topology is a point-estimate structural result: only 3 pairs have both endpoint signs marginally resolved at 95%, all concordant lower/lower, so the 12 mismatches are not described as 12 individually resolved sign reversals;
 - all preliminary buggy SF06 numerical outputs remain preserved for provenance and may not be hidden or retroactively described as valid biology;
@@ -141,7 +142,7 @@ Not authorised:
 - [x] primary venue selected: Journal of Ecology;
 - [x] journal-specific abstract and keywords shaped;
 - [x] main text converted to Journal of Ecology IMRaD structure;
-- [x] main-text word count audited against the ~8000-word research-article target (current automated count: 7988 words from Introduction through Conclusion, excluding References);
+- [x] main-text word count audited against the ~8000-word research-article target (current automated count: 7968 words from Introduction through Conclusion, excluding References);
 - [ ] current Figures 3–5 proxy-failure / scale / sentinel-sufficiency package revalidated in full CI;
 - [ ] current anonymous reviewer package reproduces Figures 3–5, the frozen 16-programme translation map and authoritative 2026-09-29 scale audits;
 - [x] estimand-scale audit completed: Hedges-g and lnRR yield materially different response geometry / robustness classifications;
