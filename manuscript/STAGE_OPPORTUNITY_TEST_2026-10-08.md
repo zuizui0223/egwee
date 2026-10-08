@@ -36,6 +36,18 @@ The falsifiable disagreement is not whether R_area mathematically includes a_m. 
 
 For each independent patch and reproductive episode, record: effective compatible donors / outcrossing and progeny quality; propagule number and spatial rain; microhabitat area and safe-site traits; seedling emergence, summer survival and cumulative recruits. Link maternal seed lots to experimental outplanting sites. Repeated flowers, seeds, seedlings and microsite plots are nested units, not extra landscape replicates.
 
+## Critical three-way distinction: background loss, fragmentation contrast and rescue value
+
+Three different stage rankings must not be conflated.
+
+- **Background attrition**: a transition with a low reference probability p_ref,j loses many propagules in any landscape. A useful descriptive loss measure is -log(p_ref,j) when p_ref,j is positive.
+- **Fragmentation sensitivity**: log(p_frag,j / p_ref,j) describes how that *same* transition differs between fragmented and reference sites. This does not identify the causal effect of fragmentation without a valid exposure design.
+- **Intervention leverage**: improvement in actual recruits under an experimentally imposed action, compared with the randomized control, on a *fixed whole-patch denominator*. This is not identifiable from either the baseline attrition or the observational contrast alone.
+
+A source-verified counterexample to treating these rankings as interchangeable is Valdes & Garcia (2013, doi:10.1016/j.baae.2013.08.006): in fragmented temperate forests, *Primula vulgaris* showed strong seed/dispersal limitation in experimental seed-sowing plots, but the seed-emergence limitation did **not** track measured landscape-alteration gradients. Survival and growth after subsequent summer/winter periods did respond to landscape and microhabitat conditions, including herbivore/predator exclusion in some settings. This is not an independent estimate of a universal stage switch; it is a concrete case where **the dominant standing bottleneck and the fragmentation-sensitive transition differ**.
+
+Consequently the operative ecological hypothesis is more exact than 'fragmentation moves the bottleneck': **fragmentation can damage stages that are not the most limiting in the reference life cycle, so selecting restoration solely by the highest standing mortality can mis-target the fragmentation-associated deficit**. To establish that mechanistically, measure all three rankings on aligned biological units, then test which stage-specific intervention rescues whole-patch recruits in held-out landscapes.
+
 ## Three competing intervention models
 
 **Quality-limited:** under controlled safe-site availability and arrival, experimentally improved compatible/outcross pollen raises viable-seed and later recruit yield; microsite enhancement adds little after adjusting for its own availability.
