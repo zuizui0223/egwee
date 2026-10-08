@@ -20,7 +20,7 @@ The numbers below are means across **plots**, not means across pooled individual
 | New seedlings per 100 measured live-plant records | 6.7408 | 6.2235 | 0.6270 | 0.5833 |
 | Next-year alive / (alive + confirmed dead), cohort 1999–2005 | 0.8500 | 0.8582 | 0.6544 | 0.5667 |
 | Next-year documented alive / all seedlings | 0.6348 | 0.8035 | 0.0536 | 0.0208 |
-| Next-year not found / all seedlings | 0.2523 | 0.0638 | see code artifact | 0.0417 |
+| Next-year not found / all seedlings | 0.2523 | 0.0638 | 0.0688 | 0.0417 |
 
 Every exact comparison computes the *difference of plot-average rates*, not a pseudoreplicated count test: 1,716 unrestricted selections of seven of 13 labels, or 240 selections preserving the observed fragment numbers within each of three ranches. The exchangeable-label null is **not a randomized habitat-treatment design**. The analyses and choices are exploratory, and no p-value provides causal identification or confirmatory evidence of a new stage law.
 
