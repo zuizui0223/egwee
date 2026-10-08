@@ -30,6 +30,32 @@ A four-year field programme across 10 woodland patches (four large and six small
 
 The 2009, 2010 and 2012 papers study the same species in the Guadalquivir fragmented-woodland landscape but use different population sets and temporal frames. They cannot be row-joined as a synchronized Q→seed→recruitment time series. They are **same-species, same-landscape triangulation**, not three independent species-level replications. No additional effect enters the frozen EGWEE denominator.
 
+## 2015 regional extinction-debt test: adults retain an outdated landscape signal
+
+A fourth study in this same species/landscape directly tests a much later indicator: **whether a patch still contains the adult shrub at all** (González-Varo et al. 2015, doi:10.1111/1365-2664.12424). The authors analysed myrtle presence/absence in **304 remnant woodland patches**, with the species present in **110**; patches had been surveyed in 1999–2001. Models compared patch size and disturbance with woodland cover in the surrounding 5-km landscape derived from **1956 versus 2002** aerial records.
+
+- Patch area and current disturbance both strongly predicted occupancy, especially disturbance (standardized beta about -0.789 in the historical-cover model); a more disturbed patch was less likely to contain myrtle.
+- The model containing **1956** woodland cover had AIC **316.9** and pseudo-R² **0.224**, versus AIC **327.6** and pseudo-R² **0.197** for the comparable current-2002-cover model; Delta AIC **10.7** favoured history.
+- Historical 5-km cover had a positive adjusted coefficient (beta +0.535); current woodland cover had a weaker non-significant coefficient in the current-cover model (+0.196). The association is compatible with adults persisting after habitat conditions became inadequate for maintaining recruitment.
+- Adult myrtles can live for decades and resprout, so local occupancy can lag behind demographic deterioration; the study interpreted the past-cover preference as an **unpaid extinction debt**.
+
+**This does not observe subsequent extinctions or estimate their dates.** An occupancy association across historical landscape states supports the debt interpretation but does not directly validate that every occupied small patch will become empty. The 304-patch survey is not a panel of the same seedling individuals sampled in 2010/2012.
+
+## The complete biological warning across observation timescales
+
+| Observation | What may look reassuring | What it fails to certify |
+|---|---|---|
+| Flower visits (2009) | Visits concentrated/high in some small patches | Compatible pollen, provenance or downstream transitions |
+| Fruit/seed output (2009; 2012 partly reuses 2007 observations) | Small patches did not show consistently lower per-flower fruit set | Actual seedling recruitment |
+| Greenhouse offspring (2010) | PTR t_m=0.72, best greenhouse seedling output | Field performance under its actual microsites |
+| Field early stages (2012) | CRB can rank relatively well for seedling emergence/lifetime | The presence of accumulated juveniles (CRB had none) |
+| Integrated annual recruitment (2012) | High fruit set despite fragmentation | Overall recruitment probability was ~44-fold lower in small patches |
+| Adult occurrence (2015) | 110/304 patches still occupied | Population renewal; occupancy associated more strongly with past landscape cover |
+
+This is a **retrospective multi-paper mechanism chain**, not a newly measured synchronized path model. Not every stage represents the same individuals or even the same set of patches; however, the 2012 article specifically references 2010 PTR/CRB populations and includes some 2007 fruit-set data published in 2009.
+
+The ecological connection is not a new discovery that extinction debt exists (the 2015 authors already demonstrated its evidence). It is an explicit **sentinel hierarchy**: a measurement can be biologically real and useful at its own stage yet insufficient as a stand-alone diagnosis of a subsequent demographic transition. In long-lived plants, even adult presence can preserve a historically obsolete spatial distribution while effective recruitment is failing.
+
 ## Cross-system contrast: the next stage that fails is not fixed
 
 **Tristerix corymbosus** (doi:10.1111/1365-2745.12083 and doi:10.1016/j.biocon.2007.06.014). At forest edges hummingbird visitation and fruit set were largely retained, and pollen tubes tended to increase. Fruit removal near edges, however, was far lower than in forest interiors (greater than tenfold contrast), tracing the bottleneck to habitat-sensitive dispersers. Separate habitat comparisons linked disperser disappearance to failure of seed dispersal, poorer recruitment and juvenile deficits. The two publications are separate sites/years and must not be numerically joined.
