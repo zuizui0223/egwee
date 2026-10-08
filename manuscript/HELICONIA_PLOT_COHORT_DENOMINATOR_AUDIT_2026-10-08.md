@@ -9,6 +9,7 @@
 - Thirteen **0.5 ha plot-level units**, not 13 independently randomized landscapes and certainly not 66,396 or 2,590 fragmentation replicates; six continuous-forest plots, four 1-ha-fragment plots and three 10-ha-fragment plots, nested within three ranch/geographic contexts. CF-2 and CF-3 share reserve no. 1501, so landscape exposure independence is **less** than 13 and all permutation p-values remain explicitly descriptive.
 - Balanced early cohort frame: newly recorded seedlings in 1999–2005; their *next* census is in 2000–2006, preceding the missing late annual censuses for FF-5/FF-6 (2007) and FF-7 (2007–2009). A later census does not guarantee exact yearly measurement.
 - The source-derived 13-row frozen table is `evidence/meta_extraction/heliconia_plot_cohorts_1999_2005_v1.csv`; deterministic source-to-plot calculations are specified by those columns and the source Git blob. Exact audit: `scripts/check_heliconia_plot_recruitment_audit.py`.
+- Independent raw-data reconstruction is implemented in `scripts/rebuild_heliconia_plot_cohorts.py`. Download the original `HDP_survey.csv` and `HDP_plots.csv` at the blob revisions noted above and run `python scripts/rebuild_heliconia_plot_cohorts.py --survey /path/HDP_survey.csv --plots /path/HDP_plots.csv`; the script verifies both Git blob hashes and compares all 13 derived rows without overwriting them.
 - The input `census_status` labels are `measured` (observed alive), `dead` (observed dead), and `missing` (not found); **missing is not dead**.
 
 ## Explicitly competing demographic estimands
