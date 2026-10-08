@@ -124,6 +124,12 @@ def analyze(survey: list[dict], plotmeta: list[dict]) -> dict:
     # Use only 1999–2004 entrants for a common *second* follow-up across
     # all 13 plots (2001–2006); 2007 is not observed in every fragment.
     # Direct evidence that the intervening 'missing' status is not death:
+    recovery_plot = {
+        row["plot"]: {"plot": row["plot"], "ranch": row["ranch"],
+                      "fragment": row["fragment"], "cohort": 0,
+                      "alive_at_plus1": 0, "reappeared_at_plus2": 0}
+        for row in by_plot
+    }
     reappearance = {"CF": {"cohort": 0, "missing_next": 0, "alive_plus2": 0,
                            "dead_plus2": 0, "missing_plus2": 0},
                     "FF": {"cohort": 0, "missing_next": 0, "alive_plus2": 0,
@@ -134,18 +140,44 @@ def analyze(survey: list[dict], plotmeta: list[dict]) -> dict:
         group = "CF" if meta[p]["habitat"] == "forest" else "FF"
         rec = reappearance[group]
         rec["cohort"] += 1
+        row = recovery_plot[p]
+        row["cohort"] += 1
+        if individuals[(p, pid)].get(b + 1) == "measured":
+            row["alive_at_plus1"] += 1
         if individuals[(p, pid)].get(b + 1) == "missing":
             rec["missing_next"] += 1
             plus2 = individuals[(p, pid)].get(b + 2)
             assert plus2 in ("measured", "dead", "missing"), (p, pid, b, plus2)
             rec[{"measured": "alive_plus2", "dead": "dead_plus2",
                  "missing": "missing_plus2"}[plus2]] += 1
+            if plus2 == "measured":
+                row["reappeared_at_plus2"] += 1
     assert reappearance["CF"] == {
         "cohort": 1437, "missing_next": 146, "alive_plus2": 81,
         "dead_plus2": 22, "missing_plus2": 43}
     assert reappearance["FF"] == {
         "cohort": 932, "missing_next": 64, "alive_plus2": 19,
         "dead_plus2": 10, "missing_plus2": 35}
+
+    for row in recovery_plot.values():
+        row["missing_as_death_lower"] = row["alive_at_plus1"] / row["cohort"]
+        row["recovery_confirmed_lower"] = (
+            row["alive_at_plus1"] + row["reappeared_at_plus2"]
+        ) / row["cohort"]
+    survival_lower_sensitivity = {}
+    for field in ("missing_as_death_lower", "recovery_confirmed_lower"):
+        survival_lower_sensitivity[field] = {
+            "means": {
+                "CF": avg([r[field] for r in recovery_plot.values() if not r["fragment"]]),
+                "FF": avg([r[field] for r in recovery_plot.values() if r["fragment"]]),
+            },
+            "unrestricted": test_exact(list(recovery_plot.values()), field, "unrestricted"),
+            "ranch_restricted": test_exact(list(recovery_plot.values()), field, "ranch"),
+        }
+    assert abs(survival_lower_sensitivity["missing_as_death_lower"]["unrestricted"]["p_two_sided"] - 85 / 1716) < 1e-12
+    assert abs(survival_lower_sensitivity["recovery_confirmed_lower"]["unrestricted"]["p_two_sided"] - 391 / 1716) < 1e-12
+    assert abs(survival_lower_sensitivity["missing_as_death_lower"]["ranch_restricted"]["p_two_sided"] - 5 / 240) < 1e-12
+    assert abs(survival_lower_sensitivity["recovery_confirmed_lower"]["ranch_restricted"]["p_two_sided"] - 38 / 240) < 1e-12
     fields = ("new_per_plot_year", "new_per_100_lagged_individual_years",
               "survival_known", "survival_lower", "survival_upper", "missing_fraction")
     tests = {}
@@ -212,6 +244,8 @@ def analyze(survey: list[dict], plotmeta: list[dict]) -> dict:
                       "Missing is NOT death; groups are unbalanced by ranch.",
         "tests": tests, "fragment_size_exploratory": size_test,
         "leave_one_plot_out": leave_one_out, "missing_return_at_plus2": reappearance,
+        "recovered_survival_lower_bounds": survival_lower_sensitivity,
+        "recovery_plot_data": list(recovery_plot.values()),
         "plot_data": by_plot,
     }
 
