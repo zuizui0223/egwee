@@ -64,6 +64,60 @@ def test_exact(plots: list[dict], key: str, mode: str) -> dict:
             "extreme_assignments": extreme, "assignments": n}
 
 
+def compare_ranch_estimands(plots: list[dict], key: str) -> dict:
+    """Sensitivity to which *statistic* is used with ranch-stratified labels.
+
+    The global unequal-composition contrast can have a nonzero permutation
+    expectation despite fixed labels per ranch. Compare its centered tail
+    against truly within-ranch standardized contrasts.
+    """
+    ranches = sorted({p["ranch"] for p in plots})
+    strata = []
+    for ranch in ranches:
+        group = [p for p in plots if p["ranch"] == ranch]
+        k = sum(p["fragment"] for p in group)
+        assert 0 < k < len(group), ("no common ranch contrast", ranch)
+        strata.append(list(itertools.combinations([p["plot"] for p in group], k)))
+    assignments = [
+        set(itertools.chain.from_iterable(parts))
+        for parts in itertools.product(*strata)
+    ]
+    assert len(assignments) == 240
+
+    def mean_gap(choice: set[str], rows: list[dict]) -> float:
+        ff = [row[key] for row in rows if row["plot"] in choice]
+        cf = [row[key] for row in rows if row["plot"] not in choice]
+        return avg(ff) - avg(cf)
+
+    def statistic(choice: set[str], mode: str) -> float:
+        if mode == "global":
+            return mean_gap(choice, plots)
+        pairs = [(len(rows), mean_gap(choice, rows))
+                 for ranch in ranches
+                 for rows in [[p for p in plots if p["ranch"] == ranch]]]
+        if mode == "ranch_equal":
+            return avg([d for _, d in pairs])
+        assert mode == "ranch_size"
+        return sum(n * d for n, d in pairs) / len(plots)
+
+    actual = {p["plot"] for p in plots if p["fragment"]}
+    result = {}
+    for mode in ("global", "ranch_equal", "ranch_size"):
+        obs = statistic(actual, mode)
+        null = [statistic(a, mode) for a in assignments]
+        center = avg(null)
+        extreme = sum(abs(v - center) >= abs(obs - center) - 1e-12 for v in null)
+        result[mode] = {
+            "observed_difference": obs,
+            "randomization_mean": center,
+            "p_centered_two_sided": extreme / len(null),
+            "assignments": len(null),
+        }
+    assert abs(result["ranch_equal"]["randomization_mean"]) < 1e-12
+    assert abs(result["ranch_size"]["randomization_mean"]) < 1e-12
+    return result
+
+
 def analyze(survey: list[dict], plotmeta: list[dict]) -> dict:
     meta = {p["plot_id"]: p for p in plotmeta}
     assert len(meta) == 13
@@ -189,7 +243,22 @@ def analyze(survey: list[dict], plotmeta: list[dict]) -> dict:
             },
             "unrestricted": test_exact(by_plot, key, "unrestricted"),
             "ranch_restricted": test_exact(by_plot, key, "ranch"),
+            "ranch_estimand_sensitivity": compare_ranch_estimands(by_plot, key),
         }
+    # Ranch-conditional assignments are composition-unbalanced. An
+    # uncentered global difference can have a nonzero permutation mean.
+    # These are post hoc diagnostic statistics, not randomized causal tests.
+    assert abs(tests["new_per_plot_year"]["ranch_estimand_sensitivity"]
+               ["global"]["randomization_mean"] + 9.794897959183668) < 1e-9
+    assert abs(tests["new_per_plot_year"]["ranch_estimand_sensitivity"]
+               ["global"]["p_centered_two_sided"] - 115 / 240) < 1e-12
+    assert abs(tests["new_per_plot_year"]["ranch_estimand_sensitivity"]
+               ["ranch_equal"]["p_centered_two_sided"] - 148 / 240) < 1e-12
+    assert abs(tests["new_per_plot_year"]["ranch_estimand_sensitivity"]
+               ["ranch_size"]["p_centered_two_sided"] - 120 / 240) < 1e-12
+    assert abs(tests["new_per_100_lagged_individual_years"]
+               ["ranch_estimand_sensitivity"]["global"]
+               ["p_centered_two_sided"] - 109 / 240) < 1e-12
     # 1-ha vs 10-ha remnants: all census plots still cover 0.5 ha.
     ff_one = [p for p in by_plot if p["habitat"] == "one"]
     ff_ten = [p for p in by_plot if p["habitat"] == "ten"]
