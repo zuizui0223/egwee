@@ -1,0 +1,6 @@
+source_id,landscape_group,taxon,year,doi,evidence_role,standing_limit,fragmentation_sensitive_stage,cp_large,cp_small,opr_large,opr_small,admission
+M2010,MYRTUS_GUADALQUIVIR,Myrtus communis,2010,10.1111/j.1365-2664.2010.01879.x,outcrossing_vs_greenhouse_progeny,genetic_progeny_quality,not_identified,,,,,external_mechanism_only
+M2012,MYRTUS_GUADALQUIVIR,Myrtus communis,2012,10.1016/j.ppees.2011.11.002,patch_weighted_recruitment,seedling_emergence_and_survival,establishment_and_safe_site_availability,0.00019,0.000020,0.000015,0.00000035,external_mechanism_only
+M2015,MYRTUS_GUADALQUIVIR,Myrtus communis,2015,10.1111/1365-2664.12424,historical_adult_occupancy,not_measured,historical_landscape_association,,,,,external_mechanism_only
+H2010,HELICONIA_AMAZON,Heliconia acuminata,2010,10.1890/09-0785.1,seed_supply_vs_safe_site,safe_site_limitation,light_heterogeneity_and_establishment,,,,,external_mechanism_only
+P2013,PRIMULA_CANTABRIAN,Primula vulgaris,2013,10.1016/j.baae.2013.08.006,seed_addition_and_later_survival,seed_dispersal,seedling_survival_and_growth,,,,,external_mechanism_only
