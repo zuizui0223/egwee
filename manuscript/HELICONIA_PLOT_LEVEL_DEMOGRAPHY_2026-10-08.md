@@ -50,6 +50,17 @@ The apparent-survival caveat is not hypothetical. Restricting entry to **1999–
 
 Thus **100/210 (47.6%)** of the initially missing seedlings were *subsequently alive*, demonstrating directly that the `missing` category cannot be mapped to mortality. The raw post-missing reappearance proportions (81/146 versus 19/64) differ across habitats but are conditional on being missing; without a detection model, they are **not estimates of habitat-specific survival or detection probability**. Different plant densities, observer detection and plot conditions can select distinct missing subsets. Even `measured/(measured+dead)` conditions on ascertainment and may be biased. A principled next model requires separating a latent alive state from plot/year observation probability and accounting for recorded deaths and later reappearances.
 
+### How recovered missingness changes a plot-level contrast
+
+Restrict both comparisons to the **same 1999–2004 cohorts**. In each plot, the naive minimum survival numerator is the number measured/alive at +1; the verified-reappearance minimum adds only individuals who were missing at +1 and alive at +2 (thus alive at +1 too). Group summaries are equal-plot means:
+
+| Next-year survival minimum | Continuous forest (six plots) | Fragmented forest (seven plots) | Exact plot-label p (1,716) | Ranch-constrained p (240) |
+|---|---:|---:|---:|---:|
+| Classify all +1 missing as dead | 0.60345 | 0.80490 | 0.04953 | 0.02083 |
+| Add only verified +2 alive reappearances | 0.78091 | 0.81990 | 0.22786 | 0.15833 |
+
+The fragment-minus-continuous difference in **confirmed lower bounds** shrinks from about +0.2015 to +0.0390, and the nominal threshold-crossing result disappears. This is not a post hoc choice between two competing estimators of true survival: **the first row is demonstrably false as a mortality classification**, whereas the second row is still only a *lower bound* that leaves other unobserved survivors unresolved. An informative detection-state model is needed before comparing ecological survival effects. The permutation p-values are descriptive diagnostics under exchangeability assumptions, not confirmatory tests of a randomized habitat assignment.
+
 ## Habitat-size and sensitivity warnings
 
 The four 1-ha fragment plots average 12.46 newly detected seedlings per plot-year; the three 10-ha fragment plots average 32.86; continuous plots average 36.93. One-ha-versus-10-ha exact permutation is p=0.0857 (35 assignments), exploratory and extremely low-powered. Lagged-abundance-normalized means are 6.26, 8.43 and 7.25 per 100 plant-years, respectively. These are **three observational groups**, not 13 independently randomized landscapes. In the 13-plot leave-one-plot-out exercise, the sign of the raw mean difference remains negative; the sign of the abundance-normalized difference flips depending on which plot is removed.
