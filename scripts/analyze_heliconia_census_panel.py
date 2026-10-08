@@ -82,7 +82,7 @@ def analyze(plot_rows: list[dict[str, str]], plant_rows: list[dict[str, str]]) -
             "plot": p, "group": "fragment" if p.startswith("FF-") else "continuous",
             "ranch": x["ranch"], "habitat": x["habitat"],
             "new": 0, "measured": 0, "eligible": 0,
-            "alive": 0, "dead": 0, "missing": 0,
+            "alive": 0, "dead": 0, "missing": 0, "missing_later_resighted": 0,
         }
     assert sum(x["group"] == "fragment" for x in plots.values()) == 7
 
@@ -119,6 +119,8 @@ def analyze(plot_rows: list[dict[str, str]], plant_rows: list[dict[str, str]]) -
         state = status[key].get(year + 1)
         assert state in {"measured", "dead", "missing"}, (key, year, state)
         rec[{"measured": "alive", "dead": "dead", "missing": "missing"}[state]] += 1
+        if state == "missing" and any(s == "measured" for yr, s in status[key].items() if yr > year + 1):
+            rec["missing_later_resighted"] += 1
 
     plot_summary: list[dict] = []
     for x in sorted(plots.values(), key=lambda r: r["plot"]):
@@ -154,6 +156,8 @@ def analyze(plot_rows: list[dict[str, str]], plant_rows: list[dict[str, str]]) -
     assert abs(stats["known_alive_fraction"]["mean_by_group"]["continuous"] - 0.8499583537) < 1e-8
     assert abs(stats["known_alive_fraction"]["mean_by_group"]["fragment"] - 0.8582054820) < 1e-8
     assert abs(stats["missing_fraction"]["ranch_stratified_exact_plot_label"]["two_sided_p"] - 0.0416666667) < 1e-8
+    assert sum(x["missing_later_resighted"] for x in plot_summary if x["group"] == "continuous") == 91
+    assert sum(x["missing_later_resighted"] for x in plot_summary if x["group"] == "fragment") == 25
     return {
         "status": "EXPLORATORY_EXTERNAL_DIAGNOSTIC_NOT_PRIMARY_EGWEE",
         "source_repo": "BrunaLab/HeliconiaSurveys",
@@ -163,6 +167,10 @@ def analyze(plot_rows: list[dict[str, str]], plant_rows: list[dict[str, str]]) -
         "n_individuals": len(status),
         "n_seedlings_first_recorded": count_seed,
         "n_plots": len(plots), "balanced_recruitment_years": "1999-2006",
+        "later_resighted_after_missing_by_group": {
+            g: sum(x["missing_later_resighted"] for x in plot_summary if x["group"] == g)
+            for g in ("continuous", "fragment")
+        },
         "followup_seedling_cohorts": "1999-2005, next year observed",
         "plot_rows": plot_summary,
         "stats": stats,
@@ -193,6 +201,7 @@ def main() -> None:
               f"fragment={s['mean_by_group']['fragment']:.6f} "
               f"p_unrestricted={s['unrestricted_exact_plot_label']['two_sided_p']:.6f} "
               f"p_ranch={s['ranch_stratified_exact_plot_label']['two_sided_p']:.6f}")
+    print(f"post_missing_resighted: {result['later_resighted_after_missing_by_group']}")
     print("HELICONIA_SOURCE_PINNED_AUDIT: PASS, external_only=True")
     if args.json_out:
         args.json_out.parent.mkdir(parents=True, exist_ok=True)
