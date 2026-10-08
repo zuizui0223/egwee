@@ -38,6 +38,22 @@ Confirmed status among eligible seedlings:
 
 First-year conditional-on-known survival is similarly close. But the missingness fraction is quite heterogeneous, with CF-6 alone having 51 unknown of 72 eligible seedlings. Extreme missing-outcome assumptions change the FF–CF difference from positive (unknown all dead) to negative (unknown all alive). **Do not claim survival is unaffected, or that the conditional comparison identifies a common vital rate.** Outcome ascertainment and year-dependent drought could select the observed individuals.
 
+## Ranch-conditional estimand audit: conditioning is not the same as adjustment
+
+The existing ranch-restricted permutation holds the **numbers of fragment and continuous plots within each ranch fixed**, but still uses a *global* seven-versus-six mean difference as its statistic. Because ranch composition differs between the two habitat labels, this statistic has a **nonzero** conditional permutation mean even under within-ranch label exchangeability. For new seedlings per 0.5-ha plot-year, its observed difference is -15.72449 but its permutation distribution is centred at **-9.79490**, not zero. Hence the existing 240-assignment absolute-value p=0.23750 is a valid descriptive tail for the *specified* statistic under the permutation scheme, but cannot be described as a purely within-ranch adjusted contrast.
+
+A separate post hoc sensitivity explicitly constructs contrasts **inside each ranch first**, then averages them. Exact permutations keep the same 240 possible assignments. All p-values are descriptive, not randomization-design-based causal inference.
+
+| Outcome (FF - CF) | Global difference + ranch-constrained labels, p relative to 0 | Global difference + centred tail, p relative to its null mean | Equal-weight three-ranch differences, p | Plot-count-weighted ranch differences, p |
+|---|---:|---:|---:|---:|
+| New seedlings / plot-year | -15.72449; 0.23750 | -15.72449; **0.47917** (null mean -9.79490) | **-3.90476; 0.61667** | -5.89011; 0.50000 |
+| New seedlings / 100 prior observed living plant-years | -0.06086; 0.97083 | -0.06086; **0.45417** (null mean -0.68841) | **+0.67483; 0.55000** | +0.78002; 0.45417 |
+| Next-year survival conditional on known fate | +0.00825; 0.56667 | +0.00825; **0.80000** (null mean +0.00393) | +0.00363; 0.85417 | +0.00401; 0.83750 |
+
+The three ranches are **Esteio**, **Dimona** and **Porto Alegre**. Their source landscapes and starting population sizes differ markedly. The site-composition-adjusted observational contrast is much weaker for the per-area recruit count, while the lagged-stock-normalized contrast remains small and model-dependent. With just three ranch contexts and no paired seed-input or safe-site variables, these results do **not** identify recruitment limitation, stage compensation, or a general fragmentation effect. An adjusted-to-ranch estimand was not preregistered; the table is a choice-of-statistic sensitivity and guards against mistakenly equating *restricted permutation labels* with *adjusted ecological effects*.
+
+Reproduce the supplemental JSON keys `tests.<metric>.ranch_estimand_sensitivity` with `scripts/check_heliconia_plot_demography.py`; the main five-cluster corpus is unchanged.
+
 ## Verified reappearance after a missing census
 
 The apparent-survival caveat is not hypothetical. Restricting entry to **1999–2004** makes both the +1 and +2 subsequent census available in every plot through 2006. Of the first-census incident seedlings that were recorded as `missing` at +1, the next census at +2 contains:
