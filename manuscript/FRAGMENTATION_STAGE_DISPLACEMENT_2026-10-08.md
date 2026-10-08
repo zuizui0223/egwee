@@ -101,6 +101,14 @@ The conservation implication is testable, not automatic: boosting pollen exchang
 
 A fourth route, **short-term assurance followed by genetic filtering**, is distinguished by preserved seed number with high selfing/relatedness and lower later survival (Rhododendron and Samanea).
 
+## Distinguish standing bottleneck from fragmentation-specific damage
+
+A stage with the greatest background attrition is not necessarily the stage that responds most strongly to fragmentation, nor necessarily the most efficient restoration target. These are three different questions and require three estimands. See [stage-opportunity competing test](STAGE_OPPORTUNITY_TEST_2026-10-08.md).
+
+*Primula vulgaris* supplies an independent experimental boundary (Valdes & Garcia 2013, doi:10.1016/j.baae.2013.08.006): its seed-addition experiment documented strong underlying dispersal limitation, which did not clearly vary with the examined landscape gradients, whereas later seedling survival and growth varied with landscape and microsite conditions. Therefore 'repair the most limiting stage' is not synonymous with 'repair the fragmentation-induced loss'. A stage-specific restoration recommendation needs an intervention contrast and a fixed downstream recruitment outcome; standing transition probabilities alone do not certify treatment leverage.
+
+In *Myrtus*, the 2012 paper gives a complementary scale distinction: the contrast in conditional cumulative recruitment probability is about 9.5-fold whereas microhabitat-availability-weighted overall recruitment differs by about 43-fold (the source reports approximately 44-fold). The ratio-of-ratios is descriptive only and must not be called an independently estimated 4.5-fold causal microhabitat effect.
+
 ## Conservation implication
 
 The appropriate intervention depends on **the first biological transition that fails**, not on the most accessible upstream indicator:
