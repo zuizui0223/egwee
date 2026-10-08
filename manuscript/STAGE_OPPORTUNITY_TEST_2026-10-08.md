@@ -1,5 +1,55 @@
 # Stage opportunity versus reproductive quality
 
-Status: exploratory literature crosswalk. This is not part of the frozen quantitative meta-analysis.
+Status: **post hoc causal-competitor crosswalk, not a fitted stage-switch law**. This note is an ecological exploration in EGWEE (empirical plant ecology), not EGWE/NEE operator theory, and does not add to any existing meta-analysis denominator.
 
-The ecological test distinguishes reproductive performance in sampled microsites from their landscape availability. Detailed quantitative interpretation and preregistered prediction rules will be added after source verification.
+## Question
+
+Can habitat fragmentation reduce population renewal even where mating quality or early reproductive output looks intact, because the *availability* of suitable recruitment microhabitat changes independently of seed or seedling quality?
+
+This must distinguish (i) performance conditional on being in an observed microhabitat, (ii) the abundance of each microhabitat across an entire patch, (iii) propagule arrival there, and (iv) subsequent survival. Simply counting visited flowers, measuring glasshouse germination or sampling only surviving seedlings conditions on different stages.
+
+## Source-verified anchor: Myrtus communis
+
+Gonzalez-Varo, Nora & Aparicio (2012; doi:10.1016/j.ppees.2011.11.002, open author manuscript at https://rodin.uca.es/handle/10498/34772) examined 10 Mediterranean woodland remnants, four large and six small, over 2007–2010; four large and four small patches underlie the published Figure 5 recruitment comparison. Their paper reports mean *cumulative* recruitment probabilities (CP) of 1.9e-4 in large versus 2.0e-5 in small patches (approximately 9.5-fold), but *overall*, microhabitat-availability-weighted probabilities (OPR) of 1.5e-5 versus 3.5e-7 (approximately 42.9-fold, described by the source as 44-fold). The relative contrast is therefore approximately 4.5 times stronger for OPR than for CP, using the displayed group means.
+
+This **ratio of ratios is descriptive**. It is not a measured causal multiplier from experimentally changing safe-site area, nor an independently estimated parameter: grouped means, non-linear weighting, site coverage and years differ. The paper's own model-based decomposition attributes more than 75% of OPR differences to microhabitat availability; that claim belongs to the source, not to a new EGWEE causal estimate.
+
+Gonzalez-Varo et al. (2010; doi:10.1111/j.1365-2664.2010.01879.x) found that effective outcrossing and greenhouse seedling production were highest in the small-connected group (mean t_m 0.62) and lowest in small-isolated plants (mean t_m 0.13). For the named overlapping patches, PTR had outcrossing t_m 0.72 and greenhouse final normal seedling production 68.3% but the lowest field early establishment performance in the 2012 study; CRB had t_m 0.13, greenhouse 43.3% and some better field early-stage percentages. The 2012 authors themselves discuss this rank reversal. Both papers include partially overlapping population names but not a synchronized tagged-seed series; CRB lacked accumulated juveniles despite relatively favourable short-term field percentages.
+
+Gonzalez-Varo et al. (2015; doi:10.1111/1365-2664.12424) found current myrtle occurrence in 110 of 304 patches to align better with historical (1956) than contemporary (2002) woodland cover. The result supports lagged adult occupancy, **not observed subsequent population extinction**, and is a third publication from the same species-region system, not independent biological replication.
+
+## Independent taxon, but not pooled replication
+
+Uriarte et al. (2010; doi:10.1890/09-0785.1) studied tropical *Heliconia acuminata* in 10 mapped forest plots of 0.5 ha. Their analysis attributed the strongest establishment constraint to safe sites, and linked landscape fragmentation to less favourable light heterogeneity, with weaker fragmentation responses in seed production and dispersal. This strengthens the plausibility of a *distinct taxon and biome* route, but the two programmes lack common stage-level estimands and cannot be pooled as replicated effect sizes.
+
+Duncan et al. (2009; doi:10.1890/08-1436.1) had already formulated recruitment functions based on seed supply and safe-site availability. The conditional-versus-available distinction, sequential bottlenecks and extinction debt are **not new discoveries**.
+
+## Identifiable ecological contrast
+
+Let a_m denote the fraction of a patch footprint that provides microhabitat m; let q_m be the probability of arrival and subsequent recruitment conditional on that microhabitat (using a consistently specified source population and reproductive episode). The minimal descriptive functional is
+
+    R_area = sum_m a_m q_m
+
+Only after measuring the full microhabitat coverage, including unusable or zero-recruitment area, does this estimate *whole-patch* recruitment opportunity. Normalizing the observed favourable sites to sum to one would discard precisely the spatial scarcity under test. Under habitat gradients, the q_m and a_m can change simultaneously and their contributions cannot generally be disentangled with a single cross-sectional observation.
+
+The falsifiable disagreement is not whether R_area mathematically includes a_m. It is whether **measured changes in opportunity explain held-out field recruitment better than mating/seed quality alone and predict which restoration action succeeds**.
+
+For each independent patch and reproductive episode, record: effective compatible donors / outcrossing and progeny quality; propagule number and spatial rain; microhabitat area and safe-site traits; seedling emergence, summer survival and cumulative recruits. Link maternal seed lots to experimental outplanting sites. Repeated flowers, seeds, seedlings and microsite plots are nested units, not extra landscape replicates.
+
+## Three competing intervention models
+
+**Quality-limited:** under controlled safe-site availability and arrival, experimentally improved compatible/outcross pollen raises viable-seed and later recruit yield; microsite enhancement adds little after adjusting for its own availability.
+
+**Opportunity-limited:** the same standardized high-quality seeds establish poorly where suitable microhabitat is scarce or degraded; restoration of safe-site area/quality improves recruits per patch footprint more than pollen rescue, even if greenhouse progeny ranks higher elsewhere.
+
+**Joint / switching constraint:** both treatments matter, with treatment rankings differing among patches or seasons; a cross-stage ranking reversal or interaction alone is not evidence of a new universal switching mechanism. Count interventions on the same downstream recruit scale and compare out-of-patch predictions.
+
+A feasible prospective factorial separates pollen-provenance rescue on maternal plants and safe-site improvement during transplantation of their offspring. Split seed lots among spatial treatments, randomize within *independent* landscapes, measure actual dispersal separately, and predefine recruits per initial flower and recruits per standardized deposited seed as separate targets. Hold out complete landscapes for prediction. On an additive scale, a positive treatment interaction can arise mechanically from multiplied transition probabilities; mechanism demands stage-specific measurements rather than interaction significance alone.
+
+## Stop rules and novelty ceiling
+
+1. Do not add these case reports to the frozen 5-cluster direct synthesis, the 8 matched I-F programmes, the 16-programme topology or the SF06 public-S1 denominator.
+2. Do not count 2010/2012/2015 Myrtus as three independent species/landscape replications; cross-paper rank inversion is not synchronized mediation.
+3. Do not infer intervention-effect sizes from the 2012 observational microhabitat decomposition.
+4. Do not call recruitment-stage importance or seed/safe-site limitation new. A genuinely stronger claim requires **held-out, independently replicated identification of which intervention increases realized recruitment**, beyond the best simpler quality-only, opportunity-only and baseline models.
+5. Until such tests exist, this is a *mechanistic competing-explanation protocol* supporting a narrower EGWEE narrative, not a new confirmed law.
