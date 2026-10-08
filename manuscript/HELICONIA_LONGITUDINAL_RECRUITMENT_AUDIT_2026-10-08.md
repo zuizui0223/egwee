@@ -28,6 +28,20 @@ The 1999–2005 eligible cohorts include **2,590 newly recorded seedlings**: 1,5
 
 **A missing plant is not necessarily dead.** Of the 151 continuous seedlings reported `missing` at one-year follow-up, **83 were measured again the following census**. Among fragments the corresponding number is 19/71, with some second-follow-up years not surveyed. The paper's status definitions explicitly identify `missing` as “not found during census,” not death. Treating that state as dead creates an apparently strong advantage for fragments at the plot level; excluding it almost eliminates that contrast. Both extremes can misrepresent the biological truth, so the effect of habitat on true annual survival is **not identified** by either simple shortcut.
 
+## Ranch-specific direction reversals (exploratory, n=3 geographical blocks)
+
+The raw new-seedling contrast is **not directionally homogeneous across sampling ranches**, even before modelling temporal effects:
+
+| Ranch | Reference plots / fragment plots | Mean annual newcomers per continuous plot | Mean annual newcomers per fragmented plot | Fragment − reference |
+|---|---:|---:|---:|---:|
+| Esteio | 3 / 2 | 65.43 | 35.71 | −29.72 |
+| Dimona | 1 / 3 | 4.86 | 10.86 | +6.00 |
+| Porto Alegre | 2 / 2 | 10.21 | 22.21 | +12.00 |
+
+Thus the pooled negative average is largely associated with one geographical block, **not a common direction across all three blocks**. Dimona has only one control plot, and all estimates may reflect differences in local standing stock, history, environment or detection. This is a descriptive inconsistency in the generality of a single signed effect, not evidence that fragments enhance recruitment in two regions.
+
+Using newcomers per 100 measured plant-year records instead, the direction changes again: Esteio continuous 8.04 versus fragmented 9.63; Dimona 4.72 versus 6.02; Porto Alegre 6.22 versus 4.57. These ratios have an endogenous denominator and should not be promoted as biological causal effects. They demonstrate that the apparent direction of a 'recruitment effect' depends critically on **whether the estimand is whole-patch newcomer abundance or observed newcomer density relative to standing stock**.
+
 ## Biological interpretation and failure to replicate a stronger claim
 
 The observed landscape-group mean of new seedlings per equal-size plot is lower in fragments, but between-plot heterogeneity is large and the ranch-blocked exact test is not compelling. Standardising by measured stock makes this difference small; **new seedlings / measured plant-year records is not true per-capita fecundity**, and the denominator may itself respond to fragmentation. Likewise, flowering status and seedling entry are not proven to be linked to the same parents or fruit-production year.
