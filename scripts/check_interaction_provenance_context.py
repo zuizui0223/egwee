@@ -67,9 +67,13 @@ def main() -> None:
     assert "Translation modifier: reproductive assurance" in note
     assert "mating system and reproductive assurance determine" in note
 
-    assert "two-stage masking hypothesis" in manuscript
-    assert "surviving-progeny mating estimates" in manuscript
-    assert "not a confirmed common mechanism" in manuscript
+    # Main manuscript now promotes a broader branching-pathway synthesis.
+    # The narrower two-stage hypothesis is preserved in the provenance note,
+    # but must not be imposed as the exclusive manuscript mechanism.
+    assert "branching-pathway explanation" in manuscript
+    assert "within-pathway masking" in manuscript
+    assert "Transfer provenance and effective mating remain important missing coordinates" in manuscript
+    assert "not required to explain every mismatch" in manuscript
 
     print(
         "INTERACTION_PROVENANCE_CONTEXT: PASS; "
