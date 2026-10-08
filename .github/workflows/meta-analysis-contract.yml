@@ -61,6 +61,10 @@ on:
       - 'scripts/check_interaction_provenance_context.py'
       - 'scripts/check_fragmentation_translation_decomposition.py'
       - 'scripts/check_effective_reproductive_assurance_context.py'
+      - 'scripts/check_myrtus_stage_displacement.py'
+      - 'manuscript/FRAGMENTATION_STAGE_DISPLACEMENT_2026-10-08.md'
+      - 'evidence/meta_extraction/fragmentation_stage_displacement_context_v1.csv'
+      - 'evidence/meta_extraction/myrtus_2010_2012_patch_crosswalk_v1.csv'
       - 'evidence/meta_extraction/effective_reproductive_assurance_context_v1.csv'
       - 'evidence/meta_extraction/interaction_provenance_context_v1.csv'
       - 'manuscript/INTERACTION_PROVENANCE_HYPOTHESIS_2026-10-06.md'
@@ -201,6 +205,8 @@ jobs:
         run: python scripts/check_fragmentation_translation_decomposition.py
       - name: Audit effective reproductive-assurance context
         run: python scripts/check_effective_reproductive_assurance_context.py
+      - name: Audit Myrtus stage-displacement and extinction-debt crosswalk
+        run: python scripts/check_myrtus_stage_displacement.py
       - name: Audit qualitative process-function sign geometry
         run: python scripts/check_qualitative_process_function_sign_geometry.py
       - name: Audit scale-stable interaction-quantity proxy failure
