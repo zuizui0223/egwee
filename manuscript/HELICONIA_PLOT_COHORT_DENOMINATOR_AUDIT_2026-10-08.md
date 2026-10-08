@@ -6,7 +6,7 @@
 
 - Bruna et al. (2023) public demographic data: https://github.com/BrunaLab/HeliconiaSurveys/blob/master/data/survey_archive/HDP_survey.csv
 - Original source Git blob: `f82a6f241493a979a2923d1c5deef6a1be0ff3ed`. Associated plot metadata: `data/survey_archive/HDP_plots.csv`. The README documents 66,396 plant-year rows, 8,586 unique plants and 3,464 `recorded_sdlg=TRUE` individuals.
-- Thirteen **independent 0.5 ha plots**, rather than 66,396 or 2,590 independent fragmentation replicates; six continuous-forest plots, four 1-ha-fragment plots, three 10-ha-fragment plots, nested in three ranch/geographic contexts.
+- Thirteen **0.5 ha plot-level units**, not 13 independently randomized landscapes and certainly not 66,396 or 2,590 fragmentation replicates; six continuous-forest plots, four 1-ha-fragment plots and three 10-ha-fragment plots, nested within three ranch/geographic contexts. CF-2 and CF-3 share reserve no. 1501, so landscape exposure independence is **less** than 13 and all permutation p-values remain explicitly descriptive.
 - Balanced early cohort frame: newly recorded seedlings in 1999–2005; their *next* census is in 2000–2006, preceding the missing late annual censuses for FF-5/FF-6 (2007) and FF-7 (2007–2009). A later census does not guarantee exact yearly measurement.
 - The source-derived 13-row frozen table is `evidence/meta_extraction/heliconia_plot_cohorts_1999_2005_v1.csv`; deterministic source-to-plot calculations are specified by those columns and the source Git blob. Exact audit: `scripts/check_heliconia_plot_recruitment_audit.py`.
 - The input `census_status` labels are `measured` (observed alive), `dead` (observed dead), and `missing` (not found); **missing is not dead**.
@@ -43,6 +43,24 @@ The unresolved ecological causal fork is:
 4. **Later growth/survival bottlenecks** absent from this first-year contrast.
 
 None can be selected from these descriptive ratios alone. The appropriate next diagnostic needs source-seed supply, vegetation/edge and microhabitat covariates and held-out independent landscapes, not a significance search across denominators.
+
+## Post hoc forward prediction: habitat label versus initial census abundance
+
+A separate, minimal **1998→1999–2005** holdout exercise asks a more concrete diagnostic question: how much of the observed seven-year seedling count in an unseen plot can be predicted from just its initial living-plant abundance, versus the forest-fragmentation category? No new predictors are fitted from future individuals.
+
+| Single-variable forecasting rule | Leave-one-plot-out MSE (seedlings² per plot) | Leave-one-ranch-out RMSE (seedlings per plot) |
+|---|---:|---:|
+| Training overall mean (no covariates) | 32,375 | 235.5 |
+| Training mean for same continuous/fragment habitat | 34,939 | 254.1 |
+| Training proportional-through-origin model: recruits = coefficient × 1998 living plants | **5,922** | **118.9** |
+
+This is a **post hoc** model comparison. Initial plant abundance is a much better **predictor** of future *absolute count* than the simple fragmentation label in these 13 plots, but there is no independent held-out landscape beyond the same BDFFP programme. The strong result partly reflects an obvious counting constraint: patches with more living plants have more potential seed sources. It does not identify whether seed delivery, germination/safe sites, fecundity or census detection caused the pattern; it does **not** establish a new mechanistic law.
+
+**Causal warning:** fragmentation dates to 1980–1984, years before the 1998 census. Baseline population size is therefore a **post-exposure state**, potentially a mediator of fragmentation's total effect. Conditioning on it answers a different question and may erase real damage through decreased source-population size. The proper contrast is *total recruits per area* for whole-patch population renewal versus *recruits per historical baseline individual* for conditional production accounting; neither alone proves what intervention is optimal.
+
+A local floral-neighbourhood experiment in this species (Bruna et al. 2004, doi:10.1590/S0044-59672004000300012) found no clear individual reproductive-success effect of manipulating nearby flowering-plant density within the tested range. It does not refute the observed plot-level abundance predictor: local per-flower success, absolute numbers of maternal plants and spatial seed deposition are distinct processes.
+
+Code: `scripts/check_heliconia_density_predictive_value.py`. The project already has stronger life-table stage analyses from Bruna & Oli (2005), so none of the predictor results is claimed as discovery of stage-specific fragmentation mechanisms.
 
 ## Critical prior art and novelty limits
 
