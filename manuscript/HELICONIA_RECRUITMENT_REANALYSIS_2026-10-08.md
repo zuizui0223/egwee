@@ -27,6 +27,23 @@ The observed contrast in absolute count could follow differences in pre-existing
 
 For transparency, the 1-ha fragment subgroup had 12.46 new seedlings per plot-year and mean per-stock recruitment 0.05813 (four plots); the 10-ha subgroup had 32.86 and 0.07741 (three plots). These exploratory subgroup differences are not an independent second experiment.
 
+## Distinct predictor test: 1998 standing legacy vs fragmentation label
+
+A further **post hoc** comparison predicts mean annual observed new seedlings in 1999–2005 from the *pre-outcome* 1998 number of alive/measured plants in each 0.5-ha plot, the fragment/continuous label, or both. Plot-level Pearson correlation between 1998 standing stock and later annual seedlings is **r=0.9047 (13 plots)**. On ordinary untransformed observed-seedling-count scale, with equal plot weights, linear regression gives:
+
+| Predictor | Leave-one-plot-out MSE | Leave-one-ranch-out MSE |
+|---|---:|---:|
+| Intercept only | 660.72 | 1132.08 |
+| Fragment label only | 713.03 | 1318.11 |
+| 1998 standing stock only | **131.36** | **248.89** |
+| 1998 standing stock + fragment label | 150.63 | 280.36 |
+
+The leave-one-ranch-out design holds out **all plots** within each of three geographically defined ranch groups (Esteio, Dimona and Porto Alegre); it is a more stringent transfer sensitivity than leaving out one neighbouring plot, but comprises only three held-out groups. A ranch-preserving plot-label enumeration fixes the observed count of fragments per ranch (Esteio 2/5, Dimona 3/4, Porto Alegre 2/4). Across **240** possible within-ranch assignments, the mean absolute-new contrast gives a descriptive two-sided label probability of **0.2375**, and the stock-normalized contrast **0.79583**.
+
+**Critical causal warning:** the 1998 stock was surveyed many years **after** experimental forest isolation in the 1980s, so it is *not* a pre-fragmentation covariate. Stock can be an ecological **mediator of historical fragmentation effects**, as well as a predictor of later seedling abundance. Adjusting for it can remove real long-run fragmentation effects. Therefore, the stock-only predictive advantage does **not** establish zero fragmentation effect or justify adjusting it away in causal analyses. The improved out-of-ranch MSE is an exploratory prediction comparison, not a causal intervention or predeclared generalization test. Counts also conflate reproductive adults, seed input, safe-site availability, year effects, and detection.
+
+**Sharper forward question:** across comparable fragmented systems, what fraction of observed recruitment deficit is attributable to (a) legacy reproductive-plant supply, (b) conditional seed-to-seedling establishment and (c) safe-site coverage? With maternal identity, seed counts, safe-site mapping and randomised stage-specific supplementation, ask whether a source-population-based predictive model gains independent, held-landscape accuracy from current stage physiology and whether that improvement identifies the treatment that increases recruits. The Heliconia observational census alone cannot partition these causal contributions.
+
 ## Nearest prior work and actual novelty ceiling
 - **Bruna (2002), doi:10.1007/s00442-002-0956-y**: an experimental seed recruitment comparison reported 3–7 times lower establishment in fragments; lower germination implicated. This is *stronger causal evidence of a process* than our observational annual seedling count.
 - **Bruna & Oli (2005), doi:10.1890/04-1716**: LTRE already demonstrated that approximately similar reductions in population growth rate can be attributable to *fertility* in 10-ha fragments and *fertility plus plant growth* in 1-ha fragments. We cannot claim to discover habitat-dependent demographic bottlenecks in Heliconia.
