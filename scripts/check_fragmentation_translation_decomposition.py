@@ -23,8 +23,18 @@ def main() -> None:
         assert token in note, token
 
     assert "not a fitted equation, an exact identity" in note
-    assert "Q × P × V + A" in manuscript
-    assert "effective reproductive assurance" in manuscript
+    # Keep the heuristic algebra confined to the mechanism note. The paper
+    # deliberately broadens the causal alternatives beyond a single Q→F route;
+    # requiring the formula verbatim would force an oversimplified main-text claim.
+    for token in (
+        "interaction quantity, mating provenance",
+        "post-transfer viability",
+        "compensatory reproduction",
+        "downstream dispersal/recruitment",
+        "not a fitted causal model",
+        "effective reproductive assurance",
+    ):
+        assert token in manuscript, token
 
     print("FRAGMENTATION_TRANSLATION_DECOMPOSITION: PASS")
 
