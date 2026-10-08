@@ -32,7 +32,7 @@ def read_verified(source: str | None, name: str, sha: str) -> list[dict[str, str
     else:
         with urlopen(f"{SRC_ROOT}/{name}", timeout=90) as response:
             data = response.read()
-    actual_sha = hashlib.sha1(f"blob {len(data)}\\0".encode() + data).hexdigest()
+    actual_sha = hashlib.sha1(f"blob {len(data)}\0".encode() + data).hexdigest()
     assert actual_sha == sha, (name, actual_sha, sha)
     return list(csv.DictReader(io.StringIO(data.decode("utf-8"), newline="")))
 
