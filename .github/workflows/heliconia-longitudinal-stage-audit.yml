@@ -1,0 +1,26 @@
+name: Heliconia longitudinal-stage source audit
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - 'scripts/check_heliconia_longitudinal_recruitment.py'
+      - 'evidence/meta_extraction/heliconia_cohort_1999_2005_plot_v1.csv'
+      - '.github/workflows/heliconia-longitudinal-stage-audit.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  source_recovery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify upstream Git blob and plot-level recruitment audit
+        run: python scripts/check_heliconia_longitudinal_recruitment.py
