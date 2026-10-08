@@ -11,7 +11,6 @@ import hashlib
 import io
 import itertools
 import json
-import math
 import statistics
 import urllib.request
 from collections import defaultdict
@@ -32,7 +31,7 @@ def load(filename: str, local_dir: Path | None) -> list[dict[str, str]]:
             raw = response.read()
     else:
         raw = (local_dir / filename).read_bytes()
-    blob = hashlib.sha1(f"blob {len(raw)}\\0".encode().replace(b"\\0", b"\0") + raw).hexdigest()
+    blob = hashlib.sha1(f"blob {len(raw)}".encode("ascii") + bytes([0]) + raw).hexdigest()
     assert blob == EXPECTED_BLOBS[filename], (filename, blob, "source changed; stop")
     return list(csv.DictReader(io.StringIO(raw.decode("utf-8-sig"), newline="")))
 
