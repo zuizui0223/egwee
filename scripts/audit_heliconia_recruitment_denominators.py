@@ -31,7 +31,7 @@ def load_csv(filename: str) -> list[dict[str, str]]:
         req = urllib.request.Request(BASE + filename, headers={"User-Agent": "egwee-source-hash-audit"})
         with urllib.request.urlopen(req, timeout=40) as res:
             data = res.read()
-    actual = hashlib.sha1(b"blob " + str(len(data)).encode() + b"\\0" + data).hexdigest()
+    actual = hashlib.sha1(b"blob " + str(len(data)).encode() + b"\0" + data).hexdigest()
     assert actual == FILES[filename], (filename, "upstream_source_changed", actual)
     return list(csv.DictReader(io.StringIO(data.decode("utf-8-sig"))))
 
@@ -158,7 +158,7 @@ def main() -> None:
     }
     output = pathlib.Path(__file__).parents[1] / "build" / "heliconia_external_audit"
     output.mkdir(parents=True, exist_ok=True)
-    (output / "summary.json").write_text(json.dumps(result, indent=2) + "\\n", encoding="utf-8")
+    (output / "summary.json").write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
     with (output / "per_plot.csv").open("w", encoding="utf-8", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=list(out[0]))
         writer.writeheader()
