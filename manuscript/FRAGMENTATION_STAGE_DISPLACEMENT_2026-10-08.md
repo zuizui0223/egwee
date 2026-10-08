@@ -42,6 +42,31 @@ The 2009, 2010 and 2012 papers study the same species in the Guadalquivir fragme
 
 The corrected SF06 fragmentation residual model did not resolve a self-compatibility coefficient after controlling pollination effect (gamma_SC=+0.0639; 95% CI -0.263 to +0.390; p=0.701). The Myrtus evidence gives a specific **within-species** reason a nominal SC label can be insufficient: effective outcrossing varies from a predominantly selfed isolated population to substantially outcrossed connected populations under the *same* compatibility classification, and outcrossing tracks seedling quality. This is mechanistic compatibility, not evidence that Myrtus caused the SF06 null or that all species behave similarly.
 
+## Matched-patch rank reversal: genetic potential versus field establishment
+
+The 2012 paper explicitly compares its field study against the 2010 greenhouse experiment at the **same named populations**, rather than leaving this linkage to an inference from similar species or regions. The 2010 genetic study reported multilocus outcrossing estimates for five populations (DBL 0.23, CHP 0.46, CCL 0.51, PTR 0.72, CRB 0.13). Four population codes, DBL, CHP, PTR and CRB, also occur in the 2012 field figures. The fifth genotyped population CCL is absent from those 2012 site-level panels.
+
+The strongest direct comparison uses the two small patches:
+
+- **PTR** (2010: small-connected, t_m=0.72 ±0.12; greenhouse final normal seedling production **68.3%**): the **best** greenhouse germination/seedling-performance population, but the **worst** field performance on the 2012 early establishment comparisons (seedling emergence/seedling lifetime; Fig. 4).
+- **CRB** (2010: small-isolated, t_m=0.13 ±0.10; greenhouse final seedling production **43.3%**): **worst** greenhouse germination/final seedling production but among the **better** short-term field emergence/seedling-performance percentages in 2012 Fig. 4. Nevertheless, the 2012 adult size-structure census lists **CRB and GBL as lacking saplings or juveniles**.
+
+The last two statements are not contradictory. Relative **performance of experimentally established seedlings in a specific year** need not equal the abundance of **naturally recruited juveniles accumulated across many years**. Seed arrival, microhabitat availability, disturbance and historic recruitment windows contribute to the latter.
+
+This is a **reversal of rankings**, not just a small attenuation: outcrossing is strongly associated with greenhouse progeny output across five populations (2010 Kendall tau=1.0, p=0.014) but is **not sufficient to predict the site ordering of field emergence and survival**. The 2012 authors explicitly note this contradiction and invoke environmental establishment filters. It is already a published empirical finding; EGWEE's value is to place it as a distinct causal-competitor to the proposed missing effective-mating layer.
+
+The 2012 field study also reports that mean integrated **overall recruitment probability (OPR)** was about **44-fold higher in large patches** (1.5 × 10^-5 versus 3.5 × 10^-7 in small). **More than 75% of the between-size OPR difference** was attributed in that paper's decomposition to **differences in availability of recruitment microhabitats**, not simply to higher fruit set. Field soil humidity covaried with emergence and lifetime, but large and small patches did not differ significantly in mean soil humidity; the authors discuss canopy, edges, disturbance, soil compaction and other non-exclusive factors. This is a reported mechanistic decomposition, **not a randomized demonstration that any single microsite variable is causal**.
+
+Crucial comparability boundaries: the 2010 greenhouse assay and 2012 field assay do not follow individually tagged, identical seed cohorts. Site codes and the 2012 paper's own explicit PTR/CRB cross-reference establish shared populations, **not a synchronous mediation dataset**. The 2012 paper reuses some 2007 fruit-set observations published in 2009 (Fig. 1), so the three publications must not be treated as fully independent replications. OPR=44-fold is a **patch-size group summary**, not a PTR-vs-CRB effect.
+
+The falsifiable competition is now clear:
+
+- **Mating-only explanation** would expect population ordering in field establishment to follow ordering in greenhouse performance/outcrossing; the observed PTR–CRB inversion challenges sufficiency.
+- **Establishment-only explanation** would not by itself explain the very strong contemporary outcrossing–greenhouse relationship.
+- **Parallel and sequential filters** predict exactly the coexistence of those patterns, but their causal coefficients are not identified by these studies.
+
+The conservation implication is testable, not automatic: boosting pollen exchange may improve offspring potential without restoring establishment where recruitment microsites remain poor; improving establishment alone may fail where genetic or pollen-quality filters suppress propagule quality.
+
 ## Three falsifiable competing biological routes
 
 1. **Mating-quality limit**: visitation is maintained, but compatible donor diversity or effective pollen declines. Prediction: outcross-pollen supplementation improves seed production or offspring quality in a matched episode.
