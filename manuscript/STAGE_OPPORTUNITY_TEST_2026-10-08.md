@@ -58,6 +58,14 @@ Consequently the operative ecological hypothesis is more exact than 'fragmentati
 
 A feasible prospective factorial separates pollen-provenance rescue on maternal plants and safe-site improvement during transplantation of their offspring. Split seed lots among spatial treatments, randomize within *independent* landscapes, measure actual dispersal separately, and predefine recruits per initial flower and recruits per standardized deposited seed as separate targets. Hold out complete landscapes for prediction. On an additive scale, a positive treatment interaction can arise mechanically from multiplied transition probabilities; mechanism demands stage-specific measurements rather than interaction significance alone.
 
+## Longitudinal falsification check: Heliconia `stock` versus `transition`
+
+An observational reanalysis of the published *Heliconia acuminata* demographic archive was conducted separately from the source-graded Myrtus/Primula/Heliconia literature ledger (see [cohort audit](HELICONIA_COHORT_OBSERVATION_AUDIT_2026-10-08.md)). In balanced 1999–2005 cohorts, the absolute average number of observed new seedlings per 0.5-ha plot is lower in fragmented forest (21.20) than continuous forest (36.93), but the corresponding count normalized by the **previous year's measured living stock** is almost identical (7.19 versus 7.25 per 100 prior measured individuals). This illustrates that an absolute per-area shortfall is not, by itself, evidence that *per-existing-individual* new establishment is impaired.
+
+It does **not** establish that fragmentation causes the difference solely through population size: the denominator includes non-reproductive stages, stock can itself be a mediator of past fragmentation, and published life-table studies already find size- and stage-specific demographic effects. In the same archive, first-year survival among known fates differs little, but many tagged seedlings are initially unlocated and later found alive, so full survival and long-term population growth cannot be certified from this shortcut.
+
+Thus the source-derived competing explanations now include not only mating quality versus safe-site opportunity, but also **population stock, life-stage structure and detection**. A claim that a stage is *the* fragmentation bottleneck requires a common outcome (new reproductive individuals or recruits per footprint), stage-resolved measurement, and held-out landscape-level test beyond normalizing away historical population differences.
+
 ## Stop rules and novelty ceiling
 
 1. Do not add these case reports to the frozen 5-cluster direct synthesis, the 8 matched I-F programmes, the 16-programme topology or the SF06 public-S1 denominator.
