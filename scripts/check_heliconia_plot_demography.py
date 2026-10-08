@@ -133,6 +133,45 @@ def analyze(survey: list[dict], plotmeta: list[dict]) -> dict:
             "unrestricted": test_exact(by_plot, key, "unrestricted"),
             "ranch_restricted": test_exact(by_plot, key, "ranch"),
         }
+    # 1-ha vs 10-ha remnants: all census plots still cover 0.5 ha.
+    ff_one = [p for p in by_plot if p["habitat"] == "one"]
+    ff_ten = [p for p in by_plot if p["habitat"] == "ten"]
+    assert len(ff_one) == 4 and len(ff_ten) == 3
+    observed_size = avg([p["new_per_plot_year"] for p in ff_one]) - avg(
+        [p["new_per_plot_year"] for p in ff_ten]
+    )
+    n_size = extreme_size = 0
+    for subset in itertools.combinations([p["plot"] for p in by_plot if p["fragment"]], 4):
+        selected = set(subset)
+        first = [p["new_per_plot_year"] for p in by_plot if p["plot"] in selected]
+        second = [p["new_per_plot_year"] for p in by_plot if p["fragment"] and p["plot"] not in selected]
+        n_size += 1
+        extreme_size += abs(avg(first) - avg(second)) >= abs(observed_size) - 1e-12
+    assert n_size == 35 and extreme_size == 3
+    size_test = {"one_ha_mean": avg([p["new_per_plot_year"] for p in ff_one]),
+                 "ten_ha_mean": avg([p["new_per_plot_year"] for p in ff_ten]),
+                 "difference": observed_size, "p": extreme_size / n_size,
+                 "assignments": n_size}
+
+    # A low p for recruitment conditional on post-exposure standing stock is NOT
+    # a causal estimate; record sensitivity to one entire site being removed.
+    leave_one_out = {}
+    for key in ("new_per_plot_year", "new_per_100_lagged_individual_years"):
+        full = tests[key]["unrestricted"]["difference_FF_minus_CF"]
+        omissions = {}
+        for omitted in by_plot:
+            survivors = [p for p in by_plot if p["plot"] != omitted["plot"]]
+            d = avg([p[key] for p in survivors if p["fragment"]]) - avg(
+                [p[key] for p in survivors if not p["fragment"]]
+            )
+            omissions[omitted["plot"]] = d
+        leave_one_out[key] = {
+            "min_difference": min(omissions.values()),
+            "max_difference": max(omissions.values()),
+            "sign_flips": [plot for plot, d in omissions.items() if d * full < 0],
+        }
+    assert not leave_one_out["new_per_plot_year"]["sign_flips"]
+    assert len(leave_one_out["new_per_100_lagged_individual_years"]["sign_flips"]) == 6
     assert abs(tests["new_per_plot_year"]["unrestricted"]["p_two_sided"] - 454 / 1716) < 1e-12
     assert abs(tests["new_per_100_lagged_individual_years"]["unrestricted"]["p_two_sided"] - 1659 / 1716) < 1e-12
     assert abs(tests["survival_known"]["unrestricted"]["p_two_sided"] - 1123 / 1716) < 1e-12
@@ -146,7 +185,8 @@ def analyze(survey: list[dict], plotmeta: list[dict]) -> dict:
         "disclaimer": "New seedlings are detected individuals, not seed germination probability. "
                       "Normalization conditions on potentially fragmentation-affected standing stock. "
                       "Missing is NOT death; groups are unbalanced by ranch.",
-        "tests": tests, "plot_data": by_plot,
+        "tests": tests, "fragment_size_exploratory": size_test,
+        "leave_one_plot_out": leave_one_out, "plot_data": by_plot,
     }
 
 
