@@ -2,7 +2,7 @@
 
 ## Status and purpose
 
-Post-exposure exploratory diagnostic, **not a preregistered endpoint**. Uses only the corrected, source-hash-gated public Supplementary Table S1 pair CSV. Its purpose is to distinguish "no improvement in a 0/1 decision at one threshold" from the stronger and unjustified assertion "pollination sign contains no information".
+Post-exposure exploratory diagnostic, **not a preregistered endpoint**. Uses only the corrected, source-hash-gated public Supplementary Table S1 pair CSV. This is a stricter 54-pair constituent-consensus sensitivity to the existing 55-pair IVW-sign probability audit (SF06_LOPO_SIGN_PROBABILITY_VALUE_2026-10-07.md), **not an independent replication**. A one-pair difference is expected because the main topology excludes a mixed-consensus pair. Its purpose is to distinguish "no improvement in a 0/1 decision at one threshold" from the stronger and unjustified assertion "pollination sign contains no information".
 
 ## What the full 54-pair table actually says
 
