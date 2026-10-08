@@ -249,8 +249,6 @@ jobs:
         run: python scripts/check_ecological_mating_function_programme_census.py
       - name: Validate fresh ecological I-F validation contract
         run: python scripts/check_fresh_ecological_if_validation_contract.py
-      - name: Validate ecology-first submission freeze
-        run: python scripts/check_submission_freeze.py
       - name: Audit all 17 primary marginal effects
         run: python scripts/check_primary_effect_supplement.py
       - name: Build supplementary primary-effect forest
@@ -269,3 +267,7 @@ jobs:
           name: anonymous-review-package
           path: build/anonymous_review_package.zip
           if-no-files-found: error
+      # The publication freeze remains fail-closed, but should not mask upstream
+      # scientific validation or artifact failures during an open revision.
+      - name: Validate ecology-first submission freeze
+        run: python scripts/check_submission_freeze.py
