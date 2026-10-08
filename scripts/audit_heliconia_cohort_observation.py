@@ -120,7 +120,7 @@ def run(source_dir: Path | None) -> dict:
         c = counts[plot]
         c["cohorts"] += 1
         next_state = track.get(y + 1, {}).get("status", "absent")
-        c[next_state] += 1
+        c["alive" if next_state == "measured" else next_state] += 1
         if next_state == "missing" and any(
             later > y + 1 and rec["status"] == "measured"
             for later, rec in track.items()
