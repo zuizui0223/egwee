@@ -121,6 +121,31 @@ def analyze(survey: list[dict], plotmeta: list[dict]) -> dict:
         })
 
     assert sum(p["new_seedlings"] for p in by_plot) == 2590
+    # Use only 1999–2004 entrants for a common *second* follow-up across
+    # all 13 plots (2001–2006); 2007 is not observed in every fragment.
+    # Direct evidence that the intervening 'missing' status is not death:
+    reappearance = {"CF": {"cohort": 0, "missing_next": 0, "alive_plus2": 0,
+                           "dead_plus2": 0, "missing_plus2": 0},
+                    "FF": {"cohort": 0, "missing_next": 0, "alive_plus2": 0,
+                           "dead_plus2": 0, "missing_plus2": 0}}
+    for (p, pid), b in births.items():
+        if b < 1999 or b > 2004:
+            continue
+        group = "CF" if meta[p]["habitat"] == "forest" else "FF"
+        rec = reappearance[group]
+        rec["cohort"] += 1
+        if individuals[(p, pid)].get(b + 1) == "missing":
+            rec["missing_next"] += 1
+            plus2 = individuals[(p, pid)].get(b + 2)
+            assert plus2 in ("measured", "dead", "missing"), (p, pid, b, plus2)
+            rec[{"measured": "alive_plus2", "dead": "dead_plus2",
+                 "missing": "missing_plus2"}[plus2]] += 1
+    assert reappearance["CF"] == {
+        "cohort": 1437, "missing_next": 146, "alive_plus2": 81,
+        "dead_plus2": 22, "missing_plus2": 43}
+    assert reappearance["FF"] == {
+        "cohort": 932, "missing_next": 64, "alive_plus2": 19,
+        "dead_plus2": 10, "missing_plus2": 35}
     fields = ("new_per_plot_year", "new_per_100_lagged_individual_years",
               "survival_known", "survival_lower", "survival_upper", "missing_fraction")
     tests = {}
@@ -186,7 +211,8 @@ def analyze(survey: list[dict], plotmeta: list[dict]) -> dict:
                       "Normalization conditions on potentially fragmentation-affected standing stock. "
                       "Missing is NOT death; groups are unbalanced by ranch.",
         "tests": tests, "fragment_size_exploratory": size_test,
-        "leave_one_plot_out": leave_one_out, "plot_data": by_plot,
+        "leave_one_plot_out": leave_one_out, "missing_return_at_plus2": reappearance,
+        "plot_data": by_plot,
     }
 
 
