@@ -20,7 +20,7 @@ Both programmatic source-integrity and result checks are in [`scripts/check_heli
 | New seedlings / 100 measured plant-year records, mean of plot-specific ratios | 6.879 | 6.639 | −0.240 | 0.7958 |
 | Next-year survival *among alive/dead-classified* first-year seedlings, equal-plot mean | 0.8500 | 0.8582 | +0.0082 | 0.5667 |
 | Fraction classified alive if all `missing` were **wrongly** called dead, equal-plot mean | 0.6348 | 0.8035 | +0.1687 | 0.0208 |
-| Fraction classified missing next year, equal-plot mean | 0.2587 | 0.0703 | −0.1884 | 0.0417 |
+| Fraction classified missing next year, equal-plot mean | 0.2523 | 0.0638 | −0.1884 | 0.0417 |
 
 The two-sided exact permutation enumerates 240 within-ranch relabellings (Esteio choose 3 of 5 reference plots; Dimona 1 of 4; Porto Alegre 2 of 4). Equal-plot means are intentionally different from seedling-weighted frequencies.
 
