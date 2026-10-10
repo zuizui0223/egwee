@@ -41,6 +41,7 @@ def load(local_dir: Path | None) -> tuple[list[dict], dict]:
                      measured_no_infl=0.0, nonmeasured_infl=0.0)
     )
     keys, new_ids = set(), set()
+    trajectory = defaultdict(dict)
     infl_types = Counter()
     for r in plants_raw:
         plot, ident, year = r["plot_id"], r["plant_id"], int(r["year"])
@@ -48,6 +49,7 @@ def load(local_dir: Path | None) -> tuple[list[dict], dict]:
         key = (plot, ident, year)
         assert key not in keys
         keys.add(key)
+        trajectory[(plot, ident)][year] = r["census_status"]
         row = rec[(plot, year)]
         row["records"] += 1
         assert r["census_status"] in {"measured", "dead", "missing"}
@@ -116,6 +118,24 @@ def load(local_dir: Path | None) -> tuple[list[dict], dict]:
         y for y in YEARS
         if year_profiles[str(y - 1)]["ranches_with_documented_flowering"] == 3
     ]
+    blackouts = []
+    for p in sorted(plots):
+        for yr in range(1998, 2006):
+            cell = rec[(p, yr)]
+            if cell["stock"] or not cell["records"]:
+                continue
+            missing_identities = [identity for (plot, identity), history in trajectory.items()
+                                  if plot == p and history.get(yr) == "missing"]
+            found_before = sum(trajectory[(p, z)].get(yr - 1) == "measured"
+                               for z in missing_identities)
+            found_next = sum(trajectory[(p, z)].get(yr + 1) == "measured"
+                             for z in missing_identities)
+            found_any_later = sum(any(state == "measured" for y, state in trajectory[(p, z)].items()
+                                      if y > yr) for z in missing_identities)
+            blackouts.append({"plot": p, "year": yr, "all_missing_records": len(missing_identities),
+                              "same_id_measured_in_previous_year": found_before,
+                              "same_id_measured_next_year": found_next,
+                              "same_id_measured_any_later_year": found_any_later})
     profile = {
         "source_plant_years": len(plants_raw), "observed_new_seedlings_1999_2005": 2590,
         "years_by_prior_flowering_record": year_profiles,
@@ -123,6 +143,7 @@ def load(local_dir: Path | None) -> tuple[list[dict], dict]:
         "excluded_prior_flowering_years": sorted(set(YEARS) - set(eligible)),
         "nonmeasured_rows_with_numeric_infl": int(sum(r["nonmeasured_infl"] for r in rec.values())),
         "zero_prior_stock_plot_years": zero_prior_stock,
+        "whole_plot_zero_measurement_diagnostic": blackouts,
         "zero_confirmed_live_plot_years_1998_2005": [
             {"plot": p, "year": yr,
              "measured": rec[(p, yr)]["stock"],
@@ -272,6 +293,7 @@ def main() -> None:
                 "Flowering history, living stock and habitat can all encode earlier fragmentation.",
                 "New seedlings are first detected seedlings, not total deposited viable seeds.",
                 "Entire plot-years with zero confirmed measured individuals and archival missing statuses cannot safely be coded as surveyed biological zero. Screen both exposure and outcome censuses.",
+                "Later re-detection of the same IDs can disprove local extinction but cannot by itself establish a precise missing-survey cause.",
                 "The screen is conditional on nonzero detected stock and can select against genuine local extinction; compare unscreened sensitivity, never infer true habitat equivalence.",
                 "Plot-year counts are nested in 13 plots across only three ranch contexts.",
                 "Ridge alpha=1 in within-year standardized feature coordinates was fixed before outcome scoring.",
