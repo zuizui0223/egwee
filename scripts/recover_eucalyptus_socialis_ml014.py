@@ -1,149 +1,116 @@
 from __future__ import annotations
 
-import csv
 import json
 import math
-import statistics as stats
-import urllib.request
-from collections import Counter
+from pathlib import Path
 
-URL = "https://shared.tern.org.au/attachment/c5278af9-b0c9-4572-8eb4-9ce3058f1b2a/MECBreedfamily.csv"
-UA = "Mozilla/5.0 egwee-eucalyptus-socialis-ml014-recovery/1.0"
+ROOT = Path(__file__).resolve().parents[1]
+SNAPSHOT = ROOT / "evidence/meta_extraction/PS020_eucalyptus_socialis_sufficient_stats_v1.json"
 
 
-def fetch_rows() -> list[dict[str, str]]:
-    req = urllib.request.Request(URL, headers={"User-Agent": UA, "Accept": "text/csv,*/*"})
-    with urllib.request.urlopen(req, timeout=60) as resp:
-        payload = resp.read()
-    text = payload.decode("utf-8-sig")
-    physical = [line for line in text.splitlines() if line.strip()]
-    rows = list(csv.DictReader(physical))
-    required = {"family", "group", "plant height (cm)", "rp"}
-    if not rows or not required <= set(rows[0]):
-        raise AssertionError(f"unexpected source schema: {list(rows[0]) if rows else []}")
-    return rows
-
-
-def classify_group(label: str) -> str:
-    x = label.strip().upper()
-    if x == "MONLOW":
-        return "fragmented"
-    if x == "MONHIGH":
-        return "reference"
-    if x == "YOOKA":
-        return "sensitivity"
-    return "unknown"
-
-
-def hedges_g_metafor_ls(fragmented: list[float], reference: list[float]) -> tuple[float, float]:
-    n1, n2 = len(fragmented), len(reference)
-    m1, m2 = stats.mean(fragmented), stats.mean(reference)
-    s1, s2 = stats.stdev(fragmented), stats.stdev(reference)
-    df = n1 + n2 - 2
-    pooled = math.sqrt(((n1 - 1) * s1**2 + (n2 - 1) * s2**2) / df)
-    d = (m1 - m2) / pooled
+def hedges_g_from_summary(
+    fragmented_mean: float,
+    fragmented_sd: float,
+    n_fragmented: int,
+    reference_mean: float,
+    reference_sd: float,
+    n_reference: int,
+) -> tuple[float, float]:
+    df = n_fragmented + n_reference - 2
+    pooled = math.sqrt(
+        ((n_fragmented - 1) * fragmented_sd**2 + (n_reference - 1) * reference_sd**2)
+        / df
+    )
+    d = (fragmented_mean - reference_mean) / pooled
     j = 1 - 3 / (4 * df - 1)
     g = j * d
-    variance = 1 / n1 + 1 / n2 + g**2 / (2 * (n1 + n2))
+    variance = 1 / n_fragmented + 1 / n_reference + g**2 / (2 * (n_fragmented + n_reference))
     return g, variance
 
 
-def centered(values: list[float], groups: list[str]) -> list[float]:
-    means = {g: stats.mean(v for v, gg in zip(values, groups) if gg == g) for g in set(groups)}
-    return [v - means[g] for v, g in zip(values, groups)]
-
-
-def pearson(x: list[float], y: list[float]) -> float:
-    mx, my = stats.mean(x), stats.mean(y)
-    dx = [v - mx for v in x]
-    dy = [v - my for v in y]
-    den = math.sqrt(sum(v*v for v in dx) * sum(v*v for v in dy))
-    if den <= 0:
-        raise AssertionError("zero residual variance")
-    return sum(a*b for a, b in zip(dx, dy)) / den
-
-
 def main() -> None:
-    rows = fetch_rows()
-    raw_groups = Counter(r["group"].strip() for r in rows)
-    classified_counts = Counter()
-    for label, n in raw_groups.items():
-        classified_counts[classify_group(label)] += n
-    print(f"SOCIALIS_RECOVERY raw_group_counts={dict(raw_groups)!r} classified_counts={dict(classified_counts)!r}")
-    if "unknown" in classified_counts:
-        raise AssertionError(f"unrecognized source group labels: {dict(raw_groups)!r}")
+    if not SNAPSHOT.is_file():
+        raise AssertionError(SNAPSHOT)
+    s = json.loads(SNAPSHOT.read_text(encoding="utf-8"))
 
-    common: list[tuple[str, str, float, float]] = []
-    for r in rows:
-        group = classify_group(r["group"])
-        if group not in {"fragmented", "reference"}:
-            continue
-        try:
-            rp = float(r["rp"])
-            growth = float(r["plant height (cm)"])
-        except (TypeError, ValueError):
-            continue
-        if not (math.isfinite(rp) and math.isfinite(growth)):
-            continue
-        common.append((r["family"].strip(), group, rp, growth))
+    assert s["schema_version"] == 1
+    assert s["source"]["article_doi"] == "10.1111/mec.12056"
+    assert s["source"]["dataset_doi"] == "10.4227/05/54C4E38139B4B"
+    assert s["source"]["source_file"] == "MECBreedfamily.csv"
+    assert s["source"]["license"] == "CC BY 4.0"
 
-    families = [r[0] for r in common]
-    if len(families) != len(set(families)):
-        raise AssertionError("duplicate maternal-family rows in common frame")
-    groups = [r[1] for r in common]
-    n_frag, n_ref = groups.count("fragmented"), groups.count("reference")
-    if min(n_frag, n_ref) < 2:
-        raise AssertionError(f"common family frame insufficient: fragmented={n_frag}, reference={n_ref}")
+    frame = s["frame"]
+    assert frame["n_source_rows"] == 46
+    assert frame["groups"] == {"MONLOW": 13, "MONHIGH": 15, "YOOKA": 18}
+    assert frame["primary_fragmented"] == "MONLOW"
+    assert frame["primary_reference"] == "MONHIGH"
+    assert frame["n_fragmented"] == 13
+    assert frame["n_reference"] == 15
+    assert frame["n_primary_complete_case"] == 28
 
-    frag_rp = [r[2] for r in common if r[1] == "fragmented"]
-    ref_rp = [r[2] for r in common if r[1] == "reference"]
-    frag_growth = [r[3] for r in common if r[1] == "fragmented"]
-    ref_growth = [r[3] for r in common if r[1] == "reference"]
+    hg = s["hedges_g"]
+    gm = hg["Gmating_correlated_paternity_rp"]
+    ff = hg["F_family_growth"]
 
-    raw_g_rp, var_g = hedges_g_metafor_ls(frag_rp, ref_rp)
-    g_support = -raw_g_rp
-    g_growth, var_f = hedges_g_metafor_ls(frag_growth, ref_growth)
+    raw_g_rp, var_g = hedges_g_from_summary(
+        gm["fragmented_mean"], gm["fragmented_sd"], frame["n_fragmented"],
+        gm["reference_mean"], gm["reference_sd"], frame["n_reference"],
+    )
+    g_support = gm["orientation_multiplier"] * raw_g_rp
 
-    support = [-r[2] for r in common]
-    growth = [r[3] for r in common]
-    rho = pearson(centered(support, groups), centered(growth, groups))
+    raw_g_f, var_f = hedges_g_from_summary(
+        ff["fragmented_mean"], ff["fragmented_sd"], frame["n_fragmented"],
+        ff["reference_mean"], ff["reference_sd"], frame["n_reference"],
+    )
+    g_growth = ff["orientation_multiplier"] * raw_g_f
+
+    assert abs(g_support - gm["oriented_effect"]) < 1e-10
+    assert abs(var_g - gm["sampling_variance"]) < 1e-10
+    assert abs(g_growth - ff["oriented_effect"]) < 1e-10
+    assert abs(var_f - ff["sampling_variance"]) < 1e-10
+
+    dep = hg["dependence"]
+    rho = dep["residual_correlation_proxy"]
     cov = rho * math.sqrt(var_g * var_f)
+    assert abs(cov - dep["sampling_covariance"]) < 1e-10
     det = var_g * var_f - cov * cov
-    pd = var_g > 0 and var_f > 0 and det > 1e-12
-    terminal = "ML014_admitted_Gmating_F_covariance_aware" if pd else "dependence_not_reconstructable"
+    assert det > 1e-12
 
     out = {
-        "terminal_state": terminal,
-        "source_url": URL,
-        "n_source_family_rows": len(rows),
-        "n_common": len(common),
-        "n_fragmented": n_frag,
-        "n_reference": n_ref,
-        "family_ids": families,
-        "raw_group_counts": dict(raw_groups),
+        "terminal_state": "ML014_admitted_Gmating_F_covariance_aware",
+        "source_snapshot": str(SNAPSHOT.relative_to(ROOT)),
+        "source_url": s["source"]["source_url"],
+        "source_dataset_doi": s["source"]["dataset_doi"],
+        "source_license": s["source"]["license"],
+        "source_refresh_required_for_ci": False,
+        "n_source_family_rows": frame["n_source_rows"],
+        "n_common": frame["n_primary_complete_case"],
+        "n_fragmented": frame["n_fragmented"],
+        "n_reference": frame["n_reference"],
         "G_mating_rp": {
             "raw_hedges_g_fragmented_minus_reference": raw_g_rp,
-            "orientation_multiplier": -1,
+            "orientation_multiplier": gm["orientation_multiplier"],
             "oriented_support_g": g_support,
             "variance": var_g,
-            "fragmented_mean_rp": stats.mean(frag_rp),
-            "reference_mean_rp": stats.mean(ref_rp),
-            "fragmented_sd_rp": stats.stdev(frag_rp),
-            "reference_sd_rp": stats.stdev(ref_rp),
+            "fragmented_mean_rp": gm["fragmented_mean"],
+            "reference_mean_rp": gm["reference_mean"],
+            "fragmented_sd_rp": gm["fragmented_sd"],
+            "reference_sd_rp": gm["reference_sd"],
         },
         "F_growth": {
             "hedges_g": g_growth,
             "variance": var_f,
-            "fragmented_mean": stats.mean(frag_growth),
-            "reference_mean": stats.mean(ref_growth),
-            "fragmented_sd": stats.stdev(frag_growth),
-            "reference_sd": stats.stdev(ref_growth),
+            "fragmented_mean": ff["fragmented_mean"],
+            "reference_mean": ff["reference_mean"],
+            "fragmented_sd": ff["fragmented_sd"],
+            "reference_sd": ff["reference_sd"],
         },
         "within_cluster": {
             "residual_correlation_proxy": rho,
             "sampling_covariance": cov,
             "determinant": det,
-            "positive_definite": pd,
+            "positive_definite": True,
+            "snapshot_method": dep["proxy_method"],
         },
     }
     print("SOCIALIS_ML014_RESULT " + json.dumps(out, sort_keys=True))

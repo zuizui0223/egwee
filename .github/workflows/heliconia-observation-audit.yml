@@ -1,0 +1,33 @@
+name: Heliconia cohort observation audit
+on:
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - 'scripts/audit_heliconia_cohort_observation.py'
+      - 'scripts/audit_heliconia_multiyear_survival.py'
+      - '.github/workflows/heliconia-observation-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch pinned upstream archive and audit plot-level cohorts
+        run: python scripts/audit_heliconia_cohort_observation.py --output build/heliconia_cohort_observation_v1.json
+      - name: Audit multiyear survival with absorbing death
+        run: python scripts/audit_heliconia_multiyear_survival.py --output build/heliconia_multiyear_survival_v1.json
+      - name: Archive audit result
+        uses: actions/upload-artifact@v4
+        with:
+          name: heliconia-cohort-observation
+          path: |
+            build/heliconia_cohort_observation_v1.json
+            build/heliconia_multiyear_survival_v1.json
+          if-no-files-found: error

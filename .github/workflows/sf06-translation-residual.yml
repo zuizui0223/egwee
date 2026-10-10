@@ -1,0 +1,109 @@
+name: SF06 translation residual validation
+
+on:
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - 'manuscript/SF06_TRANSLATION_RESIDUAL_PREREGISTRATION_2026-10-06.md'
+      - 'manuscript/SF06_OUTCOME_EXPOSURE_TIMELINE_2026-10-06.md'
+      - 'manuscript/SF06_EXTERNAL_VALIDATION_DECISION_TREE_2026-10-06.md'
+      - 'scripts/check_sf06_provenance_timeline.py'
+      - 'scripts/test_sf06_compatibility_translation_residual.py'
+      - 'scripts/check_sf06_incremental_sentinel_value.py'
+      - 'manuscript/SF06_INCREMENTAL_SENTINEL_VALUE_2026-10-07.md'
+      - 'scripts/check_sf06_sign_margin_sensitivity.py'
+      - 'manuscript/SF06_SIGN_MARGIN_SENSITIVITY_2026-10-07.md'
+      - 'scripts/check_sf06_lopo_predictive_value.py'
+      - 'manuscript/SF06_LOPO_PREDICTIVE_VALUE_2026-10-07.md'
+      - 'scripts/check_sf06_severity_diagnostic_threshold_sweep.py'
+      - 'manuscript/SF06_SEVERITY_DIAGNOSTIC_THRESHOLD_SWEEP_2026-10-07.md'
+      - 'scripts/check_sf06_within_publication_coupling.py'
+      - 'manuscript/SF06_WITHIN_PUBLICATION_COUPLING_2026-10-07.md'
+      - 'scripts/check_sf06_conditional_fitness_offset.py'
+      - 'manuscript/SF06_CONDITIONAL_FITNESS_OFFSET_2026-10-07.md'
+      - 'scripts/check_sf06_lopo_sign_probability_value.py'
+      - 'scripts/check_sf06_probability_information.py'
+      - 'manuscript/SF06_PROBABILISTIC_SENTINEL_VALIDATION_2026-10-08.md'
+      - 'manuscript/SF06_LOPO_SIGN_PROBABILITY_VALUE_2026-10-07.md'
+      - 'scripts/check_sf06_sign_confidence_sweep.py'
+      - 'manuscript/SF06_SIGN_CONFIDENCE_SWEEP_2026-10-07.md'
+      - 'scripts/check_sf06_pairing_granularity.py'
+      - 'manuscript/SF06_PAIRING_GRANULARITY_BOUNDARY_2026-10-07.md'
+      - 'scripts/check_sf06_compatibility_translation_sensitivity.py'
+      - 'manuscript/SF06_COMPATIBILITY_TRANSLATION_SENSITIVITY_2026-10-07.md'
+      - 'evidence/meta_extraction/phase2_sf06_translation_pair_manifest_v1.csv'
+      - 'evidence/meta_extraction/phase2_sf06_source_frame_summary_v1.json'
+      - '.github/workflows/sf06-translation-residual.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install analysis dependencies
+        run: python -m pip install --quiet numpy scipy statsmodels
+      - name: Audit SF06 outcome-exposure provenance
+        run: python scripts/check_sf06_provenance_timeline.py
+      - name: Require frozen outcome-blind SF06 inputs
+        run: |
+          test -s evidence/meta_extraction/phase2_sf06_translation_pair_manifest_v1.csv
+          test -s evidence/meta_extraction/phase2_sf06_source_frame_summary_v1.json
+      - name: Download frozen public SF06 Supplementary Table S1
+        env:
+          SF06_URL: "https://oup.silverchair-cdn.com/oup/backfile/Content_public/Journal/aob/135/1-2/10.1093_aob_mcae076/3/mcae076_suppl_supplementary_table_s1.docx?Expires=2147483647&Key-Pair-Id=APKAIE5G5CRDK6RD3PGA&Signature=rle~osXl4raEfRMlNTM5s1~kCtSQwInJCzqnYA0y~mDQpFSv35J1z8f22RgYswXL-TfqgP1hqwVPZMVRMZv00bdVmYaEOgs7wbNHRN~FXXssVHSrQNbs7Lffp5YM3uqC-IPM24Yustxqj--BikcriS~Emzlvb~4kLJU9EdI564kD7U-KIZExe3lrgyRP761ed3OWLJv-5Qvdx3X7~oI3RK7l5Dzu1PJI2hZ6MdupGwuPqh~OHhe32BNCyWzVUbt1Ym~Qx1rFKmM0IX4XTxLtYrEAbbabVALTSXXwGLRugUivL5NtVBhr4kwLL6HrfY9IDOnpX1~g69ymeWGP7E3O7A__"
+        run: |
+          curl --fail --location --retry 3 --retry-delay 2 "$SF06_URL" -o /tmp/sf06_table_s1.docx
+          test -s /tmp/sf06_table_s1.docx
+      - name: Run preregistered translation-residual reanalysis
+        run: |
+          python scripts/test_sf06_compatibility_translation_residual.py /tmp/sf06_table_s1.docx evidence/meta_extraction
+          test -s evidence/meta_extraction/sf06_translation_residual_pairs_v1.csv
+          test -s evidence/meta_extraction/sf06_translation_residual_result_v1.json
+          test -s manuscript/SF06_TRANSLATION_RESIDUAL_RESULT_2026-10-06.md
+      - name: Audit SF06 incremental sentinel value
+        run: python scripts/check_sf06_incremental_sentinel_value.py
+      - name: Audit SF06 sign-margin sensitivity
+        run: python scripts/check_sf06_sign_margin_sensitivity.py
+      - name: Audit SF06 leave-one-publication predictive value
+        run: python scripts/check_sf06_lopo_predictive_value.py
+      - name: Audit SF06 reproductive-severity diagnostic thresholds
+        run: python scripts/check_sf06_severity_diagnostic_threshold_sweep.py
+      - name: Audit SF06 within-publication coupling
+        run: python scripts/check_sf06_within_publication_coupling.py
+      - name: Audit SF06 conditional female-fitness offset
+        run: python scripts/check_sf06_conditional_fitness_offset.py
+      - name: Audit SF06 probabilistic sign-sentinel value
+        run: python scripts/check_sf06_lopo_sign_probability_value.py
+      - name: Audit SF06 consensus-sign probability information
+        run: python scripts/check_sf06_probability_information.py
+      - name: Audit SF06 sign-confidence sweep
+        run: python scripts/check_sf06_sign_confidence_sweep.py
+      - name: Audit SF06 pairing granularity
+        run: python scripts/check_sf06_pairing_granularity.py
+      - name: Audit SF06 compatibility translation sensitivity
+        run: python scripts/check_sf06_compatibility_translation_sensitivity.py
+      - name: Commit external validation result
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add evidence/meta_extraction/sf06_translation_residual_pairs_v1.csv \
+                  evidence/meta_extraction/sf06_translation_residual_result_v1.json \
+                  manuscript/SF06_TRANSLATION_RESIDUAL_RESULT_2026-10-06.md
+          if git diff --cached --quiet; then
+            echo 'No SF06 translation-result changes'
+          else
+            git commit -m 'Add SF06 compatibility translation residual result'
+            git fetch origin meta/systematic-coverage-moderator-expansion-2026-09-16
+            git rebase origin/meta/systematic-coverage-moderator-expansion-2026-09-16
+            git push origin HEAD:meta/systematic-coverage-moderator-expansion-2026-09-16
+          fi

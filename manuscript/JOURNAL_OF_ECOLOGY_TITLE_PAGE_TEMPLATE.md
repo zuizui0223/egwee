@@ -2,7 +2,7 @@
 
 ## Manuscript title
 
-Testing whether fragmentation acts as a single biological state: a cluster-first synthesis of plant interaction, reproduction and genetic responses
+Pollination tracks but does not diagnose plant reproductive decline under habitat fragmentation
 
 ## Authors
 

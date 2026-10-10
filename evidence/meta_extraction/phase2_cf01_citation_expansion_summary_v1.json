@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "route": "OpenAlex citation graph",
+  "cutoff": "2026-09-18",
+  "seed_manifest_units": 363,
+  "resolved_seed_units": 296,
+  "unique_resolved_seed_works": 292,
+  "duplicate_resolved_work_groups": 4,
+  "duplicate_resolved_seed_units": 4,
+  "duplicate_resolved_work_seed_ids": {
+    "W2033322335": [
+      "CF01S0064",
+      "CF01S0065"
+    ],
+    "W1979838061": [
+      "CF01S0155",
+      "CF01S0156"
+    ],
+    "W2120981670": [
+      "CF01S0168",
+      "CF01S0169"
+    ],
+    "W1986673290": [
+      "CF01S0333",
+      "CF01S0334"
+    ]
+  },
+  "unresolved_seed_units_not_expanded": 67,
+  "seed_work_fetch_failures": 0,
+  "forward_query_failures": 0,
+  "unique_backward_reference_ids": 8494,
+  "unique_forward_citation_ids": 10183,
+  "citation_edges": 34020,
+  "unique_discovered_candidate_works": 17472,
+  "existing_CF01_seed_candidates": 262,
+  "new_candidates_eligible_through_cutoff": 16907,
+  "post_cutoff_candidates": 2,
+  "unknown_date_candidates_pending_adjudication": 1,
+  "metadata_unresolved_candidates": 300,
+  "missing_candidate_metadata_ids": 300,
+  "selection_rule": "all OpenAlex outgoing references and all incoming citations for every resolved seed; no rank or outcome-based selection; cutoff applied from publication_date",
+  "effect_outcomes_opened": false
+}

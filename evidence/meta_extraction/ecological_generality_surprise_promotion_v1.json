@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "promoted_on": "2026-10-06",
+  "generality_gate": "pass",
+  "surprise_gate": "pass",
+  "main_general_principle": "directional_coherence_without_interaction_function_identifiability",
+  "scale_stable_direction": {
+    "primary_direct_effects": 17,
+    "negative_on_oriented_hedges_g": 17,
+    "negative_on_oriented_lnRR": 17,
+    "sign_discordance": 0
+  },
+  "translation_nonidentifiability": {
+    "frozen_programmes": 16,
+    "quantitative": 8,
+    "qualitative_blocked": 8,
+    "full_map_leave_one_out_nonidentifying": true,
+    "strict_category_programmes": 8,
+    "strict_category_leave_one_out_nonidentifying": true,
+    "visitation_abundance_programmes": 13,
+    "visitation_only_leave_one_out_nonidentifying": true,
+    "deterministic_min_mismatches_full": 5,
+    "deterministic_min_mismatches_strict": 2,
+    "deterministic_min_mismatches_strict_quantitative": 1,
+    "interaction_decline_not_necessary": true,
+    "interaction_decline_not_sufficient": true
+  },
+  "strongest_resolved_failure_mode": "false_reassurance",
+  "stable_false_reassurance_anchors": [
+    "ML015 Eucalyptus wandoo",
+    "P2_CF01_CARDIOPETALUM_2012 Cardiopetalum calophyllum",
+    "P2_CF01_BERGSDORF_KAKAMEGA_2006 Acanthopale pubescens"
+  ],
+  "anchor_generality": {
+    "continents": 3,
+    "plant_families": 3,
+    "upstream_measurement_depths": [
+      "visitation_abundance",
+      "visitation_occurrence",
+      "pollen_tubes"
+    ]
+  },
+  "reliability_artifact_audit": {
+    "audited_anchors": 3,
+    "equal_latent_effect_null_misfit_all_p_lt_0_01": true,
+    "downstream_artifact_probability_each_lt_0_03": true,
+    "joint_simulation_is_not_formal_p_value": true,
+    "post_hoc_anchor_selection": true
+  },
+  "measurement_gap": {
+    "quantitative_IF_programmes": 8,
+    "quantity_level_interaction_endpoints": 8,
+    "direct_effective_mating_quality_endpoints": 0
+  },
+  "mechanism_status": "hidden_effective_mating_hypothesis_not_confirmed",
+  "promoted_claims": [
+    "fragmentation-associated responses show scale-stable directional coherence in the primary direct corpus",
+    "interaction quantity is not a sufficient stand-alone state variable for reproductive function in the frozen translation map",
+    "observed interaction decline is neither necessary nor sufficient for observed reproductive decline in the mixed-tier evidence universe",
+    "the strongest representation-stable resolved quantitative proxy failures are false-reassurance cases",
+    "simple classical differential-reliability attenuation is insufficient to explain the three resolved false-reassurance anchors under the audited reliability proxies"
+  ],
+  "not_promoted": [
+    "global prevalence of proxy failure",
+    "false reassurance is more common than false alarm in nature",
+    "one universal hidden effective-mating mechanism",
+    "transition-specific attenuation or amplification as a confirmed law",
+    "universal cohort lag",
+    "all pollinator monitoring is uninformative"
+  ],
+  "prospective_test": "interaction_quantity_to_effective_mating_quality_to_reproductive_function",
+  "canonical_checker": "scripts/check_ecological_generality_and_surprise.py"
+}

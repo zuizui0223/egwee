@@ -1,0 +1,265 @@
+{
+  "schema_version": 1,
+  "programme_id": "P2_CF01_ZURICH_2026",
+  "article_doi": "10.1111/1365-2664.70384",
+  "dataset_doi": "10.16904/envidat.676",
+  "source_code_commit": "d6361f6874398e797322afe07a8fea85a3c7e927",
+  "exposure": "Urban_500",
+  "dependence_method": "residual-correlation proxy after separate endpoint ~ intercept + Urban_500 fits; Cov_ij=rho_ij*sqrt(V_i*V_j)",
+  "phytometer_blocks": {
+    "Daucus_carota": {
+      "garden_ids": [
+        "2",
+        "7",
+        "8",
+        "11",
+        "17",
+        "19",
+        "25",
+        "27",
+        "28",
+        "30",
+        "40",
+        "41",
+        "47",
+        "48",
+        "52",
+        "53",
+        "56",
+        "59",
+        "71",
+        "73",
+        "83",
+        "84",
+        "85"
+      ],
+      "n_independent": 23,
+      "I_endpoint": "all_pollinator_capture_rate_per_9h",
+      "F_endpoint": "mean_seeds_per_umbel",
+      "I_r": -0.4213397753673415,
+      "F_r": -0.37942470986261256,
+      "I_fisher_z": -0.4493198678061173,
+      "F_fisher_z": -0.3993874395932934,
+      "marginal_variance_I": 0.05,
+      "marginal_variance_F": 0.05,
+      "residual_correlation_IF": -0.2273664096584262,
+      "sampling_covariance_proxy_IF": -0.01136832048292131,
+      "covariance_matrix": [
+        [
+          0.05,
+          -0.01136832048292131
+        ],
+        [
+          -0.01136832048292131,
+          0.05
+        ]
+      ],
+      "eigenvalues_ascending": [
+        0.038631679517078694,
+        0.06136832048292131
+      ],
+      "positive_definite": true,
+      "I_minus_F": {
+        "delta": -0.0499324282128239,
+        "variance": 0.12273664096584262,
+        "se": 0.35033789541789884,
+        "z": -0.14252648333478812,
+        "p_two_sided": 0.8866641622231175,
+        "ci95": [
+          -0.7365820856514655,
+          0.6367172292258179
+        ]
+      }
+    },
+    "Raphanus_sativus": {
+      "garden_ids": [
+        "2",
+        "7",
+        "8",
+        "11",
+        "17",
+        "19",
+        "25",
+        "27",
+        "28",
+        "30",
+        "40",
+        "41",
+        "47",
+        "48",
+        "52",
+        "53",
+        "56",
+        "59",
+        "71",
+        "73",
+        "83",
+        "84",
+        "85"
+      ],
+      "n_independent": 23,
+      "I_endpoint": "all_pollinator_capture_rate_per_9h",
+      "F_endpoint": "fruit_set",
+      "I_r": -0.5215101205676088,
+      "F_r": -0.5117300024130491,
+      "I_fisher_z": -0.5784117804805332,
+      "F_fisher_z": -0.5650707221819677,
+      "marginal_variance_I": 0.05,
+      "marginal_variance_F": 0.05,
+      "residual_correlation_IF": 0.2493146095355464,
+      "sampling_covariance_proxy_IF": 0.01246573047677732,
+      "covariance_matrix": [
+        [
+          0.05,
+          0.01246573047677732
+        ],
+        [
+          0.01246573047677732,
+          0.05
+        ]
+      ],
+      "eigenvalues_ascending": [
+        0.03753426952322268,
+        0.06246573047677732
+      ],
+      "positive_definite": true,
+      "I_minus_F": {
+        "delta": -0.013341058298565467,
+        "variance": 0.07506853904644537,
+        "se": 0.2739863847829767,
+        "z": -0.04869241334430853,
+        "p_two_sided": 0.961164421979903,
+        "ci95": [
+          -0.5503445047275329,
+          0.523662388130402
+        ]
+      }
+    },
+    "Onobrychis_viciifolia": {
+      "garden_ids": [
+        "2",
+        "7",
+        "8",
+        "11",
+        "17",
+        "25",
+        "27",
+        "30",
+        "40",
+        "41",
+        "47",
+        "48",
+        "53",
+        "56",
+        "59",
+        "71",
+        "73",
+        "83",
+        "84",
+        "85"
+      ],
+      "n_independent": 20,
+      "I_endpoint": "all_pollinator_capture_rate_per_9h",
+      "F_endpoint": "fruit_set",
+      "I_r": -0.25595902589168756,
+      "F_r": 0.11851220523846756,
+      "I_fisher_z": -0.26177930887771994,
+      "F_fisher_z": 0.11907176863273083,
+      "marginal_variance_I": 0.058823529411764705,
+      "marginal_variance_F": 0.058823529411764705,
+      "residual_correlation_IF": 0.38455176765231486,
+      "sampling_covariance_proxy_IF": 0.02262069221484205,
+      "covariance_matrix": [
+        [
+          0.058823529411764705,
+          0.02262069221484205
+        ],
+        [
+          0.02262069221484205,
+          0.058823529411764705
+        ]
+      ],
+      "eigenvalues_ascending": [
+        0.03620283719692265,
+        0.08144422162660675
+      ],
+      "positive_definite": true,
+      "I_minus_F": {
+        "delta": -0.3808510775104508,
+        "variance": 0.0724056743938453,
+        "se": 0.26908302509419896,
+        "z": -1.4153664185138572,
+        "p_two_sided": 0.1569610903553195,
+        "ci95": [
+          -0.9082441155461684,
+          0.1465419605252668
+        ]
+      }
+    },
+    "Symphytum_officinale": {
+      "garden_ids": [
+        "2",
+        "7",
+        "8",
+        "11",
+        "17",
+        "19",
+        "25",
+        "27",
+        "28",
+        "30",
+        "40",
+        "41",
+        "47",
+        "48",
+        "52",
+        "53",
+        "56",
+        "59",
+        "71",
+        "73",
+        "83",
+        "84",
+        "85"
+      ],
+      "n_independent": 23,
+      "I_endpoint": "all_pollinator_capture_rate_per_9h",
+      "F_endpoint": "fruit_set",
+      "I_r": -0.4221115317361557,
+      "F_r": -0.5160708906878338,
+      "I_fisher_z": -0.45025857586147155,
+      "F_fisher_z": -0.5709694495753302,
+      "marginal_variance_I": 0.05,
+      "marginal_variance_F": 0.05,
+      "residual_correlation_IF": 0.2682121445143105,
+      "sampling_covariance_proxy_IF": 0.013410607225715528,
+      "covariance_matrix": [
+        [
+          0.05,
+          0.013410607225715528
+        ],
+        [
+          0.013410607225715528,
+          0.05
+        ]
+      ],
+      "eigenvalues_ascending": [
+        0.036589392774284475,
+        0.06341060722571554
+      ],
+      "positive_definite": true,
+      "I_minus_F": {
+        "delta": 0.12071087371385869,
+        "variance": 0.07317878554856895,
+        "se": 0.27051577689400846,
+        "z": 0.44622489342333166,
+        "p_two_sided": 0.6554348029371085,
+        "ci95": [
+          -0.40949030624827043,
+          0.6509120536759878
+        ]
+      }
+    }
+  },
+  "programme_independence_note": "Four phytometer pairs share the same experiment and are not independent programmes."
+}

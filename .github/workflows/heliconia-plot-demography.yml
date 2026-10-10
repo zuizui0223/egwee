@@ -1,0 +1,29 @@
+name: Heliconia plot demography audit
+
+on:
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - 'scripts/check_heliconia_plot_demography.py'
+      - '.github/workflows/heliconia-plot-demography.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify pinned Heliconia source, per-plot contrasts and exact tests
+        run: python scripts/check_heliconia_plot_demography.py --output build/heliconia_plot_demography.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: heliconia-plot-demography
+          path: build/heliconia_plot_demography.json
+          if-no-files-found: error

@@ -1,0 +1,22 @@
+forest_id,landscape_context,distance_to_nearest_forest_m,n_adult_trees,mean_dbh_cm,n_sampled_trees,seed_sampling_area_m2,seed_density_m2,viable_seed_proportion,mean_seed_kinship,source_location
+a,rural,593,1,20.4,1,6,0.0,,,Table 1
+b,rural,41,49,26.4,6,6,6.8,0.146,,Table 1
+c,rural,41,120,25.7,19,25,27.4,0.243,0.121,Table 1
+d,rural,164,5,26.9,1,3,65.3,0.194,0.042,Table 1
+e,rural,164,18,21.0,9,10,13.9,0.137,,Table 1
+f,rural,505,1,37.3,1,24,75.1,0.008,0.072,Table 1
+g,rural,177,2,26.2,2,16,0.0,,,Table 1
+h,urban,99,2,16.5,2,6,20.3,0.074,,Table 1
+i,urban,99,4,26.7,4,26,33.2,0.031,0.218,Table 1
+j,urban,116,22,19.2,3,3,13.3,0.025,,Table 1
+k,urban,188,1,19.0,1,12,0.0,,,Table 1
+l,urban,146,12,30.8,5,5,32.0,0.363,0.115,Table 1
+m,urban,146,9,25.1,4,5,66.6,0.198,0.145,Table 1
+n,urban,211,1,29.8,1,16,1.4,0.000,,Table 1
+o,urban,211,12,22.6,6,7,18.1,0.047,0.493,Table 1
+p,urban,54,7,36.0,2,2,28.5,0.070,0.302,Table 1
+q,urban,54,10,23.3,3,9,20.8,0.128,0.282,Table 1
+r,urban,147,1,23.0,1,12,0.0,,,Table 1
+s,urban,63,20,26.6,8,13,6.4,0.048,,Table 1
+t,urban,63,1,60.9,1,24,7.8,0.005,,Table 1
+u,urban,101,2,27.4,2,7,3.4,0.000,,Table 1

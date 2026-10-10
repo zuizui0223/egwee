@@ -1,0 +1,370 @@
+from __future__ import annotations
+
+import csv
+import hashlib
+import json
+import re
+import sys
+import zipfile
+from collections import Counter, defaultdict
+from pathlib import Path
+from xml.etree import ElementTree as ET
+
+SOURCE_FRAME = "SF06"
+SOURCE_ARTICLE_DOI = "10.1093/aob/mcae076"
+MATERIALIZATION_SCHEMA_VERSION = 2
+NS = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
+RESPONSES = ("Female fitness", "Male fitness", "Pollination")
+PAPER_REPORTED_HIERARCHICAL_INPUT_COUNTS = {
+    "Female fitness": 312,
+    "Male fitness": 105,
+    "Pollination": 83,
+}
+PUBLIC_S1_PHYSICAL_ROW_COUNTS = {
+    "Female fitness": 267,
+    "Male fitness": 88,
+    "Pollination": 71,
+}
+
+
+def q(tag: str) -> str:
+    return f"{{{NS}}}{tag}"
+
+
+def cell_text(cell: ET.Element) -> str:
+    text = " ".join(
+        (t.text or "").strip()
+        for t in cell.iter(q("t"))
+        if (t.text or "").strip()
+    )
+    return " ".join(text.split())
+
+
+def strip_variance_from_source(text: str) -> str:
+    text = text.strip()
+    text = re.sub(r"^(?:NA|N/?A)\s+", "", text, flags=re.I)
+    text = re.sub(r"^[−–-]?\s*\d+(?:\.\d+)?(?:[Ee][+-]?\d+)?\s+", "", text)
+    return text.strip()
+
+
+def parse_row(cells: list[str]) -> dict[str, str]:
+    assert len(cells) >= 11, cells
+    metadata = cells[:-2]
+    species = metadata[0].strip()
+    country = metadata[-1].strip()
+    source = strip_variance_from_source(cells[-1])
+    assert species and source, cells
+
+    response = None
+    response_idx = None
+    family = ""
+    for idx, value in enumerate(metadata[1:-1], start=1):
+        for candidate in RESPONSES:
+            if candidate.casefold() in value.casefold():
+                response = candidate
+                response_idx = idx
+                lower = value.casefold()
+                pos = lower.find(candidate.casefold())
+                prefix = value[:pos].strip()
+                if prefix:
+                    family = prefix
+                elif idx > 1:
+                    family = metadata[idx - 1].strip()
+                break
+        if response is not None:
+            break
+    assert response is not None and response_idx is not None, cells
+
+    land_use_idx = response_idx + 1
+    land_use = metadata[land_use_idx].strip()
+    trait_cells = [x.strip() for x in metadata[land_use_idx + 1 : -1] if x.strip()]
+    assert len(trait_cells) >= 4, (cells, trait_cells)
+
+    compatibility = trait_cells[0]
+    sexual_expression = trait_cells[1]
+    life_form = trait_cells[-2]
+    ecosystem_type = trait_cells[-1]
+    pollination_context = "; ".join(trait_cells[2:-2])
+
+    # When Family and response are separate cells, keep the preceding family cell.
+    if not family and response_idx >= 2:
+        family = metadata[response_idx - 1].strip()
+    assert family, cells
+
+    return {
+        "species": species,
+        "family": family,
+        "response": response,
+        "land_use_factor": land_use,
+        "compatibility": compatibility,
+        "sexual_expression": sexual_expression,
+        "pollination_context": pollination_context,
+        "life_form": life_form,
+        "ecosystem_type": ecosystem_type,
+        "country": country,
+        "source_publication": source,
+    }
+
+
+def uniq(rows: list[dict[str, str]], field: str) -> str:
+    out = []
+    seen = set()
+    for row in rows:
+        value = row[field].strip()
+        if value and value not in seen:
+            seen.add(value)
+            out.append(value)
+    return "; ".join(out)
+
+
+def normalize_land_use(x: str) -> str:
+    return " ".join(x.casefold().split())
+
+
+def normalize_publication(x: str) -> str:
+    return " ".join(x.casefold().split())
+
+
+def main() -> None:
+    if len(sys.argv) != 3:
+        raise SystemExit("usage: build_phase2_sf06_study_universe.py INPUT.docx OUTPUT_DIR")
+    source = Path(sys.argv[1])
+    outdir = Path(sys.argv[2])
+    outdir.mkdir(parents=True, exist_ok=True)
+
+    with zipfile.ZipFile(source) as zf:
+        root = ET.fromstring(zf.read("word/document.xml"))
+    tables = root.findall(".//" + q("tbl"))
+    assert len(tables) == 7, len(tables)
+
+    parsed = []
+    table_data_rows = []
+    for table in tables:
+        n_data = 0
+        for row in table.findall("./" + q("tr")):
+            cells = [cell_text(c) for c in row.findall("./" + q("tc"))]
+            if not any(cells) or len(cells) < 11:
+                continue
+            metadata = cells[:-2]
+            has_response = any(
+                candidate.casefold() in value.casefold()
+                for value in metadata
+                for candidate in RESPONSES
+            )
+            if not has_response:
+                continue
+            parsed.append(parse_row(cells))
+            n_data += 1
+        table_data_rows.append(n_data)
+
+    response_counts = Counter(r["response"] for r in parsed)
+    assert response_counts == Counter(PUBLIC_S1_PHYSICAL_ROW_COUNTS), (
+        response_counts,
+        table_data_rows,
+    )
+    assert len(parsed) == sum(PUBLIC_S1_PHYSICAL_ROW_COUNTS.values()) == 426
+    assert table_data_rows == [0, 79, 79, 79, 79, 79, 31], table_data_rows
+    public_shortfall = {
+        key: PAPER_REPORTED_HIERARCHICAL_INPUT_COUNTS[key] - PUBLIC_S1_PHYSICAL_ROW_COUNTS[key]
+        for key in PAPER_REPORTED_HIERARCHICAL_INPUT_COUNTS
+    }
+    assert public_shortfall == {
+        "Female fitness": 45,
+        "Male fitness": 17,
+        "Pollination": 12,
+    }
+
+    # Freeze the exact row-level metadata and candidate pairing universe before
+    # opening any Hedges-d or variance cells. These files contain no outcomes.
+    metadata_rows = []
+    for i, row in enumerate(parsed, start=1):
+        metadata_rows.append({
+            "source_row_id": f"SF06R{i:03d}",
+            **row,
+            "land_use_factor_normalized": normalize_land_use(row["land_use_factor"]),
+            "outcome_opened": "no",
+        })
+
+    metadata_csv = outdir / "phase2_sf06_metadata_rows_v1.csv"
+    with metadata_csv.open("w", newline="", encoding="utf-8") as fh:
+        writer = csv.DictWriter(fh, fieldnames=list(metadata_rows[0]))
+        writer.writeheader()
+        writer.writerows(metadata_rows)
+
+    by_pair: dict[tuple[str, str, str], list[dict[str, str]]] = defaultdict(list)
+    for row in parsed:
+        key = (
+            normalize_publication(row["source_publication"]),
+            row["species"],
+            normalize_land_use(row["land_use_factor"]),
+        )
+        by_pair[key].append(row)
+
+    pair_manifest = []
+    for i, (key, rr) in enumerate(sorted(by_pair.items(), key=lambda kv: kv[0]), start=1):
+        responses = {r["response"] for r in rr}
+        if not {"Pollination", "Female fitness"} <= responses:
+            continue
+        comps = {r["compatibility"] for r in rr if r["compatibility"]}
+        compatibility = next(iter(comps)) if len(comps) == 1 else "MIXED_METADATA"
+        land_use = key[2]
+        pair_manifest.append({
+            "pair_id": f"SF06PAIR{len(pair_manifest)+1:03d}",
+            "source_publication": rr[0]["source_publication"],
+            "source_publication_key": key[0],
+            "species": key[1],
+            "land_use_factor_normalized": land_use,
+            "compatibility": compatibility,
+            "family": uniq(rr, "family"),
+            "pollination_context": uniq(rr, "pollination_context"),
+            "n_pollination_rows": str(sum(r["response"] == "Pollination" for r in rr)),
+            "n_female_fitness_rows": str(sum(r["response"] == "Female fitness" for r in rr)),
+            "habitat_fragmentation_pair": "yes" if land_use == "habitat fragmentation" else "no",
+            "compatibility_model_metadata_eligible": (
+                "yes" if land_use == "habitat fragmentation" and compatibility in {"SC", "SI"}
+                else "no"
+            ),
+            "outcome_opened": "no",
+        })
+
+    pair_csv = outdir / "phase2_sf06_translation_pair_manifest_v1.csv"
+    with pair_csv.open("w", newline="", encoding="utf-8") as fh:
+        writer = csv.DictWriter(fh, fieldnames=list(pair_manifest[0]))
+        writer.writeheader()
+        writer.writerows(pair_manifest)
+
+    n_frag_pairs = sum(r["habitat_fragmentation_pair"] == "yes" for r in pair_manifest)
+    n_frag_scsi = sum(r["compatibility_model_metadata_eligible"] == "yes" for r in pair_manifest)
+
+    by_pub: dict[str, list[dict[str, str]]] = defaultdict(list)
+    for row in parsed:
+        key = normalize_publication(row["source_publication"])
+        by_pub[key].append(row)
+
+    output = []
+    species_all = set()
+    for i, (_, rows) in enumerate(sorted(by_pub.items(), key=lambda kv: kv[0]), start=1):
+        for row in rows:
+            species_all.add(row["species"].casefold())
+        output.append({
+            "source_frame": SOURCE_FRAME,
+            "sf06_publication_id": f"SF06P{i:03d}",
+            "source_publication": rows[0]["source_publication"],
+            "n_source_rows": str(len(rows)),
+            "responses": "; ".join(sorted({r["response"] for r in rows})),
+            "n_species": str(len({r["species"].casefold() for r in rows})),
+            "species": uniq(rows, "species"),
+            "families": uniq(rows, "family"),
+            "land_use_factors": uniq(rows, "land_use_factor"),
+            "compatibility_systems": uniq(rows, "compatibility"),
+            "sexual_expressions": uniq(rows, "sexual_expression"),
+            "pollination_contexts": uniq(rows, "pollination_context"),
+            "life_forms": uniq(rows, "life_form"),
+            "ecosystem_types": uniq(rows, "ecosystem_type"),
+            "countries": uniq(rows, "country"),
+            "multilayer_screen_status": "pending_title_abstract_methods_screen",
+            "screening_note": (
+                "DOCX source identity/trait metadata materialized before new numerical EGWEE effects; "
+                "Hedges-d and V(d) cells were parsed only as excluded positions and are not stored."
+            ),
+            "outcome_opened": "no",
+        })
+
+    out_csv = outdir / "phase2_sf06_publication_universe_v1.csv"
+    with out_csv.open("w", newline="", encoding="utf-8") as fh:
+        writer = csv.DictWriter(fh, fieldnames=list(output[0]))
+        writer.writeheader()
+        writer.writerows(output)
+
+    summary = {
+        "materialization_schema_version": MATERIALIZATION_SCHEMA_VERSION,
+        "source_frame": SOURCE_FRAME,
+        "source_article_doi": SOURCE_ARTICLE_DOI,
+        "source_sha256": hashlib.sha256(source.read_bytes()).hexdigest(),
+        "docx_tables": len(tables),
+        "docx_data_rows_by_table": table_data_rows,
+        "paper_reported_hierarchical_input_counts": PAPER_REPORTED_HIERARCHICAL_INPUT_COUNTS,
+        "public_s1_physical_row_counts": PUBLIC_S1_PHYSICAL_ROW_COUNTS,
+        "paper_minus_public_s1_shortfall": public_shortfall,
+        "public_s1_coverage_boundary": (
+            "accessible DOCX contains 426 response-labelled C-through-Z physical rows; "
+            "paper reports 500 hierarchical input effects; missing 74 inputs are not reconstructed"
+        ),
+        "materialized": {
+            "source_effect_rows": len(parsed),
+            "deduplicated_source_publications": len(output),
+            "unique_species": len(species_all),
+            "response_row_counts": dict(response_counts),
+        },
+        "outcome_fields_materialized": False,
+        "excluded_source_fields": ["Hedges_d", "V(d)"],
+        "exact_pairing_manifest": {
+            "all_pollination_female_pairs_metadata_only": len(pair_manifest),
+            "habitat_fragmentation_pairs_metadata_only": n_frag_pairs,
+            "habitat_fragmentation_SC_SI_pairs_metadata_only": n_frag_scsi,
+            "metadata_rows_file": metadata_csv.name,
+            "pair_manifest_file": pair_csv.name,
+        },
+        "publication_universe_file": out_csv.name,
+        "completion_status": "public_s1_426_rows_materialized_with_74_paper_input_shortfall",
+    }
+    (outdir / "phase2_sf06_source_frame_summary_v1.json").write_text(
+        json.dumps(summary, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
+
+    status = f"""# Phase-2 SF06 materialization — 2026-09-20
+
+## Result
+
+SF06 (Aguilar et al. 2024 online / 2025 volume; doi:{SOURCE_ARTICLE_DOI}) has
+been row-materialized from public Supplementary Table S1.
+
+The accessible public source DOCX contains **426 response-labelled physical rows**. The article reports 500 hierarchical meta-analysis input effect values (312 female, 105 male, 83 pollination), so the public file is not a complete row-level representation of those reported inputs. Structural audit shows that its first Word table is header-only and the response-labelled data begin at *Calystegia*; no missing first data table can be recovered by simply scanning `tables[0]`.
+
+The public DOCX contains:
+
+- source physical effect rows: **{len(parsed)}**;
+- paper-reported minus public-row shortfall: **{sum(public_shortfall.values())}** (=45 female + 17 male + 12 pollination);
+- deduplicated source publications: **{len(output)}**;
+- unique plant species represented: **{len(species_all)}**;
+- female-fitness rows: **{response_counts.get('Female fitness', 0)}**;
+- male-fitness rows: **{response_counts.get('Male fitness', 0)}**;
+- pollination rows: **{response_counts.get('Pollination', 0)}**;
+- exact metadata-only pollination–female-fitness paired units: **{len(pair_manifest)}**;
+- exact habitat-fragmentation paired units before numeric eligibility: **{n_frag_pairs}**;
+- habitat-fragmentation paired units with unambiguous SC/SI metadata: **{n_frag_scsi}**.
+
+## Outcome-blind firewall
+
+The Phase-2 publication universe retains publication identity, species, family,
+response family, land-use factor and ecological/life-history metadata.
+
+The numerical source-result cells `Hedges' d` and `V(d)` are deliberately
+excluded from the metadata ledger. No missing A/B or otherwise absent paper-reported effect is reconstructed from article summaries, figures or aggregate counts.
+
+The row-level metadata ledger and exact pair manifest are also frozen here so
+pair construction cannot be changed after numerical outcomes are opened.
+
+## Next operation
+
+Screen and crosswalk the source publications for repeated same-system I/F/C
+programmes and duplicates with SF01-SF05, SF07 and the existing EGWEE registry
+before any new numerical extraction.
+"""
+    rootdir = outdir.parent.parent
+    (rootdir / "manuscript" / "PHASE2_SF06_MATERIALIZATION_2026-09-20.md").write_text(
+        status, encoding="utf-8"
+    )
+
+    print(
+        "PHASE2_SF06_MATERIALIZED "
+        f"rows={len(parsed)} publications={len(output)} species={len(species_all)} "
+        f"female={response_counts.get('Female fitness',0)} "
+        f"male={response_counts.get('Male fitness',0)} "
+        f"pollination={response_counts.get('Pollination',0)} outcomes_opened=false"
+    )
+
+
+if __name__ == "__main__":
+    main()

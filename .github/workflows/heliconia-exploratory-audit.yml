@@ -1,0 +1,30 @@
+name: Heliconia external longitudinal audit
+
+on:
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - 'scripts/audit_heliconia_longitudinal_external.py'
+      - '.github/workflows/heliconia-exploratory-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  external-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Reanalyse pinned public demographic file with independent plot units
+        run: python scripts/audit_heliconia_longitudinal_external.py --out build/heliconia_longitudinal_external.json
+      - name: Archive external audit summary
+        uses: actions/upload-artifact@v4
+        with:
+          name: heliconia-external-longitudinal-audit
+          path: build/heliconia_longitudinal_external.json
+          if-no-files-found: error

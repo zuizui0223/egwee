@@ -1,0 +1,9 @@
+cluster_id,source_lane,citation,doi,site,forest_context,adult_n,seedling_n,G_adult_HE,G_offspring_HE,source_location,independent_unit_note
+P2_CF01_GPAIR_003,CF01_citation_expansion,Farwig et al. 2008,10.1007/s10592-007-9343-x,Malava,fragment,15,15,0.82,0.79,Table_2,site_population_is_independent_fragmentation_unit
+P2_CF01_GPAIR_003,CF01_citation_expansion,Farwig et al. 2008,10.1007/s10592-007-9343-x,Kisere,fragment,14,14,0.81,0.79,Table_2,site_population_is_independent_fragmentation_unit
+P2_CF01_GPAIR_003,CF01_citation_expansion,Farwig et al. 2008,10.1007/s10592-007-9343-x,Mukangu,main_forest,10,10,0.78,0.73,Table_2,site_population_is_independent_fragmentation_unit
+P2_CF01_GPAIR_003,CF01_citation_expansion,Farwig et al. 2008,10.1007/s10592-007-9343-x,Buyangu,main_forest,17,17,0.83,0.80,Table_2,site_population_is_independent_fragmentation_unit
+P2_CF01_GPAIR_003,CF01_citation_expansion,Farwig et al. 2008,10.1007/s10592-007-9343-x,Isecheno B,main_forest,14,14,0.76,0.71,Table_2,site_population_is_independent_fragmentation_unit
+P2_CF01_GPAIR_003,CF01_citation_expansion,Farwig et al. 2008,10.1007/s10592-007-9343-x,Isecheno A,main_forest,16,16,0.80,0.72,Table_2,site_population_is_independent_fragmentation_unit
+P2_CF01_GPAIR_003,CF01_citation_expansion,Farwig et al. 2008,10.1007/s10592-007-9343-x,Ikuywa,fragment,15,15,0.82,0.73,Table_2,site_population_is_independent_fragmentation_unit
+P2_CF01_GPAIR_003,CF01_citation_expansion,Farwig et al. 2008,10.1007/s10592-007-9343-x,Kaimosi,fragment,9,9,0.79,0.76,Table_2,site_population_is_independent_fragmentation_unit

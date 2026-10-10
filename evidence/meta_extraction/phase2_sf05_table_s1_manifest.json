@@ -1,0 +1,57 @@
+{
+  "source_frame": "SF05",
+  "source_article_doi": "10.1093/aobpla/plad019",
+  "source_file": "plad019_suppl_supplementary_table_s1.xlsx",
+  "source_sha256": "eb5257c842ae69a2ecd0ed57593d68cbda7ab07f3af5029d9072d9d36101aa5e",
+  "parser": "stdlib_zipfile_xml_no_spreadsheet_recalculation",
+  "sheets": [
+    {
+      "index": 1,
+      "name": "meta.references",
+      "xml_path": "xl/worksheets/sheet1.xml",
+      "rows": 32,
+      "columns": 3,
+      "csv": "phase2_sf05_table_s1_sheet01_meta_references.csv"
+    },
+    {
+      "index": 2,
+      "name": "sys.rev",
+      "xml_path": "xl/worksheets/sheet2.xml",
+      "rows": 178,
+      "columns": 78,
+      "csv": "phase2_sf05_table_s1_sheet02_sys_rev.csv"
+    },
+    {
+      "index": 3,
+      "name": "sys.rev-meta.only",
+      "xml_path": "xl/worksheets/sheet3.xml",
+      "rows": 117,
+      "columns": 78,
+      "csv": "phase2_sf05_table_s1_sheet03_sys_rev_meta_only.csv"
+    },
+    {
+      "index": 4,
+      "name": "meta-complete",
+      "xml_path": "xl/worksheets/sheet4.xml",
+      "rows": 44,
+      "columns": 21,
+      "csv": "phase2_sf05_table_s1_sheet04_meta_complete.csv"
+    },
+    {
+      "index": 5,
+      "name": "meta-outcross",
+      "xml_path": "xl/worksheets/sheet5.xml",
+      "rows": 35,
+      "columns": 20,
+      "csv": "phase2_sf05_table_s1_sheet05_meta_outcross.csv"
+    },
+    {
+      "index": 6,
+      "name": "meta-tree.outcross",
+      "xml_path": "xl/worksheets/sheet6.xml",
+      "rows": 24,
+      "columns": 21,
+      "csv": "phase2_sf05_table_s1_sheet06_meta_tree_outcross.csv"
+    }
+  ]
+}
