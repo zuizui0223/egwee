@@ -84,3 +84,20 @@ An **independent prospective**, same-plot-year and cohort-level design must obse
 - NASA public-region climate time gate: `scripts/audit_heliconia_regional_climate_context.py` — point and response SHA-256 recorded, GitHub Actions PASS: https://github.com/zuizui0223/egwee/actions/runs/38058005341.
 - Prior held-future-year baseline: `scripts/audit_heliconia_forward_lag_prediction.py`, https://github.com/zuizui0223/egwee/actions/runs/38046390486.
 - These exploratory audits **do not alter the frozen EGWEE denominators, claimed universal mechanisms, preregistered tests or submission readiness**.
+
+## Complete four-transition selection check
+
+Because the 2002→2003 interval was noticed after looking at time series, we also audited **every adjacent pair** from 2001–2005 using the **same ten plots** (no new censoring, no new independent study). This guards against presenting one chosen event as a general mechanism.
+
+| Adjacent years | Plots with reduced previous-year recorded flowering | Plots with fewer new recorded seedlings | Mean recruit change per plot | Pearson correlation across 10 plot-level changes (Δ flowering vs Δ recorded recruits) |
+|---|---:|---:|---:|---:|
+| 2001 → 2002 | 1/10 | 3/10 | +10.0 | −0.302 |
+| **2002 → 2003** | **10/10** | **9/10** | **−30.4** | **+0.570** |
+| 2003 → 2004 | 0/10 | 2/10 | +16.4 | −0.126 |
+| 2004 → 2005 | 9/10 | 6/10 | −10.1 | +0.331 |
+
+The 2002–2003 pulse is the largest and most directionally synchronous recorded decrease in this short window, **but not the only episode** in which flowering and recruitment fall together. Importantly, the within-transition association between plot-level changes in flowering and recruitment is **not consistently positive** across all four transitions. A common flowering→new-seedling transfer coefficient has not been established. Each plot/year shares regional conditions and maternal/seed-bank histories; the 40 row-level changes are not independent ecological replications. A naive pooled p value would be misleading after choosing these contrasts post hoc.
+
+A simple first-difference contrast of change in prior living stock against change in new recruits is negative in all four intervals (exploratory r roughly −0.77, −0.88, −0.56, −0.78); **do not infer negative density dependence** from this: lagged stock incorporates recent recruitment and differencing temporally overlapping stock and recruit series can create shared-term/regression-to-mean artifacts. Dedicated birth/death transition accounting and a non-overlapping exposure definition are needed.
+
+Reproduction: `scripts/audit_heliconia_all_transition_pulse.py`; CI success: https://github.com/zuizui0223/egwee/actions/runs/38058259311. This **weakens** any claim that the single 2002–2003 match identifies a universal flowering-causation mechanism, while retaining the documented fact of that calendar-year pulse.
