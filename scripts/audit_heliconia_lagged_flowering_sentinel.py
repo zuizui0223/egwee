@@ -227,7 +227,7 @@ def grouped_cv(rows: list[dict], pred: tuple[str, ...], unit: str) -> dict:
             r for r in rows if r[unit] == held
         ]
         for r, v in zip(test, fit_predict(train, test, pred)):
-            predictions.append({"plot": r["plot"], "year": r["year"],
+            predictions.append({"plot": r["plot"], "ranch": r["ranch"], "year": r["year"],
                                 "obs": r["y"], "pred": v})
     assert len(predictions) == len(rows)
     by_plot = {
@@ -239,7 +239,14 @@ def grouped_cv(rows: list[dict], pred: tuple[str, ...], unit: str) -> dict:
             "mae": sum(abs(r["obs"] - r["pred"]) for r in v)/len(v)}
         for p, v in by_plot.items()
     }
+    ranch_mse = {
+        ranch: sum((r["obs"] - r["pred"])**2 for r in predictions if r["ranch"] == ranch)
+               / sum(r["ranch"] == ranch for r in predictions)
+        for ranch in sorted({r["ranch"] for r in rows})
+    }
     return {
+        "mse_by_ranch": {k: round(v, 6) for k, v in ranch_mse.items()},
+        "mse_equal_ranch": sum(ranch_mse.values()) / len(ranch_mse),
         "mse_equal_plot_year": sum(r["mse"] for r in plot_scores.values()) / len(plot_scores),
         "mae_equal_plot_year": sum(r["mae"] for r in plot_scores.values()) / len(plot_scores),
         "plot_mse": {p: round(v["mse"], 6) for p, v in plot_scores.items()},
@@ -338,6 +345,14 @@ def main() -> None:
                      for k, v in (final.get("observation_screened_models") or {}).items()},
         "ranch_mse": {k: round(v["leave_one_ranch_out"]["mse_equal_plot_year"], 4)
                       for k, v in (final.get("observation_screened_models") or {}).items()},
+        "ranch_holdout_per_ranch_mse": {k: v["leave_one_ranch_out"]["mse_by_ranch"]
+                 for k, v in (final.get("observation_screened_models") or {}).items()
+                 if k in ("year_only", "prior_live_stock",
+                          "prior_flowering_individuals", "stock_plus_flowering")},
+        "ranch_equal_mse": {k: round(v["leave_one_ranch_out"]["mse_equal_ranch"], 4)
+                 for k, v in (final.get("observation_screened_models") or {}).items()
+                 if k in ("year_only", "prior_live_stock",
+                          "prior_flowering_individuals", "stock_plus_flowering")},
         "unscreened_plot_mse": {k: round(v["leave_one_plot_out"]["mse_equal_plot_year"], 4)
                      for k, v in (final.get("unscreened_models_sensitivity") or {}).items()},
     }, indent=2))
