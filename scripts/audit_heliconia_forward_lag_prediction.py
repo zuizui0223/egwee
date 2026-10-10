@@ -228,11 +228,51 @@ def main():
             ),
             "within_year_slope_new_vs_stock":slope,
         }
+    common_plots=set.intersection(*[
+        {r["plot"] for r in rows if r["year"]==y} for y in YEARS
+    ])
+    assert len(common_plots) >= 8
+    common=[r for r in rows if r["plot"] in common_plots]
+    assert len(common)==len(common_plots)*len(YEARS)
+    common_profile={}
+    for y in YEARS:
+        cohort=[r for r in common if r["year"]==y]
+        common_profile[str(y)]={
+            "n_plots":len(cohort),
+            "mean_new_seedlings":sum(r["y"] for r in cohort)/len(cohort),
+            "mean_prior_stock":sum(r["stock"] for r in cohort)/len(cohort),
+            "aggregate_new_per_prior_stock":sum(r["y"] for r in cohort)/sum(r["stock"] for r in cohort),
+            "mean_documented_prior_flowering":sum(r["fl1"] for r in cohort)/len(cohort),
+        }
+    pair_diffs=[]
+    for p in sorted(common_plots):
+        old=next(r for r in common if r["plot"]==p and r["year"]==2002)
+        new=next(r for r in common if r["plot"]==p and r["year"]==2003)
+        pair_diffs.append({"plot":p,"new_2002":old["y"],"new_2003":new["y"],
+                           "change_new_2003_minus_2002":new["y"]-old["y"],
+                           "change_prior_stock_2003_minus_2002":new["stock"]-old["stock"]})
+    balanced_transfer={
+        k:forward_validation(common, FEATURES[k], k)
+        for k in ("intercept_only", "prior_recruits", "two_year_recruit_history",
+                  "prior_live_stock", "lag1_flowering", "lag2_flowering",
+                  "lag3_flowering", "proportional_prior_stock",
+                  "stock_plus_lag1_flowering")
+    }
     result={
         "status":"POST_HOC_FORWARD_YEAR_SPLIT_EXPLORATORY_NOT_CAUSAL",
         "source_pin":"BrunaLab/HeliconiaSurveys 0b999f6bcb47df1c31f0dd0a8b472055b5f81bc0",
         "provenance":provenance,
         "yearly_stock_recruitment_diagnostics":year_profiles,
+        "common_plot_yearly_profile":common_profile,
+        "common_plot_count":len(common_plots),
+        "common_plot_matched_2002_2003_changes":pair_diffs,
+        "common_plot_matched_number_recruit_declines":sum(
+            d["change_new_2003_minus_2002"] < 0 for d in pair_diffs
+        ),
+        "common_plot_matched_number_stock_increases":sum(
+            d["change_prior_stock_2003_minus_2002"] > 0 for d in pair_diffs
+        ),
+        "balanced_same_plot_forward_scores":balanced_transfer,
         "candidate_models":out,
         "claim_ceiling":[
             "Only earlier calendar-year outcomes are used; this is temporal transfer, not across-ranch transfer.",
@@ -253,6 +293,13 @@ def main():
     print(json.dumps({
         "provenance":provenance,
         "yearly_stock_recruitment_diagnostics":year_profiles,
+        "common_plot_count":len(common_plots),
+        "common_plot_yearly_profile":common_profile,
+        "matched_recruit_declines_2002_2003":sum(d["change_new_2003_minus_2002"] < 0
+                                                 for d in pair_diffs),
+        "balanced_same_plot_forward_mse":{
+            k: round(v["mse_pooled_plot_years"],3) for k,v in balanced_transfer.items()
+        },
         "scores":{k: {"mse":round(v["mse_pooled_plot_years"],3),
                        "mae":round(v["mae_pooled_plot_years"],3),
                        "equal_year_mse":round(v["mse_equal_future_years"],3),
