@@ -100,6 +100,7 @@ FILES = [
     "evidence/meta_extraction/if_translation_map_v1.csv",
     "evidence/meta_extraction/if_interaction_metric_class_v1.csv",
     "evidence/meta_extraction/if_reliability_sufficiency_v1.csv",
+    "evidence/meta_extraction/sf06_translation_residual_result_v1.json",
     "evidence/meta_extraction/if_reliability_wandoo_table6_v1.csv",
     "evidence/meta_extraction/phase2_cf01_cardiopetalum_table1_v1.csv",
     "evidence/meta_extraction/hidden_effective_mating_mechanism_context_v1.csv",
