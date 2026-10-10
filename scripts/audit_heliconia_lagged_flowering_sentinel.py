@@ -136,6 +136,12 @@ def load(local_dir: Path | None) -> tuple[list[dict], dict]:
                               "same_id_measured_in_previous_year": found_before,
                               "same_id_measured_next_year": found_next,
                               "same_id_measured_any_later_year": found_any_later})
+    assert [(r["plot"], r["year"], r["all_missing_records"],
+             r["same_id_measured_next_year"]) for r in blackouts] == [
+        ("CF-4", 2000, 116, 111),
+        ("CF-5", 2000, 171, 155),
+        ("CF-6", 2003, 278, 247),
+    ], blackouts
     profile = {
         "source_plant_years": len(plants_raw), "observed_new_seedlings_1999_2005": 2590,
         "years_by_prior_flowering_record": year_profiles,
@@ -272,12 +278,31 @@ def main() -> None:
         complete = [r for r in rows if r["year"] in valid_years]
         observation_screened = [r for r in complete if r["prior_census_measured"]
                                 and r["outcome_census_measured"]]
-        assert 0 < len(observation_screened) < len(complete)
+        assert len(observation_screened) == 85
+        def mean_recruits(sample: list[dict]) -> dict:
+            outcome = {}
+            for group in (0.0, 1.0):
+                group_rows = [r for r in sample if r["fragment"] == group]
+                by_plot = {r["plot"] for r in group_rows}
+                means = [sum(r["y"] for r in group_rows if r["plot"] == p)
+                         / sum(r["plot"] == p for r in group_rows) for p in by_plot]
+                outcome["continuous" if group == 0 else "fragment"] = {
+                    "plot_year_records": len(group_rows),
+                    "new_seedlings": int(sum(r["y"] for r in group_rows)),
+                    "equal_plot_mean_annual_new_seedlings": sum(means) / len(means),
+                }
+            return outcome
         final = {
             "status": "POST_HOC_EXPLORATORY_OUT_OF_LANDSCAPE_PREDICTION",
             "profile": profile, "n_rows_all_balanced": len(rows),
             "n_rows_restricted": len(complete),
             "n_rows_observation_screened": len(observation_screened),
+            "new_seedling_denominator_sensitivity": {
+                "all_archive_plot_years": mean_recruits(rows),
+                "observed_outcome_census_only": mean_recruits(
+                    [r for r in rows if r["outcome_census_measured"]]),
+                "both_outcome_and_predictor_observed": mean_recruits(observation_screened),
+            },
             "excluded_plot_year_pairs_due_to_zero_measured": [
                 {"plot": r["plot"], "year": r["year"],
                  "prior_measured": r["prior_census_measured"],
@@ -307,6 +332,8 @@ def main() -> None:
     print("HELICONIA_LAGGED_FLOWERING_AUDIT: " + final["status"])
     print(json.dumps({
         "profile": profile,
+        "n_rows_observation_screened": final.get("n_rows_observation_screened"),
+        "new_seedling_denominator_sensitivity": final.get("new_seedling_denominator_sensitivity"),
         "plot_mse": {k: round(v["leave_one_plot_out"]["mse_equal_plot_year"], 4)
                      for k, v in (final.get("observation_screened_models") or {}).items()},
         "ranch_mse": {k: round(v["leave_one_ranch_out"]["mse_equal_plot_year"], 4)
