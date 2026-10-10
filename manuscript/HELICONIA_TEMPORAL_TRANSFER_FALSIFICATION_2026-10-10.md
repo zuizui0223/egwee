@@ -63,6 +63,18 @@ Intersecting the eligibility sets leaves the **same ten plots in all five years*
 
 Thus from 2002→2003, **new seedling entries fall ~68% while prior living stock rises ~9.6% in these same ten plots**. The apparent recruitment/stock ratio falls about **71%**. **9 of the 10 plots individually have fewer first-recorded seedlings in 2003 than in 2002.** This is source-based evidence that previous population size cannot by itself guarantee stable annual recruitment in the observation record; it is **not** proof that seed viability, climate, mate quality, or true demographic survival caused the fall.
 
+The 2002→2003 decline is not confined to a single ranch or habitat category within those same ten plots:
+
+| Fixed-site group | Plots | New entries per plot in 2002 → 2003 | Prior living stock per plot in 2002 → 2003 |
+|---|---:|---:|---:|
+| Dimona | 3 | 7.0 → 4.0 | 180.0 → 185.7 |
+| Esteio | 5 | 70.2 → 22.0 | 630.6 → 691.0 |
+| Porto Alegre | 2 | 36.5 → 9.5 | 428.5 → 488.0 |
+| Continuous forest | 3 | 96.3 → 26.3 | 811.3 → 899.3 |
+| Fragmented forest | 7 | 22.3 → 8.9 | 302.3 → 327.1 |
+
+These summaries partition the **same ten plots two different ways**; they are **not additional independent replications**. They support a geographically shared temporal change in **recorded** recruitment and reject a pure single-ranch or single-habitat compositional explanation. No synchronized causal driver is identified, because year-specific observation, regional climate and seed-stage opportunity remain unmeasured in this reanalysis. Reproduced at https://github.com/zuizui0223/egwee/actions/runs/38046390486.
+
 To guard against differing plot composition driving the prediction reversal, fully forward-year prediction of this ten-plot balanced panel again gives:
 - prior-year mean baseline MSE **496.76**;
 - two-year previously recorded recruitment history **385.95**;
