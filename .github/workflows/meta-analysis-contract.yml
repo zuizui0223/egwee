@@ -56,6 +56,8 @@ on:
       - 'scripts/check_study_flow_transparency.py'
       - 'scripts/check_statistical_estimand_contract.py'
       - 'scripts/check_estimand_scale_robustness.py'
+      - 'scripts/check_effect_scale_sign_logic.py'
+      - 'manuscript/ESTIMAND_SIGN_INVARIANCE_AUDIT_2026-10-10.md'
       - 'scripts/check_if_reliability_sufficiency.py'
       - 'scripts/check_wandoo_mating_provenance_triangulation.py'
       - 'scripts/check_interaction_provenance_context.py'
