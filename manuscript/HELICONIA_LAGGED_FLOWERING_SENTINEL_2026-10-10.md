@@ -35,6 +35,9 @@ These are *documented positive flowering* counts. An `infl=NA` cannot be assumed
 
 ## Prediction: entire plot or ranch held out
 
+**What “held out” means:** the entire target plot/ranch is excluded from fitting, but the *other* plots' recruitment observations from the **same calendar year** are allowed to estimate that year's intercept. This is **spatial transfer conditional on other sites being monitored in that year**, not a strict forward-in-time forecast of a future unseen year's regional recruitment. No withheld plot/ranch outcome is used during fitting, but a fully prospective temporal-transfer assessment would require forward-chaining by year and a year-intercept specification that can extrapolate beyond the training window.
+
+
 We fit a simple predeclared-in-code **year-intercept linear ridge model** for the number of *first-detected* seedlings in year t, with ridge penalty 1 on within-training-year standardized predictors, clipping negative predictions to zero. Every training transformation and coefficient is recomputed after holding out the *entire plot* or *entire ranch*. All models use the **same 85 observation-screened plot-year rows** for comparison. The primary outcome is equal-plot-year MSE of unseen observations, not per-individual significance.
 
 | Predictors from t−1 (plus training-year intercepts) | Held-out plot MSE | Held-out ranch MSE |
