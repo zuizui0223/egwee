@@ -251,6 +251,18 @@ def main():
         pair_diffs.append({"plot":p,"new_2002":old["y"],"new_2003":new["y"],
                            "change_new_2003_minus_2002":new["y"]-old["y"],
                            "change_prior_stock_2003_minus_2002":new["stock"]-old["stock"]})
+    ranch_matched_changes={}
+    for ranch in sorted({r["ranch"] for r in common}):
+        before=[r for r in common if r["ranch"]==ranch and r["year"]==2002]
+        after=[r for r in common if r["ranch"]==ranch and r["year"]==2003]
+        assert len(before)==len(after)>0
+        ranch_matched_changes[ranch]={
+            "n_plots":len(before),
+            "mean_new_2002":sum(r["y"] for r in before)/len(before),
+            "mean_new_2003":sum(r["y"] for r in after)/len(after),
+            "mean_prior_live_2002":sum(r["stock"] for r in before)/len(before),
+            "mean_prior_live_2003":sum(r["stock"] for r in after)/len(after),
+        }
     balanced_transfer={
         k:forward_validation(common, FEATURES[k], k)
         for k in ("intercept_only", "prior_recruits", "two_year_recruit_history",
@@ -265,6 +277,7 @@ def main():
         "yearly_stock_recruitment_diagnostics":year_profiles,
         "common_plot_yearly_profile":common_profile,
         "common_plot_count":len(common_plots),
+        "matched_ranch_changes_2002_2003":ranch_matched_changes,
         "common_plot_matched_2002_2003_changes":pair_diffs,
         "common_plot_matched_number_recruit_declines":sum(
             d["change_new_2003_minus_2002"] < 0 for d in pair_diffs
@@ -294,6 +307,7 @@ def main():
         "provenance":provenance,
         "yearly_stock_recruitment_diagnostics":year_profiles,
         "common_plot_count":len(common_plots),
+        "matched_ranch_changes_2002_2003":ranch_matched_changes,
         "common_plot_yearly_profile":common_profile,
         "matched_recruit_declines_2002_2003":sum(d["change_new_2003_minus_2002"] < 0
                                                  for d in pair_diffs),
