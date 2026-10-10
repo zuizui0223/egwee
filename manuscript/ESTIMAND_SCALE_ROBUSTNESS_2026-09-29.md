@@ -64,6 +64,8 @@ The extreme g magnitude of adult H_O is therefore primarily a standardized-dispe
 
 ## Scale-invariant sign information
 
+**Important algebraic limitation:** for the same strictly positive group means and predeclared endpoint orientation, Hedges g and uncorrected lnRR necessarily have the same sign. The cross-scale sign concordance is algebraic rather than an independent robustness replication; the substantive observation is the shared direction of all 17 oriented group-mean contrasts. See `ESTIMAND_SIGN_INVARIANCE_AUDIT_2026-10-10.md`.
+
 All **17/17** primary direct effects are negative on both g and lnRR orientation.
 
 - g negative = 17;
