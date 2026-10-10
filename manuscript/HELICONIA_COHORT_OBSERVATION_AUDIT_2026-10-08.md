@@ -52,3 +52,9 @@ The competing interpretations remain stock-mediated demographic legacy, ongoing 
 ## Reproduction
 
 Run `python scripts/audit_heliconia_cohort_observation.py --output build/heliconia_cohort_observation_v1.json` to download the commit-pinned, blob-verified public archive and reproduce all 13 plot estimates and exact permutations. For offline data, add `--source-dir <directory>`. GitHub workflow `heliconia-observation-audit.yml` runs this check separately from the frozen EGWEE meta-analysis.
+
+## 10 October observation-completeness qualification (post hoc)
+
+A source-hash-verified ID-level audit [found three continuous-forest plot-years whose entire archived plant status was `missing`, not `measured` or `dead`](HELICONIA_LAGGED_FLOWERING_SENTINEL_2026-10-10.md): CF-4 and CF-5 in 2000 and CF-6 in 2003 (565 plant-year records). **513 of these same IDs were measured alive in the immediately following year.** Therefore seven complete *calendar* years does **not** imply complete observation of each plot-year; the all-missing cells' zero newly recorded seedlings cannot certify true zero biological establishment.
+
+The new audit reports an 85/91 plot-year prediction sensitivity requiring both the preceding and outcome census to contain at least one confirmed observed living plant, and compares lagged observed reproductive-activity indicators with prior living stock in held-out plots and ranches. Prior nominal recruit counts are retained for provenance, **not** promoted to complete-ascertainment estimates. Neither the source audit nor the predictive model establishes a fragmentation-specific causal transition or a stage-switching law.
