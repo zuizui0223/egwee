@@ -195,6 +195,8 @@ jobs:
         run: python scripts/check_statistical_estimand_contract.py
       - name: Audit authoritative estimand-scale robustness
         run: python scripts/check_estimand_scale_robustness.py
+      - name: Audit algebraic sign identity across effect scales
+        run: python scripts/check_effect_scale_sign_logic.py
       - name: Audit cross-scale process-function geometry
         run: python scripts/check_bottleneck_scale_robustness.py
       - name: Audit I-F measurement-reliability sufficiency
