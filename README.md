@@ -71,7 +71,7 @@ The strongest paper-level conclusion is therefore:
 
 > **Fragmentation-associated deterioration is directionally consistent across the primary direct corpus, but relative response amplitude and layer-separation/robustness conclusions depend on the declared effect-size scale and dependence assumptions.**
 
-All **17/17 primary direct effects are negative** on both oriented Hedges g and oriented lnRR. This is descriptive scale-stable evidence for a common direction of deterioration, not a sign test and not evidence that response magnitudes are equal.
+All **17/17 primary direct effects are negative** on both oriented Hedges g and oriented lnRR. This is descriptive evidence for a common direction of deterioration, not a sign test and not evidence that response magnitudes are equal. **Cross-scale sign agreement is algebraic, not an independent robustness replication:** both metrics are monotone transforms of the same oriented difference between strictly positive group means. See `manuscript/ESTIMAND_SIGN_INVARIANCE_AUDIT_2026-10-10.md`.
 
 ### Strongest ecological lead: interaction quantity can provide false reassurance
 
