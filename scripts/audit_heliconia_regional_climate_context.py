@@ -14,6 +14,8 @@ from pathlib import Path
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
+from audit_heliconia_forward_lag_prediction import archive_rows
+
 API="https://power.larc.nasa.gov/api/temporal/monthly/point"
 ARGS={"parameters":"PRECTOTCORR,T2M", "community":"AG",
       "longitude":"-60", "latitude":"-2.5",
@@ -53,7 +55,29 @@ def main():
             "jun_dec_precipitation_mm":round(sum(x["precipitation_mm"] for x in months[5:]),3),
             "months":months,
         }
-    print("NASA_POWER_BDFFP_CLIMATE_CONTEXT: PASS")
+    # The census archive records years, not dates. The same-study climate paper
+    # refers to a February census. Do not use full current-year rainfall as a
+    # prospective predictor without field-level visit dates.
+    plant_rows, _ = archive_rows(None)
+    years=range(2001,2006)
+    common_plots=set.intersection(*[
+        {r["plot"] for r in plant_rows if r["year"]==yr} for yr in years
+    ])
+    assert len(common_plots)==10
+    compared={}
+    for yr in (2002,2003):
+        subset=[r for r in plant_rows if r["year"]==yr and r["plot"] in common_plots]
+        assert len(subset)==10
+        compared[str(yr)]={
+            "mean_first_recorded_new_seedlings":sum(r["y"] for r in subset)/len(subset),
+            "mean_previous_year_documented_flowering":sum(r["fl1"] for r in subset)/len(subset),
+            "mean_previous_year_observed_stock":sum(r["stock"] for r in subset)/len(subset),
+            "strictly_prior_calendar_year_rainfall_mm":monthly[str(yr-1)]["annual_precipitation_mm"],
+            "strictly_prior_calendar_year_jan_may_rainfall_mm":monthly[str(yr-1)]["jan_may_precipitation_mm"],
+            "strictly_prior_calendar_year_mean_temperature_c":monthly[str(yr-1)]["mean_temperature_c"],
+            "same_calendar_year_jan_may_rainfall_mm_NOT_PROSPECTIVE":monthly[str(yr)]["jan_may_precipitation_mm"],
+            "same_calendar_year_total_rainfall_mm_NOT_PROSPECTIVE":monthly[str(yr)]["annual_precipitation_mm"],
+        }
     report={
         "status":"EXTERNAL_REGIONAL_CONTEXT_NO_CAUSAL_OR_SITE_CLAIM",
         "source_url":URL,
@@ -62,6 +86,14 @@ def main():
                     "parameter_units":obj.get("parameters"),
                     "site_latitude":-2.5,"site_longitude":-60.0},
         "monthly_climate":monthly,
+        "biological_calendar_alignment":compared,
+        "timing_guard":{
+            "study_report_2022_doi":"10.1111/gcb.15900",
+            "associated_later_study_mentions_February_census":True,
+            "exact_archive_plot_year_survey_dates_available":False,
+            "prohibition":"Do not use current-year Jan-May or annual rainfall as prior exposure for a possibly February census.",
+            "counterexample":"2003 full-year rainfall falls strongly, but 2002 annual rainfall preceding that census differs very little from 2001. This rejects an automatic inference of prior-year drought from the same-year climate curve, not all precipitation-lag mechanisms."
+        },
         "source_limits":[
             "Regional gridded climate around approximate BDFFP centroid, not exact site/ranch exposure.",
             "POWER meteorology MERRA-2 products and revisions; not observed local field rainfall.",
@@ -76,8 +108,12 @@ def main():
     if args.output:
         args.output.parent.mkdir(parents=True,exist_ok=True)
         args.output.write_text(json.dumps(report,indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
-    print(json.dumps({y:{k:v for k,v in x.items() if k!="months"}
-                     for y,x in monthly.items()},indent=2))
+    print(json.dumps({
+        "annual_climate":{y:{k:v for k,v in x.items() if k!="months"}
+                          for y,x in monthly.items()},
+        "biological_calendar_alignment":compared,
+        "timing_guard":report["timing_guard"],
+    },indent=2))
 
 if __name__=="__main__":
     main()
