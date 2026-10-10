@@ -1,0 +1,31 @@
+name: Heliconia individual-fate detection competitor
+
+on:
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - 'scripts/audit_heliconia_recruitment_detection_competitor.py'
+      - 'scripts/audit_heliconia_forward_lag_prediction.py'
+      - '.github/workflows/heliconia-recruitment-detection-competitor.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify archived IDs and compare fate ascertainment with reproduction
+        run: python scripts/audit_heliconia_recruitment_detection_competitor.py --output build/heliconia_recruitment_detection_competitor.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: heliconia-recruitment-detection-competitor
+          path: build/heliconia_recruitment_detection_competitor.json
+          if-no-files-found: error
