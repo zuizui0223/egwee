@@ -31,6 +31,12 @@ FEATURES = {
     "lag1_inflorescences": ("inflo1",),
     "lag2_inflorescences": ("inflo2",),
     "stock_plus_prior_recruits": ("stock", "prior_new"),
+    "two_year_recruit_history": ("prior_new", "prior_new2"),
+    "rolling_prior_two_years_plus_stock": ("prior_new", "prior_new2", "stock"),
+    "recent_year_only_benchmark": (),
+    "proportional_prior_stock": (),
+    "proportional_prior_flowering": (),
+    "proportional_prior_stock_by_habitat": (),
     "stock_plus_lag1_flowering": ("stock", "fl1"),
     "stock_plus_lag2_flowering": ("stock", "fl2"),
     "stock_plus_lag3_flowering": ("stock", "fl3"),
@@ -89,6 +95,7 @@ def archive_rows(local: Path | None) -> tuple[list[dict],dict]:
                 "trend": float(year - 2001),
                 "stock": float(history[0]["measured"]),
                 "prior_new": float(history[0]["new"]),
+                "prior_new2": float(history[1]["new"]),
                 "fl1": float(history[0]["fl"]),
                 "fl2": float(history[1]["fl"]),
                 "fl3": float(history[2]["fl"]),
@@ -140,13 +147,30 @@ def ridge_predict(train: list[dict], test: list[dict], features: tuple[str,...])
                                for i,f in enumerate(features))) for r in test]
 
 
-def forward_validation(rows: list[dict], features: tuple[str,...]) -> dict:
+def forward_validation(rows: list[dict], features: tuple[str,...],
+                       model_name: str) -> dict:
     preds=[]
     for held in FORECAST_YEARS:
         train=[r for r in rows if r["year"] < held]
         test=[r for r in rows if r["year"] == held]
         assert len(train)>=15 and len(test)>=8 and not(set(id(z) for z in train) & set(id(z) for z in test))
-        forecast=ridge_predict(train,test,features)
+        if model_name == "recent_year_only_benchmark":
+            latest=max(r["year"] for r in train)
+            last=[r["y"] for r in train if r["year"]==latest]
+            forecast=[sum(last)/len(last)]*len(test)
+        elif model_name in ("proportional_prior_stock", "proportional_prior_flowering",
+                            "proportional_prior_stock_by_habitat"):
+            key="fl1" if model_name=="proportional_prior_flowering" else "stock"
+            forecast=[]
+            for row in test:
+                subset=[r for r in train if r["fragment"]==row["fragment"]] if (
+                    model_name=="proportional_prior_stock_by_habitat") else train
+                assert len(subset)>0
+                exposure=sum(r[key] for r in subset)
+                rate=sum(r["y"] for r in subset)/exposure if exposure>0 else 0.
+                forecast.append(rate*row[key])
+        else:
+            forecast=ridge_predict(train,test,features)
         preds.extend([{"plot":r["plot"],"ranch":r["ranch"],"year":held,"habitat":r["fragment"],
                        "observed":r["y"],"predicted":v} for r,v in zip(test,forecast)])
     expected=sum(r["year"] in FORECAST_YEARS for r in rows)
@@ -155,6 +179,8 @@ def forward_validation(rows: list[dict], features: tuple[str,...]) -> dict:
         return sum((r["observed"]-r["predicted"])**2 for r in a)/len(a)
     def mae(a):
         return sum(abs(r["observed"]-r["predicted"]) for r in a)/len(a)
+    def bias(a):
+        return sum(r["predicted"]-r["observed"] for r in a)/len(a)
     by_year={str(y): mse([r for r in preds if r["year"]==y]) for y in FORECAST_YEARS}
     by_ranch={ranch: mse([r for r in preds if r["ranch"]==ranch])
               for ranch in sorted({r["ranch"] for r in preds})}
@@ -165,6 +191,9 @@ def forward_validation(rows: list[dict], features: tuple[str,...]) -> dict:
         "mse_equal_future_years":sum(by_year.values())/len(by_year),
         "mse_equal_ranches":sum(by_ranch.values())/len(by_ranch),
         "mse_by_future_year":by_year,
+        "mean_predicted_minus_observed_by_year": {
+            str(yr): bias([r for r in preds if r["year"]==yr]) for yr in FORECAST_YEARS
+        },
         "mse_by_ranch":by_ranch,
     }
 
@@ -175,16 +204,35 @@ def main():
     ap.add_argument("--output", type=Path)
     args=ap.parse_args()
     rows,provenance=archive_rows(args.local_dir)
-    out={k:forward_validation(rows,v) for k,v in FEATURES.items()}
+    out={k:forward_validation(rows,v,k) for k,v in FEATURES.items()}
     base=out["intercept_only"]["mse_pooled_plot_years"]
     for record in out.values():
         record["fraction_mse_improvement_over_intercept"]=1-record["mse_pooled_plot_years"]/base
     assert all(v["n_predictions"]==sum(x["year"] in FORECAST_YEARS for x in rows)
                for v in out.values())
+    year_profiles={}
+    for year in YEARS:
+        within=[r for r in rows if r["year"]==year]
+        n=len(within)
+        mx=sum(r["stock"] for r in within)/n
+        my=sum(r["y"] for r in within)/n
+        vx=sum((r["stock"]-mx)**2 for r in within)
+        slope=(sum((r["stock"]-mx)*(r["y"]-my) for r in within)/vx
+               if vx>0 else None)
+        year_profiles[str(year)]={
+            "n_observed_plots":n,
+            "mean_detected_new_seedlings":my,
+            "mean_prior_living_stock":mx,
+            "aggregate_new_per_prior_living_stock": (
+                sum(r["y"] for r in within)/sum(r["stock"] for r in within)
+            ),
+            "within_year_slope_new_vs_stock":slope,
+        }
     result={
         "status":"POST_HOC_FORWARD_YEAR_SPLIT_EXPLORATORY_NOT_CAUSAL",
         "source_pin":"BrunaLab/HeliconiaSurveys 0b999f6bcb47df1c31f0dd0a8b472055b5f81bc0",
         "provenance":provenance,
+        "yearly_stock_recruitment_diagnostics":year_profiles,
         "candidate_models":out,
         "claim_ceiling":[
             "Only earlier calendar-year outcomes are used; this is temporal transfer, not across-ranch transfer.",
@@ -204,11 +252,15 @@ def main():
     print("HELICONIA_FORWARD_TEMPORAL_SENTINEL: PASS")
     print(json.dumps({
         "provenance":provenance,
+        "yearly_stock_recruitment_diagnostics":year_profiles,
         "scores":{k: {"mse":round(v["mse_pooled_plot_years"],3),
                        "mae":round(v["mae_pooled_plot_years"],3),
                        "equal_year_mse":round(v["mse_equal_future_years"],3),
                        "equal_ranch_mse":round(v["mse_equal_ranches"],3),
                        "year_mse":{yr:round(z,3) for yr,z in v["mse_by_future_year"].items()},
+                       "year_prediction_bias": {
+                           yr:round(z,3) for yr,z in v["mean_predicted_minus_observed_by_year"].items()
+                       },
                        "n":v["n_predictions"]}
                   for k,v in out.items()},
     },ensure_ascii=False,indent=2))
