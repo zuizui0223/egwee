@@ -37,7 +37,7 @@ def load(local_dir: Path | None) -> tuple[list[dict], dict]:
     plots = {p["plot_id"]: p for p in plots_raw}
     assert len(plots) == 13
     rec: dict[tuple[str, int], dict[str, float]] = defaultdict(
-        lambda: dict(stock=0.0, flowering=0.0, inflo=0.0, new=0.0,
+        lambda: dict(records=0.0, stock=0.0, flowering=0.0, inflo=0.0, new=0.0,
                      measured_no_infl=0.0, nonmeasured_infl=0.0)
     )
     keys, new_ids = set(), set()
@@ -49,6 +49,7 @@ def load(local_dir: Path | None) -> tuple[list[dict], dict]:
         assert key not in keys
         keys.add(key)
         row = rec[(plot, year)]
+        row["records"] += 1
         assert r["census_status"] in {"measured", "dead", "missing"}
         alive = r["census_status"] == "measured"
         if alive:
@@ -75,6 +76,7 @@ def load(local_dir: Path | None) -> tuple[list[dict], dict]:
     assert len(keys) == 66396 and len(new_ids) == 3464
 
     rows = []
+    zero_prior_stock = []
     year_profiles = {}
     for year in YEARS:
         prior = [rec[(p, year - 1)] for p in plots]
@@ -89,7 +91,9 @@ def load(local_dir: Path | None) -> tuple[list[dict], dict]:
         }
         for p in sorted(plots):
             previous, current = rec[(p, year - 1)], rec[(p, year)]
-            assert previous["stock"] > 0
+            assert previous["records"] > 0 and current["records"] > 0, (p, year)
+            if previous["stock"] == 0:
+                zero_prior_stock.append({"plot": p, "prior_year": year - 1, "records": previous["records"]})
             rows.append({
                 "plot": p, "ranch": plots[p]["ranch"], "year": year,
                 "fragment": float(plots[p]["habitat"] != "forest"),
@@ -109,6 +113,7 @@ def load(local_dir: Path | None) -> tuple[list[dict], dict]:
         "lagged_years_with_all_ranches_reporting_at_least_one_flower": eligible,
         "excluded_prior_flowering_years": sorted(set(YEARS) - set(eligible)),
         "nonmeasured_rows_with_numeric_infl": int(sum(r["nonmeasured_infl"] for r in rec.values())),
+        "zero_prior_stock_plot_years": zero_prior_stock,
         "status": "DOCUMENTED_FLOWERING_NOT_VERIFIED_ZERO_WHEN_NA",
     }
     return rows, profile
