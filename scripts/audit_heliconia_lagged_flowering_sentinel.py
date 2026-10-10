@@ -37,7 +37,7 @@ def load(local_dir: Path | None) -> tuple[list[dict], dict]:
     plots = {p["plot_id"]: p for p in plots_raw}
     assert len(plots) == 13
     rec: dict[tuple[str, int], dict[str, float]] = defaultdict(
-        lambda: dict(records=0.0, stock=0.0, flowering=0.0, inflo=0.0, new=0.0,
+        lambda: dict(records=0.0, stock=0.0, dead=0.0, missing=0.0, flowering=0.0, inflo=0.0, new=0.0,
                      measured_no_infl=0.0, nonmeasured_infl=0.0)
     )
     keys, new_ids = set(), set()
@@ -54,6 +54,10 @@ def load(local_dir: Path | None) -> tuple[list[dict], dict]:
         alive = r["census_status"] == "measured"
         if alive:
             row["stock"] += 1
+        elif r["census_status"] == "dead":
+            row["dead"] += 1
+        else:
+            row["missing"] += 1
         raw = r["infl"].strip()
         if raw and raw.upper() != "NA":
             value = float(raw)
@@ -93,11 +97,16 @@ def load(local_dir: Path | None) -> tuple[list[dict], dict]:
             previous, current = rec[(p, year - 1)], rec[(p, year)]
             assert previous["records"] > 0 and current["records"] > 0, (p, year)
             if previous["stock"] == 0:
-                zero_prior_stock.append({"plot": p, "prior_year": year - 1, "records": previous["records"]})
+                zero_prior_stock.append({"plot": p, "prior_year": year - 1,
+                                        "measured": previous["stock"], "dead": previous["dead"],
+                                        "missing": previous["missing"], "records": previous["records"]})
             rows.append({
                 "plot": p, "ranch": plots[p]["ranch"], "year": year,
                 "fragment": float(plots[p]["habitat"] != "forest"),
-                "stock": previous["stock"], "flowering": previous["flowering"],
+                "stock": previous["stock"],
+                "prior_census_measured": previous["stock"] > 0,
+                "outcome_census_measured": current["stock"] > 0,
+                "flowering": previous["flowering"],
                 "inflo": previous["inflo"], "y": current["new"],
             })
     assert len(rows) == 13 * len(YEARS)
@@ -114,6 +123,15 @@ def load(local_dir: Path | None) -> tuple[list[dict], dict]:
         "excluded_prior_flowering_years": sorted(set(YEARS) - set(eligible)),
         "nonmeasured_rows_with_numeric_infl": int(sum(r["nonmeasured_infl"] for r in rec.values())),
         "zero_prior_stock_plot_years": zero_prior_stock,
+        "zero_confirmed_live_plot_years_1998_2005": [
+            {"plot": p, "year": yr,
+             "measured": rec[(p, yr)]["stock"],
+             "dead": rec[(p, yr)]["dead"],
+             "missing": rec[(p, yr)]["missing"],
+             "new": rec[(p, yr)]["new"]}
+            for p in sorted(plots) for yr in range(1998, 2006)
+            if rec[(p, yr)]["stock"] == 0
+        ],
         "status": "DOCUMENTED_FLOWERING_NOT_VERIFIED_ZERO_WHEN_NA",
     }
     return rows, profile
@@ -231,18 +249,30 @@ def main() -> None:
                  "profile": profile, "models": None}
     else:
         complete = [r for r in rows if r["year"] in valid_years]
+        observation_screened = [r for r in complete if r["prior_census_measured"]
+                                and r["outcome_census_measured"]]
+        assert 0 < len(observation_screened) < len(complete)
         final = {
             "status": "POST_HOC_EXPLORATORY_OUT_OF_LANDSCAPE_PREDICTION",
             "profile": profile, "n_rows_all_balanced": len(rows),
             "n_rows_restricted": len(complete),
-            "all_years_models": analyze(rows),
-            "restricted_to_documented_flowering_years_models": analyze(complete),
+            "n_rows_observation_screened": len(observation_screened),
+            "excluded_plot_year_pairs_due_to_zero_measured": [
+                {"plot": r["plot"], "year": r["year"],
+                 "prior_measured": r["prior_census_measured"],
+                 "outcome_measured": r["outcome_census_measured"]}
+                for r in complete if r not in observation_screened
+            ],
+            "unscreened_models_sensitivity": analyze(rows),
+            "observation_screened_models": analyze(observation_screened),
             "interpretation_limit": [
                 "A documented flowering record is not confirmed effective pollination or seed production.",
                 "NA inflorescence means absent observation/flowering report, not a certified zero.",
                 "The lag precedes seedling detection but dispersal/seed bank may introduce longer lags.",
                 "Flowering history, living stock and habitat can all encode earlier fragmentation.",
                 "New seedlings are first detected seedlings, not total deposited viable seeds.",
+                "Entire plot-years with zero confirmed measured individuals and archival missing statuses cannot safely be coded as surveyed biological zero. Screen both exposure and outcome censuses.",
+                "The screen is conditional on nonzero detected stock and can select against genuine local extinction; compare unscreened sensitivity, never infer true habitat equivalence.",
                 "Plot-year counts are nested in 13 plots across only three ranch contexts.",
                 "Ridge alpha=1 in within-year standardized feature coordinates was fixed before outcome scoring.",
                 "All model comparisons are post hoc and cannot establish causation, field prevalence or novelty.",
@@ -256,9 +286,11 @@ def main() -> None:
     print(json.dumps({
         "profile": profile,
         "plot_mse": {k: round(v["leave_one_plot_out"]["mse_equal_plot_year"], 4)
-                     for k, v in (final.get("restricted_to_documented_flowering_years_models") or {}).items()},
+                     for k, v in (final.get("observation_screened_models") or {}).items()},
         "ranch_mse": {k: round(v["leave_one_ranch_out"]["mse_equal_plot_year"], 4)
-                      for k, v in (final.get("restricted_to_documented_flowering_years_models") or {}).items()},
+                      for k, v in (final.get("observation_screened_models") or {}).items()},
+        "unscreened_plot_mse": {k: round(v["leave_one_plot_out"]["mse_equal_plot_year"], 4)
+                     for k, v in (final.get("unscreened_models_sensitivity") or {}).items()},
     }, indent=2))
 
 
