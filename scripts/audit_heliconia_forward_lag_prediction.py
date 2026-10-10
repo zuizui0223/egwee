@@ -263,6 +263,19 @@ def main():
             "mean_prior_live_2002":sum(r["stock"] for r in before)/len(before),
             "mean_prior_live_2003":sum(r["stock"] for r in after)/len(after),
         }
+    habitat_matched_changes={}
+    for habitat in (0.0,1.0):
+        sample=[r for r in common if r["fragment"]==habitat]
+        before=[r for r in sample if r["year"]==2002]
+        after=[r for r in sample if r["year"]==2003]
+        assert len(before)==len(after)>0
+        habitat_matched_changes["fragment" if habitat else "continuous"]={
+            "n_plots":len(before),
+            "mean_new_2002":sum(r["y"] for r in before)/len(before),
+            "mean_new_2003":sum(r["y"] for r in after)/len(after),
+            "mean_prior_stock_2002":sum(r["stock"] for r in before)/len(before),
+            "mean_prior_stock_2003":sum(r["stock"] for r in after)/len(after),
+        }
     balanced_transfer={
         k:forward_validation(common, FEATURES[k], k)
         for k in ("intercept_only", "prior_recruits", "two_year_recruit_history",
@@ -278,6 +291,7 @@ def main():
         "common_plot_yearly_profile":common_profile,
         "common_plot_count":len(common_plots),
         "matched_ranch_changes_2002_2003":ranch_matched_changes,
+        "matched_habitat_changes_2002_2003":habitat_matched_changes,
         "common_plot_matched_2002_2003_changes":pair_diffs,
         "common_plot_matched_number_recruit_declines":sum(
             d["change_new_2003_minus_2002"] < 0 for d in pair_diffs
@@ -308,6 +322,7 @@ def main():
         "yearly_stock_recruitment_diagnostics":year_profiles,
         "common_plot_count":len(common_plots),
         "matched_ranch_changes_2002_2003":ranch_matched_changes,
+        "matched_habitat_changes_2002_2003":habitat_matched_changes,
         "common_plot_yearly_profile":common_profile,
         "matched_recruit_declines_2002_2003":sum(d["change_new_2003_minus_2002"] < 0
                                                  for d in pair_diffs),
