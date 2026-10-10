@@ -73,3 +73,18 @@ The unscreened 91-slot analysis gives the **same rank ordering** among stock, fl
 - `.github/workflows/heliconia-lagged-flowering-sentinel.yml` runs both full-grid and observed-cell sensitivities and archives machine-readable results.
 - Successful Actions run: https://github.com/zuizui0223/egwee/actions/runs/38045633290
 - This is a **post hoc source audit**. No change to the frozen EGWEE corpus or current manuscript headline is licensed; previous balanced-calendar recruitment summaries remain provenance values but should carry an **observation-completeness warning**, not be silently overwritten.
+
+## Equal-ranch and individual-ranch influence sensitivity
+
+The comparison is **not** just a single pooled MSE dominated by one ranch. Re-running the same 85-row observation screen with entire ranches withheld gives:
+
+| Held-out ranch | Year-only MSE | Prior live stock | Prior flowering | Stock + flowering |
+|---|---:|---:|---:|---:|
+| Dimona | 1225.60 | **577.36** | 761.61 | 577.17 |
+| Esteio | 2994.81 | **1912.17** | 2190.06 | 1955.94 |
+| Porto Alegre | 635.50 | **398.64** | 447.40 | 398.87 |
+| **Equally weighted across three ranches** | **1618.64** | **962.72** | **1133.02** | **977.33** |
+
+Prior living stock outpredicts prior documented flowering when each of the **three** ranches is held out. Adding flowering is marginally better only for Dimona (577.17 vs 577.36 MSE), but worse for the other two; the equally weighted total remains worse. This is consistent with the earlier plot-weighted result, not a universal ecological ranking. Only three ranch groups exist, they are not randomly sampled independent landscapes, and this exploratory model family does not include all biologically credible predictors or alternative lag structures.
+
+The revised complete output is reproducible in GitHub Actions run https://github.com/zuizui0223/egwee/actions/runs/38045782700.
