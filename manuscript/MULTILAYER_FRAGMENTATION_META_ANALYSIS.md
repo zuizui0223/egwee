@@ -203,7 +203,7 @@ The cross-cluster robustness classification also changed. Under lnRR:
 
 Accordingly, lnRR does not supply a new uniquely correct robustness verdict: common working dependence treatments retain rejection without *Serapias*, whereas the covariance-free bound does not certify it. The defensible conclusion is that **the leave-one-Serapias robustness classification depends jointly on effect-size scale and dependence assumptions**.
 
-A scale-independent qualitative feature did remain: all **17/17 primary direct effects were negative on both oriented g and oriented lnRR**. The direct primary stream therefore consistently indicates deterioration across its measured biological layers, but contains no qualitative sign discordance that would by itself establish cross-layer separation.
+A scale-independent qualitative feature did remain: all **17/17 primary direct effects were negative on both oriented g and oriented lnRR**. For these strictly positive source means, however, sign agreement between g and lnRR is **algebraic by construction**, not an independent robustness replication; both signs equal that of the same oriented group-mean difference. The direct primary stream therefore descriptively indicates deterioration across its measured biological layers, but contains no qualitative sign discordance that would by itself establish cross-layer separation.
 
 ### Fifth direct cluster: same-direction I and F responses with unresolved difference
 
