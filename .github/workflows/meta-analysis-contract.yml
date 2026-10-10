@@ -281,5 +281,7 @@ jobs:
           if-no-files-found: error
       # The publication freeze remains fail-closed, but should not mask upstream
       # scientific validation or artifact failures during an open revision.
+      - name: Audit nested SF06 publication-deletion prediction influence
+        run: python scripts/check_sf06_publication_delete_predictive_influence.py
       - name: Validate ecology-first submission freeze
         run: python scripts/check_submission_freeze.py
