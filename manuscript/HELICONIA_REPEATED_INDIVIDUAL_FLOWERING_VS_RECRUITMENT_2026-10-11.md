@@ -65,3 +65,21 @@ Use a different independent landscape/species and prospectively fixed stage meas
 - `scripts/audit_heliconia_plot_year_fecundity_translation.py` computes explicit `log1p` plot/year two-way demeaned and prior-stock-conditioned correlations, plus leave-one-year/ranch/plot diagnostics.
 - Both new workflows are automatically dispatched on the active PR branch. **At the time of this note GitHub Actions were queued; workflow success was not yet certified**. Source-level summaries were independently recomputed against the exact Git blob directly (66,396 input records; the single comma-containing quoted `treefall_status` record is in CF-6 in 2007, outside the restricted rows).
 - The original five-direct-cluster, eight quantitative I–F, sixteen-programme evidence map and SF06 publication/sign denominators are *unchanged*. `submission_ready=false`; PR remains draft. Do not promote this exploratory single-system analysis to the main-paper headline.
+
+## Height-change competing explanation: recorded switching persists when plants grow
+
+Because prior research identified increasing flowering propensity with plant size (Bruna & Kress 2002), the recorded-positive transitions were stratified on **individuals measured alive in both adjacent years**, with numeric measured heights in both annual observations. These are **the same plants**, not independent age cohorts. A height change of at most 10 cm is an exploratory tolerance group, not a calibrated measurement-error threshold.
+
+| Same individuals by height change | Number | Positive flowering record in 2001 → 2002 | Positive flowering record in 2002 → 2003 |
+|---|---:|---:|---:|
+| Height nondecreasing | 2,898 (2001→02) / 1,901 (2002→03) | 139 → **68** | 34 → **172** |
+| Height decreasing | 1,351 (2001→02) / 2,652 (2002→03) | 94 → **43** | 75 → **199** |
+| Height difference at most 10 cm | 3,123 (2001→02) / 3,406 (2002→03) | 121 → **54** | 56 → **172** |
+
+The fall in recorded flowering in 2002 occurs **even among plants that maintained or increased their measured height**, and the sharp recovery of positive flowering in 2003 occurs **even among plants whose measured height decreased**. Therefore a simple rule “the flowering pulse was solely because the population's surviving plants shrank below reproductive size” does **not** reproduce the observed counts. This is a falsification of one simplistic *measured-height-only* explanation, not proof of physiological reproductive plasticity, size-independent flowering, drought effects or genetic resetting.
+
+The result also holds when grouping **by prior-year height**, keeping the same survivor identities in each group. In 2001→2002, for plants initially 25–74 cm tall, documented positives fall **103→53** out of 2,126 alive/measured with both heights; for plants initially at least 75 cm tall they fall **127→56** out of 396. In 2002→2003, the corresponding baseline-height groups increase **37→181** out of 2,281 (25–74 cm), and **70→181** out of 464 (at least 75 cm). These are source-derived counts, not binomial studies or fitness estimates. The cutpoints are exploratory and should not be interpreted as biological flowering thresholds.
+
+**Remaining critical observation alternative:** the archive does not distinguish all true nonflowering plants from individuals whose flowering wasn't recorded; changing flowering-season visit completeness could produce correlated switching records even within surviving plants. Plant height also misses belowground resource reserves, reproductive costs, recent damage and phenological schedule. The ecological interpretation is deliberately limited to **recorded flowering opportunity**, not confirmed reproductive effort, mating success or seed supply.
+
+The source-pinned script `scripts/audit_heliconia_individual_flowering_switch.py` now includes the fixed matching checks and all the height strata, so its GitHub Actions run must validate these observations before treating CI as green.
