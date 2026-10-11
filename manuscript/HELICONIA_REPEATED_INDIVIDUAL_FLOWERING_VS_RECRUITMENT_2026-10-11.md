@@ -44,6 +44,12 @@ A cross-plot relationship can coexist with weak *within-plot-and-within-year* re
 
 This pattern sharpens the previous spatial versus temporal predictive distinction: same-year cross-sectional association is not interchangeable with individual state, true mating/recruitment transition or future-year diagnostic value. The direct strict forward-year comparison was already source-reproduced separately (prior living stock MSE 867.37 vs a historical-mean 467.61 on 34 held-future plot-years).
 
+### Magnitude of stable plot effects versus common calendar-year effects
+
+The deterministic fixed-effect audit also measures how much *log-count* variation the plotted categories account for **in-sample**. For recorded first-observed seedlings, a plot-only intercept model accounts for **57.1%** of total sum-of-squares, a year-only intercept model for **11.0%**, and both together for **68.1%**. For prior positive flowering records the corresponding shares are **70.8%**, **13.4%**, and **84.2%**. Prior measured living stock is even more dominated by plot identity (plot-only **99.1%**). These are not causal or out-of-sample variance partition estimates, and the 10-plot balanced panel is selectively observation-complete.
+
+This quantifies the competing explanations: stable differences in plant number/plot conditions dominate the raw between-plot cross-sectional association, whereas shared year-to-year pulses remain visible but do not establish a common flowering-to-seedling conversion process.
+
 ## What prior ecology already established
 
 1. **Individual flowering depends on size:** Bruna & Kress (2002), *Conservation Biology* 16:1256–1266, described increasing flowering probability with plant size in this species (and compared fragment categories). Thus a stable individual-size/vigor component is already known; this reanalysis does not discover it.
@@ -63,7 +69,7 @@ Use a different independent landscape/species and prospectively fixed stage meas
 
 - `scripts/audit_heliconia_individual_flowering_switch.py` runs the source-hash-verified plant-ID transition ledger, including every year-pair identity check, with output artifact on GitHub Actions.
 - `scripts/audit_heliconia_plot_year_fecundity_translation.py` computes explicit `log1p` plot/year two-way demeaned and prior-stock-conditioned correlations, plus leave-one-year/ranch/plot diagnostics.
-- Both new workflows are automatically dispatched on the active PR branch. **At the time of this note GitHub Actions were queued; workflow success was not yet certified**. Source-level summaries were independently recomputed against the exact Git blob directly (66,396 input records; the single comma-containing quoted `treefall_status` record is in CF-6 in 2007, outside the restricted rows).
+- The original individual-ID ledger **passed** GitHub Actions https://github.com/zuizui0223/egwee/actions/runs/38108128336 and the plot/year decomposition **passed** https://github.com/zuizui0223/egwee/actions/runs/38107989071, both against the source-hash-verified 66,396-row archive. The subsequent **height-stratified extension** also has an independent direct source-blob recomputation and exact fail-closed count assertions; its new Actions run https://github.com/zuizui0223/egwee/actions/runs/38108354652 was **queued** at this note update, so its updated CI success must not be assumed. The CSV contains one legitimate quoted comma in the `treefall_status` field of a CF-6/2007 record, outside the restricted panel; the Python csv reader handles this correctly.
 - The original five-direct-cluster, eight quantitative I–F, sixteen-programme evidence map and SF06 publication/sign denominators are *unchanged*. `submission_ready=false`; PR remains draft. Do not promote this exploratory single-system analysis to the main-paper headline.
 
 ## Height-change competing explanation: recorded switching persists when plants grow
