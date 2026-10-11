@@ -28,6 +28,7 @@ def main():
     src=load_csv("HDP_survey.csv",None)
     assert len(src)==66396
     states=defaultdict(dict)
+    heights=defaultdict(dict)
     for r in src:
         p,ident,y=r["plot_id"],r["plant_id"],int(r["year"])
         if p not in common or y not in YEARS:
@@ -41,6 +42,11 @@ def main():
         if pos:
             assert status=="measured"
         states[key][y]=(status,pos)
+        raw_height=r["ht"].strip()
+        height=None if raw_height in {"", "NA"} else float(raw_height)
+        if height is not None:
+            assert height >= 0
+        heights[key][y]=height
     by_plot={}
     for p in sorted(common):
         by_plot[p]={}
@@ -134,6 +140,45 @@ def main():
             if denom else None
         )
         aggregates[period]=sums
+    size_sensitivity={}
+    for old,new in zip(YEARS,YEARS[1:]):
+        bands={k:{"n":0,"old_positive":0,"next_positive":0} for k in (
+            "nondecreasing_height", "decreasing_height", "within_10cm_change",
+            "height_increase_gt_10cm", "height_decrease_gt_10cm")}
+        prior_size={k:{"n":0,"old_positive":0,"next_positive":0} for k in (
+            "0_to_24cm", "25_to_74cm", "75cm_and_above")}
+        for key, history in states.items():
+            a=history.get(old)
+            b=history.get(new)
+            if not a or not b or a[0]!="measured" or b[0]!="measured":
+                continue
+            h0,h1=heights[key].get(old),heights[key].get(new)
+            if h0 is None or h1 is None:
+                continue
+            groups=["nondecreasing_height" if h1>=h0 else "decreasing_height"]
+            if abs(h1-h0)<=10:
+                groups.append("within_10cm_change")
+            elif h1>h0+10:
+                groups.append("height_increase_gt_10cm")
+            else:
+                groups.append("height_decrease_gt_10cm")
+            for group in groups:
+                z=bands[group]
+                z["n"]+=1
+                z["old_positive"]+=int(a[1])
+                z["next_positive"]+=int(b[1])
+            g="0_to_24cm" if h0<25 else ("25_to_74cm" if h0<75 else "75cm_and_above")
+            prior_size[g]["n"]+=1
+            prior_size[g]["old_positive"]+=int(a[1])
+            prior_size[g]["next_positive"]+=int(b[1])
+        size_sensitivity[f"{old}_{new}"]={
+            "size_change_strata":bands,
+            "prior_size_bands":prior_size,
+        }
+    assert size_sensitivity["2001_2002"]["size_change_strata"]["nondecreasing_height"]=={
+        "n":2898,"old_positive":139,"next_positive":68}
+    assert size_sensitivity["2002_2003"]["size_change_strata"]["decreasing_height"]=={
+        "n":2652,"old_positive":75,"next_positive":199}
     assert aggregates["2001_2002"]["previous_documented_positive"]==236
     assert aggregates["2001_2002"]["next_documented_positive"]==116
     assert aggregates["2002_2003"]["next_documented_positive"]==382
@@ -144,12 +189,14 @@ def main():
         "n_fixed_plots":10,
         "n_repeated_plant_IDs":len(states),
         "pooled_transitions":aggregates,
+        "size_sensitivity":size_sensitivity,
         "by_plot":by_plot,
         "limits":[
             "No positive inflorescence record is not independently certified nonflowering: possible observation effort artefact.",
             "Matched individuals must be measured in both years; selection can bias apparent flowering state changes.",
             "An annual positive-flowering record is neither viable-seed production nor mating success.",
             "Within-individual recording variation cannot be interpreted as cost of reproduction without size/resources/detection controls.",
+            "Size-stratified changes are observational; measured height itself has error and does not capture belowground stores, effort, microenvironment or reproductive propensity.",
             "Distinct annual flowering seasons may not map directly onto calendar-year first-marked seedling cohorts.",
             "One study with three ranches, ten plots; demographic transitions are not independent landscape replicates.",
             "This ledger is an identity, not a causal factor attribution; no newly confirmed universal ecological law.",
@@ -162,7 +209,8 @@ def main():
     print(json.dumps({
         "n_fixed_plots":10,
         "n_repeated_plant_IDs":len(states),
-        "pooled_transitions":aggregates
+        "pooled_transitions":aggregates,
+        "size_sensitivity":size_sensitivity
     },ensure_ascii=False,indent=2))
 
 if __name__=="__main__":
