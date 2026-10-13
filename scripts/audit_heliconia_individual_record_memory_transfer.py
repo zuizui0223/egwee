@@ -208,7 +208,7 @@ def forward_comparison(rows: list[dict], shrinkage: float = 20.) -> dict:
         "by_ranch":by_ranch,
         "by_prior_flowering_record":by_prev,
         "by_plot":by_plot,
-        "fraction_held_plot_years_improved_brier":sum(
+        "fraction_heldout_plots_improved_brier":sum(
             z["brier_gain_from_past_flower"]>0 for z in by_plot.values()
         )/len(by_plot),
     }
@@ -299,6 +299,12 @@ def main():
         "delete_ranch":{k:round(v["odds_ratio"],4)
                         for k,v in result["size_shoot_plot_year_odds"]["leave_one_ranch_out_core"].items()},
         "forward_primary":main_scores["pooled_all_three_future_years"],
+        "forward_by_previous_record":main_scores["by_prior_flowering_record"],
+        "forward_ranches":main_scores["by_ranch"],
+        "n_heldout_plots_where_memory_improves_brier":sum(
+            z["brier_gain_from_past_flower"]>0 for z in main_scores["by_plot"].values()
+        ),
+        "n_heldout_plots":len(main_scores["by_plot"]),
         "forward_years":main_scores["by_held_future_year"],
         "forward_shrinkage":result["chronological_predictions"]["shrinkage_sensitivity"],
     },indent=2,ensure_ascii=False))
