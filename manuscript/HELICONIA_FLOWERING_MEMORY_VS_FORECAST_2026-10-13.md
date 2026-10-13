@@ -69,6 +69,19 @@ The further **strict raw-verified, morphology-stratified** odds test has now pas
 
 These are very close to the **2.777** and **2.591** clean-archive estimates. The raw-only first-year 1999 interval remains weaker (MH OR **1.306**), so the effect is not invariant across time. This is a strong internal *record-provenance falsification*: the positive history association is **not solely an artifact of cleaned conditional `NA` overwriting original zeroes**. It is **not an independent biological replication**, since the same plants are being reclassified with an older source file. Source linkage selects a nonrandom subset, and original numeric zeros still cannot prove perfect flowering-season detection.
 
+## Strict original-zero-record future-year sensitivity
+
+The further **original-source-verified future-year** audit has now passed GitHub Actions: https://github.com/zuizui0223/egwee/actions/runs/38406225194. It uses only matched original *explicit positive/zero* counts agreeing with the clean source, and the same height-and-shoot hierarchical prediction rules and chronological holds as above. This restriction leaves **11,406** held-future individual-year transitions, **539** with positive flowering recorded in the held year. This is a *selected linked-tag sample*, not a new ecological programme or independent replication.
+
+| Held-future-year comparison | Morphology-only Brier | Morphology + past positive record Brier | Brier improvement |
+|---|---:|---:|---:|
+| All 3 future years (n=11,406) | 0.039212 | 0.039102 | **+0.000110** |
+| 2002→2003 | 0.060044 | 0.059587 | +0.000457 |
+| 2003→2004 | 0.033719 | 0.033167 | +0.000551 |
+| 2004→2005 | 0.023724 | 0.024374 | **−0.000650** |
+
+This raw-confirmed sample gives a pooled relative Brier improvement of approximately **0.28%**, versus **0.14%** in the full cleaned archive. The 2004→2005 prospective score **worsens even when earlier nonpositive records were explicitly entered as zeros**. Thus the weak and year-sensitive forecast increment is **not solely a cleaned `NA` artefact**. It is not proof of no forecasting information; source tag-linkage selection, just three test-year environments, unmeasured year-specific flowering-detection conditions and method choice after viewing earlier results prevent a formal equivalence/invariance claim.
+
 ## Prior-art novelty boundary
 
 Previous ecology already established that flowering schedules vary within perennial individuals and may carry reproductive history even after size effects:
@@ -81,6 +94,6 @@ Thus **flowering persistence and environmental modulation are not new ecological
 ## Reproduction and status
 
 - `scripts/audit_heliconia_individual_record_memory_transfer.py` verifies cleaned source hashes, 28,247 original person-year pairs, source fixed-panel and future chronological model comparisons. GitHub Actions PASS: https://github.com/zuizui0223/egwee/actions/runs/38404369354.
-- `scripts/audit_heliconia_raw_inflor_zero_provenance.py` verifies the Latin-1 original raw file by its Git blob SHA, joins only unique plot/tag/subplot identifiers, records genuine zero/positive entries and source correction conflicts. GitHub Actions PASS for the initial provenance audit: https://github.com/zuizui0223/egwee/actions/runs/38405340609. Strict additional morphology-stratified raw-only check **passed**: https://github.com/zuizui0223/egwee/actions/runs/38405672751. The same code now also performs a strictly future-year predictive sensitivity on these matched records (GitHub Actions run https://github.com/zuizui0223/egwee/actions/runs/38406225194; check success before reporting that new prediction score).
+- `scripts/audit_heliconia_raw_inflor_zero_provenance.py` verifies the Latin-1 original raw file by its Git blob SHA, joins only unique plot/tag/subplot identifiers, records genuine zero/positive entries and source correction conflicts. GitHub Actions PASS for the initial provenance audit: https://github.com/zuizui0223/egwee/actions/runs/38405340609. Strict additional morphology-stratified raw-only check **passed**: https://github.com/zuizui0223/egwee/actions/runs/38405672751. The matched-original-record **forward-year** prediction sensitivity **also passed**: https://github.com/zuizui0223/egwee/actions/runs/38406225194. The strict prediction does not remove observational/detection ambiguity; it qualifies the missing-value transformation explanation.
 - Full results are archived by these workflows as machine-readable JSON, without modifying the frozen data/manuscript counts.
 - The same ecosystem was already published and examined for seed/safe-site and climate effects. The core PR #52 remains **draft**, `submission_ready=false`, and the original phase-one baseline in `main` has not been changed.
