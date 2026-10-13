@@ -60,7 +60,14 @@ For unique source-verified plant IDs with explicit raw positive/zero entries on 
 - **2001→2002:** 3,626 matched source-confirmed pairs, consisting of 3,394 `0→0`, 149 `positive→0`, 46 `0→positive`, 37 `positive→positive` (one archive raw-state disagreement is retained as a warning, not silently adjudicated).
 - **2002→2003:** 3,861 matched source-confirmed pairs, with 3,524 `0→0`, 42 `positive→0`, 255 `0→positive`, 40 `positive→positive` (archive source disagreements are recorded).
 
-The further **strict raw-verified, morphology-stratified** odds test runs in the same checker and is required before upgrading any claim of reproductive-state persistence. Because tag/subplot source linkage selects a nonrandom subset, agreement cannot eliminate detection bias or generalize beyond these ten plots.
+The further **strict raw-verified, morphology-stratified** odds test has now passed independent CI (https://github.com/zuizui0223/egwee/actions/runs/38405672751). Restricting to raw `0` or raw positive **and** non-conflicting cleaned labels, measured morphology and stable unique raw `plot + tag + subplot` linkage gives:
+
+| Verified-original-record comparison | Strict matched pairs | Size/shoot/plot/year-adjusted MH OR |
+|---|---:|---:|
+| **Four-transition 2001–2004 starting-year panel** | **15,029** | **2.801** |
+| All seven annual starts 1998–2004 | **23,937** | **2.576** |
+
+These are very close to the **2.777** and **2.591** clean-archive estimates. The raw-only first-year 1999 interval remains weaker (MH OR **1.306**), so the effect is not invariant across time. This is a strong internal *record-provenance falsification*: the positive history association is **not solely an artifact of cleaned conditional `NA` overwriting original zeroes**. It is **not an independent biological replication**, since the same plants are being reclassified with an older source file. Source linkage selects a nonrandom subset, and original numeric zeros still cannot prove perfect flowering-season detection.
 
 ## Prior-art novelty boundary
 
@@ -74,6 +81,6 @@ Thus **flowering persistence and environmental modulation are not new ecological
 ## Reproduction and status
 
 - `scripts/audit_heliconia_individual_record_memory_transfer.py` verifies cleaned source hashes, 28,247 original person-year pairs, source fixed-panel and future chronological model comparisons. GitHub Actions PASS: https://github.com/zuizui0223/egwee/actions/runs/38404369354.
-- `scripts/audit_heliconia_raw_inflor_zero_provenance.py` verifies the Latin-1 original raw file by its Git blob SHA, joins only unique plot/tag/subplot identifiers, records genuine zero/positive entries and source correction conflicts. GitHub Actions PASS for the initial provenance audit: https://github.com/zuizui0223/egwee/actions/runs/38405340609. Strict additional morphology-stratified raw-only check: https://github.com/zuizui0223/egwee/actions/runs/38405672751 (check its final job status before relying on raw-only OR).
+- `scripts/audit_heliconia_raw_inflor_zero_provenance.py` verifies the Latin-1 original raw file by its Git blob SHA, joins only unique plot/tag/subplot identifiers, records genuine zero/positive entries and source correction conflicts. GitHub Actions PASS for the initial provenance audit: https://github.com/zuizui0223/egwee/actions/runs/38405340609. Strict additional morphology-stratified raw-only check **passed**: https://github.com/zuizui0223/egwee/actions/runs/38405672751. The same code now also performs a strictly future-year predictive sensitivity on these matched records (GitHub Actions run https://github.com/zuizui0223/egwee/actions/runs/38406225194; check success before reporting that new prediction score).
 - Full results are archived by these workflows as machine-readable JSON, without modifying the frozen data/manuscript counts.
 - The same ecosystem was already published and examined for seed/safe-site and climate effects. The core PR #52 remains **draft**, `submission_ready=false`, and the original phase-one baseline in `main` has not been changed.
