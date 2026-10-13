@@ -14,6 +14,7 @@ import argparse
 import csv
 import io
 import json
+import math
 from collections import Counter, defaultdict
 from pathlib import Path
 
@@ -159,12 +160,83 @@ def summarize(rows: list[dict], fine_height: bool=False) -> dict:
         "n_informative_strata":informative,
     }
 
+def prospective_comparison(rows: list[dict], smoothing: float = 20.) -> dict:
+    """Prospective recorded-flowering prediction among one-positive histories.
+
+    The model is trained only on older *target* years. Binary Brier/log-loss
+    gain is from adding history ORDER to a morphology-only conditional rate.
+    No future-year outcomes enter training, smoothing or feature definitions.
+    """
+    predictions=[]
+    by_year={}
+    for t in CORE_YEARS:
+        train=[r for r in rows if r["year"] < t]
+        test=[r for r in rows if r["year"] == t]
+        if not train or not test:
+            continue
+        global_rate=(sum(r["next"] for r in train)+0.5)/(len(train)+1)
+        morph=defaultdict(lambda:[0,0])
+        order=defaultdict(lambda:[0,0])
+        for r in train:
+            key=(r["height25"],r["shoot"])
+            morph[key][0]+=r["next"]
+            morph[key][1]+=1
+            order[(*key,r["recent"])][0]+=r["next"]
+            order[(*key,r["recent"])][1]+=1
+        for r in test:
+            key=(r["height25"],r["shoot"])
+            a,n=morph[key]
+            p0=(a+25.*global_rate)/(n+25.)
+            b,m=order[(*key,r["recent"])]
+            p1=(b+smoothing*p0)/(m+smoothing)
+            assert 0<p0<1 and 0<p1<1
+            predictions.append({"year":t,"ranch":r["ranch"],"plot":r["plot"],
+                                "recent":r["recent"],"next":r["next"],
+                                "baseline":p0,"order":p1})
+    def score(obs: list[dict]) -> dict:
+        if not obs:
+            return {"n":0,"gain_brier":None}
+        b0=b1=l0=l1=0.
+        for r in obs:
+            y=r["next"]
+            x0,x1=r["baseline"],r["order"]
+            b0+=(y-x0)**2
+            b1+=(y-x1)**2
+            l0-=y*math.log(x0)+(1-y)*math.log1p(-x0)
+            l1-=y*math.log(x1)+(1-y)*math.log1p(-x1)
+        n=len(obs)
+        return {
+            "n":n,"n_next_positive":sum(r["next"] for r in obs),
+            "brier_morphology_only":b0/n,
+            "brier_morphology_plus_history_order":b1/n,
+            "gain_brier":(b0-b1)/n,
+            "logloss_morphology_only":l0/n,
+            "logloss_morphology_plus_history_order":l1/n,
+            "gain_logloss":(l0-l1)/n,
+        }
+    if not predictions:
+        return {"pooled":{"n":0},"by_year":{}}
+    assert len(predictions)==sum(r["year"] in CORE_YEARS for r in rows)
+    return {
+        "pooled":score(predictions),
+        "by_year":{str(t):score([z for z in predictions if z["year"]==t])
+                   for t in CORE_YEARS},
+        "by_ranch":{g:score([z for z in predictions if z["ranch"]==g])
+                    for g in sorted({z["ranch"] for z in predictions})},
+        "by_history":{str(g):score([z for z in predictions if z["recent"]==g])
+                      for g in (0,1)},
+    }
+
 def analyze(rows: list[dict]) -> dict:
     core=[r for r in rows if r["year"] in CORE_YEARS]
     ret={
         "all_middle_years_1999_2004":summarize(rows),
         "core_middle_years_2001_2004":summarize(core),
         "core_height_10cm":summarize(core,fine_height=True),
+        "prospective_order_prediction_smoothing20":prospective_comparison(rows,20.),
+        "prospective_smoothing_sensitivity":{
+            str(k):prospective_comparison(rows,k)["pooled"] for k in (5.,100.,300.)
+        },
         "per_middle_year":{str(y):summarize([r for r in rows if r["year"]==y])
                            for y in MIDDLE_YEARS},
         "core_leave_one_middle_year_out":{
@@ -225,6 +297,8 @@ def main() -> None:
             "all":v["all_middle_years_1999_2004"],
             "core":v["core_middle_years_2001_2004"],
             "fine_height_core":v["core_height_10cm"],
+            "future_year_prediction":v["prospective_order_prediction_smoothing20"],
+            "smoothing_sensitivity":v["prospective_smoothing_sensitivity"],
             "by_year":{yr:{"n":z["n"],"OR":z["common_odds_ratio"]}
                        for yr,z in v["per_middle_year"].items()},
             "leave_year_core":{yr:z["common_odds_ratio"]
