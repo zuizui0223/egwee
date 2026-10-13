@@ -45,7 +45,8 @@ def load_pinned(local_rda: Path | None):
     df=items["lathyrus"]
     assert len(df)==1119, (len(df),list(df.columns))
     fields={"SUBPLOT","GENET"}|{f"FCODE{y%100:02d}" for y in YEARS}|{
-        f"Volume{y%100:02d}" for y in YEARS}
+        f"Volume{y%100:02d}" for y in YEARS}|{f"{flag}{y}" for y in YEARS
+        for flag in ("Dead","Dormant","Missing")}
     assert fields <= set(df.columns),sorted(fields-set(df.columns))
     return df,{
         "repo":REPO,"upstream_commit":UPSTREAM_COMMIT,
@@ -75,8 +76,16 @@ def year_state(df):
             volume=numeric(r[f"Volume{abbrev:02d}"])
             fl=numeric(r[f"FCODE{abbrev:02d}"])
             alive=volume is not None and volume>0 and fl in (0.,1.)
+            flags={label:numeric(r[f"{label}{year}"]) for label in
+                   ("Dead","Dormant","Missing")}
+            if alive:
+                assert all(value != 1 for value in flags.values()), (
+                    "positive-volume measurable plant flagged dead/dormant/missing",
+                    key,year,flags
+                )
             vals[year]={"volume":volume,"flowering":int(fl) if fl in (0.,1.) else None,
-                        "confirmed_aboveground_and_fcode":alive}
+                        "confirmed_aboveground_and_fcode":alive,
+                        "source_status_flags":flags}
         plants[key]=vals
     return plants
 
@@ -210,6 +219,18 @@ def audit(df):
             str(t):mh([r for r in two if r["middle_year"]==t],"prev")
             for t in (1988,1989,1990)
         },
+        "one_lag_leave_one_year_pair_out":{
+            str(t):mh([r for r in two if r["middle_year"]!=t],"prev")
+            for t in (1988,1989,1990)
+        },
+        "one_lag_leave_one_subplot_out":{
+            plot:mh([r for r in two if r["plot"]!=plot],"prev")
+            for plot in sorted({r["plot"] for r in two})
+        },
+        "recency_order_leave_one_subplot_out":{
+            plot:mh([r for r in three if r["plot"]!=plot],"recent")
+            for plot in sorted({r["plot"] for r in three})
+        },
         "order_by_middle_year":{
             str(t):mh([r for r in three if r["middle_year"]==t],"recent")
             for t in (1989,1990)
@@ -225,7 +246,7 @@ def audit(df):
         "interpretive_limits":[
             "This is a Swedish perennial Lathyrus vernus study (1988-1991), biologically independent of Brazilian Heliconia but not a second Heliconia source.",
             "Only four calendar years and two three-year history windows; one forecast year (1991) cannot establish prospective year-invariant benefit.",
-            "Flowering code 0/1 is explicit in the R package; aboveground positive volume in each relevant year is required; dormancy and missing are excluded.",
+            "Flowering code 0/1 is explicit in the R package; aboveground positive volume and no dead/dormant/missing flags in each relevant year are required; dormancy and missing are excluded.",
             "An above-ground measured plant can have flowering measurement error even when FCODE is numeric.",
             "The analysis reuses an already published perennial study and cannot discover general plant reproductive memory.",
             "Calendar years and subplot/size strata do not randomize reproductive history; latent vigor and resource storage remain possible.",
