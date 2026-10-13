@@ -130,17 +130,24 @@ def audit(raw_bytes:bytes,archive:list[dict])->dict:
         by_plot[p][name]+=1
         archive_keys[(p,r["plant_id"])].add((year,raw_cat,category))
         if raw_cat in {"zero","positive"} and key in unique:
-            matched[(p,r["plant_id"],year)]=(raw_cat,category)
+            ht,shoot=r["ht"].strip(),r["shts"].strip()
+            prior_height=(None if ht in ("", "NA") else float(ht))
+            prior_shoots=(None if shoot in ("", "NA") else float(shoot))
+            matched[(p,r["plant_id"],year)]=(raw_cat,category,prior_height,prior_shoots)
+    # Restricted evidence uses raw explicitly entered zero/positive on *both*
+    # years for the same archive plot+plant ID, with no raw/archive class
+    # disagreement, and only already-measured plants in both years.
+    strict_tables=defaultdict(lambda:defaultdict(lambda:[0,0,0,0]))
     pairwise={}
     for year in range(1998,2005):
         c=Counter()
-        for (p,ident,yr),(ca,archive_ca) in matched.items():
+        for (p,ident,yr),(ca,archive_ca,height,shoots) in matched.items():
             if yr!=year:
                 continue
             next_state=matched.get((p,ident,year+1))
             if next_state is None:
                 continue
-            cb,archive_cb=next_state
+            cb,archive_cb,_,_=next_state
             c[ca+"_to_"+cb]+=1
             c["fully_raw_confirmed_plant_transitions"]+=1
             if (ca=="zero" and archive_ca!="archive_no_positive") or (
@@ -149,7 +156,41 @@ def audit(raw_bytes:bytes,archive:list[dict])->dict:
             if (cb=="zero" and archive_cb!="archive_no_positive") or (
                     cb=="positive" and archive_cb!="archive_positive"):
                 c["next_raw_archive_class_conflict"]+=1
+            valid_old=(ca=="zero" and archive_ca=="archive_no_positive" or
+                       ca=="positive" and archive_ca=="archive_positive")
+            valid_next=(cb=="zero" and archive_cb=="archive_no_positive" or
+                        cb=="positive" and archive_cb=="archive_positive")
+            if valid_old and valid_next and height is not None and shoots is not None:
+                assert height>=0 and shoots>=0
+                hbin=min(int(height//25),5)
+                sbin=0 if shoots<3 else 1 if shoots<5 else 2 if shoots<8 else 3
+                slot=2*int(ca=="positive")+int(cb=="positive")
+                for key in ("all_1998_2004",
+                            "core_2001_2004" if year>=2001 else None,
+                            f"year_{year}"):
+                    if key:
+                        strict_tables[key][(p,year,hbin,sbin)][slot]+=1
+                c["strict_complete_confirmed_pairs"]+=1
         pairwise[f"{year}_{year+1}"]=dict(c)
+    def mh(d:dict)->dict:
+        num=den=0.
+        count=0
+        informative=0
+        for ds in d.values():
+            zero_zero,zero_pos,pos_zero,pos_pos=ds
+            n=sum(ds)
+            assert n>0
+            num+=pos_pos*zero_zero/n
+            den+=pos_zero*zero_pos/n
+            count+=n
+            if min(pos_pos+pos_zero,zero_zero+zero_pos,
+                   pos_pos+zero_pos,zero_zero+pos_zero)>0:
+                informative+=1
+        return {"n_confirmed_transitions":count,
+                "n_strata":len(d),
+                "n_informative_strata":informative,
+                "adjusted_odds_ratio":num/den if den else None}
+    strict_MH={key:mh(v) for key,v in strict_tables.items()}
     return {
         "status":"EXPLORATORY_PINNED_RAW_ZERO_VS_ARCHIVE_NA_PROVENANCE",
         "raw_filename":RAWP,"raw_blob":RAW_BLOB,
@@ -161,12 +202,14 @@ def audit(raw_bytes:bytes,archive:list[dict])->dict:
         "per_year_matches":{k:dict(v) for k,v in sorted(by_year.items())},
         "per_plot_matches":{k:dict(v) for k,v in sorted(by_plot.items())},
         "strict_unique_matched_raw_zero_positive_pairs":pairwise,
+        "raw_zero_positive_confirmed_size_stratified_odds":strict_MH,
         "limitations":[
             "Raw 2016 wide input precedes plot/tag corrections; some same-tag links can be spurious despite unique key and subplot.",
             "Raw numeric zero is a documented data-entry zero, not proof a flowering survey exhaustively detected all inflorescences.",
             "Raw zero and archive NA need not mean any semantic corruption: archived variable may intentionally record inflorescences conditional on flowering.",
             "Unlinked and ambiguous raw entries must remain unresolved; do not impute them as raw zero or as biological nonflowering.",
             "Raw positive/archive NA and raw zero/archive positive may represent authorized data-cleaning corrections; do not silently choose old raw as truth.",
+            "The raw-confirmed matched sample is selected on stable tag/subplot linkage and is not a random subset of demographic individuals; restrict inference to that sample.",
             "This archival provenance can check a record-state measurement boundary but not causal fecundity, pollen transfer or recruitment.",
             "Existing empirical EGWEE evidence denominators and draft status remain unchanged."
         ]
@@ -192,7 +235,8 @@ def main():
         if k in ("raw_total_rows","raw_unique_identifiers",
                  "raw_ambiguous_plot_tag_subplot_identifiers",
                  "raw_unrecognized_plot_codes","per_year_matches",
-                 "strict_unique_matched_raw_zero_positive_pairs")
+                 "strict_unique_matched_raw_zero_positive_pairs",
+                 "raw_zero_positive_confirmed_size_stratified_odds")
     },indent=2,ensure_ascii=False))
 
 if __name__=="__main__":
