@@ -293,6 +293,9 @@ def main():
         "core_adj_OR":result["size_shoot_plot_year_odds"]["core_2001_2004"],
         "full_adj_OR":result["size_shoot_plot_year_odds"]["all_1998_2004"],
         "core_next_height_OR":result["size_shoot_plot_year_odds"]["core_with_next_height"],
+        "core_finer_height_OR":result["size_shoot_plot_year_odds"]["core_finer_prior_height_bins"],
+        "core_delete_year":{k:round(v["odds_ratio"],4)
+                            for k,v in result["size_shoot_plot_year_odds"]["leave_one_year_out_core"].items()},
         "core_next_both_OR":result["size_shoot_plot_year_odds"]["core_with_next_height_and_shoots"],
         "yearwise":{k:round(v["odds_ratio"],4)
                    for k,v in result["size_shoot_plot_year_odds"]["by_year"].items()},
