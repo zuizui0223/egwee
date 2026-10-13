@@ -109,6 +109,67 @@ def mh(rows, exposure: str, group_size: int = 2) -> dict:
         "n_total_strata":len(cells),
     }
 
+def strict_held_year_forecast(rows: list[dict], prior_weight: float = 20.0,
+                              include_subplot: bool = False) -> dict:
+    """Train only 1988->89 and 1989->90; predict 1990->91.
+    
+    Not a long-horizon future-year validation: just ONE independent
+    calendar transition withheld from learning. Compare the same observed
+    sample against a size-only rule and size + one-year flowering-history.
+    """
+    train=[r for r in rows if r["middle_year"] < 1990]
+    test=[r for r in rows if r["middle_year"] == 1990]
+    assert len(train)==1283 and len(test)==707
+    assert all(r["middle_year"]<1990 for r in train)
+    assert all(r["middle_year"]==1990 for r in test)
+    global_p=(sum(r["next"] for r in train)+0.5)/(len(train)+1)
+    size=defaultdict(lambda:[0,0])
+    past=defaultdict(lambda:[0,0])
+    for r in train:
+        key=(r["size_bin"],r["plot"]) if include_subplot else (r["size_bin"],)
+        size[key][0]+=r["next"]
+        size[key][1]+=1
+        past[(*key,r["prev"])][0]+=r["next"]
+        past[(*key,r["prev"])][1]+=1
+    records=[]
+    for r in test:
+        key=(r["size_bin"],r["plot"]) if include_subplot else (r["size_bin"],)
+        pos,n=size[key]
+        p0=(pos+25*global_p)/(n+25)
+        pos1,n1=past[(*key,r["prev"])]
+        p1=(pos1+prior_weight*p0)/(n1+prior_weight)
+        assert 0<p0<1 and 0<p1<1
+        records.append({"plot":r["plot"],"prev":r["prev"],"y":r["next"],
+                        "size_only":p0,"size_plus_history":p1})
+    def score(rec: list[dict]):
+        assert rec
+        sq0=sq1=log0=log1=0.0
+        for r in rec:
+            y,a,b=r["y"],r["size_only"],r["size_plus_history"]
+            sq0+=(y-a)**2
+            sq1+=(y-b)**2
+            log0-=y*math.log(a)+(1-y)*math.log1p(-a)
+            log1-=y*math.log(b)+(1-y)*math.log1p(-b)
+        n=len(rec)
+        return {
+            "n":n,"n_flower_next":sum(r["y"] for r in rec),
+            "brier_size_only":sq0/n,"brier_size_plus_past_flower":sq1/n,
+            "brier_gain":(sq0-sq1)/n,
+            "logloss_size_only":log0/n,"logloss_size_plus_past_flower":log1/n,
+            "logloss_gain":(log0-log1)/n
+        }
+    return {
+        "held_year_pair":"1990->1991",
+        "train_pairs":len(train),"heldout_pairs":len(test),
+        "conditioning":"prior volume bin"+(" and subplot" if include_subplot else ""),
+        "pooled":score(records),
+        "by_subplot":{p:score([r for r in records if r["plot"]==p])
+                      for p in sorted({r["plot"] for r in records})},
+        "by_prev_flower_record":{
+            str(p):score([r for r in records if r["prev"]==p]) for p in (0,1)
+        }
+    }
+
 def audit(df):
     plants=year_state(df)
     two=[]
@@ -153,9 +214,17 @@ def audit(df):
             str(t):mh([r for r in three if r["middle_year"]==t],"recent")
             for t in (1989,1990)
         },
+        "single_held_year_forecast":{
+            "size_bins_only":strict_held_year_forecast(two,20.,False),
+            "size_plus_subplot":strict_held_year_forecast(two,20.,True),
+            "pseudo_count_sensitivity":{
+                str(k):strict_held_year_forecast(two,k,False)["pooled"]
+                for k in (5.,100.,300.)
+            }
+        },
         "interpretive_limits":[
             "This is a Swedish perennial Lathyrus vernus study (1988-1991), biologically independent of Brazilian Heliconia but not a second Heliconia source.",
-            "Only four calendar years and two three-year history windows; no independent future-year training/test series is claimed.",
+            "Only four calendar years and two three-year history windows; one forecast year (1991) cannot establish prospective year-invariant benefit.",
             "Flowering code 0/1 is explicit in the R package; aboveground positive volume in each relevant year is required; dormancy and missing are excluded.",
             "An above-ground measured plant can have flowering measurement error even when FCODE is numeric.",
             "The analysis reuses an already published perennial study and cannot discover general plant reproductive memory.",
