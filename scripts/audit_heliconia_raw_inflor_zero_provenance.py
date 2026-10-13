@@ -18,6 +18,7 @@ from pathlib import Path
 import urllib.request
 
 from analyze_heliconia_census_panel import load_csv
+from audit_heliconia_individual_record_memory_transfer import forward_comparison
 
 REPO = "https://raw.githubusercontent.com/BrunaLab/HeliconiaSurveys/"
 PIN = "0b999f6bcb47df1c31f0dd0a8b472055b5f81bc0"
@@ -26,6 +27,11 @@ RAW_BLOB = "b42963be30b993b93755f7f40ad09d1361def056"
 YEARS = tuple(range(1998, 2006))
 PLOTS = ("CF-1", "CF-2", "CF-3", "FF-1", "FF-2", "FF-3", "FF-4",
          "FF-5", "FF-6", "FF-7")
+RANCH = {
+    "CF-1":"esteio","CF-2":"esteio","CF-3":"esteio",
+    "FF-1":"dimona","FF-2":"dimona","FF-3":"esteio","FF-4":"porto alegre",
+    "FF-5":"dimona","FF-6":"esteio","FF-7":"porto alegre",
+}
 MAP = {
     "Florestal":"CF-1", "Florestal-CF":"CF-1", "5750":"CF-2", "5756":"CF-3",
     "2107":"FF-1", "2108":"FF-2", "5751":"FF-3", "5753":"FF-4",
@@ -138,6 +144,7 @@ def audit(raw_bytes:bytes,archive:list[dict])->dict:
     # years for the same archive plot+plant ID, with no raw/archive class
     # disagreement, and only already-measured plants in both years.
     strict_tables=defaultdict(lambda:defaultdict(lambda:[0,0,0,0]))
+    strict_rows=[]
     pairwise={}
     for year in range(1998,2005):
         c=Counter()
@@ -164,6 +171,10 @@ def audit(raw_bytes:bytes,archive:list[dict])->dict:
                 assert height>=0 and shoots>=0
                 hbin=min(int(height//25),5)
                 sbin=0 if shoots<3 else 1 if shoots<5 else 2 if shoots<8 else 3
+                strict_rows.append({
+                    "plot":p,"ranch":RANCH[p],"year":year,"height":hbin,
+                    "shoot":sbin,"prev":int(ca=="positive"),"next":int(cb=="positive")
+                })
                 slot=2*int(ca=="positive")+int(cb=="positive")
                 for key in ("all_1998_2004",
                             "core_2001_2004" if year>=2001 else None,
@@ -191,6 +202,9 @@ def audit(raw_bytes:bytes,archive:list[dict])->dict:
                 "n_informative_strata":informative,
                 "adjusted_odds_ratio":num/den if den else None}
     strict_MH={key:mh(v) for key,v in strict_tables.items()}
+    assert len(strict_rows)==strict_MH["all_1998_2004"]["n_confirmed_transitions"]
+    assert strict_MH["core_2001_2004"]["n_confirmed_transitions"]==15029
+    strict_future=forward_comparison(strict_rows,20.)
     return {
         "status":"EXPLORATORY_PINNED_RAW_ZERO_VS_ARCHIVE_NA_PROVENANCE",
         "raw_filename":RAWP,"raw_blob":RAW_BLOB,
@@ -203,6 +217,7 @@ def audit(raw_bytes:bytes,archive:list[dict])->dict:
         "per_plot_matches":{k:dict(v) for k,v in sorted(by_plot.items())},
         "strict_unique_matched_raw_zero_positive_pairs":pairwise,
         "raw_zero_positive_confirmed_size_stratified_odds":strict_MH,
+        "strict_raw_matched_future_year_prediction":strict_future,
         "limitations":[
             "Raw 2016 wide input precedes plot/tag corrections; some same-tag links can be spurious despite unique key and subplot.",
             "Raw numeric zero is a documented data-entry zero, not proof a flowering survey exhaustively detected all inflorescences.",
@@ -210,6 +225,7 @@ def audit(raw_bytes:bytes,archive:list[dict])->dict:
             "Unlinked and ambiguous raw entries must remain unresolved; do not impute them as raw zero or as biological nonflowering.",
             "Raw positive/archive NA and raw zero/archive positive may represent authorized data-cleaning corrections; do not silently choose old raw as truth.",
             "The raw-confirmed matched sample is selected on stable tag/subplot linkage and is not a random subset of demographic individuals; restrict inference to that sample.",
+            "Forward-year comparison matches the cleaned-archive morphology-bin risk rules, but source linkage is performed before evaluation and can select different individuals in different years.",
             "This archival provenance can check a record-state measurement boundary but not causal fecundity, pollen transfer or recruitment.",
             "Existing empirical EGWEE evidence denominators and draft status remain unchanged."
         ]
@@ -238,6 +254,10 @@ def main():
                  "strict_unique_matched_raw_zero_positive_pairs",
                  "raw_zero_positive_confirmed_size_stratified_odds")
     },indent=2,ensure_ascii=False))
+    print("HELICONIA_RAW_CONFIRMED_FORWARD_YEAR: "+json.dumps({
+        "pooled":report["strict_raw_matched_future_year_prediction"]["pooled_all_three_future_years"],
+        "by_year":report["strict_raw_matched_future_year_prediction"]["by_held_future_year"]
+    },ensure_ascii=False))
 
 if __name__=="__main__":
     main()
