@@ -22,7 +22,7 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install binary reader for external pinned RData
-        run: python -m pip install 'pyreadr>=0.5,<0.7'
+        run: python -m pip install 'pyreadr>=0.5,<0.7' 'pandas>=2,<4'
       - name: Verify lefko3 Git blob and audit Lathyrus annual flowering history
         run: python scripts/audit_lathyrus_external_history_order.py --output build/lathyrus_external_history_order.json
       - uses: actions/upload-artifact@v4
