@@ -67,6 +67,7 @@ def extract(df) -> tuple[list[dict], dict]:
                 "prior_volume":prior["volume"],
                 "prior_logvolume":math.log(prior["volume"]),
                 "source_intactseed":seed,
+                "seed_positive":int(seed>0) if seed is not None else None,
                 "source_flower_number":flower_number,
                 "next_status":label,
                 "next_aboveground":int(after),
@@ -85,12 +86,19 @@ def extract(df) -> tuple[list[dict], dict]:
         "next_status_flag_combinations":dict(next_flag_patterns),
         "next_year_aboveground_observed":npaired,
         "n_source_intact_seed_records":sum(r["source_intactseed"] is not None for r in result),
+        "n_positive_flowering_with_zero_seeds":sum(
+            r["prior_flowering"]==1 and r["seed_positive"]==0 for r in result
+        ),
+        "n_positive_flowering_with_positive_seeds":sum(
+            r["prior_flowering"]==1 and r["seed_positive"]==1 for r in result
+        ),
         "n_positive_flowering_with_intact_seed_record":sum(
             r["prior_flowering"] and r["source_intactseed"] is not None for r in result
         ),
     }
 
-def weighted_contrast(rows: list[dict], outcome: str, scale: float=1.) -> dict:
+def weighted_contrast(rows: list[dict], outcome: str, scale: float=1.,
+                      exposure: str="prior_flowering") -> dict:
     # Matching uses ONLY prior status to define strata. Growth comparisons
     # necessarily condition on the subsequent plant being found aboveground;
     # report unobserved-status contrasts separately, not as deaths.
@@ -100,7 +108,9 @@ def weighted_contrast(rows: list[dict], outcome: str, scale: float=1.) -> dict:
         if v is None:
             continue
         key=(r["subplot"],r["year"],size_bin(r["prior_volume"],scale))
-        strata[key][r["prior_flowering"]].append(float(v))
+        assignment=r[exposure]
+        assert assignment in (0,1),(exposure,assignment)
+        strata[key][assignment].append(float(v))
     contrast_weighted=weight_total=0.
     informative=0
     p1_total=p0_total=0
@@ -118,6 +128,7 @@ def weighted_contrast(rows: list[dict], outcome: str, scale: float=1.) -> dict:
         p0_total+=n0
     return {
         "outcome":outcome,
+        "exposure":exposure,
         "prior_logvolume_bin_width":scale,
         "matched_flowering_minus_nonflowering":(
             contrast_weighted/weight_total if weight_total else None),
@@ -157,7 +168,18 @@ def calculate(rows: list[dict]) -> dict:
             "finer_size":weighted_contrast(rows,metric,0.5),
             "coarser_size":weighted_contrast(rows,metric,2.),
         }
-    return {"groups":groups,"matched_prior_state_contrasts":outcomes}
+    fruiters=[r for r in rows if r["prior_flowering"]==1
+              and r["seed_positive"] in (0,1)]
+    seed_contrasts={}
+    for metric in ("next_aboveground","next_logvolume","log_volume_growth"):
+        seed_contrasts[metric]={
+            "main":weighted_contrast(fruiters,metric,1.,"seed_positive"),
+            "finer_size":weighted_contrast(fruiters,metric,0.5,"seed_positive"),
+            "coarser_size":weighted_contrast(fruiters,metric,2.,"seed_positive"),
+        }
+    return {"groups":groups,"matched_prior_state_contrasts":outcomes,
+            "among_prior_flowering_seed_produced_vs_zero":seed_contrasts,
+            "n_prior_flowering_with_mature_seed_data":len(fruiters)}
 
 def main():
     ap=argparse.ArgumentParser()
@@ -197,6 +219,7 @@ def main():
             "Next-year not-aboveground is NOT labeled mortality: dormant and missing flags can overlap within original records and are preserved as joint states.",
             "Log volume growth can exhibit regression-to-mean artefacts, so next-year log-volume contrast is also reported.",
             "Source Intactseed counts include model-estimated values and are not automatically independent measured reproductive effort.",
+            "Comparison within documented flowering plants of zero versus positive mature seeds selects fruiting versus failure and may reflect poor health or prior pollination rather than any experimentally manipulated investment.",
             "Coarse prior-volume binning leaves within-bin size confounding; fine and coarse alternative bins and leave-one-year/subplot are exploratory.",
             "No formal statistical or causal claim of reproductive cost, no novel ecological law, and no fragmentation treatment contrasts.",
             "Biological history effects and costs are well known in historical Lathyrus research and must not be claimed as new from this analysis.",
