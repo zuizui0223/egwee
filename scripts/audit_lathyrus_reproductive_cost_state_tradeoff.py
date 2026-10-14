@@ -66,6 +66,8 @@ def extract(df) -> tuple[list[dict], dict]:
                 "prior_flowering":flowering,
                 "prior_volume":prior["volume"],
                 "prior_logvolume":math.log(prior["volume"]),
+                "prior_logvolume_among_future_observed":(
+                    math.log(prior["volume"]) if after else None),
                 "source_intactseed":seed,
                 "seed_positive":int(seed>0) if seed is not None else None,
                 "source_flower_number":flower_number,
@@ -162,7 +164,8 @@ def calculate(rows: list[dict]) -> dict:
             "next_state_classes":dict(Counter(r["next_status"] for r in a))
         }
     outcomes={}
-    for metric in ("next_aboveground","next_logvolume","log_volume_growth"):
+    for metric in ("next_aboveground","next_logvolume","log_volume_growth",
+                   "prior_logvolume_among_future_observed"):
         outcomes[metric]={
             "main":weighted_contrast(rows,metric,1.),
             "finer_size":weighted_contrast(rows,metric,0.5),
@@ -171,12 +174,22 @@ def calculate(rows: list[dict]) -> dict:
     fruiters=[r for r in rows if r["prior_flowering"]==1
               and r["seed_positive"] in (0,1)]
     seed_contrasts={}
-    for metric in ("next_aboveground","next_logvolume","log_volume_growth"):
+    for metric in ("next_aboveground","next_logvolume","log_volume_growth",
+                   "prior_logvolume_among_future_observed"):
         seed_contrasts[metric]={
             "main":weighted_contrast(fruiters,metric,1.,"seed_positive"),
             "finer_size":weighted_contrast(fruiters,metric,0.5,"seed_positive"),
             "coarser_size":weighted_contrast(fruiters,metric,2.,"seed_positive"),
         }
+    # Exact log identity on the SAME next-observed matched groups prevents
+    # mistaking a shared prior-volume denominator for a biological tradeoff.
+    for estimand in (outcomes,seed_contrasts):
+        for width in ("main","finer_size","coarser_size"):
+            g=estimand["log_volume_growth"][width]["matched_flowering_minus_nonflowering"]
+            nxt=estimand["next_logvolume"][width]["matched_flowering_minus_nonflowering"]
+            old=estimand["prior_logvolume_among_future_observed"][width]["matched_flowering_minus_nonflowering"]
+            if g is not None and nxt is not None and old is not None:
+                assert abs(g-(nxt-old))<1e-10,(width,g,nxt,old)
     return {"groups":groups,"matched_prior_state_contrasts":outcomes,
             "among_prior_flowering_seed_produced_vs_zero":seed_contrasts,
             "n_prior_flowering_with_mature_seed_data":len(fruiters)}
@@ -217,7 +230,7 @@ def main():
             "Flowering was not assigned or randomized; size, condition and climate can jointly determine flowering, growth and next-year appearance.",
             "Conditional next-year growth measures exclude plants dormant, missing or dead and can be subject to selection on future survival/observation.",
             "Next-year not-aboveground is NOT labeled mortality: dormant and missing flags can overlap within original records and are preserved as joint states.",
-            "Log volume growth can exhibit regression-to-mean artefacts, so next-year log-volume contrast is also reported.",
+            "Log volume growth shares the prior-volume denominator; the within-stratum prior-log-volume imbalance is explicitly audited and algebraically reconciled with the growth and next-volume contrasts.",
             "Source Intactseed counts include model-estimated values and are not automatically independent measured reproductive effort.",
             "Comparison within documented flowering plants of zero versus positive mature seeds selects fruiting versus failure and may reflect poor health or prior pollination rather than any experimentally manipulated investment.",
             "Coarse prior-volume binning leaves within-bin size confounding; fine and coarse alternative bins and leave-one-year/subplot are exploratory.",
@@ -242,6 +255,16 @@ def main():
             y:{k:v["matched_prior_state_contrasts"][k]["main"]["matched_flowering_minus_nonflowering"]
                for k in ("next_aboveground","next_logvolume","log_volume_growth")}
             for y,v in result["by_start_year"].items()},
+        "seed_produced_vs_zero":{
+            k:{w:v["matched_flowering_minus_nonflowering"] for w,v in variants.items()}
+            for k,variants in result["all_adjacent_year_pairs"][
+                "among_prior_flowering_seed_produced_vs_zero"].items()
+        },
+        "seed_contrasts_by_year":{
+            y:{k:v["main"]["matched_flowering_minus_nonflowering"] for k,v in
+                   z["among_prior_flowering_seed_produced_vs_zero"].items()}
+            for y,z in result["by_start_year"].items()
+        },
         "omit_year":{
             y:{k:v[k]["matched_flowering_minus_nonflowering"] for k in v}
             for y,v in result["leave_one_year_out"].items()}
