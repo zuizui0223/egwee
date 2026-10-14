@@ -33,6 +33,7 @@ def extract(df) -> tuple[list[dict], dict]:
     assert len(states)==len(source_rows)==1119
     result=[]
     next_class=Counter()
+    next_flag_patterns=Counter()
     for k,years in states.items():
         raw=source_rows[k]
         for t in YEARS[:-1]:
@@ -43,9 +44,12 @@ def extract(df) -> tuple[list[dict], dict]:
             flags=next_state["source_status_flags"]
             confirmed=[key for key in ("Dead","Dormant","Missing")
                        if flags[key]==1.]
-            assert len(confirmed)<=1,(k,t,flags)
+            # Dormant and Missing are NOT exclusive in the source. Preserve
+            # overlaps instead of silently interpreting them as mortality.
             label=("measured_aboveground" if after
-                   else confirmed[0].lower() if confirmed else "unclassified_not_aboveground")
+                   else "+".join(z.lower() for z in confirmed)
+                   if confirmed else "unclassified_not_aboveground")
+            next_flag_patterns[",".join(confirmed) if confirmed else "none"]+=1
             next_class[label]+=1
             if after:
                 assert next_state["volume"]>0
@@ -78,6 +82,7 @@ def extract(df) -> tuple[list[dict], dict]:
         "source_genets":len(states),
         "eligible_prior_aboveground_years":len(result),
         "next_state_classes":dict(next_class),
+        "next_status_flag_combinations":dict(next_flag_patterns),
         "next_year_aboveground_observed":npaired,
         "n_source_intact_seed_records":sum(r["source_intactseed"] is not None for r in result),
         "n_positive_flowering_with_intact_seed_record":sum(
@@ -189,7 +194,7 @@ def main():
             "Only 1988-1991 within one already published Swedish Lathyrus study; 1119 genets / 6 subplots, repeated year-pairs are not independent.",
             "Flowering was not assigned or randomized; size, condition and climate can jointly determine flowering, growth and next-year appearance.",
             "Conditional next-year growth measures exclude plants dormant, missing or dead and can be subject to selection on future survival/observation.",
-            "Next-year not-aboveground is NOT labeled mortality, since true dormancy and missing status are distinct.",
+            "Next-year not-aboveground is NOT labeled mortality: dormant and missing flags can overlap within original records and are preserved as joint states.",
             "Log volume growth can exhibit regression-to-mean artefacts, so next-year log-volume contrast is also reported.",
             "Source Intactseed counts include model-estimated values and are not automatically independent measured reproductive effort.",
             "Coarse prior-volume binning leaves within-bin size confounding; fine and coarse alternative bins and leave-one-year/subplot are exploratory.",
