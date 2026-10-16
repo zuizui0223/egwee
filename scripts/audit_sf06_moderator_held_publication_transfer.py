@@ -113,10 +113,15 @@ def solve(mat: list[list[float]], rhs: list[float]) -> list[float]:
 
 
 def predict(train: list[dict],test: list[dict], features: tuple[str,...],
-            weight_publications: bool,penalty: float) -> list[float]:
+            weight_publications: bool,penalty: float,
+            variance_floor: float | None = None) -> list[float]:
     assert train and test and penalty>0
     counts=Counter(r["pub"] for r in train)
     weights=[1.0/counts[r["pub"]] if weight_publications else 1.0 for r in train]
+    if variance_floor is not None:
+        assert variance_floor >= 0
+        assert all(r["varF"]>0 for r in train)
+        weights=[w/(r["varF"]+variance_floor) for w,r in zip(weights,train)]
     nw=sum(weights)
     means={}
     sds={}
@@ -138,14 +143,15 @@ def predict(train: list[dict],test: list[dict], features: tuple[str,...],
 
 
 def held_group(rows:list[dict],features:tuple[str,...],by:str,
-               balance_training_pub:bool,penalty:float)->dict:
+               balance_training_pub:bool,penalty:float,
+               variance_floor:float|None=None)->dict:
     groups=sorted({r[by] for r in rows})
     out=[]
     for group in groups:
         train=[r for r in rows if r[by]!=group]
         test=[r for r in rows if r[by]==group]
         assert train and test
-        preds=predict(train,test,features,balance_training_pub,penalty)
+        preds=predict(train,test,features,balance_training_pub,penalty,variance_floor)
         losses=[(r["F"]-yh)**2 for r,yh in zip(test,preds)]
         out.append({"key":group,"n":len(test),
                     "sum_squared_error":sum(losses),
@@ -253,6 +259,14 @@ def main()->None:
                 weight:nested_influence(rows,weight=="equal_publication",RIDGE)
                 for weight in ("equal_pair","equal_publication")
             },
+            "female_endpoint_variance_training_sensitivity":{
+                str(floor):{
+                    name:held_group(rows,MODELS[name],"pub",False,RIDGE,floor)[
+                        "mse_row_weighted"]
+                    for name in ("context_only","breeding_SC","pollination_dI",
+                                 "dI_plus_SC","dI_plus_vertebrate","dI_plus_specialist")
+                } for floor in (0.0,0.1,0.5)
+            },
         }
     full=reports["all_49_known_breeding"]["predictions"]["equal_pair"]
     dis=reports["EGWEE_source_disjoint_26"]["predictions"]["equal_pair"]
@@ -279,6 +293,7 @@ def main()->None:
             "Specialist/generalist and vertebrate/invertebrate labels are exploratory, sparse and publication-confounded.",
             "A modest held-publication MSE improvement is predictive association, not a causal pollen supply effect or proof of transport to new ecosystems.",
             "Publication-balanced training is a sensitivity to papers contributing different numbers of taxa, not a design-based estimator.",
+            "Female-endpoint inverse-variance training uses archived marginal var_F only; it ignores uncertainty in d_I and unknown within-study dI/dF covariance, and is not a full meta-regression.",
             "Outcome-driven multiple moderator models and smoothing choices were inspected post hoc; do not claim nominal significance or ecological universality.",
             "No impact on frozen five-cluster, eight-matched, sixteen-programme or SF06 pair denominators, no manuscript primary claim promotion.",
         ]
@@ -300,7 +315,11 @@ def main()->None:
                 for w in d["predictions"]},
             "source_delete_summary":{w:{
                 k:v for k,v in d["source_delete_influence"][w].items()
-                if k!="by_deleted_publication"} for w in d["source_delete_influence"]}
+                if k!="by_deleted_publication"} for w in d["source_delete_influence"]},
+            "precision_sensitivity":d["female_endpoint_variance_training_sensitivity"],
+            "held_species":{w:d["predictions"][w]["held_species"]
+                            for w in d["predictions"]},
+            "ridge_sensitivity":d["ridge_penalty_sensitivity"]
         } for n,d in reports.items()},
     },indent=2,ensure_ascii=False))
 
