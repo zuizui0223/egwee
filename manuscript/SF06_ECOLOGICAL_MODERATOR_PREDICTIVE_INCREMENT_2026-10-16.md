@@ -56,7 +56,24 @@ A **nested leave-one-publication-deleted** audit recomputes complete LOPO predic
 
 This persists as a *negative SI/SC increment* in both the equal-pair and equal-publication **training-weight** analyses at the chosen penalty. In the disjoint 26-pair subset, the `d_I` improvement can turn negative after deleting certain sources (range of baseline minus `d_I` MSE **−0.00959 to +0.04271**). So the mild `d_I` benefit is **not source-deletion invariant** in the smaller independent-source subset.
 
-The final JSON also contains species-held-out predictions, alternative shrinkage strengths, all per-source loss contributions and SI/SC × quantitative `d_I` interaction models. They are part of **sensitivity and falsification**, not support for post hoc selection of a best ecological moderator.
+### Measurement-precision and species-level sensitivity (important limit to the modest `d_I` benefit)
+
+Repeat **the same held-publication outcomes** but refit using inverse variance weights proportional to `1/(var_F+floor)`, with exploratory `floor=0,0.1,0.5`; predictions are still scored using unweighted held-source squared error. This is **not** a full errors-in-variables meta-regression because `d_I` sampling variance and within-pair `d_I/d_F` covariance are not modeled.
+
+| Training weight and frame | Context-only | `d_I` only | `d_I + SC` |
+|---|---:|---:|---:|
+| Full 49, `1/var_F` | 0.416236 | **0.397240** | 0.400914 |
+| Full 49, `1/(var_F+0.1)` | 0.399136 | **0.386343** | 0.398058 |
+| Disjoint 26, `1/var_F` | **0.547989** | 0.548385 | 0.583103 |
+| Disjoint 26, `1/(var_F+0.1)` | 0.531220 | **0.514200** | 0.540309 |
+
+The source-disjoint **unfloored** precision-weighted `d_I` model is **marginally worse** than the intercept-only model (0.548385 vs 0.547989). This is one reason **not** to claim an invariant general `d_I` predictive advantage across all representations and weights. The **SC add-on fails to improve over `d_I`** in all the displayed precision scenarios, as well as at floor 0.5 and the main equal-pair/equal-publication fits.
+
+Holding out **species instead of publications** and training with equal row weights likewise does not support SC incremental value: the full 49-pair female-effect MSE is `d_I=0.381625` versus `d_I+SC=0.395026`; the disjoint 26-pair MSE is `d_I=0.515006` versus `d_I+SC=0.551324`. Species-held-out does **not** block shared publication methods; the publication-held-out test remains the stronger source-independence diagnostic.
+
+For coefficient shrinkage `lambda=0.1` or `4.0`, the full and disjoint selected frames with equal-row training likewise do not show a positive `SC` add-on, but shrinkage and variance-floor choices are **post hoc method sensitivities**, not a new confirmatory selection procedure.
+
+The final JSON contains these species-held-out predictions, alternative shrinkage strengths, source influence deletions and SI/SC × `d_I` interaction models. They are part of **sensitivity and falsification**, not support for post hoc selection of a best ecological moderator.
 
 ## Biological interpretation and limits
 
@@ -71,5 +88,5 @@ The final JSON also contains species-held-out predictions, alternative shrinkage
 ## Reproduction, workflow and freeze
 
 - Executable pinned-source checker: `scripts/audit_sf06_moderator_held_publication_transfer.py`
-- CI: https://github.com/zuizui0223/egwee/actions/runs/38920379526 — **PASS**; archived `build/sf06_moderator_transfer_v1.json` includes exact denominators, 2 training weightings, penalty sensitivity, source deletions, species-held-out scores.
+- CI: https://github.com/zuizui0223/egwee/actions/runs/38920896277 — **PASS**, including held-species and marginal female-effect precision-weight sensitivities; archived `build/sf06_moderator_transfer_v1.json` includes exact denominators, 2 training weightings, penalty sensitivity, source deletions, species-held-out scores.
 - Main egwee `main` remains unchanged, PR #52 remains **draft**, `submission_ready=false`. The unrelated submission-freeze contract intentionally fails if the evolving manuscript hash differs from the dated frozen manifest; this is **not** a license to relax the gate.
