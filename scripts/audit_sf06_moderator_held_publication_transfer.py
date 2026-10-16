@@ -49,7 +49,15 @@ def load() -> tuple[list[dict], dict]:
     assert len({r["source_publication_key"] for r in frag})==32
     # Fair comparison denominator: every model uses the identical known
     # breeding-system records, including context-only and dI-only baselines.
-    known=[r for r in frag if r["compatibility"] in {"SI","SC"}]
+    # The continuous-effect analysis includes ONE extra positive-numeric
+    # row with mixed constituent sign, which is excluded from the 54-pair
+    # qualitative sign-consensus analysis. These denominators MUST NOT be
+    # conflated. Retain it only for d_I -> d_F quantitative prediction.
+    numeric=[r for r in data if r["land_use_factor_normalized"]=="habitat fragmentation"
+             and r["numeric_model_eligible"]=="yes"]
+    assert len(numeric)==55
+    assert len([r for r in numeric if r not in frag])==1
+    known=[r for r in numeric if r["compatibility"] in {"SI","SC"}]
     assert len(known)==49
     rows=[]
     for r in known:
@@ -73,7 +81,9 @@ def load() -> tuple[list[dict], dict]:
         "sha_git_blob":blob,
         "physical_paired_rows":len(data),
         "fragmentation_consensus_pairs":len(frag),
-        "fragmentation_known_breeding_system_pairs":len(rows),
+        "fragmentation_numeric_d_effect_pairs":len(numeric),
+        "numeric_pairs_excluded_from_sign_consensus":len(numeric)-len(frag),
+        "fragmentation_numeric_known_breeding_system_pairs":len(rows),
         "fragmentation_known_breeding_system_publications":27,
         "disjoint_known_breeding_system_pairs":len(dis),
         "disjoint_known_breeding_system_publications":18,
@@ -260,6 +270,7 @@ def main()->None:
         "results":reports,
         "interpretation_ceiling":[
             "All models compare on identical SI/SC-known rows, never silently changing the denominator by covariate missingness.",
+            "The 49 known breeding-system rows are continuous numeric d_I/d_F eligible, including one row excluded from the separate 54-pair constituent-sign consensus, so sign and numeric denominators must never be conflated.",
             "Twenty-six of the 49 known breeding-system pairs are source-publication disjoint from EGWEE matched map; this is one external literature extraction, not independent preregistered replication.",
             "Observed d_I and d_F are heterogeneous standardized endpoints; observed uncertainty and unknown paired covariance limit interpretation.",
             "The published original meta-analysis includes broader data and analyses; this secondary restricted reproduction is not a new biological meta-analysis.",
