@@ -49,6 +49,25 @@ The observed relationship is **target-dependent**:
 
 That is narrower and more defensible than the blanket assertion “pollination does not predict reproduction.” It also does **not** assert zero conditional biological information, a universal endpoint nonlinearity, or a new causal mechanism downstream of mating.
 
+## Robustness: published study weighting and whole-source influence
+
+Numeric female-effect prediction **is especially fragile in the source-disjoint subset** when publication rather than effect row is weighted equally at scoring time:
+
+| Numeric-female target; equal weight to each held publication | Baseline | Pollination sign | Pollination magnitude |
+|---|---:|---:|---:|
+| All 54, 32 publications | **0.476869** | **0.461081** | **0.461772** |
+| Source-disjoint 31, 23 publications | **0.576158** | 0.632719 | 0.583533 |
+
+Thus the modest disjoint 31-pair **row-weighted** benefit of continuous `d_I` (0.623925→0.614103) **does not persist under equal-publication scoring** (0.576158→0.583533). Do not assert a robust disjoint continuous effect prediction improvement.
+
+Re-run the *entire* publication-held-out exercise after deleting each distinct source publication in turn, **rather than just deleting an influential row**:
+
+- In all 54 pairs, for the **numeric female effect**, direction-only beats baseline after **32/32** individual source deletions, as does magnitude-only (**32/32**); direction beats magnitude in **28/32** deletions, so magnitude is not uniformly more informative.
+- In source-disjoint 31 pairs, direction-only is *worse* than baseline after **22/23** deletions; magnitude-only is *better* than baseline after **19/23**, but worsens after **4/23**, and its equal-publication MSE is worse even without source deletion.
+- For the **binary female lower/nonlower point-sign**, in the full 54 both sign-only and magnitude-only are worse than baseline after **32/32** source deletions; in the disjoint 31, both are worse after **22/23**, with a single opposite deletion result.
+
+These deletion fits **overlap massively** and are **not 32 or 23 independent ecological tests**. They only describe how the measured conditional predictive utility depends on the small set of published sources. A source-selected post hoc MSE winner is not a validated universal reproductive mechanism.
+
 ## Inference and falsification limits
 
 - The public supplement pairs heterogeneous taxonomic and female-fitness endpoints, sometimes at different sites/years and with **unknown within-pair `d_I/d_F` covariance**; inverse-female-variance weighting, origin-study hierarchical modeling, or local mating-quality records could change rankings.
@@ -62,7 +81,7 @@ That is narrower and more defensible than the blanket assertion “pollination d
 
 - New checker: `scripts/audit_sf06_target_representation_transfer.py`. It checks the exact Git blob, 59 original physical rows, 54/31 fixed sign-consensus fragmentation rows, whole-source deletion, both outcome families, λ=0.25/1/4 sensitivity, and per-publication score influence.
 - New workflow: `.github/workflows/sf06-target-representation-transfer.yml`. Detailed machine-readable result: `build/sf06_target_representation_transfer_v1.json` from the GitHub Actions artifact.
-- Source-scoped CI was **queued at the initial writing**: https://github.com/zuizui0223/egwee/actions/runs/39006084678. The headline score values were separately reproduced from the pinned CSV with an independent code-path calculation; **do not claim workflow success unless the completed run confirms it**.
+- Source-scoped CI **PASS**, complete frozen-blob and source-deletion checks: https://github.com/zuizui0223/egwee/actions/runs/39006084678 (the subsequent machine-readable deletion-field spelling tidy-up reruns the same checks). Headline score values were also separately reproduced from the pinned CSV by an independent code path.
 - Frozen main baseline is unchanged. PR #52 stays **draft**; `submission_ready=false` remains required because the dated manuscript freeze hash is intentionally not reconciled with ongoing exploratory work.
 
 ## Next outcome-identifying ecological test
