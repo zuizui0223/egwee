@@ -1,0 +1,6 @@
+cluster_id,source_frame,source_paper_id,site,exposure_group,source_site_label,C_father_outside_pct,G_adult_reproductive_UHe,G_offspring_seedling_UHe,n_flowering_plants,n_sampled_seedlings,source_tables,independent_unit_note
+P2_SF05_71,SF05,71,CF1,reference,continuous_forest,2,0.621,0.624,285,374,Tables_1_2_3,site_is_independent_fragmentation_unit
+P2_SF05_71,SF05,71,CF2,reference,continuous_forest,19,0.693,0.694,20,52,Tables_1_2_3,site_is_independent_fragmentation_unit
+P2_SF05_71,SF05,71,F1,fragmented,one_ha_fragment,17,0.687,0.661,44,118,Tables_1_2_3,site_is_independent_fragmentation_unit
+P2_SF05_71,SF05,71,F2,fragmented,one_ha_fragment,23,0.700,0.709,50,73,Tables_1_2_3,site_is_independent_fragmentation_unit
+P2_SF05_71,SF05,71,F3,fragmented,one_ha_fragment,22,0.701,0.698,60,83,Tables_1_2_3,site_is_independent_fragmentation_unit

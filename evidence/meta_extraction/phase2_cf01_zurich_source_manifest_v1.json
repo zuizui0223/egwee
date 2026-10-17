@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "programme_id": "P2_CF01_ZURICH_2026",
+  "source_repository": "mrejichacko/BetterBlooms",
+  "source_release": "jae",
+  "source_commit": "d6361f6874398e797322afe07a8fea85a3c7e927",
+  "source_files": {
+    "raw_data/explanatory_variables.txt": {
+      "blob_sha": "522acb1c6c971e17223405b7cc43b1639deee5d3",
+      "rows": 24
+    },
+    "cleaned_data/pollinator_abundance_aggregated_garden_phytometer.txt": {
+      "blob_sha": "6ad7eb37eea2390e2a96327da5c9ebc405c58d40",
+      "rows": 24
+    },
+    "cleaned_data/sampling_effort_gardens_plants_aggregated.txt": {
+      "blob_sha": "64bf99cf750ad4bd40b4df8b7b91b6b50baaf164",
+      "rows": 24
+    }
+  },
+  "exposure_field": "Urban_500",
+  "exposure_direction": "higher_is_more_densified_more_habitat_loss",
+  "visitation_transform": "raw_count / (sampling_effort_min / 60 / 9)",
+  "garden_ids": [
+    "2",
+    "7",
+    "8",
+    "11",
+    "17",
+    "19",
+    "25",
+    "27",
+    "28",
+    "30",
+    "39",
+    "40",
+    "41",
+    "47",
+    "48",
+    "52",
+    "53",
+    "56",
+    "59",
+    "71",
+    "73",
+    "83",
+    "84",
+    "85"
+  ],
+  "source_excluded_garden_ids": [
+    "39"
+  ],
+  "effect_outcomes_opened": false
+}

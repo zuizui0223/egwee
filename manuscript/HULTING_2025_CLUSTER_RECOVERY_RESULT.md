@@ -48,3 +48,24 @@ The synchronized experimental study supports a qualitative state-separation patt
 ## Reopen condition
 
 Reopen ML007 when the Dryad CSV is available through an ordinary browser/authorized download or an author-supplied copy. On reopening, preserve the already-frozen edge exposure, species set, I/F endpoints, hierarchy and dependence rules. Do not switch to patch type/connectivity or remove Liatris after seeing the raw effects.
+
+## 2026-09-24 source-access re-audit
+
+The blocker was re-tested after CF01 rediscovered a linked 2026 Savannah River campaign.
+
+The 2025 Dryad landing page and v2 metadata still verify the exact raw object:
+
+- `archive_SRS_2009_seeds.csv`;
+- Dryad file ID `3628536`;
+- size `664,907` bytes;
+- SHA-256 metadata digest `99e44e14a1751b5bc29892ff7721ed31331a55ef834fbf2e8acb06455344f362`.
+
+Three ordinary public byte routes were tested without attempting to solve or bypass an access-control challenge:
+
+- `/downloads/file_stream/3628536` → HTTP 200 HTML Anubis challenge;
+- `/api/v2/files/3628536/download` → HTTP 401;
+- `/stash/downloads/file_stream/3628536` → HTTP 200 HTML Anubis challenge.
+
+The Wiley supporting-document route still returns HTTP 403 from CI. Therefore the frozen 2025 `edge_severity` analysis remains genuinely source-access blocked in the execution environment.
+
+CF01 also recovered Hulting et al. (2026), an Ecology paper using the same Savannah River fragmentation experiment and a public Dryad archive for a Carphephorus campaign. That linked campaign is useful new programme context and has raw data, but it is **not** an independent EGWEE programme and it does **not** replace the prospectively frozen 2025 exposure. Programme K remains unchanged.

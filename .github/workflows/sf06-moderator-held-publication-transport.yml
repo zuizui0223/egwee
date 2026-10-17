@@ -1,0 +1,31 @@
+name: SF06 held-publication ecological moderator transport
+
+on:
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - 'scripts/audit_sf06_moderator_held_publication_transfer.py'
+      - 'evidence/meta_extraction/sf06_translation_residual_pairs_v1.csv'
+      - '.github/workflows/sf06-moderator-held-publication-transport.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Audit moderator gains on fixed 49 and 26 exact source sets
+        run: python scripts/audit_sf06_moderator_held_publication_transfer.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sf06-moderator-held-publication
+          path: build/sf06_moderator_transfer_v1.json
+          if-no-files-found: error

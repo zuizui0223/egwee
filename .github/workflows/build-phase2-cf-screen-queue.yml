@@ -1,0 +1,37 @@
+name: Build Phase-2 C-F screen queue
+
+on:
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - 'scripts/build_phase2_cf_screen_queue.py'
+      - '.github/workflows/build-phase2-cf-screen-queue.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Build outcome-blind C-F queue
+        run: python scripts/build_phase2_cf_screen_queue.py
+      - name: Commit queue
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            evidence/meta_extraction/phase2_cf_fragmentation_screen_queue_v1.csv \
+            evidence/meta_extraction/phase2_cf_screen_summary_v1.json \
+            manuscript/PHASE2_CF_SCREEN_QUEUE_2026-09-21.md
+          if git diff --cached --quiet; then
+            echo 'No C-F queue changes'
+          else
+            git commit -m 'Build Phase-2 outcome-blind C-F screen queue'
+            git push origin HEAD:meta/systematic-coverage-moderator-expansion-2026-09-16
+          fi

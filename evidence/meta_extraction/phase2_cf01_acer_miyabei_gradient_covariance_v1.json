@@ -1,0 +1,50 @@
+{
+  "programme_id": "P2_CF01_ACER_MIYABEI_2014",
+  "status": "gradient_generalisation_multilayer_cluster_retrospective",
+  "source_table": "Nagamitsu et al. 2014 Table 1",
+  "common_forest_ids": [
+    "c",
+    "d",
+    "f",
+    "i",
+    "l",
+    "m",
+    "o",
+    "p",
+    "q"
+  ],
+  "n_independent_forests": 9,
+  "primary_exposure": "log_distance_to_nearest_forest_m",
+  "C_endpoint": "negative_mean_seed_kinship",
+  "F_endpoint": "viable_seed_density_m2",
+  "C_fisher_z": 0.1810837356205326,
+  "F_fisher_z": -0.00019067890550871408,
+  "C_variance": 0.16666666666666666,
+  "F_variance": 0.16666666666666666,
+  "residual_rho_CF": 0.5900596157971332,
+  "cov_CF": 0.0983432692995222,
+  "covariance_determinant": 0.01810637916125943,
+  "delta_C_minus_F": 0.18127441452604132,
+  "se_delta": 0.3696576723595615,
+  "z_delta": 0.49038455868898595,
+  "p_delta_two_sided": 0.6238618012357884,
+  "ci95_delta": [
+    -0.5432413099076067,
+    0.9057901389596893
+  ],
+  "sensitivities": {
+    "seed_density": {
+      "r": 0.6431047480446488,
+      "z": 0.7634502716521985,
+      "variance": 0.16666666666666666
+    },
+    "viable_seed_proportion": {
+      "r": -0.26154437128364894,
+      "z": -0.2677654618557327,
+      "variance": 0.16666666666666666
+    }
+  },
+  "primary_hedges_increment": 0,
+  "retrospective_recovery": true,
+  "effect_outcomes_opened_after_source_table_visible": true
+}

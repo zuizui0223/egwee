@@ -1,0 +1,56 @@
+name: Estimand scale robustness
+
+on:
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - 'scripts/check_estimand_scale_robustness.py'
+      - 'scripts/check_bottleneck_scale_robustness.py'
+      - 'scripts/check_if_sign_topology.py'
+      - 'scripts/check_bidirectional_masking.py'
+      - 'evidence/meta_extraction/if_sign_topology_v1.csv'
+      - 'manuscript/EXPLORATORY_IF_RESPONSE_TOPOLOGY_2026-09-29.md'
+      - 'manuscript/EXPLORATORY_BIDIRECTIONAL_MASKING_2026-09-29.md'
+      - 'manuscript/EXPLORATORY_IF_TOPOLOGY_MECHANISMS_2026-09-29.md'
+      - 'scripts/check_bidirectional_masking.py'
+      - 'scripts/check_process_function_difference_sign_stability.py'
+      - 'scripts/synthesize_state_separation.py'
+      - 'evidence/meta_extraction/PS003_serapias_site_table_v1.csv'
+      - 'evidence/meta_extraction/PS004_brosimum_site_table_v1.csv'
+      - 'evidence/meta_extraction/PS001_spondias_paternity_site_table_v1.csv'
+      - 'evidence/meta_extraction/PS001_spondias_appendixB_genetic_site_table_v1.csv'
+      - 'evidence/meta_extraction/PS022_aizen_feinsinger_site_means_v1.csv'
+      - 'evidence/meta_extraction/PS020_eucalyptus_socialis_sufficient_stats_v1.json'
+      - 'evidence/meta_extraction/phase2_cf01_sevenello_transect_values_v1.csv'
+      - 'evidence/meta_extraction/phase2_cf01_bergsdorf_kakamega_site_values_v1.csv'
+      - 'evidence/meta_extraction/ecological_process_function_programme_census_v1.csv'
+      - 'evidence/meta_extraction/bottleneck_scale_robustness_v1.csv'
+      - 'evidence/meta_extraction/transition_filtering_topology_v1.csv'
+      - 'evidence/meta_extraction/phase2_gpair_synthesis_v1.json'
+      - 'scripts/check_transition_specific_filtering.py'
+      - 'scripts/check_scale_stable_quantity_function_proxy_failure.py'
+      - 'manuscript/BOTTLENECK_SCALE_ROBUSTNESS_2026-09-29.md'
+      - '.github/workflows/estimand-scale-robustness.yml'
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run Hedges-g versus lnRR audit
+        run: python scripts/check_estimand_scale_robustness.py
+      - name: Run cross-scale bottleneck geometry audit
+        run: python scripts/check_bottleneck_scale_robustness.py
+      - name: Run panel-level process-function direction stability audit
+        run: python scripts/check_process_function_difference_sign_stability.py
+      - name: Run scale-stable proxy-failure audit
+        run: python scripts/check_scale_stable_quantity_function_proxy_failure.py
+      - name: Run transition-specific filtering audit
+        run: python scripts/check_transition_specific_filtering.py
+      - name: Run bottleneck census scale audit
+        run: python scripts/check_bottleneck_scale_robustness.py
