@@ -40,6 +40,17 @@ Thus the Q×P×V / reproductive-assurance bookkeeping used in EGWEE is **not a n
 
 The empirical contribution is therefore a fragmentation-specific test of **incremental sentinel value across studies**, not the discovery that interaction quality, resources or multiple pathways exist.
 
+
+### 17 October 2026: same-case numeric/directional target audit
+
+To prevent conflating **predictor representation**, **outcome target**, and **different eligible cohort denominators**, [the 17 October SF06 source-heldout audit](SF06_MATCHED_TARGET_REPRESENTATION_TRANSFER_2026-10-17.md) keeps identical 54 constituent-sign-consensus pairs (32 publications) for numeric-female and point-sign-female targets; its 31-pair / 23-publication comparison excludes all publications overlapping the primary EGWEE matched I–F map.
+
+- On **continuous female effect `d_F`** (held-publication MSE), direction-only and continuous `d_I` have small and **source-frame-dependent** improvements: on all 54, intercept 0.462895, sign 0.446734, numeric `d_I` 0.452495; on source-disjoint 31, intercept 0.623925, sign **worse** at 0.657612, numeric **slightly better** at 0.614103.
+- On the **binary F lower/nonlower point-sign** (held-publication Brier), neither representation beats the baseline in either frame: full baseline 0.176739, sign 0.181503, continuous predictor 0.177584; disjoint baseline 0.183269, sign 0.193949, continuous predictor 0.190088.
+- The numeric comparison is **exactly case-matched** to the sign-predictor comparison; it must not be conflated with the separate 55 numerically eligible fragmentation pairs, 49 SI/SC-known pairs or 26 source-disjoint SI/SC-known pairs. All sign targets are **point consensus, not 95%-resolved female outcomes**; only three source pairs are jointly 95%-resolved at both margins.
+
+The resulting ecological statement is **not** that female reproductive fitness is independent of pollination, that binarization always loses information, or that one biological predictor is universally best. Rather, coarse quantity-based sentinels exhibit **outcome-target and source-population-dependent conditional diagnostic performance** under the simple held-source models. This is a *practical prediction estimand*, not yet an identified causal mechanism or universal species-level law.
+
 ## What this does not establish
 
 - Zero true conditional information, or the failure of every possible nonlinear/probabilistic predictor.
