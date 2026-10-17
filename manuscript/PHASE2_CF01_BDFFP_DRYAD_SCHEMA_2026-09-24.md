@@ -50,3 +50,9 @@ Proceed to numerical recovery only if the public workbooks support all of:
    selecting fragment sizes or response subsets from outcomes.
 
 Otherwise retain the programme as design-valid but quantitatively blocked.
+
+## 17 October 2026 public access recheck
+
+The published Dryad public landing page remains available and still indexes all **four** declared workbooks for Hooper & Ashton (2020), https://doi.org/10.5061/dryad.612jm640h. A renewed ordinary public-file access check (no credentials, scraping bypass or alternate outcome extraction) on 2026-10-17 reached the file stream links but received **HTTP 403 Forbidden** for the relevant density, dispersed and undispersed spreadsheet streams (visible file stream references 243392, 243394, 243395). The unmodified dataset page still lists the workbooks with declared sizes.
+
+**Terminal gate remains unchanged:** `blocked_public_dryad_file_bytes_not_recoverable`. No source workbook values were read; no plot-level Hedges-g/C–F covariance was computed, no abstract-level 3×/6× fold changes were substituted for plot effects, and the 11 independent plot units remain a *prospective design* rather than an EGWEE admitted quantitative family. This recheck does **not** reopen the completed CF01 search or revise the frozen 2/5 direct C–F programme count. Reopen only after reproducible direct public bytes or an authoritative public archive mirror for the exact deposited files can be verified.
