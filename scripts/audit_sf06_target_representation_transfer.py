@@ -230,8 +230,8 @@ def deleted_publication_frame(rows:list[dict],penalty:float)->dict:
         vals=[v[target] for v in out.values()]
         report[target]={
             label:{
-                "positive_delitions":sum(v[label]>0 for v in vals),
-                "negative_delitions":sum(v[label]<0 for v in vals),
+                "positive_deletions":sum(v[label]>0 for v in vals),
+                "negative_deletions":sum(v[label]<0 for v in vals),
                 "range":[min(v[label] for v in vals),max(v[label] for v in vals)],
             } for label in vals[0]
         }
