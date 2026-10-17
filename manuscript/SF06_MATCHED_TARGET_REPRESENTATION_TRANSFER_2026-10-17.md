@@ -81,7 +81,7 @@ These deletion fits **overlap massively** and are **not 32 or 23 independent eco
 
 - New checker: `scripts/audit_sf06_target_representation_transfer.py`. It checks the exact Git blob, 59 original physical rows, 54/31 fixed sign-consensus fragmentation rows, whole-source deletion, both outcome families, λ=0.25/1/4 sensitivity, and per-publication score influence.
 - New workflow: `.github/workflows/sf06-target-representation-transfer.yml`. Detailed machine-readable result: `build/sf06_target_representation_transfer_v1.json` from the GitHub Actions artifact.
-- Source-scoped CI **PASS**, complete frozen-blob and source-deletion checks: https://github.com/zuizui0223/egwee/actions/runs/39006084678 (the subsequent machine-readable deletion-field spelling tidy-up reruns the same checks). Headline score values were also separately reproduced from the pinned CSV by an independent code path.
+- Source-scoped CI **PASS** on both original and final corrected machine-readable field-name versions: https://github.com/zuizui0223/egwee/actions/runs/39006084678 and https://github.com/zuizui0223/egwee/actions/runs/39006359687. Both verify the pinned source, exact matched denominators, held-publication regression/logistic scoring, alternative ridge penalties and full source deletion. Headline score values were also independently reproduced from the pinned CSV.
 - Frozen main baseline is unchanged. PR #52 stays **draft**; `submission_ready=false` remains required because the dated manuscript freeze hash is intentionally not reconciled with ongoing exploratory work.
 
 ## Next outcome-identifying ecological test
