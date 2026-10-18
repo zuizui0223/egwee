@@ -40,11 +40,13 @@ FEATURES={
     "captured_visitors_same_plant_species":("species_captures",),
     "total_patch_captures":("patch_captures",),
     "patch_visitor_taxon_richness":("taxon_richness",),
+    "patch_rarefied_taxon_richness":("rarefied_taxon_richness",),
     "patch_mean_visitor_size":("mean_itd",),
     "patch_body_size_dispersion":("log_itd_sd",),
     "patch_body_size_range":("size_range_taxon_means",),
     "species_captures_plus_taxon_richness":("species_captures","taxon_richness"),
     "patch_total_captures_plus_taxon_richness":("patch_captures","taxon_richness"),
+    "patch_total_captures_plus_rarefied_richness":("patch_captures","rarefied_taxon_richness"),
     "species_captures_plus_patch_total":("species_captures","patch_captures"),
     "species_captures_plus_size_dispersion":("species_captures","log_itd_sd"),
 }
@@ -110,13 +112,30 @@ def prepare(local_dir:Path|None)->tuple[list[dict],dict]:
     assert set(p for p,_ in seed_total)==set(range(1,15))
     assert len(patch_records)==14 and sum(map(len,patch_records.values()))==1470
     patch_features={}
+    min_capture_n=min(len(v) for v in patch_records.values())
+    assert min_capture_n==54
+    def sample_absent_probability(N:int,n_taxon:int,m:int)->float:
+        # P(no one from this taxon in m draws without replacement).
+        assert 0<n_taxon<=N and 0<=m<=N
+        if N-n_taxon<m:
+            return 0.
+        probability=1.
+        for i in range(m):
+            probability*=((N-n_taxon-i)/(N-i))
+        return probability
     for p in range(1,15):
         values=patch_records[p]
         logs=[math.log(v) for v in values]
         mu=sum(logs)/len(logs)
         taxon_means=[sum(v)/len(v) for v in taxon_records[p].values()]
+        rarefied=sum(
+            1.-sample_absent_probability(len(values),len(z),min_capture_n)
+            for z in taxon_records[p].values()
+        )
+        assert 0<rarefied<=len(taxon_records[p])+1e-9
         patch_features[p]={
             "patch_captures":math.log1p(len(values)),
+            "rarefied_taxon_richness":rarefied,
             "taxon_richness":float(len(taxon_records[p])),
             "mean_itd":sum(values)/len(values),
             "log_itd_sd":math.sqrt(sum((v-mu)**2 for v in logs)/len(logs)),
@@ -154,6 +173,8 @@ def prepare(local_dir:Path|None)->tuple[list[dict],dict]:
         "n_separately_tagged_plants":len(sample_plants),
         "flowers_per_tagged_plant":"exactly five",
         "n_no_capture_patch_species_cells_with_positive_seed_output":len(zero_capture),
+        "all_patch_rarefaction_sample_size":min_capture_n,
+        "rarefaction":"Expected taxon-label richness under hypergeometric draws of 54 captures without replacement in each patch, calculated from capture label frequencies (not species true richness).",
         "label_reconciliation":{
             "Anise.Hyssop vs Anise Hyssop":"anisehyssop",
             "Nepeta vs Napeta":"nepeta",
@@ -322,7 +343,7 @@ def main():
             "Predictors are measured during the same season; held-patch prediction is spatial transfer, NOT prospective time-series validation or a causal effect.",
             "After-source-inspection model and score selection is post hoc. Fourteen patches in one experimental landscape have no independent source-level external replication.",
             "Standardized and unstandardized seed-score rankings may differ; both are reported. No universal seed function prediction law or new ecological mechanism is inferred.",
-            "Taxon label richness increases with sampled catches; conditioning on patch total capture number is an exploratory check, not an identified functional diversity effect.",
+            "Taxon label richness increases with sampled catches; conditioning on patch total capture number and rarefying to 54 captures are exploratory checks, not identified functional diversity effects.",
             "Leave-one-species and leave-one-held-patch deletion scores reweight heavily overlapping predictions and do not add independent study replicates.",
             "Original Peralta et al. 2023 already identified in-sample relationships between insect functional diversity and seed set; only the held-patch diagnostic estimand differs.",
         ],
