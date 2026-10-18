@@ -21,6 +21,7 @@ import hashlib
 import io
 import json
 import math
+import random
 from pathlib import Path
 from urllib.request import Request, urlopen
 
@@ -44,6 +45,8 @@ FEATURES={
     "patch_mean_visitor_size":("mean_itd",),
     "patch_body_size_dispersion":("log_itd_sd",),
     "patch_body_size_range":("size_range_taxon_means",),
+    "patch_1d_FEve_proxy":("feve_proxy",),
+    "patch_rarefied_1d_FEve_proxy":("rarefied_feve_proxy",),
     "species_captures_plus_taxon_richness":("species_captures","taxon_richness"),
     "patch_total_captures_plus_taxon_richness":("patch_captures","taxon_richness"),
     "patch_total_captures_plus_rarefied_richness":("patch_captures","rarefied_taxon_richness"),
@@ -70,6 +73,28 @@ def canonical(name:str)->str:
     token=name.strip().lower()
     return SPECIES.get(token,token.replace(".","").replace(" ",""))
 
+def one_dimensional_fev_proxy(taxon_by_size:dict[str,list[float]])->float:
+    """One-dimensional minimum-spanning-tree edge-evenness analogue of FEve.
+
+    Taxa mean ITD are sorted, with adjacent edges weighted by inverse summed
+    abundances. Unlike original R FD::dbFD FEve, this has not been independently
+    checked for package-specific algorithm behavior; descriptive proxy ONLY.
+    """
+    if len(taxon_by_size)<3:
+        return 0.
+    ordered=sorted((sum(v)/len(v),len(v)) for v in taxon_by_size.values())
+    edges=[max(0.,ordered[i+1][0]-ordered[i][0])/
+           (ordered[i][1]+ordered[i+1][1])
+           for i in range(len(ordered)-1)]
+    total=sum(edges)
+    if total<=1e-12:
+        return 0.
+    e=len(edges)
+    uniform=1./e
+    evenness=(sum(min(w/total,uniform) for w in edges)-uniform)/(1.-uniform)
+    return max(0.,min(1.,evenness))
+
+
 def prepare(local_dir:Path|None)->tuple[list[dict],dict]:
     captures,hash_i=read("Data_S1.csv",local_dir)
     flowers,hash_f=read("Data_S2.csv",local_dir)
@@ -78,6 +103,7 @@ def prepare(local_dir:Path|None)->tuple[list[dict],dict]:
     assert set(flowers[0])=={"patch","plant","plant.number","seeds"}
     patch_records=defaultdict(list)
     taxon_records=defaultdict(lambda:defaultdict(list))
+    patch_taxon_visitor_records=defaultdict(list)
     patch_species_captures=Counter()
     sample_plants=Counter()
     seed_total=Counter()
@@ -92,6 +118,7 @@ def prepare(local_dir:Path|None)->tuple[list[dict],dict]:
         taxon="|".join((row["Family"],row["Genus"],row["Species"]))
         patch_records[p].append(itd)
         taxon_records[p][taxon].append(itd)
+        patch_taxon_visitor_records[p].append((taxon,itd))
         patch_species_captures[(p,s)]+=1
         visitor_taxa.add(taxon)
     for row in flowers:
@@ -133,7 +160,21 @@ def prepare(local_dir:Path|None)->tuple[list[dict],dict]:
             for z in taxon_records[p].values()
         )
         assert 0<rarefied<=len(taxon_records[p])+1e-9
+        feve=one_dimensional_fev_proxy(taxon_records[p])
+        assert 0<=feve<=1
+        rng=random.Random(20261018+p)
+        draw_features=[]
+        for _ in range(300):
+            subsample=rng.sample(patch_taxon_visitor_records[p],min_capture_n)
+            represented=defaultdict(list)
+            for tag,trait in subsample:
+                represented[tag].append(trait)
+            draw_features.append(one_dimensional_fev_proxy(represented))
+        rarefied_feve=sum(draw_features)/len(draw_features)
+        assert 0<=rarefied_feve<=1
         patch_features[p]={
+            "feve_proxy":feve,
+            "rarefied_feve_proxy":rarefied_feve,
             "patch_captures":math.log1p(len(values)),
             "rarefied_taxon_richness":rarefied,
             "taxon_richness":float(len(taxon_records[p])),
@@ -175,6 +216,8 @@ def prepare(local_dir:Path|None)->tuple[list[dict],dict]:
         "n_no_capture_patch_species_cells_with_positive_seed_output":len(zero_capture),
         "all_patch_rarefaction_sample_size":min_capture_n,
         "rarefaction":"Expected taxon-label richness under hypergeometric draws of 54 captures without replacement in each patch, calculated from capture label frequencies (not species true richness).",
+        "trait_evenness_proxy":"1D taxon-mean-ITD MST edge regularity weighted by abundance; NOT independently validated against original R FD::dbFD FEve.",
+        "rarefied_evenness":"Mean of 300 fixed-seed (20261018+patch) without-replacement 54-capture subsamples of the 1D FEve proxy; descriptive effort sensitivity.",
         "label_reconciliation":{
             "Anise.Hyssop vs Anise Hyssop":"anisehyssop",
             "Nepeta vs Napeta":"nepeta",
@@ -339,7 +382,7 @@ def main():
             "Seven species share the same 14 planted patches; 98 patch x species rows do NOT represent 98 independent spatial experiments.",
             "These patches are planted local-isolation replicates in ONE sheep farm, not fragmented-vs-continuous habitat control units. Do not add to frozen EGWEE direct-effect or interaction-function denominators.",
             "Seed endpoint is mean seeds per FIVE tagged flowers on each sampled plant; it is NOT whole-plant or whole-patch seed production, viable establishment or recruitment.",
-            "Body-size dispersion/range are simple visit-capture descriptors, NOT the original article's published dbFD FEve functional evenness estimate or network complementarity.",
+            "Body-size dispersion/range and 1D FEve proxy are simple visit-capture descriptors; FEve proxy NOT independently verified against original R FD::dbFD metric or network complementarity.",
             "Predictors are measured during the same season; held-patch prediction is spatial transfer, NOT prospective time-series validation or a causal effect.",
             "After-source-inspection model and score selection is post hoc. Fourteen patches in one experimental landscape have no independent source-level external replication.",
             "Standardized and unstandardized seed-score rankings may differ; both are reported. No universal seed function prediction law or new ecological mechanism is inferred.",
