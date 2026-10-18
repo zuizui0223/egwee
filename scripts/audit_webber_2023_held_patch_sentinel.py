@@ -44,6 +44,8 @@ FEATURES={
     "patch_body_size_dispersion":("log_itd_sd",),
     "patch_body_size_range":("size_range_taxon_means",),
     "species_captures_plus_taxon_richness":("species_captures","taxon_richness"),
+    "patch_total_captures_plus_taxon_richness":("patch_captures","taxon_richness"),
+    "species_captures_plus_patch_total":("species_captures","patch_captures"),
     "species_captures_plus_size_dispersion":("species_captures","log_itd_sd"),
 }
 
@@ -256,10 +258,50 @@ def main():
         "standardized_MSE_equal_species_and_patch"]-1.3910224974440426)<1e-9
     assert abs(scores["patch_visitor_taxon_richness"][
         "standardized_MSE_equal_species_and_patch"]-1.318764551974037)<1e-9
+    def deletion_scores(frame:str)->dict:
+        result={}
+        for removed in sorted(SEED_SPECIES):
+            remaining=sorted(SEED_SPECIES-{removed})
+            metric="standardized_MSE_equal_species_and_patch" if frame=="standardized" else "raw_log_seed_MSE"
+            for model,v in scores.items():
+                result.setdefault(removed,{})[model]=sum(
+                    v["heldout_species_standardized_MSE"][sp]
+                    for sp in remaining
+                )/len(remaining) if frame=="standardized" else None
+        return result
+    source_species_removal=deletion_scores("standardized")
+    for removed,metrics in source_species_removal.items():
+        metrics["richness_better_than_species_baseline"]=(
+            metrics["patch_visitor_taxon_richness"]<metrics["species_mean_only"])
+        metrics["same_species_captures_better_than_baseline"]=(
+            metrics["captured_visitors_same_plant_species"]<metrics["species_mean_only"])
+    patch_removal={}
+    for excluded in range(1,15):
+        values={}
+        for name,item in scores.items():
+            values[name]=sum(v for p,v in item["heldout_patch_standardized_MSE"].items()
+                             if p!=str(excluded))/13
+        patch_removal[str(excluded)]={
+            "richness_better_than_baseline":values["patch_visitor_taxon_richness"]<
+                                            values["species_mean_only"],
+            "same_species_capture_better_than_baseline":values[
+                "captured_visitors_same_plant_species"]<values["species_mean_only"],
+            "richness_plus_total_better_than_richness_only":values[
+                "patch_total_captures_plus_taxon_richness"]<
+                values["patch_visitor_taxon_richness"],
+        }
     response={
         "status":"EXPLORATORY_EXTERNAL_HELD_PATCH_SENTINEL_AUDIT",
         "provenance":source,
         "prediction_models":scores,
+        "seed_species_deletion_diagnostic":source_species_removal,
+        "number_of_species_deletions_with_richness_gain":sum(
+            r["richness_better_than_species_baseline"] for r in source_species_removal.values()),
+        "number_of_species_deletions_with_same_species_capture_gain":sum(
+            r["same_species_captures_better_than_baseline"] for r in source_species_removal.values()),
+        "heldout_patch_score_influence":patch_removal,
+        "number_of_patch_deletions_with_richness_gain":sum(
+            r["richness_better_than_baseline"] for r in patch_removal.values()),
         "species_descriptives":{
             s:{
                 "n_patches":14,
@@ -280,6 +322,8 @@ def main():
             "Predictors are measured during the same season; held-patch prediction is spatial transfer, NOT prospective time-series validation or a causal effect.",
             "After-source-inspection model and score selection is post hoc. Fourteen patches in one experimental landscape have no independent source-level external replication.",
             "Standardized and unstandardized seed-score rankings may differ; both are reported. No universal seed function prediction law or new ecological mechanism is inferred.",
+            "Taxon label richness increases with sampled catches; conditioning on patch total capture number is an exploratory check, not an identified functional diversity effect.",
+            "Leave-one-species and leave-one-held-patch deletion scores reweight heavily overlapping predictions and do not add independent study replicates.",
             "Original Peralta et al. 2023 already identified in-sample relationships between insect functional diversity and seed set; only the held-patch diagnostic estimand differs.",
         ],
     }
@@ -296,6 +340,14 @@ def main():
             "patches_improved":v["n_patches_lower_standardized_loss_than_baseline"],
         } for k,v in scores.items()},
         "species":response["species_descriptives"],
+        "deletion_diagnostics":{
+            "richness_better_after_omitting_species":response[
+                "number_of_species_deletions_with_richness_gain"],
+            "same_species_visits_better_after_omitting_species":response[
+                "number_of_species_deletions_with_same_species_capture_gain"],
+            "richness_better_after_omitting_one_held_patch":response[
+                "number_of_patch_deletions_with_richness_gain"],
+        },
     },indent=2,ensure_ascii=False))
 
 if __name__=="__main__":
