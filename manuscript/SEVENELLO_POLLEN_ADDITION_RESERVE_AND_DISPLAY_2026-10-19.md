@@ -31,7 +31,7 @@ For each species independently: average D within each Edge or Core transect, sub
 
 | Species | n matched quadrats | independent reserves / matched crop blocks | Mean reserve Edge−Core of D, seeds/plant | Descriptive t 95% interval | Exact two-sided site sign flip p | Holm p (3 species) |
 |---|---:|---:|---:|---|---:|---:|
-| GORO — *Guichenotia rosea* | 117 | 5 / 6 | **+1.523** | [−13.893, +16.940] | 0.875 | 1.000 |
+| GORO — *Goodenia rosea* (Goodeniaceae) | 117 | 5 / 6 | **+1.523** | [−13.893, +16.940] | 0.875 | 1.000 |
 | LARO — *Lawrencella rosea* | 157 | 6 / 8 | **+3.854** | [−4.592, +12.300] | 0.34375 | 1.000 |
 | POAR — *Podolepis aristata* | 115 | 4 / 6 | **−10.302** | [−239.073, +218.468] | 0.875 | 1.000 |
 
