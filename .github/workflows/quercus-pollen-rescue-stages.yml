@@ -1,0 +1,33 @@
+name: Quercus tree-matched pollen rescue stages
+on:
+  pull_request:
+    paths:
+      - 'scripts/audit_quercus_pollen_rescue_stages_20261019.py'
+      - '.github/workflows/quercus-pollen-rescue-stages.yml'
+      - 'evidence/meta_extraction/quercus_ilex_pollen_2021/**'
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - 'scripts/audit_quercus_pollen_rescue_stages_20261019.py'
+      - '.github/workflows/quercus-pollen-rescue-stages.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source_audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install scientific libraries
+        run: python -m pip install --quiet numpy scipy
+      - name: Validate raw source and two-year within-tree exposure-responses
+        run: python scripts/audit_quercus_pollen_rescue_stages_20261019.py --output quercus_tree_pollen_rescue_20261019.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: quercus-tree-matched-pollen-rescue
+          path: quercus_tree_pollen_rescue_20261019.json
