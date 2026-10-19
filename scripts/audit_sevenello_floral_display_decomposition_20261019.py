@@ -68,7 +68,7 @@ def site_mean(rows, quantity):
     # at the same physical reserve, crop blocks also receive equal weight.
     by = defaultdict(list)
     for p in rows:
-        by[(p["site"],p["crop"],p["transect"])].append(p[quantity])
+        by[(p["site"],p["crop"],p["side"])].append(p[quantity])
     by_crop = defaultdict(dict)
     for (site,crop,side), group in by.items():
         by_crop[(site,crop)][side] = mean(group)
