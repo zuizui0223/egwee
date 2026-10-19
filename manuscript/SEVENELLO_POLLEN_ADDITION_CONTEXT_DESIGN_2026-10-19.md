@@ -77,3 +77,11 @@ The public Figshare article and file metadata endpoints responded successfully a
 
 **No new Sevenello treatment contrast or environmental slope has been calculated.** There is no imputed result and no change to the 5-programme primary, 8-programme matched-I–F, or 16-programme broader evidence denominators. Wandoo's source-accessible reproductive-stage comparison proceeds separately. This design can be executed when the checksum-matching raw files become available.
 
+
+## Outcome-access follow-up (after source recovery), 2026-10-19
+
+The fixed design above is preserved as originally recorded. Later that day, the original **three Figshare CSVs** were recovered through the public `ndownloader.figshare.com` redirect route, and all original MD5 checksums matched. The 520 quadrats and 2,080 four-treatment plant rows are therefore now source-auditable in `evidence/meta_extraction/sevenello_2026_raw/`. This changes only execution status; it does **not** retroactively make the fixed design an outcome-blind pre-registration.
+
+The source-data-verified **three-species, physical-reserve-weighted absolute-seed contrasts** and separate *post hoc* floral-display accounting are in [SEVENELLO_POLLEN_ADDITION_RESERVE_AND_DISPLAY_2026-10-19.md](SEVENELLO_POLLEN_ADDITION_RESERVE_AND_DISPLAY_2026-10-19.md). Exact site-sign-flip values: GORO 0.875, LARO 0.34375, POAR 0.875; Holm corrected all 1.0. No species has a resolved common edge-minus-core supplementation response under this small-reserve design. The extra floral-display decomposition was devised **after inspecting the treatment data**; it has no preregistered status.
+
+Source-specific CI: [pollen-addition main audit PASS](https://github.com/zuizui0223/egwee/actions/runs/39208525795) and [floral-display decomposition PASS](https://github.com/zuizui0223/egwee/actions/runs/39209289983). The project-wide submission freeze remains **fail-closed** and `submission_ready=false`.
