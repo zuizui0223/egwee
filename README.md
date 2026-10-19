@@ -1,3 +1,18 @@
+## 2026-10-19 exploratory extension: environment and reproductive stage
+
+A new within-study comparison asks which environmental information remains useful after accounting for the same pollen-tube measure. Across the **same 11 Eucalyptus wandoo populations**, adding log10 soil electrical conductivity improves the year-2 fruit-production and fruit:flower models (Holm p across six additions: 0.0451 and 0.0159). Adding log10 population size to seeds per formed fruit is a weaker lead after the same correction (Holm p = 0.0699). The source-native 12-population fruit analyses retain the EC pattern, including population L, which produced no fruits and has undefined seeds per fruit.
+
+These are retrospective conditional associations in one study. Size and EC were added separately; neither independent causal pathways nor a formal difference between stages is established. The original paper already reported environmental associations. The extension compares their information beyond I on a fixed common population frame, retaining every specified model and the zero-fruit case.
+
+- [Full result and ecological interpretation](manuscript/WANDOO_REPRODUCTIVE_STAGES_2026-10-19.md)
+- [Analysis design](evidence/meta_extraction/wandoo_reproductive_stages_20261019_design.md), [source-table reconstruction](evidence/meta_extraction/wandoo_reproductive_stages_20261019_source_tables.txt), and [reproducible analysis](scripts/analyze_wandoo_reproductive_stages.py)
+- [Conditional-association figure](manuscript/figures/wandoo_reproductive_stages_20261019.png)
+- [Sevenello pollen-addition context design](manuscript/SEVENELLO_POLLEN_ADDITION_CONTEXT_DESIGN_2026-10-19.md): fixed but not executed because the public raw-file delivery endpoints returned HTTP 500.
+
+The primary, matched-I–F, and broader programme denominators and the submission freeze are unchanged.
+
+---
+
 ## Ecological generality promotion — scientific validation pending refresh
 
 The current revision promotes one ecological principle beyond the earlier proxy-failure wording:
@@ -293,3 +308,4 @@ The historical spine is [`manuscript/natural_data_ecological_indicators_spine.md
 EGWEE owns the **natural-data empirical synthesis**. It does not import simulated endpoint values, operator outputs or theoretical success criteria into screening or estimation. Candidate ordering, effect-unit admission, endpoint assignment, Phase-2 stopping and promotion are fixed by empirical contracts independently of whether a result agrees with NEE.
 
 The permitted connection is downstream interpretation: EGWEE can constrain which empirical phenomena a useful theory must explain, and NEE can cite EGWEE as external natural evidence. Neither repository may relabel EGWEE results as validation of a specific finite operator sequence.
+

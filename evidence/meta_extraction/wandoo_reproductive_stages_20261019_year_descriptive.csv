@@ -1,0 +1,7 @@
+frame,endpoint,n,mean,minimum,maximum,r_with_log10_size,r_with_log10_ec,synchronous_with_pollen_y2,inferential_p_computed
+common11,seeds_per_fruit_y1,11,1.2490909090909093,0.25,2.22,0.3839372404315257,-0.4261752263709999,False,False
+common11,seeds_per_fruit_y2,11,1.5654545454545454,0.38,3.78,0.7105117363206819,-0.5764296866568364,True,False
+common11,fruits_per_branch_y2,11,49.2,14.0,100.1,0.5887357809741756,-0.8270593127609996,True,False
+common11,fruits_per_branch_y3,11,21.827272727272728,1.4,48.9,0.4927500564694073,-0.7092434516065109,False,False
+native12,fruits_per_branch_y2,12,45.1,0.0,100.1,0.6567904239088826,-0.7998698465183799,True,False
+native12,fruits_per_branch_y3,12,20.008333333333336,0.0,48.9,0.5719297432215026,-0.7176351594127759,False,False
