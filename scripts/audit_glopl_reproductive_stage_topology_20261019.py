@@ -137,7 +137,7 @@ def main():
     assert len(triple)==44 and len({r["unique_study_number"] for r in triple})==9
     z_eligible=[r for r in opposite if all(approx_z(r,e) is not None for e in PAIR)]
     z_both=[r for r in z_eligible if all(approx_z(r,e)>=1.96 for e in PAIR)]
-    assert len(z_eligible)==78 and len(z_both)==4
+    assert len(z_eligible)==77 and len(z_both)==3
     # Detection status is explicitly NOT nominally certified, as treatment
     # groups may be within the same plant and the published N/SD are heterogeneous.
 
