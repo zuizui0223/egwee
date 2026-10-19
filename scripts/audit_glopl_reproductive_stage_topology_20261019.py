@@ -17,7 +17,7 @@ import numpy as np
 
 ROOT=Path(__file__).resolve().parents[1]
 SOURCE=ROOT/"evidence/meta_extraction/glopl_2018/GloPL_with_id.csv"
-BLOB="d22fe333b19489c473e076dd173ed7a67b1afbf0"
+BLOB="0809eaeee54e4375d26bacfe002787241f8ff72e"  # UTF-8-transcoded stored text; upstream legacy byte blob differs
 FIELDS=("FS","SO","SPFR","SPFL","SPP")
 PAIR=("FS","SPFR")
 
