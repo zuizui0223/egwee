@@ -19,7 +19,7 @@ Source-locked inputs: evidence/meta_extraction/wandoo_reproductive_stages_202610
 | Same 11 populations | Pearson correlation across source years | Spearman correlation |
 |---|---:|---:|
 | Fruits per branch, y2 versus y3 | +0.91933 | +0.91116 |
-| Seeds per *existing* fruit, y1 versus y2 | +0.31418 | (checker output) |
+| Seeds per *existing* fruit, y1 versus y2 | +0.31418 | +0.36364 |
 
 All 11 fruit-producing populations have fewer fruits per branch in y3 than y2. In two populations, J and F, the number of flowers per branch is actually higher in y3 despite the lower fruit number. The median within-population fruits-y3/fruits-y2 ratio is **0.4643**. Seven of 11 have more seeds per fruit in y2 than in y1. Removing each population in turn leaves the fruit correlation +0.8896 to +0.9488, while the seed correlation ranges +0.1183 to +0.4769. The common-population correlation contrast is approximately +0.6052, with a paired 25,000-resample percentile interval approximately +0.14 to +1.31, seed 20261019.
 
