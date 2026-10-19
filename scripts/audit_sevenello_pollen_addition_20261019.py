@@ -238,6 +238,8 @@ def main():
             if species != "GORO":
                 b["mean_perflower_response"] = (
                     edge["mean_D_per_flower"] + core["mean_D_per_flower"])/2.
+                b["contrast_D_perflower"] = (
+                    edge["mean_D_per_flower"] - core["mean_D_per_flower"])
             assert abs(b["contrast_D"]-(b["contrast_OPSupp"]-b["contrast_OP"]))<1e-9
             reserveblocks[site].append(b)
 
@@ -251,6 +253,8 @@ def main():
             if species != "GORO":
                 z["overall_perflower_response"] = mean(
                     [b["mean_perflower_response"] for b in bs])
+                z["edge_core_D_perflower"] = mean(
+                    [b["contrast_D_perflower"] for b in bs])
             assert abs(z["edge_core_D"] -
                        (z["edge_core_OPSupp"] - z["edge_core_OP"])) < 1e-8
             reserve.append(z)
@@ -279,9 +283,7 @@ def main():
             s["reserve_equal_perflower_response"] = summary_site(
                 [r["overall_perflower_response"] for r in reserve])
             s["reserve_equal_perflower_edge_core"] = summary_site(
-                [mean([b["mean_perflower_response"] for b in r["crop_blocks"]
-                       if b["mean_perflower_response"] is not None])
-                 for r in reserve])  # overall, not edge-core
+                [r["edge_core_D_perflower"] for r in reserve])
         else:
             s["complete_per_flower_pairs"] = 0
             s["perflower_not_observed_reason"] = "GORO dehiscent fruit destroys flower counts"
