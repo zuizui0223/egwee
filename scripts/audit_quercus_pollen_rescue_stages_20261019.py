@@ -20,7 +20,7 @@ from scipy import stats
 
 ROOT=Path(__file__).resolve().parents[1]
 SOURCE=ROOT/"evidence/meta_extraction/quercus_ilex_pollen_2021/pollen_addition_results.csv"
-MD5="9bb924a2d0739e78e6823f1df6878e6a"
+MD5="ec3ccf2901ab6f6de0bca9b90eafec86"  # stored text copy, original Zenodo MD5 differs
 
 
 def load():
