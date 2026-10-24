@@ -80,6 +80,7 @@ def main():
         assert node["crop"]==r["crop_type"] and node["side"]==r["transect"]
         assert r["treat"] not in node
         node[r["treat"]]=number(r["total_seeds"])
+        node.setdefault("flower_count",{})[r["treat"]]=number(r["flower_num"])
     assert len(rows)==520
     assert all(set(r)>=set(("OP","OPSupp","Bag","BagSup")) for r in rows.values())
     assert Counter(r["species"] for r in rows.values())=={
@@ -157,6 +158,77 @@ def main():
                 k:mean([rr[k] for q in groups.values() for rr in q])
                 for k in METRICS}
         }
+    # Same four-treatment quadrats, but standardise by each treated plant's
+    # own observed number of flowers. GORO source flower denominator is
+    # undefined because of explosive fruit dehiscence, never zero-impute.
+    per_flower_site_counts=0
+    for sp in SPECIES:
+        candidates=[r for r in rows.values() if r["species"]==sp]
+        complete=[
+            r for r in candidates
+            if all(r[t] is not None and
+                   r["flower_count"][t] is not None and
+                   r["flower_count"][t]>0 for t in
+                   ("OP","OPSupp","Bag","BagSup"))
+        ]
+        if sp=="GORO":
+            assert len(complete)==0
+            result["species"][sp]["per_flower"]={
+                "n_complete_rate_quadrats":0,
+                "reason_unmeasured":"GORO destructive dehiscence makes flowers/source fruit denominator unavailable"
+            }
+            continue
+        assert len(complete)=={"LARO":156,"POAR":111,"POGN":114}[sp]
+        sidegroups=defaultdict(list)
+        for r in complete:
+            rate={k:r[k]/r["flower_count"][k] for k in
+                  ("OP","OPSupp","Bag","BagSup")}
+            z={
+                "open_minus_bag":rate["OP"]-rate["Bag"],
+                "bag_supp_minus_bag":rate["BagSup"]-rate["Bag"],
+                "open_minus_bag_supp":rate["OP"]-rate["BagSup"],
+                "open_pollen_addition":rate["OPSupp"]-rate["OP"]
+            }
+            assert abs(z["open_minus_bag"]-(z["bag_supp_minus_bag"]+
+                                           z["open_minus_bag_supp"]))<1e-10
+            sidegroups[(r["site"],r["crop"],r["side"])].append(z)
+        cropmap=defaultdict(dict)
+        for (site,crop,side),rr in sidegroups.items():
+            cropmap[(site,crop)][side]={
+                k:mean([z[k] for z in rr]) for k in z}
+        bysite=defaultdict(list)
+        for (site,crop),sides in cropmap.items():
+            bysite[site].append({
+                k:mean([values[k] for values in sides.values()])
+                for k in ("open_minus_bag","bag_supp_minus_bag",
+                          "open_minus_bag_supp","open_pollen_addition")})
+        sites=[
+            {"site":site,**{k:mean([v[k] for v in cropvals])
+                             for k in cropvals[0]}}
+            for site,cropvals in sorted(bysite.items())
+        ]
+        assert len(sites)==SITE_EXPECTED[sp]
+        summary={k:summarize_site([z[k] for z in sites])
+                 for k in ("open_minus_bag","bag_supp_minus_bag",
+                           "open_minus_bag_supp","open_pollen_addition")}
+        for k in ("open_minus_bag","bag_supp_minus_bag",
+                  "open_minus_bag_supp"):
+            assert summary[k]["positive_reserves"]==len(sites), (sp,k)
+        per_flower_site_counts+=len(sites)
+        result["species"][sp]["per_flower"]={
+            "n_complete_rate_quadrats":len(complete),
+            "individual_plant_denominator":"source's own positive flower count, same four-quadrat treatment frame",
+            "contrasts":summary, "reserve_level":sites,
+        }
+    assert per_flower_site_counts==16
+    result["per_flower_ordering_non_GORO"]={
+        "n_species_reserve_cells":per_flower_site_counts,
+        "natural_open_gt_bagged_manual_sup":16,
+        "bagged_manual_sup_gt_bagged":16,
+        "natural_open_gt_bagged":16,
+        "warning":"Same original one landscape; bag treatment microclimate and distinct treatment individuals remain unmeasured competing causes."
+    }
+
     result["cross_species_reserve_checks"]={
         "number_species_reserve_cells":sum(SITE_EXPECTED.values()),
         "positive_open_minus_bag":sum(
@@ -188,6 +260,14 @@ def main():
                   "site-negative",x["negative_reserves"],
                   "t95",x["t95_interval_descriptive"],
                   "exact-signflip-p",x["exact_two_sided_site_signflip_p"])
+    for sp in ("LARO","POAR","POGN"):
+        v=result["species"][sp]["per_flower"]
+        print("SEVENELLO_PERFLOWER",sp,"quadrats",v["n_complete_rate_quadrats"])
+        for k,x in v["contrasts"].items():
+            print("SEVENELLO_PERFLOWER_CONTRAST",sp,k,
+                  "reserve_equal_mean",round(x["reserve_equal_mean"],6),
+                  "positive_reserves",x["positive_reserves"],
+                  "t95",x["t95_interval_descriptive"])
     if args.output:
         args.output.parent.mkdir(parents=True,exist_ok=True)
         args.output.write_text(json.dumps(result,indent=2,sort_keys=True)+"\n",
