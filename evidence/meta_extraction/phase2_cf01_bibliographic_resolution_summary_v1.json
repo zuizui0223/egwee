@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "route": "OpenAlex public API",
+  "cutoff": "2026-09-18",
+  "seed_units": 363,
+  "doi_seed_units": 83,
+  "citation_only_seed_units": 280,
+  "resolved_units": 296,
+  "resolved_by_exact_doi": 83,
+  "resolved_by_fail_closed_citation_search": 213,
+  "resolved_by_openalex_citation_search": 0,
+  "resolved_by_crossref_bibliographic_to_openalex_doi": 213,
+  "unresolved_units": 67,
+  "resolution_rate": 0.815427,
+  "acceptance_rule": "citation search requires exact first-author surname + publication year and page agreement or strong title agreement or volume agreement with ranking margin; ambiguous matches remain unresolved",
+  "effect_outcomes_opened": false
+}

@@ -1,0 +1,7 @@
+population,n_mating,tm,tm_se,tm_minus_ts,tm_minus_ts_se,rp,rp_se,source
+R,10,0.907,0.038,0.080,0.038,0.146,0.038,Llorens_et_al_2018_Table7
+F,6,0.690,0.113,0.054,0.113,0.106,0.113,Llorens_et_al_2018_Table7
+C,11,0.759,0.092,0.095,0.092,0.213,0.092,Llorens_et_al_2018_Table7
+E,13,0.860,0.042,0.078,0.042,0.084,0.042,Llorens_et_al_2018_Table7
+B,14,0.694,0.064,0.116,0.064,0.209,0.064,Llorens_et_al_2018_Table7
+A,15,0.763,0.056,0.033,0.056,0.110,0.056,Llorens_et_al_2018_Table7

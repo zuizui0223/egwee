@@ -1,0 +1,100 @@
+# Llorens et al. (2018) Wandoo source tables
+
+DOI: 10.3389/fevo.2018.00039
+HTML: https://www.frontiersin.org/journals/ecology-and-evolution/articles/10.3389/fevo.2018.00039/full
+PDF: https://www.frontiersin.org/journals/ecology-and-evolution/articles/10.3389/fevo.2018.00039/pdf
+Retrieved: 2026-10-19 UTC.
+Extraction: source-table text returned independently from the HTML article and PDF text layer. No outcome models used in extraction. All numerical source tokens are preserved below. HTML citation-link markup is removed from remnant-type footnote c only; the note is retained.
+
+## HTML Table 1 (PDF printed page 4)
+population | remnant_type | population_size | isolation | shape | weed_cover_pct | EC_mS_per_m | pH | total_N_pct | P_NaHCO3_mg_per_kg | K_NaHCO3_mg_per_kg | organic_C_pct
+J  | Road verge  | 2  | 0.083  | 1.83  | 60.0  | 18  | 5.5  | 0.292  | 76  | 140  | 0.13
+L  | Road verge  | 5  | 0.333  | 2.84  | 3.3  | 50  | 5.5  | 0.138  | 11  | 94  | 0.43
+S  | Road verge  | 5  | 0.067  | 2.43  | 3.9  | 22  | 6.2  | 0.112  | 10  | 73  | 0.14
+K  | Road verge  | 9  | 0.067  | 1.97  | 38.4  | 11  | 6.2  | 0.184  | 6  | 170  | 0.43
+O  | Road verge  | 40  | 0.500  | 3.14  | 32.6  | 13  | 6.0  | 0.170  | 33  | 67  | 0.15
+R  | Road verge  | 40  | 0.111  | 1.49  | 1.8  | 23  | 6.3  | 0.111  | 7  | 94  | 0.29
+F  | Road verge  | 46  | 1.000  | 2.02  | 91.3  | 10  | 5.9  | 0.147  | 13  | 63  | 0.52
+C  | Small remnant  | 107  | 0.200  | 1.27  | 1.3  | 9  | 6.5  | 0.065  | 2  | 49  | 0.10
+N  | Small remnant  | 173  | 0.125  | 1.57  | 2.0  | 6  | 6.3  | 0.053  | 1  | 80  | 0.18
+E  | Small reserve  | 174  | 0.111  | 1.41  | 16.3  | 6  | 5.4  | 0.067  | 2  | 65  | 0.58
+G  | Small remnant  | 493  | 0.143  | 1.21  | 2.4  | 15  | 5.9  | 0.130  | 5  | 130  | 0.58
+B  | Small remnant  | 605  | 0.167  | 1.88  | 0.4  | 7  | 6.2  | 0.106  | 4  | 140  | 0.40
+I  | Small remnant  | 704  | 0.143  | 1.45  | 0.3  | 6  | 6.1  | 0.061  | 1  | 64  | 0.08
+Q  | Nature reserve [c]  | 761  | 0.025  | 1.41  | 0.0  | 49  | 5.9  | 0.096  | 3  | 120  | 0.02
+M  | Small reserve  | 1898  | 0.333  | 1.45  | 15.0  | 5  | 5.8  | 0.063  | 2  | 140  | 0.44
+A  | Small reserve  | 2315  | 0.167  | 1.49  | 6.5  | 4  | 5.6  | 0.057  | 2  | 44  | 0.23
+P  | Small reserve  | 2581  | 0.167  | 1.39  | 5.4  | 10  | 5.9  | 0.064  | 2  | 80  | 0.41
+H  | Large reserve  | 14732  | 0.071  | 1.83  | 3.0  | 5  | 5.8  | 0.046  | 2  | 57  | 0.40
+D  | Nature reserve [c]  | 17556  | 0.023  | 1.28  | 0.4  | 9  | 5.7  | 0.103  | 4  | 180  | 0.27
+
+## HTML Table 6 (PDF printed page 9)
+population | n_reproductive | flowers_per_branch_y2 (SE) | flowers_per_branch_y3 (SE) | fruits_per_branch_y2 (SE) | fruits_per_branch_y3 (SE) | fruit_flower_ratio_y2 (SE) | seeds_per_fruit_y1 (SE) | seeds_per_fruit_y2 (SE) | n_pollen | pollen_tubes_y2 (SE)
+J  | 2  | 170.2 (16.5)  | 193.7 (0.0)  | 14.7 (14.7)  | 7.3 (0.0)  | 0.12 (0.12)  | 1.20 (1.20)  | 0.65 (0.65)  | 2  | 8.8 (3.2)
+L  | 3  | 157.3 (29.0)  | 141.8 (35.8)  | 0.0 (0.0)  | 0.0 (0.0)  | 0.00 (0.00)  | –  | –  | 4  | 6.7 (2.6)
+S  | –  | –  | –  | –  | –  | –  | –  | –  | –  | –
+K  | 5  | 177.2 (40.6)  | 57.8 (29.7)  | 24.7 (7.7)  | 21.9 (9.9)  | 0.13 (0.05)  | 0.66 (0.19)  | 1.30 (0.45)  | 5  | 9.1 (2.6)
+O  | –  | –  | –  | –  | –  | –  | –  | –  | –  | –
+R  | –  | –  | –  | –  | –  | –  | –  | –  | –  | –
+F  | 10  | 186.7 (20.6)  | 358.5 (111.2)  | 18.3 (6.9)  | 10.5 (7.1)  | 0.09 (0.03)  | 0.84 (0.31)  | 0.38 (0.17)  | 10  | 6.0 (1.9)
+C  | 10  | 150.8 (8.4)  | 120.1 (34.1)  | 19.1 (10.7)  | 1.4 (0.9)  | 0.14 (0.08)  | 1.80 (0.76)  | 0.56 (0.32)  | 10  | 5.8 (1.0)
+N  | –  | –  | –  | –  | –  | –  | –  | –  | –  | –
+E  | 10  | 234.1 (18.5)  | 61.6 (27.8)  | 75.0 (12.9)  | 31.0 (8.5)  | 0.37 (0.06)  | 0.71 (0.14)  | 2.04 (0.41)  | 10  | 4.4 (0.9)
+G  | 10  | 235.2 (35.9)  | 112.5 (40.4)  | 14.0 (6.0)  | 6.5 (3.3)  | 0.10 (0.04)  | 0.25 (0.13)  | 0.41 (0.26)  | 10  | 3.2 (0.8)
+B  | 10  | 176.4 (17.7)  | 48.6 (19.1)  | 76.1 (21.9)  | 23.9 (14.9)  | 0.38 (0.09)  | 2.03 (0.20)  | 0.62 (0.33)  | 10  | 4.8 (0.6)
+I  | 10  | 256.4 (18.2)  | 240.2 (58.4)  | 100.1 (15.8)  | 47.0 (14.1)  | 0.41 (0.07)  | 0.91 (0.28)  | 2.33 (0.41)  | 10  | 2.4 (0.5)
+Q  | –  | –  | –  | –  | –  | –  | –  | –  | –  | –
+M  | –  | –  | –  | –  | –  | –  | –  | –  | –  | –
+A  | 10  | 158.0 (25.9)  | 33.1 (16.8)  | 65.0 (14.4)  | 23.9 (5.8)  | 0.45 (0.06)  | 2.22 (0.63)  | 2.46 (0.53)  | 10  | 5.8 (0.9)
+P  | –  | –  | –  | –  | –  | –  | –  | –  | –  | –
+H  | 10  | 272.5 (23.9)  | 62.6 (31.7)  | 91.2 (16.1)  | 48.9 (14.9)  | 0.33 (0.04)  | 1.16 (0.39)  | 2.69 (0.27)  | 10  | 3.1 (0.5)
+D  | 10  | 147.7 (10.0)  | 42.1 (16.7)  | 43.0 (10.4)  | 17.8 (6.8)  | 0.27 (0.06)  | 1.96 (0.95)  | 3.78 (0.70)  | 10  | 4.6 (0.7)
+
+## PDF Table 1 text layer (zero-based page 3)
+J Road verge 2 0.083 1.83 60.0 18 5.5 0.292 76 140 0.13
+L Road verge 5 0.333 2.84 3.3 50 5.5 0.138 11 94 0.43
+S Road verge 5 0.067 2.43 3.9 22 6.2 0.112 10 73 0.14
+K Road verge 9 0.067 1.97 38.4 11 6.2 0.184 6 170 0.43
+O Road verge 40 0.500 3.14 32.6 13 6.0 0.170 33 67 0.15
+R Road verge 40 0.111 1.49 1.8 23 6.3 0.111 7 94 0.29
+F Road verge 46 1.000 2.02 91.3 10 5.9 0.147 13 63 0.52
+C Small remnant 107 0.200 1.27 1.3 9 6.5 0.065 2 49 0.10
+N Small remnant 173 0.125 1.57 2.0 6 6.3 0.053 1 80 0.18
+E Small reserve 174 0.111 1.41 16.3 6 5.4 0.067 2 65 0.58
+G Small remnant 493 0.143 1.21 2.4 15 5.9 0.130 5 130 0.58
+B Small remnant 605 0.167 1.88 0.4 7 6.2 0.106 4 140 0.40
+I Small remnant 704 0.143 1.45 0.3 6 6.1 0.061 1 64 0.08
+Q Nature reservec 761 0.025 1.41 0.0 49 5.9 0.096 3 120 0.02
+M Small reserve 1898 0.333 1.45 15.0 5 5.8 0.063 2 140 0.44
+A Small reserve 2315 0.167 1.49 6.5 4 5.6 0.057 2 44 0.23
+P Small reserve 2581 0.167 1.39 5.4 10 5.9 0.064 2 80 0.41
+H Large reserve 14732 0.071 1.83 3.0 5 5.8 0.046 2 57 0.40
+D Nature reservec 17556 0.023 1.28 0.4 9 5.7 0.103 4 180 0.27
+
+## PDF Table 6 text layer (zero-based page 8)
+J 2 170.2 (16.5) 193.7 (0.0) 14.7 (14.7) 7.3 (0.0) 0.12 (0.12) 1.20 (1.20) 0.65 (0.65) 2 8.8 (3.2)
+L 3 157.3 (29.0) 141.8 (35.8) 0.0 (0.0) 0.0 (0.0) 0.00 (0.00) – – 4 6.7 (2.6)
+S – – – – – – – – – –
+K 5 177.2 (40.6) 57.8 (29.7) 24.7 (7.7) 21.9 (9.9) 0.13 (0.05) 0.66 (0.19) 1.30 (0.45) 5 9.1 (2.6)
+O – – – – – – – – – –
+R – – – – – – – – – –
+F 10 186.7 (20.6) 358.5 (111.2) 18.3 (6.9) 10.5 (7.1) 0.09 (0.03) 0.84 (0.31) 0.38 (0.17) 10 6.0 (1.9)
+C 10 150.8 (8.4) 120.1 (34.1) 19.1 (10.7) 1.4 (0.9) 0.14 (0.08) 1.80 (0.76) 0.56 (0.32) 10 5.8 (1.0)
+N – – – – – – – – – –
+E 10 234.1 (18.5) 61.6 (27.8) 75.0 (12.9) 31.0 (8.5) 0.37 (0.06) 0.71 (0.14) 2.04 (0.41) 10 4.4 (0.9)
+G 10 235.2 (35.9) 112.5 (40.4) 14.0 (6.0) 6.5 (3.3) 0.10 (0.04) 0.25 (0.13) 0.41 (0.26) 10 3.2 (0.8)
+B 10 176.4 (17.7) 48.6 (19.1) 76.1 (21.9) 23.9 (14.9) 0.38 (0.09) 2.03 (0.20) 0.62 (0.33) 10 4.8 (0.6)
+I 10 256.4 (18.2) 240.2 (58.4) 100.1 (15.8) 47.0 (14.1) 0.41 (0.07) 0.91 (0.28) 2.33 (0.41) 10 2.4 (0.5)
+Q – – – – – – – – – –
+M – – – – – – – – – –
+A 10 158.0 (25.9) 33.1 (16.8) 65.0 (14.4) 23.9 (5.8) 0.45 (0.06) 2.22 (0.63) 2.46 (0.53) 10 5.8 (0.9)
+P – – – – – – – – – –
+H 10 272.5 (23.9) 62.6 (31.7) 91.2 (16.1) 48.9 (14.9) 0.33 (0.04) 1.16 (0.39) 2.69 (0.27) 10 3.1 (0.5)
+D 10 147.7 (10.0) 42.1 (16.7) 43.0 (10.4) 17.8 (6.8) 0.27 (0.06) 1.96 (0.95) 3.78 (0.70) 10 4.6 (0.7)
+
+## Source notes
+
+Table 1 isolation: inverse of percentage remnant vegetation within a 3 km radius. Shape: Patton diversity index, greater means more edge-dominated. Remnant-type note [c]: large reserve. EC is electrical conductivity in water, used as a salinity proxy. Soil chemistry was measured in bulked samples from eight nested quadrats; these are not independent populations.
+
+Table 6 values in parentheses are source SE; N denotes maternal plants sampled. Year labels y1, y2, y3 are source labels; exact calendar years are not inferred. Pollen tubes were collected in y2. Seven populations had no reproduction measurements owing to logistical constraints. Population L produced no fruits or seeds; its seeds-per-fruit entries are undefined, not observed zeros. The source has one reproductive N column rather than separate effective N columns for each year.
+

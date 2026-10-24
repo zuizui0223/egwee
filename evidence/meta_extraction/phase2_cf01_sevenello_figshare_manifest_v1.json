@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "candidate": "CFTQ0001",
+  "programme_id": "P2_CF01_SEVENELLO_2026",
+  "article_doi": "10.1007/s10980-026-02305-2",
+  "dataset_doi": "10.6084/m9.figshare.31072189",
+  "figshare_article_id": 31072189,
+  "figshare_title": "Open data for: Landscape fragmentation and agricultural context impact pollination services to native annual plants in critically endangered Australian woodlands",
+  "figshare_url_public_api": "https://api.figshare.com/v2/articles/31072189",
+  "n_files": 4,
+  "files": [
+    {
+      "id": 61026244,
+      "name": "landscape_bees.csv",
+      "size": 1775,
+      "computed_md5": "b6cbdd11787f5ef5210fefcd502a29f5",
+      "mimetype": "text/csv",
+      "download_url": "https://ndownloader.figshare.com/files/61026244"
+    },
+    {
+      "id": 61026250,
+      "name": "local_seeds.csv",
+      "size": 21953,
+      "computed_md5": "10f0b07ff3ff17ca94dbabdfbcec404e",
+      "mimetype": "text/csv",
+      "download_url": "https://ndownloader.figshare.com/files/61026250"
+    },
+    {
+      "id": 61446289,
+      "name": "landscape_seeds.csv",
+      "size": 135336,
+      "computed_md5": "40caf98755786e32bec89fffd4b114f6",
+      "mimetype": "text/csv",
+      "download_url": "https://ndownloader.figshare.com/files/61446289"
+    },
+    {
+      "id": 61491790,
+      "name": "Readme Open Access Data Sevenello_et_al.docx",
+      "size": 17265,
+      "computed_md5": "2d2b98764a07bfefc2897089ee3291ef",
+      "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "download_url": "https://ndownloader.figshare.com/files/61491790"
+    }
+  ],
+  "effect_outcomes_opened": false,
+  "numeric_effects_calculated": false,
+  "next_gate": "inspect file schemas/headers only; identify remnant, reserve, transect, species, edge/core, crop and remnant-size fields before opening response values"
+}

@@ -1,0 +1,14 @@
+plot_id,habitat,ranch,cohort_years,baseline_live_1998,new_seedlings_1999_2005,live_records_1999_2005,flowering_records_1999_2005,eligible_seedlings,next_measured,next_dead,next_missing,next_absent,missing_later_measured,source_blob_sha
+CF-1,continuous,esteio,7,598,519,6777,423,519,420,79,20,0,10,f82a6f241493a979a2923d1c5deef6a1be0ff3ed
+CF-2,continuous,esteio,7,449,434,4785,191,434,345,66,23,0,13,f82a6f241493a979a2923d1c5deef6a1be0ff3ed
+CF-3,continuous,esteio,7,568,421,5690,198,421,344,55,22,0,9,f82a6f241493a979a2923d1c5deef6a1be0ff3ed
+CF-4,continuous,dimona,7,99,34,721,14,34,20,3,11,0,7,f82a6f241493a979a2923d1c5deef6a1be0ff3ed
+CF-5,continuous,porto alegre,7,141,71,1064,25,71,39,8,24,0,17,f82a6f241493a979a2923d1c5deef6a1be0ff3ed
+CF-6,continuous,porto alegre,7,197,72,1250,35,72,18,3,51,0,35,f82a6f241493a979a2923d1c5deef6a1be0ff3ed
+FF-1,fragment,dimona,7,163,60,1529,14,60,45,12,3,0,1,f82a6f241493a979a2923d1c5deef6a1be0ff3ed
+FF-2,fragment,dimona,7,113,76,1166,41,76,67,6,3,0,0,f82a6f241493a979a2923d1c5deef6a1be0ff3ed
+FF-3,fragment,esteio,7,104,151,1676,64,151,124,18,9,0,3,f82a6f241493a979a2923d1c5deef6a1be0ff3ed
+FF-4,fragment,porto alegre,7,162,62,1632,32,62,48,9,5,0,2,f82a6f241493a979a2923d1c5deef6a1be0ff3ed
+FF-5,fragment,dimona,7,122,92,1206,33,92,77,10,5,0,0,f82a6f241493a979a2923d1c5deef6a1be0ff3ed
+FF-6,fragment,esteio,7,225,349,3403,105,349,277,53,19,0,10,f82a6f241493a979a2923d1c5deef6a1be0ff3ed
+FF-7,fragment,porto alegre,7,398,249,4665,228,249,191,31,27,0,9,f82a6f241493a979a2923d1c5deef6a1be0ff3ed

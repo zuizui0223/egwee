@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "cluster_id": "P2_CF01_GPAIR_002",
+  "source": {
+    "citation": "Yineger et al. 2014",
+    "doi": "10.1186/1471-2156-15-31",
+    "patch_order": ["Bradi", "DarabaSigsi", "Demba", "Dishi", "Kambo", "Metin", "Temcha", "Wonse"],
+    "patch_size_groups": ["large", "large", "small", "small", "large", "small", "small", "large"]
+  },
+  "method": {
+    "label": "approximate_reconstructed_sampling_covariance_from_group_residual_correlations",
+    "residual_model": "endpoint ~ intercept + small_patch_indicator",
+    "covariance_formula": "V_ij = R_ij * sqrt(v_i * v_j)",
+    "marginal_variance_rule": "canonical_EGWEE_Hedges_g_LS"
+  },
+  "primary_pair": {
+    "pair_id": "G_adult-G_offspring",
+    "residual_correlation": 0.621977955168,
+    "marginal_variances": [0.601753276364, 0.543532635443],
+    "sampling_covariance": 0.355710788116,
+    "covariance_matrix": [
+      [0.601753276364, 0.355710788116],
+      [0.355710788116, 0.543532635443]
+    ],
+    "eigenvalues_ascending": [0.215742997511, 0.929542914296],
+    "positive_definite": true,
+    "effect_difference_Gadult_minus_Goffspring": -0.441372539172,
+    "difference_variance": 0.433864335575,
+    "difference_se": 0.658683790278,
+    "z": -0.670082588469,
+    "p_two_sided": 0.502805143623,
+    "ci95": [-1.732369045318, 0.849623966973]
+  },
+  "admission": {
+    "pair_specific_admissible": true,
+    "phase1_baseline_changed": false,
+    "programme_count_increment": 1
+  }
+}

@@ -1,0 +1,16 @@
+scale,covariance_mode,cluster_id,cluster_p,full_fisher_p,omit_ML001_fisher_p,n_primary_effects,negative_effects,discordant_signs,note
+hedges_g,canonical_proxy,ML001,0.003545300915,0.012124326106,0.181943527111,17,17,0,canonical primary representation
+hedges_g,canonical_proxy,ML002,0.199116700635,0.012124326106,0.181943527111,17,17,0,canonical primary representation
+hedges_g,canonical_proxy,ML003,0.174067740612,0.012124326106,0.181943527111,17,17,0,canonical primary representation
+hedges_g,canonical_proxy,ML014,0.098317737740,0.012124326106,0.181943527111,17,17,0,canonical primary representation
+hedges_g,canonical_proxy,ML020,1.000000000000,0.012124326106,0.181943527111,17,17,0,canonical primary representation
+lnRR,delta_raw_unit_covariance,ML001,0.000000000113,0.000000000001191708,0.000083144271,17,17,0,post hoc estimand-scale sensitivity
+lnRR,delta_raw_unit_covariance,ML002,0.022611197391,0.000000000001191708,0.000083144271,17,17,0,post hoc estimand-scale sensitivity
+lnRR,delta_raw_unit_covariance,ML003,0.003925668326,0.000000000001191708,0.000083144271,17,17,0,post hoc estimand-scale sensitivity
+lnRR,delta_raw_unit_covariance,ML014,0.001177842475,0.000000000001191708,0.000083144271,17,17,0,post hoc estimand-scale sensitivity
+lnRR,delta_raw_unit_covariance,ML020,0.938056344283,0.000000000001191708,0.000083144271,17,17,0,post hoc estimand-scale sensitivity
+lnRR,zero_covariance,ML001,0.000000002816,0.000000001723,0.004344181486,17,17,0,post hoc conservative dependence sensitivity
+lnRR,zero_covariance,ML002,0.102632841970,0.000000001723,0.004344181486,17,17,0,post hoc conservative dependence sensitivity
+lnRR,zero_covariance,ML003,0.055759907173,0.000000001723,0.004344181486,17,17,0,post hoc conservative dependence sensitivity
+lnRR,zero_covariance,ML014,0.003011658092,0.000000001723,0.004344181486,17,17,0,post hoc conservative dependence sensitivity
+lnRR,zero_covariance,ML020,0.822733131968,0.000000001723,0.004344181486,17,17,0,post hoc conservative dependence sensitivity

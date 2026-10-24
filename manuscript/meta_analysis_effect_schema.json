@@ -1,8 +1,9 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "frozen_on": "2026-09-11",
-  "amended_on": "2026-09-11",
+  "amended_on": "2026-09-18",
   "amendment": "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-11_EFFECT_UNITS.md",
+  "coverage_amendment": "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-18_SYSTEMATIC_COVERAGE_MODERATORS.md",
   "primary_effect_stream": "hedges_g_fragmented_minus_reference",
   "secondary_effect_stream": "fisher_z_correlation_with_fragmentation_severity",
   "orientation_rule": "negative_means_lower_biological_support_or_function_under_greater_fragmentation",
@@ -58,6 +59,18 @@
     "source_location",
     "extraction_notes"
   ],
+  "moderator_fields": [
+    "self_compatibility",
+    "autonomous_reproductive_assurance",
+    "life_form",
+    "longevity_class",
+    "fragmentation_age_years",
+    "pollination_vector",
+    "fragmentation_component",
+    "direct_process_measurement",
+    "cohort"
+  ],
+  "moderator_field_rule": "moderator_fields_are_nullable_metadata_and_do_not_change_effect_admissibility",
   "cluster_fields": [
     "study_id",
     "species_id",

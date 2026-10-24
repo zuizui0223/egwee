@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "source": "phase2_cf01_candidate_abstract_triage_v1.csv",
+  "source_priority_multilayer_fragmentation": 1120,
+  "target_pair_candidate_units": 360,
+  "pair_family_memberships": {
+    "I-F": 274,
+    "C-F": 166,
+    "G_adult-mean(I,F)": 61
+  },
+  "ordering_rule": "DOI+venue candidates with abstract first; then remaining candidates; within tier publication year descending then OpenAlex ID. Ordering affects workload only, never eligibility.",
+  "all_candidates_remain_in_denominator": true,
+  "effect_outcomes_opened": false
+}

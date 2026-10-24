@@ -1,0 +1,32 @@
+name: I-F environmental conditional audit
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/audit_if_environment_conditional_20261019.py'
+      - 'manuscript/IF_ENVIRONMENT_CONDITIONAL_TWO_SYSTEMS_2026-10-19.md'
+      - 'evidence/meta_extraction/wandoo_reproductive_stages_20261019_table1.csv'
+      - 'evidence/meta_extraction/wandoo_reproductive_stages_20261019_table6.csv'
+      - 'evidence/meta_extraction/phase2_cf01_cardiopetalum_table1_v1.csv'
+      - '.github/workflows/if-environment-conditional.yml'
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install minimal numerical dependencies
+        run: python -m pip install --quiet numpy scipy
+      - name: Reconstruct full context and influence results
+        run: python scripts/audit_if_environment_conditional_20261019.py --output /tmp/if_environment_conditional_20261019.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: if-environment-conditional-results
+          path: /tmp/if_environment_conditional_20261019.json

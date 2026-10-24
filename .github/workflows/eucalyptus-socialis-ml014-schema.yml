@@ -12,6 +12,7 @@ on:
       - 'manuscript/meta_analysis_primary_study_seed_v1.csv'
       - 'evidence/meta_extraction/PS020_eucalyptus_socialis_effects_v1.csv'
       - 'evidence/meta_extraction/PS020_eucalyptus_socialis_primary_covariance_v1.csv'
+      - 'evidence/meta_extraction/PS020_eucalyptus_socialis_sufficient_stats_v1.json'
       - 'evidence/meta_extraction/multilayer_cluster_registry_v1.csv'
       - 'scripts/probe_eucalyptus_socialis_dryad_schema.py'
       - 'scripts/probe_eucalyptus_socialis_tern_schema.py'
@@ -26,6 +27,7 @@ on:
       - 'manuscript/meta_analysis_primary_study_seed_v1.csv'
       - 'evidence/meta_extraction/PS020_eucalyptus_socialis_effects_v1.csv'
       - 'evidence/meta_extraction/PS020_eucalyptus_socialis_primary_covariance_v1.csv'
+      - 'evidence/meta_extraction/PS020_eucalyptus_socialis_sufficient_stats_v1.json'
       - 'evidence/meta_extraction/multilayer_cluster_registry_v1.csv'
       - 'scripts/probe_eucalyptus_socialis_dryad_schema.py'
       - 'scripts/probe_eucalyptus_socialis_tern_schema.py'
@@ -42,9 +44,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Confirm public family/progeny schema
+      - name: Probe public family/progeny schema when source service is available
+        continue-on-error: true
         run: python scripts/probe_eucalyptus_socialis_dryad_schema.py || python scripts/probe_eucalyptus_socialis_tern_schema.py
-      - name: Recompute locked Monarto family-level recovery
+      - name: Recompute locked Monarto recovery from committed sufficient statistics
         run: python scripts/recover_eucalyptus_socialis_ml014.py
       - name: Enforce committed ML014 effects, covariance, effect unit and denominator
         run: python scripts/check_eucalyptus_socialis_ml014.py

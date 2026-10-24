@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "cutoff": "2026-09-18",
+  "materialized_crossframe_identity_units": 351,
+  "primary_seed_records": 19,
+  "primary_seed_crosslinked_to_crossframe": 8,
+  "primary_seed_added_search_units": 11,
+  "declared_cf01_extra_search_units": 1,
+  "canonical_search_units": 363,
+  "search_units_with_doi": 83,
+  "search_units_needing_citation_resolution": 280,
+  "blocked_seed_frames_not_yet_row_materialized": [
+    "SF01",
+    "SF02",
+    "SF03",
+    "SF07"
+  ],
+  "manifest_status": "partial_CF01_seed_manifest_materialized_frames_plus_declared_primary_seeds",
+  "effect_outcomes_opened": false
+}
