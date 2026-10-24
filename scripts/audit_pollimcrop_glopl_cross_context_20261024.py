@@ -184,6 +184,94 @@ def summarise(rows, A, B, domain, key):
     },discord
 
 
+
+def crop_same_case_triple(rows):
+    """Post hoc selection from the ten scanned crop endpoint pairs.
+
+    Three outcomes from *the same* experimental record prevent a change in
+    crop/source composition from masquerading as an endpoint contrast. Study-
+    level resampling, not case-level resampling, supplies sensitivity intervals.
+    """
+    eligible=[
+        r for r in rows
+        if all(direction(r,k,"crop") not in (None,0) for k in ("FS","SN","FW"))
+    ]
+    assert len(eligible)==178
+    def flags(r):
+        return (int(direction(r,"FS","crop")!=direction(r,"SN","crop")),
+                int(direction(r,"FS","crop")!=direction(r,"FW","crop")))
+    def measure(source):
+        by_source=defaultdict(list)
+        for r in source:
+            sn,fw=flags(r)
+            by_source[r["article_code"]].append(fw-sn)
+        diffs=np.asarray([np.mean(v) for v in by_source.values()],float)
+        rng=np.random.default_rng(20261024)
+        bootstrap=np.mean(diffs[rng.integers(0,len(diffs),
+                        size=(20000,len(diffs)))],axis=1)
+        signs=rng.choice((-1,1),size=(20000,len(diffs)))
+        null=np.mean(signs*diffs[None,:],axis=1)
+        observed=float(np.mean(diffs))
+        delta=np.asarray([flags(r)[1]-flags(r)[0] for r in source],float)
+        return {
+            "n_same_case_three_nonzero":len(source),
+            "source_publications":len(by_source),
+            "FS_SN_discordant":sum(flags(r)[0] for r in source),
+            "FS_FW_discordant":sum(flags(r)[1] for r in source),
+            "FW_only_discordant":int(sum(x==1 for x in delta)),
+            "SN_only_discordant":int(sum(x==-1 for x in delta)),
+            "row_difference":float(delta.mean()),
+            "publication_equal_difference":observed,
+            "publication_cluster_bootstrap_percentile95":
+                [float(v) for v in np.quantile(bootstrap,[.025,.975])],
+            "exploratory_publication_signflip_p":
+                float((1+np.sum(abs(null)>=abs(observed)-1e-12))/
+                      (len(null)+1)),
+            "publications_positive_negative_zero": {
+                "positive":int(np.sum(diffs>0)),
+                "negative":int(np.sum(diffs<0)),
+                "zero":int(np.sum(diffs==0))
+            },
+        }
+    all_rows=measure(eligible)
+    no_apple=measure([r for r in eligible if r["species"].strip()!="Malus domestica"])
+    no_ros=measure([r for r in eligible if r["family"]!="Rosaceae"])
+    counts=Counter(r["article_code"] for r in eligible)
+    biggest=max(counts,key=counts.get)
+    no_largest=measure([r for r in eligible if r["article_code"]!=biggest])
+    # SD/N availability and standardised treatment-difference resolution differ
+    # among seed counts versus fruit weights; numbers are screens, not causes.
+    sd=[r for r in eligible if all(safe_z(r,k,"crop") is not None
+                                  for k in ("FS","SN","FW"))]
+    z1=[r for r in sd if all(safe_z(r,k,"crop")>=1
+                            for k in ("FS","SN","FW"))]
+    z196=[r for r in sd if all(safe_z(r,k,"crop")>=1.96
+                              for k in ("FS","SN","FW"))]
+    all_rows.update({
+        "sensitivity_without_Malus_domestica":no_apple,
+        "sensitivity_without_Rosaceae":no_ros,
+        "sensitivity_without_largest_publication":no_largest,
+        "largest_publication":biggest,
+        "complete_three_SD_N":measure(sd),
+        "all_three_z_above_1":measure(z1),
+        "all_three_z_above_1_96":measure(z196),
+        "precision_note":"Endpoint SD/N and normal-reference z screens differ in observation level; filtering by z is outcome-selected and very small, and cannot certify a resource-mediated tradeoff.",
+        "post_hoc_multiple_testing_note":"This triple comparison was noticed after examining ten endpoint pairs. The publication sign-flip p is an exploratory diagnostic, not pre-registered multiplicity-adjusted evidence."
+    })
+    assert (all_rows["n_same_case_three_nonzero"],
+            all_rows["source_publications"],
+            all_rows["FS_SN_discordant"],
+            all_rows["FS_FW_discordant"],
+            all_rows["FW_only_discordant"],
+            all_rows["SN_only_discordant"])==(178,45,51,81,48,18)
+    assert (no_apple["n_same_case_three_nonzero"],
+            no_ros["n_same_case_three_nonzero"],
+            no_largest["n_same_case_three_nonzero"])==(64,59,122)
+    assert (len(sd),len(z1),len(z196))==(99,28,11)
+    assert (measure(z196)["FS_SN_discordant"],
+            measure(z196)["FS_FW_discordant"])==(2,2)
+    return all_rows
+
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--output",type=Path)
@@ -250,6 +338,7 @@ def main():
                     "SN_natural":r["SN_NAT_m"],"SN_supplement":r["SN_SUP_m"],
                     "source_doi":doi(r["DOI_citation"]) or ""
                 })
+    triple=crop_same_case_triple(crops)
     result={
         "status":"EXPLORATORY wild-vs-crop stage topology; not a common estimand",
         "provenance_crop":source,
@@ -260,6 +349,7 @@ def main():
         "crop_PolLimCrop_FS_SN":crop,
         "crop_excluding_shared_publication_DOIs":crop_no_overlap,
         "crop_PolLimCrop_FS_FW":fruit_weight,
+        "crop_same_case_FS_SN_FW_triple":triple,
         "crop_without_Malus_domestica":crop_no_apple,
         "crop_without_Rosaceae":crop_no_ros,
         "crop_largest_source":largest,
@@ -275,6 +365,7 @@ def main():
                                encoding="utf-8")
     print("CROSSDOMAIN_CROP_SOURCE",json.dumps(source,ensure_ascii=False))
     print("CROSSDOMAIN_OVERLAP_DOIS",shared_doi)
+    print("CROSSDOMAIN_TRIPLE",json.dumps({k:v for k,v in triple.items() if not k.startswith("sensitivity_")},sort_keys=True))
     for label,item in (("GloPL",wild),("PolLimCrop_FS_SN",crop),
                        ("crop_DOI_disjoint",crop_no_overlap),
                        ("crop_FS_FW",fruit_weight),
