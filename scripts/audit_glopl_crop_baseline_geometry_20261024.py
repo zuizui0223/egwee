@@ -258,7 +258,10 @@ def main():
             "submission_ready":False,
         }
     }
-    assert result["claim_gate"]["source_conditional_mismatch_slope_CI_crosses_zero_in_both"]
+    # Do not hard-code uncertainty-sign assumptions: source bootstrap bounds
+    # are data-driven and may cross (or exclude) zero for a fixed seed.
+    # Both possibilities must be reported rather than converting a result
+    # into a workflow failure or claiming fixed evidence post hoc.
     if args.output:
         args.output.parent.mkdir(parents=True,exist_ok=True)
         args.output.write_text(json.dumps(result,indent=2,ensure_ascii=False,
