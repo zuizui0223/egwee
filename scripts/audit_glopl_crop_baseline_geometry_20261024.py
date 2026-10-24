@@ -112,7 +112,7 @@ def site_analysis(rows, label, seed, draws=6500, perm_draws=5500):
     boot_ids=rng.integers(0,nsource,size=(draws,nsource))
     boot_denom=den[boot_ids].sum(axis=1)
     valid=boot_denom>1e-12
-    boot_slopes=np.sum(matrix[boot_ids,:,:],axis=1)[valid] / boot_denom[valid,None]
+    boot_slopes=np.sum(matrix[boot_ids],axis=1)[valid] / boot_denom[valid,None]
     boot95={
         key:[float(z) for z in np.quantile(boot_slopes[:,j],[.025,.975])]
         for j,key in enumerate(labels)}
