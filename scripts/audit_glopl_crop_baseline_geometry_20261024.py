@@ -154,10 +154,10 @@ def site_analysis(rows, label, seed, draws=6500, perm_draws=5500):
     result={
         "frame":label,"n_cases":ntotal,"publication_groups":nsource,
         "sources_with_baseline_variation":sum(c["den"]>0 for c in components),
-        "sources_informative_for_sign_independence":sum(
+        "sources_informative_for_sign_independence":int(sum(
             c["n"]>1 and 0<c["fs"].sum()<c["n"] and
             0<c["seedneg"].sum()<c["n"] for c in components
-        ),
+        )),
         "natural_FS_declines":sum(int(c["fs"].sum()) for c in components),
         "stage_discordant":observed,
         "within_publication_slopes_per_0_to_1_natural_FS":slope_obj,
@@ -265,7 +265,8 @@ def main():
     if args.output:
         args.output.parent.mkdir(parents=True,exist_ok=True)
         args.output.write_text(json.dumps(result,indent=2,ensure_ascii=False,
-                                           sort_keys=True)+"\n",encoding="utf-8")
+                                           sort_keys=True,
+                                           default=lambda z: z.item() if isinstance(z,np.generic) else TypeError(type(z).__name__))+"\n",encoding="utf-8")
     print("GLOPL_CROP_BASELINE_SOURCE_OK",len(W),len(C),sha)
     for name,v in details.items():
         print("BASELINE_GEOMETRY",name,"n",v["n_cases"],"sources",v["publication_groups"],
