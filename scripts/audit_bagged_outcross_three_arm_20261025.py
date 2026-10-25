@@ -174,20 +174,75 @@ def same_case_cross_stage(rows):
     both=[(r, triple_means(r,"FS"), triple_means(r,"SPFR")) for r in rows]
     both=[(r,a,b) for r,a,b in both if a is not None and b is not None]
     flags=Counter()
+    pubs=defaultdict(list)
+    switched=[]
+    strict=[]
+    n_fs_bagbetter=n_spfr_bagbetter=0
     for r,a,b in both:
-        # Compare only nonzero changes for a resolved binary flag?
-        # The primary table below calls any *different* sign, including
-        # exact source-mean zero, 'different'; zero pairs tracked separately.
+        # A tuple is Natural, Sup, Bagout in precisely the same source case.
         bg=bool(np.sign(a[2]-a[0])!=np.sign(b[2]-b[0]))
         sp=bool(np.sign(a[1]-a[0])!=np.sign(b[1]-b[0]))
         flags[("bagged_diff" if bg else "bagged_same")+
               "_"+("open_added_diff" if sp else "open_added_same")]+=1
+        fs_bs=int(np.sign(a[2]-a[1]))
+        spfr_bs=int(np.sign(b[2]-b[1]))
+        assert fs_bs!=0 and spfr_bs!=0, (r["unique_number"],fs_bs,spfr_bs)
+        fs_bagbetter=int(fs_bs>0)
+        seed_bagbetter=int(spfr_bs>0)
+        n_fs_bagbetter+=fs_bagbetter
+        n_spfr_bagbetter+=seed_bagbetter
+        pubs[r["unique_study_number"]].append(seed_bagbetter-fs_bagbetter)
+        if fs_bagbetter!=seed_bagbetter:
+            switched.append(r)
+        # If any of four changes relative to Natural equals zero, do not
+        # call it a strictly resolved binary stage discordance contrast.
+        if all(np.sign(v[2]-v[0])!=0 and np.sign(v[1]-v[0])!=0 for v in (a,b)):
+            strict.append((r,bg,sp))
+    forward=sum(x==1 for vals in pubs.values() for x in vals)
+    reverse=sum(x==-1 for vals in pubs.values() for x in vals)
+    assert (len(both),len(pubs),n_fs_bagbetter,n_spfr_bagbetter,
+            forward,reverse)==(22,8,9,18,10,1)
+    paper_mean=np.array([mean(v) for v in pubs.values()],dtype=float)
+    rng=np.random.default_rng(20261025)
+    boot=paper_mean[rng.integers(0,len(paper_mean),
+         size=(25000,len(paper_mean)))].mean(axis=1)
+    by_paper={
+        p:{"n_cases":len(differences),
+           "mean_SPFR_minus_FS_bagwin":mean(differences),
+           "forward_switch":sum(x==1 for x in differences),
+           "reverse_switch":sum(x==-1 for x in differences)}
+        for p,differences in sorted(pubs.items(),key=lambda item:int(item[0]))
+    }
+    strict_only=sum(bg!=sp for _,bg,sp in strict)
+    assert (len(strict),strict_only)==(18,10)
     return {
         "same_case_six_means":len(both),
-        "publications":len({r["unique_study_number"] for r,a,b in both}),
+        "publications":len(pubs),
         "families":len({r["Family"] for r,a,b in both}),
         "both_intervention_stage_comparisons":dict(flags),
-        "warning":"22 cases from eight publications, zero differences are a separate unresolved sign state, FS and SPFR have different denominators and two stage endpoints share maternal units",
+        "method_specific_stage_discordance_count":sum(
+            (k in {"bagged_diff_open_added_same",
+                   "bagged_same_open_added_diff"})*v
+            for k,v in flags.items()),
+        "method_specific_stage_discordance_no_zero_contrasts":strict_only,
+        "strict_no_zero_four_contrasts_cases":len(strict),
+        "direct_Bagout_minus_Sup_by_reproductive_stage":{
+            "Bagout_gt_Sup_in_FS":n_fs_bagbetter,
+            "Bagout_gt_Sup_in_SPFR":n_spfr_bagbetter,
+            "FS_Sup_gt_Bagout_then_SPFR_Bagout_gt_Sup":forward,
+            "FS_Bagout_gt_Sup_then_SPFR_Sup_gt_Bagout":reverse,
+            "case_direction_difference":(forward-reverse)/len(both),
+            "publication_equal_direction_difference":mean(paper_mean),
+            "publication_bootstrap_percentile95":
+                [float(z) for z in np.quantile(boot,[.025,.975])],
+            "publication_census":by_paper,
+            "switched_cases_distinct_publications":
+                len({r["unique_study_number"] for r in switched}),
+            "switched_cases_distinct_families":
+                len({r["Family"] for r in switched}),
+            "no_simple_mechanism_claim":True,
+        },
+        "warning":"22 same cases from 8 source publications; FS and SPFR denominators differ, shared within-plant covariance unavailable, breeding-system heterogeneity and nonrandom measurement selection. All signs are published mean orders only.",
     }
 
 def sevenello_perflower(rows):
