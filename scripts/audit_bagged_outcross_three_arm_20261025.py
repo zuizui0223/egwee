@@ -206,6 +206,22 @@ def same_case_cross_stage(rows):
     rng=np.random.default_rng(20261025)
     boot=paper_mean[rng.integers(0,len(paper_mean),
          size=(25000,len(paper_mean)))].mean(axis=1)
+    # Third-stage sanity check on exactly the same source cases. Seeds per
+    # flower measures flower-wide output, unlike seeds per existing fruit.
+    all_three_stage=[
+        (r,a,b,triple_means(r,"SPFL"))
+        for r,a,b in both if triple_means(r,"SPFL") is not None
+    ]
+    forward_three=[
+        (r,a,b,c) for r,a,b,c in all_three_stage
+        if a[2]<a[1] and b[2]>b[1]
+    ]
+    assert len(all_three_stage)==11
+    assert len({r["unique_study_number"] for r,a,b,c
+                in all_three_stage})==3
+    assert len(forward_three)==4
+    assert sum(c[2]<c[1] for r,a,b,c in forward_three)==2
+    assert sum(c[2]>c[1] for r,a,b,c in forward_three)==2
     by_paper={
         p:{"n_cases":len(differences),
            "mean_SPFR_minus_FS_bagwin":mean(differences),
@@ -220,6 +236,19 @@ def same_case_cross_stage(rows):
         "publications":len(pubs),
         "families":len({r["Family"] for r,a,b in both}),
         "both_intervention_stage_comparisons":dict(flags),
+        "third_output_seed_per_flower_subset":{
+            "n_same_case_natural_supp_bagged_for_FS_SPFR_SPFL":
+                len(all_three_stage),
+            "distinct_publications":len({r["unique_study_number"] for r,a,b,c
+                                          in all_three_stage}),
+            "FS_open_supp_higher_SPFR_bagout_higher_cases":
+                len(forward_three),
+            "among_forward_switches_seed_per_flower_agrees_with_FS":
+                sum(c[2]<c[1] for r,a,b,c in forward_three),
+            "among_forward_switches_seed_per_flower_agrees_with_SPFR":
+                sum(c[2]>c[1] for r,a,b,c in forward_three),
+            "caveat":"11 cases/3 publications only, and seeds per flower is independently reported rather than reconstructed from marginal product",
+        },
         "method_specific_stage_discordance_count":sum(
             (k in {"bagged_diff_open_added_same",
                    "bagged_same_open_added_diff"})*v
