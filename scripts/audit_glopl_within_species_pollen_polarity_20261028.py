@@ -219,6 +219,8 @@ def main():
             "recorded_year_labels":sorted({r["year_of_study"] for r in group}),
             "condition_labels":
                 sorted({r["Additional_Treatment_Information"] for r in group}),
+            "source_supplementation_levels":
+                sorted({r["Level_of_Supplementation"] for r in group}),
             "signature":fingerprint(group),
             "cases":[{
                 "case_id":r["unique_number"],
@@ -292,7 +294,21 @@ def main():
         e=other["environmental_or_temporal"]["mixed_rate"]
         if m is not None and e is not None:
             leave_family.append((fam,m-e))
+    flower_only=[
+        g for g in dedup if g["source_supplementation_levels"]==["flower"]
+    ]
+    flower_summary=summarize(flower_only)
+    assert ((flower_summary["mating_context"]["n"],
+             flower_summary["mating_context"]["mixed"]),
+            (flower_summary["environmental_or_temporal"]["n"],
+             flower_summary["environmental_or_temporal"]["mixed"]))==((21,8),(68,14))
     design_sensitivity={
+        "only_flower_level_supplementation_mixed_profile_counts":
+            {"mating":flower_summary["mating_context"],
+             "temporal_spatial":flower_summary["environmental_or_temporal"]},
+        "only_flower_level_mating_minus_temporal_spatial":
+            flower_summary["mating_context"]["mixed_rate"]-
+            flower_summary["environmental_or_temporal"]["mixed_rate"],
         "publications_with_both_mating_and_time_space_categories":
             len(within_paper_cross_design),
         "which_publications_with_both_categories":
