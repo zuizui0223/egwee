@@ -271,6 +271,46 @@ def main():
             (categorical["environmental_or_temporal"]["n"],
              categorical["environmental_or_temporal"]["mixed"]))==((27,11),(92,16))
     bootstrap=study_bootstrap(dedup)
+    # Source-label comparisons can reflect entirely different study designs.
+    # Count publications that actually contain BOTH category types rather than
+    # implying within-publication matching when it does not exist.
+    source_contexts=defaultdict(set)
+    for g in dedup:
+        cohort=("mating_context" if g["category"] in {"morph","donor"}
+                else "temporal_or_spatial" if g["category"] in {"time","space"}
+                else "unclassified")
+        source_contexts[g["publication"]].add(cohort)
+    within_paper_cross_design=[
+        k for k,c in source_contexts.items()
+        if {"mating_context","temporal_or_spatial"}.issubset(c)
+    ]
+    families=sorted({g["family"] for g in dedup})
+    leave_family=[]
+    for fam in families:
+        other=summarize([g for g in dedup if g["family"]!=fam])
+        m=other["mating_context"]["mixed_rate"]
+        e=other["environmental_or_temporal"]["mixed_rate"]
+        if m is not None and e is not None:
+            leave_family.append((fam,m-e))
+    design_sensitivity={
+        "publications_with_both_mating_and_time_space_categories":
+            len(within_paper_cross_design),
+        "which_publications_with_both_categories":
+            sorted(within_paper_cross_design,key=int),
+        "source_design_confounding_warning":
+            "A publication bootstrap does not make biological mating-context and environmental/temporal experimental designs exchangeable; category differences between publications cannot be construed as within-publication causal contrasts.",
+        "leave_one_taxonomic_family_out_difference_range":[
+            min(z[1] for z in leave_family),
+            max(z[1] for z in leave_family)
+        ],
+        "most_influential_family_exclusions": [
+            {"family":f,"mating_minus_extrinsic_rate":z}
+            for f,z in sorted(leave_family,key=lambda x:x[1])[:3]
+        ]+[
+            {"family":f,"mating_minus_extrinsic_rate":z}
+            for f,z in sorted(leave_family,key=lambda x:x[1])[-3:]
+        ]
+    }
     examples={}
     for key in ANCHORS:
         g=next((g for g in dedup if g["id"]==key),None)
@@ -351,6 +391,8 @@ def main():
             "categories":categorical,
             "category_exploratory_publication_cluster_bootstrap":
                 bootstrap,
+            "source_and_family_design_sensitivity":
+                design_sensitivity,
         },
         "selected_original_source_anchor_contrasts":examples,
         "published_calystegia_donor_distance_study":
@@ -377,6 +419,7 @@ def main():
     print("GLOPL_REPEATED n=130 mixed=29 nominal_both=13 dedup=129 mixed_dedup=28 nominal_dedup=12")
     print("GLOPL_CATEGORY",json.dumps(categorical,sort_keys=True))
     print("GLOPL_CATEGORY_CLUSTER_BOOT",bootstrap)
+    print("GLOPL_CROSS_DESIGN_INDEP",design_sensitivity)
     print("GLOPL_ORIGINAL_NUMERIC_DUPLICATE",overlaps)
     print("GLOPL_CALYSTEGIA_DONOR_SOURCE",donor_anchor)
 
