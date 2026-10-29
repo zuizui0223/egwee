@@ -107,3 +107,14 @@ Use randomized independently replicated fragment/continuous or island/mainland u
 - Frozen main manuscript, \`submission_ready=false\` and previous EGWEE 5/8/16 denominators remain unchanged. This exploratory experiment taxonomy is **not** merged into the registered fragmentation effect meta-analysis without independent new sampling.
 
 **Source-locked CI receipt:** the full 811-case extraction, exact numeric-duplicate screen and 30,000 publication-cluster bootstrap passed on [GitHub Actions run 40541346287](https://github.com/zuizui0223/egwee/actions/runs/40541346287). Subsequent code amendments add source-design overlap, family omission and flower-assay controls; verify these against a newer passing run before promotion.
+
+
+### 2026-10-29 source-verified provenance correction (do not revise original census retrospectively)
+
+A follow-on, independently executed *mean-baseline-pairing invariance* audit is documented in [GLOPL_BASELINE_INVARIANT_MATING_CHANNEL_AUDIT_2026-10-29.md](GLOPL_BASELINE_INVARIANT_MATING_CHANNEL_AUDIT_2026-10-29.md). Among the 28 originally identified source study×species point-sign reversals, only **10** (ten original source publications, nine families) have manual-pollen outcome means extending **below every natural control mean and above every natural control mean**. This stronger descriptive criterion cannot be defeated by re-pairing the measured natural baselines among cases, but it cannot establish true causal treatment-effect reversals.
+
+**Original design classification issue:** the post hoc source-label parser classified the *Calystegia collina* \`large/small × within/near/far\` combinations as \`space\` even though Wolf & Harrison (2001) explicitly manipulated the **origin of hand-transferred pollen** as well as habitat size. The new document reports both the **unchanged original category taxonomy** and a separately marked source-verified **donor-by-patch-size** correction. The older mating-versus-time/space pooled descriptive difference is **not** considered a causal moderator and should not be promoted on the basis of this retrospective recoding.
+
+Source N/SD values also require checking: several fruit-set SDs from GloPL (including *Calystegia*) exceed the mathematical maximum for an individual bounded 0–1 proportion. The previous rough z screens are **not universal valid hypothesis tests** across all GloPL source units. Only one baseline-invariant group, island *Hugonia serrata*, crosses both reported-mean 95% groupwise Bonferroni reference envelopes under an explicitly approximate normal-SE interpretation, and even this is not corrected for the **129-group discovery search**.
+
+The new standalone source check [passed on 2026-10-29](https://github.com/zuizui0223/egwee/actions/runs/40843688932). The original 2026-10-28 empirical exploratory paper census, its caveats, frozen study denominator and \`submission_ready=false\` remain unchanged.
