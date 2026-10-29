@@ -1,0 +1,32 @@
+name: Heliconia original-zero flowering-history order audit
+
+on:
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - 'scripts/audit_heliconia_flowering_history_order.py'
+      - 'scripts/audit_heliconia_raw_inflor_zero_provenance.py'
+      - '.github/workflows/heliconia-flowering-history-order.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Pin raw 2016 flowering zero source and compare [0,1] with [1,0] history order
+        run: python scripts/audit_heliconia_flowering_history_order.py --output build/heliconia_history_order_v1.json
+      - name: Archive full cleaned versus original-verified historical order test
+        uses: actions/upload-artifact@v4
+        with:
+          name: heliconia-history-order-v1
+          path: build/heliconia_history_order_v1.json
+          if-no-files-found: error

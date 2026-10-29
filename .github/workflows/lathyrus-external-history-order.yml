@@ -1,0 +1,32 @@
+name: Independent Lathyrus four-year flowering history audit
+
+on:
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - 'scripts/audit_lathyrus_external_history_order.py'
+      - '.github/workflows/lathyrus-external-history-order.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install binary reader for external pinned RData
+        run: python -m pip install 'pyreadr>=0.5,<0.7' 'pandas>=2,<4'
+      - name: Verify lefko3 Git blob and audit Lathyrus annual flowering history
+        run: python scripts/audit_lathyrus_external_history_order.py --output build/lathyrus_external_history_order.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lathyrus-external-history-order
+          path: build/lathyrus_external_history_order.json
+          if-no-files-found: error

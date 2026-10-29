@@ -1,0 +1,432 @@
+{
+  "schema_version": 6,
+  "updated_on": "2026-10-03",
+  "status": "ecological_generality_promotion_validation_pending",
+  "submission_ready": false,
+  "supersedes_submission_freeze": true,
+  "revision_base_commit": "19a15a336fe10b3ed1770567058aaadf4c98478a",
+  "manuscript": {
+    "path": "manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md",
+    "blob_sha": "03d031bce924ad677cb69b3ce111a6f4df6a057d",
+    "title": "Habitat fragmentation across plant reproductive life cycles: scale-stable deterioration and recurrent interaction–function proxy failure",
+    "target_journal": "Journal of Ecology",
+    "main_text_words": 7764,
+    "abstract_words": 261
+  },
+  "historical_primary_g": {
+    "independent_clusters": 5,
+    "marginal_effects": 17,
+    "full_fisher_p": 0.012124326106346261,
+    "omit_ML001_p": 0.1819435271114386,
+    "zero_cov_full_p": 0.03860161,
+    "covariance_free_full_bound_p": 0.28061178
+  },
+  "authoritative_estimand_scale_audit": {
+    "endpoint_table": "evidence/meta_extraction/estimand_scale_sensitivity_v1.csv",
+    "endpoint_table_blob_sha": "f1f8e84ac199e9e7afd753ed006bc317021415fc",
+    "robustness_table": "evidence/meta_extraction/estimand_scale_robustness_v1.csv",
+    "robustness_table_blob_sha": "e53321b6917f6bc2b310acc91fc4a15d6cccf26c",
+    "cluster_summary": "evidence/meta_extraction/estimand_scale_cluster_summary_v2.csv",
+    "cluster_summary_blob_sha": "d03a12c8224a5843fa3fff7fd80c263d24cdeb0a",
+    "fisher_summary": "evidence/meta_extraction/estimand_scale_fisher_sensitivity_v2.csv",
+    "fisher_summary_blob_sha": "9b9e923a1ef6f863720ba8e4b36035995489aee4",
+    "result_note": "manuscript/ESTIMAND_SCALE_ROBUSTNESS_2026-09-29.md",
+    "result_note_blob_sha": "e074c53c645669f279346d32db8be9fa585bdbf3",
+    "protocol_amendment": "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-29_EFFECT_SCALE.md",
+    "protocol_amendment_blob_sha": "9dc4ecc8d8cc0720284d98d8019bdc03e83a63db",
+    "checker": "scripts/check_estimand_scale_robustness.py",
+    "bottleneck_checker": "scripts/check_bottleneck_scale_robustness.py",
+    "primary_direct_negative_g": 17,
+    "primary_direct_negative_lnRR": 17,
+    "sign_discordance": 0,
+    "ML001_g_abs_order": [
+      "G",
+      "C",
+      "F"
+    ],
+    "ML001_lnRR_abs_order": [
+      "C",
+      "F",
+      "G"
+    ],
+    "ML001_CF_g_p": 0.0071961841071408175,
+    "ML001_CF_lnRR_raw_delta_p": 0.6364031922443418,
+    "lnRR_raw_delta_full_p": 1.19170824745653e-12,
+    "lnRR_raw_delta_omit_ML001_p": 0.00008314427075398979,
+    "lnRR_zero_full_p": 1.722779517612947e-9,
+    "lnRR_zero_omit_ML001_p": 0.004344181486257532,
+    "lnRR_cauchy_full_p": 0.00009946000181275223,
+    "lnRR_cauchy_omit_ML001_p": 0.1113789244205897,
+    "ml014_sufficient_stats_snapshot": "evidence/meta_extraction/PS020_eucalyptus_socialis_sufficient_stats_v1.json",
+    "ml014_sufficient_stats_snapshot_blob_sha": "ff108c6d832c04e7c3b47d0acc9581cbddd9cb44"
+  },
+  "cross_scale_process_function_geometry": {
+    "status": "post_hoc_hypothesis_generating",
+    "g_downstream": [
+      "ML015",
+      "P2_CF01_BERGSDORF_KAKAMEGA_2006",
+      "P2_CF01_CARDIOPETALUM_2012"
+    ],
+    "g_upstream": [
+      "ML001"
+    ],
+    "lnRR_downstream": [
+      "ML015",
+      "P2_CF01_BERGSDORF_KAKAMEGA_2006",
+      "P2_CF01_CARDIOPETALUM_2012"
+    ],
+    "lnRR_upstream": [
+      "ML002",
+      "ML014"
+    ],
+    "downstream_identity_stable": true,
+    "upstream_identity_stable": false,
+    "both_directions_present_g": true,
+    "both_directions_present_lnRR": true,
+    "claim": "both upstream and downstream response geometries appear under both representations, but system-specific upstream attribution is scale-sensitive",
+    "scale_table": "evidence/meta_extraction/bottleneck_scale_robustness_v1.csv",
+    "result_note": "manuscript/BOTTLENECK_SCALE_ROBUSTNESS_2026-09-29.md",
+    "checker": "scripts/check_bottleneck_scale_robustness.py",
+    "registered_scale_census_status": "supplementary_exploratory_only",
+    "scale_table_blob_sha": "0ac17cbcddaca3a3c590cf678e04ca5b36426a11",
+    "result_note_blob_sha": "a4e02c9cf669f76a64a7267dfeca0c184c09b794"
+  },
+  "scale_stable_claims": [
+    "all 17 primary direct effects are negative on both oriented Hedges g and oriented lnRR",
+    "the primary direct corpus supports a common direction of fragmentation-associated deterioration",
+    "the separate Eucalyptus wandoo gradient contains qualitative sign discordance between interaction and reproductive function",
+    "interaction quantity is not a monotonic proxy for reproductive function across the broader matched I-F evidence",
+    "opposite-sign I-F panels occur in both directions across five independent programmes",
+    "three shared-exposure multi-panel programmes contain more than one I-F sign geometry among focal species or panels",
+    "the frozen 16-programme map has leave-one-programme-out robust interaction-to-function non-identifiability",
+    "interaction quantity can produce both false reassurance and apparent over-warning about reproductive function",
+    "translation non-identifiability persists after removing no-detected-loss and mixed programme states",
+    "no deterministic interaction-state-only lookup reproduces all observed reproductive-function states in the frozen map"
+  ],
+  "scale_sensitive_claims": [
+    "relative layer response amplitude",
+    "within-cluster magnitude separation",
+    "leave-one-Serapias robustness classification",
+    "system-specific bottleneck attribution"
+  ],
+  "exploratory_ecology": {
+    "status": "post_hoc_hypothesis_generating",
+    "hypotheses": [
+      "transition-specific filtering with attenuation or amplification",
+      "adult-state legacy buffering and cohort lag",
+      "quantity-to-effective-mating-to-function bottleneck localization"
+    ],
+    "registered_scale_census_output": "manuscript/tables/table_s4_process_function_census.csv"
+  },
+  "figure_table_revision": {
+    "builder_blob_sha": "0212d57f735eb73f3e090a3dafcf63ce027b135f",
+    "captions_blob_sha": "4e540e148fc342f0e8eb849617b6f316880681e4",
+    "main_figure4": "manuscript/figures/figure4_estimand_scale_sensitivity.svg",
+    "main_table2": "manuscript/tables/table2_estimand_scale_sensitivity.csv",
+    "supplementary_table_s4": "manuscript/tables/table_s4_process_function_census.csv",
+    "supplementary_table_s5": "manuscript/tables/table_s5_if_sign_geometry.csv",
+    "main_figure3": "manuscript/figures/figure3_if_sign_geometry.svg",
+    "supplementary_table_s6": "manuscript/tables/table_s6_qualitative_external_if_audit.csv",
+    "supplementary_figure_s2": "manuscript/figures/figure_s2_if_translation_map.svg",
+    "supplementary_table_s7": "manuscript/tables/table_s7_if_translation_map.csv",
+    "main_figure5": "manuscript/figures/figure5_direction_translation_synthesis.svg",
+    "main_figure_count": 5
+  },
+  "anonymous_package": {
+    "builder_blob_sha": "9b4fdb91dcf6e5728230f78e20f8caf83d3c0c58",
+    "reproduces_authoritative_raw_delta_scale_audit": true,
+    "reproduces_bottleneck_cross_scale_audit": true,
+    "reproduces_historical_g": true,
+    "external_requirement": "No live ML014 source download is required for CI or anonymous reproduction. A CC-BY source-derived sufficient-statistics snapshot is pinned; Dryad/TERN probes are optional provenance refreshes.",
+    "ml014_sufficient_stats_snapshot": "evidence/meta_extraction/PS020_eucalyptus_socialis_sufficient_stats_v1.json",
+    "ml014_sufficient_stats_snapshot_blob_sha": "ff108c6d832c04e7c3b47d0acc9581cbddd9cb44",
+    "reproduces_if_translation_map": true,
+    "reproduces_interaction_decline_logic": true,
+    "reproduces_main_figure5": true,
+    "reproduces_ecological_generality_promotion": true,
+    "reproduces_reliability_sufficiency_audit": true
+  },
+  "current_claim_ceiling": [
+    "historical Hedges-g synthesis is exactly reproducible",
+    "relative response amplitude and omit-Serapias robustness classification are estimand-scale dependent",
+    "all 17 primary direct effects are negative on both oriented Hedges g and oriented lnRR",
+    "three independent I-F programmes provide representation-stable downstream function-dominant mismatches: Wandoo Cardiopetalum and Kakamega",
+    "no audited I-F programme provides an equally representation-stable resolved upstream mismatch",
+    "all 8 registered I-F programmes measure interaction or pollen quantity and 0 directly measure effective mating quality on the same frame",
+    "six of 18 primary I-F panels have opposite point-estimate signs across five programmes but zero of those six have both marginal endpoint directions individually resolved at 95 percent",
+    "species-specific point-sign topology under shared exposure is supporting descriptive context rather than the sole novelty claim",
+    "transition filtering buffering amplification and cohort lag are exploratory hypotheses only",
+    "the frozen qualitative blocked I-F denominator contains mixed buffering resilience concordance and hidden-function-loss geometries; it supports proxy non-monotonicity but not a one-sided prevalence rule",
+    "the frozen 16-programme I-F translation map shows that identical qualitative interaction signals coexist with multiple reproductive-function states",
+    "interaction quantity is a non-identifying stand-alone sentinel of reproductive function across the audited fragmentation contexts",
+    "observed interaction evidence state is non-identifying for observed reproductive-function state in the frozen mixed-tier evidence universe",
+    "directional coherence without interaction-function identifiability is the promoted general ecological principle",
+    "interaction decline is neither necessary nor sufficient for reproductive decline in the frozen mixed-tier evidence universe",
+    "the full 16-programme translation map remains non-identifying under leave-one-programme-out, strict-category and visitation-only sensitivities",
+    "no deterministic interaction-only state rule fits the full, strict or strict quantitative-only map perfectly",
+    "the strongest representation-stable resolved quantitative failure mode is false reassurance in three independent programmes",
+    "simple classical differential-reliability attenuation is inadequate for the three audited false-reassurance anchors under the recovered reliability proxies",
+    "the hidden effective-mating layer remains a prospective mechanism hypothesis rather than a confirmed explanation"
+  ],
+  "not_authorized": [
+    "scale-invariant global layer-separation syndrome",
+    "claiming Serapias uniquely determines robustness without naming the Hedges-g estimand",
+    "scale-invariant system-specific bottleneck attribution",
+    "regime-prevalence inference from the exploratory process-function census",
+    "claiming lnRR is the uniquely correct effect scale",
+    "universal attenuation or buffering pathway",
+    "confirmed cohort lag",
+    "using ML020 p=1.0 as evidence of equality or coupling",
+    "direct empirical validation of finite EGWE or NEE operators",
+    "using 5 of 8 programmes or 6 of 18 panels as a global prevalence estimate",
+    "treating dependent I-F panels as independent sign trials",
+    "inferring one common compensation or pollen-quality mechanism from sign discordance alone",
+    "claiming the six opposite-sign point estimates are six resolved sign reversals",
+    "claiming species-specific visitation or reproductive responses to fragmentation are newly discovered",
+    "claiming flower visitation being an imperfect proxy for pollination effectiveness is newly discovered",
+    "estimating global prevalence of interaction-quantity proxy failure from three programmes",
+    "claiming one mechanism explains the three stable downstream proxy-failure programmes",
+    "counting the eight qualitative blocked programmes as quantitative replications or using their category frequencies as global prevalence",
+    "using the 16-programme translation map as a prevalence or frequency estimate",
+    "treating qualitative-blocked programmes as quantitatively equivalent replications",
+    "claiming quantitative-only category-level non-identifiability is leave-one-programme-out robust",
+    "claiming quantitative-only necessity or sufficiency failure is leave-one-programme-out robust",
+    "treating deterministic mismatch counts as prediction error or prevalence estimates",
+    "treating the reliability-audit joint simulation frequency as a formal p-value",
+    "claiming false reassurance is more common than apparent over-warning in nature",
+    "claiming effective mating quality is the confirmed common mechanism"
+  ],
+  "remaining_scientific_gate": [
+    "current full CI green after ecological generality/surprise promotion",
+    "current anonymous reviewer package reproduces the promoted generality and reliability-stressed manuscript"
+  ],
+  "remaining_human_blockers": [
+    "final author list",
+    "affiliations",
+    "corresponding author contact",
+    "author contributions approval",
+    "funding acknowledgements and permits if applicable",
+    "conflict of interest declaration",
+    "final all-author approval"
+  ],
+  "scientific_validation": {
+    "previous_green_run_id": 37112411828,
+    "previous_conclusion": "success",
+    "full_contract_run_id": null,
+    "conclusion": null,
+    "current_revision_status": "pending_generality_promotion",
+    "current_revision_validated": false,
+    "proxy_failure_audit": true,
+    "sign_uncertainty_audit": true,
+    "qualitative_external_audit": true,
+    "figures_tables_reproduced": false,
+    "double_anonymous": true,
+    "anonymous_reviewer_package_reproduced": false,
+    "reason": "Manuscript and promotion artifacts changed on 2026-10-06; full revalidation required.",
+    "translation_map_audit": true
+  },
+  "if_sign_geometry": {
+    "status": "scale_stable_descriptive_ecology",
+    "census": "evidence/meta_extraction/if_sign_geometry_census_v1.csv",
+    "census_blob_sha": "06c56d067006c9063ea2d048da3407e280a08655",
+    "result_note": "manuscript/IF_SIGN_GEOMETRY_2026-09-29.md",
+    "result_note_blob_sha": "fa6600638139d7860e70b87c7564cc6b46366eeb",
+    "checker": "scripts/check_if_sign_geometry.py",
+    "checker_blob_sha": "c7157e652b98a7bf5c73490be2d25a7538fa3fa9",
+    "primary_panels": 18,
+    "independent_programmes": 8,
+    "sign_discordant_panels": 6,
+    "programmes_with_sign_discordance": 5,
+    "hidden_function_loss_programmes": 2,
+    "interaction_loss_function_gain_programmes": 3,
+    "multi_panel_programmes": 4,
+    "within_programme_heterogeneous": 3
+  },
+  "ecological_leads": {
+    "scale_stable_quantity_function_proxy_failure": {
+      "programmes": [
+        "ML015",
+        "P2_CF01_CARDIOPETALUM_2012",
+        "P2_CF01_BERGSDORF_KAKAMEGA_2006"
+      ],
+      "independent_programmes": 3,
+      "regions": [
+        "Western Australia",
+        "Brazilian cerrado",
+        "Western Kenya"
+      ],
+      "plant_families": [
+        "Myrtaceae",
+        "Annonaceae",
+        "Acanthaceae"
+      ],
+      "claim": "interaction quantity is not a sufficient stand-alone proxy for reproductive function under fragmentation",
+      "status": "cross_context_exploratory_generalization_not_prevalence_estimate",
+      "evidence_table": "evidence/meta_extraction/scale_stable_quantity_function_proxy_failure_v1.csv",
+      "note": "manuscript/SCALE_STABLE_QUANTITY_FUNCTION_PROXY_FAILURE_2026-09-29.md",
+      "note_blob_sha": "ddb85509c9a4c6a3353f52b41ccffab12beb2040",
+      "evidence_table_blob_sha": "2e9c35e191a86121532f418a8e11233d963deea6",
+      "checker": "scripts/check_scale_stable_quantity_function_proxy_failure.py",
+      "checker_blob_sha": "3ecad17e76eb4fae0bc7c528589e26d6704c934f",
+      "stable_upstream_programmes": 0
+    },
+    "transition_specific_filtering": {
+      "interaction_to_F_stable_downstream": 3,
+      "movement_mating_to_F_cross_scale_point_ordering": 3,
+      "adult_offspring_programmes": 5,
+      "adult_offspring_common_lag_resolved": false,
+      "note": "manuscript/TRANSITION_SPECIFIC_FILTERING_AUDIT_2026-09-29.md",
+      "status": "post_hoc_hypothesis_generating",
+      "note_blob_sha": "9101362629b4628d6d1855483ab0cec528044ee2"
+    }
+  },
+  "ecological_generality_and_surprise": {
+    "path": "manuscript/ECOLOGICAL_GENERALITY_AND_SURPRISE_2026-09-29.md",
+    "blob_sha": "aaad4a421bb3381289720385d3b303c3c79c1383",
+    "general_claim": "directional coherence can coexist with non-identifying interaction-to-function translation",
+    "monitoring_implication": "interaction quantity alone can produce both false reassurance and false alarm about reproductive function",
+    "prevalence_inference": false
+  },
+  "if_sign_uncertainty": {
+    "status": "descriptive_point_sign_uncertainty_audit",
+    "table": "evidence/meta_extraction/if_sign_uncertainty_v1.csv",
+    "table_blob_sha": "2ffe67f2218c60212c5cde4f68f6d702a7f9f0fd",
+    "checker": "scripts/check_if_sign_uncertainty.py",
+    "checker_blob_sha": "a0bf8442b26639b93ce681619db74ad0b4a0518f",
+    "note": "manuscript/IF_SIGN_UNCERTAINTY_2026-10-01.md",
+    "primary_panels": 18,
+    "opposite_point_panels": 6,
+    "programmes_with_opposite_point_signs": 5,
+    "both_endpoint_directions_resolved_opposite": 0,
+    "one_endpoint_resolved_opposite": 2,
+    "both_endpoints_unresolved_opposite": 4
+  },
+  "proxy_failure_novelty_audit": {
+    "path": "manuscript/IF_PROXY_FAILURE_NOVELTY_AUDIT_2026-10-01.md",
+    "blob_sha": "b8d8ebd7af34c27f6cf09d2aa6e19b8a83b32b8f",
+    "postfreeze_nearest_neighbor": {
+      "citation": "Lazaro et al. 2020 Ecological Applications 30:e02099",
+      "doi": "10.1002/eap.2099",
+      "denominator_status": "external_context_only_not_added_post_hoc"
+    }
+  },
+  "qualitative_external_if_audit": {
+    "status": "frozen_denominator_qualitative_context_not_quantitative_replication",
+    "programmes": 8,
+    "qualitative_nonmonotonic": 5,
+    "resilient_no_detected_loss": 2,
+    "concordant_population_size_effect": 1,
+    "hidden_function_loss": 1,
+    "table": "evidence/meta_extraction/qualitative_external_if_audit_v1.csv",
+    "table_blob_sha": "1f9d1d2313190a703235786c2ea21365fb9aa643",
+    "note": "manuscript/QUALITATIVE_EXTERNAL_IF_AUDIT_2026-10-03.md",
+    "note_blob_sha": "d9446f4a1310c9ea83024b9720a86a3bcf6e9585",
+    "checker": "scripts/check_qualitative_external_if_audit.py",
+    "checker_blob_sha": "0e1bab4ac06c73aceb56b020026663d35c05bd71",
+    "claim": "blocked qualitative evidence broadens proxy non-monotonicity but does not support a one-sided prevalence rule"
+  },
+  "if_translation_nonidentifiability": {
+    "status": "frozen_16_programme_topology_leave_one_out_robust",
+    "programmes": 16,
+    "quantitative_programmes": 8,
+    "qualitative_blocked_programmes": 8,
+    "translation_note": "manuscript/IF_TRANSLATION_NONIDENTIFIABILITY_2026-10-03.md",
+    "translation_note_blob_sha": "2d8d7ac1ae9706d22cee3043e2306294c5a9d192",
+    "sentinel_note": "manuscript/FRAGMENTATION_SENTINEL_SUFFICIENCY_2026-10-03.md",
+    "sentinel_note_blob_sha": "d04212710c4b4967e1139f2f25c86586323ac673",
+    "influence_checker": "scripts/check_if_translation_influence.py",
+    "influence_checker_blob_sha": "96dd3175907459ca4110e4c3b82507e649aab297",
+    "generality_checker": "scripts/check_ecological_generality_and_surprise.py",
+    "generality_checker_blob_sha": "6aac3f0cd57af797131e56ccdec36378ea0e396f",
+    "full_map_leave_one_out_min_ambiguous_inputs": 2,
+    "quantitative_only_ambiguity_without_milkweed": 0,
+    "claim": "interaction quantity is a non-identifying stand-alone sentinel; full mixed-tier topology survives every single-programme deletion",
+    "prevalence_inference": false,
+    "table": "evidence/meta_extraction/if_translation_map_v1.csv",
+    "table_blob_sha": "51b30d999fec10256f677859b1d4805ea9a10c46",
+    "note_blob_sha": "2d8d7ac1ae9706d22cee3043e2306294c5a9d192",
+    "checker": "scripts/check_if_translation_map.py",
+    "checker_blob_sha": "a5c37502734fb48a2eaa81e3a9594895651f3801",
+    "unique_sources": 16
+  },
+  "hidden_effective_mating_hypothesis": {
+    "status": "mechanistic_triangulation_hypothesis_not_quantitative_replication",
+    "note": "manuscript/HIDDEN_EFFECTIVE_MATING_LAYER_HYPOTHESIS_2026-10-03.md",
+    "note_blob_sha": "c9f812899081e2bf6639acf2e037d1b566fa49f2",
+    "context_table": "evidence/meta_extraction/hidden_effective_mating_mechanism_context_v1.csv",
+    "context_table_blob_sha": "6b9886c74eec1b0b148af2db10126059023ae08c",
+    "quantitative_IF_effective_mating_measured": 0,
+    "quantitative_IF_programmes": 8,
+    "claim": "fragmentation may preserve interaction quantity while degrading transfer identity compatibility or mating quality"
+  },
+  "interaction_decline_logic": {
+    "status": "frozen_16_programme_mixed_tier_LOO_robust_existence",
+    "checker": "scripts/check_interaction_decline_necessity_sufficiency.py",
+    "checker_blob_sha": "1c0c3ad7f5a593abea1a589306d2ba1dd56c8347",
+    "note": "manuscript/INTERACTION_DECLINE_NECESSITY_SUFFICIENCY_2026-10-03.md",
+    "note_blob_sha": "6c138f11e1ccf60bf0aa433c3a49990940b9e862",
+    "necessity_counterexample_programmes": [
+      "ML015",
+      "QIF008"
+    ],
+    "sufficiency_counterexample_programmes": [
+      "P2_CF01_MILKWEED_URBAN_2023",
+      "QIF002",
+      "QIF003"
+    ],
+    "mixed_tier_leave_one_out_both_failures": true,
+    "quantitative_tier_leave_one_out": false,
+    "prevalence_inference": false,
+    "claim": "interaction decline is neither necessary nor sufficient for reproductive decline in the frozen mixed-tier evidence universe"
+  },
+  "if_translation_category_sensitivity": {
+    "status": "strict_category_exclusion_leave_one_out_robust",
+    "checker": "scripts/check_if_translation_category_sensitivity.py",
+    "checker_blob_sha": "7d0fd7d893df571f745a5550aa1e01d7ceca5252",
+    "note": "manuscript/IF_TRANSLATION_CATEGORY_SENSITIVITY_2026-10-05.md",
+    "note_blob_sha": "7ed816f93c3fe96e33c2f7c32f9340379ba0291f",
+    "strict_programmes": 8,
+    "removed_categories": [
+      "no_detected_loss",
+      "mixed"
+    ],
+    "strict_LOO_nonidentifiability": true,
+    "prevalence_inference": false
+  },
+  "if_sentinel_determinism": {
+    "status": "frozen_map_no_perfect_deterministic_interaction_only_rule",
+    "checker": "scripts/check_if_sentinel_determinism.py",
+    "checker_blob_sha": "f9cece9e824d5ff4198bdedfb14c0378edfa91d9",
+    "note": "manuscript/IF_SENTINEL_DETERMINISM_2026-10-05.md",
+    "note_blob_sha": "4f78fc3c972347e7bb5ea7eab40df7c6659ccc54",
+    "full_programmes": 16,
+    "full_min_misclassified": 5,
+    "strict_programmes": 8,
+    "strict_min_misclassified": 2,
+    "strict_quantitative_programmes": 5,
+    "strict_quantitative_min_misclassified": 1,
+    "prevalence_inference": false
+  },
+  "ecological_generality_surprise_promotion": {
+    "manifest": "evidence/meta_extraction/ecological_generality_surprise_promotion_v1.json",
+    "manifest_blob_sha": "7564af0ac66215779047b21b82df10fe62864cdd",
+    "note": "manuscript/ECOLOGICAL_GENERALITY_AND_SURPRISE_2026-09-29.md",
+    "note_blob_sha": "d24b486386880e033649127d94114e715f296987",
+    "checker": "scripts/check_ecological_generality_and_surprise.py",
+    "checker_blob_sha": "711e41c9fa8ce6663df2925c7180917e58d66a0b",
+    "generality_gate": "pass",
+    "surprise_gate": "pass",
+    "main_principle": "directional_coherence_without_interaction_function_identifiability",
+    "strongest_resolved_failure_mode": "false_reassurance",
+    "mechanism_status": "hidden_effective_mating_hypothesis_not_confirmed"
+  },
+  "if_reliability_sufficiency": {
+    "note": "manuscript/IF_RELIABILITY_SUFFICIENCY_2026-10-06.md",
+    "note_blob_sha": "582d0c9eadf8afec6d163200fc1bf05147baa7e2",
+    "table": "evidence/meta_extraction/if_reliability_sufficiency_v1.csv",
+    "table_blob_sha": "3c032d0940dd4c79ee561551642820942277a825",
+    "audited_anchors": 3,
+    "simple_differential_reliability_inadequate": true,
+    "formal_joint_p_value": false
+  }
+}

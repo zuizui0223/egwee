@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "created_on": "2026-10-01",
+  "purpose": "network-independent sufficient-statistics snapshot for ML014 Eucalyptus socialis recovery and lnRR scale audit",
+  "source": {
+    "article_doi": "10.1111/mec.12056",
+    "dataset_doi": "10.4227/05/54C4E38139B4B",
+    "dataset_title": "Pollen Diversity Matters: Revealing the Neglected Effect of Pollen Diversity on Fitness in Fragmented Landscapes",
+    "source_file": "MECBreedfamily.csv",
+    "source_url": "https://shared.tern.org.au/attachment/c5278af9-b0c9-4572-8eb4-9ce3058f1b2a/MECBreedfamily.csv",
+    "license": "CC BY 4.0",
+    "successful_raw_source_audit_run_id": 36524744906,
+    "note": "Derived sufficient statistics from a successful public-source fetch. Raw family-level rows are not redistributed in this repository snapshot."
+  },
+  "frame": {
+    "n_source_rows": 46,
+    "groups": {
+      "MONLOW": 13,
+      "MONHIGH": 15,
+      "YOOKA": 18
+    },
+    "primary_fragmented": "MONLOW",
+    "primary_reference": "MONHIGH",
+    "n_fragmented": 13,
+    "n_reference": 15,
+    "n_primary_complete_case": 28,
+    "excluded_from_primary": [
+      "YOOKA"
+    ]
+  },
+  "hedges_g": {
+    "Gmating_correlated_paternity_rp": {
+      "fragmented_mean": 0.469230769231,
+      "fragmented_sd": 0.363970272102,
+      "reference_mean": 0.191333333333,
+      "reference_sd": 0.124089061718,
+      "orientation_multiplier": -1,
+      "oriented_effect": -1.02391388104,
+      "sampling_variance": 0.162311165657
+    },
+    "F_family_growth": {
+      "fragmented_mean": 35.754615384615,
+      "fragmented_sd": 7.861249492908,
+      "reference_mean": 37.827333333333,
+      "reference_sd": 6.987392183341,
+      "orientation_multiplier": 1,
+      "oriented_effect": -0.271808874814,
+      "sampling_variance": 0.144909030455
+    },
+    "dependence": {
+      "proxy_method": "within_contrast_group_centered_outcome_correlation",
+      "residual_correlation_proxy": 0.326729868213,
+      "sampling_covariance": 0.05010842604
+    }
+  },
+  "lnRR": {
+    "Gmating_correlated_paternity_rp": {
+      "oriented_effect": -0.897077585050643,
+      "delta_variance": 0.07432342397728017
+    },
+    "F_family_growth": {
+      "oriented_effect": -0.056352582893530116,
+      "delta_variance": 0.005993284592809393
+    },
+    "dependence": {
+      "method": "raw_unit_multivariate_delta_covariance",
+      "sampling_covariance": 0.00657958429456855,
+      "implied_pair_variance": 0.06715753998095247,
+      "pair_difference": -0.8407250021571129,
+      "pair_p_two_sided": 0.0011778424751158335
+    },
+    "zero_covariance_pair_p_two_sided": 0.0030116580917635125
+  }
+}

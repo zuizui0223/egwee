@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "pair_id": "G_adult-G_offspring",
+  "n_independent_programmes": 5,
+  "programme_ids": [
+    "ML003",
+    "P2_SF05_93",
+    "P2_SF05_71",
+    "P2_CF01_GPAIR_002",
+    "P2_CF01_GPAIR_003"
+  ],
+  "spondias_primary_aggregation": {
+    "rule": "equal_weight_mean_of_two_co_primary_offspring_contrasts",
+    "adult_minus_juvenile": 2.240449160367,
+    "adult_minus_seed": 0.177024462539,
+    "contrast_covariance": 1.578656108057,
+    "programme_contrast": 1.208736811453,
+    "programme_variance": 1.801950218067
+  },
+  "primary_random_effects": {
+    "heterogeneity_estimator": "REML",
+    "tau2": 0.0,
+    "pooled_mean": 0.128524493173,
+    "model_based_se": 0.282214353582,
+    "cochran_Q": 1.688299608229,
+    "Q_df": 4,
+    "I2": 0.0,
+    "mKH_q": 0.422074902057,
+    "mKH_q_star": 1.0,
+    "mKH_se": 0.282214353582,
+    "t_df": 4,
+    "t_statistic": 0.455414444879,
+    "p_two_sided_t": 0.672436401972,
+    "ci95_mKH": [-0.655028167445, 0.912077153792],
+    "ci95_model_based_normal": [-0.424605475767, 0.681654462114],
+    "normalized_weights": {
+      "ML003": 0.044199301717,
+      "P2_SF05_93": 0.054047729763,
+      "P2_SF05_71": 0.504512371540,
+      "P2_CF01_GPAIR_002": 0.183571072423,
+      "P2_CF01_GPAIR_003": 0.213669524558
+    }
+  },
+  "spondias_endpoint_sensitivity": {
+    "juvenile_only": {
+      "pooled_mean": 0.185305410246,
+      "model_based_se": 0.281449850376,
+      "tau2": 0.0,
+      "ci95_mKH": [-0.596124649190, 0.966735469682],
+      "p_two_sided_t_df4": 0.546251190696
+    },
+    "seed_only": {
+      "pooled_mean": 0.081815466706,
+      "model_based_se": 0.283871061665,
+      "tau2": 0.0,
+      "ci95_mKH": [-0.706336952961, 0.869967886374],
+      "p_two_sided_t_df4": 0.787500883156
+    }
+  },
+  "leave_one_programme_out": [
+    {"dropped": "ML003", "pooled_mean": 0.078571997575, "tau2": 0.0},
+    {"dropped": "P2_SF05_93", "pooled_mean": 0.133498411361, "tau2": 0.0},
+    {"dropped": "P2_SF05_71", "pooled_mean": -0.062451371459, "tau2": 0.0},
+    {"dropped": "P2_CF01_GPAIR_002", "pooled_mean": 0.256663766372, "tau2": 0.0},
+    {"dropped": "P2_CF01_GPAIR_003", "pooled_mean": 0.170554035289, "tau2": 0.0}
+  ],
+  "interpretation": {
+    "directional_common_cohort_lag_resolved": false,
+    "reason": "primary modified-Knapp-Hartung interval crosses zero",
+    "exchangeability_proven": false,
+    "moderator_models_open": false,
+    "phase1_baseline_changed": false,
+    "phase2_supersession_allowed_yet": false,
+    "supersession_blocker": "systematic search universe remains incomplete"
+  }
+}

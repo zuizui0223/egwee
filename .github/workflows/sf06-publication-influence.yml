@@ -1,0 +1,30 @@
+name: SF06 nested publication-deletion influence
+
+on:
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - 'scripts/check_sf06_publication_delete_predictive_influence.py'
+      - 'scripts/check_sf06_pollination_guild_mismatch_audit.py'
+      - 'manuscript/SF06_GUILD_MASKING_FALSIFICATION_2026-10-10.md'
+      - 'manuscript/SF06_NESTED_PUBLICATION_DELETE_INFLUENCE_2026-10-10.md'
+      - 'evidence/meta_extraction/sf06_translation_residual_pairs_v1.csv'
+      - '.github/workflows/sf06-publication-influence.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Nested publication-deletion and smoothing audit
+        run: python scripts/check_sf06_publication_delete_predictive_influence.py
+      - name: Exploratory guild-mismatch source influence audit
+        run: python scripts/check_sf06_pollination_guild_mismatch_audit.py

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import csv
+import json
 import math
 from pathlib import Path
 
@@ -11,6 +12,7 @@ REGISTRY = ROOT / "evidence/meta_extraction/multilayer_cluster_registry_v1.csv"
 SEED = ROOT / "manuscript/meta_analysis_primary_study_seed_v1.csv"
 RESULT = ROOT / "manuscript/EUCALYPTUS_SOCIALIS_2012_ML014_RECOVERY_RESULT.md"
 EFFECT_UNIT_AUDIT = ROOT / "manuscript/EUCALYPTUS_SOCIALIS_2012_EFFECT_UNIT_AUDIT.md"
+SNAPSHOT = ROOT / "evidence/meta_extraction/PS020_eucalyptus_socialis_sufficient_stats_v1.json"
 
 
 def rows(path: Path) -> list[dict[str, str]]:
@@ -19,8 +21,19 @@ def rows(path: Path) -> list[dict[str, str]]:
 
 
 def main() -> None:
-    for path in (EFFECTS, COV, REGISTRY, SEED, RESULT, EFFECT_UNIT_AUDIT):
+    for path in (EFFECTS, COV, REGISTRY, SEED, RESULT, EFFECT_UNIT_AUDIT, SNAPSHOT):
         assert path.is_file(), path
+
+    snapshot = json.loads(SNAPSHOT.read_text(encoding="utf-8"))
+    assert snapshot["schema_version"] == 1
+    assert snapshot["source"]["article_doi"] == "10.1111/mec.12056"
+    assert snapshot["source"]["dataset_doi"] == "10.4227/05/54C4E38139B4B"
+    assert snapshot["source"]["source_file"] == "MECBreedfamily.csv"
+    assert snapshot["source"]["license"] == "CC BY 4.0"
+    assert snapshot["frame"]["n_source_rows"] == 46
+    assert snapshot["frame"]["n_fragmented"] == 13
+    assert snapshot["frame"]["n_reference"] == 15
+    assert snapshot["frame"]["n_primary_complete_case"] == 28
 
     effects = {r["endpoint_id"]: r for r in rows(EFFECTS)}
     assert set(effects) == {"Gmating_correlated_paternity_rp", "F_family_growth"}
@@ -37,6 +50,12 @@ def main() -> None:
     assert abs(float(f["oriented_effect"]) + 0.271808874814) < 1e-9
     assert abs(float(f["oriented_variance"]) - 0.144909030455) < 1e-9
 
+    sh = snapshot["hedges_g"]
+    assert abs(float(g["oriented_effect"]) - sh["Gmating_correlated_paternity_rp"]["oriented_effect"]) < 1e-10
+    assert abs(float(g["oriented_variance"]) - sh["Gmating_correlated_paternity_rp"]["sampling_variance"]) < 1e-10
+    assert abs(float(f["oriented_effect"]) - sh["F_family_growth"]["oriented_effect"]) < 1e-10
+    assert abs(float(f["oriented_variance"]) - sh["F_family_growth"]["sampling_variance"]) < 1e-10
+
     endpoints = ["Gmating_correlated_paternity_rp", "F_family_growth"]
     cov = {(r["endpoint_i"], r["endpoint_j"]): r for r in rows(COV)}
     assert set(cov) == {(a, b) for a in endpoints for b in endpoints}
@@ -47,6 +66,13 @@ def main() -> None:
     v2 = float(cov[(endpoints[1], endpoints[1])]["sampling_covariance"])
     c = float(off["sampling_covariance"])
     assert v1 > 0 and v2 > 0 and v1 * v2 - c * c > 1e-12
+
+    assert abs(float(off["correlation_proxy"]) - snapshot["hedges_g"]["dependence"]["residual_correlation_proxy"]) < 1e-10
+    assert abs(float(off["sampling_covariance"]) - snapshot["hedges_g"]["dependence"]["sampling_covariance"]) < 1e-10
+    ln = snapshot["lnRR"]
+    assert abs(ln["Gmating_correlated_paternity_rp"]["oriented_effect"] + 0.897077585050643) < 1e-12
+    assert abs(ln["F_family_growth"]["oriented_effect"] + 0.056352582893530116) < 1e-12
+    assert abs(ln["dependence"]["pair_p_two_sided"] - 0.0011778424751158335) < 1e-15
 
     diff = float(g["oriented_effect"]) - float(f["oriented_effect"])
     contrast_var = v1 + v2 - 2 * c

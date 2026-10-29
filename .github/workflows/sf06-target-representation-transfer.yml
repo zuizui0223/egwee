@@ -1,0 +1,33 @@
+name: SF06 same-target representation transfer
+
+on:
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - 'scripts/audit_sf06_target_representation_transfer.py'
+      - 'scripts/check_sf06_publication_delete_predictive_influence.py'
+      - 'evidence/meta_extraction/sf06_translation_residual_pairs_v1.csv'
+      - '.github/workflows/sf06-target-representation-transfer.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Audit identical publication-held-out sign and numeric female targets
+        run: python scripts/audit_sf06_target_representation_transfer.py
+      - name: Archive source-verified source-deletion and scoring results
+        uses: actions/upload-artifact@v4
+        with:
+          name: sf06-matched-target-representation-transfer
+          path: build/sf06_target_representation_transfer_v1.json
+          if-no-files-found: error

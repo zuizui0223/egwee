@@ -41,8 +41,9 @@ def main() -> None:
             raise AssertionError(f"identity-bearing section must be on title page: {heading}")
 
     assert "## References" in text
-    assert "Relationship to eco-genetic fragmentation theory" in text
-    assert "specific finite-model" not in lowered or "specific finite-model operator" in lowered
+    assert "### Ecological scope" in text
+    assert "finite simulator" in lowered
+    assert "operator sequence" in lowered
 
     print("DOUBLE_ANONYMOUS_MANUSCRIPT_OK")
 

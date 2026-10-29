@@ -1,0 +1,32 @@
+name: Heliconia lagged flowering sentinel audit
+
+on:
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - 'scripts/audit_heliconia_lagged_flowering_sentinel.py'
+      - 'scripts/analyze_heliconia_census_panel.py'
+      - '.github/workflows/heliconia-lagged-flowering-sentinel.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Download source-hash-verified HDP archive and fit held-out plot and ranch models
+        run: python scripts/audit_heliconia_lagged_flowering_sentinel.py --output build/heliconia_lagged_flowering_sentinel_v1.json
+      - name: Archive detailed annual coverage and held-out diagnostics
+        uses: actions/upload-artifact@v4
+        with:
+          name: heliconia-lagged-flowering-sentinel-v1
+          path: build/heliconia_lagged_flowering_sentinel_v1.json
+          if-no-files-found: error

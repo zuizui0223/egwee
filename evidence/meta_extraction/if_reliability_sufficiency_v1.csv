@@ -1,0 +1,4 @@
+programme,R_I,R_F,R_ratio,required_R_ratio_abs,null_misfit_p,artifact_downstream_probability,interpretation
+ML015_Wandoo,0.510955982160,0.855936155879,0.596955717609,0.721174148249,0.001171854408,0.011744261058,sign_opposition_persists_after_reliability_correction
+P2_CARDIOPETALUM,0.822345163493,0.819691285240,1.003237655812,0.066322983620,0.003103388795,0.024677278082,observed_reliability_ratio_far_above_attenuation_needed
+P2_KAKAMEGA_AP,0.598732911011,1.000000000000,0.598732911011,0.015009330477,0.002764817384,0.011210121367,F_reliability_fixed_to_one_to_favour_attenuation_null

@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "cluster_id": "P2_SF05_93",
+  "source": {
+    "citation": "Lompo et al. 2020",
+    "doi": "10.1002/ajb2.1504",
+    "population_order": [
+      "Saki",
+      "Cassou",
+      "Walley",
+      "Vouza"
+    ],
+    "exposure_groups": [
+      "reference",
+      "reference",
+      "fragmented",
+      "fragmented"
+    ]
+  },
+  "method": {
+    "label": "approximate_reconstructed_sampling_covariance_from_group_residual_correlations",
+    "residual_model": "endpoint ~ intercept + fragmented_indicator",
+    "covariance_formula": "V_ij = R_ij * sqrt(v_i * v_j)",
+    "marginal_variance_rule": "canonical_EGWEE_Hedges_g_LS",
+    "note": "Population-level paired endpoint values are residualized on the fixed binary exposure before residual correlations are mapped onto marginal sampling variances."
+  },
+  "endpoints": [
+    "C",
+    "G_adult",
+    "G_offspring"
+  ],
+  "residuals": {
+    "C": [
+      20,
+      -20,
+      -1,
+      1
+    ],
+    "G_adult": [
+      0.005,
+      -0.005,
+      -0.005,
+      0.005
+    ],
+    "G_offspring": [
+      -0.005,
+      0.005,
+      -0.01,
+      0.01
+    ]
+  },
+  "residual_correlation_matrix": [
+    [
+      1,
+      0.7415357791237749,
+      -0.401990062035198
+    ],
+    [
+      0.7415357791237749,
+      1,
+      0.3162277660168327
+    ],
+    [
+      -0.401990062035198,
+      0.3162277660168327,
+      1
+    ]
+  ],
+  "marginal_variances": [
+    1.0049875311720697,
+    1.0816326530612235,
+    1.073469387755102
+  ],
+  "working_covariance_matrix": [
+    [
+      1.0049875311720697,
+      0.7731296732968034,
+      -0.4175326918862761
+    ],
+    [
+      0.7731296732968034,
+      1.0816326530612235,
+      0.3407491073880487
+    ],
+    [
+      -0.4175326918862761,
+      0.3407491073880487,
+      1.073469387755102
+    ]
+  ],
+  "full_three_layer": {
+    "numerical_rank": 2,
+    "eigenvalues_ascending": [
+      0,
+      1.33970274,
+      1.82038683
+    ],
+    "status": "rank_deficient_not_used_for_joint_inversion",
+    "reason": "Four populations minus the intercept and binary exposure leave only two residual degrees of freedom, so a three-endpoint residual-correlation matrix cannot be full rank."
+  },
+  "primary_pair": {
+    "pair_id": "G_adult-G_offspring",
+    "endpoints": [
+      "G_adult",
+      "G_offspring"
+    ],
+    "residual_correlation": 0.3162277660168327,
+    "covariance_matrix": [
+      [
+        1.0816326530612235,
+        0.3407491073880487
+      ],
+      [
+        0.3407491073880487,
+        1.073469387755102
+      ]
+    ],
+    "eigenvalues_ascending": [
+      0.73677747,
+      1.41832457
+    ],
+    "positive_definite": true,
+    "status": "pair_covariance_admissible",
+    "effect_difference_Gadult_minus_Goffspring": 0.04147015764183615,
+    "difference_variance": 1.4736038260402284
+  },
+  "admission": {
+    "marginal_effects_recovered": [
+      "C",
+      "G_adult",
+      "G_offspring"
+    ],
+    "pair_specific_admissible": [
+      "G_adult-G_offspring"
+    ],
+    "full_three_layer_joint_cluster_admissible": false,
+    "phase1_baseline_changed": false
+  }
+}
