@@ -20,6 +20,18 @@ The script `audit_dianthus_genome_fitness_ids.py` checks literal ID agreement (c
 
 Keep all F0 seed endpoints separate; do not collapse flower counts, seed counts and juvenile biomass into a single rescue score without outcome-specific effect-size protocols. Repeated F1 seedlings from one mother are not independent maternal observations.
 
+## Source-exact identifier audit result (2026-11-15)
+
+Reproduced from the author's two original Zenodo Excel sources using **only ID/group columns** in `audit_dianthus_genome_fitness_ids.py` and `audit_dianthus_within_fitness_maternal_ids.py`. Evidence: GitHub Actions [run 43696197657](https://github.com/zuizui0223/egwee/actions/runs/43696197657) and the source-verified schema-only artifact.
+
+- Original microsatellite records: 1,173 rows, **1,154** nonempty `Ind. code` tokens and **1,153 distinct** tokens across all sampled generations. No direct exact individual-code matches with the F0 flowering (619), F0 maternal seed (125), or F1 seedling (1,171) phenotype sheets, even after preserving `Population` and `Source`. **This is not evidence that the original experiment lacked molecular–fitness correspondence; it is an unverified crosswalk.**
+- **Within the fitness workbook only**, F0 flowering ↔ F0 maternal seed matches: 72 bare `Transplant code` strings; 49 `Population+Transplant code` strings; **31 unique `Population+Source+Transplant code` strings**. Strictly matched keys had no within-side duplicates. The 84 seed rows matching only a bare code **are not** 84 independently identified mothers.
+- F0 mother ↔ F1 `Maternal transplant` had **zero** direct literal common mother keys under bare, population-aware or population/source-aware comparison. Source-specific family-ID mapping is required.
+- F1 `Seedling code` has only **14** distinct values, reused within multiple maternal families. `Population+Source+Maternal transplant+Seedling code` generated 1,171 distinct strings across 1,171 rows and 118 family keys; these remain **provisional source key strings**, not automatically 1,171 independent biological genotypes.
+- The same fitness workbook has `HL` column headings for F0 flowering and F1 seedling growth but not maternal seed sheet. A measured `HL` column, as in the original paper, may support a **within-workbook marker-to-stage fitness** analysis after an outcome-blind protocol; it is not a directly linked `Ind. code` microsatellite genotype, nor a verified phenotype-to-genotype SNP correspondence.
+
+**Gate decision:** there is a strict internal F0 **flowering↔seed** join subset (31 mothers) suitable for later, carefully controlled reproductive-component analysis once treatment/source semantics are verified. F0→F1 and source genotype→fitness individual joins remain STOP without the original mapping. **No biological outcome directions or effect coefficients were inspected for this audit.**
+
 ## Proposed effects only after valid linkage
 
 1. **F0 reproductive function:** conditioned on population and origin/source, relate genetically measured F0 ancestry/heterozygosity or pedigree-supported mating structure to `Viable seed set`/germination. This would be an observational **G→F association**, not an intervention causal `genetic rescue` effect unless assignment/comparator permits it.
