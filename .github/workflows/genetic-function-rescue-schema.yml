@@ -157,7 +157,12 @@ jobs:
           from pathlib import Path
           j=json.loads(Path("rescue_schema_artifact/ziziphus_2025_id_linkage_gate.json").read_text())
           assert j["status"]=="ZIZIPHUS_IDENTIFIER_AND_TREATMENT_SCHEMA_ONLY"
-          assert j["survival_long_records"]>=j["unique_plant_ids"]>0
+          assert j["survival_long_records"]>=j["popcode_plant_id_composite_nonempty_rows"]>0
+          assert j["unique_popcode_plant_id_composite_keys"]>0
+          assert j["unique_popcode_plant_id_composite_keys"]<=j["popcode_plant_id_composite_nonempty_rows"]
+          assert j["plant_id_label_nonempty_rows"]+j["plant_id_label_missing_rows"]==j["survival_long_records"]
+          assert j["popcode_plant_id_composite_nonempty_rows"]+j["popcode_plant_id_composite_missing_rows"]==j["survival_long_records"]
+          assert j["composite_key_is_a_candidate_not_yet_a_verified_independent_unit"] is True
           assert j["biological_outcome_fields_read"] is False
           assert j["genotype_allele_fields_read"] is False
           assert j["raw_data_redistributed"] is False
