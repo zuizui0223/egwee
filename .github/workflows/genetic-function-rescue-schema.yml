@@ -195,6 +195,26 @@ jobs:
               assert j["overlap_sample_to_survival_labels"]=={"plant_id":0,"genotype":0,"Rgenotype":0}
           PY
 
+      - name: Audit independent Dianthus genotype/fitness and Arnica fitness Zenodo records
+        run: |
+          python research/rescue_coupling/audit_zenodo_genetic_fitness_schema.py \
+            --output rescue_schema_artifact/dianthus_arnica_zenodo_source_schemas.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("rescue_schema_artifact/dianthus_arnica_zenodo_source_schemas.json")
+          d=json.loads(p.read_text(encoding="utf-8"))
+          assert d["status"]=="PUBLIC_ZENODO_SCHEMA_ONLY_NO_OUTCOME_VALUES"
+          assert d["source_record_count"]==3 and d["independent_study_programmes"]==2
+          assert {r["id"] for r in d["records"]}=={4650464,4650488,3881439}
+          assert d["raw_data_redistributed"] is False
+          assert d["alleles_read"] is False
+          assert d["fitness_effects_computed"] is False
+          assert all(r["decision"] in (
+            "PUBLIC_SOURCE_SCHEMAS_ONLY_NO_GENETIC_FUNCTION_LINK_ESTIMATED",
+            "ZENODO_SOURCE_ACCESS_STOP") for r in d["records"])
+          PY
+
       - name: Upload derivative metadata only
         uses: actions/upload-artifact@v4
         with:
