@@ -95,6 +95,14 @@ def audit(path: Path) -> dict:
     def tally(key: str, subset: list[dict]) -> dict[str,int]:
         return dict(sorted(Counter(str(row.get(key)) for row in subset).items()))
     complete_by_study = Counter(str(r.get("Study")) for r in eligible)
+    timed = []
+    for row in eligible:
+        try:
+            a = float(row["gen_post_He"])
+            b = float(row["gen_post_fit"])
+            timed.append(abs(a - b) < 1e-12)
+        except (ValueError, TypeError, KeyError):
+            timed.append(None)
     report = {
         "status": "SCHEMA_ONLY_NO_EFFECT_VALUES_OPENED",
         "date": "2026-11-15",
@@ -112,6 +120,10 @@ def audit(path: Path) -> dict:
         "complete_original_author_slice_rows": len(eligible),
         "unique_original_studies_raw": len(set(str(r.get("Study")) for r in rows if r.get("Study"))),
         "unique_original_studies_complete": len(complete_by_study),
+        "taxonomic_class_levels_complete": tally("Class", eligible),
+        "fitness_measurement_and_heterozygosity_same_generation_rows": sum(v is True for v in timed),
+        "fitness_measurement_and_heterozygosity_different_generation_rows": sum(v is False for v in timed),
+        "fitness_measurement_timing_not_resolved_rows": sum(v is None for v in timed),
         "fitness_parameter_levels_raw": tally("fit_par", rows),
         "fitness_parameter_levels_complete": tally("fit_par", eligible),
         "translocation_treatment_levels_complete": tally("tran_R", eligible),
