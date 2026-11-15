@@ -93,6 +93,26 @@ jobs:
           assert result["raw_same_unit_linkage_verified_and_effects_estimated"]==0
           PY
 
+      - name: Probe public Pyrus Dryad workbook sheet schema (no effect values)
+        run: |
+          python research/rescue_coupling/audit_pyrus_dryad_schema.py \
+            --output rescue_schema_artifact/pyrus_2019_dryad_schema_probe.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          x=json.loads(Path("rescue_schema_artifact/pyrus_2019_dryad_schema_probe.json").read_text())
+          assert x["doi"]=="doi:10.5061/dryad.6t72p3j"
+          assert x["outcome_values_opened"] is False
+          assert x["uncontrolled_effect_estimated"] is False
+          assert x["data_redistributed"] is False
+          assert x["decision"] in (
+              "SHEET_SCHEMA_ONLY_REVIEW_TREATMENT_GRAIN_BEFORE_OUTCOME",
+              "ACCESS_STOP_NO_RAW_COHORT_LINKAGE_CLAIM",
+              "DATA_FORMAT_STOP_REVIEW_FILE_METADATA"
+          )
+          print("Source access status:",x["schema_status"],x["decision"])
+          PY
+
       - name: Upload derivative metadata only
         uses: actions/upload-artifact@v4
         with:
