@@ -240,6 +240,27 @@ jobs:
           assert h["do_not_promote_to_independent_cohort_without_source_crosswalk"] is True
           PY
 
+      - name: Audit Dianthus F0 maternal and F1 offspring same-workbook identifier joins
+        run: |
+          python research/rescue_coupling/audit_dianthus_within_fitness_maternal_ids.py \
+            --output rescue_schema_artifact/dianthus_2021_maternal_fitness_id_gate.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          a=json.loads(Path("rescue_schema_artifact/dianthus_2021_maternal_fitness_id_gate.json").read_text())
+          assert a["status"]=="DIANTHUS_FITNESS_WORKBOOK_INTERNAL_IDS_NO_GENOTYPES_OR_OUTCOMES_OPENED"
+          assert a["source_fitness_flowering_rows"]==619
+          assert a["source_fitness_seed_rows"]==125
+          assert a["source_fitness_F1_growth_rows"]==1171
+          assert a["HL_column_exists_in_F0_flowering"] is True
+          assert a["HL_column_exists_in_F1_seedling_growth"] is True
+          assert a["HL_column_absent_from_F0_seed_sheet"] is True
+          assert a["outcome_values_read"] is False
+          assert a["HL_values_read"] is False
+          assert a["genotype_alleles_read"] is False
+          assert a["third_party_source_redistributed"] is False
+          PY
+
       - name: Upload derivative metadata only
         uses: actions/upload-artifact@v4
         with:
