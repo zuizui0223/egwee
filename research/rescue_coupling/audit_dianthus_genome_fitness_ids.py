@@ -114,6 +114,14 @@ def audit()->dict:
     f0_full=keys(flw,["Population","Source","Transplant code"])
     f0seed_full=keys(seed,["Population","Source","Transplant code"])
     j_full=keys(juvenile,["Population","Source","Seedling code"])
+    # The Seedling code is a local child number. Maternal transplant must be
+    # retained when testing identity grain; do not treat 1171 F1 rows as
+    # independent individual IDs before this hierarchical check.
+    j_family=keys(juvenile,["Population","Source","Maternal transplant"])
+    j_mother_child=keys(juvenile,["Population","Source","Maternal transplant","Seedling code"])
+    f0_no_source=keys(flw,["Population","Transplant code"])
+    f0seed_no_source=keys(seed,["Population","Transplant code"])
+    j_family_no_source=keys(juvenile,["Population","Maternal transplant"])
     def joined(genome_keys,fitness_keys):
         match=set(genome_keys)&set(fitness_keys)
         return {"genomic_unique_keys":len(genome_keys),
@@ -135,6 +143,26 @@ def audit()->dict:
             "literal_population_plus_code":joined(g_pop,popkey),
             "literal_population_source_code":joined(g_full,fullkey)
         }
+    f1_mother_matches=set(j_family)&set(f0seed_full)
+    f1_mother_matches_flower=set(j_family)&set(f0_full)
+    joint_f0_mother_key_match=set(f0_full)&set(f0seed_full)
+    cohort_linkage={
+        "F0_flowering_to_F0_seed_mother_shared_keys":len(joint_f0_mother_key_match),
+        "F0_seed_to_F1_maternal_shared_population_source_keys":len(f1_mother_matches),
+        "F0_flowering_to_F1_maternal_shared_population_source_keys":len(f1_mother_matches_flower),
+        "F0_seed_to_F1_maternal_shared_population_keys":len(set(f0seed_no_source)&set(j_family_no_source)),
+        "F0_flowering_to_F1_maternal_shared_population_keys":len(set(f0_no_source)&set(j_family_no_source)),
+        "F1_repeated_local_seedling_code_unique":len(j_id),
+        "F1_unique_full_mother_child_text_keys":len(j_mother_child),
+        "F1_rows_with_full_mother_child_key":sum(j_mother_child.values()),
+        "F1_full_mother_child_duplicate_label_keys":sum(v>1 for v in j_mother_child.values()),
+        "F1_max_rows_per_mother_child_label":max(j_mother_child.values()) if j_mother_child else 0,
+        "F1_maternal_family_keys":len(j_family),
+        "F1_maternal_keys_with_multiple_offspring":sum(v>1 for v in j_family.values()),
+        "F1_rows_from_mothers_with_a_F0_seed_record":sum(j_family[k] for k in f1_mother_matches),
+        "mother_child_is_provisional_text_key":True,
+        "do_not_promote_to_independent_cohort_without_source_crosswalk":True
+    }
     result={
       "status":"DIANTHUS_F0_F1_SOURCE_ID_LINKAGE_AUDIT_NO_PHENOTYPES_OPENED",
       "study_doi":"10.1111/mec.15930",
@@ -152,6 +180,7 @@ def audit()->dict:
       "genotype_individual_code_nonempty":len(values(gen,"Ind. code")),
       "genotype_individual_code_distinct":len(set(values(gen,"Ind. code"))),
       "comparisons":rows,
+      "phenotype_cohort_identifier_linkage":cohort_linkage,
       "outcome_fields_read":False,
       "microsatellite_alleles_read":False,
       "raw_data_redistributed":False,
