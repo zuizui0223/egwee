@@ -2,7 +2,7 @@
 """Audit primary Zenodo genotype/fitness file schemas WITHOUT inspecting values.
 
 The Dianthus paper supplies separate published genotype and fitness data records.
-An Arnica 2020 fitness record is a distinct botanical programme. This script
+The Arnica 2020 programme also provides independent original genotype and fitness records. This script
 does not conflate those systems, perform ID joins, read locus genotypes, read
 fitness outcomes or infer causal genomic rescue.
 """
@@ -14,7 +14,8 @@ from xml.etree import ElementTree as ET
 RECORDS = [
   {"id":4650464,"role":"Dianthus_2021_individual_microsatellites","doi":"10.5281/zenodo.4650464","study":"Dianthus_deltoides_2021"},
   {"id":4650488,"role":"Dianthus_2021_F0_F1_fitness","doi":"10.5281/zenodo.4650488","study":"Dianthus_deltoides_2021"},
-  {"id":3881439,"role":"Arnica_2020_F0_F1_fitness","doi":"10.5281/zenodo.3881439","study":"Arnica_montana_2020"}
+  {"id":3881439,"role":"Arnica_2020_F0_F1_fitness","doi":"10.5281/zenodo.3881439","study":"Arnica_montana_2020"},
+  {"id":3881466,"role":"Arnica_2020_individual_microsatellites","doi":"10.5281/zenodo.3881466","study":"Arnica_montana_2020"}
 ]
 MAX_METADATA=2*1024*1024
 MAX_FILE=4*1024*1024
