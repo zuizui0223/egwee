@@ -194,9 +194,16 @@ def main():
     else:
         try:
             result["primary"]=calculate(valid," Viable seed set","primary_Arnica_maternal_HL_versus_viable_seed")
-            result["secondary"]=calculate(valid,"Seed germination","secondary_Arnica_maternal_HL_versus_germination")
             result["status"]="EXPLORATORY_SINGLE_PROGRAMME_ASSOCIATION_COMPUTED_NOT_META"
             result["decision"]="Report only conditional maternal correlations; no causal genetic rescue or partner-service interpretation"
+            # Secondary was explicitly non-primary; its failure must not erase
+            # a valid preregistered primary result.
+            try:
+                result["secondary"]=calculate(valid,"Seed germination","secondary_Arnica_maternal_HL_versus_germination")
+                result["secondary_status"]="COMPUTED_DESCRIPTIVE_ONLY"
+            except GateStop as e:
+                result["secondary_status"]="STOP_WITHOUT_AFFECTING_PRIMARY"
+                result["secondary_decision"]=str(e)
         except GateStop as e:
             result["status"]="SOURCE_QUALITY_OR_COVERAGE_STOP"
             result["decision"]=str(e)
