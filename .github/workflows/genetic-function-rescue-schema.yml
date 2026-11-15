@@ -169,6 +169,32 @@ jobs:
           assert j["decision"] in ("VERIFY_RAW_ID_CROSSWALK_FROM_SOURCE_DICTIONARY","CHECK_SEMANTIC_ID_MAPPING_BEFORE_JOIN")
           PY
 
+      - name: Inspect full Genodive published samples and bound cross-file ID join
+        run: |
+          python research/rescue_coupling/audit_ziziphus_genodive_sample_ids.py \
+            --output rescue_schema_artifact/ziziphus_2025_genodive_id_gate.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          j=json.loads(Path("rescue_schema_artifact/ziziphus_2025_genodive_id_gate.json").read_text(encoding="utf-8"))
+          assert j["status"]=="PUBLISHED_GENODIVE_SOURCE_IDENTIFIER_AUDIT"
+          assert j["source_id"]==58525312
+          assert j["outcome_values_read"] is False
+          assert j["microsatellite_alleles_read"] is False
+          assert j["source_raw_data_redistributed"] is False
+          assert j["join_verdict"] in ("UNVERIFIED_SEMANTIC_CROSSWALK_REQUIRED","FORMAT_STOP_SOURCE_DESCRIPTION_REQUIRED")
+          if j["parse_status"]=="GENODIVE_SAMPLE_NAMES_ONLY_VERIFIED":
+              assert j["declared_observed_count_consistent"]
+              assert j["declared_individuals"]==1120
+              assert j["declared_populations"]==12
+              assert j["declared_loci"]==12
+              assert j["distinct_sample_name_labels"]==1120
+              assert j["nonempty_sample_name_records"]==1120
+              assert j["genotype_fields_not_read"] is True
+              assert j["genodive_population_names_not_exposed_in_artifact"] is True
+              assert j["overlap_sample_to_survival_labels"]=={"plant_id":0,"genotype":0,"Rgenotype":0}
+          PY
+
       - name: Upload derivative metadata only
         uses: actions/upload-artifact@v4
         with:

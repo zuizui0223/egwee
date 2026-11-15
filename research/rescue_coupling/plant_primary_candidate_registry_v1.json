@@ -69,12 +69,18 @@
       "function": [
         "sibship-dependent transplanted-plant survival; offspring production/parentage in ex situ programme"
       ],
-      "status": "PUBLIC_SOURCE_ID_GRAIN_STOP_v1_no_verified_genotype_survival_join",
+      "status": "full_1120_transplant_genodive_source_verified_but_individual_survival_crosswalk_STOP",
       "stream": "B_genotype_and_fitness_observational",
-      "gate": "Source-audited Figshare 30290722 records: 1185 survival rows, only 98 distinct popcode×plant_id labels, 261 with intro_yr, 358 including genotype; max 73 rows sharing richer key; molecular workbook first columns unlabeled, zero naive exact sample label overlaps. No verified independent individual key, no direct function endpoint. See ZIZIPHUS_GENOTYPE_SURVIVAL_ID_GATE_20261115.md.",
+      "gate": "GenoDive source file 58525312 has 1120 unique sample labels, 12 named populations and 12 microsatellite loci. Public long survival TSV has 1185 records, 40 local plant_id labels, 41 popcode values. Zero sample IDs match plant_id/genotype/Rgenotype; 3 of 12 population names overlap textually with popcode, but no verified biological mapping. Do not equate local group labels with genetic individuals. Same-study functional endpoint is still unconfirmed.",
       "confirmed_direct_F": false,
       "confirmed_molecular": true,
-      "raw_dataset_reported": true
+      "raw_dataset_reported": true,
+      "source_subfiles": [
+        "Zc_parentgenotypedata.xlsx (candidate 52-parent panel; 59 XML rows)",
+        "Copy of Genodive All Populations.2025 (1120 genotyped transplant rows)",
+        "ziziphus.survival.txt (1185 long records)"
+      ],
+      "latest_provenance": "research/rescue_coupling/ZIZIPHUS_FULL_GENODIVE_ID_GATE_20261115.md"
     },
     {
       "id": "RC004",
