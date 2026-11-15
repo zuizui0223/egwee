@@ -71,7 +71,7 @@ def audit():
     raw_gen=get(files[FILE_GENOTYPES]["download_url"])
     raw_surv=get(files[FILE_SURVIVAL]["download_url"])
     text=raw_surv.decode("utf-8-sig")
-    reader=csv.DictReader(StringIO(text),delimiter=",")
+    reader=csv.DictReader(StringIO(text),delimiter="\t")  # published .txt is TSV, not CSV
     needed=["plant_id","genotype","Rgenotype","intro_yr","intro_type","popcode"]
     if not set(needed)<=set(reader.fieldnames or []):
         raise ValueError(f"Required identifier fields absent: {set(needed)-set(reader.fieldnames or [])}")
