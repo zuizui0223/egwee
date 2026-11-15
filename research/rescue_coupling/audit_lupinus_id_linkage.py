@@ -78,12 +78,21 @@ def main():
     phy=download(files[names[0]]["download_url"])
     geno=download(files[names[1]]["download_url"])
     ph_header, ph=data_to_sparse_rows(phy,"xl/worksheets/sheet2.xml",{"id","genotype","population","line","sister","year"})
+    # Sheet11 contains assay-level Sample(s) labels, not necessarily per-individual
+    # sequencing IDs. Sheet8 separately registers pre-registered and novel samples.
     gen_header, samples=data_to_sparse_rows(geno,"xl/worksheets/sheet11.xml",{"Sample(s)"})
-    if "id" not in ph_header or "Sample(s)" not in gen_header:raise ValueError("Required source ID field absent")
+    list_header, sheet8=data_to_sparse_rows(geno,"xl/worksheets/sheet8.xml",{"Pre-registered sample(s)","Novel sample(s)"})
+    if "id" not in ph_header or "Sample(s)" not in gen_header:
+        raise ValueError("Required source ID fields absent")
     ph_ids=[clean_id(x.get("id","")) for x in ph if clean_id(x.get("id",""))]
-    gen_ids=[clean_id(x.get("Sample(s)","")) for x in samples if clean_id(x.get("Sample(s)",""))]
-    ph_unique=set(ph_ids);gen_unique=set(gen_ids)
-    exact=ph_unique & gen_unique
+    group_ids=[clean_id(x.get("Sample(s)","")) for x in samples if clean_id(x.get("Sample(s)",""))]
+    pre_ids=[clean_id(x.get("Pre-registered sample(s)","")) for x in sheet8 if clean_id(x.get("Pre-registered sample(s)",""))]
+    novel_ids=[clean_id(x.get("Novel sample(s)","")) for x in sheet8 if clean_id(x.get("Novel sample(s)",""))]
+    ph_unique=set(ph_ids);group_unique=set(group_ids)
+    pre_unique=set(pre_ids);novel_unique=set(novel_ids)
+    sheet8_unique=pre_unique|novel_unique
+    exact_group=ph_unique & group_unique
+    exact_sheet8=ph_unique & sheet8_unique
     def counts(col):
         return dict(sorted(Counter(str(x.get(col,"")) for x in ph if x.get(col,"") not in (None,"")).items()))
     out={
@@ -96,20 +105,27 @@ def main():
         "phenotype_identifier_nonempty_rows":len(ph_ids),
         "phenotype_unique_identifiers":len(ph_unique),
         "repeated_phenotype_identifier_count":sum(n>1 for n in Counter(ph_ids).values()),
-        "vcf_metadata_xml_rows_excluding_header":len(samples),
-        "vcf_metadata_identifier_nonempty_rows":len(gen_ids),
-        "vcf_metadata_unique_identifiers":len(gen_unique),
-        "exact_case_whitespace_normalized_id_overlap":len(exact),
-        "fraction_of_vcf_metadata_ids_matched_exactly":len(exact)/len(gen_unique) if gen_unique else None,
+        "vcf_metadata_sheet11_xml_rows_with_selected_field":len(samples),
+        "vcf_metadata_sheet11_nonempty_group_labels":len(group_ids),
+        "vcf_metadata_unique_identifiers":len(group_unique),
+        "metadata_sheet8_xml_rows_with_sample_fields":len(sheet8),
+        "metadata_sheet8_preregistered_names_nonempty":len(pre_ids),
+        "metadata_sheet8_novel_names_nonempty":len(novel_ids),
+        "metadata_sheet8_unique_potential_sample_names":len(sheet8_unique),
+        "exact_case_whitespace_normalized_id_overlap":len(exact_sheet8),
+        "exact_match_to_sheet11_group_labels":len(exact_group),
+        "fraction_of_sheet8_potential_samples_matched":len(exact_sheet8)/len(sheet8_unique) if sheet8_unique else None,
         "phenotype_group_fields_available":ph_header,
-        "metadata_group_fields_available":gen_header,
-        "phenotype_treatment_group_levels":{k:counts(k) for k in ["genotype","population","line","year"] if k in ph_header},
+        "metadata_sheet11_group_fields_available":gen_header,
+        "metadata_sheet8_potential_sample_fields_available":list_header,
+        "phenotype_group_field_cardinality":{k:len(counts(k)) for k in ["genotype","population","line","year"] if k in ph_header},
+        "phenotype_year_category_counts":counts("year") if "year" in ph_header else {},
         "outcome_fields_present_in_same_phenotype_sheet":["number_of_seeds","seed_weight","flowering_onset","shoot_growth"],
         "outcome_values_read":False,
         "vcf_genotypes_read":False,
         "raw_files_redistributed":False,
         "no_speculative_matching_policy":True,
-        "decision":"ID_LINKAGE_REQUIRES_SOURCE_CROSSWALK" if len(exact)==0 else "EXACT_ID_MATCHES_EXIST_CHECK_UNIT_AND_LAG_BEFORE_EFFECTS"
+        "decision":"ID_LINKAGE_REQUIRES_SOURCE_CROSSWALK" if len(exact_sheet8)==0 else "EXACT_ID_MATCHES_EXIST_CHECK_UNIT_AND_LAG_BEFORE_EFFECTS"
     }
     a.output.parent.mkdir(parents=True,exist_ok=True)
     a.output.write_text(json.dumps(out,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
