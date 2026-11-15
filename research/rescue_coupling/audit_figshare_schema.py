@@ -62,9 +62,9 @@ def main():
         try:
             meta=json.loads(pull(url,limit=2*1024*1024).decode("utf-8"))
             doi=meta.get("doi","").lower().removeprefix("https://doi.org/")
-            if doi!=entry["expected_doi"].lower():
-                # Some Figshare DOI aliases include a version suffix: fail closed.
-                raise ValueError("DOI mismatch or unexpected version: "+doi)
+            expected=entry["expected_doi"].lower()
+            if doi!=expected and not (doi.startswith(expected+".v") and doi[len(expected)+2:].isdigit()):
+                raise ValueError("DOI mismatch or unexpected article: "+doi)
             rec["article_title"]=meta.get("title")
             rec["article_doi"]=doi
             rec["metadata_status"]="verified"
