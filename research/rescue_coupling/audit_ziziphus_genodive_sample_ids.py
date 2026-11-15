@@ -55,6 +55,9 @@ def read_native_identifiers(data:bytes)->dict:
     if len(lines)<pops+3:
         return out | {"parse_status":"TRUNCATED_POPULATION_BLOCK"}
     tab=lambda x:next(csv.reader([x],delimiter="\t"))
+    # The Genodive population-name block is metadata, not genotype calls.
+    # Some population lines may also encode optional group names after tabs.
+    population_names={norm(tab(line)[0]) for line in lines[2:2+pops] if norm(tab(line)[0])}
     header=tab(lines[2+pops])
     # Strict parser: 3 or 4 non-marker columns (pop / optional clone / individual)
     sample_idx=None
@@ -100,7 +103,9 @@ def read_native_identifiers(data:bytes)->dict:
         "distinct_sample_name_labels":len(observed),
         "sample_names_reused":sum(n>1 for n in observed.values()),
         "_private_sample_names":set(observed),
-        "_private_pop_sample_records":set(records)
+        "_private_pop_sample_records":set(records),
+        "_private_population_names":population_names,
+        "distinct_named_populations":len(population_names)
     }
 
 def audit()->dict:
@@ -121,6 +126,7 @@ def audit()->dict:
     parsed=read_native_identifiers(binary)
     sample_names=parsed.pop("_private_sample_names",set())
     pop_sample=parsed.pop("_private_pop_sample_records",set())
+    popnames=parsed.pop("_private_population_names",set())
     result={
         "status":"PUBLISHED_GENODIVE_SOURCE_IDENTIFIER_AUDIT",
         "article_doi":doi,
@@ -146,6 +152,9 @@ def audit()->dict:
         }
         result["overlap_pop_and_sample_to_popcode_plantid"] = len(
             pop_sample & {(row["popcode"],row["plant_id"]) for row in whitelist})
+        result["exact_genodive_population_name_to_survival_popcode"] = len(
+            popnames & {row["popcode"] for row in whitelist if row["popcode"]})
+        result["genodive_population_names_not_exposed_in_artifact"]=True
         result["join_verdict"]="UNVERIFIED_SEMANTIC_CROSSWALK_REQUIRED"
     else:
         result["join_verdict"]="FORMAT_STOP_SOURCE_DESCRIPTION_REQUIRED"
