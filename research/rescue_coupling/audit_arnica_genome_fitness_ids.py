@@ -65,6 +65,33 @@ def audit()->dict:
     for label,(sheet,fields) in SHEETS.items():
         source=geno if label=="genotypes" else fitness
         data[label]=read_whitelisted(source,sheet,fields)
+    # Compare the same named biological generation, not all genotyped plants:
+    # juvenile-genome rows versus established-F1-juvenile fitness rows.
+    juvenile_genomes=[r for r in data["genotypes"] if r.get("generation")=="juvenile"]
+    juvenile_fitness=data["juvenile"]
+    geno_by_ind={}
+    repeated_genome_id=0
+    for r in juvenile_genomes:
+        ind=r.get("Ind","")
+        if ind in geno_by_ind:repeated_genome_id+=1
+        else:geno_by_ind[ind]=r.get("Site","")
+    fitness_by_ind={}
+    repeated_fitness_id=0
+    for r in juvenile_fitness:
+        ind=r.get("Ind","")
+        if ind in fitness_by_ind:repeated_fitness_id+=1
+        else:fitness_by_ind[ind]=r.get("Site","")
+    common=set(geno_by_ind)&set(fitness_by_ind)
+    site_pairs=Counter((geno_by_ind[i],fitness_by_ind[i]) for i in common)
+    by_gen_site={}
+    by_fitness_site={}
+    for left,right in site_pairs:
+        by_gen_site.setdefault(left,set()).add(right)
+        by_fitness_site.setdefault(right,set()).add(left)
+    site_mapping_unambiguous=(
+        all(len(v)==1 for v in by_gen_site.values())
+        and all(len(v)==1 for v in by_fitness_site.values())
+    )
     d={
         "status":"ARNICA_2020_ID_ONLY_JOINS_NO_EFFECT_VALUES",
         "paper_doi":"10.1111/mec.15550",
@@ -91,6 +118,21 @@ def audit()->dict:
         "genotype_vs_F1_juvenile":{
             "ID_only":compare(freq(data["genotypes"],["Ind"]),freq(data["juvenile"],["Ind"])),
             "Site_ID":compare(freq(data["genotypes"],["Site","Ind"]),freq(data["juvenile"],["Site","Ind"]))
+        },
+        "same_generation_F1_juvenile_identifier_link":{
+            "genetic_rows_labeled_juvenile":len(juvenile_genomes),
+            "fitness_juvenile_rows":len(juvenile_fitness),
+            "unique_genetic_juvenile_IDs":len(geno_by_ind),
+            "unique_fitness_juvenile_IDs":len(fitness_by_ind),
+            "genetic_ID_duplicates":repeated_genome_id,
+            "fitness_ID_duplicates":repeated_fitness_id,
+            "exact_individual_ID_overlap":len(common),
+            "matched_identifiers_with_exact_site_text":sum(geno_by_ind[k]==fitness_by_ind[k] for k in common),
+            "distinct_site_pair_links":len(site_pairs),
+            "anonymised_site_pair_counts":sorted(site_pairs.values(),reverse=True),
+            "candidate_mapping_one_to_one_between_site_labels":site_mapping_unambiguous,
+            "site_label_match_is_NOT_original_author_crosswalk":True,
+            "biological_join_status":"CANDIDATE_COHORT_MATCH_NEEDS_ORIGINAL_SITE_CODEBOOK",
         },
         "F0_seed_has_maternal_HL_column":True,
         "F0_seed_has_viable_seed_germination_columns":True,
