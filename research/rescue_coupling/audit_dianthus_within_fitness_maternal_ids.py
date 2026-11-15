@@ -8,12 +8,14 @@ growth or outcome values are opened or redistributed.
 """
 from __future__ import annotations
 import argparse
+import hashlib
 from collections import Counter
 import json
 from pathlib import Path
 from audit_dianthus_genome_fitness_ids import (
     source_file, read_whitelisted, SRC, SHEETS
 )
+from audit_zenodo_genetic_fitness_schema import workbook_sheets
 
 FIELDS={
     "flower":{"Population","Source","Transplant code"},
@@ -46,6 +48,21 @@ def join_audit(left, right, lcols, rcols):
 
 def audit():
     source=source_file(*SRC["fitness"])
+    source_sha=hashlib.sha256(source).hexdigest()
+    expected="07e37aa193dfdf974de229cf29f0255126dc3e75d32c0189002d8eb81e77b5b2"
+    if source_sha != expected:
+        raise ValueError("Source workbook digest changed")
+    schemas=workbook_sheets(source)
+    sheet_headers={record["sheet"]:set(record["first_row_header_fields"]) for record in schemas}
+    for sname in SHEETS.values():
+        if sname not in sheet_headers:
+            raise ValueError("Original worksheet moved")
+    if "HL" not in sheet_headers[SHEETS["transplant_flowering"]]:
+        raise ValueError("F0 molecular index missing")
+    if "HL" not in sheet_headers[SHEETS["F1_seedling_growth"]]:
+        raise ValueError("F1 molecular index missing")
+    if "HL" in sheet_headers[SHEETS["transplant_seed_fitness"]]:
+        raise ValueError("F0 seed worksheet HL schema unexpectedly changed")
     flower=read_whitelisted(source,SHEETS["transplant_flowering"],FIELDS["flower"])
     seed=read_whitelisted(source,SHEETS["transplant_seed_fitness"],FIELDS["seed"])
     juvenile=read_whitelisted(source,SHEETS["F1_seedling_growth"],FIELDS["juvenile"])
@@ -64,7 +81,7 @@ def audit():
     return {
       "status":"DIANTHUS_FITNESS_WORKBOOK_INTERNAL_IDS_NO_GENOTYPES_OR_OUTCOMES_OPENED",
       "fitness_source_doi":"10.5281/zenodo.4650488",
-      "source_sha256":"07e37aa193dfdf974de229cf29f0255126dc3e75d32c0189002d8eb81e77b5b2",
+      "source_sha256":source_sha,
       "source_fitness_flowering_rows":len(flower),
       "source_fitness_seed_rows":len(seed),
       "source_fitness_F1_growth_rows":len(juvenile),
