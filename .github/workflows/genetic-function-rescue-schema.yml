@@ -256,6 +256,18 @@ jobs:
           assert a["HL_column_exists_in_F1_seedling_growth"] is True
           assert a["HL_column_absent_from_F0_seed_sheet"] is True
           assert a["outcome_values_read"] is False
+          # Newly audited strict mother/seed keys: never relabel 84 ambiguous
+          # code-only matches as 84 independent, valid molecular links.
+          links=a["identifier_links"]
+          strict=links["F0_mother_seed_population_source_transplant"]
+          loose=links["F0_mother_seed_transplant_code_only"]
+          assert strict["right_records_with_matching_left_key"]==31
+          assert strict["matched_literal_keys"]==31
+          assert strict["left_matched_keys_with_duplicate_left_rows"]==0
+          assert strict["right_matched_keys_with_duplicate_right_rows"]==0
+          assert loose["right_records_with_matching_left_key"]==84
+          assert links["F1_seedling_mother_population_source_transplant"]["matched_literal_keys"]==0
+          assert a["source_sha256"]=="07e37aa193dfdf974de229cf29f0255126dc3e75d32c0189002d8eb81e77b5b2"
           assert a["HL_values_read"] is False
           assert a["genotype_alleles_read"] is False
           assert a["third_party_source_redistributed"] is False
