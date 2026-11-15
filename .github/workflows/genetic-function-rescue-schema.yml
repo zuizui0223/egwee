@@ -195,6 +195,148 @@ jobs:
               assert j["overlap_sample_to_survival_labels"]=={"plant_id":0,"genotype":0,"Rgenotype":0}
           PY
 
+      - name: Audit independent Dianthus genotype/fitness and Arnica fitness Zenodo records
+        run: |
+          python research/rescue_coupling/audit_zenodo_genetic_fitness_schema.py \
+            --output rescue_schema_artifact/dianthus_arnica_zenodo_source_schemas.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("rescue_schema_artifact/dianthus_arnica_zenodo_source_schemas.json")
+          d=json.loads(p.read_text(encoding="utf-8"))
+          assert d["status"]=="PUBLIC_ZENODO_SCHEMA_ONLY_NO_OUTCOME_VALUES"
+          assert d["source_record_count"]==4 and d["independent_study_programmes"]==2
+          assert {r["id"] for r in d["records"]}=={4650464,4650488,3881439,3881466}
+          assert d["raw_data_redistributed"] is False
+          assert d["alleles_read"] is False
+          assert d["fitness_effects_computed"] is False
+          assert all(r["decision"] in (
+            "PUBLIC_SOURCE_SCHEMAS_ONLY_NO_GENETIC_FUNCTION_LINK_ESTIMATED",
+            "ZENODO_SOURCE_ACCESS_STOP") for r in d["records"])
+          PY
+
+      - name: Audit Dianthus genomic source against F0 flowering/seed and F1 seedlings by exact ID
+        run: |
+          python research/rescue_coupling/audit_dianthus_genome_fitness_ids.py \
+            --output rescue_schema_artifact/dianthus_2021_genome_fitness_id_gate.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path("rescue_schema_artifact/dianthus_2021_genome_fitness_id_gate.json").read_text())
+          assert d["status"]=="DIANTHUS_F0_F1_SOURCE_ID_LINKAGE_AUDIT_NO_PHENOTYPES_OPENED"
+          assert d["genotype_record_rows"]==1173
+          assert d["fitness_flowering_record_rows"]==619
+          assert d["fitness_seed_record_rows"]==125
+          assert d["fitness_F1_juvenile_record_rows"]==1171
+          assert d["outcome_fields_read"] is False
+          assert d["microsatellite_alleles_read"] is False
+          assert d["raw_data_redistributed"] is False
+          assert set(d["comparisons"])=={"F0_flowering","F0_seed","F1_juvenile"}
+          h=d["phenotype_cohort_identifier_linkage"]
+          assert h["F1_repeated_local_seedling_code_unique"]<=d["fitness_F1_juvenile_record_rows"]
+          assert h["F1_unique_full_mother_child_text_keys"]>=h["F1_repeated_local_seedling_code_unique"]
+          assert h["F1_unique_full_mother_child_text_keys"]<=d["fitness_F1_juvenile_record_rows"]
+          assert h["mother_child_is_provisional_text_key"] is True
+          assert h["do_not_promote_to_independent_cohort_without_source_crosswalk"] is True
+          PY
+
+      - name: Audit Dianthus F0 maternal and F1 offspring same-workbook identifier joins
+        run: |
+          python research/rescue_coupling/audit_dianthus_within_fitness_maternal_ids.py \
+            --output rescue_schema_artifact/dianthus_2021_maternal_fitness_id_gate.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          a=json.loads(Path("rescue_schema_artifact/dianthus_2021_maternal_fitness_id_gate.json").read_text())
+          assert a["status"]=="DIANTHUS_FITNESS_WORKBOOK_INTERNAL_IDS_NO_GENOTYPES_OR_OUTCOMES_OPENED"
+          assert a["source_fitness_flowering_rows"]==619
+          assert a["source_fitness_seed_rows"]==125
+          assert a["source_fitness_F1_growth_rows"]==1171
+          assert a["HL_column_exists_in_F0_flowering"] is True
+          assert a["HL_column_exists_in_F1_seedling_growth"] is True
+          assert a["HL_column_absent_from_F0_seed_sheet"] is True
+          assert a["outcome_values_read"] is False
+          # Newly audited strict mother/seed keys: never relabel 84 ambiguous
+          # code-only matches as 84 independent, valid molecular links.
+          links=a["identifier_links"]
+          strict=links["F0_mother_seed_population_source_transplant"]
+          loose=links["F0_mother_seed_transplant_code_only"]
+          assert strict["right_records_with_matching_left_key"]==31
+          assert strict["matched_literal_keys"]==31
+          assert strict["left_matched_keys_with_duplicate_left_rows"]==0
+          assert strict["right_matched_keys_with_duplicate_right_rows"]==0
+          assert loose["right_records_with_matching_left_key"]==84
+          assert links["F1_seedling_mother_population_source_transplant"]["matched_literal_keys"]==0
+          assert a["source_sha256"]=="07e37aa193dfdf974de229cf29f0255126dc3e75d32c0189002d8eb81e77b5b2"
+          assert a["HL_values_read"] is False
+          assert a["genotype_alleles_read"] is False
+          assert a["third_party_source_redistributed"] is False
+          PY
+
+      - name: Probe Arnica source-exact genotype versus maternal seed and F1 IDs
+        run: |
+          python research/rescue_coupling/audit_arnica_genome_fitness_ids.py \
+            --output rescue_schema_artifact/arnica_2020_genome_fitness_id_gate.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          j=json.loads(Path("rescue_schema_artifact/arnica_2020_genome_fitness_id_gate.json").read_text(encoding="utf-8"))
+          assert j["status"]=="ARNICA_2020_ID_ONLY_JOINS_NO_EFFECT_VALUES"
+          assert j["paper_doi"]=="10.1111/mec.15550"
+          assert j["genetic_source_doi"]=="10.5281/zenodo.3881466"
+          assert j["fitness_source_doi"]=="10.5281/zenodo.3881439"
+          assert j["original_rows"]["genotypes"]==1189
+          assert j["original_rows"]["F0_seed"]==145
+          assert j["original_rows"]["F1_rosette_1"]==1392
+          assert j["original_rows"]["F1_rosette_2"]==312
+          assert j["original_rows"]["juvenile"]==250
+          assert j["genome_allele_values_read"] is False
+          assert j["HL_numeric_values_read"] is False
+          assert j["seed_fitness_values_read"] is False
+          assert j["raw_files_redistributed"] is False
+          assert j["source_code_mapping_unverified"] is True
+          h=j["genomic_F1_juvenile_cohort_ID_mapping"]
+          assert h["genomic_juvenile_source_rows"]==250
+          assert h["fitness_juvenile_source_rows"]==250
+          # The 250 all-genotype ID matches were NOT from the same cohort.
+          # The source-locked juvenile cohort has only 50 exact names and
+          # none with identical site labels. Keep that STOP rather than force a
+          # fictitious 250-individual genotype-to-fitness join.
+          assert h["juvenile_generation_exact_ID_overlap"]==50
+          assert h["matched_IDs_with_same_raw_site_code"]==0
+          assert h["matched_IDs_with_different_raw_site_codes"]==50
+          assert h["site_label_pairing_count"]==2
+          assert h["site_labels_1_to_1_among_matched_IDs"] is False
+          assert j["same_generation_F1_juvenile_identifier_link"]["exact_individual_ID_overlap"]==50
+          assert j["same_generation_F1_juvenile_identifier_link"]["matched_identifiers_with_exact_site_text"]==0
+          assert h["sample_identifiers_exposed"] is False
+          assert h["cross_source_site_code_semantics_verified"] is False
+          PY
+
+      - name: Run frozen Arnica maternal-HL and viable seed within-programme pilot
+        run: |
+          python research/rescue_coupling/analyse_arnica_maternal_HL_seed.py \
+            --output rescue_schema_artifact/arnica_2020_maternal_HL_seed_pilot.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path("rescue_schema_artifact/arnica_2020_maternal_HL_seed_pilot.json").read_text())
+          assert d["dataset_doi"]=="10.5281/zenodo.3881439"
+          assert d["source_sha256"]=="052fef893ed6bb3dd00fec4882c77b6f4f48ed85767fa2643a4809505d4e8e62"
+          assert d["protocol_pre_outcome_commit"]=="d5eb3b49ef5fb4ca58c9cafd90499681944b3a68"
+          assert d["maternal_source_rows"]==145
+          assert d["no_plant_translocation_causal_contrast"] is True
+          assert d["independent_meta_study_programmes"]==1
+          assert d["status"] in (
+            "EXPLORATORY_SINGLE_PROGRAMME_ASSOCIATION_COMPUTED_NOT_META",
+            "GRAIN_STOP_DUPLICATE_MOTHER_KEYS",
+            "SOURCE_QUALITY_OR_COVERAGE_STOP"
+          )
+          if "primary" in d:
+              assert -1<=d["primary"]["observed_pooled_within_site_source_rank_r"]<=1
+              assert d["primary"]["permutation_draws"]==10000
+          PY
+
       - name: Upload derivative metadata only
         uses: actions/upload-artifact@v4
         with:
