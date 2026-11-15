@@ -11,12 +11,12 @@ Published source programme: `Lupinus angustifolius` assisted gene flow in Spain,
 **Source identifier denominators (only identifiers/group labels read):**
 - Phenotype rows excluding worksheet header: **1,776**, all with nonempty `id`
 - Distinct phenotype `id` values: **1,598**; **178 repeated IDs**; these are not 1,776 independent plants. Repeats may be times/families/duplicated entries, not interpreted without source documentation
-- Genomic sample metadata rows: **11**, with **11 unique `Sample(s)`** strings
-- Exact case-folded/whitespace-normalized overlap between phenotype `id` and SNP sample `Sample(s)`: **0 / 11**
-- The phenotype data also include `genotype`, `population`, `line`, `sister`, `year` group fields and outcome column headers `number_of_seeds`, `seed_weight`, `flowering_onset`, `shoot_growth`
+- Genomic metadata's worksheet 11: **11 assay/group labels** (not 11 individual sequencing samples). Worksheet 8 additionally records **213 distinct potential sample names** across the pre-registered and novel fields; actual VCF genotype membership was not read
+- Exact case-folded/whitespace-normalized overlap between phenotype `id` and worksheet-11 assay labels: **0 / 11**; overlap against worksheet-8 **213 potential sample names** was also **0 / 213**
+- The source metadata initially made worksheet-11 group labels look like individual sample IDs. The later source audit checked worksheet 8 as the actual candidate sample register, preventing that misclassification. The phenotype data also include `genotype`, `population`, `line`, `sister`, `year` group fields and outcome column headers `number_of_seeds`, `seed_weight`, `flowering_onset`, `shoot_growth`
 - **No seed values, growth effect sizes, fitness signs, VCF variant calls or model outcome data read.**
 
-**Next admissibility gate:** recover publication-author source sample correspondence between genomic `Sample(s)` entries and phenotype `line` / `genotype` / `id` / `year`. The direct 0/11 identifier result alone **does not** prove there is no biological link; marker samples may represent a subset/parent line and require an explicit genotype- or pedigree-level mapping. Never invent this link by fuzzy matching or claim a SNP→seed-output result until tested.
+**Next admissibility gate:** recover publication-author source sample correspondence between worksheet-8 sequencing sample names (not worksheet-11 group labels) and phenotype `line` / `genotype` / `id` / `year`. The direct 0/11 identifier result alone **does not** prove there is no biological link; marker samples may represent a subset/parent line and require an explicit genotype- or pedigree-level mapping. Never invent this link by fuzzy matching or claim a SNP→seed-output result until tested.
 
 Only after a documented crosswalk may one predeclare independent family/line blocks, control group, generations, functional seed endpoint, and missingness; then generate signed effects under a reproducible model. Distinct `F1`/`F2` lineage labels can be repeated across individuals or generations and cannot be treated as new independent programmes.
 
