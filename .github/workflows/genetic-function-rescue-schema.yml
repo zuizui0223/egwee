@@ -185,7 +185,14 @@ jobs:
           assert j["join_verdict"] in ("UNVERIFIED_SEMANTIC_CROSSWALK_REQUIRED","FORMAT_STOP_SOURCE_DESCRIPTION_REQUIRED")
           if j["parse_status"]=="GENODIVE_SAMPLE_NAMES_ONLY_VERIFIED":
               assert j["declared_observed_count_consistent"]
-              assert j["declared_individuals"]>=1000
+              assert j["declared_individuals"]==1120
+              assert j["declared_populations"]==12
+              assert j["declared_loci"]==12
+              assert j["distinct_sample_name_labels"]==1120
+              assert j["nonempty_sample_name_records"]==1120
+              assert j["genotype_fields_not_read"] is True
+              assert j["genodive_population_names_not_exposed_in_artifact"] is True
+              assert j["overlap_sample_to_survival_labels"]=={"plant_id":0,"genotype":0,"Rgenotype":0}
           PY
 
       - name: Upload derivative metadata only
