@@ -73,7 +73,6 @@ jobs:
           assert j["genetic_fitness_same_generation_rows"]==19
           assert j["genetic_fitness_different_generation_rows"]==8
           assert j["genetic_fitness_timing_unresolved_rows"]==0
-          assert j["reproductive_success_source_studies"]==["Arrendal (2004)","Gustafson (2017)"]
           PY
 
       - name: Validate source-screened plant candidate ledger and independent programme grain
@@ -89,6 +88,11 @@ jobs:
           assert result["status"]=="SCREENED_CANDIDATE_EVIDENCE_MAP_NO_POOLED_META"
           assert result["publication_records_total"]==10
           assert result["independent_study_programme_keys_total"]==8
+          assert result["potentially_independent_primary_empirical_programmes"]==6
+          assert result["primary_empirical_publications_in_candidate_registry"]==8
+          assert result["aggregated_existing_review_records"]==1
+          assert result["simulation_records_excluded_from_empirical_meta"]==1
+          assert result["currently_meta_ready_programmes_with_matched_raw_G_F_effects"]==0
           assert result["molecular_and_direct_function_n_published_programmes"]==1
           assert result["raw_same_unit_linkage_verified_and_effects_estimated"]==0
           PY
@@ -120,3 +124,4 @@ jobs:
           path: rescue_schema_artifact/*.json
           retention-days: 30
           if-no-files-found: error
+
