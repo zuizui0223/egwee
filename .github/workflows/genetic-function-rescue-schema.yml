@@ -66,6 +66,10 @@ jobs:
           assert j["endpoint_rows_by_original_code"]=={"IR":3,"PS":20,"SR":4}
           assert j["direct_ecological_function_confirmed_from_aggregate_source"]==0
           assert j["reproductive_success_rows_for_source_level_screen"]==3
+          assert j["genetic_fitness_same_generation_rows"]==19
+          assert j["genetic_fitness_different_generation_rows"]==8
+          assert j["genetic_fitness_timing_unresolved_rows"]==0
+          assert j["reproductive_success_source_studies"]==["Arrendal (2004)","Gustafson (2017)"]
           PY
 
       - name: Upload derivative metadata only
