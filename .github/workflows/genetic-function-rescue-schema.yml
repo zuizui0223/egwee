@@ -49,10 +49,29 @@ jobs:
           print("Schema-only audit and non-disclosure checks passed")
           PY
 
+      - name: Apply locked endpoint ontology WITHOUT looking at effect directions
+        run: |
+          python research/rescue_coupling/classify_clarke_endpoints.py \
+            --schema rescue_schema_artifact/clarke_2024_schema_only.json \
+            --codebook research/rescue_coupling/CLARKE_ENDPOINT_CODEBOOK_20261115.json \
+            --output rescue_schema_artifact/clarke_2024_endpoint_gate.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("rescue_schema_artifact/clarke_2024_endpoint_gate.json")
+          j=json.loads(p.read_text(encoding="utf-8"))
+          assert j["status"]=="ENDPOINT_CLASSIFIED_NO_EFFECT_DIRECTIONS_OPENED"
+          assert j["paired_population_comparison_rows"]==27
+          assert j["independent_source_studies"]==19
+          assert j["endpoint_rows_by_original_code"]=={"IR":3,"PS":20,"SR":4}
+          assert j["direct_ecological_function_confirmed_from_aggregate_source"]==0
+          assert j["reproductive_success_rows_for_source_level_screen"]==3
+          PY
+
       - name: Upload derivative metadata only
         uses: actions/upload-artifact@v4
         with:
           name: rescue-coupling-clarke-schema
-          path: rescue_schema_artifact/clarke_2024_schema_only.json
+          path: rescue_schema_artifact/*.json
           retention-days: 30
           if-no-files-found: error
