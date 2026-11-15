@@ -116,6 +116,10 @@ def audit(path: Path) -> dict:
         "fitness_parameter_levels_complete": tally("fit_par", eligible),
         "translocation_treatment_levels_complete": tally("tran_R", eligible),
         "rows_per_study_complete": dict(sorted(complete_by_study.items())),
+        "studies_by_fitness_parameter": {
+            code: sorted({str(r["Study"]) for r in eligible if str(r.get("fit_par")) == code})
+            for code in sorted({str(r.get("fit_par")) for r in eligible})
+        },
         "all_complete_rows_share_pair_fields": all(r.get(x) not in (None, "") for r in eligible for x in SENSITIVE_VALUES),
         "secondary_analysis_permission": "SCHEMA_DISCOVERY_ONLY; separate blind endpoint codebook and estimand must be frozen before outcomes."
     }
