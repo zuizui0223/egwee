@@ -53,7 +53,6 @@ def gate(schema: dict, codebook: dict) -> dict:
         "same_numeric_post_generation_rows": same,
         "different_numeric_post_generation_rows": lag,
         "numeric_generation_equality_does_not_imply_same_cohort": True,
-        "reproductive_success_source_studies": schema["studies_by_fitness_parameter"].get("IR", []),
         "genetic_fitness_same_generation_rows": schema["fitness_measurement_and_heterozygosity_same_generation_rows"],
         "genetic_fitness_different_generation_rows": schema["fitness_measurement_and_heterozygosity_different_generation_rows"],
         "genetic_fitness_timing_unresolved_rows": schema["fitness_measurement_timing_not_resolved_rows"],
