@@ -35,6 +35,12 @@ def audit(reg: dict, clarke: dict | None) -> dict:
             raise ValueError("Simulation cannot count as empirical source")
     assert set(groups["Florida_ziziphus_restoration_programme"])=={"RC002","RC003"}
     assert set(groups["Lupinus_angustifolius_Spain_AGF_programme"])=={"RC004","RC005"}
+    # The eight candidate cluster keys include an existing 19-study REVIEW
+    # and one SIMULATION; they are not eight primary empirical replicates.
+    primary_empirical = [r for r in rows if r["id"] not in ("RC008", "RC010")]
+    primary_clusters = {r["system_cluster"] for r in primary_empirical}
+    assert len(primary_empirical) == 8
+    assert len(primary_clusters) == 6
     both=[r["id"] for r in rows if r["confirmed_direct_F"] and r["confirmed_molecular"] and r["stream"]!="C_simulation"]
     assert both==["RC001"], both
     direct=[r["id"] for r in rows if r["confirmed_direct_F"]]
@@ -48,6 +54,12 @@ def audit(reg: dict, clarke: dict | None) -> dict:
         "registered_on":reg["registered_on"],
         "publication_records_total":len(rows),
         "independent_study_programme_keys_total":len(groups),
+        "candidate_group_keys_including_review_and_simulation":len(groups),
+        "primary_empirical_publications_in_candidate_registry":len(primary_empirical),
+        "potentially_independent_primary_empirical_programmes":len(primary_clusters),
+        "aggregated_existing_review_records":1,
+        "simulation_records_excluded_from_empirical_meta":1,
+        "currently_meta_ready_programmes_with_matched_raw_G_F_effects":0,
         "programmes_grouping_publications":{k:v for k,v in sorted(groups.items()) if len(v)>1},
         "design_classes":dict(sorted(Counter(r["stream"] for r in rows).items())),
         "public_datasets_reported":sum(bool(r["raw_dataset_reported"]) for r in rows),
@@ -56,7 +68,7 @@ def audit(reg: dict, clarke: dict | None) -> dict:
         "molecular_and_direct_function_n_published_programmes":len({r["system_cluster"] for r in rows if r["id"] in both}),
         "raw_same_unit_linkage_verified_and_effects_estimated":0,
         "original_clarke_pre_post_rows_in_prior_meta_not_new_independent_experiments":27,
-        "note":"A published original paper can establish a measured endpoint, but does not certify recoverable same-unit raw data, comparable intervention contrasts, or independent cohorts. No effects were examined.",
+        "note":"Eight grouping keys include one 19-study literature review and one simulated model; six are candidate primary empirical programmes, not six confirmed independent eligible contrasts. Published direct endpoints do not certify recoverable same-unit molecular/functional raw data, comparable intervention contrasts, or independent cohorts. No effect signs were examined.",
         "decision":"Proceed with RC001 Dryad exact data-sheet schema and linked trial identifiers; do not pool confirmed 1 programme. Screen RC002/003 and RC004/005 as potentially overlapping programme components."
     }
 
