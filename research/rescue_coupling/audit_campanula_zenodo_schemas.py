@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Source-exact, outcome-blind discovery of three Campanula glomerata Zenodo datasets.
+"""Source-exact, outcome-blind discovery of four Campanula glomerata Zenodo datasets.
 
 Two source archives (2021, natural populations) support the 2022 paper;
-the 2023 translocated F1 archive is a DIFFERENT cohort and must not be merged
-with natural 2021 seed fitness through guessed identifiers. Download only
+the 2023 translocated F1 genetic archive and 2023 published translocated
+maternal/offspring fitness archive are within one programme; they must not
+be merged with 2021 natural population data without cohort-aware ID mapping. Download only
 bounded public source files, inspect text headers/row counts and hashes,
 never genomic alleles, seed traits or signed effects.
 """
@@ -15,7 +16,8 @@ from audit_zenodo_genetic_fitness_schema import request, file_list, inspect_file
 SOURCES=[
  {"id":5676272,"role":"natural_7population_seed_progeny_fitness","study":"Campanula_glomerata_2022_natural_pops","publication_doi":"10.3389/fcosc.2022.829332"},
  {"id":5676286,"role":"natural_8population_adult_and_seed_progeny_15SSR","study":"Campanula_glomerata_2022_natural_pops","publication_doi":"10.3389/fcosc.2022.829332"},
- {"id":7954368,"role":"translocated_2population_F1_15SSR","study":"Campanula_glomerata_2023_translocated_F1","publication_doi":"10.1016/j.gecco.2023.e02538"}
+ {"id":7954368,"role":"translocated_2population_F1_15SSR","study":"Campanula_glomerata_2023_2024_translocated_F1","publication_doi":"10.1016/j.gecco.2023.e02548"},
+ {"id":8217417,"role":"translocated_2population_maternal_and_F1_fitness","study":"Campanula_glomerata_2023_2024_translocated_F1","publication_doi":"10.1111/plb.13631"}
 ]
 MAX=6*1024*1024
 
