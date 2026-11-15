@@ -62,8 +62,10 @@ def gate(schema: dict, codebook: dict) -> dict:
         "analysis_decision": (
             "The existing 19-study meta dataset cannot by itself identify ecological "
             "interaction-function rescue; 20 rows report population size and seven "
-            "report generic survival/reproduction. The three reproduction rows "
-            "require original-study endpoint and intervention-control verification. "
+            "report generic survival/reproduction. Primary-source screening "
+            "identified two source papers for the three reproduction rows "
+            "(Arrendal 2004 and Gustafson 2017), neither of which measured "
+            "a verified direct interaction-dependent ecological-function recovery. "
             "No new pooled effect sizes are claimed."
         ),
         "unit_warning": "27 paired rows are nested in 19 studies; not 27 independent systems",
