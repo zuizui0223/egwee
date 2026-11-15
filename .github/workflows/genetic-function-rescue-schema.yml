@@ -131,6 +131,23 @@ jobs:
           assert all(s["decision"] in ("FIGSHARE_FILES_REVIEWED_NO_EFFECT_VALUES","FIGSHARE_ACCESS_STOP") for s in j["sources"])
           PY
 
+      - name: Check exact sample-ID overlap for Lupinus phenotypes and SNP metadata (blinded)
+        run: |
+          python research/rescue_coupling/audit_lupinus_id_linkage.py \
+            --output rescue_schema_artifact/lupinus_2025_id_linkage_gate.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          j=json.loads(Path("rescue_schema_artifact/lupinus_2025_id_linkage_gate.json").read_text())
+          assert j["status"]=="LUPINUS_ID_ONLY_NO_OUTCOME_VALUES"
+          assert j["outcome_values_read"] is False
+          assert j["vcf_genotypes_read"] is False
+          assert j["raw_files_redistributed"] is False
+          assert j["phenotype_unique_identifiers"]>0
+          assert j["vcf_metadata_unique_identifiers"]>0
+          assert j["decision"] in ("ID_LINKAGE_REQUIRES_SOURCE_CROSSWALK","EXACT_ID_MATCHES_EXIST_CHECK_UNIT_AND_LAG_BEFORE_EFFECTS")
+          PY
+
       - name: Upload derivative metadata only
         uses: actions/upload-artifact@v4
         with:
