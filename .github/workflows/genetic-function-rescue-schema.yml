@@ -297,6 +297,30 @@ jobs:
           assert j["source_code_mapping_unverified"] is True
           PY
 
+      - name: Run frozen Arnica maternal-HL and viable seed within-programme pilot
+        run: |
+          python research/rescue_coupling/analyse_arnica_maternal_HL_seed.py \
+            --output rescue_schema_artifact/arnica_2020_maternal_HL_seed_pilot.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path("rescue_schema_artifact/arnica_2020_maternal_HL_seed_pilot.json").read_text())
+          assert d["dataset_doi"]=="10.5281/zenodo.3881439"
+          assert d["source_sha256"]=="052fef893ed6bb3dd00fec4882c77b6f4f48ed85767fa2643a4809505d4e8e62"
+          assert d["protocol_pre_outcome_commit"]=="d5eb3b49ef5fb4ca58c9cafd90499681944b3a68"
+          assert d["maternal_source_rows"]==145
+          assert d["no_plant_translocation_causal_contrast"] is True
+          assert d["independent_meta_study_programmes"]==1
+          assert d["status"] in (
+            "EXPLORATORY_SINGLE_PROGRAMME_ASSOCIATION_COMPUTED_NOT_META",
+            "GRAIN_STOP_DUPLICATE_MOTHER_KEYS",
+            "SOURCE_QUALITY_OR_COVERAGE_STOP"
+          )
+          if "primary" in d:
+              assert -1<=d["primary"]["observed_pooled_within_site_source_rank_r"]<=1
+              assert d["primary"]["permutation_draws"]==10000
+          PY
+
       - name: Upload derivative metadata only
         uses: actions/upload-artifact@v4
         with:
