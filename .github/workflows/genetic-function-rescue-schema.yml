@@ -273,6 +273,30 @@ jobs:
           assert a["third_party_source_redistributed"] is False
           PY
 
+      - name: Probe Arnica source-exact genotype versus maternal seed and F1 IDs
+        run: |
+          python research/rescue_coupling/audit_arnica_genome_fitness_ids.py \
+            --output rescue_schema_artifact/arnica_2020_genome_fitness_id_gate.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          j=json.loads(Path("rescue_schema_artifact/arnica_2020_genome_fitness_id_gate.json").read_text(encoding="utf-8"))
+          assert j["status"]=="ARNICA_2020_ID_ONLY_JOINS_NO_EFFECT_VALUES"
+          assert j["paper_doi"]=="10.1111/mec.15550"
+          assert j["genetic_source_doi"]=="10.5281/zenodo.3881466"
+          assert j["fitness_source_doi"]=="10.5281/zenodo.3881439"
+          assert j["original_rows"]["genotypes"]==1189
+          assert j["original_rows"]["F0_seed"]==145
+          assert j["original_rows"]["F1_rosette_1"]==1392
+          assert j["original_rows"]["F1_rosette_2"]==312
+          assert j["original_rows"]["juvenile"]==250
+          assert j["genome_allele_values_read"] is False
+          assert j["HL_numeric_values_read"] is False
+          assert j["seed_fitness_values_read"] is False
+          assert j["raw_files_redistributed"] is False
+          assert j["source_code_mapping_unverified"] is True
+          PY
+
       - name: Upload derivative metadata only
         uses: actions/upload-artifact@v4
         with:
