@@ -232,6 +232,12 @@ jobs:
           assert d["microsatellite_alleles_read"] is False
           assert d["raw_data_redistributed"] is False
           assert set(d["comparisons"])=={"F0_flowering","F0_seed","F1_juvenile"}
+          h=d["phenotype_cohort_identifier_linkage"]
+          assert h["F1_repeated_local_seedling_code_unique"]<=d["fitness_F1_juvenile_record_rows"]
+          assert h["F1_unique_full_mother_child_text_keys"]>=h["F1_repeated_local_seedling_code_unique"]
+          assert h["F1_unique_full_mother_child_text_keys"]<=d["fitness_F1_juvenile_record_rows"]
+          assert h["mother_child_is_provisional_text_key"] is True
+          assert h["do_not_promote_to_independent_cohort_without_source_crosswalk"] is True
           PY
 
       - name: Upload derivative metadata only
