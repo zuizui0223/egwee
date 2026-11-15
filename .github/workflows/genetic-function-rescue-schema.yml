@@ -205,8 +205,8 @@ jobs:
           p=Path("rescue_schema_artifact/dianthus_arnica_zenodo_source_schemas.json")
           d=json.loads(p.read_text(encoding="utf-8"))
           assert d["status"]=="PUBLIC_ZENODO_SCHEMA_ONLY_NO_OUTCOME_VALUES"
-          assert d["source_record_count"]==3 and d["independent_study_programmes"]==2
-          assert {r["id"] for r in d["records"]}=={4650464,4650488,3881439}
+          assert d["source_record_count"]==4 and d["independent_study_programmes"]==2
+          assert {r["id"] for r in d["records"]}=={4650464,4650488,3881439,3881466}
           assert d["raw_data_redistributed"] is False
           assert d["alleles_read"] is False
           assert d["fitness_effects_computed"] is False
