@@ -298,10 +298,17 @@ jobs:
           h=j["genomic_F1_juvenile_cohort_ID_mapping"]
           assert h["genomic_juvenile_source_rows"]==250
           assert h["fitness_juvenile_source_rows"]==250
-          assert h["juvenile_generation_exact_ID_overlap"]==250
-          assert h["matched_IDs_appearing_in_nonjuvenile_genomic_cohorts"]==0
-          assert h["matched_IDs_with_same_raw_site_code"]==50
-          assert h["matched_IDs_with_different_raw_site_codes"]==200
+          # The 250 all-genotype ID matches were NOT from the same cohort.
+          # The source-locked juvenile cohort has only 50 exact names and
+          # none with identical site labels. Keep that STOP rather than force a
+          # fictitious 250-individual genotype-to-fitness join.
+          assert h["juvenile_generation_exact_ID_overlap"]==50
+          assert h["matched_IDs_with_same_raw_site_code"]==0
+          assert h["matched_IDs_with_different_raw_site_codes"]==50
+          assert h["site_label_pairing_count"]==2
+          assert h["site_labels_1_to_1_among_matched_IDs"] is False
+          assert j["same_generation_F1_juvenile_identifier_link"]["exact_individual_ID_overlap"]==50
+          assert j["same_generation_F1_juvenile_identifier_link"]["matched_identifiers_with_exact_site_text"]==0
           assert h["sample_identifiers_exposed"] is False
           assert h["cross_source_site_code_semantics_verified"] is False
           PY
