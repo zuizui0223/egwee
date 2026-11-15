@@ -1,0 +1,158 @@
+name: Genetic-function rescue public-data schema gate
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/rescue_coupling/**'
+      - '.github/workflows/genetic-function-rescue-schema.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit-clarke-published-schema:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Download the pinned published Excel workbook (never redistribute raw)
+        run: |
+          mkdir -p /tmp/genetic_rescue_source
+          curl --fail --location --silent --show-error --retry 3 \
+            --max-time 60 \
+            "https://raw.githubusercontent.com/AdamCSmithCWS/Genetic_rescue_meta/61c59003a66580f5ba090de46dd8614008373cb7/He_dGR.xlsx" \
+            --output /tmp/genetic_rescue_source/He_dGR.xlsx
+          test -s /tmp/genetic_rescue_source/He_dGR.xlsx
+
+      - name: Audit study, outcome schema and independent denominators WITHOUT reading effect signs
+        run: |
+          python research/rescue_coupling/audit_clarke_schema.py \
+            --source /tmp/genetic_rescue_source/He_dGR.xlsx \
+            --output rescue_schema_artifact/clarke_2024_schema_only.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("rescue_schema_artifact/clarke_2024_schema_only.json")
+          j=json.loads(p.read_text(encoding="utf-8"))
+          assert j["status"]=="SCHEMA_ONLY_NO_EFFECT_VALUES_OPENED"
+          assert j["unique_original_studies_complete"]>0
+          assert j["complete_original_author_slice_rows"]>=j["unique_original_studies_complete"]
+          s=p.read_text(encoding="utf-8")
+          assert '"Pre_He":' not in s and '"Post_fit":' not in s
+          print("Schema-only audit and non-disclosure checks passed")
+          PY
+
+      - name: Apply locked endpoint ontology WITHOUT looking at effect directions
+        run: |
+          python research/rescue_coupling/classify_clarke_endpoints.py \
+            --schema rescue_schema_artifact/clarke_2024_schema_only.json \
+            --codebook research/rescue_coupling/CLARKE_ENDPOINT_CODEBOOK_20261115.json \
+            --output rescue_schema_artifact/clarke_2024_endpoint_gate.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("rescue_schema_artifact/clarke_2024_endpoint_gate.json")
+          j=json.loads(p.read_text(encoding="utf-8"))
+          assert j["status"]=="ENDPOINT_CLASSIFIED_NO_EFFECT_DIRECTIONS_OPENED"
+          assert j["paired_population_comparison_rows"]==27
+          assert j["independent_source_studies"]==19
+          assert j["endpoint_rows_by_original_code"]=={"IR":3,"PS":20,"SR":4}
+          assert j["direct_ecological_function_confirmed_from_aggregate_source"]==0
+          assert j["reproductive_success_rows_for_source_level_screen"]==3
+          assert j["reproductive_success_unique_source_studies"]==2
+          assert j["reproductive_success_source_studies"]==["Arrendal (2004)","Gustafson (2017)"]
+          assert j["same_numeric_post_generation_rows"]==19
+          assert j["different_numeric_post_generation_rows"]==8
+          assert j["genetic_fitness_same_generation_rows"]==19
+          assert j["genetic_fitness_different_generation_rows"]==8
+          assert j["genetic_fitness_timing_unresolved_rows"]==0
+          PY
+
+      - name: Validate source-screened plant candidate ledger and independent programme grain
+        run: |
+          python research/rescue_coupling/audit_plant_candidate_registry.py \
+            --registry research/rescue_coupling/plant_primary_candidate_registry_v1.json \
+            --clarke rescue_schema_artifact/clarke_2024_endpoint_gate.json \
+            --output rescue_schema_artifact/plant_candidate_evidence_map_v1.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          result=json.loads(Path("rescue_schema_artifact/plant_candidate_evidence_map_v1.json").read_text())
+          assert result["status"]=="SCREENED_CANDIDATE_EVIDENCE_MAP_NO_POOLED_META"
+          assert result["publication_records_total"]==10
+          assert result["independent_study_programme_keys_total"]==8
+          assert result["potentially_independent_primary_empirical_programmes"]==6
+          assert result["primary_empirical_publications_in_candidate_registry"]==8
+          assert result["aggregated_existing_review_records"]==1
+          assert result["simulation_records_excluded_from_empirical_meta"]==1
+          assert result["currently_meta_ready_programmes_with_matched_raw_G_F_effects"]==0
+          assert result["molecular_and_direct_function_n_published_programmes"]==1
+          assert result["raw_same_unit_linkage_verified_and_effects_estimated"]==0
+          PY
+
+      - name: Probe public Pyrus Dryad workbook sheet schema (no effect values)
+        run: |
+          python research/rescue_coupling/audit_pyrus_dryad_schema.py \
+            --output rescue_schema_artifact/pyrus_2019_dryad_schema_probe.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          x=json.loads(Path("rescue_schema_artifact/pyrus_2019_dryad_schema_probe.json").read_text())
+          assert x["doi"]=="doi:10.5061/dryad.6t72p3j"
+          assert x["outcome_values_opened"] is False
+          assert x["uncontrolled_effect_estimated"] is False
+          assert x["data_redistributed"] is False
+          assert x["decision"] in (
+              "SHEET_SCHEMA_ONLY_REVIEW_TREATMENT_GRAIN_BEFORE_OUTCOME",
+              "ACCESS_STOP_NO_RAW_COHORT_LINKAGE_CLAIM",
+              "DATA_FORMAT_STOP_REVIEW_FILE_METADATA"
+          )
+          print("Source access status:",x["schema_status"],x["decision"])
+          PY
+
+      - name: Probe public Figshare molecular source files (headers only; no effect values)
+        run: |
+          python research/rescue_coupling/audit_figshare_schema.py \
+            --output rescue_schema_artifact/figshare_plant_genomic_source_schema.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          j=json.loads(Path("rescue_schema_artifact/figshare_plant_genomic_source_schema.json").read_text())
+          assert j["status"]=="METADATA_AND_FIRST_ROW_SCHEMA_ONLY_NO_OUTCOME_VALUES"
+          assert j["candidate_effect_size_claims"]==0 and j["raw_data_redistributed"] is False
+          assert {s["article_id"] for s in j["sources"]}=={30290722,28304024}
+          assert all(s["decision"] in ("FIGSHARE_FILES_REVIEWED_NO_EFFECT_VALUES","FIGSHARE_ACCESS_STOP") for s in j["sources"])
+          PY
+
+      - name: Check exact sample-ID overlap for Lupinus phenotypes and SNP metadata (blinded)
+        run: |
+          python research/rescue_coupling/audit_lupinus_id_linkage.py \
+            --output rescue_schema_artifact/lupinus_2025_id_linkage_gate.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          j=json.loads(Path("rescue_schema_artifact/lupinus_2025_id_linkage_gate.json").read_text())
+          assert j["status"]=="LUPINUS_ID_ONLY_NO_OUTCOME_VALUES"
+          assert j["outcome_values_read"] is False
+          assert j["vcf_genotypes_read"] is False
+          assert j["raw_files_redistributed"] is False
+          assert j["phenotype_unique_identifiers"]>0
+          assert j["vcf_metadata_unique_identifiers"]>0
+          assert j["decision"] in ("ID_LINKAGE_REQUIRES_SOURCE_CROSSWALK","EXACT_ID_MATCHES_EXIST_CHECK_UNIT_AND_LAG_BEFORE_EFFECTS")
+          PY
+
+      - name: Upload derivative metadata only
+        uses: actions/upload-artifact@v4
+        with:
+          name: rescue-coupling-clarke-schema
+          path: rescue_schema_artifact/*.json
+          retention-days: 30
+          if-no-files-found: error
+

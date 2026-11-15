@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "frozen_before_outcome_sign_inspection": true,
+  "frozen_on": "2026-11-15",
+  "source_paper": "Clarke, Smith and Cullingham 2024, Molecular Ecology 33:e17532, DOI 10.1111/mec.17532",
+  "source_definition": "Original published Figure 3 and figure caption: survival rate, population size, reproductive success. Dataset codes PS / SR / IR crosswalk at the code level; interpret only as endpoints, not evidence that a named ecological function was measured.",
+  "metric_classification": {
+    "PS": {
+      "reported_category": "population size",
+      "domain": "D_abundance",
+      "direct_interaction_function_confirmed": false,
+      "recovery_status": "not_identifiable_without_demographic_control",
+      "next_primary_study_gate": "check whether increments are immigrant contributions versus locally produced recruitment"
+    },
+    "SR": {
+      "reported_category": "survival rate",
+      "domain": "W_survival",
+      "direct_interaction_function_confirmed": false,
+      "recovery_status": "general_fitness_not_ecosystem_function",
+      "next_primary_study_gate": "check whether interaction or physiological mechanism was measured, not assumed"
+    },
+    "IR": {
+      "reported_category": "reproductive success",
+      "domain": "W_reproductive_success",
+      "direct_interaction_function_confirmed": false,
+      "recovery_status": "could_overlap_direct_function_but_unverified",
+      "next_primary_study_gate": "screen original trait definition, mate/pollinator effects, offspring viability, control, site/cohort alignment"
+    }
+  },
+  "forbidden_equivalences": [
+    "PS_is_direct_ecological_function",
+    "SR_is_partner_mediated_function",
+    "IR_is_necessarily_pollination_or_compatible_seed_success",
+    "heterozygosity_increase_is_genetic_rescue",
+    "more_individuals_is_genetic_or_functional_rescue",
+    "all_27_observations_are_independent_studies"
+  ],
+  "gate_1_decision": "Endpoint codebook fixed without reading outcome values. Three IR observations require primary-source protocol review before F_direct admission. No confirmed direct ecological-function outcome from dataset labels alone."
+}
