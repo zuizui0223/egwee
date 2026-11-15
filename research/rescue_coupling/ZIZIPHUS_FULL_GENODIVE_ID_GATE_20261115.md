@@ -9,6 +9,7 @@
 - GenoDive native-format specification: [GenoDive 3 manual](https://www.patrickmeirmans.com/GenoDiveManual.pdf) and R `polysat::read.GenoDive` source-format documentation. Native first two lines declare sample/population/locus counts and the column header identifies the individual-name field; marker allele columns are excluded from this audit.
 - New reproducible source-only script: `research/rescue_coupling/audit_ziziphus_genodive_sample_ids.py`; paper-level survival grain audit remains `ZIZIPHUS_GENOTYPE_SURVIVAL_ID_GATE_20261115.md`.
 - First successful source run: [43694463687](https://github.com/zuizui0223/egwee/actions/runs/43694463687), artifact 14153264126.
+- Second, additional full-population-name check: [43694749139](https://github.com/zuizui0223/egwee/actions/runs/43694749139), artifact `14153298306` (all checks success). It found **3/12** genotype population-name strings occurring among the **41** survival `popcode` labels. This is only literal label overlap, not a validated common identity or mapping for the other nine populations.
 
 ## Source-exact audit results
 
@@ -24,6 +25,7 @@
 | Direct sample-name match to survival `genotype` | **0** | The latter may be sibling-family code rather than molecular individual identifier |
 | Direct sample-name match to survival `Rgenotype` | **0** | No validated mapping |
 | Direct population-index + sample-name vs `popcode` + `plant_id` match | **0** | Population index and field code may use different naming conventions; no inferred biological equivalence |
+| GenoDive population *name* vs survival `popcode` literal overlap | **3** of 12 genotype population names | Partial same-string population label matches only; membership and biological unit correspondence are NOT established |
 
 Source digests:
 - Complete GenoDive native source SHA-256: `acdaef526f52c72e1b88076dc79a236d6d5e24037d8bdea050182f9541f80d47`
