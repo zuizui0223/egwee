@@ -117,6 +117,20 @@ jobs:
           print("Source access status:",x["schema_status"],x["decision"])
           PY
 
+      - name: Probe public Figshare molecular source files (headers only; no effect values)
+        run: |
+          python research/rescue_coupling/audit_figshare_schema.py \
+            --output rescue_schema_artifact/figshare_plant_genomic_source_schema.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          j=json.loads(Path("rescue_schema_artifact/figshare_plant_genomic_source_schema.json").read_text())
+          assert j["status"]=="METADATA_AND_FIRST_ROW_SCHEMA_ONLY_NO_OUTCOME_VALUES"
+          assert j["candidate_effect_size_claims"]==0 and j["raw_data_redistributed"] is False
+          assert {s["article_id"] for s in j["sources"]}=={30290722,28304024}
+          assert all(s["decision"] in ("FIGSHARE_FILES_REVIEWED_NO_EFFECT_VALUES","FIGSHARE_ACCESS_STOP") for s in j["sources"])
+          PY
+
       - name: Upload derivative metadata only
         uses: actions/upload-artifact@v4
         with:
