@@ -215,6 +215,25 @@ jobs:
             "ZENODO_SOURCE_ACCESS_STOP") for r in d["records"])
           PY
 
+      - name: Audit Dianthus genomic source against F0 flowering/seed and F1 seedlings by exact ID
+        run: |
+          python research/rescue_coupling/audit_dianthus_genome_fitness_ids.py \
+            --output rescue_schema_artifact/dianthus_2021_genome_fitness_id_gate.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path("rescue_schema_artifact/dianthus_2021_genome_fitness_id_gate.json").read_text())
+          assert d["status"]=="DIANTHUS_F0_F1_SOURCE_ID_LINKAGE_AUDIT_NO_PHENOTYPES_OPENED"
+          assert d["genotype_record_rows"]==1173
+          assert d["fitness_flowering_record_rows"]==619
+          assert d["fitness_seed_record_rows"]==125
+          assert d["fitness_F1_juvenile_record_rows"]==1171
+          assert d["outcome_fields_read"] is False
+          assert d["microsatellite_alleles_read"] is False
+          assert d["raw_data_redistributed"] is False
+          assert set(d["comparisons"])=={"F0_flowering","F0_seed","F1_juvenile"}
+          PY
+
       - name: Upload derivative metadata only
         uses: actions/upload-artifact@v4
         with:
