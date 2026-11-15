@@ -91,6 +91,30 @@ def audit():
     for r in ids:
         if clean(r["popcode"]) and clean(r["plant_id"]) and clean(r["genotype"]):
             genotype_by_composite[(clean(r["popcode"]),clean(r["plant_id"]))].add(clean(r["genotype"]))
+    # Prospective candidate-key diagnostics. These are NOT automatic plant IDs;
+    # decide semantics from the source codebook before any survival analysis.
+    key_designs=[
+        ["popcode","plant_id"],
+        ["popcode","intro_yr","plant_id"],
+        ["popcode","intro_type","plant_id"],
+        ["popcode","intro_yr","intro_type","plant_id"],
+        ["popcode","intro_yr","intro_type","genotype","plant_id"],
+        ["popcode","intro_yr","intro_type","Rgenotype","plant_id"],
+        ["popcode","intro_yr","intro_type","genotype","Rgenotype","plant_id"],
+    ]
+    grain={}
+    for design in key_designs:
+        ident=["|".join(clean(r[k]) for k in design)
+               for r in ids if all(clean(r[k]) for k in design)]
+        bucket=Counter(ident)
+        grain[" × ".join(design)]={
+            "records_with_complete_candidate_key":len(ident),
+            "candidate_unique_keys_NOT_individuals":len(bucket),
+            "repeated_candidate_keys":sum(v>1 for v in bucket.values()),
+            "maximum_rows_sharing_candidate_key":max(bucket.values()) if bucket else 0,
+        }
+    missing_markers={"na","n/a","nan","null","none","unknown","?",".","-","missing"}
+    suspected={k:sum(clean(r[k]) in missing_markers for r in ids) for k in needed}
     candidate=genotype_first_four_columns(raw_gen)
     candidate_sets={
        f"unlabeled_column_{i+1}":{clean(row.get(i)) for row in candidate if clean(row.get(i))}
@@ -124,6 +148,8 @@ def audit():
       "composite_keys_with_repeated_records":sum(n>1 for n in composite_counts.values()),
       "max_rows_per_composite_key":max(composite_counts.values()) if composite_counts else 0,
       "survival_file_identifier_cardinality":counts,
+      "candidate_key_grain_audit_NOT_verified_independent_units":grain,
+      "suspected_textual_missing_code_rows_NOT_reclassified":suspected,
       "composite_keys_with_multiple_genotype_labels":sum(len(v)>1 for v in genotype_by_composite.values()),
       "composite_key_is_a_candidate_not_yet_a_verified_independent_unit":True,
       "genotype_source_xml_rows":len(candidate),
@@ -135,7 +161,7 @@ def audit():
       "outcome_values_read":False,
       "raw_data_redistributed":False,
       "decision":"VERIFY_RAW_ID_CROSSWALK_FROM_SOURCE_DICTIONARY" if not named_column_verified else "CHECK_SEMANTIC_ID_MAPPING_BEFORE_JOIN",
-      "warning":"Neither 1,185 longitudinal records nor repeated local plant_id labels define independent individuals. Verify popcode × plant_id composite semantics before modeling. Raw text overlap with unlabeled genotype columns is not an admissible genomic-survival join or effect-size calculation."
+      "warning":"Candidate keys involving local plant_id, population, year, type or genotype are unvalidated until the source codebook defines unique biological individuals. Do not equate unique key strings with independent plant replicates, or assume microsatellite parent-label correspondence."
     }
 
 if __name__=="__main__":
