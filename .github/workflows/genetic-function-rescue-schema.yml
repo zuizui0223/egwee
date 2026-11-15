@@ -148,6 +148,22 @@ jobs:
           assert j["decision"] in ("ID_LINKAGE_REQUIRES_SOURCE_CROSSWALK","EXACT_ID_MATCHES_EXIST_CHECK_UNIT_AND_LAG_BEFORE_EFFECTS")
           PY
 
+      - name: Audit Pseudoziziphus genotype and transplant survival identifiers without outcomes
+        run: |
+          python research/rescue_coupling/audit_ziziphus_id_linkage.py \
+            --output rescue_schema_artifact/ziziphus_2025_id_linkage_gate.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          j=json.loads(Path("rescue_schema_artifact/ziziphus_2025_id_linkage_gate.json").read_text())
+          assert j["status"]=="ZIZIPHUS_IDENTIFIER_AND_TREATMENT_SCHEMA_ONLY"
+          assert j["survival_long_records"]>=j["unique_plant_ids"]>0
+          assert j["biological_outcome_fields_read"] is False
+          assert j["genotype_allele_fields_read"] is False
+          assert j["raw_data_redistributed"] is False
+          assert j["decision"] in ("VERIFY_RAW_ID_CROSSWALK_FROM_SOURCE_DICTIONARY","CHECK_SEMANTIC_ID_MAPPING_BEFORE_JOIN")
+          PY
+
       - name: Upload derivative metadata only
         uses: actions/upload-artifact@v4
         with:
