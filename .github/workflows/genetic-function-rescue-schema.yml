@@ -1,0 +1,58 @@
+name: Genetic-function rescue public-data schema gate
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/rescue_coupling/**'
+      - '.github/workflows/genetic-function-rescue-schema.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit-clarke-published-schema:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Download the pinned published Excel workbook (never redistribute raw)
+        run: |
+          mkdir -p /tmp/genetic_rescue_source
+          curl --fail --location --silent --show-error --retry 3 \
+            --max-time 60 \
+            "https://raw.githubusercontent.com/AdamCSmithCWS/Genetic_rescue_meta/61c59003a66580f5ba090de46dd8614008373cb7/He_dGR.xlsx" \
+            --output /tmp/genetic_rescue_source/He_dGR.xlsx
+          test -s /tmp/genetic_rescue_source/He_dGR.xlsx
+
+      - name: Audit study, outcome schema and independent denominators WITHOUT reading effect signs
+        run: |
+          python research/rescue_coupling/audit_clarke_schema.py \
+            --source /tmp/genetic_rescue_source/He_dGR.xlsx \
+            --output rescue_schema_artifact/clarke_2024_schema_only.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("rescue_schema_artifact/clarke_2024_schema_only.json")
+          j=json.loads(p.read_text(encoding="utf-8"))
+          assert j["status"]=="SCHEMA_ONLY_NO_EFFECT_VALUES_OPENED"
+          assert j["unique_original_studies_complete"]>0
+          assert j["complete_original_author_slice_rows"]>=j["unique_original_studies_complete"]
+          s=p.read_text(encoding="utf-8")
+          assert '"Pre_He":' not in s and '"Post_fit":' not in s
+          print("Schema-only audit and non-disclosure checks passed")
+          PY
+
+      - name: Upload derivative metadata only
+        uses: actions/upload-artifact@v4
+        with:
+          name: rescue-coupling-clarke-schema
+          path: rescue_schema_artifact/clarke_2024_schema_only.json
+          retention-days: 30
+          if-no-files-found: error
