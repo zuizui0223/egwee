@@ -40,6 +40,10 @@ def gate(schema: dict, codebook: dict) -> dict:
         "endpoint_rows_by_biological_domain": dict(sorted(domain_counts.items())),
         "direct_ecological_function_confirmed_from_aggregate_source": direct,
         "reproductive_success_rows_for_source_level_screen": rows.get("IR", 0),
+        "reproductive_success_source_studies": schema["studies_by_fitness_parameter"].get("IR", []),
+        "genetic_fitness_same_generation_rows": schema["fitness_measurement_and_heterozygosity_same_generation_rows"],
+        "genetic_fitness_different_generation_rows": schema["fitness_measurement_and_heterozygosity_different_generation_rows"],
+        "genetic_fitness_timing_unresolved_rows": schema["fitness_measurement_timing_not_resolved_rows"],
         "genetic_measurements_available_as_pre_post_expected_heterozygosity":
             schema["all_complete_rows_share_pair_fields"],
         "primary_causal_rescue_identified_from_pre_post_summary": False,
