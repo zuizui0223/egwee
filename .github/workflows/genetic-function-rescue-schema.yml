@@ -169,6 +169,29 @@ jobs:
           assert j["decision"] in ("VERIFY_RAW_ID_CROSSWALK_FROM_SOURCE_DICTIONARY","CHECK_SEMANTIC_ID_MAPPING_BEFORE_JOIN")
           PY
 
+      - name: Probe Shorea parentage genotype and seedling survival first-column ID linkage
+        run: |
+          python research/rescue_coupling/audit_shorea_id_schema.py \
+            --output rescue_schema_artifact/shorea_2025_seedling_genotype_survival_id_gate.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          j=json.loads(Path("rescue_schema_artifact/shorea_2025_seedling_genotype_survival_id_gate.json").read_text())
+          assert j["status"]=="SHOREA_SOURCE_ID_ONLY_NO_OUTCOME_VALUES"
+          assert j["source_dataset_doi"]=="10.5061/dryad.nzs7h451m"
+          assert j["survival_values_examined"] is False
+          assert j["genotype_alleles_examined"] is False
+          assert j["seed_weight_values_examined"] is False
+          assert j["raw_datasets_redistributed"] is False
+          assert j["effect_sizes_estimated"] is False
+          assert j["linkage_decision"] in (
+              "RAW_SOURCE_ACCESS_STOP_NO_ID_LINK_CLAIM",
+              "SURVIVAL_ID_HEADER_UNRESOLVED",
+              "CANDIDATE_ID_LINK_REQUIRES_ORIGINAL_ROW_SEMANTICS",
+              "NO_EXACT_ID_LINK_SOURCE_CROSSWALK_REQUIRED"
+          )
+          PY
+
       - name: Upload derivative metadata only
         uses: actions/upload-artifact@v4
         with:
