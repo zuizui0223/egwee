@@ -77,12 +77,20 @@ def audit():
         raise ValueError(f"Required identifier fields absent: {set(needed)-set(reader.fieldnames or [])}")
     # Whitelist-only: do not dereference survival or any response variable.
     ids=[{k:row[k] for k in needed} for row in reader]
+    # Plant IDs are LOCAL identifiers in a restoration programme with multiple
+    # population codes. Neither plant_id alone nor each longitudinal row is
+    # admissibly an independent individual.
     plants=Counter(clean(r["plant_id"]) for r in ids if clean(r["plant_id"]))
     counts={k:len({clean(r[k]) for r in ids if clean(r[k])}) for k in needed}
-    genotype_by_plant=defaultdict(set)
+    composite=[
+        (clean(r["popcode"]),clean(r["plant_id"]))
+        for r in ids if clean(r["popcode"]) and clean(r["plant_id"])
+    ]
+    composite_counts=Counter(composite)
+    genotype_by_composite=defaultdict(set)
     for r in ids:
-        if clean(r["plant_id"]) and clean(r["genotype"]):
-            genotype_by_plant[clean(r["plant_id"])].add(clean(r["genotype"]))
+        if clean(r["popcode"]) and clean(r["plant_id"]) and clean(r["genotype"]):
+            genotype_by_composite[(clean(r["popcode"]),clean(r["plant_id"]))].add(clean(r["genotype"]))
     candidate=genotype_first_four_columns(raw_gen)
     candidate_sets={
        f"unlabeled_column_{i+1}":{clean(row.get(i)) for row in candidate if clean(row.get(i))}
@@ -107,10 +115,17 @@ def audit():
       "genotype_source_sha256":hashlib.sha256(raw_gen).hexdigest(),
       "survival_source_sha256":hashlib.sha256(raw_surv).hexdigest(),
       "survival_long_records":len(ids),
-      "unique_plant_ids":len(plants),
-      "plants_with_repeated_observation_records":sum(n>1 for n in plants.values()),
+      "plant_id_label_nonempty_rows":sum(plants.values()),
+      "plant_id_label_missing_rows":len(ids)-sum(plants.values()),
+      "unique_plant_id_labels_NOT_individuals":len(plants),
+      "popcode_plant_id_composite_nonempty_rows":len(composite),
+      "popcode_plant_id_composite_missing_rows":len(ids)-len(composite),
+      "unique_popcode_plant_id_composite_keys":len(composite_counts),
+      "composite_keys_with_repeated_records":sum(n>1 for n in composite_counts.values()),
+      "max_rows_per_composite_key":max(composite_counts.values()) if composite_counts else 0,
       "survival_file_identifier_cardinality":counts,
-      "plants_with_multiple_genotype_labels":sum(len(v)>1 for v in genotype_by_plant.values()),
+      "composite_keys_with_multiple_genotype_labels":sum(len(v)>1 for v in genotype_by_composite.values()),
+      "composite_key_is_a_candidate_not_yet_a_verified_independent_unit":True,
       "genotype_source_xml_rows":len(candidate),
       "genotype_source_first_four_header_labels":first_labels,
       "source_first_four_columns_explicitly_identified_as_sample_ID":named_column_verified,
@@ -120,7 +135,7 @@ def audit():
       "outcome_values_read":False,
       "raw_data_redistributed":False,
       "decision":"VERIFY_RAW_ID_CROSSWALK_FROM_SOURCE_DICTIONARY" if not named_column_verified else "CHECK_SEMANTIC_ID_MAPPING_BEFORE_JOIN",
-      "warning":"Repeated survival observations are not independent plants. Raw text overlap with unlabeled genotype columns is not an admissible genomic-survival join or effect-size calculation."
+      "warning":"Neither 1,185 longitudinal records nor repeated local plant_id labels define independent individuals. Verify popcode × plant_id composite semantics before modeling. Raw text overlap with unlabeled genotype columns is not an admissible genomic-survival join or effect-size calculation."
     }
 
 if __name__=="__main__":
@@ -131,6 +146,6 @@ if __name__=="__main__":
     x.output.parent.mkdir(parents=True,exist_ok=True)
     x.output.write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(json.dumps({key:result[key] for key in (
-      "status","survival_long_records","unique_plant_ids",
-      "plants_with_repeated_observation_records","genotype_source_xml_rows",
-      "plants_with_multiple_genotype_labels","decision")},indent=2))
+      "status","survival_long_records","plant_id_label_nonempty_rows",
+      "unique_plant_id_labels_NOT_individuals","unique_popcode_plant_id_composite_keys",
+      "composite_keys_with_repeated_records","genotype_source_xml_rows","decision")},indent=2))
