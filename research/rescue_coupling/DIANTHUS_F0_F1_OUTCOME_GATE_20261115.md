@@ -26,4 +26,22 @@ Keep all F0 seed endpoints separate; do not collapse flower counts, seed counts 
 2. **F1 genome–fitness association:** measured F1 genotype/ancestry or heterozygosity vs F1 seedling growth/rosette at appropriate maternal-family clusters. This is `G→W_general`, **not** proof of regained interaction-dependent function.
 3. **Genetic mixing design:** original common-source translocations must be compared at the proper plot and recipient-patch grain; transplants and progeny from one site do not supply independent programme-level meta replicates.
 
+## Executed within-fitness mother–seed ID gate (2026-11-15)
+
+An independent blinded source check was run on the original fitness workbook (SHA-256 `07e37aa193dfdf974de229cf29f0255126dc3e75d32c0189002d8eb81e77b5b2`). Script: `audit_dianthus_within_fitness_maternal_ids.py`. This uses **only Population / Source / Transplant code / Maternal transplant / Seedling code** from the three fitness sheets and checks that `HL` exists in the F0-flowering and F1-juvenile sheet headers. It reads neither HL values nor any reproductive performance values.
+
+| Key contract | F0 seed rows matched to F0 flowering | Exact matched keys | Ambiguity |
+|---|---:|---:|---|
+| `Transplant code` alone | **84/125 (67.2%)** | 72 | Many-to-many label reuse: 23 matched flowering keys and 11 seed keys are duplicated |
+| `Population × Transplant code` | **56/125 (44.8%)** | 49 | 13 matched flower keys and 6 seed keys duplicated |
+| **`Population × Source × Transplant code`** | **31/125 (24.8%)** | 31 | **One-to-one literal links**, no duplicate keys within the matched subset |
+
+All 31 strict matches are **candidate** same-transplant links: verifying matching strings is **not** verification of the original source's biological individual identity and cohort semantics. The strict key leaves **94/125 seed records (75.2%)** unmatched. Running a regression on only the 31 matched rows would risk cohort/source selection bias and would not represent the original 125 maternal records without explaining missingness.
+
+For `F1 juvenile` (`Maternal transplant`), **0 of 1,171 rows** directly join to the F0 flowering `Transplant code`, whether unstratified, population-stratified or population+source-stratified. It is plausible that two original datasets use different maternal coding conventions; **no guessed prefix, fuzzy key or family assignment is permitted**.
+
+The original published article already analyzed inbreeding, heterosis, seed/juvenile fitness and local origin effects (DOI `10.1111/mec.15930`). A reanalysis of just `HL→seed` in these same records is not in itself novel and cannot establish causal genetic rescue. The novel multi-study question still requires independently replicated, controlled genetic-vs-ecological function contrasts.
+
+**Decision:** `STRICT_31_LITERAL_LINKS_ONLY; SOURCE_ID_DICTIONARY_AND_MISSINGNESS_STOP` for F0 seed-level molecular association; `F1_MATERNAL_ID_CROSSWALK_STOP` for mother–juvenile linkage. Keep the direct 0-match genotype–fitness file result as a distinct issue; an HL column already embedded in the fitness table is a different measurement route.
+
 **No effect direction or source outcome column has been opened for this programme.** If literal ID linkage fails, use source metadata or corresponding author crosswalk, not string guessing.
