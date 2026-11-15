@@ -28,9 +28,9 @@
         "mature seed proportion",
         "seed germination"
       ],
-      "status": "priority_source_data_present_same_programme_not_yet_reanalysed",
+      "status": "published_molecular_and_crossing_function_confirmed_Dryad_metadata_only_unauthorized_raw_download_STOP",
       "stream": "A_controlled_mating_function",
-      "gate": "inspect original Dryad workbook sheets, donor-to-mother identifiers, independent recipient trees, repeated fruit/flower units and data dictionary; freeze contrast before effects",
+      "gate": "Dryad publisher API confirms DOI and source workbook, but public export endpoint returned HTTP 401; no original workbook schema/ID/cohort/effect inspected. Do not claim raw same-unit link until approved source access or author-provided open raw.",
       "confirmed_direct_F": true,
       "confirmed_molecular": true,
       "raw_dataset_reported": true
@@ -69,9 +69,9 @@
       "function": [
         "sibship-dependent transplanted-plant survival; offspring production/parentage in ex situ programme"
       ],
-      "status": "public_genotypes_survival_present_direct_same_cohort_function_not_confirmed",
+      "status": "PUBLIC_SOURCE_ID_GRAIN_STOP_v1_no_verified_genotype_survival_join",
       "stream": "B_genotype_and_fitness_observational",
-      "gate": "inspect Figshare source/denominators and identify overlap with RC002; do not call survival direct interaction function",
+      "gate": "Source-audited Figshare 30290722 records: 1185 survival rows, only 98 distinct popcode×plant_id labels, 261 with intro_yr, 358 including genotype; max 73 rows sharing richer key; molecular workbook first columns unlabeled, zero naive exact sample label overlaps. No verified independent individual key, no direct function endpoint. See ZIZIPHUS_GENOTYPE_SURVIVAL_ID_GATE_20261115.md.",
       "confirmed_direct_F": false,
       "confirmed_molecular": true,
       "raw_dataset_reported": true
@@ -91,9 +91,9 @@
         "seed weight",
         "reported reproductive success"
       ],
-      "status": "molecular_plus_trait_data_reported_outcome_crosswalk_pending",
+      "status": "published_molecular_and_seed_phenotype_files_both_downloaded_exact_sample_ID_crosswalk_NOT_identified",
       "stream": "A_assisted_gene_flow_trait_fitness",
-      "gate": "verify archive file schema and seed viability/recruitment endpoints; cannot replace compatible pollen transfer by flowering time",
+      "gate": "Figshare source SHA-pinned: phenotype workbook has 1776 rows/1598 unique IDs; VCF sample metadata registers 213 potential sample names and zero exact ID matches; source key/crosswalk needed, no fuzzy join. See LUPINUS_SNP_SEED_ID_LINK_GATE_20261115.md.",
       "confirmed_direct_F": false,
       "confirmed_molecular": true,
       "raw_dataset_reported": true
@@ -228,5 +228,12 @@
       "confirmed_molecular": false,
       "raw_dataset_reported": true
     }
+  ],
+  "updated_on": "2026-11-15",
+  "new_source_gates": [
+    "Clarke 19 studies, 27 outcomes -> 0 confirmed direct ecological-function recovery in source screen",
+    "Pyrus raw data blocked by public Dryad HTTP 401; metadata-only verified",
+    "Lupinus 1776 phenotype rows, 1598 distinct IDs, 213 sample candidate labels; zero direct exact overlap; crosswalk required",
+    "Pseudoziziphus 1185 long records and 358 richest possible source field composite keys; no verified independent individual or genotype-to-survival join, ID dictionary required"
   ]
 }
