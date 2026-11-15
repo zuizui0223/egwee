@@ -337,6 +337,25 @@ jobs:
               assert d["primary"]["permutation_draws"]==10000
           PY
 
+      - name: Inspect Campanula natural and translocated genotype plus seed-fitness source schemas
+        run: |
+          python research/rescue_coupling/audit_campanula_zenodo_schemas.py \
+            --output rescue_schema_artifact/campanula_2022_2024_zenodo_schema.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          j=json.loads(Path("rescue_schema_artifact/campanula_2022_2024_zenodo_schema.json").read_text())
+          assert j["status"]=="CAMPANULA_2022_2023_SCHEMA_ONLY_NO_GENETIC_FUNCTION_INFERENCE"
+          assert j["source_dataset_records"]==4
+          assert j["distinct_programme/cohort_labels"]==2
+          assert j["future_function_outcomes_read"] is False
+          assert j["genotypes_read"] is False
+          assert j["same_programme_data_pairs_do_not_create_independent_studies"] is True
+          assert {r["zenodo_id"] for r in j["results"]}=={5676272,5676286,7954368,8217417}
+          assert all(r["decision"] in ("SOURCE_METADATA_VERIFIED_INDIVIDUAL_ID_LINKAGE_NOT_YET_TESTED",
+                                       "SOURCE_ACCESS_STOP_NO_INFERENCE") for r in j["results"])
+          PY
+
       - name: Upload derivative metadata only
         uses: actions/upload-artifact@v4
         with:
