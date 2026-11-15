@@ -29,6 +29,13 @@ def gate(schema: dict, codebook: dict) -> dict:
             direct += n
     if sum(rows.values()) != schema["complete_original_author_slice_rows"]:
         raise ValueError("Author slice counts do not sum")
+    ir_studies = schema.get("studies_by_fitness_parameter", {}).get("IR", [])
+    if ir_studies != ["Arrendal (2004)", "Gustafson (2017)"]:
+        raise ValueError(f"Original reproductive paper list drifted: {ir_studies}")
+    lag = schema.get("fitness_measurement_and_heterozygosity_different_generation_rows")
+    same = schema.get("fitness_measurement_and_heterozygosity_same_generation_rows")
+    if (same, lag) != (19, 8):
+        raise ValueError("Original molecular/fitness observation-generation alignment changed")
     return {
         "date": "2026-11-15",
         "status": "ENDPOINT_CLASSIFIED_NO_EFFECT_DIRECTIONS_OPENED",
@@ -40,6 +47,12 @@ def gate(schema: dict, codebook: dict) -> dict:
         "endpoint_rows_by_biological_domain": dict(sorted(domain_counts.items())),
         "direct_ecological_function_confirmed_from_aggregate_source": direct,
         "reproductive_success_rows_for_source_level_screen": rows.get("IR", 0),
+        "reproductive_success_unique_source_studies": len(ir_studies),
+        "reproductive_success_source_studies": ir_studies,
+        "primary_source_audit": "research/rescue_coupling/CLARKE_IR_PRIMARY_SOURCE_AUDIT_20261115.md",
+        "same_numeric_post_generation_rows": same,
+        "different_numeric_post_generation_rows": lag,
+        "numeric_generation_equality_does_not_imply_same_cohort": True,
         "reproductive_success_source_studies": schema["studies_by_fitness_parameter"].get("IR", []),
         "genetic_fitness_same_generation_rows": schema["fitness_measurement_and_heterozygosity_same_generation_rows"],
         "genetic_fitness_different_generation_rows": schema["fitness_measurement_and_heterozygosity_different_generation_rows"],
