@@ -92,6 +92,48 @@ def audit()->dict:
         all(len(v)==1 for v in by_gen_site.values())
         and all(len(v)==1 for v in by_fitness_site.values())
     )
+    # Independently test the clearly defined juvenile genetic cohort. Overlap
+    # of bare individual labels is not the same as validated sample identity:
+    # compare literal SITE codes and retain only aggregate public group counts.
+    gen_juvenile=[r for r in data["genotypes"] if r["generation"]=="juvenile"]
+    geno_juvenile_id={r["Ind"]:r for r in gen_juvenile if r["Ind"]}
+    fitness_juvenile_id={r["Ind"]:r for r in data["juvenile"] if r["Ind"]}
+    shared_ids=set(geno_juvenile_id)&set(fitness_juvenile_id)
+    site_pairs=Counter(
+        (geno_juvenile_id[k]["Site"],fitness_juvenile_id[k]["Site"])
+        for k in shared_ids
+    )
+    site_map_gen={}
+    site_map_fit={}
+    for (g,f),n in site_pairs.items():
+        site_map_gen.setdefault(g,set()).add(f)
+        site_map_fit.setdefault(f,set()).add(g)
+    cohort_bridge={
+        "genomic_juvenile_source_rows":len(gen_juvenile),
+        "genomic_juvenile_unique_individual_labels":len(geno_juvenile_id),
+        "fitness_juvenile_source_rows":len(data["juvenile"]),
+        "fitness_juvenile_unique_individual_labels":len(fitness_juvenile_id),
+        "juvenile_generation_exact_ID_overlap":len(shared_ids),
+        "matched_IDs_appearing_in_nonjuvenile_genomic_cohorts":sum(
+           1 for r in data["genotypes"] if r["generation"]!="juvenile" and r["Ind"] in shared_ids),
+        "matched_IDs_with_same_raw_site_code":sum(
+            n for (g,f),n in site_pairs.items() if g==f),
+        "matched_IDs_with_different_raw_site_codes":sum(
+            n for (g,f),n in site_pairs.items() if g!=f),
+        "genomic_site_names_in_overlap":len(site_map_gen),
+        "fitness_site_names_in_overlap":len(site_map_fit),
+        "site_label_pairing_count":len(site_pairs),
+        "site_labels_1_to_1_among_matched_IDs":
+             all(len(v)==1 for v in site_map_gen.values()) and
+             all(len(v)==1 for v in site_map_fit.values()),
+        "site_label_contingency_public_groups":[
+            {"genomic_site_code":g,"fitness_site_code":f,"matched_ID_count":n}
+            for (g,f),n in sorted(site_pairs.items())
+        ],
+        "sample_identifiers_exposed":False,
+        "cross_source_site_code_semantics_verified":False,
+        "no_allele_or_fitness_values_examined":True
+    }
     d={
         "status":"ARNICA_2020_ID_ONLY_JOINS_NO_EFFECT_VALUES",
         "paper_doi":"10.1111/mec.15550",
@@ -134,6 +176,7 @@ def audit()->dict:
             "site_label_match_is_NOT_original_author_crosswalk":True,
             "biological_join_status":"CANDIDATE_COHORT_MATCH_NEEDS_ORIGINAL_SITE_CODEBOOK",
         },
+        "genomic_F1_juvenile_cohort_ID_mapping":cohort_bridge,
         "F0_seed_has_maternal_HL_column":True,
         "F0_seed_has_viable_seed_germination_columns":True,
         "genome_allele_values_read":False,
