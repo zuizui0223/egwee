@@ -295,6 +295,15 @@ jobs:
           assert j["seed_fitness_values_read"] is False
           assert j["raw_files_redistributed"] is False
           assert j["source_code_mapping_unverified"] is True
+          h=j["genomic_F1_juvenile_cohort_ID_mapping"]
+          assert h["genomic_juvenile_source_rows"]==250
+          assert h["fitness_juvenile_source_rows"]==250
+          assert h["juvenile_generation_exact_ID_overlap"]==250
+          assert h["matched_IDs_appearing_in_nonjuvenile_genomic_cohorts"]==0
+          assert h["matched_IDs_with_same_raw_site_code"]==50
+          assert h["matched_IDs_with_different_raw_site_codes"]==200
+          assert h["sample_identifiers_exposed"] is False
+          assert h["cross_source_site_code_semantics_verified"] is False
           PY
 
       - name: Run frozen Arnica maternal-HL and viable seed within-programme pilot
