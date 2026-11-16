@@ -154,6 +154,7 @@ def audit():
        "source_rows_without_any_whitelisted_identifier":{k:raw_counts[k]-identifier_row_counts[k] for k in expected},
        "natural_genotype_generation_counts":count_labels(ng,"generation"),
        "translocated_genotype_generation_counts":count_labels(tg,"generation"),
+       "translocated_genotype_missing_generation_code_rows":sum(not row["generation"] for row in tg),
        "natural_all_genotypes_to_fitness":{
            "individual_only":compare(key_counter(ng,["individual"]),key_counter(nf,["individual"])),
            "population_individual":compare(key_counter(ng,["population","individual"]),
