@@ -384,7 +384,9 @@ jobs:
           assert d["natural_all_genotypes_to_fitness"]["population_individual"]["matched_literal_keys"]==30
           assert d["natural_by_genotype_generation"]["progeny"]["population_individual"]["matched_literal_keys"]==22
           assert d["natural_by_genotype_generation"]["adult"]["population_individual"]["matched_literal_keys"]==8
-          assert d["translocated_genotype_generation_counts"]=={"":1,"p":247,"r":166,"t":302}
+          assert d["translocated_genotype_generation_counts"]=={"p":247,"r":166,"t":302}
+          assert d["translocated_genotype_missing_generation_code_rows"]==1
+          assert sum(d["translocated_genotype_generation_counts"].values())+d["translocated_genotype_missing_generation_code_rows"]==716
           assert d["translocated_genotypes_to_maternal_fitness_by_generation"]["t"]["fitness_maternal_site_source_id"]["matched_literal_keys"]==6
           assert d["translocated_genotypes_to_maternal_fitness_by_generation"]["p"]["fitness_maternal_site_source_id"]["matched_literal_keys"]==0
           mother=d["translocated_fitness_internal_F0_to_F1_maternal_code"]["site_source_maternal"]
