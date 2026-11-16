@@ -337,6 +337,66 @@ jobs:
               assert d["primary"]["permutation_draws"]==10000
           PY
 
+      - name: Inspect Campanula natural and translocated genotype plus seed-fitness source schemas
+        run: |
+          python research/rescue_coupling/audit_campanula_zenodo_schemas.py \
+            --output rescue_schema_artifact/campanula_2022_2024_zenodo_schema.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          j=json.loads(Path("rescue_schema_artifact/campanula_2022_2024_zenodo_schema.json").read_text())
+          assert j["status"]=="CAMPANULA_2022_2023_SCHEMA_ONLY_NO_GENETIC_FUNCTION_INFERENCE"
+          assert j["source_dataset_records"]==4
+          assert j["distinct_programme/cohort_labels"]==2
+          assert j["future_function_outcomes_read"] is False
+          assert j["genotypes_read"] is False
+          assert j["same_programme_data_pairs_do_not_create_independent_studies"] is True
+          assert {r["zenodo_id"] for r in j["results"]}=={5676272,5676286,7954368,8217417}
+          assert all(r["decision"] in ("SOURCE_METADATA_VERIFIED_INDIVIDUAL_ID_LINKAGE_NOT_YET_TESTED",
+                                       "SOURCE_ACCESS_STOP_NO_INFERENCE") for r in j["results"])
+          PY
+
+      - name: Audit Campanula natural and translocated source/cohort ID joins (blind)
+        run: |
+          python research/rescue_coupling/audit_campanula_crossfile_ids.py \
+            --output rescue_schema_artifact/campanula_2022_2024_id_linkage_gate.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path("rescue_schema_artifact/campanula_2022_2024_id_linkage_gate.json").read_text(encoding="utf-8"))
+          assert d["status"]=="CAMPANULA_NATURAL_AND_TRANSLOCATED_IDENTIFIERS_ONLY"
+          assert d["source_counts"]=={
+            "natural_fitness_rows":507,
+            "natural_genomic_rows":680,
+            "translocated_genomic_rows":716,
+            "translocated_fitness_maternal_rows":188,
+            "translocated_fitness_F1_rows":990
+          }
+          assert len(d["source_dois"])==4
+          assert d["raw_allele_values_read"] is False
+          assert d["HL_numeric_values_read"] is False
+          assert d["reproductive_or_fitness_values_read"] is False
+          assert d["raw_third_party_tables_redistributed"] is False
+          assert d["source_genetic_sample_is_not_automatically_a_maternal_or_F1_fitness_unit"] is True
+          assert d["decision"]=="IDENTIFIER_JOIN_COUNTS_ONLY_CHECK_GENERATION_AND_BIOLOGICAL_COHORT_BEFORE_ANY_EFFECT"
+          assert d["source_rows_without_any_whitelisted_identifier"]["natural_fitness_rows"]==5
+          assert d["natural_genotype_generation_counts"]=={"adult":178,"progeny":502}
+          assert d["natural_all_genotypes_to_fitness"]["population_individual"]["matched_literal_keys"]==30
+          assert d["natural_by_genotype_generation"]["progeny"]["population_individual"]["matched_literal_keys"]==22
+          assert d["natural_by_genotype_generation"]["adult"]["population_individual"]["matched_literal_keys"]==8
+          assert d["translocated_genotype_generation_counts"]=={"p":247,"r":166,"t":302}
+          assert d["translocated_genotype_missing_generation_code_rows"]==1
+          assert sum(d["translocated_genotype_generation_counts"].values())+d["translocated_genotype_missing_generation_code_rows"]==716
+          assert d["translocated_genotypes_to_maternal_fitness_by_generation"]["t"]["fitness_maternal_site_source_id"]["matched_literal_keys"]==6
+          assert d["translocated_genotypes_to_maternal_fitness_by_generation"]["p"]["fitness_maternal_site_source_id"]["matched_literal_keys"]==0
+          mother=d["translocated_fitness_internal_F0_to_F1_maternal_code"]["site_source_maternal"]
+          assert mother["matched_literal_keys"]==144
+          assert mother["matched_right_records"]==990
+          assert mother["left_duplicate_key_matches"]==0
+          assert mother["right_duplicate_key_matches"]==136
+          assert mother["max_right_records_per_matched_key"]==14
+          PY
+
       - name: Upload derivative metadata only
         uses: actions/upload-artifact@v4
         with:
