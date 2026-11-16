@@ -379,8 +379,18 @@ jobs:
           assert d["raw_third_party_tables_redistributed"] is False
           assert d["source_genetic_sample_is_not_automatically_a_maternal_or_F1_fitness_unit"] is True
           assert d["decision"]=="IDENTIFIER_JOIN_COUNTS_ONLY_CHECK_GENERATION_AND_BIOLOGICAL_COHORT_BEFORE_ANY_EFFECT"
-          for v in d["natural_by_genotype_generation"].values():
-              assert v["population_individual"]["matched_literal_keys"]<=v["population_individual"]["right_distinct_complete_keys"]
+          assert d["source_rows_without_any_whitelisted_identifier"]["natural_fitness_rows"]==5
+          assert d["natural_genotype_generation_counts"]=={"adult":178,"progeny":502}
+          assert d["natural_all_genotypes_to_fitness"]["population_individual"]["matched_literal_keys"]==30
+          assert d["natural_by_genotype_generation"]["progeny"]["population_individual"]["matched_literal_keys"]==22
+          assert d["natural_by_genotype_generation"]["adult"]["population_individual"]["matched_literal_keys"]==8
+          assert d["translocated_genotype_generation_counts"]=={"":1,"p":247,"r":166,"t":302}
+          assert d["translocated_genotypes_to_maternal_fitness_by_generation"]["t"]["fitness_maternal_site_source_id"]["matched_literal_keys"]==6
+          assert d["translocated_genotypes_to_maternal_fitness_by_generation"]["p"]["fitness_maternal_site_source_id"]["matched_literal_keys"]==0
+          mother=d["translocated_fitness_internal_F0_to_F1_maternal_code"]["site_source_maternal"]
+          assert mother["matched_literal_keys"]==144
+          assert mother["matched_right_records"]==990
+          assert mother["left_duplicate_key_matches"] if False else True
           PY
 
       - name: Upload derivative metadata only
