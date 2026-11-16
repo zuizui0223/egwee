@@ -356,6 +356,33 @@ jobs:
                                        "SOURCE_ACCESS_STOP_NO_INFERENCE") for r in j["results"])
           PY
 
+      - name: Audit Campanula natural and translocated source/cohort ID joins (blind)
+        run: |
+          python research/rescue_coupling/audit_campanula_crossfile_ids.py \
+            --output rescue_schema_artifact/campanula_2022_2024_id_linkage_gate.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path("rescue_schema_artifact/campanula_2022_2024_id_linkage_gate.json").read_text(encoding="utf-8"))
+          assert d["status"]=="CAMPANULA_NATURAL_AND_TRANSLOCATED_IDENTIFIERS_ONLY"
+          assert d["source_counts"]=={
+            "natural_fitness_rows":507,
+            "natural_genomic_rows":680,
+            "translocated_genomic_rows":716,
+            "translocated_fitness_maternal_rows":188,
+            "translocated_fitness_F1_rows":990
+          }
+          assert len(d["source_dois"])==4
+          assert d["raw_allele_values_read"] is False
+          assert d["HL_numeric_values_read"] is False
+          assert d["reproductive_or_fitness_values_read"] is False
+          assert d["raw_third_party_tables_redistributed"] is False
+          assert d["source_genetic_sample_is_not_automatically_a_maternal_or_F1_fitness_unit"] is True
+          assert d["decision"]=="IDENTIFIER_JOIN_COUNTS_ONLY_CHECK_GENERATION_AND_BIOLOGICAL_COHORT_BEFORE_ANY_EFFECT"
+          for v in d["natural_by_genotype_generation"].values():
+              assert v["population_individual"]["matched_literal_keys"]<=v["population_individual"]["right_distinct_complete_keys"]
+          PY
+
       - name: Upload derivative metadata only
         uses: actions/upload-artifact@v4
         with:
