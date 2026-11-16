@@ -390,7 +390,9 @@ jobs:
           mother=d["translocated_fitness_internal_F0_to_F1_maternal_code"]["site_source_maternal"]
           assert mother["matched_literal_keys"]==144
           assert mother["matched_right_records"]==990
-          assert mother["left_duplicate_key_matches"] if False else True
+          assert mother["left_duplicate_key_matches"]==0
+          assert mother["right_duplicate_key_matches"]==136
+          assert mother["max_right_records_per_matched_key"]==14
           PY
 
       - name: Upload derivative metadata only
