@@ -82,8 +82,32 @@ def audit():
                            IDENTIFIER_FIELDS["translocated_maternal"])
     tr_f1=read_whitelisted(source["translocated_fitness"],"xl/worksheets/sheet2.xml",
                            IDENTIFIER_FIELDS["translocated_F1"])
-    if (len(nat_f),len(nat_g),len(tr_g),len(tr_f0),len(tr_f1)) != (507,680,716,188,990):
-        raise ValueError("Original source dataset row denominator drifted")
+    # The original spreadsheet count includes rows with absent or missing-ID
+    # cells; read_whitelisted intentionally omits those. Keep BOTH denominators
+    # and never treat ID-complete rows as all biological observations.
+    raw_counts = {
+        "natural_fitness_rows":workbook_sheets(source["natural_fitness"])[0]["xml_nonempty_rows"]-1,
+        "natural_genomic_rows":workbook_sheets(source["natural_genomic"])[0]["xml_nonempty_rows"]-1,
+        "translocated_genomic_rows":workbook_sheets(source["translocated_genomic"])[0]["xml_nonempty_rows"]-1,
+        "translocated_fitness_maternal_rows":workbook_sheets(source["translocated_fitness"])[0]["xml_nonempty_rows"]-1,
+        "translocated_fitness_F1_rows":workbook_sheets(source["translocated_fitness"])[1]["xml_nonempty_rows"]-1
+    }
+    expected = {
+        "natural_fitness_rows":507, "natural_genomic_rows":680,
+        "translocated_genomic_rows":716,
+        "translocated_fitness_maternal_rows":188,
+        "translocated_fitness_F1_rows":990
+    }
+    if raw_counts != expected:
+        raise ValueError("Original source XML denominator drifted: "+repr(raw_counts))
+    identifier_row_counts = {
+        "natural_fitness_rows":len(nat_f), "natural_genomic_rows":len(nat_g),
+        "translocated_genomic_rows":len(tr_g),
+        "translocated_fitness_maternal_rows":len(tr_f0),
+        "translocated_fitness_F1_rows":len(tr_f1)
+    }
+    if any(identifier_row_counts[k]>raw_counts[k] for k in expected):
+        raise ValueError("Identifier parser generated more records than source XLSX")
 
     nf=[normalize(row,{"population":"POP","individual":"Ind"}) for row in nat_f]
     ng=[normalize(row,{"population":"Pop","individual":"Ind","generation":"Generation"}) for row in nat_g]
@@ -125,9 +149,9 @@ def audit():
        "status":"CAMPANULA_NATURAL_AND_TRANSLOCATED_IDENTIFIERS_ONLY",
        "source_dois":{k:"10.5281/zenodo."+str(v[0]) for k,v in FILES.items()},
        "source_sha256":{k:v[2] for k,v in FILES.items()},
-       "source_counts":{"natural_fitness_rows":len(nf),"natural_genomic_rows":len(ng),
-                        "translocated_genomic_rows":len(tg),"translocated_fitness_maternal_rows":len(tf0),
-                        "translocated_fitness_F1_rows":len(tf1)},
+       "source_counts":raw_counts,
+       "identifier_rows_with_at_least_one_whitelisted_cell":identifier_row_counts,
+       "source_rows_without_any_whitelisted_identifier":{k:raw_counts[k]-identifier_row_counts[k] for k in expected},
        "natural_genotype_generation_counts":count_labels(ng,"generation"),
        "translocated_genotype_generation_counts":count_labels(tg,"generation"),
        "natural_all_genotypes_to_fitness":{
