@@ -397,6 +397,35 @@ jobs:
           assert mother["max_right_records_per_matched_key"]==14
           PY
 
+      - name: Run preregistered Campanula natural-population HL–juvenile-growth pilot
+        run: |
+          python research/rescue_coupling/analyse_campanula_natural_HL_rosette.py \
+            --output rescue_schema_artifact/campanula_2022_natural_HL_rosette_population_pilot.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path("rescue_schema_artifact/campanula_2022_natural_HL_rosette_population_pilot.json").read_text(encoding="utf-8"))
+          assert d["source_data_doi"]=="10.5281/zenodo.5676272"
+          assert d["source_sha256"]=="a1c50c74d0bd2c9a00b7a0d42322c31c30c53789e3b5cadbe67b08cee878f6a7"
+          assert d["protocol_commit_frozen_before_data_open"]=="52ff2c5b2212b6b8d91e802869fb963ebf4973ab"
+          assert d["raw_source_rows"]==507
+          assert d["third_party_raw_values_redistributed"] is False
+          assert d["causal_genetic_rescue_effect_estimated"] is False
+          assert d["direct_interaction_function_measured"] is False
+          assert d["programme_count"]==1
+          assert d["status"] in (
+            "SINGLE_PROGRAMME_POPULATION_LEVEL_ASSOCIATION_COMPUTED",
+            "DUPLICATE_INDIVIDUAL_ID_STOP",
+            "POPULATION_COVERAGE_STOP",
+            "CONSTANT_MARKER_OR_GROWTH_STOP")
+          if d["status"]=="SINGLE_PROGRAMME_POPULATION_LEVEL_ASSOCIATION_COMPUTED":
+              assert d["eligible_populations"]>=5
+              assert d["eligible_seed_progeny_n"]>=25
+              assert -1 <= d["population_level_spearman_rho"] <= 1
+              assert 0 <= d["null"]["two_sided_permutation_p"] <= 1
+              assert d["independent_population_unit"] is True
+          PY
+
       - name: Upload derivative metadata only
         uses: actions/upload-artifact@v4
         with:
