@@ -17,9 +17,16 @@ import sys
 import urllib.request
 import zipfile
 
-EXPECTED_SHA = {
-    "pan": "d99365f057bd902c45f2565120cc9b029f79f69a5550e835fec1b493625fbc23",
-    "fit": "0bc91e9d3832e56125e34dd5d768252ca1c005d6a6f131de024ef6842068b388",
+EXPECTED_MEMBER_SHA = {
+    "pan": {
+        "ukpoms_1kmpantrapdata_2017-2023_samples.csv": "70f3429e5ed9022d3d7b80fc3f24c589ecc5faff608393bc53febfac49788277",
+        "ukpoms_1kmpantrapdata_2017-2023_insects.csv": "2423bc370f388a0dafd05c4bd3a7af7491909311ffe6bf4d6607a3697213dcb9",
+        "ukpoms_1kmpantrapdata_2017-2023_flowers.csv": "53daa167282092b7081190de00e020b4e2635fa5e7d4fc63d3454f7c338951ba",
+    },
+    "fit": {
+        "ukpoms_1kmfitcountdata_2017-2023.csv": "29d3deb757c053774c26ece0a7683081a4b4fe81d9497877fe1179f232182e52",
+        "ukpoms_publicfitcountdata_2017-2023.csv": "bcd2ef780d3208a5a4aba5c191178900ccef705e5b569dc0160b27d00652dc3c",
+    },
 }
 URLS = {
     "pan": "https://data-package.ceh.ac.uk/data/5841bfae-471b-498c-af89-c30e5140d6c5.zip",
@@ -50,9 +57,14 @@ def load_archive(name: str) -> zipfile.ZipFile:
                 raise RuntimeError("SOURCE_STOP: exceeds safety byte limit")
             chunks.append(buf)
     data = b"".join(chunks)
-    if hashlib.sha256(data).hexdigest() != EXPECTED_SHA[name]:
-        raise RuntimeError("SOURCE_STOP: archive SHA-256 changed since header-only gate")
-    return zipfile.ZipFile(io.BytesIO(data))
+    archive = zipfile.ZipFile(io.BytesIO(data))
+    # EIDC regenerates archive packaging, so the wrapper SHA is not stable.
+    # Fix identity at uncompressed CSV member bytes instead.
+    for suffix, expected in EXPECTED_MEMBER_SHA[name].items():
+        found = [m for m in archive.namelist() if m.endswith(suffix)]
+        if len(found) != 1 or hashlib.sha256(archive.read(found[0])).hexdigest() != expected:
+            raise RuntimeError("SOURCE_STOP: original uncompressed CSV SHA-256 mismatch: " + suffix)
+    return archive
 
 
 def rows_only(z: zipfile.ZipFile, suffix: str, fields: tuple[str, ...]):
@@ -155,7 +167,7 @@ def main():
         "data_gate": "site_id_only",
         "numeric_flower_or_insect_values_accessed": False,
         "effect_estimated": False,
-        "source_shas": EXPECTED_SHA,
+        "source_uncompressed_csv_shas": EXPECTED_MEMBER_SHA,
     }
     try:
         with load_archive("pan") as pan_z, load_archive("fit") as fit_z:
