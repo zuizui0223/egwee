@@ -123,7 +123,7 @@ def pollinator_sequences_by_plant(
                 status, taxon = value(row, 5), value(row, 6)
                 if isinstance(status, str) and status.strip().lower() == "open flowers":
                     period = {"open": [value(row, c) for c in range(7, 39)],
-                              "visits": [], "total": None}
+                              "visits": [], "total": None, "insect_event_rows": 0}
                     periods.append(period)
                 elif isinstance(status, str) and status.strip().lower() == "total":
                     if period is not None:
@@ -133,6 +133,7 @@ def pollinator_sequences_by_plant(
                 ):
                     if period is None:
                         raise ValueError("Visit without open-flower session")
+                    period["insect_event_rows"] += 1
                     for c in range(7, 200):
                         index = value(row, c)
                         if index is not None:
@@ -147,6 +148,7 @@ def pollinator_sequences_by_plant(
             counts = {pos: {"flower_hours": 0.0, "AH": 0, "BF": 0, "F": 0,
                             "all": 0} for pos in range(1, 33)}
             for p in admitted:
+                qc["insect_event_rows"] += p["insect_event_rows"]
                 for pos in range(1, 33):
                     nflowers = p["open"][pos - 1]
                     if not isinstance(nflowers, (float, int)) or nflowers < 0:
@@ -172,9 +174,12 @@ def pollinator_sequences_by_plant(
     if len(ex) != 256 or (
         qc["open_flower_rows"], qc["complete_sessions"],
         qc["valid_position_visits"], qc["zero_open_flower_visits"],
-        qc["invalid_position_visits"]
-    ) != (125, 121, 6701, 38, 1):
+        qc["invalid_position_visits"], qc["insect_event_rows"]
+    ) != (125, 121, 6701, 38, 1, 2850):
         raise ValueError(f"LA001 provenance invariant failed: {dict(qc)}")
+    qc["position_tokens_all"] = qc["valid_position_visits"] + qc["invalid_position_visits"]
+    if qc["position_tokens_all"] != 6702:
+        raise ValueError("Raw visit-position unit drift")
     return ex, dict(qc)
 
 
@@ -306,6 +311,18 @@ def analyze(source_zip: Path) -> dict:
         "single_visit_assay": source["assay"],
         "calibrated_weights": source["weights"],
         "source_visit_QC": source["visit_qc"],
+        "publisher_source_reconciliation": {
+            "reported_paper_visits": 3748,
+            "source_insect_event_rows": source["visit_qc"]["insect_event_rows"],
+            "source_raw_position_tokens": source["visit_qc"]["position_tokens_all"],
+            "source_rate_numerator_admitted_tokens": (
+                source["visit_qc"]["valid_position_visits"]
+                - source["visit_qc"]["zero_open_flower_visits"]
+            ),
+            "reported_paper_control_flowers": 17,
+            "source_control_rows": source["assay"]["Control"]["n"],
+            "status": "UNRESOLVED_SOURCE_VERSUS_PUBLISHED_UNIT_AND_CONTROL_DENOMINATORS",
+        },
         "eligible_field_plants": 252,
         "whole_site_fold_count": 4,
         "folds": folds,
