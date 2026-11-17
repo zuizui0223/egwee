@@ -30,7 +30,9 @@
         "outcross_cross_success_as_natural_fruit_set"
       ],
       "independent_programme_count": 1,
-      "source_state": "published_paper_and_Dryad_file_inventory_verified_raw_join_not_audited"
+      "source_state": "published_paper_and_Dryad_file_inventory_verified_raw_join_not_audited",
+      "publication_doi": "10.1111/nph.20338",
+      "publication_year": "2025 issue (2024 online)"
     },
     {
       "id": "SMF002",
@@ -60,7 +62,9 @@
         "trait_genotype_as_intervention_effect"
       ],
       "independent_programme_count": 1,
-      "source_state": "published_Dryad_file_inventory_verified_raw_join_not_audited"
+      "source_state": "published_Dryad_file_inventory_verified_raw_join_not_audited",
+      "publication_doi": "10.1111/evo.13167",
+      "publication_year": "2017"
     },
     {
       "id": "SMF003",
