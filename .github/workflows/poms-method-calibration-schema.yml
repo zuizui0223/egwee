@@ -39,6 +39,12 @@ jobs:
         run: |
           python research/poms_method_calibration/analyze_poms_paired_method_flora.py \
             --output research/poms_method_calibration/output/poms_paired_flora_result.json
+      - name: Verify retrospective informative-event diagnostic on synthetic data
+        run: python research/poms_method_calibration/audit_poms_information_gate.py --self-test
+      - name: Audit informative-event selection and effort without changing the primary
+        run: |
+          python research/poms_method_calibration/audit_poms_information_gate.py \
+            --output research/poms_method_calibration/output/poms_information_gate_diagnostic.json
       - name: Store derivative-only source schema receipt even after STOP
         if: always()
         uses: actions/upload-artifact@v4
