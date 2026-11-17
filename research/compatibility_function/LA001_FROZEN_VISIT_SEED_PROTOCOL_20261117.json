@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "analysis_id": "LA001_leavenworthia_site_holdout_visit_seed_v1",
+  "status": "protocol_frozen_before_visit_seed_model_results",
+  "registered_utc": "2026-11-17",
+  "original_source": {
+    "dataset_doi": "10.5061/dryad.2pj0j",
+    "article_doi": "10.1111/evo.13167",
+    "archive_sha256": "82bcaa1c3a504cc779bc9c2aa95199a657dd404b3fdf62f7059e4ff5028b39c1",
+    "archive_name": "doi_10_5061_dryad_2pj0j__v20161228.zip",
+    "third_party_raw_not_for_redistribution": true
+  },
+  "unit": "field plant × site × year; only four independent trial sites, each replicated in 2014 and 2015; do not treat 256 plants or 121 observation periods as independent ecosystems",
+  "preoutcome_structural_receipt": {
+    "field_rows": 256,
+    "field_genotype_annual_balance": "16 SC plus 16 SI at each site and year",
+    "matched_field_to_array_plants": 256,
+    "matched_field_to_S_locus": 256,
+    "greenhouse_exact_individual_join": 1,
+    "field_seed_total_complete": 252,
+    "field_seed_total_missing": 4,
+    "field_flowers_complete": 256,
+    "field_days_to_flower_complete": 256,
+    "site_code": {
+      "1": "Waco",
+      "2": "Quarry",
+      "3": "24-43",
+      "4": "Landersville"
+    },
+    "field_year_code": {
+      "1": 2014,
+      "2": 2015
+    },
+    "frozen_complete_half_hour_periods": 121,
+    "records_open_flowers_all": 125,
+    "complete_2014_periods": 45,
+    "complete_2015_periods": 76,
+    "raw_plant_position_visits": 6701,
+    "visits_to_zero_or_missing_open_flower": 38,
+    "out_of_range_position_token": 1,
+    "site_period_total_count_mismatch": 1,
+    "source_method": "30-min array observations, count flowers visited per insect and genotype, matching original Methods; 2015 incomplete 4 open-flower rows (no TOTAL) not admitted as completed observation periods"
+  },
+  "fixed_analysis": {
+    "plant_id_join": "(year, site numeric code, family-individual string) exactly from First Flower sheet, positions 1-32; no position-only join across sites or years",
+    "genetic_join": "(year, family number, individual number) to corresponding S-locus workbook; A and D fixed in observed field subjects and fully confounded with SC/SI; no independent S-allele fit",
+    "visit_events": "For each complete session signalled by an Open Flowers row and a subsequent TOTAL row, count sequence position tokens H onward per pollinator-event row (numeric F event index and string G taxon); do not count column index as target plant",
+    "effective_guilds": [
+      "AH",
+      "BF"
+    ],
+    "guild_choice_basis": "single-visit seed effectiveness shown by the original article, not selected from this dataset's seed output",
+    "primary_visit_filter": "Require source position 1-32 and that position's Open Flowers count >0 in the same completed observation period; drop and report 38 open-flower inconsistencies and one 34 token without imputation",
+    "exposure": "individual flower-hours = 0.5 × sum of open flower count at individual's position across all completed 30-minute site×year sessions; zero exposure is an unavailable prediction value, never treated as 0 visits-per-flower",
+    "visitation_coordinate": "x_vis_eff = log1p(count visits by guild AH or BF / individual flower-hours)",
+    "total_visitation_coordinate": "x_vis_total = log1p(count valid flower-position visits of any taxon / individual flower-hours), same filtering",
+    "focal_outcome": "y = log1p(field 'seed total') for complete, nonnegative source records; do not replace with 'seed set_true', fruit set or greenhouse seed count after viewing outcomes",
+    "covariates": [
+      "intercept",
+      "year2015",
+      "SC_binary",
+      "year2015_by_SC",
+      "log1p(lifetime_field_flower_number)",
+      "days_to_flower_divided_by_30"
+    ],
+    "test": "Leave-one-whole-site-out fourfold cross-validation, keeping both years of held-out site out; ridge Gaussian least squares, lambda=1.0 for standardized non-intercept predictors; training centering/scaling only; never tune lambda",
+    "models": {
+      "M0_baseline": "covariates only",
+      "M1_effective_visits": "covariates + x_vis_eff",
+      "M2_all_visits": "covariates + x_vis_total"
+    },
+    "primary_contrast": "MSE(log1p seeds) held-out M0 minus M1; positive means effective-visitation predictor improves held-out prediction",
+    "reporting": "Report all 4 site fold MSE, pooled 252-eligible-observation MSE and MAE, genotype-specific checks as descriptive only, source attrition and predictor variance. No site-year pseudoreplication p-values.",
+    "exploratory_contrasts": [
+      "M0 vs M2 all visit rate",
+      "M1 vs M2 quality-aware vs total visit rate",
+      "per-genotype predicted fit by year/site"
+    ],
+    "bounded_success_label": "Within this one trial programme, useful predictive increment only if aggregate pooled delta MSE>0 and at least 3/4 site-fold deltas positive; not independent species replication, mechanistic causality or natural eco-genetic law",
+    "failure_label": "NO_ROBUST_SINGLE_PROGRAMME_INCREMENT if primary threshold not met; stop, do not retune",
+    "stop_conditions": [
+      "Source SHA mismatch or malformed workbook",
+      "Not exactly 256 field-to-position and 256 S locus joins",
+      "not 121 complete observation periods",
+      "any visit datum outside 1-32 is counted in valid numerator",
+      "more than recorded 38 zero-open visits without separately logged source-only erratum",
+      "A numeric field outcome source lacks expected 252 eligible records",
+      "a site fold lacks both genotype classes",
+      "source DOI/accepted field code ambiguity",
+      "no admissible flower-hours exposure for any seed-complete individual"
+    ]
+  },
+  "claim_firewall": {
+    "original_study_result_known": "SC plants produced 17–26% more seed but experienced seed discounting, and original paper already examined group visits and single-visit efficacy",
+    "prohibited": [
+      "novel identification of genetic compatibility independent of SC/SI",
+      "natural proof of a universal sorting-repair boundary",
+      "generality to islands and cities from four sites in one experimental programme",
+      "substitution of greenhouse plants as field plant records",
+      "claiming pollen visits prove genetically compatible fertilization",
+      "confusing held-out prediction with randomized treatment effect"
+    ],
+    "publication_scope": "separate exploratory within-source analysis, not a new flagship result, not submitted"
+  }
+}

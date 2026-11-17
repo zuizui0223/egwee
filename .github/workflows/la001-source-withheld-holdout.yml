@@ -1,0 +1,47 @@
+name: LA001 original-source visit-to-seed holdout contract
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/compatibility_function/LA001_*'
+      - 'research/compatibility_function/run_leavenworthia_LA001.py'
+      - 'research/compatibility_function/test_la001_source_gate.py'
+      - '.github/workflows/la001-source-withheld-holdout.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-no-raw-source-and-fixed-negative-result:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Test source-withheld parsing and ridge prediction contracts
+        run: |
+          python -m unittest discover \
+            -s research/compatibility_function \
+            -p 'test_la001_source_gate.py' -v
+      - name: Enforce source grain, original freeze, and result ceiling
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('research/compatibility_function/LA001_HELDOUT_RESULT_20261117.json')
+          r=json.loads(p.read_text())
+          assert r['status']=='ORIGINAL_SOURCE_HOLDOUT_COMPLETE_NO_ROBUST_INCREMENT'
+          assert r['quality']['site_year_groups']==8
+          assert r['quality']['distinct_field_sites']==4
+          assert r['quality']['field_S_marker_calls'].startswith('SC coded')
+          assert r['pooled']['M0_minus_M1_mse'] < 0
+          assert r['pooled']['M0_mse'] < r['pooled']['M1_mse']
+          assert r['pooled']['M0_mse'] < r['pooled']['M2_mse']
+          assert len(r['folds'])==4 and sum(s['n'] for s in r['folds'])==252
+          assert not any(Path('.').rglob('*dryad_2pj0j*.zip'))
+          print('LA001 original raw source withheld. Recorded negative site-out result remains unchanged.')
+          PY

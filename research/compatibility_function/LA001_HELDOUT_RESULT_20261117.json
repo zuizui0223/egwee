@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "analysis_id": "LA001_leavenworthia_site_holdout_visit_seed_v1",
+  "status": "ORIGINAL_SOURCE_HOLDOUT_COMPLETE_NO_ROBUST_INCREMENT",
+  "provenance": {
+    "doi": "10.5061/dryad.2pj0j",
+    "paper_doi": "10.1111/evo.13167",
+    "archive_sha256": "82bcaa1c3a504cc779bc9c2aa95199a657dd404b3fdf62f7059e4ff5028b39c1",
+    "frozen_protocol_commit": "78af346b100b70c61bc12eb71f4d57afe7f28722",
+    "original_zip_not_committed": true,
+    "execution": "Original ZIP programmatically opened in local analysis container; no third-party raw file redistributed",
+    "independent_numerical_crosscheck": "All 4 sites x 3 model predictions agree with independently fitted NumPy ridge normal-equations within 1e-8 absolute prediction error"
+  },
+  "quality": {
+    "archive_crc": "pass",
+    "source_field_n": 256,
+    "source_field_with_seed_total": 252,
+    "field_seed_total_missing": 4,
+    "site_year_groups": 8,
+    "distinct_field_sites": 4,
+    "source_first_flower_field_exact_link": 256,
+    "source_S_marker_field_exact_link": 256,
+    "field_S_marker_calls": "SC coded 0 = A at S-locus; SI coded 1 = D at S-locus, fully confounded",
+    "source_greenhouse_field_exact_link": 1,
+    "source_greenhouse_total_rows": 201,
+    "source_plant_observation_periods": 121,
+    "open_flower_rows": 125,
+    "incomplete_2015_no_total_sessions": 4,
+    "source_visits_to_positions_1to32": 6701,
+    "source_visits_with_zero_open_flower": 38,
+    "one_out_of_range_position_token": 34,
+    "site_year_natural_language": [
+      "2014 Waco/Quarry/24-43/Landersville:12/12/9/12 complete",
+      "2015 each site:19 complete"
+    ]
+  },
+  "models": {
+    "M0": "year + SC + year:SC + log1p(lifetime_flowers) + flowering_days/30",
+    "M1": "M0 + log1p((AH+BF source visit sequence counts)/(individual source open flower-hours))",
+    "M2": "M0 + log1p((all pollinator source visit sequence counts)/(individual source open flower-hours))",
+    "prediction": "log1p(field seed total)",
+    "validation": "Leave complete original site out across BOTH years (4 site folds)",
+    "ridge_lambda": 1,
+    "scaling": "training-site fold only, predictors standardized, intercept unpenalized",
+    "inclusion": "complete source seed count, total flowering, flowering time, source positive flower-hours; no outcome-informed filtering",
+    "predeclared_gate": "pooled M0_minus_M1_MSE > 0 AND at least three of four full-site folds have M0_minus_M1_MSE > 0"
+  },
+  "folds": [
+    {
+      "site": "Waco",
+      "n": 62,
+      "M0_mse": 0.8700988557711892,
+      "M1_mse": 0.8179281950290875,
+      "M2_mse": 0.8730792711565962,
+      "M0_mae": 0.753633542555514,
+      "M1_mae": 0.7344216686177025,
+      "M2_mae": 0.7542107906445625
+    },
+    {
+      "site": "Quarry",
+      "n": 63,
+      "M0_mse": 0.2773127875675184,
+      "M1_mse": 0.2662985933898139,
+      "M2_mse": 0.27846315923860354,
+      "M0_mae": 0.4276960778783444,
+      "M1_mae": 0.41043094877272074,
+      "M2_mae": 0.42495205996757934
+    },
+    {
+      "site": "24-43",
+      "n": 64,
+      "M0_mse": 0.9951417582700313,
+      "M1_mse": 1.2071836796931912,
+      "M2_mse": 1.1488816256263163,
+      "M0_mae": 0.5999199538696575,
+      "M1_mae": 0.7594124211296783,
+      "M2_mae": 0.7123629157513237
+    },
+    {
+      "site": "Landersville",
+      "n": 63,
+      "M0_mse": 0.5384778071785619,
+      "M1_mse": 0.5086779797633112,
+      "M2_mse": 0.5609580775118171,
+      "M0_mae": 0.6017377867290364,
+      "M1_mae": 0.5868965294250648,
+      "M2_mae": 0.6135198158600257
+    }
+  ],
+  "pooled": {
+    "n": 252,
+    "M0_mse": 0.6707540041908682,
+    "M1_mse": 0.7015667765905339,
+    "M2_mse": 0.7164399871709116,
+    "M0_mae": 0.5951368656998609,
+    "M1_mae": 0.6228895616391169,
+    "M2_mae": 0.6260953325602646,
+    "M0_minus_M1_mse": -0.030812772399665733,
+    "M2_minus_M1_mse": 0.014873210580377716,
+    "sites_with_positive_primary_gain": 3,
+    "total_sites": 4
+  },
+  "decision": "NO_ROBUST_SINGLE_PROGRAMME_INCREMENT",
+  "scientific_bounds": [
+    "Same original trial programme, four sites, not four independent study programmes",
+    "S locus marker call is confounded with field SC/SI category, so genetic compatibility is not independently identified",
+    "Observed guild AH/BF visitation is not measured compatible pollen deposition",
+    "Lifetime total flowers covariate requires information not available for an early warning",
+    "Seed total is a source seed count, not a verified viable next-generation offspring cohort",
+    "Not a prospective temporal/causal evaluation; site held-out association only",
+    "No individual-based p-values or universal natural effect claim",
+    "Original authors already established SC seed advantage and seed discounting"
+  ]
+}
