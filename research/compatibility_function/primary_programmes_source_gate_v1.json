@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "registered_on": "2026-11-17",
+  "purpose": "Public primary-data source/ID screening for independent natural pollen-service x mating-compatibility x direct seed-function test; schema only, no effects",
+  "programmes": [
+    {
+      "id": "SMF001",
+      "programme": "Argentina_anserina_Cisternas_Fuentes_2024_online",
+      "species": "Argentina anserina",
+      "source_doi": "10.5061/dryad.pnvx0k6zm",
+      "source_url": "https://datadryad.org/dataset/doi%3A10.5061/dryad.pnvx0k6zm",
+      "design": "Controlled outcross and self crosses in 13 natural source populations; published original study already reports lower mate availability and leaky SI compensation",
+      "expected_data_files": [
+        "mate_availability_data.xlsx",
+        "pop_level_average_data.xlsx",
+        "seed_data_outcrossing.xlsx",
+        "SCI_data.xlsx",
+        "leakiness_data_input.xlsx",
+        "success_vs_unsuccess_fruits.xlsx"
+      ],
+      "known_layer_axes": [
+        "G_S_allele_estimated_from_diallel",
+        "C_compatible_mate_outcross_crosses",
+        "F_direct_seed_count_from_controlled_crosses",
+        "I_pollen_grain_germination_tubes_experimental"
+      ],
+      "not_demonstrated": [
+        "field_natural_pollinator_visitation_same_pop_time",
+        "prospective_future_recruitment",
+        "outcross_cross_success_as_natural_fruit_set"
+      ],
+      "independent_programme_count": 1,
+      "source_state": "published_paper_and_Dryad_file_inventory_verified_raw_join_not_audited"
+    },
+    {
+      "id": "SMF002",
+      "programme": "Leavenworthia_alabamica_Layman_2016_archive",
+      "species": "Leavenworthia alabamica",
+      "source_doi": "10.5061/dryad.2pj0j",
+      "source_url": "https://datadryad.org/dataset/doi%3A10.5061/dryad.2pj0j",
+      "design": "2014-2015 field pollinator data, S-locus genotyping, field/greenhouse seed outcomes and manipulated SC mutation; repeated plants/treatments not independent studies",
+      "expected_data_files": [
+        "2014+2015 Field data.xlsx",
+        "2014+2015 Greenhouse data.xlsx",
+        "Emasculation experiment.xlsx",
+        "Pollinator Data 2014.xlsx",
+        "Pollinator Data 2015.xlsx",
+        "S-locus Genotyping 2014.xlsx",
+        "S-locus genotyping 2015.xlsx"
+      ],
+      "known_layer_axes": [
+        "I_pollinator_field_observations",
+        "G_S_locus_genotyping",
+        "F_direct_seed_production",
+        "R_selfing_assurance_and_seed_discounting"
+      ],
+      "not_demonstrated": [
+        "exact_same_focal_mother_and_plot_identifier_crossworkbook",
+        "independent_natural_populations_as_two_year_replicates",
+        "trait_genotype_as_intervention_effect"
+      ],
+      "independent_programme_count": 1,
+      "source_state": "published_Dryad_file_inventory_verified_raw_join_not_audited"
+    },
+    {
+      "id": "SMF003",
+      "programme": "Rutidosis_leptorrhynchoides_Young_Pickup_2010",
+      "species": "Rutidosis leptorrhynchoides",
+      "publication_doi": "10.1111/j.1365-2664.2010.01798.x",
+      "source_url": "https://besjournals.onlinelibrary.wiley.com/doi/10.1111/j.1365-2664.2010.01798.x",
+      "design": "7 populations with diallel-estimated S-allele availability, open pollen loads and seed set; already published direct result",
+      "expected_data_files": [],
+      "known_layer_axes": [
+        "I_stigmatic_pollen_load",
+        "C_S_allele_compatibility",
+        "F_direct_seed_set"
+      ],
+      "not_demonstrated": [
+        "public_reusable_population_7_row_machine_readable_table",
+        "same_individual_maternal_ID_public_data",
+        "independent_future_outcome"
+      ],
+      "independent_programme_count": 1,
+      "source_state": "article_text_and_figures_only_raw_numerical_table_not_verified"
+    },
+    {
+      "id": "SMF004",
+      "programme": "Spondias_purpurea_Cristobal_Perez_2021",
+      "species": "Spondias purpurea",
+      "publication_doi": "10.1016/j.biocon.2021.109007",
+      "source_url": "https://github.com/zuizui0223/egwee/blob/main/background/empirical_e6_spondias_audit.md",
+      "design": "5 source sites with paternity and offspring genetic summaries; visitation and fruit set habitat contrasts nested at tree/site scale",
+      "expected_data_files": [],
+      "known_layer_axes": [
+        "I_visitation_reported_habitat_comparison",
+        "C_site_paternity",
+        "G_adult_seed_juvenile_Ho_site_level",
+        "F_fruit_set_habitat_means"
+      ],
+      "not_demonstrated": [
+        "same_5_site_function_by_paternity_contrast",
+        "same_mother_future_cohort_function",
+        "independent_urban_island_origin_replication"
+      ],
+      "independent_programme_count": 1,
+      "source_state": "existing_EGWEE_published_tables_with_different_endpoint_grains"
+    }
+  ],
+  "inclusion_rule": "Any quantitative joint-state test requires common observation grain and biological matching keys verified before numeric effect estimates; paper-level programme is independent unit for cross-study synthesis",
+  "stop_rules": [
+    "No raw phenotype, genotype, seed or pollen observations are printed/committed in the schema stage",
+    "Do not assume donor-mother-plant strings form cross-workbook keys",
+    "Do not call natural field visitation inferred from a hand pollination treatment",
+    "Do not pool 13 populations, 2 years, seven populations and five sites as independent studies",
+    "Do not claim new mechanism from old published Rutidosis/Argentina results",
+    "Source access failures are explicit STOP, not guessed links",
+    "Scientific results from EGWE finite model and EGWEE existing meta remain separate"
+  ]
+}
