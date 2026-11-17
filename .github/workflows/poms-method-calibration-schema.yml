@@ -1,0 +1,36 @@
+name: PoMS dual-method macro schema gate
+
+on:
+  push:
+    branches:
+      - analysis/poms-method-calibration-20261117
+    paths:
+      - 'research/poms_method_calibration/**'
+      - '.github/workflows/poms-method-calibration-schema.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit-original-sources:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out audited research branch
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Read raw EIDC ZIPs in runner; emit headers and counts only
+        run: |
+          python research/poms_method_calibration/audit_poms_dual_method_schemas.py \
+            --output research/poms_method_calibration/output/poms_dual_schema_gate.json
+      - name: Store derivative-only source schema receipt even after STOP
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: poms-dual-method-schema-only
+          path: research/poms_method_calibration/output/poms_dual_schema_gate.json
+          if-no-files-found: error
