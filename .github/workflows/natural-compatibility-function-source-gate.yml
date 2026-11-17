@@ -1,0 +1,66 @@
+name: Natural SI mating-function public Dryad schema gate
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/compatibility_function/**'
+      - '.github/workflows/natural-compatibility-function-source-gate.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-inventory-before-effect-analysis:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check DOI, workbook header-only and raw-data non-disclosure tests
+        run: |
+          python -m unittest discover -s research/compatibility_function \
+            -p 'test_dryad_joint_state_source_schema.py' -v
+      - name: Screen both independent published Dryad sources by their official public API
+        run: |
+          python research/compatibility_function/audit_dryad_joint_state_source_schema.py \
+            --registry research/compatibility_function/primary_programmes_source_gate_v1.json \
+            --output source_schema_receipts/si_mating_seed_public_sources_v1.json
+      - name: Enforce declared source grain and explicit access stops
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('source_schema_receipts/si_mating_seed_public_sources_v1.json')
+          d=json.loads(p.read_text(encoding='utf-8'))
+          assert d['status']=='PUBLISHED_PROGRAMME_METADATA_AND_SCHEMA_ONLY'
+          assert d['doi_inventory_source_count']==2
+          assert d['distinct_original_published_programmes']==4
+          assert d['raw_same_cohort_joint_state_verified_programmes']==0
+          assert d['raw_alleles_or_fitness_values_read'] is False
+          assert d['published_raw_files_redistributed'] is False
+          assert d['no_empirical_function_effect_estimated'] is True
+          assert [x['programme_id'] for x in d['source_results']]==['SMF001','SMF002']
+          assert all(x['decision'] in {
+              'SCHEMA_AVAILABLE_JOIN_GRAIN_NOT_YET_VERIFIED',
+              'PUBLIC_DOWNLOAD_STOP_METADATA_ONLY',
+              'SOURCE_ACCESS_STOP_NO_RAW_LINKAGE_INFERENCE',
+              'SOURCE_SCHEMA_STOP_NO_EXPECTED_FILE_MATCH'
+          } for x in d['source_results'])
+          assert all(x['exact_biological_ID_join_verified'] is False
+                     and x['phenotype_values_examined'] is False
+                     and x['molecular_genotypes_examined'] is False
+                     for x in d['source_results'])
+          print('Public source statuses verified; no ecological-function effect or cross-study prediction is claimed')
+          PY
+      - name: Publish only metadata/header/ID-grain receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: natural-si-mating-function-schema-only
+          path: source_schema_receipts/
+          if-no-files-found: warn
+          retention-days: 90
