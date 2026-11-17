@@ -47,14 +47,14 @@ class LA001ExposureTransportTests(unittest.TestCase):
                                    source["M0_mse"] - source["M1_mse"],
                                    delta=1e-9)
             self.assertGreater(row["n"], 0)
-            self.assertGreaterEqual(row["n_above_train_rate_q95"], 0)
-            self.assertLessEqual(row["n_above_train_rate_q95"], row["n"])
+            self.assertGreaterEqual(row["n_holdout_above_training_p95"], 0)
+            self.assertLessEqual(row["n_holdout_above_training_p95"], row["n"])
 
     def test_24_43_distribution_shift_is_not_predeclared_significance(self):
         x = json.loads(RECORD.read_text(encoding="utf-8"))
         one = next(s for s in x["sites"] if s["site"] == "24-43")
         self.assertEqual(one["n"], 64)
-        self.assertEqual(one["n_above_train_rate_q95"], 22)
+        self.assertEqual(one["n_holdout_above_training_p95"], 22)
         self.assertEqual(one["n_above_in_2014"], 22)
         self.assertEqual([r["n"] for r in one["subgroup"]], [16, 16, 16, 16])
         self.assertLess(one["unstandardized_log_visit_coefficient"], 0)
