@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "experiment_id": "LA002_independently_assayed_single_visit_quality_site_transfer",
+  "status": "prospective_locked_before_new_field_seed_predictive_outcomes",
+  "registered_date": "2026-11-17",
+  "motivation": "Original LA001 guild-count model failed pooled whole-site CV; test whether within-study but separately assayed single-visit seed yield improves full-site prediction without fitting biological efficacy weights to field plants' seed outcomes.",
+  "original_source": {
+    "dryad_doi": "10.5061/dryad.2pj0j",
+    "paper_doi": "10.1111/evo.13167",
+    "source_sha256": "82bcaa1c3a504cc779bc9c2aa95199a657dd404b3fdf62f7059e4ff5028b39c1",
+    "archive_name": "doi_10_5061_dryad_2pj0j__v20161228.zip",
+    "source_not_committed": true
+  },
+  "fixed_original_scientific_evidence": {
+    "LA001_frozen_protocol_commit": "78af346b100b70c61bc12eb71f4d57afe7f28722",
+    "original_decision": "NO_ROBUST_SINGLE_PROGRAMME_INCREMENT",
+    "original_M0_pooled_mse": 0.6707540041908682,
+    "original_M1_pooled_mse": 0.7015667765905339,
+    "original_site_folds": [
+      "Waco",
+      "Quarry",
+      "24-43",
+      "Landersville"
+    ],
+    "eligible_field_plants": 252
+  },
+  "single_visit_assay_schema": {
+    "workbook": "Emasculation+experiment.xlsx",
+    "sheet": "Final pass",
+    "rows_without_header": 72,
+    "columns": {
+      "pollinator": 0,
+      "fruit_binary": 2,
+      "seeds_per_fruit": 3
+    },
+    "quality_weight": "mean seed count per one experimental visit across all assigned assay flowers, counting no-fruit cases as 0; independent of 252 field-plant seed outcomes",
+    "assay_groups": {
+      "AH": {
+        "source_label": "Solitary",
+        "n": 22,
+        "n_fruits": 14,
+        "sum_seeds": 57,
+        "weight": 2.590909090909091
+      },
+      "BF": {
+        "source_label": "BeeFly",
+        "n": 9,
+        "n_fruits": 6,
+        "sum_seeds": 23,
+        "weight": 2.5555555555555554
+      },
+      "F": {
+        "source_label": "Fly",
+        "n": 17,
+        "n_fruits": 2,
+        "sum_seeds": 7,
+        "weight": 0.4117647058823529
+      }
+    },
+    "unweighted_unassayed_taxa": "All other event taxon codes, including rare Honeybee n=2 and Ant n=1 in experimental assay, contribute 0 to this explicitly restricted calibrated numerator; 0 is absence of admitted assay calibration, NOT an ecological claim of zero efficacy.",
+    "control": "Bagged control n=21, 1 fruit/1 seed; retain in provenance but do not fit or adjust weights based on field outcomes.",
+    "geographic_grain": "Single-visit assay near site 1 (Waco) in 2015, not fully independent across four site-year arrays.",
+    "genetic_grain": "Assay is not paired to original 252 maternal field plants' S-locus genotype and does not measure compatible paternal identity; calibration is not genotype-specific."
+  },
+  "field_exposure": {
+    "dataset": "2014+2015+Field+data.xlsx, Pollinator+Data+2014.xlsx, Pollinator+Data+2015.xlsx",
+    "exact_source_join": "Original site × year × plant label through First Flower position table; 256 source field subjects, 252 with complete seed total.",
+    "sessions": 121,
+    "plant_position_tokens_valid": 6701,
+    "filter": "Exactly LA001 (exclude 38 positions logged 0 open flowers and 1 out-of-range position; exclude 4 incomplete 2015 observation sessions).",
+    "flower_hours": "0.5 × sum of number of open flowers at source position over complete site-year sessions",
+    "new_feature": "quality_index = log1p((AH_visits*(57/22) + BF_visits*(23/9) + F_visits*(7/17)) / source_flower_hours)",
+    "old_features": "M1 = log1p((AH_visits + BF_visits)/source_flower_hours); M2=log1p(all valid visits/source_flower_hours)",
+    "do_not_fit_weights_on_field_seeds": true
+  },
+  "evaluation": {
+    "primary_endpoint": "y=log1p(lifetime field seed total) same 252 source plants as LA001, no replacements",
+    "model_M0": "original LA001 ridge lambda 1, standardized train-only year/SC/year×SC/log1p(total flowers)/days flowering",
+    "model_M1": "original baseline + equal AH/BF effective guild visits",
+    "model_M3": "original baseline + fixed independently assayed single-visit quality_index, lambda 1, training-only standardization",
+    "primary_comparator": "M0 vs M3: pooled held-out site MSE gain = MSE_M0 − MSE_M3 (positive is improvement)",
+    "secondary_comparator": "M1 vs M3: pooled MSE_M1 − MSE_M3; do not rescue primary based on this comparison",
+    "design": "Leave one WHOLE site out incl. BOTH 2014 and 2015 in every fold; fixed 4 sites.",
+    "rule": "Bounded within-study gain only if pooled M0−M3 positive and at least 3 of 4 site-fold differences positive; otherwise mark no robust independent-calibration increment. Do not infer general/ecological law from any positive result.",
+    "reported": "All four fold n, M0, M1, M3 MSE and MAE, aggregate 252-plant pooled MSE and MAE, assay-source category n/fruit/seeds, exposure QC, decision and limitations. No individual-based p values or 4 studies.",
+    "scaling": "Use same original LA001 ridge fitting and only training fold to standardize; do not retune penalty or cutoffs."
+  },
+  "stop_rules": [
+    "Freeze current protocol file in GitHub commit before first M3 field seed predictive fit; do not revise based on results.",
+    "If any of 72 source assay records or 256 source plant joins fail, STOP and log source-only erratum.",
+    "Do not change biological group dictionary or weights after looking at field outcomes.",
+    "Do not drop Waco despite in-study effectiveness assay; acknowledge information sharing.",
+    "Do not reweight after observing 24-43, exclude difficult sites, or optimize any quality-guild subset.",
+    "If no improvement, preserve negative result and do not add new functional proxy as confirmation.",
+    "This does not test paternal compatibility, effective pollen receipt, viable offspring recruitment or natural urban/island convergence."
+  ],
+  "source_grain": "One original research programme, one 2015 efficacy assay at Waco; effective visit rates in 121 sessions; population CV N=4 sites; causal generality absent",
+  "publication_firewall": "No edits to original LA001/EGWE/EGWEE original main manuscripts, no original third-party Excel/ZIP to GitHub."
+}
