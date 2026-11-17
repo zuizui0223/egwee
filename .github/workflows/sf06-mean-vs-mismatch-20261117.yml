@@ -1,0 +1,40 @@
+name: SF06 paired mean-vs-mismatch audit
+on:
+  push:
+    branches: [analysis/sf06-mean-vs-mismatch-20261117]
+  pull_request:
+    paths:
+      - scripts/audit_sf06_mean_vs_mismatch_20261117.py
+      - evidence/meta_extraction/sf06_translation_residual_pairs_v1.csv
+      - .github/workflows/sf06-mean-vs-mismatch-20261117.yml
+  workflow_dispatch:
+
+jobs:
+  paired-mean-audit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Recompute all 55 pairs with whole-publication bootstrap
+        run: |
+          python scripts/audit_sf06_mean_vs_mismatch_20261117.py --output sf06_paired_mean_derivative.json
+          python - <<'PY'
+          import json
+          x = json.load(open("sf06_paired_mean_derivative.json"))
+          assert x["n_fragmentation_pairs"] == 55
+          assert x["n_publications"] == 33
+          assert x["negative_delta_pairs"] == 29
+          assert x["positive_delta_pairs"] == 26
+          assert x["pub_cluster_bootstrap_95pct"][0] < 0 < x["pub_cluster_bootstrap_95pct"][1]
+          assert x["publication_balanced_bootstrap_95pct"][0] < 0 < x["publication_balanced_bootstrap_95pct"][1]
+          assert x["publication_leave_one_out_mean_min"] < 0 < x["publication_leave_one_out_mean_max"]
+          print(json.dumps(x, indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sf06-paired-mean-derivative
+          path: sf06_paired_mean_derivative.json
