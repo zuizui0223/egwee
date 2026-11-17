@@ -90,6 +90,9 @@ def run():
     direct = [r for r in poll_2022 if norm(r.get("PLANT_NETTED_FROM_SCI_NAME", ""))
               in {"clarkia amoena", "clarkia amoena douglas ex lindl."}]
     direct_sites = {norm(r["SITE"]) for r in direct}
+    any_genus = [r for r in poll_2022 if norm(r.get("PLANT_NETTED_FROM_GENUS", "")) == "clarkia"
+                 or norm(r.get("PLANT_NETTED_FROM_SCI_NAME", "")).startswith("clarkia ")]
+    genus_sites = {norm(r["SITE"]) for r in any_genus}
     direct_matched = [r for r in direct if norm(r["SITE"]) in seed_sites]
     # Survey rounds 4 and 5 bracket the 2022 planted Clarkia experiment but
     # are not guaranteed exact observational days for the experimental plants.
@@ -111,6 +114,8 @@ def run():
        "field_pollinator_detection_rows_2022": len(poll_2022),
        "clarkia_focal_visitor_detection_rows_2022": len(direct),
        "clarkia_focal_visitor_sites_2022": len(direct_sites),
+       "all_clarkia_genus_visitor_detections_2022": len(any_genus),
+       "all_clarkia_genus_sites_2022": len(genus_sites),
        "field_site_matched_clarkia_focal_detections_2022": len(direct_matched),
        "field_site_matched_clarkia_focal_detections_rounds_4_5": len(direct_near),
        "field_sites_with_focal_visitor_detections": len(seed_sites & direct_sites),
@@ -124,7 +129,7 @@ def run():
        "source_raw_rows_redistributed": False,
        "biological_effect_estimated": False,
     }
-    if len(seed_sites & direct_sites) == 0:
+    if len(seed_sites & direct_sites) == 0 and len(seed_sites & genus_sites) == 0:
         out["decision"] = "DIRECT_FLOWER_VISIT_SITE_COVERAGE_STOP"
     else:
         out["decision"] = "DIRECT_FLOWER_VISIT_SITE_COVERAGE_PRESENT_EXACT_EFFORT_AND_ID_UNVERIFIED"
