@@ -31,6 +31,14 @@ jobs:
         run: |
           python research/poms_method_calibration/audit_poms_exact_site_date_ids.py \
             --output research/poms_method_calibration/output/poms_exact_match_id_gate.json
+      - name: Install numpy for preregistered fixed-effects estimation
+        run: python -m pip install numpy==2.3.5
+      - name: Synthetic fixed-effects identity test (no external data)
+        run: python research/poms_method_calibration/analyze_poms_paired_method_flora.py --self-test
+      - name: Estimate prespecified paired observation channel interaction
+        run: |
+          python research/poms_method_calibration/analyze_poms_paired_method_flora.py \
+            --output research/poms_method_calibration/output/poms_paired_flora_result.json
       - name: Store derivative-only source schema receipt even after STOP
         if: always()
         uses: actions/upload-artifact@v4
