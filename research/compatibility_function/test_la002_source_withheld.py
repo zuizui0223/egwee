@@ -120,6 +120,23 @@ class LA002ContractTests(unittest.TestCase):
         self.assertTrue(self.out["provenance"]["original_source_not_redistributed"])
         self.assertFalse((ROOT / "doi_10_5061_dryad_2pj0j__v20161228.zip").exists())
 
+    def test_published_rate_and_control_numerators_not_falsely_reconciled(self):
+        source = self.out["source_visit_QC"]
+        pub = self.out["publisher_source_reconciliation"]
+        self.assertEqual(source["complete_sessions"], 121)
+        self.assertEqual(source["insect_event_rows"], 2850)
+        self.assertEqual(source["position_tokens_all"], 6702)
+        self.assertEqual(source["valid_position_visits"] -
+                         source["zero_open_flower_visits"], 6663)
+        self.assertEqual(pub["reported_paper_visits"], 3748)
+        self.assertNotEqual(pub["reported_paper_visits"],
+                            pub["source_raw_position_tokens"])
+        self.assertNotEqual(pub["reported_paper_visits"],
+                            pub["source_insect_event_rows"])
+        self.assertEqual(pub["reported_paper_control_flowers"], 17)
+        self.assertEqual(pub["source_control_rows"], 21)
+        self.assertTrue(pub["not_a_reconciled_paper_table_2_reproduction"])
+
     def test_source_sha_fail_closed(self):
         from tempfile import TemporaryDirectory
         with TemporaryDirectory() as tmp:
