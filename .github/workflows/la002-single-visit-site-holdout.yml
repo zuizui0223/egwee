@@ -1,0 +1,51 @@
+name: LA002 separately calibrated single-visit pollination holdout contract
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/compatibility_function/LA002_*'
+      - 'research/compatibility_function/run_leavenworthia_LA002.py'
+      - 'research/compatibility_function/test_la002_source_withheld.py'
+      - '.github/workflows/la002-single-visit-site-holdout.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test-frozen-efficacy-calibration-and-preserve-negative-decision:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Test original protocol-only commit ancestry and source-withheld formulas
+        run: |
+          python -m unittest discover -s research/compatibility_function \
+            -p 'test_la002_source_withheld.py' -v
+      - name: Verify all source-independent summary claims and no redistributed original data
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('research/compatibility_function')
+          r=json.loads((root/'LA002_ASSAY_WEIGHTED_SITE_HOLDOUT_RESULT_20261117.json').read_text())
+          p=json.loads((root/'LA002_FROZEN_SINGLE_VISIT_PROTOCOL_20261117.json').read_text())
+          old=json.loads((root/'LA001_HELDOUT_RESULT_20261117.json').read_text())
+          assert p['status']=='prospective_locked_before_new_field_seed_predictive_outcomes'
+          assert r['frozen_decision']=='NO_ROBUST_ASSAY_CALIBRATED_SITE_TRANSFER_INCREMENT'
+          assert old['decision']=='NO_ROBUST_SINGLE_PROGRAMME_INCREMENT'
+          assert r['positive_folds']==3 and r['primary_M0_minus_M3_mse'] < 0
+          assert r['single_visit_assay']['Solitary']['n']==22
+          assert r['single_visit_assay']['BeeFly']['n']==9
+          assert r['single_visit_assay']['Fly']['n']==17
+          assert sum(f['n'] for f in r['folds'])==252
+          assert not any(root.glob('*.zip'))
+          assert r['provenance']['original_source_not_redistributed']
+          print('LA002 original source withheld; no post-outcome model or pollinator-guild retuning.')
+          PY
