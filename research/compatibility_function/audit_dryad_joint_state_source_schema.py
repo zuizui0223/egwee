@@ -255,8 +255,15 @@ def main() -> None:
         "status": result["status"], "sources": [
             {"id": x["programme_id"], "metadata": x["source_metadata_status"],
              "files": x["source_files_status"], "decision": x["decision"],
+             "file_inventory_count": len(x.get("public_file_inventory", [])),
+             "expected_file_names_missing": x.get("missing_expected_filenames", []),
              "matched_schemas": sum(y["schema_status"] == "verified_first_row_schema_only"
-                                    for y in x["source_workbook_schemas"])}
+                                    for y in x["source_workbook_schemas"]),
+             "public_download_failure_types": sorted({
+                 (y.get("reason", "").split(":", 1)[0] or y.get("schema_status"))
+                 for y in x["source_workbook_schemas"]
+                 if y["schema_status"] != "verified_first_row_schema_only"
+             })}
             for x in result["source_results"]],
         "raw_same_cohort_joint_state_verified_programmes": 0,
         "no_outcome_analysis": True,
