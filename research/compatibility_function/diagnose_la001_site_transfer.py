@@ -107,12 +107,17 @@ def run(source: Path) -> dict:
         cell["five_most_negative_predictions_contribution_to_site_mean_mse_gain"] = (
             sum(sorted(gain)[:5]) / len(gain)
         )
-        for key in (
-            "training_effective_visit_rate_q95", "n_above_train_rate_q95",
-            "n_above_q95_2014", "unstandardized_log_visit_coefficient",
-            "m0_minus_m1_mse",
-        ):
-            if abs(cell[key] - benchmark[key]) > 1e-9:
+        # The locked aggregate receipt uses human-readable key names; keep
+        # that document immutable and explicitly map only display aliases.
+        receipt_keys = {
+            "training_effective_visit_rate_q95": "training_visitation_rate_p95",
+            "n_above_train_rate_q95": "n_holdout_above_training_p95",
+            "n_above_q95_2014": "n_above_in_2014",
+            "unstandardized_log_visit_coefficient": "unstandardized_log_visit_coefficient",
+            "m0_minus_m1_mse": "m0_minus_m1_mse",
+        }
+        for key, receipt_key in receipt_keys.items():
+            if abs(cell[key] - benchmark[receipt_key]) > 1e-9:
                 raise RuntimeError(f"Posthoc source summary drift: {name}/{key}")
         for current, recorded in zip(
             cell["site_year_SC_descriptive"], benchmark.get("subgroup", []),
