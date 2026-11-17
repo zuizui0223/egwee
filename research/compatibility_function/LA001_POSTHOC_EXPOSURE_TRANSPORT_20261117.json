@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "audit_id": "LA001_posthoc_site_exposure_transport_20261117",
+  "status": "POSTHOC_DESCRIPTIVE_NOT_CONFIRMATORY",
+  "original_dataset_doi": "10.5061/dryad.2pj0j",
+  "original_source_sha256": "82bcaa1c3a504cc779bc9c2aa95199a657dd404b3fdf62f7059e4ff5028b39c1",
+  "original_frozen_protocol_commit": "78af346b100b70c61bc12eb71f4d57afe7f28722",
+  "original_decision": "NO_ROBUST_SINGLE_PROGRAMME_INCREMENT",
+  "eligible_plants": 252,
+  "held_out_site_folds": 4,
+  "source_completed_pollinator_sessions": 121,
+  "method": "Original M0/M1/M2 ridge predictions recomputed; training-other-three-sites 95th percentile of AH+BF visits / observed flower-hours; post hoc observational distribution shift only",
+  "all12_fold_mses_reproduced_to_abs_tol": 1e-10,
+  "sites": [
+    {
+      "site": "Waco",
+      "n": 62,
+      "training_visitation_rate_p95": 4.21931818181818,
+      "n_holdout_above_training_p95": 1,
+      "n_above_in_2014": 1,
+      "unstandardized_log_visit_coefficient": -0.12992295431318804,
+      "m0_minus_m1_mse": 0.05217066074209648
+    },
+    {
+      "site": "Quarry",
+      "n": 63,
+      "training_visitation_rate_p95": 4.399999999999999,
+      "n_holdout_above_training_p95": 0,
+      "n_above_in_2014": 0,
+      "unstandardized_log_visit_coefficient": -0.3645955743125926,
+      "m0_minus_m1_mse": 0.01101419417770457
+    },
+    {
+      "site": "24-43",
+      "n": 64,
+      "training_visitation_rate_p95": 2.6083333333333343,
+      "n_holdout_above_training_p95": 22,
+      "n_above_in_2014": 22,
+      "unstandardized_log_visit_coefficient": -0.8876071246708978,
+      "m0_minus_m1_mse": -0.21204192142315959,
+      "five_most_negative_predictions_contribution_to_site_mean_mse_gain": -0.21027202982115345,
+      "subgroup": [
+        {
+          "year": 2014,
+          "genotype": "SI",
+          "n": 16,
+          "mean_effective_visits_per_flower_hour": 3.153230623543123,
+          "m0_minus_m1_mse": -0.764304717258351,
+          "m1_minus_m0_mean_pred": -0.48220179771480887
+        },
+        {
+          "year": 2014,
+          "genotype": "SC",
+          "n": 16,
+          "mean_effective_visits_per_flower_hour": 3.7194680319680318,
+          "m0_minus_m1_mse": 0.0558343710904013,
+          "m1_minus_m0_mean_pred": -0.6293552655913995
+        },
+        {
+          "year": 2015,
+          "genotype": "SI",
+          "n": 16,
+          "mean_effective_visits_per_flower_hour": 0.43563396219002987,
+          "m0_minus_m1_mse": -0.0846671122098754,
+          "m1_minus_m0_mean_pred": 0.08039017379531216
+        },
+        {
+          "year": 2015,
+          "genotype": "SC",
+          "n": 16,
+          "mean_effective_visits_per_flower_hour": 0.5309083749057276,
+          "m0_minus_m1_mse": -0.0550302273148132,
+          "m1_minus_m0_mean_pred": 0.02405299703323388
+        }
+      ]
+    },
+    {
+      "site": "Landersville",
+      "n": 63,
+      "training_visitation_rate_p95": 4.399999999999999,
+      "n_holdout_above_training_p95": 0,
+      "n_above_in_2014": 0,
+      "unstandardized_log_visit_coefficient": -0.05946152089081649,
+      "m0_minus_m1_mse": 0.02979982741525481
+    }
+  ],
+  "original_pooled_m0_minus_m1_mse": -0.030812772399665733,
+  "intervention_no_retraining": true,
+  "no_new_inferential_test": true,
+  "no_original_individual_rows_or_genotypes_redistributed": true,
+  "interpretation_ceiling": [
+    "Observed joint distribution/extrapolation is a statistical explanation candidate, not proof of a biological or causal pollination pathway",
+    "Four sites belong to one original publication; SC versus SI fully confounded with S-locus field marker",
+    "Year×site difference in sampling effort and flower number can affect the exposure rate; no variance decomposition identifies whether measurement or ecology dominates",
+    "Do not remove five extreme observations, cherry-pick favorable three sites, or update original ridge models after opening outcomes"
+  ]
+}

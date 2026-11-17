@@ -1,0 +1,48 @@
+name: LA001 source-withheld posthoc exposure transport audit
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/compatibility_function/diagnose_la001_site_transfer.py'
+      - 'research/compatibility_function/test_la001_site_transfer.py'
+      - 'research/compatibility_function/LA001_POSTHOC_EXPOSURE_TRANSPORT_20261117.json'
+      - 'research/compatibility_function/LA001_POSTHOC_SITE_TRANSFER_20261117.md'
+      - '.github/workflows/la001-posthoc-transfer-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-withheld-exposure-transport-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check original negative LA001 summary and posthoc diagnostic
+        run: |
+          python -m unittest discover \
+            -s research/compatibility_function \
+            -p 'test_la001_site_transfer.py' -v
+      - name: Assert raw source was not redistributed in the repository
+        run: |
+          test ! -e research/compatibility_function/doi_10_5061_dryad_2pj0j__v20161228.zip
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('research/compatibility_function')
+          original=json.loads((root/'LA001_HELDOUT_RESULT_20261117.json').read_text())
+          after=json.loads((root/'LA001_POSTHOC_EXPOSURE_TRANSPORT_20261117.json').read_text())
+          assert original['decision']=='NO_ROBUST_SINGLE_PROGRAMME_INCREMENT'
+          assert after['original_decision']==original['decision']
+          assert after['all12_fold_mses_reproduced_to_abs_tol']<=1e-10
+          assert len(after['sites'])==4
+          assert all(x['n']>0 for x in after['sites'])
+          assert sum(x['n'] for x in after['sites'])==252
+          assert after['no_original_individual_rows_or_genotypes_redistributed']
+          print('Post-outcome explanatory QA passed; original negative evidence retained.')
+          PY
