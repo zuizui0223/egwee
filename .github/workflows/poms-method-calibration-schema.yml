@@ -27,10 +27,14 @@ jobs:
         run: |
           python research/poms_method_calibration/audit_poms_dual_method_schemas.py \
             --output research/poms_method_calibration/output/poms_dual_schema_gate.json
+      - name: Check exact site-day identifiers without accessing outcomes
+        run: |
+          python research/poms_method_calibration/audit_poms_exact_site_date_ids.py \
+            --output research/poms_method_calibration/output/poms_exact_match_id_gate.json
       - name: Store derivative-only source schema receipt even after STOP
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: poms-dual-method-schema-only
-          path: research/poms_method_calibration/output/poms_dual_schema_gate.json
+          path: research/poms_method_calibration/output/*.json
           if-no-files-found: error
