@@ -1,0 +1,38 @@
+name: Original Clarkia source-only visit-to-seed keys
+on:
+  push:
+    branches: [analysis/original-qpf-source-atlas-20261117]
+  pull_request:
+    paths:
+      - research/original_qpf_atlas/audit_public_clarkia_qf_keys.py
+      - .github/workflows/original-clarkia-qf-source-gate.yml
+  workflow_dispatch:
+jobs:
+  clarkia-2022:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Audit SHA-pinned public original source identifiers before any seed outcomes
+        run: |
+          python research/original_qpf_atlas/audit_public_clarkia_qf_keys.py --output clarkia_qf_source_keys_derivative.json
+          python - <<'PY'
+          import json
+          x=json.load(open('clarkia_qf_source_keys_derivative.json'))
+          assert x['source_observation_effort_verified_and_exposure_normalized'] is False
+          assert x['outcome_seed_values_examined'] is False
+          assert x['individual_level_plant_to_visitor_ID_join_verified'] is False
+          assert x['biological_effect_estimated'] is False
+          assert x['sites_with_structurally_paired_plants'] <= x['original_seed_sites']
+          print('Source-only, no-response-value audit PASS')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: clarkia-qf-source-key-derivative
+          path: clarkia_qf_source_keys_derivative.json
+          retention-days: 14
