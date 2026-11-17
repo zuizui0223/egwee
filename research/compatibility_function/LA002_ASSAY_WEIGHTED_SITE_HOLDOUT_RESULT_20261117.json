@@ -1,0 +1,220 @@
+{
+  "schema_version": 1,
+  "experiment_id": "LA002_independently_assayed_single_visit_quality_site_transfer",
+  "status": "SOURCE_PINNED_SAME_STUDY_SITE_HOLDOUT_COMPLETED",
+  "original_source_SHA256": "82bcaa1c3a504cc779bc9c2aa95199a657dd404b3fdf62f7059e4ff5028b39c1",
+  "protocol_frozen_commit": "9372a647950df565b387b96169c8c6c77bb6917d",
+  "single_visit_assay": {
+    "Solitary": {
+      "n": 22,
+      "n_fruits": 14,
+      "total_seeds": 57,
+      "mean_seeds_per_assigned_visit": 2.590909090909091
+    },
+    "BeeFly": {
+      "n": 9,
+      "n_fruits": 6,
+      "total_seeds": 23,
+      "mean_seeds_per_assigned_visit": 2.5555555555555554
+    },
+    "Fly": {
+      "n": 17,
+      "n_fruits": 2,
+      "total_seeds": 7,
+      "mean_seeds_per_assigned_visit": 0.4117647058823529
+    },
+    "Honeybee": {
+      "n": 2,
+      "n_fruits": 1,
+      "total_seeds": 4,
+      "mean_seeds_per_assigned_visit": 2
+    },
+    "Ant": {
+      "n": 1,
+      "n_fruits": 0,
+      "total_seeds": 0,
+      "mean_seeds_per_assigned_visit": 0
+    },
+    "Control": {
+      "n": 21,
+      "n_fruits": 1,
+      "total_seeds": 1,
+      "mean_seeds_per_assigned_visit": 0.047619047619047616
+    }
+  },
+  "calibrated_weights": {
+    "AH": 2.590909090909091,
+    "BF": 2.5555555555555554,
+    "F": 0.4117647058823529
+  },
+  "site_years": 8,
+  "eligible_field_plants": 252,
+  "original_plant_keys_matched": 256,
+  "complete_half_hour_visitation_sessions": 121,
+  "valid_field_position_tokens": 6701,
+  "zero_open_flower_position_tokens_excluded": 38,
+  "out_of_range_position_tokens_excluded": 1,
+  "whole_site_fold_count": 4,
+  "folds": [
+    {
+      "site": "Waco",
+      "n": 62,
+      "models": {
+        "M0": {
+          "mse": 0.8700988557711817,
+          "mae": 0.7536335425555126
+        },
+        "M1": {
+          "mse": 0.8179281950290852,
+          "mae": 0.734421668617703
+        },
+        "M2": {
+          "mse": 0.8730792711565892,
+          "mae": 0.7542107906445605
+        },
+        "M3": {
+          "mse": 0.8339057362413806,
+          "mae": 0.7410736123417401
+        }
+      },
+      "M0_minus_M3_mse": 0.03619311952980109,
+      "M1_minus_M3_mse": -0.015977541212295443
+    },
+    {
+      "site": "Quarry",
+      "n": 63,
+      "models": {
+        "M0": {
+          "mse": 0.27731278756751837,
+          "mae": 0.4276960778783442
+        },
+        "M1": {
+          "mse": 0.2662985933898137,
+          "mae": 0.4104309487727209
+        },
+        "M2": {
+          "mse": 0.27846315923860393,
+          "mae": 0.42495205996757934
+        },
+        "M3": {
+          "mse": 0.2727625061579166,
+          "mae": 0.4170494506124224
+        }
+      },
+      "M0_minus_M3_mse": 0.004550281409601786,
+      "M1_minus_M3_mse": -0.006463912768102875
+    },
+    {
+      "site": "24-43",
+      "n": 64,
+      "models": {
+        "M0": {
+          "mse": 0.9951417582700323,
+          "mae": 0.5999199538696574
+        },
+        "M1": {
+          "mse": 1.2071836796931918,
+          "mae": 0.7594124211296784
+        },
+        "M2": {
+          "mse": 1.148881625626317,
+          "mae": 0.7123629157513236
+        },
+        "M3": {
+          "mse": 1.1667541100189036,
+          "mae": 0.7280089248828355
+        }
+      },
+      "M0_minus_M3_mse": -0.17161235174887135,
+      "M1_minus_M3_mse": 0.040429569674288235
+    },
+    {
+      "site": "Landersville",
+      "n": 63,
+      "models": {
+        "M0": {
+          "mse": 0.5384778071785642,
+          "mae": 0.6017377867290389
+        },
+        "M1": {
+          "mse": 0.5086779797633095,
+          "mae": 0.5868965294250658
+        },
+        "M2": {
+          "mse": 0.5609580775118166,
+          "mae": 0.6135198158600265
+        },
+        "M3": {
+          "mse": 0.528038845632871,
+          "mae": 0.5964522724712529
+        }
+      },
+      "M0_minus_M3_mse": 0.010438961545693237,
+      "M1_minus_M3_mse": -0.019360865869561428
+    }
+  ],
+  "pooled": {
+    "M0": {
+      "mse": 0.6707540041908672,
+      "mae": 0.5951368656998611
+    },
+    "M1": {
+      "mse": 0.701566776590533,
+      "mae": 0.6228895616391174
+    },
+    "M2": {
+      "mse": 0.7164399871709101,
+      "mae": 0.6260953325602644
+    },
+    "M3": {
+      "mse": 0.7016861263928375,
+      "mae": 0.6205942210792099
+    }
+  },
+  "primary_M0_minus_M3_mse": -0.03093212220197028,
+  "secondary_M1_minus_M3_mse": -0.00011934980230443593,
+  "positive_folds": 3,
+  "frozen_decision": "NO_ROBUST_ASSAY_CALIBRATED_SITE_TRANSFER_INCREMENT",
+  "provenance": {
+    "original_dataset_doi": "10.5061/dryad.2pj0j",
+    "original_article_doi": "10.1111/evo.13167",
+    "original_source_not_redistributed": true,
+    "original_LA001_scientific_results_unchanged": true,
+    "original_fields": [
+      2014,
+      2015
+    ],
+    "not_an_independent_field_assay": true,
+    "source_hash_verified": true,
+    "baseline_three_model_fold_MSE_max_reproduction_error": 1e-10,
+    "source_paper_numerators_not_reconciled": true
+  },
+  "limitations": [
+    "Assay one site in 2015: not independently externally calibrated across sites or years",
+    "Single-visit mean seed count is not measured compatible pollen or paternity",
+    "Small assay sample sizes: BeeFly 9, Fly 17, Solitary 22; other taxa not calibrated",
+    "SC and SI perfectly confounded with field marker type",
+    "Original field reproductive outcome lifetime total seed count, not viable recruitment or temporal future observation",
+    "Only four held-out sites within one original study",
+    "Original LA001 null not replaced and no posthoc guild/weight re-tuning"
+  ],
+  "source_visit_QC": {
+    "open_flower_rows": 125,
+    "complete_sessions": 121,
+    "valid_position_visits": 6701,
+    "zero_open_flower_visits": 38,
+    "invalid_position_visits": 1,
+    "insect_event_rows": 2850,
+    "position_tokens_all": 6702
+  },
+  "publisher_source_reconciliation": {
+    "reported_paper_visits": 3748,
+    "source_insect_event_rows": 2850,
+    "source_raw_position_tokens": 6702,
+    "source_rate_numerator_admitted_tokens": 6663,
+    "reported_paper_control_flowers": 17,
+    "source_control_rows": 21,
+    "status": "UNRESOLVED_SOURCE_VERSUS_PUBLISHED_UNIT_AND_CONTROL_DENOMINATORS",
+    "not_a_reconciled_paper_table_2_reproduction": true
+  }
+}
