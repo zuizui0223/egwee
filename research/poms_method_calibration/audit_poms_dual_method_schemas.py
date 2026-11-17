@@ -75,6 +75,9 @@ def inspect_archive(path: Path) -> list[dict]:
             info = zf.getinfo(member)
             if info.file_size > MAX_MEMBER_BYTES:
                 raise ValueError("Schema STOP: single CSV exceeds 256-MiB safety ceiling")
+            # Hash the uncompressed CSV; EIDC ZIP wrappers may be regenerated.
+            # No biological values are interpreted in this hash operation.
+            csv_sha256 = hashlib.sha256(zf.read(member)).hexdigest()
             with zf.open(member) as infile:
                 wrapped = io.TextIOWrapper(infile, encoding="utf-8-sig", errors="replace", newline="")
                 reader = csv.reader(wrapped)
@@ -87,6 +90,7 @@ def inspect_archive(path: Path) -> list[dict]:
                 rows = sum(1 for _ in reader)
             tables.append({
                 "member": member,
+                "sha256_uncompressed_csv": csv_sha256,
                 "bytes_uncompressed": info.file_size,
                 "rows_excluding_header": rows,
                 "header_fields": [str(v)[:180] for v in header],
