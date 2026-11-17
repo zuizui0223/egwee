@@ -13,6 +13,7 @@ import json
 import math
 from pathlib import Path
 from statistics import fmean
+import subprocess
 import zipfile
 
 from run_leavenworthia_LA001 import (
@@ -24,6 +25,22 @@ HERE = Path(__file__).resolve().parent
 PROTOCOL = HERE / "LA002_FROZEN_SINGLE_VISIT_PROTOCOL_20261117.json"
 PREVIOUS = HERE / "LA001_HELDOUT_RESULT_20261117.json"
 FROZEN_SHA = "9372a647950df565b387b96169c8c6c77bb6917d"
+
+
+def verify_original_protocol_freeze() -> None:
+    """Fail when result-facing edits changed the original pre-outcome protocol."""
+    root = HERE.parents[1]
+    historical = subprocess.check_output(
+        ["git", "show",
+         FROZEN_SHA + ":research/compatibility_function/LA002_FROZEN_SINGLE_VISIT_PROTOCOL_20261117.json"],
+        cwd=root,
+    )
+    if historical != PROTOCOL.read_bytes():
+        raise RuntimeError("LA002 protocol differs from its pre-outcome freeze")
+    subprocess.run(
+        ["git", "merge-base", "--is-ancestor", FROZEN_SHA, "HEAD"],
+        cwd=root, check=True,
+    )
 
 
 def calibrate_single_visit(outer: zipfile.ZipFile) -> dict[str, dict]:
@@ -162,6 +179,7 @@ def pollinator_sequences_by_plant(
 
 
 def prepare_original_252(source_zip: Path) -> tuple[list[dict], dict]:
+    verify_original_protocol_freeze()
     protocol = json.loads(PROTOCOL.read_text(encoding="utf-8"))
     if protocol["experiment_id"] != "LA002_independently_assayed_single_visit_quality_site_transfer":
         raise ValueError("Wrong frozen LA002 protocol")
