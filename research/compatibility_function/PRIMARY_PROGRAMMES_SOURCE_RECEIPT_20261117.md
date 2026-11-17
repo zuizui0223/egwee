@@ -4,10 +4,14 @@
 
 ## Actual CI execution
 
-- GitHub Actions: [44035790388](https://github.com/zuizui0223/egwee/actions/runs/44035790388).
-- Source-schema artifact: [14306867556](https://github.com/zuizui0223/egwee/actions/runs/44035790388/artifacts/14306867556), SHA256 `e0b355bd115e16d391241c35e7d7f6f17f5c269848c38c38c591fa4145c0f7cd`.
+- Initial GitHub Actions: [44035790388](https://github.com/zuizui0223/egwee/actions/runs/44035790388). Rechecked with safe download-error classifications: [44036022987](https://github.com/zuizui0223/egwee/actions/runs/44036022987).
+- Initial source-schema artifact: [14306867556](https://github.com/zuizui0223/egwee/actions/runs/44035790388/artifacts/14306867556), SHA256 `e0b355bd115e16d391241c35e7d7f6f17f5c269848c38c38c591fa4145c0f7cd`.
+- Latest source-schema artifact: [14307332132](https://github.com/zuizui0223/egwee/actions/runs/44036022987/artifacts/14307332132), SHA256 `ddc728d5e613f6b232b62434c8378770436b6aac0ab2d785d71098d6612aba47`.
 - DOI/external source metadata verification: **2/2** (`SMF001`, `SMF002`).
 - Official Dryad version/file-list metadata: **2/2**.
+- SMF001 (Argentina) original API inventory: **10 files**, all six named target workbooks present.
+- SMF002 (Leavenworthia) original API inventory: **12 files**, all seven named target workbooks present.
+- Original workbook downloads returned **HTTPError** in both datasets; status code and authorization requirement were **not established from the abbreviated CI console output**. No bypass attempted.
 - Successfully read original Excel worksheet schema: **0**.
 - Verified same plant/family/year biological keys: **0**.
 - Tested new effects on seed/offspring output: **0**.
