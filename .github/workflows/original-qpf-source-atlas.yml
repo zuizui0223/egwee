@@ -1,0 +1,57 @@
+name: Original QPF source atlas schema gate
+on:
+  push:
+    branches: [analysis/original-qpf-source-atlas-20261117]
+  pull_request:
+    paths:
+      - research/original_qpf_atlas/**
+      - research/compatibility_function/audit_dryad_joint_state_source_schema.py
+      - .github/workflows/original-qpf-source-atlas.yml
+  workflow_dispatch:
+
+jobs:
+  official-source-schema:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Test structural source-register invariants offline
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          x=json.loads(Path("research/original_qpf_atlas/SCHEMA_SOURCE_REGISTRY_20261117.json").read_text())
+          assert [v["id"] for v in x["sources"]] == [f"QPF{i:03d}" for i in range(1,7)]
+          assert sum(len(v["expected_files"]) for v in x["sources"]) == 17
+          assert "source-only" in x["status"]
+          # Explicitly prevent semantic promotion of field movement codes into measured pollen provenance.
+          b=[v for v in x["sources"] if v["id"]=="QPF003"][0]
+          assert "NOT DIRECTLY MEASURED" in b["p_intent"]
+          a=[v for v in x["sources"] if v["id"]=="QPF002"][0]
+          assert "SMF001" in a["known_overlap"]
+          print("pre-outcome registered source & scientific-unit guards: PASS")
+          PY
+      - name: Official Dryad API and first-row source schema only
+        run: |
+          python research/original_qpf_atlas/audit_original_qpf_source_schema.py --output original_qpf_source_schema_receipt.json
+          python - <<'PY'
+          import json
+          x=json.load(open("original_qpf_source_schema_receipt.json"))
+          assert x["source_programmes_screened"] == 6
+          assert x["selected_original_source_file_targets"] == 17
+          assert x["same_unit_verified_QPF_programmes"] == 0
+          assert x["global_macro_effect_estimated"] is False
+          assert x["outcome_values_or_genotypes_examined"] is False
+          print("fail-closed, result-free source receipts: PASS")
+          PY
+      - name: Upload derivative metadata receipt, never source workbooks
+        uses: actions/upload-artifact@v4
+        with:
+          name: original-qpf-atlas-schema-receipt
+          path: original_qpf_source_schema_receipt.json
+          retention-days: 14
