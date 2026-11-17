@@ -186,7 +186,8 @@
     ],
     "not_an_independent_field_assay": true,
     "source_hash_verified": true,
-    "baseline_three_model_fold_MSE_max_reproduction_error": 1e-10
+    "baseline_three_model_fold_MSE_max_reproduction_error": 1e-10,
+    "source_paper_numerators_not_reconciled": true
   },
   "limitations": [
     "Assay one site in 2015: not independently externally calibrated across sites or years",
@@ -196,5 +197,24 @@
     "Original field reproductive outcome lifetime total seed count, not viable recruitment or temporal future observation",
     "Only four held-out sites within one original study",
     "Original LA001 null not replaced and no posthoc guild/weight re-tuning"
-  ]
+  ],
+  "source_visit_QC": {
+    "open_flower_rows": 125,
+    "complete_sessions": 121,
+    "valid_position_visits": 6701,
+    "zero_open_flower_visits": 38,
+    "invalid_position_visits": 1,
+    "insect_event_rows": 2850,
+    "position_tokens_all": 6702
+  },
+  "publisher_source_reconciliation": {
+    "reported_paper_visits": 3748,
+    "source_insect_event_rows": 2850,
+    "source_raw_position_tokens": 6702,
+    "source_rate_numerator_admitted_tokens": 6663,
+    "reported_paper_control_flowers": 17,
+    "source_control_rows": 21,
+    "status": "UNRESOLVED_SOURCE_VERSUS_PUBLISHED_UNIT_AND_CONTROL_DENOMINATORS",
+    "not_a_reconciled_paper_table_2_reproduction": true
+  }
 }
