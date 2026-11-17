@@ -182,7 +182,11 @@ def main():
         "source_files_with_headers_verified": r["source_files_with_headers_verified"],
         "source_programmes": [
             {"id": x["id"], "decision": x["decision"],
+             "metadata_status": x["source_status"],
+             "metadata_error_class": x.get("error_class"),
+             "metadata_http_status": x.get("http_status"),
              "headers": x.get("files_with_headers_verified", 0),
+             "source_http_statuses": sorted({y.get("http_status") for y in x.get("file_results", []) if y.get("http_status") is not None}),
              "error_types": sorted({y.get("error_class", y["schema_status"])
                                     for y in x.get("file_results", [])
                                     if y["schema_status"] != "SOURCE_FIRST_ROW_SCHEMA_ONLY_VERIFIED"})}
