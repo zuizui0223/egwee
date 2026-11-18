@@ -1,0 +1,54 @@
+name: PoMS dual-method macro schema gate
+
+on:
+  push:
+    branches:
+      - analysis/poms-method-calibration-20261117
+    paths:
+      - 'research/poms_method_calibration/**'
+      - '.github/workflows/poms-method-calibration-schema.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit-original-sources:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out audited research branch
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Read raw EIDC ZIPs in runner; emit headers and counts only
+        run: |
+          python research/poms_method_calibration/audit_poms_dual_method_schemas.py \
+            --output research/poms_method_calibration/output/poms_dual_schema_gate.json
+      - name: Check exact site-day identifiers without accessing outcomes
+        run: |
+          python research/poms_method_calibration/audit_poms_exact_site_date_ids.py \
+            --output research/poms_method_calibration/output/poms_exact_match_id_gate.json
+      - name: Install numpy for preregistered fixed-effects estimation
+        run: python -m pip install numpy==2.3.5
+      - name: Synthetic fixed-effects identity test (no external data)
+        run: python research/poms_method_calibration/analyze_poms_paired_method_flora.py --self-test
+      - name: Estimate prespecified paired observation channel interaction
+        run: |
+          python research/poms_method_calibration/analyze_poms_paired_method_flora.py \
+            --output research/poms_method_calibration/output/poms_paired_flora_result.json
+      - name: Verify retrospective informative-event diagnostic on synthetic data
+        run: python research/poms_method_calibration/audit_poms_information_gate.py --self-test
+      - name: Audit informative-event selection and effort without changing the primary
+        run: |
+          python research/poms_method_calibration/audit_poms_information_gate.py \
+            --output research/poms_method_calibration/output/poms_information_gate_diagnostic.json
+      - name: Store derivative-only source schema receipt even after STOP
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: poms-dual-method-schema-only
+          path: research/poms_method_calibration/output/*.json
+          if-no-files-found: error
