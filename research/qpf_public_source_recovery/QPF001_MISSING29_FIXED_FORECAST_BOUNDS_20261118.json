@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "analysis_id": "QPF001_missing29_original_fixed_forecast_error_bounds",
+  "status": "POSTHOC_SHARP_BOUNDS_CONDITIONAL_ON_HYPOTHETICAL_SEEDSET",
+  "original_scientific_decision": "NO_ROBUST_WITHIN_STUDY_DATE_TRANSFER_GAIN",
+  "original_protocol_commit": "a1658c353a0c244edafab194f96301968dc84040",
+  "original_source_doi": "10.5061/dryad.hqbzkh1g9",
+  "original_source_zip_sha256": "09a47a94913c7087405679c5dc18c0c3c6ded4e8ecad298e6f94f87c5a78b653",
+  "original_source_xlsx_sha256": "83790bb7d63222e3e21c0ceed5d729cacf63a2df843e5807836d8e5c853447aa",
+  "observed_recovered_fruit_n": 93,
+  "unrecovered_fruit_unknown_n": 29,
+  "filmed_all_flower_n": 122,
+  "source_genuine_stigma_pollen_and_visits_observed_n": 122,
+  "original_observed93_mse_gain_M0_minus_M1": 0.0013144845173867492,
+  "original_observed93_summed_squared_loss_gain": 0.12224706011696768,
+  "unrecovered29_summed_loss_gain_lower": -1.1500607486454058,
+  "unrecovered29_summed_loss_gain_upper": 1.16036146214543,
+  "hypothetical_all122_M0_minus_M1_mse_gain_lower": -0.008424702364987198,
+  "hypothetical_all122_M0_minus_M1_mse_gain_upper": 0.010513184608708176,
+  "unknown29_M1_prediction_higher_count": 17,
+  "unknown29_M1_prediction_lower_count": 12,
+  "date_level_aggregates": [
+    {
+      "julian_day": 176,
+      "n_missing_seedset": 15,
+      "mean_frozen_M0_missing_flower_prediction": 0.4428491930637167,
+      "mean_frozen_M1_missing_flower_prediction": 0.46895507350151305,
+      "min_possible_missing_outcome_error_gain_sse": -0.654535481554472,
+      "max_possible_missing_outcome_error_gain_sse": 0.7112778835636505,
+      "no_individual_source_forecasts_released": true
+    },
+    {
+      "julian_day": 177,
+      "n_missing_seedset": 0,
+      "mean_frozen_M0_missing_flower_prediction": null,
+      "mean_frozen_M1_missing_flower_prediction": null,
+      "min_possible_missing_outcome_error_gain_sse": 0,
+      "max_possible_missing_outcome_error_gain_sse": 0,
+      "no_individual_source_forecasts_released": true
+    },
+    {
+      "julian_day": 178,
+      "n_missing_seedset": 8,
+      "mean_frozen_M0_missing_flower_prediction": 0.43256927212134444,
+      "mean_frozen_M1_missing_flower_prediction": 0.4259430963200394,
+      "min_possible_missing_outcome_error_gain_sse": -0.27132988235824484,
+      "max_possible_missing_outcome_error_gain_sse": 0.23245260467405168,
+      "no_individual_source_forecasts_released": true
+    },
+    {
+      "julian_day": 182,
+      "n_missing_seedset": 2,
+      "mean_frozen_M0_missing_flower_prediction": 0.4305806773800199,
+      "mean_frozen_M1_missing_flower_prediction": 0.46399416269235483,
+      "min_possible_missing_outcome_error_gain_sse": -0.06560266411813055,
+      "max_possible_missing_outcome_error_gain_sse": 0.0983987485996961,
+      "no_individual_source_forecasts_released": true
+    },
+    {
+      "julian_day": 183,
+      "n_missing_seedset": 1,
+      "mean_frozen_M0_missing_flower_prediction": 0.3534827326886152,
+      "mean_frozen_M1_missing_flower_prediction": 0.40722177689338934,
+      "min_possible_missing_outcome_error_gain_sse": -0.040879533267198384,
+      "max_possible_missing_outcome_error_gain_sse": 0.06659855514234991,
+      "no_individual_source_forecasts_released": true
+    },
+    {
+      "julian_day": 190,
+      "n_missing_seedset": 2,
+      "mean_frozen_M0_missing_flower_prediction": 0.21391633644481411,
+      "mean_frozen_M1_missing_flower_prediction": 0.19608820787026787,
+      "min_possible_missing_outcome_error_gain_sse": -0.0935221680201816,
+      "max_possible_missing_outcome_error_gain_sse": 0.04198700397176916,
+      "no_individual_source_forecasts_released": true
+    },
+    {
+      "julian_day": 191,
+      "n_missing_seedset": 0,
+      "mean_frozen_M0_missing_flower_prediction": null,
+      "mean_frozen_M1_missing_flower_prediction": null,
+      "min_possible_missing_outcome_error_gain_sse": 0,
+      "max_possible_missing_outcome_error_gain_sse": 0,
+      "no_individual_source_forecasts_released": true
+    },
+    {
+      "julian_day": 196,
+      "n_missing_seedset": 1,
+      "mean_frozen_M0_missing_flower_prediction": 0.7064541122921173,
+      "mean_frozen_M1_missing_flower_prediction": 0.7233729550526629,
+      "min_possible_missing_outcome_error_gain_sse": -0.02419101932717832,
+      "max_possible_missing_outcome_error_gain_sse": 0.0096466661939128,
+      "no_individual_source_forecasts_released": true
+    }
+  ],
+  "independent_original_data_reproduction": {
+    "input": "Exact official user-supplied original source ZIP, CRC verified, XLSX SHA verified",
+    "reader_1": "artifact_tool XLSX importer; independent numpy normal-equation ridge reproduces all original 8-date heldout MSE/MAE",
+    "original_8date_times_2model_times_2metrics_rechecked": 32,
+    "max_absolute_original_8date_model_metric_discrepancy": 1.1102230246251565e-16,
+    "no_fit_on_unobserved_response": true
+  },
+  "math": "For missing i, delta_i(y)=(p0_i-y)^2-(p1_i-y)^2=p0_i^2-p1_i^2+2*y*(p1_i-p0_i). Affine y_i∈[0,1] gives sharp unconstrained extrema at endpoints, one per missing flower.",
+  "condition_on_potential_outcome": "All 29 unrecovered/herbivorized flowers must have hypothetically well-defined comparable source Seed.set in [0,1]. That assumption is not observed nor proven biologically.",
+  "scope": [
+    "Model training is still original complete-case 93 recovered fruits using exactly seven other filming dates for each heldout date; no retraining on missing values.",
+    "Interval bounds the full 122-sample mean MSE difference of those fixed forecasts for hypothetical missing seedset, not a confidence interval nor model fitted to all 122.",
+    "Original registered within-study 8-day decision was NO_ROBUST_WITHIN_STUDY_DATE_TRANSFER_GAIN, unchanged.",
+    "Missing-at-random never assumed; missing fruit not interpreted as biologically zero.",
+    "No site-level cross-programme generalization, causality of visits/pollen, paternity/compatibility or viable recruitment identified."
+  ],
+  "individual_flower_values_exported": false,
+  "third_party_original_workbook_exported": false
+}
