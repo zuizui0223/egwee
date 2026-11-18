@@ -6,6 +6,8 @@ on:
       - 'research/qpf_source_grain/QPF004_*'
       - 'research/qpf_source_grain/audit_mertensia_QPF004_public_source.py'
       - 'research/qpf_source_grain/test_mertensia_QPF004_source.py'
+      - 'research/qpf_source_grain/audit_mertensia_QPF004_uploaded_zip_schema.py'
+      - 'research/qpf_source_grain/test_mertensia_QPF004_uploaded_zip.py'
       - '.github/workflows/qpf004-mertensia-original-source.yml'
   workflow_dispatch:
 
@@ -25,6 +27,8 @@ jobs:
         run: |
           python -m unittest discover -s research/qpf_source_grain \
             -p 'test_mertensia_QPF004_source.py' -v
+          python -m unittest discover -s research/qpf_source_grain \
+            -p 'test_mertensia_QPF004_uploaded_zip.py' -v
       - name: Audit verified original Dryad metadata / original workbook headers if available
         run: |
           python research/qpf_source_grain/audit_mertensia_QPF004_public_source.py \
