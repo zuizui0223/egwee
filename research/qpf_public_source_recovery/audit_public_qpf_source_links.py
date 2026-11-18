@@ -202,10 +202,14 @@ def main() -> None:
     print(json.dumps({
         "QPF001_file_status":info["QPF001"]["original_file_stream"],
         "QPF001_decision":info["QPF001"]["decision"],
+        "QPF001_source_metadata":info["QPF001"].get("dryad_metadata_status"),
+        "QPF001_original_file_inventory":info["QPF001"].get("dryad_original_file_inventory",[]),
+        "QPF001_failure":info["QPF001"].get("stream_failure_detail"),
         "QPF001_file_schema":info["QPF001"].get("worksheet_schema",[]),
         "QPF002_zenodo": [{
             "id":x["id"],"status":x["status"],
-            "file_names":[a["name"] for a in x.get("files",[])]
+            "title":x.get("title"),"failure":x.get("failure_detail"),
+            "file_manifest":x.get("files",[])
         } for x in info["QPF002_zenodo_related_software"]],
         "no_new_effects":True,
     },indent=2,ensure_ascii=False))
