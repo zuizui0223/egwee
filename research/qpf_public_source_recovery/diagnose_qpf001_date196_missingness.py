@@ -97,7 +97,9 @@ def source_diagnostic(source_zip: Path) -> dict:
         for name, values in (("M0", p0), ("M1", p1)):
             mse = mean((p - row["Seed.set"])**2           for p, row in zip(values, held))
             mae = mean(abs(p - row["Seed.set"])           for p, row in zip(values, held))
-            if (abs(mse - old_fold[name+"_mse"]) > 1e-10 or    abs(mae - old_fold[name+"_mae"]) > 1e-10):    raise RuntimeError(        "Original date heldout forecasts no longer reproduce"    )
+            if (abs(mse - old_fold[name+"_mse"]) > 1e-10 or
+                abs(mae - old_fold[name+"_mae"]) > 1e-10):
+                raise RuntimeError("Original date heldout forecasts no longer reproduce")
         missing_context = lambda row: (
             numeric(row["Con.abundance"]) is None or
             numeric(row["Het.abundance"]) is None
@@ -150,7 +152,8 @@ def source_diagnostic(source_zip: Path) -> dict:
         ovule = numeric(r["Ovule"])
         weight = numeric(r["Seed.weights"])
         if seed+ovule>0 and weight>0:
-            if abs(seed/weight - seed/(seed+ovule)) > 1e-9:    mismatch_by_day[int(r["Julian.day"])] += 1
+            if abs(seed/weight - seed/(seed+ovule)) > 1e-9:
+                mismatch_by_day[int(r["Julian.day"])] += 1
     if sum(mismatch_by_day.values()) != 10:
         raise ValueError("Original source Seed.set denominator audit changed")
     return {
