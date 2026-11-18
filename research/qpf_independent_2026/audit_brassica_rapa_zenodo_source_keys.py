@@ -28,7 +28,7 @@ ALLOWED_FILE_NAMES = (
     "data_ABPOLL_ID_resume.txt",
     "data_ABPOLL_flower_resume.txt",
     "data_ABPOLL_fix10_paternities.txt",
-    "data_ABPOLL_ID_level_ID.txt",
+    "data_ABPOLL_ID_level_detID.txt",
 )
 LIMIT_BYTES = 7 * 1024 * 1024
 MAX_ROWS = 500000
@@ -224,7 +224,7 @@ def schema_audit() -> dict:
                 })
         a=source_keys.get("data_ABPOLL_ID_resume.txt")
         b=source_keys.get("data_ABPOLL_flower_resume.txt")
-        c=source_keys.get("data_ABPOLL_ID_level_ID.txt")
+        c=source_keys.get("data_ABPOLL_ID_level_detID.txt")
         if a is not None and b is not None:
             overlap=a.intersection(b)
             result["exact_source_session_plant_key_grain"]={
