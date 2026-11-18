@@ -1,0 +1,36 @@
+name: EGWEE European seed-network original source schema gate
+
+on:
+  push:
+    branches:
+      - analysis/europe-seed-network-transport-20261118
+    paths:
+      - 'research/europe_seed_network_transport/**'
+      - '.github/workflows/europe-seed-network-source.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  original-source-schema:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Synthetic source-header integrity gate
+        run: python research/europe_seed_network_transport/audit_zenodo_seed_source_schema.py --self-test
+      - name: Fetch official Zenodo v2 files and inspect headers only
+        run: |
+          python research/europe_seed_network_transport/audit_zenodo_seed_source_schema.py \
+            --output research/europe_seed_network_transport/output/source_schema_receipt.json
+      - name: Preserve derivative-only receipt even on access failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: europe-seed-network-source-receipt
+          path: research/europe_seed_network_transport/output/*.json
+          if-no-files-found: warn
