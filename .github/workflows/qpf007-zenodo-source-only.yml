@@ -1,0 +1,55 @@
+name: QPF007 independent Brassica rapa original Zenodo plant-source key gate
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/qpf_independent_2026/**'
+      - '.github/workflows/qpf007-zenodo-source-only.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-independent-original-plant-join-without-phenotype:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Source-only record lock and synthetic original-key parsing tests
+        run: |
+          python -m unittest discover -s research/qpf_independent_2026 \
+            -p 'test_qpf007_zenodo_source_keys.py' -v
+      - name: Access official 2026 Zenodo original records and verify real source key counts
+        run: |
+          python research/qpf_independent_2026/audit_brassica_rapa_zenodo_source_keys.py \
+            --output qpf007_source_receipt/source_only.json
+      - name: Check exact study/source and do not promote to new ecological effect
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          x=json.loads(Path("qpf007_source_receipt/source_only.json").read_text())
+          assert x["zenodo_record_id"]==21628183
+          assert x["original_data_doi"]=="10.5281/zenodo.21628183"
+          assert x["raw_numeric_pollen_paternity_seed_or_visitor_values_read"] is False
+          assert x["original_rows_and_IDs_exported"] is False
+          assert x["new_ecological_effect_fitted"] is False
+          assert x["independent_landscapes_claimed"] is False
+          assert x["frozen_atlas_6_source_denominator_increment"]==0
+          print("Original QPF007 2026 source access/grain gate completed with NO biological outcomes or effect fit.")
+          PY
+      - name: Archive only public source keys aggregate/metadata and original checksums
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qpf007-zenodo-original-source-key-only
+          path: qpf007_source_receipt/
+          if-no-files-found: warn
+          retention-days: 90
