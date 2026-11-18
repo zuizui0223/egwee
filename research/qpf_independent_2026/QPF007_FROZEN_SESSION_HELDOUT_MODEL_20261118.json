@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "experiment_id": "QPF007_Brassica_rapa_2026_plant_pollen_seed_session_CV_v1",
+  "status": "PROSPECTIVE_PREDICTIVE_LOCK_BEFORE_OPENING_SOURCE_POLLEN_SEED_NUMERIC_OUTCOMES",
+  "registration_date": "2026-11-18",
+  "source_original": {
+    "doi": "10.5281/zenodo.21628183",
+    "paper_doi": "10.1371/journal.pbio.3003579",
+    "independent_programme_count": 1,
+    "source_verified_receipt": "research/qpf_independent_2026/QPF007_VERIFIED_ORIGINAL_PLANT_GRAIN_20261118.json",
+    "source_data_file": "data_ABPOLL_ID_resume.txt",
+    "source_original_sha256": "5033db434dfca909a256df4ed18ae6599fa0afb3c83fa956528b75dda1ef9ffe",
+    "source_stigma_file": "data_ABPOLL_flower_resume.txt",
+    "source_stigma_sha256": "ec7217acb683a0d0475622f3510228f3062a72a8bfd17162888f160db369a495",
+    "source_main_keys_n": 160,
+    "source_stigma_matching_keys_n": 160,
+    "experimental_session_n": 16,
+    "source_flower_stigma_rows": 1967,
+    "pairwise_raw_excluded_reason": "1363 pairwise observations have 18 session labels and only 138 matching main plant source keys; not part of this primary trial",
+    "paternity_1099_rows_excluded_reason": "Offspring_id, known_id, candidate_id original records have no source-certified session/plant key in source-only audit.",
+    "original_study_prior_art": "Original 2026 paper already reported pollinator abundance affects mate access/sexual selection; cannot claim discovery of pollen-mediated mating."
+  },
+  "source_relationship": "Single-season experimental Brassica rapa 16 pollinator-density sessions, not 16 independent fragmented landscapes; sampling 2–3 stigmas per plant and multiple seed fruits means SAME PLANT not SAME FLOWER.",
+  "source_variables": {
+    "unit": [
+      "session",
+      "ID_full"
+    ],
+    "response": "nbGr_mean: original number of seeds per sampled fruit, log1p response, NOT total offspring of the whole reproductive plant",
+    "covariate_treatment": "poll_treat: author experiment's bee-abundance class, categorical, one-hot across source-defined levels with first lexicographic reference; if none or >5 unique levels, STOP",
+    "covariate_visitation": "nb_visit original source plant contact count (log1p), >=0",
+    "covariate_display": "nb_flo_all original total floral display (log1p), >=0",
+    "covariate_size": "height_max plant size (log1p), >=0",
+    "added_stigma_P": "pl_mean: original source mean stigmatic pollen grain count sampled on flower subsample of that same (session, ID_full) plant, log1p; not compatible pollen nor paternity",
+    "stigma_measurement_validity": "Verify source flower file has same plant keys 160/160 and contain pl source column; numeric summary pl_mean is author-provided, no after-outcome construction.",
+    "nuisance_exclusions": "Exclude one plant if any response, visitation, floral display, height_max or mean stigma pollen is missing/NA/non-finite or negative; do not use separate seed data or alternative outcome. Excluded source plants remain counted in source coverage receipt; no imputation or dropping based on outcome sign."
+  },
+  "primary": {
+    "M0": "intercept + treatment indicators (fixed source categories) + log1p(nb_visit) + log1p(nb_flo_all) + log1p(height_max)",
+    "M1": "M0 + log1p(pl_mean), one additive original direct source pollen quantity coordinate",
+    "reason": "Test whether measured plant-matched stigmatic pollen quantity adds out-of-sample prediction of per-fruit seed count after prior visit count, floral display and experiment density control.",
+    "regression": "Gaussian ridge regression on y=log1p(nbGr_mean). Fit separate ridge lambda=1.0, intercept unpenalized; train-only means and population stddev for non-intercept columns, zero stddev scaled as 1; predictions are unclipped on log1p count scale (can be negative), same for both models.",
+    "holdout": "leave one complete original experimental session out, all valid mother plants in each session; 16 folds total (not 160 IID plants or 18 raw pairwise sessions).",
+    "loss": "One squared error per originally source-eligible plant in heldout session; pooled plant-weighted MSE and MAE on log1p(nbGr_mean); record every session's n and M0/M1 losses.",
+    "success_gate": "M0−M1 pooled MSE >=5% of pooled M0 MSE AND M0−M1 strictly positive in >=12/16 whole-session heldout folds. Both required. No p-value from pooled 160 plants.",
+    "failure_gate": "NO_ROBUST_WITHIN_EXPERIMENT_SESSION_POLLEN_INCREMENT when success_gate fails.",
+    "source_coverage_stop": "If <120 original plant/session keys complete, any of 16 sessions has <6 complete mothers, P source originally not measured in all 160 or source join keys drift, record COVERAGE_STOP with no trial result. Never relax after looking at outcome association.",
+    "prior_registration_integrity": "Protocol-only commit SHA frozen before new numeric original source model fits; code must check exact byte identity against Git ancestor. Merge must be non-squash to preserve ancestor."
+  },
+  "secondary": "A predeclared source-status descriptive comparison of number of eligible observations by bee-abundance class and original 16 sessions only. Do not choose a different reproductive metric or multi-feature pollen by results; paternity figures are prior original published analysis, not new fit.",
+  "scope": [
+    "One original experimental single-site research programme from a separate 2026 paper; not a 3rd preregistered NATURAL fragmented site system.",
+    "A prospective QPF study discovery outside the original six-source research registry: do not overwrite or increment frozen six.",
+    "Original paper author reported the pollinator abundance and sexual selection mechanism; predictive gain is our own separate, conservative source-specific test.",
+    "Stigma pollen load is not genotype-compatible pollen, and seeds measured per fruit are not surviving recruits.",
+    "Strong pollinator density treatment and plant traits confound observational stimulus→seed pathway; no causal mediation mechanism.",
+    "No individual raw observations, Zenodo data, original genetic assignments or author R code redistributed."
+  ]
+}
