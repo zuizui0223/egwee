@@ -19,7 +19,7 @@ from pathlib import Path
 import sys
 
 HERE=Path(__file__).resolve().parent
-SRC=HERE.parents[1]/"compatibility_function"
+SRC=HERE.parent/"compatibility_function"
 sys.path.insert(0,str(SRC))
 from audit_dryad_joint_state_source_schema import metadata_for_one
 
