@@ -55,3 +55,12 @@ The paper reports **17** bagged controls. In the supplied `Emasculation+experime
 This audit reads **only** original pollinator worksheets. The archive's `main.cpp`, `Individual.h`, and `Locus.h` simulate mating compatibility, selection, and mutation; they **do not provide the missing observation-table cleaning/aggregation script**. No individual plant/seed/genotype values, raw original event sequence, or source XLSX were committed. The audit script must be supplied the original ZIP locally; GitHub CI only checks source-withheld logic and aggregate receipts.
 
 **Issue #67 remains open** with a narrowed blocker: recover the *exact* paper counting unit for 3,748, the 2014 `Bf` versus `BF` dictionary, small 2015 rate corrections, and which four control rows were excluded. Until then, LA001/LA002 are legitimate analyses under their declared source-token operationalization but **not** complete replications of the original article's Table 2. Their primary negative conclusions are unchanged and no post-hoc predictive retuning is authorized.
+
+## 2026-11-18 supplementary correction: original code label found
+
+A subsequent **source-only** check found the literal 2014 code glossary in `Pollinator+Data+2014.xlsx`, `Landersville Field - Temporal`, row 1. It states **`Bf - Bee Fly`** and **`B - Butterfly`**, together with `F - Fly`, `H - Honey Bee`, `AH - Adrenid / Halictid` and `U - Unknown`. Thus **the literal `Bf` meaning is not entirely unknown**. The uppercase `BF` seen in the main array data has no separate explicit definition in this ancillary temporal-sheet glossary. The casefold-based BF/Other rates are still not the published Table 2 category rates; arbitrary reassignment of `Bf` to butterflies would contradict the source codebook.
+
+Both original sheets of `Emasculation+experiment.xlsx` contain 21 control entries with complete fruit outcomes; the `Final pass` 21 controls all have dates (7 on 2015-03-15, 14 on 2015-03-16), so **the article's 17 controls cannot be reconciled by missing dates/outcomes or by an entire-date exclusion**. This does not identify which controls the article counted.
+
+Full audit, rates under both case rules, source counts and scientific limits:
+`LA004_SOURCE_CODEBOOK_CONTROL_AUDIT_20261118.md`. The 3,748 published visit-unit mapping remains unresolved, and LA001/LA002 negative predictive conclusions are not modified.
