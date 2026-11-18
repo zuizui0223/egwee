@@ -1,0 +1,164 @@
+{
+  "schema_version": 1,
+  "audit_id": "QPF004_posthoc_2016_pollen_assay_coverage",
+  "classification": "POSTHOC_ASSAY_SELECTION_AND_SOURCE_SUPPORT_NOT_NEW_ECOLOGICAL_TEST",
+  "source_doi": "10.7280/D19X0D",
+  "source_archive_sha256": "635946881e42b2e67b25a3895111089db4d3d99081a7d27cb8be9e4775c1912f",
+  "original_primary_protocol_commit": "ab174531e7311b3953e7df5daf86da3ffcb4a99f",
+  "original_primary_decision": "NO_PRACTICALLY_PORTABLE_POLLEN_INCREMENT",
+  "original_2016_primary_pooled_MSE": {
+    "M0": 0.7815361133641171,
+    "M1": 0.8928460165385343,
+    "positive_weeks": 1
+  },
+  "source_all_2016_seed_per_flower_ramets": 232,
+  "source_ramets_with_measured_stigma_P": 62,
+  "source_ramets_without_stigma_P": 170,
+  "source_treatment_coverage_and_F_descriptives": [
+    {
+      "treatment": "ALL",
+      "source_n": 232,
+      "pollen_assay_n": 62,
+      "no_pollen_assay_n": 170,
+      "assay_fraction": 0.2672413793103448,
+      "source_P_assayed": {
+        "n": 62,
+        "mean_seed_per_flower": 0.7182027649769586,
+        "zero_seed_fraction": 0.5,
+        "mean_marked_flowers": 3.661290322580645
+      },
+      "source_P_not_assayed": {
+        "n": 170,
+        "mean_seed_per_flower": 0.34067452936378767,
+        "zero_seed_fraction": 0.7294117647058823,
+        "mean_marked_flowers": 7.152941176470589
+      }
+    },
+    {
+      "treatment": "V",
+      "source_n": 94,
+      "pollen_assay_n": 47,
+      "no_pollen_assay_n": 47,
+      "assay_fraction": 0.5,
+      "source_P_assayed": {
+        "n": 47,
+        "mean_seed_per_flower": 0.9342958459979738,
+        "zero_seed_fraction": 0.425531914893617,
+        "mean_marked_flowers": 2.851063829787234
+      },
+      "source_P_not_assayed": {
+        "n": 47,
+        "mean_seed_per_flower": 1.0724222585924714,
+        "zero_seed_fraction": 0.44680851063829785,
+        "mean_marked_flowers": 2.425531914893617
+      }
+    },
+    {
+      "treatment": "O",
+      "source_n": 65,
+      "pollen_assay_n": 15,
+      "no_pollen_assay_n": 50,
+      "assay_fraction": 0.23076923076923078,
+      "source_P_assayed": {
+        "n": 15,
+        "mean_seed_per_flower": 0.04111111111111111,
+        "zero_seed_fraction": 0.7333333333333333,
+        "mean_marked_flowers": 6.2
+      },
+      "source_P_not_assayed": {
+        "n": 50,
+        "mean_seed_per_flower": 0.10707073361421188,
+        "zero_seed_fraction": 0.74,
+        "mean_marked_flowers": 9.28
+      }
+    },
+    {
+      "treatment": "B",
+      "source_n": 73,
+      "pollen_assay_n": 0,
+      "no_pollen_assay_n": 73,
+      "assay_fraction": 0,
+      "source_P_assayed": {
+        "n": 0,
+        "mean_seed_per_flower": null,
+        "zero_seed_fraction": null,
+        "mean_marked_flowers": null
+      },
+      "source_P_not_assayed": {
+        "n": 73,
+        "mean_seed_per_flower": 0.02955187886694736,
+        "zero_seed_fraction": 0.9041095890410958,
+        "mean_marked_flowers": 8.73972602739726
+      }
+    }
+  ],
+  "site_by_week_pollen_coverage": [
+    {
+      "site": "RG",
+      "source_week": 1,
+      "source_seed_ramets": 23,
+      "pollen_measured_ramets": 4,
+      "pollen_unmeasured_ramets": 19,
+      "fraction_assayed": 0.17391304347826086
+    },
+    {
+      "site": "RG",
+      "source_week": 2,
+      "source_seed_ramets": 58,
+      "pollen_measured_ramets": 18,
+      "pollen_unmeasured_ramets": 40,
+      "fraction_assayed": 0.3103448275862069
+    },
+    {
+      "site": "RG",
+      "source_week": 3,
+      "source_seed_ramets": 41,
+      "pollen_measured_ramets": 16,
+      "pollen_unmeasured_ramets": 25,
+      "fraction_assayed": 0.3902439024390244
+    },
+    {
+      "site": "SP",
+      "source_week": 3,
+      "source_seed_ramets": 13,
+      "pollen_measured_ramets": 0,
+      "pollen_unmeasured_ramets": 13,
+      "fraction_assayed": 0
+    },
+    {
+      "site": "SP",
+      "source_week": 4,
+      "source_seed_ramets": 61,
+      "pollen_measured_ramets": 20,
+      "pollen_unmeasured_ramets": 41,
+      "fraction_assayed": 0.32786885245901637
+    },
+    {
+      "site": "SP",
+      "source_week": 5,
+      "source_seed_ramets": 36,
+      "pollen_measured_ramets": 4,
+      "pollen_unmeasured_ramets": 32,
+      "fraction_assayed": 0.1111111111111111
+    }
+  ],
+  "source_support_closure": {
+    "site_week_confounding_created_by_pollen_selection": "Original seed source includes SP week 3 (13 ramets), while all 13 have missing P. P-complete sample has RG weeks 1–3 only and SP weeks 4–5 only.",
+    "no_bagged_control_assayed_P": true,
+    "P_missingness_not_randomly_distributed_across_treatments": true,
+    "P_and_seed_same_flower_verified": false,
+    "clone_triplet_independence_verified": false
+  },
+  "original_source_case_note": "2016 P assay only V and O ramets; zeros of observed visits in O are observation state, not zero pollen or zero ecological activity.",
+  "interpretation_ceiling": [
+    "Source P-assay eligibility differs by original treatment; comparing pooled P-observed/unobserved seed means conflates treatment composition.",
+    "V-treatment subset has lower mean seed-per-flower in P-measured than unmeasured, opposite to all-arms pooled comparison; cannot infer any causal P selection effect.",
+    "B-treatment no P-assayed ramets; no positivity for P assay recovery across all original treatments.",
+    "Week3 SP ramets occur in full original seed source but none have measured P, so the 62 subset makes site and week support disjoint.",
+    "No new predictive model, effect/significance test, flower-level pollen–seed link, clone independence or independent regional replication.",
+    "Prior QPF004 registered negative pollen-increment comparison remains unchanged."
+  ],
+  "original_individual_flower_ramet_values_exported": false,
+  "third_party_original_source_uploaded": false,
+  "source_evidence": "Original user-supplied XLSX loaded with artifact_tool, exact official Dryad original SHA256 bbfcbbaf..., group keys by original plantID only; source-free aggregates archived."
+}
