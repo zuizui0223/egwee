@@ -23,7 +23,7 @@ class SourceGate(unittest.TestCase):
         self.assertEqual(p["original_public_data"]["zenodo_record"],q.ID)
         self.assertEqual(p["status"],"SOURCE_DISCOVERY_FREEZE_NO_BIOLOGICAL_OUTCOMES_ACCESSED")
         self.assertEqual(len(p["original_public_data"]["whitelist"]),5)
-        self.assertIn("session+ID_full",p["source_only_gate"]["exact_joint_grain"])
+        self.assertIn("session, original focal plant ID",p["source_only_gate"]["exact_joint_grain"])
         self.assertIn("NOT",p["next_outcome_test_if_verified"]["status"])
 
     def test_host_rejects_external_and_unrelated_records(self):
