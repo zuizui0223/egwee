@@ -253,6 +253,8 @@ def main():
     print(json.dumps({
         "result":info["status"],
         "metadata_verified":info.get("metadata_verified"),
+        "metadata_access_error_type":info.get("metadata_error_type"),
+        "metadata_access_error":info.get("metadata_error"),
         "file_sources":[{"file":x["filename"],"status":x["schema_status"],
                          "source_rows":x.get("original_physical_data_rows"),
                          "source_plant_keys":x.get("unique_session_plant_keys"),
