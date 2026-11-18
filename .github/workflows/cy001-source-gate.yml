@@ -1,0 +1,64 @@
+name: CY001 independent Cyanus original-source and plot-grain gate
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/compatibility_function/CY001_*'
+      - 'research/compatibility_function/audit_cyanus_CY001_source.py'
+      - 'research/compatibility_function/test_cyanus_CY001_source.py'
+      - 'research/compatibility_function/test_cyanus_CY001_model.py'
+      - 'research/compatibility_function/run_cyanus_CY001_plot_holdout.py'
+      - '.github/workflows/cy001-source-gate.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-check-before-mating-outcomes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify prospective commit ancestry and source-withheld schema gate
+        run: |
+          python -m unittest discover -s research/compatibility_function \
+            -p 'test_cyanus_CY001_source.py' -v
+          python -m unittest discover -s research/compatibility_function \
+            -p 'test_cyanus_CY001_model.py' -v
+      - name: Check original public Dryad DOI and original file metadata
+        run: |
+          python research/compatibility_function/audit_cyanus_CY001_source.py \
+            --output cy001_source_gate/original_source_receipt.json
+      - name: Validate that result does not imply any original biological coefficient
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("cy001_source_gate/original_source_receipt.json")
+          s=json.loads(p.read_text())
+          assert s["original_doi"]=="10.5061/dryad.9p8cz8ws1"
+          assert s["programme_count"]==1
+          assert s["original_mother_rows_examined"] is False
+          assert s["offspring_rpm_values_read"] is False
+          assert s["seed_outcome_values_read"] is False
+          assert s["same_original_row_join_verified"] is False
+          assert s["reproduction_or_paternity_effect_fitted"] is False
+          assert s["original_raw_workbook_redistributed"] is False
+          assert s["status"] in ("HEADERS_AVAILABLE_NO_OUTCOME_EXAMINED",
+                                 "SOURCE_ACCESS_STOP_NO_RAW_OUTCOME_TEST")
+          print("CY001 source-gate receipt does not claim independent measured effects")
+          PY
+      - name: Archive only metadata, access statuses and first-row headings
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cy001-original-source-header-only
+          path: cy001_source_gate/
+          if-no-files-found: warn
+          retention-days: 90
