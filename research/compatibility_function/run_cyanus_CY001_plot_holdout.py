@@ -27,6 +27,8 @@ ROOT = HERE.parents[1]
 PROTOCOL_REL = "research/compatibility_function/CY001_FROZEN_PLOT_HOLDOUT_PROTOCOL_20261118.json"
 PROTOCOL = ROOT / PROTOCOL_REL
 FREEZE_SHA = "a118ab77e71a097b46d264738e34c0428384a304"
+# Official Dryad version 2024-09-20 file metadata, SHA-256 original source.
+ORIGINAL_SOURCE_SHA256 = "18941f666c040c81c5db3f43c661d44fc157e9db636eef07a4aafd49f77b5332"
 MAIN_XML = "{http://schemas.openxmlformats.org/spreadsheetml/2006/main}"
 COL = {"id":0,"alleles":1,"rpm":3,"visits":4,"donor":5,"richness":6,
        "density":7,"plot":21,"strip":22,"n_child":23,"seeds":27}
@@ -101,6 +103,8 @@ def num(x,key):
 def source_schema(path):
     verify_protocol()
     digest = hashlib.sha256(path.read_bytes()).hexdigest()
+    if digest != ORIGINAL_SOURCE_SHA256:
+        raise RuntimeError("Workbook hash is not the original Dryad CY001 publication SHA-256")
     header,rows = rows_from_workbook(path)
     expected = {"id":"maternal","alleles":"alleles","rpm":"rpm",
                 "visits":"relative","plot":"plot","strip":"strip",
