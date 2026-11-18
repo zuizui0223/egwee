@@ -81,6 +81,23 @@ class SourceGateTests(unittest.TestCase):
         self.assertEqual(r["stream_failure_type"],"PermissionError")
         self.assertFalse(r["source_value_read"])
 
+    def test_zenodo_concept_id_resolves_to_one_versioned_software_record(self):
+        payload={
+          "id":10563521,
+          "conceptrecid":"10563520",
+          "doi":"10.5281/zenodo.10563521",
+          "metadata":{"title":"Visitation data analysis code"},
+          "files":[{"key":"Segmented_code.R","size":1599,
+                    "checksum":"md5:401e75022ad36b4fc7d39d2225c62438"}],
+        }
+        with patch.object(testit,"source_get",return_value=(
+            json.dumps(payload).encode(),"https://zenodo.org/api/records/10563521"
+        )):
+            r=testit.software_zenodo_record(10563520)
+        self.assertEqual(r["status"],"verified_metadata")
+        self.assertEqual(r["versioned_record_resolved_from_concept_id"],10563521)
+        self.assertFalse(r["original_xlsx_present"])
+
     def test_two_zenodo_related_work_ids_are_not_two_study_programmes(self):
         record={
             "id":10563520,
