@@ -1,0 +1,43 @@
+name: AA001 apple 2026 original Zenodo source-only schema gate
+on:
+  push:
+    branches: [analysis/apple-orchard-three-stage-source-20261118]
+  pull_request:
+    paths:
+      - research/apple_orchard_qpf/**
+      - .github/workflows/aa001-apple-zenodo-source-schema.yml
+  workflow_dispatch:
+
+jobs:
+  published-original-source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Source-only metadata/header hard-gate synthetic tests
+        run: python research/apple_orchard_qpf/audit_AA001_zenodo_source_schema.py --self-test
+      - name: Official record and original four file header/sha checks
+        run: |
+          python research/apple_orchard_qpf/audit_AA001_zenodo_source_schema.py --output aa001_source_schema_receipt.json
+          python - <<'PY'
+          import json
+          x=json.load(open("aa001_source_schema_receipt.json"))
+          assert x["source_record_id"]==19403906
+          assert x["original_numeric_rows_examined_for_inference"] is False
+          assert x["biological_mediation_or_yield_effect_tested"] is False
+          assert x["third_same_flower_qpf_programme_admitted"] is False
+          assert x["source_rows_redistributed"] is False
+          assert x["status"] in ("ALL_FOUR_SOURCE_HEADERS_VERIFIED",
+              "PARTIAL_OR_BLOCKED_SOURCE_SCHEMA","SOURCE_METADATA_OR_ACCESS_STOP")
+          print("AA001_SOURCE_FAIL_CLOSED_"+x["status"])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: aa001-original-zenodo-structural-receipt
+          path: aa001_source_schema_receipt.json
+          retention-days: 14
