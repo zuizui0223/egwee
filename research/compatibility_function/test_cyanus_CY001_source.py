@@ -30,6 +30,24 @@ class CY001SourceTests(unittest.TestCase):
         self.assertIn("MSE",p["primary"]["estimand"])
         self.assertIn("5%",p["primary"]["positive_gate"])
 
+    def test_actual_access_receipt_pins_original_source_without_values(self):
+        receipt=json.loads((
+            HERE / "CY001_SOURCE_ACCESS_RECEIPT_20261118.json"
+        ).read_text(encoding="utf-8"))
+        from run_cyanus_CY001_plot_holdout import ORIGINAL_SOURCE_SHA256
+        original=next(
+            x for x in receipt["source_manifest_from_official_Dryad_API"]
+            if x["name"]=="Data_Dryad.xlsx"
+        )
+        self.assertEqual(original["bytes"],27995)
+        self.assertEqual(original["digest_type"],"sha-256")
+        self.assertEqual(original["digest"],ORIGINAL_SOURCE_SHA256)
+        self.assertEqual(receipt["status"],"SOURCE_ACCESS_STOP_NO_RAW_OUTCOME_TEST")
+        self.assertTrue(receipt["source_metadata_verified"])
+        self.assertFalse(receipt["new_rpm_prediction_computed"])
+        self.assertFalse(receipt["new_seed_prediction_computed"])
+        self.assertFalse(receipt["raw_original_files_redistributed"])
+
     def test_access_denied_is_a_data_stop_not_ecological_null(self):
         fake={
           "source_metadata_status":"verified",
