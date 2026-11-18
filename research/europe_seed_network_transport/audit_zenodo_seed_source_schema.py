@@ -119,7 +119,7 @@ def audit() -> dict:
     for name in sorted(REQUIRED):
         source_file = files.get(name)
         if not source_file:
-            raise ValueError("SOURCE_STOP: required original file absent: " + name)
+            raise ValueError("SOURCE_STOP: required original file absent: " + name + "; source keys=" + str(sorted(files)[:40]))
         links = source_file.get("links") or {}
         url = links.get("self") or links.get("download") or links.get("content")
         if not isinstance(url, str):
