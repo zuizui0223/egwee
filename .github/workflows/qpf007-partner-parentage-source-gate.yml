@@ -1,0 +1,52 @@
+name: QPF007 original partner and parentage ID-only source gate
+on:
+  push:
+    branches: [audit/qpf007-verified-parentage-pair-join-20261118]
+  pull_request:
+    paths:
+      - research/qpf_independent_2026/QPF007_PARENTAGE_PARTNER_SOURCE_FREEZE_20261118.md
+      - research/qpf_independent_2026/audit_qpf007_partner_parentage_ids.py
+      - .github/workflows/qpf007-partner-parentage-source-gate.yml
+  workflow_dispatch:
+
+jobs:
+  session-and-mother-identity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 13
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run tiny synthetic source-header and ID parsing tests
+        run: python research/qpf_independent_2026/audit_qpf007_partner_parentage_ids.py --self-test
+      - name: Audit source-hashed original pair and offspring files, no biological values
+        run: |
+          python research/qpf_independent_2026/audit_qpf007_partner_parentage_ids.py \
+            --output qpf007_original_parentage_ID_receipt.json
+          python - <<'PY'
+          import json
+          x=json.load(open("qpf007_original_parentage_ID_receipt.json"))
+          assert x["status"]=="ORIGINAL_ID_ONLY_KEY_AUDIT_COMPLETE"
+          assert x["original_main_mother_session_count"]==16
+          assert x["directed_partner_source_session_count"]==18
+          assert x["source_rows"]["individual_main"]==160
+          assert x["source_rows"]["visit_partner_directed"]==1363
+          assert x["source_rows"]["genotyped_offspring_paternity"]==1099
+          assert x["parentage_role_and_true_father_certified"] is False
+          assert x["original_pairwise_seed_or_visitation_numeric_values_read"] is False
+          assert x["original_paternity_genetic_outcomes_read"] is False
+          assert x["original_source_data_or_plant_IDs_exported"] is False
+          assert x["effect_or_predictive_association_estimated"] is False
+          assert x["previous_original_QPF007_COVERAGE_STOP_unchanged"] is True
+          print("QPF007_PARENTAGE_SOURCE_ONLY_GRAIN_VERIFIED")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: qpf007-partner-parentage-original-ID-derivative-only
+          path: qpf007_original_parentage_ID_receipt.json
+          retention-days: 14
