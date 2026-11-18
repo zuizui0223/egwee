@@ -40,8 +40,23 @@ jobs:
               print("CROPPOL_FROZEN_STUDY_CLUSTERED_QF_RESULT_REPRODUCED")
           else: print("CROPPOL_FROZEN_NONESTIMABLE_COVERAGE_STOP")
           PY
+      - name: Post-primary original guild-total source consistency
+        run: |
+          python research/croppol_guild_function/audit_original_visitation_guild_totals.py --output croppol_guild_sum_consistency_derivative.json
+          python - <<'PY'
+          import json
+          x=json.load(open("croppol_guild_sum_consistency_derivative.json"))
+          assert x["status"]=="POSTPRIMARY_SOURCE_PREDICTOR_CONSISTENCY_AUDIT_COMPLETE"
+          assert x["source_original_selected_fields"]==591
+          assert x["original_primary_models_refit"] is False
+          assert x["crop_yield_outcomes_examined"] is False
+          assert x["source_raw_rows_redistributed"] is False
+          print("CROPPOL_POSTPRIMARY_SOURCE_PREDICTOR_CONSISTENCY_PASS")
+          PY
       - uses: actions/upload-artifact@v4
         with:
           name: croppol-frozen-qf-derivative-only
-          path: croppol_frozen_qf_result.json
+          path: |
+            croppol_frozen_qf_result.json
+            croppol_guild_sum_consistency_derivative.json
           retention-days: 14
