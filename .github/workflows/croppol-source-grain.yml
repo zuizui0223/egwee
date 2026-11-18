@@ -1,0 +1,42 @@
+name: CropPol source ecological units and guild coverage
+on:
+  push:
+    branches: [analysis/croppol-guild-function-20261118]
+  pull_request:
+    paths:
+      - research/croppol_guild_function/**
+      - .github/workflows/croppol-source-grain.yml
+  workflow_dispatch:
+jobs:
+  field-grain:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Test source fields and numeric-availability distinctions
+        run: python research/croppol_guild_function/audit_source_field_grain.py --self-test
+      - name: Inspect only original source study/field/unit and guild coverage
+        run: |
+          python research/croppol_guild_function/audit_source_field_grain.py --output croppol_field_grain_derivative.json
+          python - <<'PY'
+          import json
+          x=json.load(open("croppol_field_grain_derivative.json"))
+          assert x["status"]=="ORIGINAL_CROPPOL_SOURCE_GRAIN_PASS"
+          assert x["original_rows"]["field"]==3448
+          assert x["original_rows"]["pollinator_sampling"]==54191
+          assert x["source_effect_estimated"] is False
+          assert x["yield_values_output_or_modelled"] is False
+          assert x["same_unit_syphid_zero_certified_by_source_effort"] is False
+          assert x["source_raw_rows_redistributed"] is False
+          print("CROPPOL_SOURCE_GRAIN_NO_SIGNED_QF_MODEL_PASS")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: croppol-study-guild-coverage-only
+          path: croppol_field_grain_derivative.json
+          retention-days: 14
