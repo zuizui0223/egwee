@@ -1,0 +1,48 @@
+name: QPF004 original Mertensia same-ramet pollen-to-seed 2015-2016 holdout
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/qpf_source_grain/QPF004_FROZEN_RAMET_*'
+      - 'research/qpf_source_grain/QPF004_ORIGINAL_*'
+      - 'research/qpf_source_grain/run_qpf004_mertensia_source_weekholdout.py'
+      - 'research/qpf_source_grain/test_qpf004_original_ramet_holdout.py'
+      - '.github/workflows/qpf004-original-ramet-week-holdout.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  preserve-original-2016-2015-separated-ridge-results:
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify preoutcome scientific Git commit ancestor and independent-source model contract
+        run: |
+          python -m unittest discover -s research/qpf_source_grain \
+            -p 'test_qpf004_original_ramet_holdout.py' -v
+      - name: Assert previous QPF001 and six-source atlas not rewritten
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('research/qpf_source_grain')
+          r=json.loads((p/'QPF004_ORIGINAL_WEEK_HOLDOUT_RESULT_20261118.json').read_text())
+          assert r['registered_decision']=='NO_PRACTICALLY_PORTABLE_POLLEN_INCREMENT'
+          assert r['primary_2016_week']['pooled']['n_source_units']==62
+          assert r['secondary_2015_week']['pooled']['n_source_units']==36
+          assert r['primary_2016_week']['pooled']['positive_folds']==1
+          assert r['primary_2016_week']['pooled']['gain_percent']<0
+          assert not list(p.glob('*.xlsx')) and not list(p.glob('*.zip'))
+          assert r['original_raw_source_redistributed'] is False
+          prev=Path('research/qpf_public_source_recovery/QPF001_DATE_HOLDOUT_ORIGINAL_RESULT_20261118.json')
+          old=json.loads(prev.read_text())
+          assert old['registered_decision']=='NO_ROBUST_WITHIN_STUDY_DATE_TRANSFER_GAIN'
+          print('Original matched ramet and plant Q/P/F outcomes preserved; synthetic CI is source withheld.')
+          PY
