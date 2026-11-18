@@ -68,6 +68,19 @@ def typed_loci(record: dict) -> dict[int, tuple[int, int]]:
     return typed
 
 
+def detected_nonmaternal(child: dict[int, tuple[int,int]],
+                         mother: dict[int, tuple[int,int]],
+                         min_shared: int = 4) -> int | None:
+    """Conservative observed nonmaternal-allele indicator, NOT full paternity."""
+    shared = set(mother).intersection(child)
+    if len(shared) < min_shared:
+        return None
+    return int(any(
+        child[j][0] not in mother[j] or child[j][1] not in mother[j]
+        for j in shared
+    ))
+
+
 def logit_rate(k: int, n: int) -> float:
     """Half-count bounded empirical logit; k=n allowed."""
     if not 0 <= k <= n or n < 1:
@@ -185,15 +198,14 @@ def load_maternal_records(source_zip: Path) -> tuple[list[dict], dict]:
                 raise ValueError("Mother has fewer than 4 typed loci")
             valid = []
             for child in block["offspring"]:
-                jointly = set(loci).intersection(child)
-                if len(jointly) < proto["fixed_key_contract"]["offspring_min_typed_loci"]:
+                detected = detected_nonmaternal(
+                    child, loci,
+                    proto["fixed_key_contract"]["offspring_min_typed_loci"],
+                )
+                if detected is None:
                     untyped_progeny += 1
                     continue
-                detected = any(
-                    (child[j][0] not in loci[j]) or (child[j][1] not in loci[j])
-                    for j in jointly
-                )
-                valid.append(int(detected))
+                valid.append(detected)
                 genotyped_progeny += 1
             if len(valid) < proto["fixed_key_contract"]["mother_min_children"]:
                 too_small_mothers += 1
