@@ -17,6 +17,7 @@ import io
 import json
 from pathlib import Path
 import re
+import shlex
 from urllib.parse import urlparse
 from urllib.request import urlopen, Request
 
@@ -113,12 +114,24 @@ def decode_table(payload: bytes) -> tuple[list[str], list[tuple[str,str]] | None
     if not lines:
         raise ValueError("Original text dataset is empty")
     first = "\n".join(lines[:5])
-    try:
-        dialect = csv.Sniffer().sniff(first,delimiters=",;\t|")
-        sep = dialect.delimiter
-    except csv.Error:
-        sep = "\t" if "\t" in lines[0] else ";" if ";" in lines[0] else ","
-    reader = csv.reader(io.StringIO(text),delimiter=sep)
+    first_line = lines[0].strip()
+    # Some author-exported R .txt files use write.table default:
+    # quoted names/records separated by SPACE (not TSV/CSV punctuation).
+    # This must be decoded without treating the entire biological header
+    # as one opaque field or exposing any original signed response.
+    whitespace_delimited = (
+        not any(mark in first_line for mark in ("\t", ",", ";", "|"))
+        and (" " in first_line)
+    )
+    if whitespace_delimited:
+        reader = (shlex.split(line, posix=True) for line in lines)
+    else:
+        try:
+            dialect = csv.Sniffer().sniff(first,delimiters=",;\t|")
+            sep = dialect.delimiter
+        except csv.Error:
+            sep = "\t" if "\t" in lines[0] else ";" if ";" in lines[0] else ","
+        reader = csv.reader(io.StringIO(text),delimiter=sep)
     headers = next(reader,None)
     if headers is None:
         raise ValueError("Original source missing header")
