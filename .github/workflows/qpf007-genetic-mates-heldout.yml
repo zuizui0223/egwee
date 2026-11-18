@@ -1,0 +1,47 @@
+name: QPF007 genotypic mating heldout exploratory
+on:
+  push:
+    branches: [analysis/qpf007-genetic-mates-heldout-20261118]
+  pull_request:
+    paths:
+      - research/qpf_independent_2026/QPF007_GENETIC_MATES_PREDICTION_FREEZE_20261118.md
+      - research/qpf_independent_2026/run_qpf007_genetic_mates_session_holdout.py
+      - .github/workflows/qpf007-genetic-mates-heldout.yml
+  workflow_dispatch:
+
+jobs:
+  session-mating-stage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Independently verify two numerical solvers on synthetic original source-grain
+        run: python research/qpf_independent_2026/run_qpf007_genetic_mates_session_holdout.py --self-test
+      - name: Execute frozen same-mother genetic mating vs stigma pollen session holdout
+        run: |
+          python research/qpf_independent_2026/run_qpf007_genetic_mates_session_holdout.py --output qpf007_genetic_mates_source_derivative.json
+          python - <<'PY'
+          import json
+          x=json.load(open("qpf007_genetic_mates_source_derivative.json"))
+          assert x["status"]=="QPF007_POSTPRIMARY_GENETIC_MATES_PREDICTIVE_SCORES_COMPUTED"
+          assert x["source_genetic_coverage"]["complete_genetic_predictive_mothers"]==157
+          assert x["source_genetic_coverage"]["source_experimental_sessions"]==16
+          assert x["original_145_seed_forecast_coverage_gate"]=="COVERAGE_STOP_NO_ORIGINAL_SOURCE_PREDICTIVE_TEST"
+          assert x["new_registered_confirmatory_claim"] is False
+          assert x["no_original_source_rows_uploaded"] is True
+          assert x["numeric_source_check_pass"] is True
+          assert len(x["anonymous_whole_session_fold_scores"])==16
+          print("QPF007_GENETIC_MATES_SOURCE_AND_MODEL_PASS")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: qpf007-genetic-mates-16-fold-source-derivative
+          path: qpf007_genetic_mates_source_derivative.json
+          retention-days: 14
