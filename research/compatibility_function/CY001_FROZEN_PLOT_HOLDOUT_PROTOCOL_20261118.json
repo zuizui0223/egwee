@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "experiment_id": "CY001_cyanus_plot_heldout_mating_vs_seed",
+  "status": "prospectively_locked_before_numeric_dataset_access",
+  "registered_date": "2026-11-18",
+  "source": {
+    "doi": "10.5061/dryad.9p8cz8ws1",
+    "paper_doi": "10.1002/ajb2.16440",
+    "species": "Cyanus segetum",
+    "required_original_file": "Data_Dryad.xlsx",
+    "readme": "README.md",
+    "public_version": "2024-09-20",
+    "verified_page": "https://datadryad.org/dataset/doi%3A10.5061/dryad.9p8cz8ws1",
+    "strict_access": "Only official source DOI/version/file links; HTTP 401/429 or missing data => access STOP, never fabricated records."
+  },
+  "published_frame": {
+    "farm_count": 1,
+    "original_plant_n": 144,
+    "selected_genetic_mother_n": 33,
+    "plots_with_mothers_n": 12,
+    "original_plots_n": 16,
+    "parents_subsampled_from_n": 64,
+    "seed_screen": "Only plants with >=20 viable germinable seeds eligible for genotyping; seed production conditional on selection.",
+    "typed_progeny_n_reported": 549,
+    "progeny_per_mother": "15–17 typed",
+    "independence": "33 mothers nested within 12 plots on ONE farm; original article already modeled pollinator effects on genetic mating."
+  },
+  "required_columns": {
+    "A": "unique maternal identifier",
+    "B": "mother allele count (eight loci)",
+    "C": "offspring expected heterozygosity Hs",
+    "D": "offspring multilocus correlated paternity rpm",
+    "E": "relative maternal attractiveness visits per 15 minutes",
+    "F": "conspecific pollen donor density",
+    "G": "heterospecific floral richness",
+    "H": "local floral density",
+    "V": "original plot label",
+    "W": "original strip type",
+    "X": "offspring typed count",
+    "AB": "lifetime maternal seed number"
+  },
+  "source_gate": [
+    "Read metadata and original first-row headers before numeric values.",
+    "Exactly 33 nonmissing unique maternal rows, 12 unique original plot IDs and typed offspring per mother 15–17.",
+    "Same-year and flowering-period matching is source-stated; confirm workbook field semantics.",
+    "Do not use individual offspring as independent CV observations.",
+    "If source stream unavailable or row/key mismatch, halt and retain source gate only."
+  ],
+  "primary": {
+    "endpoint": "original rpm of progeny from same mother; lower is greater paternity diversity; not LA005's nonmaternal-allele lower bound",
+    "M0": "intercept + mother allele count + log1p(conspecific donor density) + log1p(floral richness) + log1p(floral density) + strip type indicator",
+    "M1": "M0 + log1p(relative maternal visit attractiveness per 15 minutes)",
+    "fit": "training-fold standardized non-intercept ridge normal equations, penalty lambda=1, intercept unpenalized",
+    "prediction": "clip rpm predictions to [0,1] in both M0 and M1",
+    "validation": "12 leave-one-WHOLE-plot-out folds; each mother appears in exactly one held-out fold",
+    "metric": "pooled mother-average squared error and MAE; report each plot n and M0/M1 losses",
+    "estimand": "delta=MSE(M0)-MSE(M1), positive indicates lower held-out error with visit predictor",
+    "positive_gate": "delta>0 AND relative reduction >=5% of M0 MSE AND positive delta in >=8 of 12 plot folds",
+    "negative_gate": "NO_PRACTICALLY_PORTABLE_INCREMENT when any one criterion fails",
+    "no_site_pvalue": "Plots from a single farm are not independent landscapes; no nominal 33-mother i.i.d. inference."
+  },
+  "secondary": {
+    "endpoint": "log1p(AB seed number), only in the outcome-selected 33 mothers, not generalizable to initial 144",
+    "models": "Exactly same predictors and ridge lambda; no response clipping",
+    "analysis": "12 same plot folds, descriptive MSE/MAE and sign only; never rescue primary based on secondary."
+  },
+  "firewall": [
+    "Study published the functional guild–mating association already; this analysis tests held-out portability, not first discovery.",
+    "Cannot claim outcrossing rate or genetic compatible pollen from rpm alone.",
+    "No selection of additional guild covariates or favorable response after outcome opening.",
+    "No deleting plots, retuning lambda, revising transformations or screening by seed outcome.",
+    "Raw third-party worksheets or maternal records never committed.",
+    "No direct numeric pooling with LA005 or interpretation as island–urban convergence.",
+    "Preserve LA001/LA002 failed seed prediction and LA005 tiny within-study marker prediction."
+  ]
+}
