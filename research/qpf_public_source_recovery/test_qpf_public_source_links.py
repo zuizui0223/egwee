@@ -1,6 +1,7 @@
 """QPF public-original-source recovery checks without opening real biological rows."""
 from __future__ import annotations
 from io import BytesIO
+from pathlib import Path
 import json
 import unittest
 from unittest.mock import patch
@@ -27,6 +28,27 @@ def synthetic_xlsx() -> bytes:
 
 
 class SourceGateTests(unittest.TestCase):
+    def test_actual_executed_public_source_receipt_never_implies_effect(self):
+        receipt=json.loads((
+            Path(__file__).resolve().parent /
+            "QPF_SOURCE_RECOVERY_RESULT_20261118.json"
+        ).read_text(encoding="utf-8"))
+        self.assertEqual(receipt["status"],"SOURCE_ACCESS_STOP_NO_NEW_QPF_NUMERIC_TEST")
+        one=receipt["source_provenance"]["QPF001"]
+        self.assertEqual(one["official_source_bytes"],27351)
+        self.assertEqual(one["official_source_sha256"],
+                         "83790bb7d63222e3e21c0ceed5d729cacf63a2df843e5807836d8e5c853447aa")
+        self.assertEqual(one["public_file_stream_http_status"],403)
+        self.assertFalse(one["original_xlsx_downloaded"])
+        self.assertFalse(one["new_test_complete"])
+        software=receipt["source_provenance"]["QPF002"]
+        self.assertEqual(software["zenodo_concept_id"],10563520)
+        self.assertEqual(software["zenodo_versioned_record_id"],10563521)
+        self.assertEqual(len(software["verified_original_code_files"]),2)
+        self.assertFalse(software["original_biological_workbooks_downloaded"])
+        self.assertEqual(receipt["source_gate"]["original_QPF_predictions_fitted"],0)
+        self.assertFalse(receipt["source_gate"]["original_raw_source_redistributed"])
+
     def test_filename_source_is_verified_public_link(self):
         self.assertEqual(testit.FIRST_DOI,"10.5061/dryad.hqbzkh1g9")
         self.assertEqual(testit.RELATED_ZENODO_SOFTWARE_IDS,(10563520,10563521))
