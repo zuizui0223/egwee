@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "experiment_id": "QPF004_Mertensia_within_ramet_P_increment_week_holdout_v1",
+  "status": "source_only_structural_gates_locked_before_outcome_covariance_inspection",
+  "freeze_date": "2026-11-18",
+  "original_sources": {
+    "publication_doi": "10.1002/ajb2.1439",
+    "dataset_doi": "10.7280/D19X0D",
+    "correct_species": "Mertensia ciliata",
+    "source_zip_name": "doi_10_7280_D19X0D__v20200619.zip",
+    "source_zip_sha256": "635946881e42b2e67b25a3895111089db4d3d99081a7d27cb8be9e4775c1912f",
+    "original_2016_workbook": "gallagher&campbell_pollinatorEffectivenessData.xlsx",
+    "original_2016_xlsx_sha256": "bbfcbbaf43b53b0ef835b891bd8932ae3761a383e4ecb1f38440a4ba9d477c38",
+    "original_2015_workbook": "gallagher&campbell_phenologyExperimentData.xlsx",
+    "original_2015_xlsx_sha256": "51263c0cabe9dd04dbf716a4594e7d700c5235dd3f85a65ab51f43fcef828411",
+    "original_2016_pdf_sha256": "f12e0588619e4a795d7f56a3d42f11cd4b7328716a901041e95f90c67e54ca7f",
+    "original_2015_pdf_sha256": "14d97ecbf68da07252293c751987789d768181bba23da38a9b036dac0cd19972",
+    "original_zip_crc": "all four entries passed",
+    "source_republication_prohibited": true
+  },
+  "source_only_admission_before_outcome_inspection": {
+    "cohort_2016": {
+      "worksheet": "Exp2.4_2016_AllData",
+      "source_plant_ramet_rows": 232,
+      "source_plant_ids_unique": 232,
+      "treat_all": {
+        "V": 94,
+        "O": 65,
+        "B": 73
+      },
+      "source_seed_rows_with_nonmissing_response": 232,
+      "source_pollen_rows_with_CP_HP": 62,
+      "pollen_seed_joint_ramets": 62,
+      "joint_by_treatment": {
+        "V": 47,
+        "O": 15,
+        "B": 0
+      },
+      "joint_by_visitor": {
+        "Bombus": 20,
+        "Muscoidea": 21,
+        "Osmia": 6,
+        "Open": 15
+      },
+      "joint_by_site": {
+        "RG": 38,
+        "SP": 24
+      },
+      "joint_by_observation_week": {
+        "1": 4,
+        "2": 18,
+        "3": 16,
+        "4": 20,
+        "5": 4
+      },
+      "joint_site_week": {
+        "RG_1": 4,
+        "RG_2": 18,
+        "RG_3": 16,
+        "SP_4": 20,
+        "SP_5": 4
+      },
+      "visited_joint_ramets_with_noFlrs_gt1": 28,
+      "source_row_identity": "232/232 exact 2016 AllData vs seedCnt by plantID, site/week/treat/seedCnt/noFlrs/seedPerFlr; 62/62 pollenDep vs AllData site/week/treat and pollen counts",
+      "sources_P_sentinel": "9999999 is missing (PDF); 62 P source rows, controls bagged have no P measured",
+      "seed_ratio_identity": "62/62 joined seedPerFlr equals seedCnt/noFlrs with positive noFlrs",
+      "clone_triplet_membership": "Original 2016 metadata describes visited/open/bagged clone-matched ramet triplets, but no independent clone ID has yet been source-certified. Do not treat 62 as 62 independent clone lines.",
+      "P_and_F_same_flower_caution": "Original pollen stigma sampled from marked flowers and seed number aggregated across all marked flowers on each ramet; same ramet proven, same individual flower NOT proven."
+    },
+    "cohort_2015": {
+      "worksheet": "Exp2_2015_Means",
+      "source_maternal_potted_plants": 40,
+      "source_plants_complete_P": 36,
+      "source_plants_complete_seed_mSeed": 40,
+      "joint_maternal_plants": 36,
+      "joint_by_treatment_week": {
+        "1": 10,
+        "2": 9,
+        "3": 10,
+        "4": 7
+      },
+      "source_pollen_subsamples": "186 individual stigma source rows from 36 plants; mean source mcPolCnt/nonMcPolCnt in 2015 Means",
+      "source_seeds": "508 source flower seedCnt rows from all 40 plants; mSeed in Means",
+      "source_visit": "mVisRate in Means for all 40; repeated polObs log had blank style-only rows 1..221 and 330 data rows 223..552.",
+      "seasonal_intervention": "Week 4 was initially observed 15 hours with no visitors, then cut flowers were added and another 15 hours observed, therefore source Q is intervention-conditional",
+      "P_F_same_flower_caution": "Pollen sampled from ~5.2 stigmas per plant; seeds averaged over tagged flowers. Only same PLANT-level match, not same individual flower."
+    }
+  },
+  "primary_2016": {
+    "question": "Does measured stigmatic CP+HP pollen receipt add reliable heldout-week prediction of mean seeds per marked flower, beyond taxon identity and recorded visits/exposure?",
+    "observation_unit": "one original plantID ramet, 62 matched joint pollen-seed rows only, not 235 independent marked flowers",
+    "response": "original seedPerFlr in [0,4], without adjusting response by outcome or omitting zeros",
+    "M0": "intercept + week numeric + site=SP binary + log1p(FlrsAvail) + log1p(noFlrs) + log1p(observed flrsVisited/noFlrs) (O controls source NA flrsVisited explicitly 0 observed visits) + three visitor indicators Bombus/Muscoidea/Osmia (Open reference)",
+    "M1": "M0 + log1p(polDepMC) + log1p(polDepNonMC) + their product",
+    "visitor_coding": "Only source AllData visID in {Open,Bombus,Muscoidea,Osmia}, no hoverfly in 62, no bagged controls in matched 62. Do NOT use insect identity from 2015 on 2016 ramet.",
+    "classification_note": "Single-visit visitor assigned to ramet, observed rate not a true community visitation time series; P counts are transferred grains not genetically compatible pollen.",
+    "fit": "Gaussian ridge lambda=1 on train-only means/population SD of all non-intercept predictors (including interaction), intercept unpenalized; zero SD sets scaler 1; fixed intercept adjustment; clamp M0/M1 predictions to [0,4]; no hyperparameter search",
+    "primary_validation": "five leave-one-WHOLE-observation-week-out folds, group sizes [4,18,16,20,4], no random ramet folds",
+    "success_gate": "pooled ramet-weighted M0-M1 MSE strictly positive and >=5% M0 relative improvement and >=4/5 observation week folds strictly positive",
+    "if_failure": "NO_PRACTICALLY_PORTABLE_POLLEN_INCREMENT",
+    "report": "Five fold sizes, M0/M1 MSE/MAE, pooled, positive folds, all source inclusion/failure states, no p-values",
+    "independence_limit": "weeks1-3 exclusively RG and weeks4-5 exclusively SP in the 62-source matched sample; week effect is confounded with site. Five folds do NOT represent five independent ecosystems."
+  },
+  "secondary_2016": {
+    "design": "Two leave-one-entire-site-out folds (RG 38, SP24), same exact M0/M1 predictor recipe, use training-only normalization. Site term is constant in training and its prediction is not an identifiable causal site effect.",
+    "role": "descriptive site transfer only; 2 sites too few for a robust generalization gate, and Osmia only RG in matched sample.",
+    "no_rescue": "Cannot rescue negative primary via site subtotal or favorable taxon."
+  },
+  "secondary_2015": {
+    "question": "Does pollen receipt add phenology-week heldout seed-per-flower prediction within a different potted-plant experiment of the SAME original published programme?",
+    "unit": "36 source-matched potted maternal plants, weeks [10,9,10,7], not the 2016 ramets or independent original studies",
+    "response": "original source mSeed (seeds per tagged flower, 0..4), not follow-up recruitment",
+    "M0": "intercept + tWeek numeric + log1p(mVisRate) + log1p(flrCnt) + mVWC soil water",
+    "M1": "M0 + log1p(mcPolCnt) + log1p(nonMcPolCnt) + their product",
+    "fit": "same Gaussian ridge lambda=1, train-only standardization and [0,4] clipping",
+    "validation": "four leave-whole-phenology-week-out folds, descriptive only",
+    "important_confounds": "Different pollen and seed flowers aggregated at plant level; week4 cut-flower display intervention changed effort; all plants from a single manipulated source field programme.",
+    "no_rescue": "Secondary cannot rescue 2016 primary decision; do not pool 2015/2016 as two independent studies."
+  },
+  "firewalls": [
+    "PREOUTCOME NOTE: only source ZIP SHA, PDF methods and schema, source identifier matches, distribution of missingness and eligibility were examined before this protocol. No pollen×seed outcome correlation/model was fitted.",
+    "Original paper already showed Bombus per-visit effectiveness partly offset falling visit rates across phenology: prior art, not a new finding.",
+    "Strict same-ramet Q/P/F subset, not same flower, and no supported causal pollen mediation. Clone triplets are nested with unknown grouping IDs.",
+    "Do not add pollen source imputation for 170 2016 non-assayed ramets or claim missing P means zero. 62/232 P sample is outcome-assay selected.",
+    "2015 vs 2016 are two experimental frames in same scientific programme and should not be treated as separate independent landscape replication.",
+    "All source retention/outcome transformations/models/positive gates fixed before new outcome fits. No variable selection/site exclusion/alternative outcome to chase positive effects.",
+    "No extra confirmed complete QPF original independent programmes added beyond the frozen source atlas. One published 2020 system.",
+    "Only source-free aggregate counts/fold errors may be uploaded. No original ZIP/XLSX/PDF, original ramet IDs, individual pollen/seed/visit values or clone labels."
+  ]
+}
