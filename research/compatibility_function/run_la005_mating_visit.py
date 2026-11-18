@@ -238,7 +238,8 @@ def load_maternal_records(source_zip: Path) -> tuple[list[dict], dict]:
             "excluded_nonmatching_field_mothers": qc["nonmatching_field_mothers_excluded"],
             "source_progeny_rows": qc["offspring_source_rows"],
             "excluded_offspring_label_mismatches": qc["offspring_label_mismatches"],
-            "included_offspring_locus_eligible": genotyped_progeny,
+            "typed_offspring_in_unique_matched_mother_blocks_before_min_child_gate": genotyped_progeny,
+            "offspring_in_admitted_mothers": sum(r["n"] for r in kept),
             "excluded_offspring_insufficient_joint_loci": untyped_progeny,
             "excluded_mothers_fewer_than_four_children": too_small_mothers,
             "eligible_mother_units": len(kept),
@@ -353,7 +354,7 @@ def main() -> None:
     print(json.dumps({
         "analysis":result["analysis_id"],
         "mothers":result["source_grain_receipt"]["eligible_mother_units"],
-        "genotyped_children":result["source_grain_receipt"]["included_offspring_locus_eligible"],
+        "genotyped_children":result["source_grain_receipt"]["offspring_in_admitted_mothers"],
         "Brier_M0":result["pooled"]["M0"]["brier_mother"],
         "Brier_M1":result["pooled"]["M1"]["brier_mother"],
         "delta":result["primary_M0_minus_M1_brier"],
