@@ -41,6 +41,12 @@ jobs:
         run: |
           python research/euppollnet_guild_partition/estimate_guild_partition.py \
             --output research/euppollnet_guild_partition/output/guild_partition_result.json
+      - name: Verify post-primary same-date and shared-host diagnostics on synthetic data
+        run: python research/euppollnet_guild_partition/robustness_same_day_shared_hosts.py --self-test
+      - name: Run retrospectively frozen same-day and shared-host partition checks
+        run: |
+          python research/euppollnet_guild_partition/robustness_same_day_shared_hosts.py \
+            --output research/euppollnet_guild_partition/output/postprimary_same_day_shared_hosts.json
       - name: Store derivative-only source gate
         if: always()
         uses: actions/upload-artifact@v4
