@@ -1,0 +1,235 @@
+{
+  "schema_version": 2,
+  "analysis_id": "CY002_cyanus_original_offspring_n_corrected_plot_holdout",
+  "status": "ORIGINAL_SOURCE_MATCHED_12_PLOT_ANALYSIS_COMPLETE_EXPLORATORY",
+  "source_doi": "10.5061/dryad.9p8cz8ws1",
+  "paper_doi": "10.1002/ajb2.16440",
+  "original_archive_sha256": "1d1f03c1f3dee00e3bd0d62b74099f5bd31162d61f7a61f4984e0a19b9c5d973",
+  "original_xlsx_sha256": "18941f666c040c81c5db3f43c661d44fc157e9db636eef07a4aafd49f77b5332",
+  "original_CY001_protocol_commit": "a118ab77e71a097b46d264738e34c0428384a304",
+  "source_corrected_CY002_frozen_protocol_commit": "98e2635626515950e7d7c29136b2d4c6c3f17722",
+  "sampling": {
+    "source_mothers": 33,
+    "plot_folds": 12,
+    "one_original_farm": true,
+    "offspring_typed_histogram": {
+      "12": 1,
+      "15": 1,
+      "16": 5,
+      "17": 26
+    },
+    "offspring_typed_total": 549,
+    "seed_selected_sample": "Genotyped mothers are a seed-producing subset; published selection description requires source-specific provenance."
+  },
+  "model": {
+    "primary_response": "offspring multilocus correlated paternity rpm [0,1]",
+    "M0": "mother allele richness + log1p(donor density) + log1p(floral richness) + log1p(floral density) + wildflower strip indicator",
+    "M1": "M0 + log1p(relative maternal attractiveness; estimated visits/15min)",
+    "ridge_lambda": 1,
+    "standardization": "mean and SD from only 11 training plots, intercept not penalized",
+    "validation": "leave one original entire plot out across 12 plots; 33 mothers each scored once",
+    "primary_scores": "MSE and MAE over 33 heldout mothers, rpm predictions clipped [0,1]"
+  },
+  "primary_correlated_paternity": {
+    "M0_mse": 0.010832423420456901,
+    "M1_mse": 0.011468827191568344,
+    "M0_mae": 0.08444736174897995,
+    "M1_mae": 0.08838731292526136,
+    "delta_mse_M0_minus_M1": -0.0006364037711114427,
+    "relative_MSE_improvement_pct": -5.874989800616563,
+    "positive_plot_folds": 3
+  },
+  "secondary_selected_mother_seed_count": {
+    "M0_mse": 1.6435781804358573,
+    "M1_mse": 2.050944676607999,
+    "M0_mae": 1.0767228329459035,
+    "M1_mae": 1.1938598150272233,
+    "delta_mse_M0_minus_M1": -0.4073664961721415,
+    "relative_MSE_improvement_pct": -24.785343406305913,
+    "positive_plot_folds": 4
+  },
+  "folds": [
+    {
+      "plot": "F10",
+      "n_mothers": 3,
+      "primary_rpm": {
+        "M0_mse": 0.001812832314,
+        "M1_mse": 0.001838049609,
+        "delta_mse": -0.000025217295000000027
+      },
+      "secondary_seed_log": {
+        "M0_mse": 5.367147394132,
+        "M1_mse": 5.181085852263,
+        "delta_mse": 0.18606154186899992
+      }
+    },
+    {
+      "plot": "F3",
+      "n_mothers": 3,
+      "primary_rpm": {
+        "M0_mse": 0.004304084704,
+        "M1_mse": 0.004409862035,
+        "delta_mse": -0.00010577733099999959
+      },
+      "secondary_seed_log": {
+        "M0_mse": 1.660460723452,
+        "M1_mse": 1.462972214611,
+        "delta_mse": 0.1974885088409999
+      }
+    },
+    {
+      "plot": "F4",
+      "n_mothers": 2,
+      "primary_rpm": {
+        "M0_mse": 0.020527207422,
+        "M1_mse": 0.020594577607,
+        "delta_mse": -0.00006737018500000205
+      },
+      "secondary_seed_log": {
+        "M0_mse": 1.362438099451,
+        "M1_mse": 1.012753194893,
+        "delta_mse": 0.34968490455799994
+      }
+    },
+    {
+      "plot": "F5",
+      "n_mothers": 3,
+      "primary_rpm": {
+        "M0_mse": 0.000616251563,
+        "M1_mse": 0.000584889336,
+        "delta_mse": 0.00003136222700000002
+      },
+      "secondary_seed_log": {
+        "M0_mse": 3.358019437089,
+        "M1_mse": 4.578950795688,
+        "delta_mse": -1.2209313585989996
+      }
+    },
+    {
+      "plot": "F6",
+      "n_mothers": 3,
+      "primary_rpm": {
+        "M0_mse": 0.009139821756,
+        "M1_mse": 0.009466012065,
+        "delta_mse": -0.0003261903089999997
+      },
+      "secondary_seed_log": {
+        "M0_mse": 0.057069697226,
+        "M1_mse": 0.141104451427,
+        "delta_mse": -0.08403475420100001
+      }
+    },
+    {
+      "plot": "F8",
+      "n_mothers": 3,
+      "primary_rpm": {
+        "M0_mse": 0.00386996679,
+        "M1_mse": 0.009105291548,
+        "delta_mse": -0.005235324757999999
+      },
+      "secondary_seed_log": {
+        "M0_mse": 0.339226470806,
+        "M1_mse": 0.109595324027,
+        "delta_mse": 0.22963114677899998
+      }
+    },
+    {
+      "plot": "F9",
+      "n_mothers": 3,
+      "primary_rpm": {
+        "M0_mse": 0.002496124039,
+        "M1_mse": 0.002754472977,
+        "delta_mse": -0.000258348938
+      },
+      "secondary_seed_log": {
+        "M0_mse": 1.466082175499,
+        "M1_mse": 4.608277555333,
+        "delta_mse": -3.142195379834
+      }
+    },
+    {
+      "plot": "G1",
+      "n_mothers": 3,
+      "primary_rpm": {
+        "M0_mse": 0.013638206333,
+        "M1_mse": 0.013756523299,
+        "delta_mse": -0.000118316965999999
+      },
+      "secondary_seed_log": {
+        "M0_mse": 0.970041898372,
+        "M1_mse": 1.480111977403,
+        "delta_mse": -0.510070079031
+      }
+    },
+    {
+      "plot": "G2",
+      "n_mothers": 3,
+      "primary_rpm": {
+        "M0_mse": 0.024419316345,
+        "M1_mse": 0.024412384057,
+        "delta_mse": 0.000006932288000000009
+      },
+      "secondary_seed_log": {
+        "M0_mse": 0.498912910137,
+        "M1_mse": 0.524435092745,
+        "delta_mse": -0.025522182607999988
+      }
+    },
+    {
+      "plot": "G3",
+      "n_mothers": 3,
+      "primary_rpm": {
+        "M0_mse": 0.019982735368,
+        "M1_mse": 0.01994369807,
+        "delta_mse": 0.00003903729799999839
+      },
+      "secondary_seed_log": {
+        "M0_mse": 0.143575884416,
+        "M1_mse": 0.156934016929,
+        "delta_mse": -0.013358132512999998
+      }
+    },
+    {
+      "plot": "G5",
+      "n_mothers": 3,
+      "primary_rpm": {
+        "M0_mse": 0.012277611163,
+        "M1_mse": 0.013128531577,
+        "delta_mse": -0.0008509204140000007
+      },
+      "secondary_seed_log": {
+        "M0_mse": 1.678327436394,
+        "M1_mse": 1.93558253187,
+        "delta_mse": -0.257255095476
+      }
+    },
+    {
+      "plot": "G6",
+      "n_mothers": 1,
+      "primary_rpm": {
+        "M0_mse": 0.038744706906,
+        "M1_mse": 0.039082998386,
+        "delta_mse": -0.0003382914799999956
+      },
+      "secondary_seed_log": {
+        "M0_mse": 4.896611672913,
+        "M1_mse": 5.118518501392,
+        "delta_mse": -0.22190682847899978
+      }
+    }
+  ],
+  "primary_decision": "NO_PRACTICALLY_PORTABLE_INCREMENT",
+  "prespecified_gate": "MSE(M0)-MSE(M1)>0, relative improvement >=5%, and >=8/12 positive whole-plot folds",
+  "independent_reproduction": "Original workbook read with artifact_tool and fit via NumPy normal equations; independent stdlib OOXML+Gaussian-elimination reconstruction checked 96 fold-level MSE/MAE values, max absolute discrepancy 3.2862601528904634e-14",
+  "source_blinding": "During initial structural inspection, a four-row preview exposed rpm/seed values before CY002 source-correction freeze. No model fits/associations computed at that time. Treat as exploratory, NOT strictly blind confirmatory.",
+  "scientific_limitations": [
+    "Within ONE original agricultural farm, not 12 landscape studies",
+    "Original authors already examined functional-group abundance and offspring mating",
+    "Correlated paternity rpm is not LA005's detectable nonmaternal allele fraction; do not pool raw error magnitudes",
+    "Relative maternal attractiveness combines plot visit rate with floral display, not direct compatible pollen deposition",
+    "Seed count secondary is selected on producing enough germinable seed for genotyping; cannot represent total plant reproductive failures",
+    "No evidence of island versus urban functional-fragmentation convergence",
+    "A source-only offspring count assumption in CY001 was wrong (one original 12); handled in separate preserved CY002 protocol before full model fit",
+    "Neither original third-party XLSX/README nor individual mother/outcome/genotype records redistributed"
+  ]
+}
