@@ -54,3 +54,10 @@ This source audit is about **measurement alignment**, not another functional-fra
 ## Source-only executable proof
 
 `audit_penstemon_QPF006_public_source.py` checks the official Dryad version metadata and original XLSX filenames/size/SHA and first-row worksheet structure when the public file streams are reachable. It neither recombines biological rows across experiments nor estimates an outcome. If the original file route returns 401/403/429, the public experiment design is still disqualifying for same-flower Q–P–F as published; the access failure is not a biological negative result.
+
+
+## Executed original-source access receipt (2026-11-18)
+
+Public-source GitHub Actions [run 44276029325](https://github.com/zuizui0223/egwee/actions/runs/44276029325) verified the official original Dryad dataset DOI/version metadata and the complete **8-file inventory (seven experiment XLSX workbooks plus README)**. All seven advertised original worksheet download routes returned **HTTP 401 Unauthorized** from the Actions environment, so **zero raw XLSX headers or individual observations were opened** and no experiment-level biological numerical effect was estimated. The metadata-only artifact [14415280563](https://github.com/zuizui0223/egwee/actions/runs/44276029325/artifacts/14415280563), SHA256 `7a97abe779ccfb503de7f68050d2f40a7380ba36edc9b9c9faa658d124fc1697`, preserves the endpoint statuses. Five synthetic source/admission unit tests passed.
+
+**The access error is not the reason for the scientific nonadmission.** Independently, the primary authors' published Methods explicitly state that pollen deposition and seed production were measured on separate sets of plants and cannot be related for an individual flower. Obtaining all seven XLSX files would not by itself supply a genuinely measured within-flower visit→stigmatic pollen→seed triplet. The outcome is therefore a **published-design source-join STOP**, not a null result for pollen ecology.
