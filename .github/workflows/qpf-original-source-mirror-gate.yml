@@ -1,0 +1,56 @@
+name: QPF original file-stream and related Zenodo software gate
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/qpf_public_source_recovery/**'
+      - '.github/workflows/qpf-original-source-mirror-gate.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify_public_original_recovery_without_outcomes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check source and independent-unit contract, synthetic files only
+        run: |
+          python -m unittest discover -s research/qpf_public_source_recovery \
+            -p 'test_qpf_public_source_links.py' -v
+      - name: Inspect source-cited original Dryad public file stream and Zenodo related works
+        run: |
+          python research/qpf_public_source_recovery/audit_public_qpf_source_links.py \
+            --output qpf_public_source_receipt/source_only.json
+      - name: Require source-only export with no numeric biology
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          x=json.loads(Path('qpf_public_source_receipt/source_only.json').read_text())
+          assert x['analysis_id']=='qpf_original_public_source_recovery_v1'
+          assert x['original_paper_programmes_count']==2
+          assert x['independent_new_QPF_empirical_tests_completed']==0
+          assert x['original_numeric_pollen_seed_or_visit_values_read'] is False
+          assert x['third_party_raw_source_uploaded'] is False
+          assert x['QPF001']['decision'] in (
+              'ORIGINAL_FILE_SCHEMA_RECOVERED_NO_BIOLOGICAL_OUTCOMES',
+              'SOURCE_ACCESS_STOP_NO_QPF_OUTCOMES')
+          assert [r['id'] for r in x['QPF002_zenodo_related_software']]==[10563520,10563521]
+          assert all(r['status'] in ('verified_metadata','ZENODO_METADATA_ACCESS_STOP')
+                     for r in x['QPF002_zenodo_related_software'])
+          print('Verified source access outcomes: no biological analysis or raw redistribution')
+          PY
+      - name: Archive only metadata, hashes and worksheet structure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qpf-public-source-recovery-metadata-only
+          path: qpf_public_source_receipt/
+          if-no-files-found: warn
+          retention-days: 90
