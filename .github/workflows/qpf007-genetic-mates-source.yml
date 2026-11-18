@@ -1,0 +1,45 @@
+name: QPF007 genotypic mating source-only coverage
+on:
+  push:
+    branches: [analysis/qpf007-genetic-mates-heldout-20261118]
+  pull_request:
+    paths:
+      - research/qpf_independent_2026/audit_qpf007_genetic_mates_source.py
+      - research/qpf_independent_2026/QPF007_GENETIC_MATES_PREDICTION_FREEZE_20261118.md
+      - .github/workflows/qpf007-genetic-mates-source.yml
+  workflow_dispatch:
+jobs:
+  phenotype-grain:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Independent synthetic target and missingness tests
+        run: python research/qpf_independent_2026/audit_qpf007_genetic_mates_source.py --self-test
+      - name: Verify original Zenodo mother-stigma matching and genetic target coverage only
+        run: |
+          python research/qpf_independent_2026/audit_qpf007_genetic_mates_source.py --output qpf007_genetic_source_coverage.json
+          python - <<'PY'
+          import json
+          x=json.load(open('qpf007_genetic_source_coverage.json'))
+          assert x['status']=='SOURCE_ONLY_GENETIC_TARGET_COVERAGE_VERIFIED'
+          assert x['source_matched_maternal_keys']==160
+          assert x['source_stigma_matched_keys']==160
+          assert x['source_all_sessions']==16
+          assert x['target_literal_source_column']=='gMS_fem_all'
+          assert x['source_numerical_mating_values_inspected_for_direction'] is False
+          assert x['registered_original_seed_coverage_stop_changed'] is False
+          assert x['source_original_data_rows_redistributed'] is False
+          assert x['model_fitted'] is False
+          print('QPF007_GENETIC_SOURCE_RESULT_NO_MODEL '+x['decision'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: qpf007-original-genetic-source-coverage
+          path: qpf007_genetic_source_coverage.json
+          retention-days: 14
