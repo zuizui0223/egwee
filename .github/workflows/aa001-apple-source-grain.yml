@@ -1,0 +1,44 @@
+name: AA001 apple 2023 orchard-year Q-P-F grain coverage
+on:
+  push:
+    branches: [analysis/apple-orchard-three-stage-source-20261118]
+  pull_request:
+    paths:
+      - research/apple_orchard_qpf/**
+      - .github/workflows/aa001-apple-source-grain.yml
+  workflow_dispatch:
+
+jobs:
+  original-grain:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Test missing values and source orchard keys
+        run: python research/apple_orchard_qpf/audit_AA001_source_grain.py --self-test
+      - name: Audit immutable original 2023 treatment/site/plot intersection, never signed effects
+        run: |
+          python research/apple_orchard_qpf/audit_AA001_source_grain.py --output aa001_orchard_grain_derivative.json
+          python - <<'PY'
+          import json
+          x=json.load(open("aa001_orchard_grain_derivative.json"))
+          assert x["status"]=="AA001_SOURCE_ORCHARD_GRAIN_VERIFIED"
+          assert x["original_row_counts"]["TransectIN.txt"]==390
+          assert x["original_row_counts"]["GerminatedPollen.txt"]==1061
+          assert x["original_row_counts"]["initial_final_fruitset.txt"]==816
+          assert x["original_biological_outcomes_used_for_model"] is False
+          assert x["pollen_and_fruit_from_same_sampled_flower"] is False
+          assert x["third_same_flower_qpf_programme_admitted"] is False
+          assert x["source_rows_or_site_ids_redistributed"] is False
+          print("AA001_ORIGINAL_COHORT_COVERAGE_GATE_"+x["decision"])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: aa001-orchard-key-coverage-only
+          path: aa001_orchard_grain_derivative.json
+          retention-days: 14
