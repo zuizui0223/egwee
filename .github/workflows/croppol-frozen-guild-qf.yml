@@ -1,0 +1,47 @@
+name: CropPol frozen Q-F guild-composition predictive gate
+on:
+  push:
+    branches: [analysis/croppol-guild-function-20261118]
+  pull_request:
+    paths:
+      - research/croppol_guild_function/**
+      - .github/workflows/croppol-frozen-guild-qf.yml
+  workflow_dispatch:
+jobs:
+  source-clustered-yield:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pinned numerical dependency
+        run: python -m pip install numpy==2.3.5
+      - name: Verify synthetic benefit and zero-variation no-leakage guards
+        run: python research/croppol_guild_function/test_frozen_qf_guild_increment.py --self-test
+      - name: Fit frozen within-study guild-to-yield predictive increment
+        run: |
+          python research/croppol_guild_function/test_frozen_qf_guild_increment.py --output croppol_frozen_qf_result.json
+          python - <<'PY'
+          import json
+          r=json.load(open("croppol_frozen_qf_result.json"))
+          assert r["status"] in ("FROZEN_CROPPOL_GUILD_QF_PREDICTIVE_COMPARISON_COMPLETE","POSTFREEZE_NONESTIMABLE_PANEL_COVERAGE_STOP")
+          assert r["source_admitted_pre_outcome_panels"]==29
+          assert r["source_admitted_pre_outcome_study_programmes"]==20
+          assert r["original_source_rows_redistributed"] is False
+          assert r["outcome_values_redistributed"] is False
+          if r["status"]=="FROZEN_CROPPOL_GUILD_QF_PREDICTIVE_COMPARISON_COMPLETE":
+              assert r["n_eligible_predicted_study_programmes"] >=10
+              assert r["n_eligible_predicted_fields"]>=200
+              assert r["predeclared_positive_support"] is (r["decision"]=="BOUNDED_WITHIN_STUDY_PREDICTIVE_INCREMENT")
+              print("CROPPOL_FROZEN_STUDY_CLUSTERED_QF_RESULT_REPRODUCED")
+          else: print("CROPPOL_FROZEN_NONESTIMABLE_COVERAGE_STOP")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: croppol-frozen-qf-derivative-only
+          path: croppol_frozen_qf_result.json
+          retention-days: 14
