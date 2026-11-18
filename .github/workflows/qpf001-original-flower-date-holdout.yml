@@ -1,0 +1,47 @@
+name: QPF001 original source-withheld eight-date pollen-to-seed transport
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/qpf_public_source_recovery/QPF001_*'
+      - 'research/qpf_public_source_recovery/run_qpf001_original_flower_dateholdout.py'
+      - 'research/qpf_public_source_recovery/test_qpf001_original_flower.py'
+      - '.github/workflows/qpf001-original-flower-date-holdout.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit-original-source-prediction-without-raw-workbook:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify original pre-outcome protocol ancestry and synthetic original-source semantics
+        run: |
+          python -m unittest discover -s research/qpf_public_source_recovery \
+            -p 'test_qpf001_original_flower.py' -v
+      - name: Independently verify frozen original 8-date results, null and source firewall
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=Path("research/qpf_public_source_recovery")
+          j=json.loads((r/"QPF001_DATE_HOLDOUT_ORIGINAL_RESULT_20261118.json").read_text())
+          p=json.loads((r/"QPF001_FROZEN_DATE_POLLEN_SEED_PROTOCOL_20261118.json").read_text())
+          assert j["status"]=="ORIGINAL_SOURCE_FROZEN_EIGHT_DATE_HOLDOUT_COMPLETE"
+          assert p["experiment_id"]==j["analysis_id"]
+          assert j["registered_decision"]=="NO_ROBUST_WITHIN_STUDY_DATE_TRANSFER_GAIN"
+          assert len(j["folds"])==8 and sum(x["n"] for x in j["folds"])==93
+          assert j["pooled"]["positive_date_folds"]==4
+          assert 0<j["pooled"]["relative_mse_reduction_pct"]<5
+          assert j["source_variable_reconciliation"]["n_source_seedset_not_equal_to_paper_formula"]==10
+          assert j["independent_numeric_check"]["max_absolute_discrepancy"]<1e-12
+          assert not list(r.glob("*.xlsx")) and not list(r.glob("*.zip"))
+          assert j["raw_source_redistributed"] is False
+          print("Original-source aggregate and eight-date null preserved, but user-provided raw ZIP was NOT re-run in CI.")
+          PY
