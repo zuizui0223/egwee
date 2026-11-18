@@ -1,0 +1,72 @@
+name: QPF007 original 2026 Brassica same-plant 16-session pollen-to-seed holdout
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/qpf_independent_2026/**'
+      - '.github/workflows/qpf007-zenodo-source-only.yml'
+      - '.github/workflows/qpf007-original-session-heldout.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-preoutcome-source-grain-and-original-16-session-prediction:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify prospective source record, SHA pin and synthetic model checks
+        run: |
+          python -m unittest discover -s research/qpf_independent_2026 \
+            -p 'test_qpf007_zenodo_source_keys.py' -v
+          python -m unittest discover -s research/qpf_independent_2026 \
+            -p 'test_qpf007_frozen_session_model.py' -v
+      - name: Run the ORIGINAL Zenodo 160-plant 16-session test under pre-outcome freeze
+        run: |
+          python research/qpf_independent_2026/run_qpf007_brassica_2026_session_holdout.py \
+            --output qpf007_aggregate_only/original_session_holdout.json
+      - name: Enforce original source firewall and fail-closed scientific decision
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=Path('qpf007_aggregate_only/original_session_holdout.json')
+          x=json.loads(d.read_text())
+          assert x['analysis_id']=='QPF007_Brassica_rapa_2026_plant_pollen_seed_session_CV_v1'
+          assert x['registered_original_protocol_commit']=='1d4b78a1a0ee82cc267b287f7cc0e4a3899486c3'
+          assert x['source_raw_data_uploaded'] is False
+          assert x['scientific_status'] in (
+              'COVERAGE_STOP',
+              'ORIGINAL_2026_SOURCE_16_SESSION_FROZEN_TEST_COMPLETE'
+          )
+          if x['scientific_status']=='ORIGINAL_2026_SOURCE_16_SESSION_FROZEN_TEST_COMPLETE':
+              f=x['heldout_session_folds']
+              assert len(f)==16
+              assert sum(row['n_plant_units'] for row in f)==x['pooled_original_plant_scores']['n_valid_plants']
+              assert x['independent_numeric_verification']['maximum_absolute_heldout_prediction_error']<1e-8
+              assert x['registered_decision'] in (
+                 'BOUNDED_WITHIN_PROGRAMME_POLLEN_INCREMENT',
+                 'NO_ROBUST_WITHIN_EXPERIMENT_SESSION_POLLEN_INCREMENT'
+              )
+              assert x['individual_source_rows_or_IDs_disclosed'] is False
+          p=Path('research/qpf_independent_2026')
+          assert not list(p.glob('data_ABPOLL*.txt'))
+          assert not list(p.glob('*.zip'))
+          print('QPF007 original-source scientific decision preserved. Raw Zenodo individual records absent.')
+          PY
+      - name: Retain aggregate source-only evidence, never raw plant or paternity tables
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qpf007-2026-brassica-original-16-session-aggregate-only
+          path: qpf007_aggregate_only/
+          if-no-files-found: warn
+          retention-days: 90

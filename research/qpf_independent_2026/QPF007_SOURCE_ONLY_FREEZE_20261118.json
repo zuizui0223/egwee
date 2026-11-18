@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "protocol_id": "QPF007_Brassica_rapa_2026_original_source_grain_v1",
+  "status": "SOURCE_DISCOVERY_FREEZE_NO_BIOLOGICAL_OUTCOMES_ACCESSED",
+  "date": "2026-11-18",
+  "discovery": "posthoc outside original QPF001-QPF006 source registry; never increment the frozen original six-source denominator",
+  "paper": {
+    "doi": "10.1371/journal.pbio.3003579",
+    "published": "2026-10-27",
+    "title": "Pollinator abundance shapes sexual selection in an angiosperm",
+    "source_population_design": "16 experimental pollinator-observation populations/sessions at three Bombus terrestris abundance levels; Brassica rapa; original authors already showed observational vs genetic mate discrepancies"
+  },
+  "original_public_data": {
+    "zenodo_record": 21628183,
+    "doi": "10.5281/zenodo.21628183",
+    "published": "2026-07-27",
+    "url": "https://zenodo.org/records/21628183",
+    "whitelist": [
+      "README.txt",
+      "data_ABPOLL_ID_resume.txt",
+      "data_ABPOLL_flower_resume.txt",
+      "data_ABPOLL_fix10_paternities.txt",
+      "data_ABPOLL_ID_level_ID.txt"
+    ],
+    "metadata_rule": "Fetch official Zenodo /api/records/21628183 metadata with matching DOI/record ID. Only use recorded file links from that record with matching checksum/size. No external/raw unverified mirrors.",
+    "original_raw_files_publication_policy": "DO NOT redistribute any published source records, genotype/parentage ID, individual plant/flower measurements, author R scripts, or original downloadable files through this research repository."
+  },
+  "source_only_gate": {
+    "downloadable_file_n_target": 5,
+    "max_individual_source_file_bytes": 6500000,
+    "on_read": "Only original metadata, row counts, headers, biological keys session+ID_full and simple key-overlap counts; never compute/print raw signed SR, pollen grain, visits, seed count, paternity assignments or source individual observations in source-only phase.",
+    "exact_joint_grain": "(experimental session, original focal plant ID) in within-individual phenotypes and flower-level pollen sheet; one to many flowers per plant. Male/female may be separate analytical rows but one biological plant.",
+    "required_original_header_candidates": {
+      "individuals": [
+        "session",
+        "ID_full",
+        "poll_treat_factor"
+      ],
+      "flower_stigma": [
+        "session",
+        "ID_full",
+        "id_flow",
+        "pl"
+      ],
+      "pairwise": [
+        "session",
+        "ID_full_foc",
+        "ID_full_part",
+        "seed_couple_on_foc"
+      ]
+    },
+    "historical_prior_findings": "Original paper already measured Bombus visitation/movement → observational mate access → paternity and seeds. New discovery cannot be that these are separate sexual-selection episodes.",
+    "true_compatibility_limit": "Stigma total pollen load is not direct identification of genetically compatible pollen or allele-specific donor contribution to a given stigma.",
+    "observation_limitation": "Pollen sampled from 2–3 collected stigmas per source plant and seed output from multiple fruits; same plant possible, not same individual pollen-bearing flower → mature fruit.",
+    "site_limit": "16 experimental sessions are not 16 independent regions, landscapes, countries, natural urban/island fragmentation programmes.",
+    "if_unavailable": "SOURCE_ACCESS_STOP, not biological null; freeze results, document HTTP/status/digest and avoid any invented offspring or plant analysis."
+  },
+  "next_outcome_test_if_verified": {
+    "status": "DO_NOT_RUN_OR_OPEN_SIGNED_OUTCOMES_UNTIL exact source keys, valid session/plant overlap and source column semantics locked in a subsequent frozen protocol-only commit",
+    "target": "One original focal plant as unit, held-out entire experimental session; predict total female seed output and realized paternal mate diversity using recorded visitor contact/observational mate number, adding same-plant stigma pollen.",
+    "primary_lock_needed": "Baseline and pollen-augmented original variables, fit/regularization, unit definition, sex role, 16 entire-session folds, treatment condition, missing-P handling and success gate must be committed prior to the first actual outcome fit.",
+    "no_causal_claim": "Even a positive heldout predictive increment would not identify causal pollen deposition, selection, genetic rescue, or island–urban common regimes."
+  }
+}

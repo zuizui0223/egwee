@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "correction_id": "QPF007_Zenodo_original_manifest_filename_erratum_v1",
+  "date": "2026-11-18",
+  "scientific_scope": "source-only filename correction, no biological outcomes accessed, no field or phenotype model changed",
+  "original_source_gate_freeze_commit": "b638f20ea3675c4efe7b9f2f56fd302c8c3b3af2",
+  "original_source_gate_status": "SOURCE_ACCESS_STOP due to exact whitelisted file name missing",
+  "referenced_prose_README_label": "data_ABPOLL_ID_level_ID.txt",
+  "actually_published_Zenodo_file_listing": "data_ABPOLL_ID_level_detID.txt",
+  "record_doi": "10.5281/zenodo.21628183",
+  "official_record_id": 21628183,
+  "reported_actual_file_source": "Zenodo official api/records/21628183 manifest filenames returned successfully in GitHub Actions run 44292284644",
+  "filename_change_only": true,
+  "expected_original_binary_md5_from_publisher": "f95e3dcda4719c8b1f3047d9dfff3c52",
+  "purpose": "Use the actually published original pairwise focal-partner data file, not a nonexistent README-only file reference, and require exact original checksum/size before any biological-value reading.",
+  "no_individual_data_read": true,
+  "outcome_blindness_preserved": true,
+  "original_six_source_QPF_registry_unchanged": true
+}

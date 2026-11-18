@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "analysis_id": "QPF007_brassica_rapa_original_source_key_receipt",
+  "source_only_status": "ORIGINAL_SAME_PLANT_Q_P_F_STRUCTURAL_GATE_PASSED_NO_OUTCOME_FITTED",
+  "captured_on": "2026-11-18",
+  "paper_doi": "10.1371/journal.pbio.3003579",
+  "original_doi": "10.5281/zenodo.21628183",
+  "zenodo_record_id": 21628183,
+  "source_provenance": {
+    "github_actions_run": 44294323640,
+    "github_actions_artifact_id": 14422627425,
+    "original_public_source_digest_verified": true,
+    "only_source_columns_plant_keys_and_counts_read": true
+  },
+  "files": [
+    {
+      "file": "README.txt",
+      "sha256": "0a16846c1d0f79d07a7434c95030c9e75752fa9be5cbb24c1f92e58686287d0a",
+      "status": "original_checksum_verified"
+    },
+    {
+      "file": "data_ABPOLL_ID_resume.txt",
+      "sha256": "5033db434dfca909a256df4ed18ae6599fa0afb3c83fa956528b75dda1ef9ffe",
+      "rows": 160,
+      "unique_session_plant_keys": 160,
+      "sessions": 16
+    },
+    {
+      "file": "data_ABPOLL_flower_resume.txt",
+      "sha256": "ec7217acb683a0d0475622f3510228f3062a72a8bfd17162888f160db369a495",
+      "rows": 1967,
+      "unique_session_plant_keys": 160,
+      "sessions": 16
+    },
+    {
+      "file": "data_ABPOLL_fix10_paternities.txt",
+      "sha256": "984d60b26e870c58252b39177d923fa0707af6ea62acadfa9bf8f497da1ce6a6",
+      "offspring_rows": 1099,
+      "source_session_plant_key_not_verified": true
+    },
+    {
+      "file": "data_ABPOLL_ID_level_detID.txt",
+      "sha256": "7f00bbe673eb849c11de5b7fcbeb2d2b60012765cde0f1f6bc25168dd6aedfc5",
+      "pair_rows": 1363,
+      "source_focal_session_plant_keys": 156,
+      "session_labels": 18,
+      "focal_keys_overlap_individual_file": 138
+    }
+  ],
+  "source_only_join": {
+    "join_key": [
+      "session",
+      "ID_full"
+    ],
+    "main_plant_source_n": 160,
+    "main_stigma_flower_source_n": 160,
+    "matching_original_plant_keys": 160,
+    "unmatched_plant_keys": 0,
+    "plant_level_eligible_ID_before_numeric_completeness": 160,
+    "all_source_population_sessions": 16,
+    "flower_records_per_mother_variable": true,
+    "not_same_stigma_flower_and_fruit": true
+  },
+  "pairwise_nonadmission": "Separate pairwise directed source has 18 source session labels vs 16 in main plant and pollen files; only 138 focal keys match main table; keep all pairwise observations outside main analysis until discrepancy provenance reconciled. Original 1099 offspring paternity rows lack direct checked session+plant key.",
+  "source_variable_names_seen_before_response": {
+    "individual": [
+      "session",
+      "ID_full",
+      "poll_treat",
+      "nb_flo_all",
+      "nb_visit",
+      "nbGr_mean",
+      "pl_mean",
+      "nb_frt",
+      "FS",
+      "gMS_fem_all"
+    ],
+    "flowers": [
+      "session",
+      "ID_full",
+      "id_flow",
+      "noStig",
+      "pl"
+    ],
+    "pairwise": [
+      "session",
+      "ID_full_foc",
+      "ID_full_part",
+      "seed_couple_on_foc"
+    ]
+  },
+  "biological_source_counts_not_effects": true,
+  "original_six_QPF_atlas_changed": false,
+  "original_ecological_numeric_effect_fitted": false,
+  "third_party_original_rows_uploaded": false
+}

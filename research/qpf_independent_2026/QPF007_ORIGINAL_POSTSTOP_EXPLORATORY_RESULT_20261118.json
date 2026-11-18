@@ -1,0 +1,234 @@
+{
+  "schema_version": 1,
+  "analysis_id": "QPF007_Brassica_rapa_postcoverage_full145_session_exploratory_v1",
+  "status": "ORIGINAL_SOURCE_POSTCOVERAGE_EXPLORATORY_FOLD_SCORES_COMPUTED",
+  "original_paper_doi": "10.1371/journal.pbio.3003579",
+  "original_data_doi": "10.5281/zenodo.21628183",
+  "original_plants_sha256": "5033db434dfca909a256df4ed18ae6599fa0afb3c83fa956528b75dda1ef9ffe",
+  "original_stigma_flowers_sha256": "ec7217acb683a0d0475622f3510228f3062a72a8bfd17162888f160db369a495",
+  "original_pairwise_source_NOT_JOINED": "18 session labels vs 16 matched plant/pollen session labels",
+  "original_frozen_source_gate": "COVERAGE_STOP_NO_ORIGINAL_SOURCE_PREDICTIVE_TEST",
+  "original_frozen_predictive_protocol_commit": "1d4b78a1a0ee82cc267b287f7cc0e4a3899486c3",
+  "original_frozen_stop_reason": "145/160 eligible mother plants, 15 source exclusions (13 nbGr_mean NA, 3 pl_mean NA, one overlaps). Exactly one of 16 original sessions has only five eligible plants, below the prospectively required minimum of 6 per session.",
+  "postcoverage_separate_model_freeze_commit": "0933180d563150885968ee4d2eceb3f8fbb0245b",
+  "confirmation_status": "NO_REGISTERED_QPF007_CONFIRMATORY_NUMERICAL_RESULT",
+  "poststop_exploratory_status": "EXPLORATORY_POSTSTOP_DIAGNOSTIC_ONLY_NEVER_CONFIRMATORY",
+  "original_source_coverage": {
+    "original_main_mothers": 160,
+    "original_stigma_flower_rows": 1967,
+    "original_stigma_joined_plant_keys": 160,
+    "complete_mothers": 145,
+    "excluded_source_plants": 15,
+    "source_missing_nbGr_mean": 13,
+    "source_missing_pl_mean": 3,
+    "overlap_of_missing_seed_and_pollen": 1,
+    "original_sessions": 16,
+    "n_sessions_below_six": 1,
+    "small_session_eligible_mothers": 5,
+    "treatment_category_count": 3
+  },
+  "model": {
+    "response": "log1p(original nbGr_mean mature seeds per sampled fruit), NOT all plant seed production nor viable recruitment",
+    "M0": "source poll_treat treatment-category dummy indicators + log1p(nb_visit) + log1p(nb_flo_all) + log1p(height_max)",
+    "M1": "M0 + log1p(pl_mean, mean sampled stigma pollen per plant)",
+    "frozen_before_original_number_fit": true,
+    "fit": "ridge lambda 1, unpenalized intercept, z-scored non-intercept terms from training only",
+    "heldout": "16 whole experimental sessions, original valid 145 mothers each scored once. One session n=5 violates prior confirmatory gate, retained ONLY for poststop exploration.",
+    "metrics": "squared and absolute error on log1p seeds per sampled fruit, one score per plant"
+  },
+  "session_folds": [
+    {
+      "session_fold_index": 1,
+      "n_maternal_source_plants": 10,
+      "M0_MSE": 0.08814810563165922,
+      "M1_MSE": 0.15982440601866,
+      "M0_MAE": 0.2551480100031985,
+      "M1_MAE": 0.3559163517913748,
+      "delta_M0_minus_M1_MSE": -0.07167630038700078
+    },
+    {
+      "session_fold_index": 2,
+      "n_maternal_source_plants": 9,
+      "M0_MSE": 0.440543971553207,
+      "M1_MSE": 0.4024733773064102,
+      "M0_MAE": 0.5923217418623349,
+      "M1_MAE": 0.5581087799701652,
+      "delta_M0_minus_M1_MSE": 0.03807059424679682
+    },
+    {
+      "session_fold_index": 3,
+      "n_maternal_source_plants": 10,
+      "M0_MSE": 0.443673344612989,
+      "M1_MSE": 0.407978485552273,
+      "M0_MAE": 0.5677152593260951,
+      "M1_MAE": 0.5210491203141162,
+      "delta_M0_minus_M1_MSE": 0.03569485906071601
+    },
+    {
+      "session_fold_index": 4,
+      "n_maternal_source_plants": 10,
+      "M0_MSE": 0.8010864856137262,
+      "M1_MSE": 0.7202864835993622,
+      "M0_MAE": 0.7708501725064228,
+      "M1_MAE": 0.681803538181195,
+      "delta_M0_minus_M1_MSE": 0.08080000201436399
+    },
+    {
+      "session_fold_index": 5,
+      "n_maternal_source_plants": 9,
+      "M0_MSE": 0.2310365037445669,
+      "M1_MSE": 0.2292154035600307,
+      "M0_MAE": 0.4211484087487702,
+      "M1_MAE": 0.4306603161529952,
+      "delta_M0_minus_M1_MSE": 0.0018211001845362118
+    },
+    {
+      "session_fold_index": 6,
+      "n_maternal_source_plants": 9,
+      "M0_MSE": 0.6281407023681032,
+      "M1_MSE": 0.6338844985429125,
+      "M0_MAE": 0.7100911752214318,
+      "M1_MAE": 0.6815590344203688,
+      "delta_M0_minus_M1_MSE": -0.005743796174809357
+    },
+    {
+      "session_fold_index": 7,
+      "n_maternal_source_plants": 9,
+      "M0_MSE": 0.3595830576931759,
+      "M1_MSE": 0.3794176305387876,
+      "M0_MAE": 0.545625122071683,
+      "M1_MAE": 0.544651447766152,
+      "delta_M0_minus_M1_MSE": -0.019834572845611687
+    },
+    {
+      "session_fold_index": 8,
+      "n_maternal_source_plants": 8,
+      "M0_MSE": 0.6654249910922415,
+      "M1_MSE": 0.667754753569424,
+      "M0_MAE": 0.7562192506247918,
+      "M1_MAE": 0.7678067707224047,
+      "delta_M0_minus_M1_MSE": -0.0023297624771825287
+    },
+    {
+      "session_fold_index": 9,
+      "n_maternal_source_plants": 9,
+      "M0_MSE": 0.5932100384532072,
+      "M1_MSE": 0.6356898659445084,
+      "M0_MAE": 0.6834923612690251,
+      "M1_MAE": 0.6883130479688968,
+      "delta_M0_minus_M1_MSE": -0.04247982749130119
+    },
+    {
+      "session_fold_index": 10,
+      "n_maternal_source_plants": 9,
+      "M0_MSE": 0.4765100848011743,
+      "M1_MSE": 0.5111093099009271,
+      "M0_MAE": 0.5438976021289723,
+      "M1_MAE": 0.5758980130933049,
+      "delta_M0_minus_M1_MSE": -0.03459922509975277
+    },
+    {
+      "session_fold_index": 11,
+      "n_maternal_source_plants": 9,
+      "M0_MSE": 1.089517731437348,
+      "M1_MSE": 1.008765048804975,
+      "M0_MAE": 0.9231194912013264,
+      "M1_MAE": 0.9074624147367011,
+      "delta_M0_minus_M1_MSE": 0.08075268263237301
+    },
+    {
+      "session_fold_index": 12,
+      "n_maternal_source_plants": 9,
+      "M0_MSE": 0.4292629110844064,
+      "M1_MSE": 0.365100135969762,
+      "M0_MAE": 0.5504971172629151,
+      "M1_MAE": 0.4656250294596571,
+      "delta_M0_minus_M1_MSE": 0.06416277511464441
+    },
+    {
+      "session_fold_index": 13,
+      "n_maternal_source_plants": 10,
+      "M0_MSE": 0.6773451765051435,
+      "M1_MSE": 0.7008707761428284,
+      "M0_MAE": 0.6764954904096161,
+      "M1_MAE": 0.6578171930195038,
+      "delta_M0_minus_M1_MSE": -0.02352559963768497
+    },
+    {
+      "session_fold_index": 14,
+      "n_maternal_source_plants": 5,
+      "M0_MSE": 0.9554519011046702,
+      "M1_MSE": 0.7745224958691668,
+      "M0_MAE": 0.8792396823172296,
+      "M1_MAE": 0.7788051899287098,
+      "delta_M0_minus_M1_MSE": 0.18092940523550338
+    },
+    {
+      "session_fold_index": 15,
+      "n_maternal_source_plants": 10,
+      "M0_MSE": 0.4561435358090667,
+      "M1_MSE": 0.4743898090727626,
+      "M0_MAE": 0.5638296835215093,
+      "M1_MAE": 0.5711217803468837,
+      "delta_M0_minus_M1_MSE": -0.018246273263695933
+    },
+    {
+      "session_fold_index": 16,
+      "n_maternal_source_plants": 10,
+      "M0_MSE": 0.4369081380875117,
+      "M1_MSE": 0.4907388259321429,
+      "M0_MAE": 0.5193741243902067,
+      "M1_MAE": 0.5432740570434005,
+      "delta_M0_minus_M1_MSE": -0.053830687844631187
+    }
+  ],
+  "pooled": {
+    "eligible_plant_n": 145,
+    "n_original_sessions": 16,
+    "M0_MSE": 0.5335444986695099,
+    "M1_MSE": 0.5258374883185953,
+    "M0_MAE": 0.6118056344555386,
+    "M1_MAE": 0.6001158846517358,
+    "M0_minus_M1_MSE": 0.007707010350914589,
+    "relative_mse_gain_percent": 1.444492515644603,
+    "positive_session_folds": 7
+  },
+  "original_success_gate_descriptive_only": {
+    "earlier_required_percent_gain": 5,
+    "earlier_required_positive_sessions": 12,
+    "observed_percent": 1.444492515644603,
+    "observed_positive_sessions": 7,
+    "passes_numerical_rule": false,
+    "not_a_registered_test": true
+  },
+  "posthoc_influence_accounting_existing_fold_predictions_only": {
+    "low_coverage_session_index": 14,
+    "low_coverage_session_n": 5,
+    "low_coverage_session_delta_mse": 0.18092940523550338,
+    "contribution_to_all145_pooled_delta": 0.006238945008120806,
+    "share_of_all145_positive_pooled_delta": 0.8095155869850923,
+    "remaining_15_session_n": 140,
+    "remaining_15_session_original_predictions_delta_mse_without_refitting": 0.0015204962478935619,
+    "explanation": "Algebraic influence decomposition of already fitted predictions, NOT another registered model or a valid re-fitted 15-session validation."
+  },
+  "numerical_provenance": {
+    "actual_original_source_actions_run": 44297136780,
+    "actual_source_aggregate_artifact_id": 14424835913,
+    "aggregate_zip_digest": "sha256:c29a270714afcbcae10e2b124c8ca4a3205a003b1e230eb67b8c938fdfffb7b9",
+    "two_independent_original_source_fit_solvers": "Gauss-Jordan ridge normal equations and coordinate descent",
+    "max_abs_difference_between_heldout_predictions": 3.361755318564974e-13,
+    "all_16_folds_verified": true
+  },
+  "scope": [
+    "The original pre-outcome scientific source gate STOP remains historical and unchanged; this is a separately registered exploratory AFTER-coverage analysis.",
+    "Small 1.44% pooled improvement and 7/16 positive groups do not meet original 5% and 12/16 nominal criteria, even ignoring original source eligibility STOP.",
+    "One under-sampled session of five mothers accounts for most of the small pooled MSE gain; not evidence of universal pollen predictive benefit.",
+    "Original paper already documents pollinator-contact versus genetic-mating-stage variation; not an EGWEE first discovery.",
+    "16 experimental pollinator populations from a single research programme are not 16 independent natural fragmentation landscapes.",
+    "Pollen sampled from stigmas and seeds sampled from different flowers of same mother; grain is mother/session, not matched individual seed-producing stigma.",
+    "No evidence of compatibly fertilizing pollen, confirmed extra father contribution in this predictive trial, offspring survival or island/urban common functional-fragmentation regime.",
+    "Historical six-source strict natural QPF atlas unchanged."
+  ],
+  "third_party_original_raw_observations_redistributed": false,
+  "original_individual_IDs_or_outcomes_disclosed": false
+}
