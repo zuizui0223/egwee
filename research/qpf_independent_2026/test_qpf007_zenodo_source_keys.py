@@ -75,6 +75,19 @@ class SourceGate(unittest.TestCase):
         self.assertEqual(len(keys),2)
         self.assertEqual(len(groups),2)
 
+    def test_R_write_table_row_number_and_nonkey_duplicate_columns(self):
+        rows=tsv(
+            '"session" "ID_full" "helper" "helper"\\n'
+            '1 "3.X1" "M1" 8 5\\n'
+            '2 "3.X1" "M2" 3 7\\n'
+        )
+        rows=rows.replace(b"\\\\n",b"\\n")
+        cols,_,n,keys,groups=q.decode_table(rows)
+        self.assertEqual(n,2)
+        self.assertEqual(len(groups),1)
+        self.assertEqual(len(keys),2)
+        self.assertEqual(cols[0],"__source_row_number")
+
     def test_invalid_source_file_metadata_rejected(self):
         original={
             "key":"data_ABPOLL_ID_resume.txt","size":5,
