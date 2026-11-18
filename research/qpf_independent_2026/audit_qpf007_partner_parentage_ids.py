@@ -207,10 +207,11 @@ def synthetic():
 
 def main():
     ap=argparse.ArgumentParser()
-    ap.add_argument("--output",required=True,type=Path)
+    ap.add_argument("--output",type=Path)
     ap.add_argument("--self-test",action="store_true")
     args=ap.parse_args()
     if args.self_test:synthetic();return 0
+    if args.output is None:ap.error("--output required")
     try:r=analyse()
     except Exception as exc:
         r={"status":"PARENTAGE_SOURCE_OR_ID_STOP",
