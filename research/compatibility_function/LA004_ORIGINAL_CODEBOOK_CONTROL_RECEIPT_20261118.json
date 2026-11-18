@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "analysis_id": "LA004_source_internal_glossary_and_controls",
+  "status": "BF_LOWERCASE_SOURCE_CODE_RESOLVED_PUBLISHED_VISIT_COUNT_STILL_UNRESOLVED",
+  "source_sha256": "82bcaa1c3a504cc779bc9c2aa95199a657dd404b3fdf62f7059e4ff5028b39c1",
+  "source_glossary_location": "Pollinator+Data+2014.xlsx / Landersville Field - Temporal / row 1",
+  "source_glossary_literal_labels": [
+    "F - Fly",
+    "Bf - Bee Fly",
+    "B - Butterfly",
+    "H - Honey Bee",
+    "AH - Adrenid / Halictid",
+    "U - Unknown"
+  ],
+  "source_explicit_fact": "Bf = Bee Fly; B = Butterfly. Main-array uppercase BF is not separately defined in the original temporal legend.",
+  "completed_periods": {
+    "2014": 45,
+    "2015": 76,
+    "total": 121
+  },
+  "raw_visitation_record_units": {
+    "insect_event_rows": 2850,
+    "position_tokens": 6702,
+    "published_visits": 3748
+  },
+  "source_case_sensitive_counts": {
+    "2014:Bf": {
+      "insect_rows": 44,
+      "plant_position_tokens": 205
+    },
+    "2014:BF": {
+      "insect_rows": 3,
+      "plant_position_tokens": 4
+    },
+    "2014:B": {
+      "insect_rows": 7,
+      "plant_position_tokens": 34
+    },
+    "2015:BF": {
+      "insect_rows": 85,
+      "plant_position_tokens": 780
+    }
+  },
+  "raw_position_share_under_uppercase_merging": [
+    {
+      "group": "AH",
+      "n_positions": 3414,
+      "share_pct": 50.940017905102955,
+      "published_share_pct": 46.7
+    },
+    {
+      "group": "BF",
+      "n_positions": 989,
+      "share_pct": 14.75678901820352,
+      "published_share_pct": 14.4
+    },
+    {
+      "group": "F",
+      "n_positions": 1910,
+      "share_pct": 28.498955535660997,
+      "published_share_pct": 28.7
+    },
+    {
+      "group": "Other",
+      "n_positions": 389,
+      "share_pct": 5.804237541032528,
+      "published_share_pct": 10.2
+    }
+  ],
+  "source_2014_category_mean_rate_sensitivity": {
+    "SI": {
+      "bf_casefold": 0.1861655915960764,
+      "bf_strict_uppercase": 0.002777777777777778,
+      "other_casefold": 0.10340310981227789,
+      "other_plus_Bf": 0.2867909236305765,
+      "published_bf": 0.06,
+      "published_other": 0.236
+    },
+    "SC": {
+      "bf_casefold": 0.22514823042194276,
+      "bf_strict_uppercase": 0.008452950558213716,
+      "other_casefold": 0.1515698673114941,
+      "other_plus_Bf": 0.36826514717522313,
+      "published_bf": 0.08,
+      "published_other": 0.297
+    }
+  },
+  "emasculation_controls": {
+    "Final pass": {
+      "n_source_controls": 21,
+      "n_with_dates": 21,
+      "n_fruit_outcomes_present": 21,
+      "n_fruits": 1,
+      "source_date_serial_counts": {
+        "42078": 7,
+        "42079": 14
+      }
+    },
+    "Fruit set first pass": {
+      "n_source_controls": 21,
+      "n_fruit_outcomes_present": 21,
+      "n_fruits": 1
+    }
+  },
+  "published_bagged_control_n": 17,
+  "no_date_or_fruit_missingness_explains_four_missing_controls": true,
+  "source_visibility": "Source ZIP directly user-supplied; raw Excel, row-level insect histories, plant IDs and genotype values not redistributed.",
+  "claim_boundary": [
+    "Bf code label is explicitly resolved only for the original temporal worksheet glossary; cross-sheet uppercase BF equivalence is probable but not independently annotated",
+    "Either a literal casefold or an unsupported strict uppercase-only split fails to reproduce both published 2014 Bee Fly/Other rates",
+    "The published total 3748 remains unmapped to 2850 insect rows or 6702 position tokens",
+    "The 21 versus 17 control mismatch cannot be explained by blank date/fruit fields; no four controls are deleted",
+    "This is source provenance clarification, not a new effect or a recomputation of LA001/LA002 seed-outcome models"
+  ]
+}
