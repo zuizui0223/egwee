@@ -6,6 +6,8 @@ on:
       - 'research/compatibility_function/CY001_*'
       - 'research/compatibility_function/audit_cyanus_CY001_source.py'
       - 'research/compatibility_function/test_cyanus_CY001_source.py'
+      - 'research/compatibility_function/test_cyanus_CY001_model.py'
+      - 'research/compatibility_function/run_cyanus_CY001_plot_holdout.py'
       - '.github/workflows/cy001-source-gate.yml'
   workflow_dispatch:
 
@@ -27,6 +29,8 @@ jobs:
         run: |
           python -m unittest discover -s research/compatibility_function \
             -p 'test_cyanus_CY001_source.py' -v
+          python -m unittest discover -s research/compatibility_function \
+            -p 'test_cyanus_CY001_model.py' -v
       - name: Check original public Dryad DOI and original file metadata
         run: |
           python research/compatibility_function/audit_cyanus_CY001_source.py \
