@@ -1,0 +1,51 @@
+name: AA001 apple 2023 open treatment pollen-to-fruit region holdout
+on:
+  push:
+    branches: [analysis/apple-orchard-three-stage-source-20261118]
+  pull_request:
+    paths:
+      - research/apple_orchard_qpf/**
+      - .github/workflows/aa001-apple-pf-region-holdout.yml
+  workflow_dispatch:
+
+jobs:
+  one-original-study-region-predictive-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Pinned numerical algebra for original-source model
+        run: python -m pip install numpy==2.3.5
+      - name: Synthetic source-key and ridge training-only transform
+        run: python research/apple_orchard_qpf/test_AA001_PF_context_region_holdout.py --self-test
+      - name: Run separate orchard-P/F region holdout only if pre-effect coverage qualifies
+        run: |
+          python research/apple_orchard_qpf/test_AA001_PF_context_region_holdout.py --output aa001_pf_region_holdout_derivative.json
+          python - <<'PY'
+          import json
+          x=json.load(open("aa001_pf_region_holdout_derivative.json"))
+          assert x["status"] in (
+              "PF_CONTEXT_COVERAGE_STOP","PF_REGION_FOLD_COVERAGE_STOP",
+              "PF_CONTEXT_NONESTIMABLE_REGION_STOP",
+              "PF_SOURCE_ONE_STUDY_REGION_HOLDOUT_COMPLETE")
+          assert x["third_same_flower_qpf_study_admitted"] is False
+          assert x["visitation_Q_used"] is False
+          assert x["P_and_F_measured_on_distinct_flower_samples"] is True
+          assert x["origin_is_one_original_research_programme"] is True
+          assert x["original_orchard_flower_pollen_fruit_rows_redistributed"] is False
+          if x["status"]=="PF_SOURCE_ONE_STUDY_REGION_HOLDOUT_COMPLETE":
+              assert x["coverage"]["complete_orchards"]>=12
+              assert x["coverage"]["original_regions_with_complete_orchards"]>=3
+              assert x["total_original_regions"]==len(x["heldout_region_folds_anonymized"])
+          print("AA001_PF_SOURCE_AND_CLAIM_CEILING_"+x["status"])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: aa001-orchard-pf-region-derivative-only
+          path: aa001_pf_region_holdout_derivative.json
+          retention-days: 14
