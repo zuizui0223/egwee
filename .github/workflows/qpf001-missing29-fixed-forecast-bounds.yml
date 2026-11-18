@@ -1,0 +1,45 @@
+name: QPF001 posthoc 29-fruit fixed-forecast sharp bounds audit
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/qpf_public_source_recovery/QPF001_MISSING29_*'
+      - 'research/qpf_public_source_recovery/bound_qpf001_missing29_fixed_forecasts.py'
+      - 'research/qpf_public_source_recovery/test_qpf001_missing29_bounds.py'
+      - '.github/workflows/qpf001-missing29-fixed-forecast-bounds.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify-source-withheld-partial-identification-math:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Test hypothetical-response sharp bounds and old frozen null without source
+        run: |
+          python -m unittest discover -s research/qpf_public_source_recovery \
+            -p 'test_qpf001_missing29_bounds.py' -v
+      - name: Enforce no reinterpreted confirmatory inference, raw source or imputation
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=Path('research/qpf_public_source_recovery')
+          x=json.loads((r/'QPF001_MISSING29_FIXED_FORECAST_BOUNDS_20261118.json').read_text())
+          old=json.loads((r/'QPF001_DATE_HOLDOUT_ORIGINAL_RESULT_20261118.json').read_text())
+          assert x['original_scientific_decision']==old['registered_decision']=='NO_ROBUST_WITHIN_STUDY_DATE_TRANSFER_GAIN'
+          assert x['status']=='POSTHOC_SHARP_BOUNDS_CONDITIONAL_ON_HYPOTHETICAL_SEEDSET'
+          assert x['observed_recovered_fruit_n']==93 and x['unrecovered_fruit_unknown_n']==29
+          assert x['hypothetical_all122_M0_minus_M1_mse_gain_lower']<0
+          assert x['hypothetical_all122_M0_minus_M1_mse_gain_upper']>0
+          assert x['individual_flower_values_exported'] is False
+          assert x['third_party_original_workbook_exported'] is False
+          assert not list(r.glob('*.xlsx')) and not list(r.glob('*.zip'))
+          print('Posthoc sharp bounds preserved; unknown outcomes NOT imputed; original preregistered null unchanged.')
+          PY
