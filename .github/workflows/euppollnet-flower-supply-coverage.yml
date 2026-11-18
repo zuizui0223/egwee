@@ -1,0 +1,46 @@
+name: EuPPollNet flower supply exact-date source coverage
+on:
+  push:
+    branches: [analysis/euppollnet-supply-gate-20261118]
+  pull_request:
+    paths:
+      - research/euppollnet_flower_supply/**
+      - .github/workflows/euppollnet-flower-supply-coverage.yml
+  workflow_dispatch:
+jobs:
+  flower-source-coverage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install source-prior pinned numeric dependency
+        run: python -m pip install numpy==2.3.5
+      - name: Test source date, taxonomy and unit gate
+        run: |
+          python research/euppollnet_flower_supply/audit_source_flower_availability.py --self-test
+      - name: Count only exact flower supply correspondence against corrected original sources
+        run: |
+          python research/euppollnet_flower_supply/audit_source_flower_availability.py --output supply_source_coverage_derivative.json
+          python - <<'PY'
+          import json
+          x=json.load(open("supply_source_coverage_derivative.json"))
+          assert x["status"]=="SOURCE_COVERAGE_VERIFIED"
+          assert x["coverage"]["interaction_rows"]==623476
+          assert x["coverage"]["flower_rows"]==199692
+          assert x["coverage"]["study_network_year_eligible_original"]==311
+          assert x["observed_guild_use_jsd_recomputed"] is False
+          assert x["flower_supply_relative_preference_calculated"] is False
+          assert x["pollen_deposition_or_reproductive_outcome_read"] is False
+          assert x["source_raw_rows_redistributed"] is False
+          print("COMPARABLE_FLOWER_SOURCE_COVERAGE_GATE_VERIFIED")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: euppollnet-flower-supply-source-coverage-only
+          path: supply_source_coverage_derivative.json
+          retention-days: 14
