@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "experiment_id": "QPF001_original_flower_stigma_seed_date_holdout_v1",
+  "status": "preoutcome_predictive_protocol_frozen_before_seed_response_correlations_or_models",
+  "created_on": "2026-11-18",
+  "original_source": {
+    "species": "Oenothera fruticosa",
+    "paper_doi": "10.1002/ajb2.1720",
+    "dataset_doi": "10.5061/dryad.hqbzkh1g9",
+    "zip": "doi_10_5061_dryad_hqbzkh1g9__v20210608.zip",
+    "zip_sha256": "09a47a94913c7087405679c5dc18c0c3c6ded4e8ecad298e6f94f87c5a78b653",
+    "xlsx": "FIGO_2019_Data_20210523.xlsx",
+    "xlsx_official_sha256": "83790bb7d63222e3e21c0ceed5d729cacf63a2df843e5807836d8e5c853447aa",
+    "original_zip_crc": "passed",
+    "source_sheets": [
+      "Metadata",
+      "Data"
+    ],
+    "original_data_rows": 122
+  },
+  "source_metadata_and_outcome_missingness_examined_pre_freeze": {
+    "sample_id": "Sample.number, 122 unique sample IDs, one focal filmed flower per originally tagged plant",
+    "film_day": "Julian.day, numeric for 122; eight unique days [176,177,178,182,183,190,191,196]",
+    "duration": "Duration.hours, 122 positive numeric observation hours",
+    "visitor_count_columns": [
+      "Large.bee.visits",
+      "Small.bee.visits",
+      "Small.fly.visits",
+      "Large.fly.visits"
+    ],
+    "stigma_pollen_columns": [
+      "CP.Count",
+      "HP.Count"
+    ],
+    "stigma_pollen_numeric_n": 122,
+    "floral_neighborhood_columns": [
+      "Het.abundance",
+      "Con.abundance"
+    ],
+    "nonmissing_both_n": 116,
+    "seed_fitness_response": "Seed.set, 93 numeric of 122; remaining 29 string sentinel NA, not biological zeros",
+    "source_metadata_Seed_set": "Proportion of ovules that developed into mature seeds",
+    "source_seedweights_note": "Seed.weights metadata says Seed.count + Small.seed + Ovule, but Seed.set source is a separate column and its arithmetic has not been verified before outcome fit",
+    "n_seed_complete_and_flower_context_complete": 88,
+    "missing_neighborhood_with_seed_n": 5,
+    "complete_seed_by_day": {
+      "176": 16,
+      "177": 18,
+      "178": 18,
+      "182": 18,
+      "183": 7,
+      "190": 4,
+      "191": 8,
+      "196": 4
+    },
+    "unobserved_seed_by_day": {
+      "176": 15,
+      "177": 0,
+      "178": 8,
+      "182": 2,
+      "183": 1,
+      "190": 2,
+      "191": 0,
+      "196": 1
+    },
+    "note": "Only column names, biological unit, source cell types/NA flags, dates, structural denominators examined before prespecified models, not signed seed/CP/HP/visitation relationships."
+  },
+  "scientific_question": "Does directly observed stigma conspecific and heterospecific pollen load improve prediction of subsequent seed maturation beyond prior visitation by four pollinator groups, phenology and original floral neighborhood, in entirely held-out filming dates?",
+  "source_originality": "Original authors already found HP×CP seed-set interaction in the same field flowers; our estimand is additional out-of-date predictive utility of measured pollen given raw recorded visitation, NOT first discovery of the mechanism.",
+  "unit": "one unique focal flower = one source maternal plant, clustered by Julian filming date; 8 heldout date groups from ONE original Pennsylvania grassland",
+  "eligibility": {
+    "seed_response": "Seed.set numeric finite within [0,1] only, complete 93; source NA 29 dropped for response modeling but kept for source missingness report",
+    "pollen": "CP.Count and HP.Count numeric finite nonnegative for all 122",
+    "Q": "Four legitimate contact visit counts numeric nonnegative; each divided by source Duration.hours >0 before log1p",
+    "floral_missingness": "For each neighbor variable, form raw log1p for observed source counts; for missing NA, train-only median of log1p available values within eleven? (all other date folds) training observations; add one separate 0/1 missing indicator per field. Heldout missingness never used for imputation parameters.",
+    "do_not_exclude": "Retain all 93 seed-complete flowers including Julian day 196 with zero observed neighborhood fields (impute using training-only medians). No deleting 0-visits, outliers, low pollen, or small day folds.",
+    "checking": "Source-data CRC/SHA, unique 122 IDs, 8 dates, 93 seed-set numeric, 6 NA neighborhood rows and 5 overlapping 93; fail closed on any denominator drift."
+  },
+  "fixed_model": {
+    "response": "Original Seed.set ratio, squared-error risk on 0–1 scale; no conditional seed count overdispersion estimator and no treatment effect",
+    "model_M0": "intercept + Julian.day (numeric) + log1p(Con.abundance) + log1p(Het.abundance) + two corresponding missingness indicators + each of four log1p(legitimate guild visits / Duration.hours)",
+    "model_M1": "M0 + log1p(CP.Count) + log1p(HP.Count) + [log1p(CP.Count)*log1p(HP.Count)]",
+    "interaction_reason": "Prior authors already documented nonlinear HP×CP seed relationship. The fixed joint transfer term tests predictive benefit of that known interaction, not novel effect discovery.",
+    "imputation": "For each of two floral neighborhood log1p variables impute only from training flowers' median; holdout date response never influences imputation.",
+    "standardization": "For each training fold, center and scale all non-intercept covariates with training mean and population SD; for zero SD use 1, and penalize its coefficient as usual.",
+    "estimator": "Gaussian ridge closed-form least squares with lambda=1 for non-intercept standardized predictors; intercept unpenalized; no hyperparameter fitting",
+    "prediction": "Clamp both M0/M1 forecast Seed.set to [0,1] before scoring",
+    "CV": "leave one whole Julian filming day out (8 folds), all flowers from that day held out including date196; no random flower folds",
+    "primary_estimand": "pooled flower-weighted average heldout MSE(M0)-MSE(M1); positive means pollen transfer added predictive information beyond visitation and floral context",
+    "success_gate": "M0-M1 pooled MSE improvement >=5% of M0 MSE AND strictly positive MSE(M0)-MSE(M1) in >=6/8 heldout dates",
+    "failure_gate": "NO_ROBUST_WITHIN_STUDY_DATE_TRANSFER_GAIN if either part fails",
+    "reporting": "n per 8 dates, M0/M1 MSE and MAE, pooled 93 MSE/MAE, exact n missing/non-missing response and floral context, source SHA, no per-flower biology rows",
+    "secondary": "Describe absolute MAE and date-fold signs only. No posthoc alternative pollinevent taxon feature/response/HP-only threshold/model to rescue primary."
+  },
+  "nonindependence": {
+    "one_site": true,
+    "study_programmes": 1,
+    "original_flowers": 122,
+    "observed_mature_fruits": 93,
+    "observational_horizon": "video followed by next-day stigma harvest and mature fruit collection about 3 weeks later",
+    "selection": "29/122 mature-fruit results not observed due to missing fruits or herbivory; complete case 93 not necessarily missing at random",
+    "causal": "Pollen grain counts are deposited grains, not necessarily compatible fertilization or genetically identified paternal source",
+    "no_generalization": "No urban/island common regime, universal mechanistic causal threshold, independent species replication, ecological function decline or genetic rescue inferred."
+  },
+  "governance": [
+    "Preserve this exact protocol-only commit before new seed-set/pollen predictive model fitting; merge with history (not squash).",
+    "No external original XLSX or flower-level values committed to public GitHub.",
+    "Do not look for favorable alternate source responses or plot/site subsets if the primary fails.",
+    "Use author-populated source glossary for metadata, not reinterpret the source cell labels or missing NA as 0.",
+    "Public 2021 paper has already published interaction HP×CP; original published finding is prior art."
+  ]
+}

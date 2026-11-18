@@ -1,0 +1,160 @@
+{
+  "schema_version": 1,
+  "analysis_id": "QPF001_original_flower_stigma_seed_date_holdout_v1",
+  "status": "ORIGINAL_SOURCE_FROZEN_EIGHT_DATE_HOLDOUT_COMPLETE",
+  "protocol_commit": "a1658c353a0c244edafab194f96301968dc84040",
+  "original_source": {
+    "dryad_doi": "10.5061/dryad.hqbzkh1g9",
+    "paper_doi": "10.1002/ajb2.1720",
+    "original_zip_sha256": "09a47a94913c7087405679c5dc18c0c3c6ded4e8ecad298e6f94f87c5a78b653",
+    "official_original_xlsx_sha256": "83790bb7d63222e3e21c0ceed5d729cacf63a2df843e5807836d8e5c853447aa",
+    "xlsx_bytes": 27351,
+    "inner_crc_passed": true
+  },
+  "source_grain": {
+    "n_filmed_flowers": 122,
+    "n_unique_focal_plants_and_flowers": 122,
+    "n_original_dates": 8,
+    "n_stigma_CP_HP_valid": 122,
+    "n_seedset_numeric": 93,
+    "n_missing_seedset_NA": 29,
+    "n_floral_neighborhood_missing_any": 6,
+    "n_floral_neighborhood_missing_among_seed_complete": 5,
+    "n_date_seedset_complete": {
+      "176": 16,
+      "177": 18,
+      "178": 18,
+      "182": 18,
+      "183": 7,
+      "190": 4,
+      "191": 8,
+      "196": 4
+    }
+  },
+  "source_variable_reconciliation": {
+    "source_Seed_set": "Original Data sheet column V, ratio from collected fruit",
+    "source_Seed_weights": "Original column W; source metadata says Seed.count + Small.seed + Ovule",
+    "Seed_set_matches_Seed_count_divided_by_Seed_weights": 93,
+    "Seed_set_matches_Seed_count_divided_by_Seed_count_plus_Ovule": 83,
+    "n_source_seedset_not_equal_to_paper_formula": 10,
+    "paper_seedset_formula": "Published Methods state developed seeds / (developed seeds + unfertilized ovules)",
+    "note": "Use the pre-registered original Seed.set values, do not relabel as paper-arithmetic-equivalent or replace the response after observing result. Different denominator for 10 original fruits may reflect inclusion of immature seeds; author processing cannot be inferred."
+  },
+  "protocol_model": {
+    "M0": "film Julian day, 2 train-median-imputed log floral neighborhood counts + 2 missing flags, log1p visitation count / film hour for each of 4 legitimate bee/fly groups",
+    "M1": "M0 + log1p(CP.Count) + log1p(HP.Count) + log1p(CP.Count)*log1p(HP.Count)",
+    "ridge_lambda": 1,
+    "non_intercept": "train-only mean/SD z-transform and ridge L2",
+    "seedset_prediction_clipped_to_01": true,
+    "leave_one_whole_film_day_out": 8,
+    "decision": "pooled MSE gain >=5% AND 6/8 positive filming date folds",
+    "no_p_value_generated": true
+  },
+  "folds": [
+    {
+      "day": 176,
+      "n": 16,
+      "M0_mse": 0.07583165005958546,
+      "M1_mse": 0.07229743773904244,
+      "M0_mae": 0.23279207223803589,
+      "M1_mae": 0.22609171355769825,
+      "M0_minus_M1_mse": 0.0035342123205430176
+    },
+    {
+      "day": 177,
+      "n": 18,
+      "M0_mse": 0.08153453745105887,
+      "M1_mse": 0.07528644825153578,
+      "M0_mae": 0.23679586649142662,
+      "M1_mae": 0.22518190260527218,
+      "M0_minus_M1_mse": 0.006248089199523091
+    },
+    {
+      "day": 178,
+      "n": 18,
+      "M0_mse": 0.06325502867597248,
+      "M1_mse": 0.05877079892227629,
+      "M0_mae": 0.2189293841908182,
+      "M1_mae": 0.2145244989334277,
+      "M0_minus_M1_mse": 0.004484229753696188
+    },
+    {
+      "day": 182,
+      "n": 18,
+      "M0_mse": 0.03856673620495928,
+      "M1_mse": 0.04400666857563366,
+      "M0_mae": 0.1583459117709985,
+      "M1_mae": 0.17182683374300853,
+      "M0_minus_M1_mse": -0.005439932370674375
+    },
+    {
+      "day": 183,
+      "n": 7,
+      "M0_mse": 0.04485656286960245,
+      "M1_mse": 0.04630336480155609,
+      "M0_mae": 0.18236106428241264,
+      "M1_mae": 0.17299511481191773,
+      "M0_minus_M1_mse": -0.0014468019319536438
+    },
+    {
+      "day": 190,
+      "n": 4,
+      "M0_mse": 0.08006948795184006,
+      "M1_mse": 0.11511984341650998,
+      "M0_mae": 0.26878002320184075,
+      "M1_mae": 0.29815372232844034,
+      "M0_minus_M1_mse": -0.03505035546466992
+    },
+    {
+      "day": 191,
+      "n": 8,
+      "M0_mse": 0.1595445470436822,
+      "M1_mse": 0.15994083093832595,
+      "M0_mae": 0.32441097929888063,
+      "M1_mae": 0.3227753997525066,
+      "M0_minus_M1_mse": -0.00039628389464374525
+    },
+    {
+      "day": 196,
+      "n": 4,
+      "M0_mse": 0.5931685546694694,
+      "M1_mse": 0.5621845519089752,
+      "M0_mae": 0.7689837606244952,
+      "M1_mae": 0.7480552589601156,
+      "M0_minus_M1_mse": 0.030984002760494178
+    }
+  ],
+  "pooled": {
+    "n": 93,
+    "M0_mse": 0.09459165946076463,
+    "M1_mse": 0.09327717494337788,
+    "M0_mae": 0.24517015591011002,
+    "M1_mae": 0.24304376966507124,
+    "M0_minus_M1_mse": 0.0013144845173867492,
+    "relative_mse_reduction_pct": 1.389641036937279,
+    "positive_date_folds": 4,
+    "date_folds": 8
+  },
+  "registered_decision": "NO_ROBUST_WITHIN_STUDY_DATE_TRANSFER_GAIN",
+  "independent_numeric_check": {
+    "method1": "artifact_tool XLSX import and NumPy ridge normal equations",
+    "method2": "separate stdlib OOXML and Gaussian elimination",
+    "comparison": "8 days x 2 models x (MSE and MAE) = 32 aggregate scores",
+    "n_compared_metrics": 32,
+    "max_absolute_discrepancy": 1.5543122344752192e-15,
+    "passed": true
+  },
+  "scientific_scope": [
+    "Original Smith, Swartz & Spigler (2021) already discovered that CP load modifies heterospecific-pollen seed-set cost.",
+    "This is original-source within-study temporal transport, not an independent landscape, species or external validation.",
+    "29/122 missing mature fruits due to loss/herbivory, not source biological zero and not confirmed missing at random.",
+    "Five of 93 modeled flowers lack floral-neighborhood covariates and are imputed only using training-date medians, incl four from day196.",
+    "Four of eight complete-date test groups are positive, two n4 days with much less reliable date-group estimates; do not cherry-pick.",
+    "Stigma pollen quantity/composition is not genetically compatible pollen receipt, confirmed paternity or recruited offspring.",
+    "Original source seed-set denominator differs from literal published formula for ten flowers.",
+    "No causal effect of flower visitors or new universal functional-fragmentation regime established.",
+    "No third-party raw Excel, pollen/seed individual rows or identifying sample data committed."
+  ],
+  "raw_source_redistributed": false,
+  "individual_record_rows_disclosed": false
+}
