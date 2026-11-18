@@ -124,7 +124,7 @@ def float_or_none(v):
     return x if math.isfinite(x) else None
 
 
-def materialize_eligibility(raw, original_stigma_key_count=160):
+def materialize_eligibility(raw, original_stigma_key_count=160, strict_coverage=True):
     if len(raw)!=160 or original_stigma_key_count!=160:
         raise ValueError("Source keys not matched across 160 plant/stigma rows")
     levels=sorted({str(r["poll_treat"]).strip() for r in raw})
@@ -157,8 +157,12 @@ def materialize_eligibility(raw, original_stigma_key_count=160):
             "y":math.log1p(d["nbGr_mean"])
         })
         bysession[session]+=1
-    if len(admissible)<120 or len(bysession)!=16 or any(n<6 for n in bysession.values()):
-        return None,{
+    original_gate_failed = (
+        len(admissible)<120 or len(bysession)!=16
+        or any(n<6 for n in bysession.values())
+    )
+    if original_gate_failed:
+        source_stop={
             "status":"COVERAGE_STOP_NO_ORIGINAL_SOURCE_PREDICTIVE_TEST",
             "source_plant_rows":160,
             "main_stigma_source_plant_keys":original_stigma_key_count,
@@ -171,6 +175,16 @@ def materialize_eligibility(raw, original_stigma_key_count=160):
             "original_biology_outcomes_not_pooled":True,
             "primary_coverage_gate":"at least 120 plant units and 6 complete plants in every one of 16 sessions"
         }
+        # Original preregistered full-source analysis ALWAYS returns STOP.
+        # Only an explicitly separate, after-coverage, post-outcome-design
+        # exploratory protocol may retain the single underpowered session.
+        if strict_coverage or len(admissible)<120 or len(bysession)!=16 or any(n<2 for n in bysession.values()):
+            return None,source_stop
+        source_stop["status"]="EXPLORATORY_POSTCOVERAGE_SOURCE_145_WITH_ONE_SMALL_SESSION"
+        source_stop["n_source_eligible_plants"]=len(admissible)
+        source_stop["session_group_sizes_sorted"]=sorted(bysession.values())
+        source_stop["not_original_registered_confirmation"]=True
+        return admissible,source_stop
     safe={
         "status":"ORIGINAL_SOURCE_160_PLANTS_ELIGIBILITY_PASSED",
         "source_plant_rows":160,
