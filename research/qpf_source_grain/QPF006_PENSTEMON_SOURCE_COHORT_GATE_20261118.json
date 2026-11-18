@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "audit_id": "QPF006_Penstemon_digitalis_separate_assay_cohort_gate_20261118",
+  "status": "ORIGINAL_PUBLISHED_SOURCE_DESIGN_NONJOIN_FOR_SAME_FLOWER_QPF",
+  "date": "2026-11-18",
+  "primary": {
+    "species": "Penstemon digitalis",
+    "paper_doi": "10.1002/njb.04977",
+    "original_dryad_doi": "10.5061/dryad.xpnvx0kwt",
+    "dataset_publication_date": "2026-05-20",
+    "paper_publication": "2026-06-22",
+    "source_page": "https://datadryad.org/dataset/doi%3A10.5061/dryad.xpnvx0kwt",
+    "title": "Pollinator-mediated pollen transfer and floral longevity in Penstemon digitalis",
+    "README_semantics": "Different flowers and plants were sampled among treatments and floral days. Flowers sampled in separate experiments were not necessarily sampled from same plants.",
+    "original_paper_explicit_limitation": "Distinct sets of plants for pollen vs seed experiments; no direct relationship between stigma pollen deposition and seeds per flower can be inferred.",
+    "original_paper_svd_result": "A single-visit-deposition experimental cross produced no fruit; direct one-visit P→recruitment is not observed here.",
+    "original_paper_prior_art": "Floral longevity and two female-phase receptive days buffer temporally variable early-spring bee visitation; authors already reported this."
+  },
+  "experiment_specific_files": [
+    {
+      "filename": "Single_visit_pollen_deposition.xlsx",
+      "Q": "One verified single virgin-flower bee visit, one of four bee taxa",
+      "P": "Pollen grains on collected stigma after visit",
+      "F": "No matched mature seed outcome; same stigma flower is harvested",
+      "join_unit": "flower assay, independent of seed experiment",
+      "complete_same_flower_QPF": false
+    },
+    {
+      "filename": "Stigma_pollen_over_day_and_year.xlsx",
+      "Q": "No same-flower direct visit observation count",
+      "P": "Pollen on naturally pollinated stigmas by year and female phase day",
+      "F": "Separate flower cohort in Seeds_over_day_and_year.xlsx",
+      "join_unit": "day/year aggregates only (potential same plant IDs cannot be assumed across experiments)",
+      "complete_same_flower_QPF": false
+    },
+    {
+      "filename": "Seeds_over_day_and_year.xlsx",
+      "Q": "No verified same-flower direct visit count",
+      "P": "No stigma pollen counted from same seed-producing flower in this dataset",
+      "F": "Seeds per fruit by year and day of female phase",
+      "join_unit": "independent flower source",
+      "complete_same_flower_QPF": false
+    },
+    {
+      "filename": "Pollen_tubes_base.xlsx",
+      "Q": "No matched source visit observation",
+      "P": "Number of pollen tubes reaching style base",
+      "F": "No mature seed outcome from same destructively sampled flower",
+      "join_unit": "independent flower histology",
+      "complete_same_flower_QPF": false
+    },
+    {
+      "filename": "Pollen_tubes_top.xlsx",
+      "Q": "No matched source visit observation",
+      "P": "Number of tubes in top quarter of style",
+      "F": "No mature seed outcome from same source flower",
+      "join_unit": "independent flower histology",
+      "complete_same_flower_QPF": false
+    },
+    {
+      "filename": "Stigma_pollen_grains.xlsx",
+      "Q": "No matched visit-rate observation",
+      "P": "Pollen by flower anthesis day",
+      "F": "No same-flower seed outcome",
+      "join_unit": "independent stigma source",
+      "complete_same_flower_QPF": false
+    },
+    {
+      "filename": "Breed_system_data.xlsx",
+      "Q": "Cross treatment A/S/X/O not observed natural per-flower visitation",
+      "P": "No measured stigma grains or donor genetic compatibility",
+      "F": "Fruit produced under hand or open treatments",
+      "join_unit": "treatment-level breeding assay",
+      "complete_same_flower_QPF": false
+    }
+  ],
+  "quality_gates": {
+    "source_original_CRC_and_SHA_verified": false,
+    "source_original_workbooks_opened": false,
+    "original_same_flower_QPF_joinable_from_documented_design": false,
+    "raw_ID_overlap_of_some_plants_unknown": true,
+    "direct_Q_and_P_visitor_effectiveness_assay": true,
+    "direct_P_and_F_on_same_flower": false,
+    "source_full_independent_QPF_programme_eligible": false,
+    "why": "Primary manuscript and Dryad README explicitly distinguish independently sampled/destructively collected stigma pollen experiments from seed production experimental plants; matching by Day/Year or species alone cannot recover a same flower.",
+    "next_use": "Existing published temporal floral-longevity/bee-visit effectiveness as independent prior-art ecological mechanism, not third matched mother/flower QPF prediction programme.",
+    "not_a_negative_biological_result": true,
+    "no_original_source_redistributed": true
+  },
+  "research_atlas_provenance": {
+    "original_six_candidate_registry_preserved": true,
+    "original_qpf001_same_flower_source_complete_cases": 93,
+    "original_qpf004_same_ramet_source_complete_cases": 62,
+    "original_eligible_same_unit_direct_P_programmes_before_QPF006_check": 2,
+    "original_eligible_same_unit_direct_P_programmes_after_QPF006_check": 2,
+    "minimum_3_source_common_estimand_not_met": true,
+    "QPF002_population_year_alignment_unverified": true,
+    "QPF003_field_direct_pollen_transfer_unmeasured": true,
+    "QPF005_direct_pollen_provenance_unverified": true
+  }
+}

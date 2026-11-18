@@ -1,0 +1,54 @@
+name: QPF006 Penstemon original-source separate cohort and atlas admission gate
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/qpf_source_grain/QPF006_*'
+      - 'research/qpf_source_grain/audit_penstemon_QPF006_public_source.py'
+      - 'research/qpf_source_grain/test_penstemon_QPF006_source.py'
+      - '.github/workflows/qpf006-penstemon-source-cohort.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify-original-published-design-without-artificial-flower-joins:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Source-withheld experiment-grain and six-programme count regression tests
+        run: |
+          python -m unittest discover -s research/qpf_source_grain \
+            -p 'test_penstemon_QPF006_source.py' -v
+      - name: Probe official Dryad original public file/worksheet metadata
+        run: |
+          python research/qpf_source_grain/audit_penstemon_QPF006_public_source.py \
+            --output qpf006_source_receipt/metadata.json
+      - name: Disallow new same-flower Q-P-F claims or original data propagation
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("qpf006_source_receipt/metadata.json")
+          r=json.loads(p.read_text())
+          assert r["source_doi"]=="10.5061/dryad.xpnvx0kwt"
+          assert r["original_paper_doi"]=="10.1002/njb.04977"
+          assert r["decision"]=="NOT_A_THIRD_SAME_UNIT_QPF_PROGRAMME_FROM_PUBLISHED_DESIGN"
+          assert r["full_original_QPF_same_flower_eligible"] is False
+          assert r["no_original_biological_source_rows_examined"] is True
+          assert r["no_individual_flower_or_plant_IDs_joined"] is True
+          assert r["no_original_mature_seed_P_Q_observations_fitted"] is True
+          assert r["no_third_party_source_redistributed"] is True
+          print("Seven source assays inventoried; original same-flower QPF join remains structurally unsupported.")
+          PY
+      - name: Archive only source metadata and no original biological records
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qpf006-original-source-metadata-only
+          path: qpf006_source_receipt/
+          if-no-files-found: warn
+          retention-days: 90
