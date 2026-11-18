@@ -1,0 +1,44 @@
+name: QPF007 post-outcome same-145 mother endpoint check
+on:
+  push:
+    branches: [analysis/qpf007-genetic-mates-heldout-20261118]
+  pull_request:
+    paths:
+      - research/qpf_independent_2026/QPF007_POSTOUTCOME_COMMON145_FREEZE_20261118.md
+      - research/qpf_independent_2026/audit_qpf007_common145_outcome_stage.py
+      - .github/workflows/qpf007-common145-outcome-check.yml
+  workflow_dispatch:
+jobs:
+  genetic-and-seed-source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Fit both endpoints on same source 145 mothers and reproduce every archived seed fold
+        run: |
+          python research/qpf_independent_2026/audit_qpf007_common145_outcome_stage.py --output qpf007_common145_posthoc_derivative.json
+          python - <<'PY'
+          import json
+          x=json.load(open("qpf007_common145_posthoc_derivative.json"))
+          assert x["status"]=="QPF007_POSTOUTCOME_COMMON145_ENDPOINT_COMPARISON_COMPLETE"
+          assert x["mother_sample_n"]==145
+          assert x["session_count"]==16
+          assert x["historical_seed_145_score_reproduced_every_fold"] is True
+          assert x["same_source_mother_rows_and_folds_for_both_outcomes"] is True
+          assert x["original_seed_prediction_gate_remains_COVERAGE_STOP"] is True
+          assert x["no_pvalue_or_significance_claim"] is True
+          assert x["original_source_rows_genotypes_individuals_not_redistributed"] is True
+          print("QPF007_POSTOUTCOME_COMMON145_SOURCE_AND_MODEL_PASS")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: qpf007-common145-stage-contrast-derivative
+          path: qpf007_common145_posthoc_derivative.json
+          retention-days: 14
