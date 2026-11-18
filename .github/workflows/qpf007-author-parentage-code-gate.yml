@@ -1,0 +1,47 @@
+name: QPF007 original author parentage code semantics source audit
+on:
+  push:
+    branches: [audit/qpf007-verified-parentage-pair-join-20261118]
+  pull_request:
+    paths:
+      - research/qpf_independent_2026/QPF007_AUTHOR_CODE_PARENTAGE_ROLE_FREEZE_20261118.md
+      - research/qpf_independent_2026/audit_qpf007_published_author_code_roles.py
+      - .github/workflows/qpf007-author-parentage-code-gate.yml
+  workflow_dispatch:
+
+jobs:
+  publisher-R-source-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Test source-code search without source data
+        run: python research/qpf_independent_2026/audit_qpf007_published_author_code_roles.py --self-test
+      - name: Check publisher source R script checksum and bounded role snippets
+        run: |
+          python research/qpf_independent_2026/audit_qpf007_published_author_code_roles.py \
+            --output qpf007_original_R_role_audit.json
+          python - <<'PY'
+          import json
+          x=json.load(open("qpf007_original_R_role_audit.json"))
+          assert x["status"]=="PUBLISHED_ORIGINAL_AUTHOR_SCRIPT_CHECKSUM_VERIFIED"
+          assert x["source_code_executed"] is False
+          assert x["source_raw_individual_genotypes_or_paternities_opened"] is False
+          assert x["source_genetic_effect_estimated"] is False
+          assert x["original_author_R_source_code_redistributed"] is False
+          assert x["paternity_roles_certified_by_this_automated_source_gate"] is False
+          assert len(x["bounded_author_code_evidence_for_review"])<=24
+          print("QPF007_AUTHOR_R_CODEBOOK_PROVENANCE_PASS_REQUIRES_ROLE_REVIEW")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: qpf007-publisher-R-codebook-role-derivative
+          path: qpf007_original_R_role_audit.json
+          retention-days: 14
