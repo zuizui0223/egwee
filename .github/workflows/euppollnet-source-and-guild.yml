@@ -1,0 +1,36 @@
+name: EGWEE corrected EuPPollNet original-schema gate
+
+on:
+  push:
+    branches:
+      - analysis/euppollnet-guild-resource-partition-20261118
+    paths:
+      - 'research/euppollnet_guild_partition/**'
+      - '.github/workflows/euppollnet-source-and-guild.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Synthetic source schema identity
+        run: python research/euppollnet_guild_partition/audit_source_schema.py --self-test
+      - name: Audit original author files without guild or plant values
+        run: |
+          python research/euppollnet_guild_partition/audit_source_schema.py \
+            --output research/euppollnet_guild_partition/output/source_schema.json
+      - name: Store derivative-only source gate
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: euppollnet-original-schema-receipt
+          path: research/euppollnet_guild_partition/output/*.json
+          if-no-files-found: warn
