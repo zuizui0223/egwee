@@ -174,7 +174,7 @@ def analyse():
       "source_exact_unique_directed_partner_pairs":len(distinct_pairs),
       "source_exact_unique_nonself_directed_pairs":len(nonself),
       "source_duplicate_directed_partner_key_count":len(exact)-len(distinct_pairs),
-      "source_partner_rows_self_linked":sum(s==f for s,f,p in exact if f==p),
+      "source_partner_rows_self_linked":sum(f==p for s,f,p in exact),
       "source_partner_row_identity_exclusions":dict(source_pair_session_cat),
       "source_exact_focal_mother_keys_with_both_partner_IDs":len(exact_both_focal),
       "source_sessions_with_3plus_focal_mothers_and_10plus_unique_directed_pairs":len(eligible_sess),
