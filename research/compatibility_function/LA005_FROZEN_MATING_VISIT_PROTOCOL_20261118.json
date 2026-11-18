@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "experiment_id": "LA005_maternal_nonmaternal_allele_visit_prediction_v1",
+  "status": "prospective_locked_before_opening_offspring_nonmaternal_allele_outcomes",
+  "frozen_date": "2026-11-18",
+  "source": {
+    "dryad_doi": "10.5061/dryad.2pj0j",
+    "archive_sha256": "82bcaa1c3a504cc779bc9c2aa95199a657dd404b3fdf62f7059e4ff5028b39c1",
+    "field_file": "2014+2015+Field+data.xlsx",
+    "paternity_files": [
+      "Fragment+Analysis+2014.xlsx",
+      "Fragment+Analysis+2015.xlsx"
+    ],
+    "visitation_files": [
+      "Pollinator+Data+2014.xlsx",
+      "Pollinator+Data+2015.xlsx"
+    ],
+    "original_2017_paper": "10.1111/evo.13167",
+    "raw_source_not_redistributed": true
+  },
+  "independent_process_state_note": "Dryad official file descriptions define BF=bee-fly, B=honeybee/carpenter bee, L=lepidoptera; 2014 temporal sheet labels Bf=Bee Fly and B=Butterfly, so codes are source-provenance inconsistent. Visit predictor is original LA001 case-normalized AH+BF proxy, not validated pollen compatibility.",
+  "schema_only_receipt": {
+    "field_plant_rows": 256,
+    "field_year_site_plant_keys_each_site_year": 32,
+    "source_genotype_loci": 6,
+    "source_maternal_row_counts": {
+      "2014": [
+        31,
+        32,
+        28,
+        32
+      ],
+      "2015": [
+        32,
+        32,
+        30,
+        32
+      ]
+    },
+    "source_unique_maternal_keys": {
+      "2014": [
+        31,
+        32,
+        27,
+        32
+      ],
+      "2015": [
+        32,
+        32,
+        30,
+        32
+      ]
+    },
+    "source_exactly_linked_unique_field_mothers": {
+      "2014": [
+        31,
+        32,
+        27,
+        32
+      ],
+      "2015": [
+        31,
+        32,
+        29,
+        32
+      ]
+    },
+    "source_duplicate_maternal_key_site_year": "2014:24-43",
+    "n_duplicate_maternal_keys": 1,
+    "source_maternal_keys_without_field_match": 2,
+    "source_progeny_label_mismatch_rows": 7,
+    "progeny_label_mismatch_site_year": "2014:24-43",
+    "admissible_unique_field_mothers_before_child_count_filter": 245,
+    "offspring_rows_by_site_year": {
+      "2014": [
+        192,
+        235,
+        166,
+        222
+      ],
+      "2015": [
+        248,
+        252,
+        227,
+        254
+      ]
+    },
+    "parent_genotypes_complete_loci_min": 5,
+    "offspring_genotypes_complete_loci_min": 4
+  },
+  "fixed_key_contract": {
+    "field_key": "(year 2014/2015, site 1-4, family-individual source string)",
+    "maternal_source_marker": "Trailing ! in MLTR first-column maternal row; mother block is consecutive following offspring rows until next !",
+    "maternal_label_2014": "Remove verified site prefix before final '_' (W_, Q_, 24_, L_); keep family-individual suffix",
+    "maternal_label_2015": "Remove the trailing maternal M marker if present; some have no M; never fuzzy match plant labels.",
+    "offspring_label": "Must match normalized *preceding* maternal string within same site/year; 7 rows with mismatching source labels are excluded before allele comparisons, not repaired by guessing a mother.",
+    "duplicates": "Exclude *both* mother blocks for the one exact duplicate 2014 site 3 field identifier and all their offspring; no maternal key has two independent contributions.",
+    "unmatched": "Exclude original genotype-source mothers not matched to an existing field site/year ID; no imputed site, year or genotype.",
+    "genotype_phenotype_check": "Maternal SC/SI source class must match field binary SC/SI marker; stop on any mismatch",
+    "loci": "Six source microsatellite loci have paired alleles in numeric zero-indexed columns (2,3), (4,5), ..., (12,13). Treat a locus as typed only if both alleles of maternal and offspring are finite, positive integers. 0, blank and invalid tokens are missing, never a new allele.",
+    "offspring_min_typed_loci": 4,
+    "mother_min_children": 4,
+    "exposure": "Use the original LA001 source decoding of flower-hours and AH/BF case-normalized visits to the same 245 field mother keys; exclude 38 zero-open flower positions, one out-of-range position and 4 incomplete sessions. Do not silently replace 6,663 decoded positions with published 3,748.",
+    "rate": "log1p((AH+BF visits)/recorded flower-hours). BF casefold is an explicitly limited source proxy; not genetically compatible pollen."
+  },
+  "outcome": {
+    "name": "offspring_confirmed_nonmaternal_allele_fraction",
+    "definition": "Offspring is confirmed as carrying a nonmaternal allele if at least one of its typed loci has an allele not equal to either of the two typed maternal alleles at that locus. Use at least 4 jointly typed loci. Aggregate k/n per mother, n being eligible typed offspring.",
+    "scope": "A conservative detectable-outcrossing indicator; outcrossed progeny sharing maternal allele sizes can be undetected, and genotyping errors can mimic nonmaternal alleles. Not exact outcrossing rate, paternity or compatible pollen.",
+    "no_redefinition": "No after-outcome switch to mean relatedness, full MLTR outcross, offspring heterozygosity, 6-locus requirement, source marker, germination or seed count."
+  },
+  "prediction": {
+    "evaluation_unit": "One unique maternal field plant with >=4 eligible offspring; four sites held out across both years, not one offspring per independent sample",
+    "model_M0": "intercept + 2015 + SC + year×SC + log1p(lifetime flowers) + day-to-flower/30 + maternal fraction heterozygous typed loci",
+    "model_M1": "M0 + log1p(AH+BF visits per open-flower hour)",
+    "fit": "For each training mother calculate empirical logit log((k+0.5)/(n-k+0.5)), fit an unweighted ridge linear regression (lambda 1) on training-fold standardized non-intercept features, predict held-out logit and inverse-logit to [0,1].",
+    "primary_score": "Mother-average squared error between held-out predicted lower-bound proportion and empirical offspring k/n: mean((p_hat - k/n)^2) with each mother contributing one independent observational unit",
+    "secondary_score": "Per-mother absolute error and grouped SI/SC by site/year (descriptive; no new p-values).",
+    "success_gate": "Strictly positive pooled M0-M1 Brier improvement and positive improvement in >=3/4 site-heldout folds. This is within-study feasibility only, not a novel general law.",
+    "failure_gate": "NO_ROBUST_MATING_PROXY_SITE_TRANSFER_INCREMENT if criterion not met. No re-tuning/outlier removal/alternate loci after opening child alleles.",
+    "abstain": "If source gate yields fewer than 10 maternal units in any held-out site, any source code or actual visit mapping violates frozen keys, or fewer than 100 total mothers with >=4 eligible offspring, report COVERAGE_STOP, never relax criteria."
+  },
+  "originality_boundaries": [
+    "2017 paper already analyzed mating system and outcrossing for these arrays using MLTR; this is not original discovery of self-compatibility, outcrossing or seed discounting",
+    "The new source individual-level lower bound is not MLTR multilocus estimated outcrossing rate",
+    "One original 4-site study cannot validate island/urban convergence",
+    "Site-varying genetic structure, mother genotype and effective pollination confound comparisons",
+    "No field-gene-flow intervention or confirmed causal pollen-recipient function",
+    "Do not replace frozen LA001/LA002 negative seed-prediction outcomes"
+  ],
+  "reporting": [
+    "Source-only key/offspring typed-loci counts by year×site, no individual IDs",
+    "Child genotyping completeness and true admitted mother denominator",
+    "Four site-fold M0/M1 Brier, pooled Brier, success/failure label, SC/SI descriptives only",
+    "No row-level source observations or allele calls committed to GitHub",
+    "Original source archive SHA, protocol-only commit ancestor, reproducibility safeguards"
+  ]
+}
