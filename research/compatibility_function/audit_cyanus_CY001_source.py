@@ -69,6 +69,7 @@ def main():
         "decision":result["decision"],
         "metadata":result["doi_metadata_status"],
         "file_inventory":result["file_inventory_count"],
+        "declared_original_file_manifest":result["public_file_manifest"],
         "source_sheet_count":sum(len(x.get("worksheets",[]))
                                  for x in result["source_workbook_schemas"]
                                  if x.get("schema_status")=="verified_first_row_schema_only"),
