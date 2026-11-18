@@ -69,7 +69,12 @@ def load_manifest() -> dict:
     if len(names)!=len(set(names)):
         raise ValueError("Duplicate original source filename")
     if not set(ALLOWED_FILE_NAMES).issubset(names):
-        raise ValueError("Original expected record files not in publisher manifest")
+        missing=sorted(set(ALLOWED_FILE_NAMES)-set(names))
+        raise ValueError(
+            "Original record missing whitelisted filenames "
+            + repr(missing) + "; official publisher filename roster "
+            + repr(sorted(names)[:25])
+        )
     return response
 
 
