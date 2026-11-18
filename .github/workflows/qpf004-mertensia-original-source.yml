@@ -1,0 +1,60 @@
+name: QPF004 correct Mertensia source, 2015-2016 experiment grain and access gate
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/qpf_source_grain/QPF004_*'
+      - 'research/qpf_source_grain/audit_mertensia_QPF004_public_source.py'
+      - 'research/qpf_source_grain/test_mertensia_QPF004_source.py'
+      - 'research/qpf_source_grain/audit_mertensia_QPF004_uploaded_zip_schema.py'
+      - 'research/qpf_source_grain/test_mertensia_QPF004_uploaded_zip.py'
+      - '.github/workflows/qpf004-mertensia-original-source.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit-no-false-cross-year-or-raw-row-join:
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Source-withheld correction and synthetic access/schema contract
+        run: |
+          python -m unittest discover -s research/qpf_source_grain \
+            -p 'test_mertensia_QPF004_source.py' -v
+          python -m unittest discover -s research/qpf_source_grain \
+            -p 'test_mertensia_QPF004_uploaded_zip.py' -v
+      - name: Audit verified original Dryad metadata / original workbook headers if available
+        run: |
+          python research/qpf_source_grain/audit_mertensia_QPF004_public_source.py \
+            --output qpf004_source_receipt/metadata.json
+      - name: Enforce no plant/ramet biological join or new fitted effects on this PR
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('qpf004_source_receipt/metadata.json')
+          x=json.loads(p.read_text())
+          assert x['correct_source_species']=='Mertensia ciliata'
+          assert x['source_doi']=='10.7280/D19X0D'
+          assert x['original_plant_flower_ramet_key_overlap_verified'] is False
+          assert x['original_experiment_outcomes_read'] is False
+          assert x['new_original_QPF_effects_estimated'] is False
+          assert x['original_raw_source_redistributed'] is False
+          assert x['decision'] in ('ORIGINAL_EXPERIMENT_XLSX_ACCESS_STOP_NO_JOIN_OR_EFFECT',
+                                  'NEXT_VALIDATE_EXACT_2016_FLOWER_RAMET_POLLEN_SEED_JOIN')
+          print('Source identity/metadata gate completed; no biological QPF fit or matched ramet invented.')
+          PY
+      - name: Save source-only original file inventory and access/headers
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qpf004-mertensia-original-source-metadata-only
+          path: qpf004_source_receipt/
+          if-no-files-found: warn
+          retention-days: 90

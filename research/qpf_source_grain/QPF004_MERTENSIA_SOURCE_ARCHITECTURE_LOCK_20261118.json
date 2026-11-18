@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "audit_id": "QPF004_Mertensia_ciliata_source_grain_and_cohort_erratum",
+  "status": "original_paper_methods_verified_source_only_no_new_biological_values",
+  "checked_date": "2026-11-18",
+  "frozen_programme": "QPF004 of the original 2026-11-17 six-source original Q–P–F atlas",
+  "original_frozen_protocol_ref": "analysis/original-qpf-source-atlas-20261117",
+  "source": {
+    "corrected_species": "Mertensia ciliata (James ex Torr.) G.Don",
+    "family": "Boraginaceae",
+    "source_paper": "Gallagher and Campbell 2020, American Journal of Botany 107:445–455",
+    "source_paper_doi": "10.1002/ajb2.1439",
+    "source_doi": "10.7280/D19X0D",
+    "full_source_url": "https://datadryad.org/dataset/doi%3A10.7280/D19X0D",
+    "source_publication_date": "2020-06-19",
+    "original_filenames": [
+      "gallagher&campbell_phenologyExperimentData.xlsx",
+      "gallagher&campbell_pollinatorEffectivenessData.xlsx",
+      "gallagher&campbell_nonSpatialData_phenologyExperiment.pdf",
+      "gallagher&campbell_nonSpatialData_pollinatorEffectiveness.pdf"
+    ],
+    "original_data_zip_unavailable_in_current_conversation": true
+  },
+  "original_atlas_error": {
+    "incorrect_label": "Mimulus/Erythranthe ciliata",
+    "corrected_label": "Mertensia ciliata",
+    "correction_type": "species, family and full biological programme identity (Mimulus/Erythranthe=Phrymaceae vs Mertensia=Boraginaceae)",
+    "policy": "Do not edit outcome-blind registered list in PR #66 in place. Preserve audit log and comment with source-linked erratum."
+  },
+  "two_separate_experimental_frames": {
+    "phenology_2015": {
+      "original_plants_collected": 60,
+      "plants_flowered_in_experiment": 40,
+      "four_phenology_groups": 4,
+      "n_individual_plant_per_week_target": 10,
+      "observation_hours_normal_per_week": "15 except final week; week-four initial 15 hours had zero observed visitors and cut stems were then added to the pots before a second 15 hours",
+      "Q": "repeated 30-minute counts of flower-visiting taxa and open flowers per plant; different effort and manipulated display in last week",
+      "P": "stigma squash pollen grains, on approx 5.2 +/- 0.7 sampled flowers per plant",
+      "F": "mature seeds per individually tagged flowers averaged per potted plant",
+      "candidate_join_grain": "planted individual / experimental array / phenology group / week, not necessarily same flower Q-P-F"
+    },
+    "single_visit_2016": {
+      "original_sites": [
+        "Rustler’s Gulch",
+        "Schofield Pass"
+      ],
+      "source_visited_ramets": 95,
+      "source_visited_marked_flowers": 235,
+      "source_control_ramets": {
+        "open_unobserved_visit": 65,
+        "bagged": 74
+      },
+      "measured_pollen_figure5_n": 62,
+      "measured_seed_figure5_n": 232,
+      "published_seed_weight_fig5_n": 69,
+      "Q": "observed one visitor to virgin flowers with insect taxon recorded, some multiple visited flowers within ramet",
+      "P": "conspecific and heterospecific grains from some marked stigmas (possibly subset), aggregation to ramet means when more than one marked flower",
+      "F": "mature seed count per marked flower or ramet-average set; lost/herbivorized seed-failure ramets excluded from published analyses",
+      "candidate_join_grain": "ramet/flower and clone-control triplet + source site, NOT 235 independent pollen-and-seed joint rows",
+      "critical_gate": "verify actual shared 2016 ramet/marked-flower IDs between recorded insect treatment, stigma pollen and mature seed values; ascertain seed/fruit losses, repeated clone groups"
+    }
+  },
+  "same_programme_but_other_published_study": {
+    "paper_doi": "10.3389/fevo.2021.641693",
+    "dataset_doi": "10.7280/D16D7Z",
+    "same_species": "Mertensia ciliata",
+    "manipulations": "experimental flowering time × soil moisture; visitor group composition and seed output",
+    "count_as_new_independent_biological_system_without_site_year_overlap_check": false,
+    "p_endpoint_unverified": "No direct pollen deposition/paternity established from abstract; do not label QPF"
+  },
+  "schema_only_decision": {
+    "biological_source_XLSX_downloaded": false,
+    "original_row_ID_joins_verified": false,
+    "independent_original_new_QPF_effects_fitted": 0,
+    "original_programmes_added_to_atlas": 0,
+    "confidence": "Published biological frame supported, original row-level interface pending source bytes.",
+    "admission_rule": "Only after source XLSX headers and IDs establish 2016 within-ramet/stigma/seed match and source outcome completeness, freeze a distinct original comparative model before opening new phenotype values.",
+    "never_substitute": "Use no 2015 plant-level visitor counts as if same flower as 2016 single visit. No cross-year source plant ID joins inferred from type or place."
+  }
+}
