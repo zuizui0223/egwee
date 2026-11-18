@@ -75,38 +75,38 @@
   "observed_rates": {
     "2014": {
       "SI": {
-        "source_total": 1.985769532,
+        "source_total": 1.9857685453406901,
         "n_periods": 45,
-        "source_AH": 1.46848,
-        "source_BF_casefold": 0.18617,
-        "source_F": 0.22772,
-        "source_Other": 0.1034
+        "source_AH": 1.4684830314271926,
+        "source_BF_casefold": 0.1861655915960764,
+        "source_F": 0.22771681250514322,
+        "source_Other": 0.1034031098122779
       },
       "SC": {
-        "source_total": 2.245468946,
+        "source_total": 2.24547416561454,
         "n_periods": 44,
-        "source_AH": 1.67818,
-        "source_BF_casefold": 0.22515,
-        "source_F": 0.19057,
-        "source_Other": 0.15157
+        "source_AH": 1.678182729553754,
+        "source_BF_casefold": 0.22514823042194276,
+        "source_F": 0.19057333832734902,
+        "source_Other": 0.1515698673114941
       }
     },
     "2015": {
       "SI": {
-        "source_total": 1.0391288,
+        "source_total": 1.0391311690940188,
         "n_periods": 74,
-        "source_AH": 0.41636,
-        "source_BF_casefold": 0.17945,
-        "source_F": 0.3889,
-        "source_Other": 0.05443
+        "source_AH": 0.4163564759117799,
+        "source_BF_casefold": 0.17945210474693757,
+        "source_F": 0.3888953286517939,
+        "source_Other": 0.05442725978350745
       },
       "SC": {
-        "source_total": 1.147303,
+        "source_total": 1.1473004471418682,
         "n_periods": 75,
-        "source_AH": 0.48408,
-        "source_BF_casefold": 0.19546,
-        "source_F": 0.41513,
-        "source_Other": 0.05263
+        "source_AH": 0.48408266147734025,
+        "source_BF_casefold": 0.1954601745878976,
+        "source_F": 0.41513180562204993,
+        "source_Other": 0.05262580545458036
       }
     }
   },
