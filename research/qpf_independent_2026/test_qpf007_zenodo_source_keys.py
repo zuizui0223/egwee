@@ -60,6 +60,21 @@ class SourceGate(unittest.TestCase):
         self.assertEqual(len(k2),2)
         self.assertEqual(len(keys.intersection(k2)),2)
 
+    def test_original_R_space_delimited_quoted_source_headers_and_keys(self):
+        source=tsv(
+            '"session" "ID_full" "id_flow" "pl" "SR_all"\\n'
+            '"1.A" "Mother1" "flower-a" 9999 500\\n'
+            '"1.A" "Mother1" "flower-b" 9998 502\\n'
+            '"2.A" "Mother2" "flower-c" 9997 501\\n'
+        )
+        # Only original session+plant key count may leave the parser; never
+        # aggregate/match the synthetic signed response or pollen values.
+        names,_,n,keys,groups=q.decode_table(source)
+        self.assertEqual(names,["session","ID_full","id_flow","pl","SR_all"])
+        self.assertEqual(n,3)
+        self.assertEqual(len(keys),2)
+        self.assertEqual(len(groups),2)
+
     def test_invalid_source_file_metadata_rejected(self):
         original={
             "key":"data_ABPOLL_ID_resume.txt","size":5,
