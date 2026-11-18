@@ -133,6 +133,11 @@ def audit(source: Path) -> dict:
                     if name == "Final pass"
                     else sum(value(case, field_fruit) == "yes" for case in cases)
                 ),
+                "source_date_serial_counts": (
+                    {str(int(k)): v for k, v in
+                     Counter(value(case, field_date) for case in cases).items()}
+                    if field_date is not None else None
+                ),
             }
 
     if source_sessions != {2014: 45, 2015: 76}:
@@ -151,6 +156,10 @@ def audit(source: Path) -> dict:
         raise ValueError("Original assay controls or endpoints changed")
     if controls["Final pass"]["n_with_dates"] != 21:
         raise ValueError("Original control date completeness changed")
+    if controls["Final pass"]["source_date_serial_counts"] != {
+        "42078": 7, "42079": 14
+    }:
+        raise ValueError("Source control dates no longer form the original 7+14 groups")
     total_tokens = sum(all_tokens.values())
     if total_tokens != 6702 or sum(all_rows.values()) != 2850:
         raise ValueError("Original insect-row and flower-position denominator changed")
