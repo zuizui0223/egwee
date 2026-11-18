@@ -35,6 +35,12 @@ jobs:
         run: |
           python research/euppollnet_guild_partition/audit_guild_keys_before_effect.py \
             --output research/euppollnet_guild_partition/output/source_key_gate.json
+      - name: Synthetic guild JSD and finite-population null verification
+        run: python research/euppollnet_guild_partition/estimate_guild_partition.py --self-test
+      - name: Estimate preregistered 52-programme observation-guild JSD correction
+        run: |
+          python research/euppollnet_guild_partition/estimate_guild_partition.py \
+            --output research/euppollnet_guild_partition/output/guild_partition_result.json
       - name: Store derivative-only source gate
         if: always()
         uses: actions/upload-artifact@v4
