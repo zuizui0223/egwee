@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "freeze_date": "2026-11-17",
+  "status": "source-only_no_outcomes",
+  "selection_rule": "six publicly indexed original-data sources with >1 measured Q/P/F endpoint, before any inspection of source biological values",
+  "sources": [
+    {
+      "id": "QPF001",
+      "doi": "10.5061/dryad.hqbzkh1g9",
+      "name": "Oenothera fruticosa",
+      "frame": "pollen-by-visitor-and-seed wild plant",
+      "p_intent": "conspecific vs heterospecific stigmatic pollen",
+      "expected_files": [
+        "FIGO_2019_Data_20210523.xlsx"
+      ],
+      "known_overlap": "none discovered in EGWEE"
+    },
+    {
+      "id": "QPF002",
+      "doi": "10.5061/dryad.98sf7m0pk",
+      "name": "Argentina anserina",
+      "frame": "13 population 2019–2021 visits/pollen-genetics/seed",
+      "p_intent": "pollen-tube germination per deposition, not genetic mate identity",
+      "expected_files": [
+        "greenhouse_crossdata2.xlsx",
+        "Pollinator_data_inputR2.xlsx",
+        "polpist_final2019-2021.xlsx",
+        "pop_level_dataset.xlsx"
+      ],
+      "known_overlap": "SMF001 same 13-population genetic field programme; do not increment study count"
+    },
+    {
+      "id": "QPF003",
+      "doi": "10.5061/dryad.gxd254828",
+      "name": "Brassica carinata",
+      "frame": "35 agricultural field sites, two years",
+      "p_intent": "NOT DIRECTLY MEASURED; Q-F only",
+      "expected_files": [
+        "carinata_observations.csv",
+        "final_yield.csv",
+        "final_density.csv",
+        "final_carinata_design.csv"
+      ],
+      "known_overlap": "none discovered in EGWEE"
+    },
+    {
+      "id": "QPF004",
+      "doi": "10.7280/D19X0D",
+      "name": "Mimulus/Erythranthe ciliata",
+      "frame": "phenology, pollinator effectiveness and seed",
+      "p_intent": "single-visit stigmatic pollen count on experimental flowers",
+      "expected_files": [
+        "gallagher&campbell_phenologyExperimentData.xlsx",
+        "gallagher&campbell_pollinatorEffectivenessData.xlsx"
+      ],
+      "known_overlap": "none discovered in EGWEE"
+    },
+    {
+      "id": "QPF005",
+      "doi": "10.5061/dryad.vdncjsxr0",
+      "name": "Primula modesta",
+      "frame": "one alpine snowmelt gradient visitor/seed",
+      "p_intent": "NOT CONFIRMED; Q-F only",
+      "expected_files": [
+        "Plant-flower_visitor_linkages.xlsx",
+        "Seed-set_of_Primula.xlsx"
+      ],
+      "known_overlap": "none discovered in EGWEE"
+    },
+    {
+      "id": "QPF006",
+      "doi": "10.5061/dryad.xpnvx0kwt",
+      "name": "Penstemon digitalis",
+      "frame": "distinct single-visit/seasonal flower and pollen experiments",
+      "p_intent": "pollen tubes/stigmatic pollen; same-unit unknown",
+      "expected_files": [
+        "Single_visit_pollen_deposition.xlsx",
+        "Pollen_tubes_base.xlsx",
+        "Seeds_over_day_and_year.xlsx",
+        "Stigma_pollen_grains.xlsx"
+      ],
+      "known_overlap": "none discovered in EGWEE"
+    }
+  ]
+}
