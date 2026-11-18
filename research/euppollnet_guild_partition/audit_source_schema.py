@@ -50,7 +50,18 @@ def schema_of(data, compressed=False):
         data=gzip.decompress(data)
     if len(data)>MAX_EXPANDED:
         raise ValueError("SOURCE_STOP: exceeds uncompressed byte ceiling")
-    text=io.TextIOWrapper(io.BytesIO(data),encoding="utf-8-sig",errors="strict",newline="")
+    encoding=None
+    decoded=None
+    for candidate in ("utf-8-sig", "cp1252", "latin-1"):
+        try:
+            decoded=data.decode(candidate,errors="strict")
+            encoding=candidate
+            break
+        except UnicodeDecodeError:
+            continue
+    if encoding is None:
+        raise ValueError("SCHEMA_STOP: no lossless candidate text encoding")
+    text=io.StringIO(decoded,newline="")
     try:
         reader=csv.reader(text)
         head=next(reader,None)
@@ -64,7 +75,7 @@ def schema_of(data, compressed=False):
         if n==0:
             raise ValueError("SCHEMA_STOP: original table empty")
         return {"columns":head,"header_column_count":len(head),
-                "rows_excluding_header":n,"uncompressed_bytes":len(data),
+                "rows_excluding_header":n,"uncompressed_bytes":len(data),"lossless_encoding":encoding,
                 "ecological_values_interpreted":False}
     finally:
         text.close()
