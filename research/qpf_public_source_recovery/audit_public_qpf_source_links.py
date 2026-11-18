@@ -146,8 +146,17 @@ def software_zenodo_record(record_id:int) -> dict:
     try:
         raw,_=source_get(url,MAX_JSON)
         doc=json.loads(raw)
-        if not isinstance(doc,dict) or int(doc.get("id",-1))!=record_id:
-            raise ValueError("Zenodo result ID mismatched pinned record")
+        if not isinstance(doc,dict):
+            raise ValueError("Zenodo response did not contain a record")
+        returned_id=int(doc.get("id",-1))
+        concept=(doc.get("conceptrecid") or
+                 (doc.get("parent") or {}).get("id"))
+        # A concept DOI/ID may legitimately resolve to a versioned record;
+        # this is ONE software version lineage, NOT a second data study.
+        if returned_id!=record_id:
+            if concept is None or str(concept)!=str(record_id):
+                raise ValueError("Zenodo record ID mismatch without matching concept parent")
+            out["versioned_record_resolved_from_concept_id"]=returned_id
         out["status"]="verified_metadata"
         out["doi"]=doc.get("doi")
         out["title"]=str((doc.get("metadata") or {}).get("title",doc.get("title","")))[:250]
