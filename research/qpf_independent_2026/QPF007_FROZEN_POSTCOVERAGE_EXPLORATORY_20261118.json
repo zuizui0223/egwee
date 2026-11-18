@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "experiment_id": "QPF007_Brassica_rapa_postcoverage_full145_session_exploratory_v1",
+  "status": "POSTCOVERAGE_SOURCE_ADMISSION_CORRECTION_LOCKED_BEFORE_ANY_NUMERIC_POLLEN_SEED_MODEL_FIT",
+  "date": "2026-11-18",
+  "scientific_predecessor": {
+    "original_confirmatory_lock_commit": "1d4b78a1a0ee82cc267b287f7cc0e4a3899486c3",
+    "original_coverage_result_run": 44296293991,
+    "original_coverage_artifact_id": 14422813404,
+    "original_coverage_result": "COVERAGE_STOP_NO_ORIGINAL_SOURCE_PREDICTIVE_TEST",
+    "reason": "Original 160 individual plant/session source plus 160 stigma plant keys; only 145 complete mother rows, 13 source nbGr_mean NA, 3 source pl_mean NA, 15 unique excluded. One of the 16 original sessions has fewer than six complete mothers; registered gate was >=120 total and >=6 in all 16. Never reinterpret that gate as passed.",
+    "no_previous_signed_model_fits": true
+  },
+  "source_fingerprint": {
+    "source_original_doi": "10.5281/zenodo.21628183",
+    "original_ID_resume_sha256": "5033db434dfca909a256df4ed18ae6599fa0afb3c83fa956528b75dda1ef9ffe",
+    "original_flower_resume_sha256": "ec7217acb683a0d0475622f3510228f3062a72a8bfd17162888f160db369a495",
+    "main_source_original_n": 160,
+    "complete_source_plant_n": 145,
+    "original_session_n": 16,
+    "n_small_session_lt6": 1
+  },
+  "exploratory_followup": {
+    "changes_from_earlier_model": "ONLY allow the one low-completeness session to be held out without dropping it; all eligible 145 plants included. No threshold removal or moving a source outcome. Original source primary COVERAGE_STOP stays historical and intact.",
+    "response": "Original nbGr_mean, log1p (mature seeds per sampled fruit, NOT plant lifetime seed output).",
+    "M0": "identical to original lock: intercept + categorical poll_treat indicators + log1p(nb_visit) + log1p(nb_flo_all) + log1p(height_max)",
+    "M1": "identical to original lock: M0 + log1p(pl_mean)",
+    "fit": "identical Gaussian ridge lambda1, training-only zscore, unpenalized intercept, 2 independent solvers",
+    "validation": "one whole session out, all 16 original sessions, including the one with <6 complete mothers; 145 eligible plants scored once",
+    "results": "report all 16 session sizes and M0/M1 MSE/MAE, pooled plant-weighted loss, relative comparison, win count, no p-value or significance claim",
+    "decision_classification": "EXPLORATORY_POSTSTOP_DIAGNOSTIC_ONLY_NEVER_CONFIRMATORY, irrespective of direction, prior original 5% and >=12/16 rule may be shown descriptively but MUST NOT be treated as preregistered support",
+    "scientific_contribution": "checks whether the frozen modeling architecture predicts across source sessions despite one underpowered session; exploratory feasibility, NOT new general law or natural fragmentation replication",
+    "source_outcome_policy": "Original source P and F values remain private in GitHub Actions; only aggregate fold-level results may be committed."
+  },
+  "strict_stop": [
+    "Do not silently rewrite original source coverage or previous QPF001/QPF004 negative results",
+    "No removal of underpowered session or treatment-level post-hoc tuning",
+    "No decision gate based on result sign. A positive original loss difference is still exploratory and not an independent confirmatory result.",
+    "No original individual plant IDs, source raw data, stigma pollen, number of seeds or individual offspring paternity disclosed",
+    "16 sessions of one manipulated Brassica experiment do not increment six-source natural landscape QPF registry."
+  ]
+}
