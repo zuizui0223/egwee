@@ -3,7 +3,9 @@ from __future__ import annotations
 
 from pathlib import Path
 import json
+import hashlib
 from tempfile import TemporaryDirectory
+from unittest.mock import patch
 import unittest
 import zipfile
 from xml.sax.saxutils import escape
@@ -61,7 +63,8 @@ class CY001ModelTests(unittest.TestCase):
         with TemporaryDirectory() as tmp:
             src=Path(tmp)/"synthetic_only.xlsx"
             fixture(src)
-            receipt=cy.source_schema(src)
+            with patch.object(cy,"ORIGINAL_SOURCE_SHA256",hashlib.sha256(src.read_bytes()).hexdigest()):
+                receipt=cy.source_schema(src)
             self.assertEqual(receipt["selected_mother_n"],33)
             self.assertEqual(receipt["plot_n"],12)
             self.assertEqual(receipt["strip_n"],2)
@@ -69,7 +72,8 @@ class CY001ModelTests(unittest.TestCase):
             self.assertEqual(sum(receipt["plot_sizes_sorted"]),33)
             manifest=Path(tmp)/"locked_schema.json"
             manifest.write_text(json.dumps(receipt))
-            outcome=cy.analyze(src,manifest)
+            with patch.object(cy,"ORIGINAL_SOURCE_SHA256",hashlib.sha256(src.read_bytes()).hexdigest()):
+                outcome=cy.analyze(src,manifest)
             self.assertEqual(outcome["mothers"],33)
             self.assertEqual(outcome["nested_original_plots"],12)
             self.assertEqual(sum(f["n_mothers"] for f in outcome["folds"]),33)
@@ -80,6 +84,10 @@ class CY001ModelTests(unittest.TestCase):
             src.write_bytes(b"not an original workbook")
             with self.assertRaises(RuntimeError):
                 cy.analyze(src,manifest)
+            self.assertEqual(
+                cy.ORIGINAL_SOURCE_SHA256,
+                "18941f666c040c81c5db3f43c661d44fc157e9db636eef07a4aafd49f77b5332",
+            )
 
     def test_train_only_scaling_and_bounded_rpm(self):
         def make(i):
