@@ -1,0 +1,236 @@
+{
+  "schema_version": 1,
+  "audit_id": "QPF001_posthoc_date196_support_and_fruit_recovery",
+  "status": "POSTHOC_DESCRIPTIVE_NOT_A_NEW_CONFIRMATORY_TEST",
+  "original_source": {
+    "original_protocol_commit": "a1658c353a0c244edafab194f96301968dc84040",
+    "original_prediction_status": "ORIGINAL_SOURCE_FROZEN_EIGHT_DATE_HOLDOUT_COMPLETE"
+  },
+  "original_scientific_decision": "NO_ROBUST_WITHIN_STUDY_DATE_TRANSFER_GAIN",
+  "sample": {
+    "n_filmed": 122,
+    "n_recovered_fruit_seedset": 93,
+    "n_unrecovered_seedset": 29,
+    "source_complete_case_seedset_fraction": 0.7622950819672131,
+    "n_film_days": 8,
+    "n_neighborhood_missing_among_recovered": 5,
+    "n_neighborhood_missing_among_unrecovered": 1
+  },
+  "film_day_ascertainment_and_original_predictions": [
+    {
+      "day": 176,
+      "n_filmed": 31,
+      "n_seedset_observed": 16,
+      "n_seedset_missing": 15,
+      "n_neighborhood_missing_among_recovered": 0,
+      "n_neighborhood_missing_among_unrecovered": 0,
+      "mean_recorded_seedset": 0.5119713725,
+      "mean_original_M0_day_heldout_prediction": 0.42321880718281174,
+      "mean_original_M1_day_heldout_prediction": 0.43994382029109047,
+      "M0_minus_M1_mse": 0.0035342123205430176
+    },
+    {
+      "day": 177,
+      "n_filmed": 18,
+      "n_seedset_observed": 18,
+      "n_seedset_missing": 0,
+      "n_neighborhood_missing_among_recovered": 0,
+      "n_neighborhood_missing_among_unrecovered": 0,
+      "mean_recorded_seedset": 0.3745111134444444,
+      "mean_original_M0_day_heldout_prediction": 0.49886960749005943,
+      "mean_original_M1_day_heldout_prediction": 0.4827026030708311,
+      "M0_minus_M1_mse": 0.006248089199523091
+    },
+    {
+      "day": 178,
+      "n_filmed": 26,
+      "n_seedset_observed": 18,
+      "n_seedset_missing": 8,
+      "n_neighborhood_missing_among_recovered": 0,
+      "n_neighborhood_missing_among_unrecovered": 0,
+      "mean_recorded_seedset": 0.42239233666666665,
+      "mean_original_M0_day_heldout_prediction": 0.4354182088146736,
+      "mean_original_M1_day_heldout_prediction": 0.4408761991667635,
+      "M0_minus_M1_mse": 0.004484229753696188
+    },
+    {
+      "day": 182,
+      "n_filmed": 20,
+      "n_seedset_observed": 18,
+      "n_seedset_missing": 2,
+      "n_neighborhood_missing_among_recovered": 0,
+      "n_neighborhood_missing_among_unrecovered": 0,
+      "mean_recorded_seedset": 0.3973515303333333,
+      "mean_original_M0_day_heldout_prediction": 0.394193019152169,
+      "mean_original_M1_day_heldout_prediction": 0.38992514852640947,
+      "M0_minus_M1_mse": -0.005439932370674375
+    },
+    {
+      "day": 183,
+      "n_filmed": 8,
+      "n_seedset_observed": 7,
+      "n_seedset_missing": 1,
+      "n_neighborhood_missing_among_recovered": 0,
+      "n_neighborhood_missing_among_unrecovered": 0,
+      "mean_recorded_seedset": 0.4913020037142858,
+      "mean_original_M0_day_heldout_prediction": 0.35902301502892214,
+      "mean_original_M1_day_heldout_prediction": 0.3741934709360831,
+      "M0_minus_M1_mse": -0.0014468019319536438
+    },
+    {
+      "day": 190,
+      "n_filmed": 6,
+      "n_seedset_observed": 4,
+      "n_seedset_missing": 2,
+      "n_neighborhood_missing_among_recovered": 0,
+      "n_neighborhood_missing_among_unrecovered": 0,
+      "mean_recorded_seedset": 0.19781441425,
+      "mean_original_M0_day_heldout_prediction": 0.30797735580287255,
+      "mean_original_M1_day_heldout_prediction": 0.28681048541743404,
+      "M0_minus_M1_mse": -0.03505035546466992
+    },
+    {
+      "day": 191,
+      "n_filmed": 8,
+      "n_seedset_observed": 8,
+      "n_seedset_missing": 0,
+      "n_neighborhood_missing_among_recovered": 1,
+      "n_neighborhood_missing_among_unrecovered": 0,
+      "mean_recorded_seedset": 0.383703829625,
+      "mean_original_M0_day_heldout_prediction": 0.2697389704361445,
+      "mean_original_M1_day_heldout_prediction": 0.2604911256142287,
+      "M0_minus_M1_mse": -0.00039628389464374525
+    },
+    {
+      "day": 196,
+      "n_filmed": 5,
+      "n_seedset_observed": 4,
+      "n_seedset_missing": 1,
+      "n_neighborhood_missing_among_recovered": 4,
+      "n_neighborhood_missing_among_unrecovered": 1,
+      "mean_recorded_seedset": 0.005,
+      "mean_original_M0_day_heldout_prediction": 0.7739837606244953,
+      "mean_original_M1_day_heldout_prediction": 0.7530552589601156,
+      "M0_minus_M1_mse": 0.030984002760494178
+    }
+  ],
+  "original_model_score_accounting": {
+    "original_all93_M0_minus_M1_mse_gain": 0.0013144845173867542,
+    "day196_contribution_to_original_all93_mse_gain": 0.001332645280021255,
+    "other7days_original_predictions_n": 89,
+    "other7days_original_predictions_mean_M0_minus_M1_mse_gain_NO_REFIT": -0.000018976976685489797,
+    "original_day_contributions": [
+      {
+        "day": 176,
+        "n": 16,
+        "existing_prediction_fold_gain": 0.0035342123205430176,
+        "contribution_to_all_93_mse_gain": 0.0006080365282654654
+      },
+      {
+        "day": 177,
+        "n": 18,
+        "existing_prediction_fold_gain": 0.006248089199523091,
+        "contribution_to_all_93_mse_gain": 0.0012093075870044693
+      },
+      {
+        "day": 178,
+        "n": 18,
+        "existing_prediction_fold_gain": 0.004484229753696188,
+        "contribution_to_all_93_mse_gain": 0.0008679154361992622
+      },
+      {
+        "day": 182,
+        "n": 18,
+        "existing_prediction_fold_gain": -0.005439932370674375,
+        "contribution_to_all_93_mse_gain": -0.0010528901362595563
+      },
+      {
+        "day": 183,
+        "n": 7,
+        "existing_prediction_fold_gain": -0.0014468019319536438,
+        "contribution_to_all_93_mse_gain": -0.00010889907014704845
+      },
+      {
+        "day": 190,
+        "n": 4,
+        "existing_prediction_fold_gain": -0.03505035546466992,
+        "contribution_to_all_93_mse_gain": -0.0015075421705234373
+      },
+      {
+        "day": 191,
+        "n": 8,
+        "existing_prediction_fold_gain": -0.00039628389464374525,
+        "contribution_to_all_93_mse_gain": -0.0000340889371736555
+      },
+      {
+        "day": 196,
+        "n": 4,
+        "existing_prediction_fold_gain": 0.030984002760494178,
+        "contribution_to_all_93_mse_gain": 0.001332645280021255
+      }
+    ],
+    "day196_original_mean_observed_seedset": 0.005,
+    "day196_original_M0_mean_prediction": 0.7739837606244953,
+    "day196_original_M1_mean_prediction": 0.7530552589601156,
+    "day196_all_four_recovered_neighborhood_missing": true,
+    "day196_all_five_filmed_neighborhood_missing": true,
+    "day196_film_date_beyond_training_max": true
+  },
+  "recovery_selection_descriptives": {
+    "recovered": {
+      "n": 93,
+      "mean_CP_grains": 794.8494623655914,
+      "mean_HP_grains": 326.3763440860215,
+      "mean_legitimate_visits_per_hour": 2.658193353956026
+    },
+    "unrecovered": {
+      "n": 29,
+      "mean_CP_grains": 1578.7586206896551,
+      "mean_HP_grains": 260.1034482758621,
+      "mean_legitimate_visits_per_hour": 1.1846977934047984
+    },
+    "n_missing_on_days_176_and_178": 23,
+    "n_missing_total": 29,
+    "interpretation": "Descriptive selection by observed fruit recoverability and temporal composition. No missing-at-random claim or seed outcome imputation."
+  },
+  "source_pollen_support_at_day196": {
+    "log1p_CP_training_other_days_q05": 3.253750630203357,
+    "log1p_CP_training_other_days_q95": 7.6583593058477515,
+    "day196_below_training_CP_q05_n": 1,
+    "day196_above_training_CP_q95_n": 0,
+    "log1p_HP_training_other_days_q05": 2.70805020110221,
+    "log1p_HP_training_other_days_q95": 6.933351541299845,
+    "day196_below_training_HP_q05_n": 0,
+    "day196_above_training_HP_q95_n": 0
+  },
+  "source_seedset_definition_mismatch_10_fruits_by_date": {
+    "176": 1,
+    "177": 4,
+    "178": 1,
+    "182": 1,
+    "183": 2,
+    "191": 1
+  },
+  "original_source_numeric_verification": "All original 8 date x 2 model heldout errors recomputed and checked against QPF001 primary; no new model or lambda changes",
+  "source_raw_individual_flowers_disclosed": false,
+  "current_results_modified": false,
+  "inferential_status": "No p-values, inference, forecast refitting, favorable date exclusion, source formula swapping or new primary success claim",
+  "scientific_ceiling": [
+    "Positive pooled 1.39% MSE reduction depended entirely on only 4 late-day196 recovered fruits, with original QPF001 success gate failed at 4/8 positive dates.",
+    "Late day196 shows near-zero recorded seed maturation but high heldout model predictions; linear time extrapolation and missing floral context confound explanation.",
+    "Upstream observed visit and pollen contrasts among recovered and unrecovered fruits cannot reveal missing seed-set values or classify cause.",
+    "Original source Seed.set denominator does not exactly match stated published formula in 10 fruits; original response unchanged.",
+    "One local site, eight filming dates, no independent fragmentation origin or gene-mating causal evidence."
+  ],
+  "partial_identification_of_hypothetical_all122_seedset_mean": {
+    "target": "Mean potential Seed.set of all 122 filmed flowers IF each unrecovered fruit had a well-defined source-comparable Seed.set in [0,1]. This is a hypothetical sensitivity estimand, not observed realized field fecundity.",
+    "known_seedset_sum_from_93": 37.00813392800001,
+    "known_93_mean": 0.3979369239569893,
+    "worst_case_zero_for_all_unrecovered_lower_bound": 0.30334536006557383,
+    "worst_case_one_for_all_unrecovered_upper_bound": 0.5410502780983607,
+    "identification_interval_width": 0.23770491803278687,
+    "unidentified_unrecovered_fruits": 29,
+    "no_missing_at_random_assumption": true,
+    "no_zero_imputation_in_original_QPF001_predictive_analysis": true
+  }
+}

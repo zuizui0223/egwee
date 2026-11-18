@@ -1,0 +1,47 @@
+name: QPF001 posthoc date196 and fruit recovery source-withheld audit
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/qpf_public_source_recovery/QPF001_POSTHOC_*'
+      - 'research/qpf_public_source_recovery/diagnose_qpf001_date196_missingness.py'
+      - 'research/qpf_public_source_recovery/test_qpf001_posthoc_missingness.py'
+      - '.github/workflows/qpf001-posthoc-date-missingness.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-original-model-unchanged-and-original-data-not-exported:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Audit original eight-date MSE and posthoc source-only claims
+        run: |
+          python -m unittest discover -s research/qpf_public_source_recovery \
+            -p 'test_qpf001_posthoc_missingness.py' -v
+      - name: No new science call or original source redistribution
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path("research/qpf_public_source_recovery")
+          old=json.loads((root/"QPF001_DATE_HOLDOUT_ORIGINAL_RESULT_20261118.json").read_text())
+          d=json.loads((root/"QPF001_POSTHOC_DATE196_MISSINGNESS_RECEIPT_20261118.json").read_text())
+          assert old["registered_decision"]=="NO_ROBUST_WITHIN_STUDY_DATE_TRANSFER_GAIN"
+          assert d["original_scientific_decision"]==old["registered_decision"]
+          assert d["original_source"]["original_protocol_commit"]==old["protocol_commit"]
+          assert sum(x["n_seedset_missing"] for x in d["film_day_ascertainment_and_original_predictions"])==29
+          assert not list(root.glob("*.xlsx")) and not list(root.glob("*.zip"))
+          assert d["source_raw_individual_flowers_disclosed"] is False
+          assert "No p-values" in d["inferential_status"]
+          print("Original frozen QPF001 result retained; this is POSTHOC source diagnostic, no new model fit")
+          PY
