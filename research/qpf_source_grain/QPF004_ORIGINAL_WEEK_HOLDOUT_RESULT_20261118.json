@@ -1,0 +1,257 @@
+{
+  "schema_version": 1,
+  "analysis_id": "QPF004_Mertensia_within_ramet_P_increment_week_holdout_v1",
+  "status": "ACTUAL_ORIGINAL_SOURCE_2015_2016_COHORT_RESULTS_COMPLETE",
+  "preoutcome_protocol_commit": "ab174531e7311b3953e7df5daf86da3ffcb4a99f",
+  "original_dryad_doi": "10.7280/D19X0D",
+  "original_article_doi": "10.1002/ajb2.1439",
+  "correct_species": "Mertensia ciliata",
+  "original_source_zip_sha256": "635946881e42b2e67b25a3895111089db4d3d99081a7d27cb8be9e4775c1912f",
+  "source_manifest_verified": {
+    "original_2016_xlsx_sha256": "bbfcbbaf43b53b0ef835b891bd8932ae3761a383e4ecb1f38440a4ba9d477c38",
+    "original_2015_xlsx_sha256": "51263c0cabe9dd04dbf716a4594e7d700c5235dd3f85a65ab51f43fcef828411",
+    "original_2015_and_2016_PDF_SHA_verified": true,
+    "zip_crc": "pass"
+  },
+  "source_structure": {
+    "source_all_2016_ramets": 232,
+    "source_all_2016_treatment": {
+      "V": 94,
+      "O": 65,
+      "B": 73
+    },
+    "source_2016_P_ramets": 62,
+    "source_2016_P_and_F_joined": 62,
+    "original_2016_seed_source_ID_matches": 232,
+    "original_2016_pollen_source_ID_matches": 62,
+    "original_2016_seed_ratio_identity_n": 62,
+    "matched_2016_by_treatment": {
+      "V": 47,
+      "O": 15,
+      "B": 0
+    },
+    "matched_2016_by_pollinator": {
+      "Bombus": 20,
+      "Muscoidea": 21,
+      "Osmia": 6,
+      "Open": 15
+    },
+    "matched_2016_by_site": {
+      "RG": 38,
+      "SP": 24
+    },
+    "matched_2016_by_week": {
+      "1": 4,
+      "2": 18,
+      "3": 16,
+      "4": 20,
+      "5": 4
+    },
+    "matched_2016_visited_noFlrs_gt_1": 28,
+    "source_2015_potted_plants": 40,
+    "source_2015_P_F_Q_joined_plants": 36,
+    "source_2015_matched_by_week": {
+      "1": 10,
+      "2": 9,
+      "3": 10,
+      "4": 7
+    },
+    "joined_grain": "2016 same ramet, pollen subsample/seed aggregation need not be same marked flower. 2015 same potted plant, different flower-level P and F observations aggregated.",
+    "independence": "Same original 2020 study programme, two separate study years and experiments, not two independent species/landscape studies."
+  },
+  "original_frozen_models": {
+    "primary": "2016 62 source matched ramets, whole-week-out 5 folds, original seedPerFlr 0-4; M0 week/site/flower-exposure/visit-count and categorical source visitor; M1 plus log CP/HP and interaction; Gaussian ridge lambda1, train-only normalization, clip 0-4.",
+    "secondary_site": "2016 same 62, two leave-entire-site-out folds (RG vs SP); only descriptive, 2 sites and unseen visitor guild.",
+    "secondary_2015": "2015 separate 36 potted plants, four treatment-week folds, same ridge lambda1, seed mSeed; M0 week/source mVisRate/flrCnt/mVWC; M1 adds mean CP/HP/interaction; secondary only.",
+    "primary_win_rule": "pooled MSE reduction >=5% and >=4/5 whole-week folds improved"
+  },
+  "primary_2016_week": {
+    "groups": [
+      {
+        "week": 1,
+        "n": 4,
+        "M0_MSE": 0.7997664483082431,
+        "M0_MAE": 0.6458187997552289,
+        "M0_mean_pred": 0.6561483815460761,
+        "M1_MSE": 0.6581070034456763,
+        "M1_MAE": 0.5213629805544557,
+        "M1_mean_pred": 0.5451426567185645,
+        "delta_M0_minus_M1_MSE": 0.14165944486256676
+      },
+      {
+        "week": 2,
+        "n": 18,
+        "M0_MSE": 1.2704911194345536,
+        "M0_MAE": 0.816809553915318,
+        "M0_mean_pred": 0.9559275906760342,
+        "M1_MSE": 1.3040681062098394,
+        "M1_MAE": 0.8233760949388761,
+        "M1_mean_pred": 0.9549495188736616,
+        "delta_M0_minus_M1_MSE": -0.033576986775285755
+      },
+      {
+        "week": 3,
+        "n": 16,
+        "M0_MSE": 0.5156747516632708,
+        "M0_MAE": 0.49364363983463233,
+        "M0_mean_pred": 0.6416220648811306,
+        "M1_MSE": 0.6510273359299227,
+        "M1_MAE": 0.5476575528037124,
+        "M1_mean_pred": 0.5153314141319588,
+        "delta_M0_minus_M1_MSE": -0.13535258426665187
+      },
+      {
+        "week": 4,
+        "n": 20,
+        "M0_MSE": 0.6464325046570191,
+        "M0_MAE": 0.5197946161135713,
+        "M0_mean_pred": 0.5177744451518744,
+        "M1_MSE": 0.8711358206894664,
+        "M1_MAE": 0.6015011511108967,
+        "M1_mean_pred": 0.4134835590988494,
+        "delta_M0_minus_M1_MSE": -0.2247033160324473
+      },
+      {
+        "week": 5,
+        "n": 4,
+        "M0_MSE": 0.301971741441903,
+        "M0_MAE": 0.4012514499998643,
+        "M0_mean_pred": 0.695723571412754,
+        "M1_MSE": 0.3529113277903063,
+        "M1_MAE": 0.4667247009541772,
+        "M1_mean_pred": 0.7881532723827486,
+        "delta_M0_minus_M1_MSE": -0.05093958634840334
+      }
+    ],
+    "pooled": {
+      "M0_MSE": 0.7815361133641171,
+      "M1_MSE": 0.8928460165385343,
+      "M0_MAE": 0.5997587665987362,
+      "M1_MAE": 0.6381558758388974,
+      "gain_M0_minus_M1_MSE": -0.11130990317441725,
+      "gain_percent": -14.242451662954448,
+      "positive_folds": 1,
+      "n_folds": 5,
+      "n_source_units": 62
+    }
+  },
+  "secondary_2016_site": {
+    "groups": [
+      {
+        "site": "RG",
+        "n": 38,
+        "M0_MSE": 1.2227392712358989,
+        "M0_MAE": 0.9484603780610449,
+        "M0_mean_pred": 1.202498339141649,
+        "M1_MSE": 1.778395222417007,
+        "M1_MAE": 1.1491714966631121,
+        "M1_mean_pred": 1.5310803548383638,
+        "delta_M0_minus_M1_MSE": -0.5556559511811081
+      },
+      {
+        "site": "SP",
+        "n": 24,
+        "M0_MSE": 0.5643299812055715,
+        "M0_MAE": 0.5176424713218281,
+        "M0_mean_pred": 0.6303967396194431,
+        "M1_MSE": 0.9201994257221747,
+        "M1_MAE": 0.7405317522211329,
+        "M1_mean_pred": 0.8867031112873859,
+        "delta_M0_minus_M1_MSE": -0.3558694445166032
+      }
+    ],
+    "pooled": {
+      "M0_MSE": 0.9678711589660947,
+      "M1_MSE": 1.4461903978899753,
+      "M0_MAE": 0.781692156097477,
+      "M1_MAE": 0.9909883697823461,
+      "gain_M0_minus_M1_MSE": -0.4783192389238806,
+      "gain_percent": -49.419722293908805,
+      "positive_folds": 0,
+      "n_folds": 2,
+      "n_source_units": 62
+    }
+  },
+  "secondary_2015_week": {
+    "groups": [
+      {
+        "week": 1,
+        "n": 10,
+        "M0_MSE": 1.477822989882491,
+        "M0_MAE": 1.0806602862698265,
+        "M0_mean_pred": 3.0408992619194435,
+        "M1_MSE": 1.5629320923769447,
+        "M1_MAE": 1.1075921129813344,
+        "M1_mean_pred": 3.079211895106009,
+        "delta_M0_minus_M1_MSE": -0.08510910249445369
+      },
+      {
+        "week": 2,
+        "n": 9,
+        "M0_MSE": 0.7587923019804363,
+        "M0_MAE": 0.762784050693849,
+        "M0_mean_pred": 2.0037239088870007,
+        "M1_MSE": 0.991579423842725,
+        "M1_MAE": 0.8306117017754109,
+        "M1_mean_pred": 2.358473057322399,
+        "delta_M0_minus_M1_MSE": -0.23278712186228867
+      },
+      {
+        "week": 3,
+        "n": 10,
+        "M0_MSE": 1.288787792851655,
+        "M0_MAE": 0.9449034844595738,
+        "M0_mean_pred": 1.8360867629329927,
+        "M1_MSE": 1.3308824972324043,
+        "M1_MAE": 0.9928497974693098,
+        "M1_mean_pred": 1.7364763106834353,
+        "delta_M0_minus_M1_MSE": -0.04209470438074936
+      },
+      {
+        "week": 4,
+        "n": 7,
+        "M0_MSE": 2.4787016885222997,
+        "M0_MAE": 1.3711293449671023,
+        "M0_mean_pred": 2.5985549768240666,
+        "M1_MSE": 2.4481351918716463,
+        "M1_MAE": 1.3707614584681787,
+        "M1_mean_pred": 2.585219065514772,
+        "delta_M0_minus_M1_MSE": 0.030566496650653363
+      }
+    ],
+    "pooled": {
+      "M0_MSE": 1.4401708434672635,
+      "M1_MSE": 1.527758529271654,
+      "M0_MAE": 1.0199610993974544,
+      "M1_MAE": 1.0576459619378442,
+      "gain_M0_minus_M1_MSE": -0.08758768580439047,
+      "gain_percent": -6.081756633367187,
+      "positive_folds": 1,
+      "n_folds": 4,
+      "n_source_units": 36
+    }
+  },
+  "registered_decision": "NO_PRACTICALLY_PORTABLE_POLLEN_INCREMENT",
+  "independent_numeric_verification": {
+    "original_data_importer_1": "artifact_tool with NumPy ridge normal equations",
+    "original_data_importer_2": "independent OOXML source decoder with pure Python Gauss-Jordan normal equations",
+    "n_independent_fold_level_metrics": 84,
+    "metric_definition": "11 folds total (5 primary weeks + 2 secondary sites + 4 2015 weeks) × (2 models × 3 metrics: MSE, MAE, mean prediction) = 66; plus 3 × 6 pooled metrics = 84",
+    "max_abs_difference": 6.394884621840902e-14,
+    "all_groups_and_model_parameters_agree": true,
+    "original_source_record_values_not_exported": true
+  },
+  "scientific_limitations": [
+    "The source 2016 AllData 62-P pollen subset includes only 47 of 94 visited and 15 of 65 open controls; no bagged control pollen. Unmeasured pollen not zero.",
+    "Despite same exact ramet source ID, stigma pollen and mature seeds may be sampled from different marked flowers and aggregated at ramet level.",
+    "2016 weeks 1-3 exclusively RG and 4-5 exclusively SP, so week and site are confounded; only two sites, week folds are not independent ecosystems.",
+    "Source 2016 control O has no OBSERVED visit and is coded 0 recorded visits; cannot infer no real missed visit.",
+    "2015 experiment includes week-four cut-flower intervention and plant-level aggregation; 2015 and 2016 remain one published biological programme.",
+    "Only observed conspecific/heterospecific pollen grain number, not directly proven compatible paternal alleles or surviving recruitment.",
+    "The original 2020 authors already showed per-visitor bumblebee efficiency and seasonally compensated seed production.",
+    "A negative heldout pollen-increment result is not evidence that pollen quantity/effectiveness has no causal biological effect.",
+    "No evidence for urban/island shared functional fragmentation regime or full eco-genetic genetic-mating trajectory."
+  ],
+  "original_raw_source_redistributed": false,
+  "individual_plant_ramet_source_values_exported": false
+}
