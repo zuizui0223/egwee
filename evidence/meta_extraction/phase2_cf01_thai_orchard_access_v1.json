@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "candidate": "CFTQ0103",
+  "programme_id": "P2_CF01_THAI_ORCHARD_FOREST_PROXIMITY_2016",
+  "article_doi": "10.1017/S0266467416000353",
+  "design": {
+    "matched_orchard_pairs": 10,
+    "near_definition": "<1 km from forest edge",
+    "far_definition": ">7 km from forest edge",
+    "crops": [
+      "rambutan",
+      "durian",
+      "mango"
+    ],
+    "primary_I": "flower visitation frequency",
+    "primary_F": "fruit set",
+    "independent_unit": "orchard"
+  },
+  "public_routes_checked": [
+    {
+      "route": "UC Berkeley eScholarship full article",
+      "status": "article_full_text_recoverable",
+      "note": "Methods/model summaries and some aggregate values are visible, but no complete three-crop orchard-level I/F vectors or orchard-level paired covariance inputs are supplied."
+    },
+    {
+      "route": "Cambridge Core article record",
+      "status": "article_metadata_abstract_recoverable",
+      "note": "Confirms 10 matched pairs and three crop panels; no public raw orchard table located."
+    },
+    {
+      "route": "Zenodo record 14817704 (Plazi/Bat Literature Project)",
+      "status": "files_restricted",
+      "note": "Record is public but attached files require access; no public raw orchard dataset recovered."
+    },
+    {
+      "route": "GitHub code/data search by DOI and exact title",
+      "status": "no_authoritative_raw_data_repository_found",
+      "note": "Only bibliographic/index hits; no orchard-level source dataset."
+    }
+  ],
+  "effect_outcomes_opened": false,
+  "orchard_level_effects_calculated": false,
+  "direct_IF_programme_increment": 0,
+  "access_status": "design_valid_public_orchard_level_IF_data_not_recoverable",
+  "reopen_rule": "Reopen only if an authoritative public or author-provided source exposes orchard-level visitation and fruit-set values for the complete mandatory rambutan/durian/mango set under the frozen contract."
+}

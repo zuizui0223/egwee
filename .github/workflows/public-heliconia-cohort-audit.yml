@@ -1,0 +1,42 @@
+name: Public Heliconia cohort sentinel audit
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - scripts/analyze_public_heliconia_cohort_sentinel.py
+      - .github/workflows/public-heliconia-cohort-audit.yml
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Retrieve source files from public BrunaLab archive
+        run: |
+          mkdir -p build/public_heliconia/source
+          curl --fail --location --retry 3 --silent --show-error \
+            -o build/public_heliconia/source/HDP_survey.csv \
+            https://raw.githubusercontent.com/BrunaLab/HeliconiaSurveys/master/data/survey_archive/HDP_survey.csv
+          curl --fail --location --retry 3 --silent --show-error \
+            -o build/public_heliconia/source/HDP_plots.csv \
+            https://raw.githubusercontent.com/BrunaLab/HeliconiaSurveys/master/data/survey_archive/HDP_plots.csv
+      - name: Audit census linkage and denominators
+        run: |
+          python scripts/analyze_public_heliconia_cohort_sentinel.py \
+            --survey build/public_heliconia/source/HDP_survey.csv \
+            --plots build/public_heliconia/source/HDP_plots.csv \
+            --output build/public_heliconia/cohort_plot_summary.csv
+      - uses: actions/upload-artifact@v4
+        with:
+          name: public-heliconia-cohort-audit
+          path: build/public_heliconia/cohort_plot_summary.csv
+          if-no-files-found: error

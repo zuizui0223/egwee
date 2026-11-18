@@ -1,0 +1,38 @@
+name: Build Phase-2 metadata screen queue
+
+on:
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - 'scripts/build_phase2_metadata_screen_queue.py'
+      - '.github/workflows/build-phase2-metadata-screen-queue.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Build outcome-blind metadata screening queue
+        run: python scripts/build_phase2_metadata_screen_queue.py
+      - name: Commit screening queue
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            evidence/meta_extraction/phase2_metadata_screen_queue_v1.csv \
+            evidence/meta_extraction/phase2_if_fragmentation_screen_queue_v1.csv \
+            evidence/meta_extraction/phase2_metadata_screen_summary_v1.json \
+            manuscript/PHASE2_METADATA_SCREEN_QUEUE_2026-09-20.md
+          if git diff --cached --quiet; then
+            echo 'No metadata screen queue changes'
+          else
+            git commit -m 'Build Phase-2 outcome-blind metadata screen queue'
+            git push origin HEAD:meta/systematic-coverage-moderator-expansion-2026-09-16
+          fi

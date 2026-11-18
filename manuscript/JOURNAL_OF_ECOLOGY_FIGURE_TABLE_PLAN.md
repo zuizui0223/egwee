@@ -2,7 +2,7 @@
 
 ## Principle
 
-The figures should visualize the **claim**, not reward the most extreme standardized effect. In particular, ML001 *Serapias* has very large Hedges-g magnitudes because between-population SD within its source-defined groups is small. Putting all 17 marginal effects on one ordinary linear forest axis would compress the remaining systems and make the paper look like a study of one extreme dataset. The main figures therefore emphasize evidence geometry, cluster influence and the independent ML020 negative robustness result.
+The figures should visualize the **scale-aware claim**, not reward the most extreme standardized effect. In particular, ML001 *Serapias* has very large Hedges-g magnitudes because between-population SD within its source-defined groups is small, yet its proportional lnRR ordering differs sharply. The main package therefore separates historical Hedges-g evidence from estimand-scale sensitivity and from qualitative sign geometry. No figure may present g-only magnitude ordering, leave-one-*Serapias* failure, or the registered-scale bottleneck catalogue as a scale-independent ecological result.
 
 ## Figure 1 — Primary evidence geometry
 
@@ -15,13 +15,13 @@ The figure must make two design facts visually explicit:
 1. the denominator is five independent programme/study clusters, not 17 independent effects;
 2. the layer coverage is incomplete and heterogeneous, so the paper tests within-system non-exchangeability rather than a fully crossed universal layer ordering.
 
-## Figure 2 — Cross-cluster influence determines the claim ceiling
+## Figure 2 — Historical Hedges-g leave-one-cluster-out influence
 
-**Purpose:** put the decisive robustness result in the centre of the paper.
+**Purpose:** reproduce the registered primary g-scale influence result without presenting it as scale-invariant.
 
-Plot the full five-cluster Fisher p-value and each leave-one-primary-cluster-out p-value on a log-scaled p axis, with a reference at 0.05.
+Plot the full five-cluster Hedges-g Fisher p-value and each leave-one-primary-cluster-out p-value on a log-scaled p axis, with a reference at 0.05.
 
-Canonical values:
+Canonical historical values:
 
 - full: `0.01212432`;
 - omit ML001 *Serapias*: `0.18194353`;
@@ -30,21 +30,110 @@ Canonical values:
 - omit ML014 *Eucalyptus socialis*: `0.02116199`;
 - omit ML020 Chaco programme: `0.00384724`.
 
-The caption states that only omission of ML001 removes rejection. This is the graphical reason the manuscript concludes **conditional state separation** rather than a universal syndrome.
+The figure title/subtitle must explicitly say **Hedges g / historical primary estimand** and direct readers to Figure 4 for the lnRR sensitivity. It must not call the g-only leave-one-out result the manuscript's scale-independent claim ceiling.
 
-## Figure 3 — Independent Chaco programme shows concordant decline
+## Figure 3 — Scale-stable interaction–function proxy failure and sign uncertainty
 
-**Purpose:** show what the fifth cluster adds biologically rather than statistically.
+**Purpose:** separate the strongest repeated ecological mismatch from weaker point-sign topology.
 
-For each of the three source-explicit four-site ML020 species, plot the Hedges-g fragmentation effect on pollen-tube interaction support (`I`) against the effect on fruit set (`F`). Add the `F = I` line.
+Panel A must show exactly the **3 representation-stable downstream I–F programmes**:
 
-Canonical points:
+- *Eucalyptus wandoo*;
+- *Cardiopetalum calophyllum*;
+- Kakamega *Acanthopale pubescens*.
 
-- *Atamisquea emarginata*: I `-0.71280256`, F `-1.00477681`;
-- *Cercidium australe*: I `-0.63733120`, F `-1.13852812`;
-- *Prosopis nigra*: I `-0.48057139`, F `-1.13549676`.
+Required context:
 
-All points are in the lower-left deterioration quadrant. Species-specific covariance-aware I–F contrasts are non-significant and the programme Bonferroni gate is `p_ML020=1.0`. Thus fragmentation affects both layers but does not produce detectable state separation in this programme.
+- stable resolved upstream I–F programmes = **0**;
+- complete registered I–F denominator = **8 programmes**;
+- quantity-level I endpoints = **8/8**;
+- effective-mating-quality I endpoints on the same frame = **0/8**.
+
+Panel B must show the uncertainty hierarchy for the **6 opposite-sign point-estimate panels**:
+
+- both endpoint directions individually resolved opposite = **0/6**;
+- one endpoint resolved, one unresolved = **2/6**;
+- both endpoints unresolved = **4/6**;
+- opposite-sign panels occur in **5 programmes**;
+- 3/4 multi-panel programmes contain >1 point-sign topology, but this remains descriptive supporting context.
+
+Do not call the six panels six resolved sign reversals. Do not treat 3/8, 5/8 or 6/18 as prevalence estimates or binomial/sign tests. The main inference is insufficiency of interaction quantity as a stand-alone sentinel when a matched downstream mismatch is clearly resolved.
+
+
+## Figure 4 — Estimand-scale sensitivity
+
+**Purpose:** show why relative-amplitude / separation claims require an explicit effect-size scale.
+
+Required panels:
+
+- **A. Serapias ordering:** Hedges-g absolute order G > C > F versus lnRR absolute order C > F > G; report raw-delta C–F lnRR `p=0.6364`.
+- **B. Omit-ML001 Fisher sensitivity:** historical g primary; lnRR + raw-unit multivariate delta covariance; lnRR + zero covariance; lnRR + Cauchy maximum-variance boundary, with the 0.05 threshold visible.
+- **C. Directional consistency:** 17/17 negative effects on both oriented g and oriented lnRR.
+- **D. Exploratory ecology:** Brosimum and Eucalyptus socialis upstream-dominant lnRR examples plus Spondias adult/offspring contrast, with Chaco explicitly identified as a counterexample to universal attenuation.
+
+Do not place g and lnRR magnitudes on a common numerical axis. The figure compares inferential geometry and qualitative direction, not raw effect-size values across estimands. Label the raw-unit lnRR covariance as a delta-method approximation.
+
+
+## Figure 5 — Directional coherence versus sentinel sufficiency
+
+**Purpose:** make the manuscript's promoted ecological result visible as a hierarchy from shared deterioration to matched and external sentinel failure.
+
+### Panel A — coarse-scale directional coherence
+
+Show:
+
+- 17/17 primary direct effects negative on oriented Hedges g;
+- 17/17 the same effects negative on oriented lnRR;
+- no claim that the 17 effects are independent sign trials.
+
+Interpretation: fragmentation-associated deterioration is directionally coherent in the admitted direct corpus, without implying scale-invariant response amplitudes.
+
+### Panel B — frozen matched-programme translation map
+
+Show the frozen 16-programme interaction→function map:
+
+- 8 quantitatively admitted matched I–F programmes;
+- 8 non-overlapping source-explicit programmes blocked from quantitative synthesis;
+- evidence tier shown explicitly as Q or B;
+- each interpretable interaction state maps to multiple downstream F states;
+- full map remains non-identifying after every single-programme deletion;
+- cell occupancy is existence/topology, not prevalence.
+
+### Panel C — external public-S1 validation
+
+Show the corrected Aguilar et al. public-S1 habitat-fragmentation sign table:
+
+| | F lower | F nonlower |
+|---|---:|---:|
+| I lower | 35 | 9 |
+| I nonlower | 7 | 3 |
+
+Required annotations:
+
+- constituent-consensus n = 54;
+- minimum deterministic mismatches = 12;
+- publication-LOO minimum = 8;
+- species-LOO minimum = 11;
+- source-publication-disjoint subset = 7/31 mismatches, publication-LOO minimum 5;
+- continuous pollination coupling remains positive on pair weighting (`beta=+0.190`, `p=0.0053`) and positive but unresolved under equal-total-publication weighting (`beta≈+0.200`, `p≈0.104`);
+- best pollination-sign lookup errors equal the fragmentation-context baseline errors (12 vs 12), so incremental deterministic sign gain = 0.
+
+The external pairs are publication × species × land-use strata, not guaranteed same-site/same-season synchronized observations. The 426-row public supplement is not the complete 500-input source database.
+
+### Panel D — resolved false reassurance and reliability stress test
+
+Show:
+
+- Wandoo, Cardiopetalum and Kakamega *Acanthopale*;
+- recovered I/F reliability proxies;
+- equal-latent attenuation null misfit `p<0.01` in each;
+- explicit statement that anchor selection was post hoc and the three-programme diagnostic is not a formal joint p-value.
+
+Required paper-level interpretation:
+
+> **Directional coherence and positive average coupling do not imply diagnostic sufficiency; interaction→function translation is many-to-many in matched evidence and an external source-disjoint subset, while the strongest individually resolved quantitative failure mode is false reassurance.**
+
+Figure 5 is the paper-level ecology synthesis. Figure 3 remains the quantitative programme-level proxy-failure view; Figure 4 remains the mandatory effect-scale audit.
 
 ## Table 1 — Admitted primary clusters
 
@@ -62,6 +151,81 @@ One row per independent primary programme/study cluster. Columns:
 
 ML020 appears once, with its three species described as dependent subsystems. ML015 is excluded from Table 1 and described separately as gradient generalisation evidence.
 
+## Table 2 — Estimand-scale sensitivity summary
+
+One row per primary direct cluster plus FULL and OMIT_ML001 cross-cluster rows. Required columns:
+
+- historical Hedges-g p-value;
+- lnRR p under raw-unit multivariate delta covariance;
+- lnRR p under zero covariance;
+- lnRR p under Cauchy maximum-variance boundary;
+- interpretation.
+
+The table must show that the omit-ML001 classification crosses the 0.05 threshold across estimand/dependence treatments. It must not imply that lnRR is the uniquely correct scale. The former carried-rho sensitivity is provenance only and is not shown as the authoritative lnRR covariance reconstruction.
+
+
+## Supplementary Figure S2 — Frozen I–F translation map
+
+**Purpose:** show that interaction quantity is not a one-to-one sentinel of reproductive function without merging quantitative and qualitative evidence precision.
+
+Required content:
+
+- 16 unique source programmes = 8 quantitative + 8 qualitative-blocked;
+- evidence tier shown explicitly as Q or B;
+- interaction categories: lower, no detected loss, higher/shifted, mixed within programme;
+- function categories: lower, similar/no detected loss, higher, mixed within programme;
+- the I-lower row must contain examples mapping to lower, higher and no-detected-loss F states;
+- the no-detected-I-loss row must map to both lower and no-detected-loss F states;
+- the I-higher/shifted row must map to both lower and similar F states.
+
+Do not use cell counts as prevalence. Do not recode no-detected-effect as zero/equality. Do not imply that B-tier evidence is quantitatively equivalent to Q-tier evidence.
+
+## Supplementary Table S7 — Frozen I–F translation map
+
+One row per source programme in Supplementary Figure S2, with evidence tier, programme/source identity, qualitative I and F signals, translation topology, resolution status and interpretation. Exactly 16 rows and 16 unique source IDs are required.
+## Supplementary Table S6 — Frozen qualitative external I–F audit
+
+**Purpose:** expose the complete pre-existing denominator of design-valid but quantitatively blocked direct I–F programmes so qualitative corroboration cannot be selected post outcome.
+
+Required content:
+
+- exactly 8 independent programmes: IFQ003, IFQ006, IFQ007, IFQ008, IFQ015, IFQ020, IFQ022 and ML007;
+- source-reported I direction/status and F direction/status;
+- quantitative blocker that prevented effect admission;
+- qualitative geometry without manufacturing effect sizes.
+
+Required safeguards:
+
+- `no detected effect` is never recoded as zero, equality or coupling;
+- the eight rows do not increment the quantitative I–F denominator;
+- 5/8 non-monotonic qualitative patterns are descriptive and must not be interpreted as prevalence;
+- retain the two resilient/no-detected-loss systems and the concordant Phyteuma system as counterevidence to one-sided proxy failure.
+## Supplementary Table S5 — Scale-stable I–F sign geometry
+
+**Purpose:** expose the scale-stable qualitative interaction→function result without treating dependent panels as independent studies.
+
+Required content:
+
+- exactly 18 primary I–F panels from 8 independent programmes;
+- interaction and F signs on the registered representation;
+- one of four descriptive geometries: I−/F−, I+/F+, I+/F−, I−/F+;
+- explicit panel/program identifiers so multi-species shared-exposure heterogeneity is auditable.
+
+The table must reproduce:
+
+- 6 sign-discordant panels;
+- sign-discordant panels in 5 independent programmes;
+- 2 panels with I+,F−;
+- 4 panels with I−,F+;
+- 4 multi-panel programmes, of which 3 contain more than one sign geometry.
+
+Do not report 5/8 as a prevalence estimate or run a sign/binomial test across dependent panels/programmes.
+
+## Supplementary Table S4 — Registered-scale process–function census
+
+Retain the 12-programme process–function catalogue for transparency and hypothesis generation. Explicitly mark it as heterogeneous-scale and non-confirmatory after the estimand audit.
+
+
 ## Supplementary Table S3 — All 17 primary marginal effects
 
 **Purpose:** expose every admitted marginal Hedges-g effect, including the influential extreme standardized ML001 effects, without treating the 17 rows as independent meta-analytic replicates.
@@ -76,6 +240,6 @@ ML001 *Serapias lingua* uses an explicitly labelled separate horizontal Hedges-g
 
 ## Generation contract
 
-`scripts/build_journal_of_ecology_figures.py` is the deterministic source for Figures 1–3 and Table 1. It reads the canonical registry/effect files plus `scripts/synthesize_state_separation.py`, and must fail if the five-cluster result or ML020 values drift from the canonical synthesis.
+`scripts/build_journal_of_ecology_figures.py` is the deterministic source for Figures 1–5 and Tables 1–2. It reads the canonical registry/effect files, the complete process–function census, and `scripts/synthesize_state_separation.py`; it must fail if the five-cluster result, programme censuses or registered response geometry drift from their canonical sources.
 
 `scripts/check_primary_effect_supplement.py` independently reconstructs Supplementary Table S3 from the source effect CSVs and checks all 17 effects, variances, independent-unit counts, standard errors and 95% confidence intervals. `scripts/build_primary_effect_forest.py` then builds Supplementary Figure S1 only from the checked S3 table.

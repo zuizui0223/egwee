@@ -1,0 +1,11 @@
+# GloPL global pollen-addition database — derived UTF-8 text copy
+
+Original: Bennett et al. (2018), *Scientific Data*, https://doi.org/10.1038/sdata.2018.249. Data DOI: https://doi.org/10.5061/dryad.dt437, Dryad CC0 1.0.
+
+The GloPL authors' upstream source file is `Data/GloPL_with_id.csv` at public [commit abbe193770981b2c61713e75a0f01e004bdded8e](https://github.com/idiv-biodiversity/pollen-limitation-data-descriptor/blob/abbe193770981b2c61713e75a0f01e004bdded8e/Data/GloPL_with_id.csv). Its **original binary Git blob** is `d22fe333b19489c473e076dd173ed7a67b1afbf0` (1,091,571 bytes), and the published Dryad dataset contains 2,969 pollen-addition case records from 927 publications and 1,265 species.
+
+**Important source-byte boundary:** The connected GitHub public-text reader decoded this legacy-encoded CSV into Unicode. The copied file here is **not bytewise identical to the original author blob**; its UTF-8-encoded Git blob SHA is **`0809eaeee54e4375d26bacfe002787241f8ff72e`**, 1,091,705 bytes. The decoded text has the original 2,969 data rows, 63 column names, case IDs, treatment means, N and SD values. The 134-byte difference reflects reencoding of non-ASCII source metadata text. Treat this as a **lossless numeric-table text extraction**, not a successful source-byte hash match, unless a later raw-original-byte audit certifies equality. The reproducible numerical checker pins the **stored** blob SHA and reports the separate upstream SHA.
+
+Responses: FS fruit set; SO seeds per ovule; SPFR seeds per **existing** fruit; SPFL seeds per flower; SPP seeds per plant. Each case can have several endpoints, and cases from the same publication are dependent; the source database is not a collection of 2,969 independently published experiments. Source authors already reported positive average correlations among fecundity metrics and described their response selection hierarchy.
+
+Empirical **egwee** compares these endpoints on **the same experimental row** and aggregates uncertainty over independent publications. It does not measure fragmentation exposure or identify an ecosystem causal mechanism; it cannot increment the frozen egwee fragmentation 5/8/16 programme denominators. Attribution is retained despite CC0.

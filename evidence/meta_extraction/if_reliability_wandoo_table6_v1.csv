@@ -1,0 +1,12 @@
+population,n_reproductive,seeds_per_fruit_y2,seeds_per_fruit_y2_se,n_pollen,pollen_tubes,pollen_tubes_se,source
+J,2,0.65,0.65,2,8.8,3.2,Llorens_et_al_2018_Table6
+K,5,1.30,0.45,5,9.1,2.6,Llorens_et_al_2018_Table6
+F,10,0.38,0.17,10,6.0,1.9,Llorens_et_al_2018_Table6
+C,10,0.56,0.32,10,5.8,1.0,Llorens_et_al_2018_Table6
+E,10,2.04,0.41,10,4.4,0.9,Llorens_et_al_2018_Table6
+G,10,0.41,0.26,10,3.2,0.8,Llorens_et_al_2018_Table6
+B,10,0.62,0.33,10,4.8,0.6,Llorens_et_al_2018_Table6
+I,10,2.33,0.41,10,2.4,0.5,Llorens_et_al_2018_Table6
+A,10,2.46,0.53,10,5.8,0.9,Llorens_et_al_2018_Table6
+H,10,2.69,0.27,10,3.1,0.5,Llorens_et_al_2018_Table6
+D,10,3.78,0.70,10,4.6,0.7,Llorens_et_al_2018_Table6

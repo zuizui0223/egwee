@@ -1,0 +1,36 @@
+name: GloPL global reproduction-stage topology
+on:
+  pull_request:
+    paths:
+      - 'scripts/audit_glopl_reproductive_stage_topology_20261019.py'
+      - '.github/workflows/glopl-stage-topology.yml'
+      - 'evidence/meta_extraction/glopl_2018/**'
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - 'scripts/audit_glopl_reproductive_stage_topology_20261019.py'
+      - '.github/workflows/glopl-stage-topology.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install numpy
+        run: python -m pip install --quiet numpy
+      - name: Reproduce publication-balanced GloPL source-locked topology
+        run: python scripts/audit_glopl_reproductive_stage_topology_20261019.py --output glopl_stage_20261019.json --publication-csv glopl_eligible_by_publication.csv --opposite-csv glopl_opposite_cases.csv
+      - uses: actions/upload-artifact@v4
+        with:
+          name: glopl-stage-topology-audit
+          path: |
+            glopl_stage_20261019.json
+            glopl_eligible_by_publication.csv
+            glopl_opposite_cases.csv

@@ -1,0 +1,5 @@
+cluster_id,source_frame,source_paper_id,population,exposure_group,source_group_label,C_pollen_immigration_pct,C_source_se_pct,G_adult_large_HE,G_offspring_embryo_HE,n_large_trees,n_embryos,source_table,independent_unit_note
+P2_SF05_93,SF05,93,Saki,reference,NCP,74,2,0.81,0.78,144,408,Tables_2_and_4,population_is_independent_fragmentation_unit
+P2_SF05_93,SF05,93,Cassou,reference,NCP,34,2,0.80,0.79,88,456,Tables_2_and_4,population_is_independent_fragmentation_unit
+P2_SF05_93,SF05,93,Walley,fragmented,CP,46,2,0.81,0.79,137,419,Tables_2_and_4,population_is_independent_fragmentation_unit
+P2_SF05_93,SF05,93,Vouza,fragmented,CP,48,2,0.82,0.81,167,464,Tables_2_and_4,population_is_independent_fragmentation_unit

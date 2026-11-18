@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "manifest_seed_units": 363,
+  "resolved_seed_units": 296,
+  "unique_resolved_works": 292,
+  "duplicate_resolved_work_groups": 4,
+  "duplicate_excess_seed_units": 4,
+  "unresolved_seed_units": 67,
+  "provisional_work_identity_units": 359,
+  "provisional_definition": "unique resolved OpenAlex works plus each unresolved seed retained separately; not final until unresolved bibliographic identities are adjudicated",
+  "effect_outcomes_opened": false
+}

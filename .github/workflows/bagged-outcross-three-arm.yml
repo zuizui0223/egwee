@@ -1,0 +1,36 @@
+name: GloPL bagged-outcross and Sevenello treatment crosswalk
+on:
+  pull_request:
+    paths:
+      - 'scripts/audit_bagged_outcross_three_arm_20261025.py'
+      - '.github/workflows/bagged-outcross-three-arm.yml'
+      - 'evidence/meta_extraction/glopl_2018/GloPL_with_id.csv'
+      - 'evidence/meta_extraction/sevenello_2026_raw/landscape_seeds.csv'
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - 'scripts/audit_bagged_outcross_three_arm_20261025.py'
+      - '.github/workflows/bagged-outcross-three-arm.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install numeric libraries
+        run: python -m pip install --quiet numpy
+      - name: Recover source-pinned three-arm and cross-study treatment hierarchies
+        run: >
+          python scripts/audit_bagged_outcross_three_arm_20261025.py
+          --output bagged_outcross_three_arm_20261025.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bagged-outcross-three-arm-ecology
+          path: bagged_outcross_three_arm_20261025.json

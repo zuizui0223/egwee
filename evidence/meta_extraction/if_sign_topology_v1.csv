@@ -1,0 +1,19 @@
+programme_id,panel_id,I_effect,F_effect,polarity,programme_IF_status,programme_direction,note
+ML020,Atamisquea_emarginata,-0.712802558110,-1.004776808504,--,unresolved,unresolved,Chaco primary species
+ML020,Cercidium_australe,-0.637331203988,-1.138528122970,--,unresolved,unresolved,Chaco primary species
+ML020,Prosopis_nigra,-0.480571386641,-1.135496758044,--,unresolved,unresolved,Chaco primary species
+P2_CF01_SEVENELLO_2026,GORO,0.029631086907,0.009516487953,++,unresolved,unresolved,Goodenia rosea primary
+P2_CF01_SEVENELLO_2026,LARO,-0.340162859966,0.119344064748,-+,unresolved,unresolved,Lawrencella rosea primary
+P2_CF01_SEVENELLO_2026,POAR,-0.346163414409,0.058450575856,-+,unresolved,unresolved,Podolepis aristata primary
+P2_CF01_BERGSDORF_KAKAMEGA_2006,AP_2001,0.348901857611,-2.847886138044,+-,resolved,F_more_negative_than_I,Acanthopale pubescens
+P2_CF01_BERGSDORF_KAKAMEGA_2006,AE_2002,1.726118231296,0.817850703610,++,resolved,F_more_negative_than_I,Acanthus eminens 2002
+P2_CF01_BERGSDORF_KAKAMEGA_2006,AE_2003,1.138952006053,0.204658939845,++,resolved,F_more_negative_than_I,Acanthus eminens 2003
+P2_CF01_BERGSDORF_KAKAMEGA_2006,HD_2002_03,1.108828898149,0.868855589087,++,resolved,F_more_negative_than_I,Heinsenia diervilleoides
+ML015,Eucalyptus_wandoo,0.690291232004,-0.875930795707,+-,resolved,F_more_negative_than_I,native Fisher-z gradient
+P2_CF01_ZURICH_2026,Daucus_carota,-0.449319867806,-0.399387439593,--,unresolved,unresolved,phytometer
+P2_CF01_ZURICH_2026,Raphanus_sativus,-0.578411780481,-0.565070722182,--,unresolved,unresolved,phytometer
+P2_CF01_ZURICH_2026,Onobrychis_viciifolia,-0.261779308878,0.119071768633,-+,unresolved,unresolved,phytometer
+P2_CF01_ZURICH_2026,Symphytum_officinale,-0.450258575861,-0.570969449575,--,unresolved,unresolved,phytometer
+P2_CF01_MILKWEED_URBAN_2023,primary,-0.323258614173,0.104945967884,-+,unresolved,unresolved,source-code-faithful n31 frame
+P2_CF01_CARDIOPETALUM_2012,primary,-0.245165314917,-1.683797866540,--,resolved,F_more_negative_than_I,fruit set primary
+P2_CF01_PRITCHARD_2005,primary,-0.989075021144,-1.489790174137,--,not_testable,not_testable,pair covariance unavailable

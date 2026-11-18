@@ -1,0 +1,8 @@
+row_type,row_id,hedges_g_p,lnRR_rho_proxy_p,lnRR_zero_cov_p,lnRR_cauchy_maxvar_p,interpretation
+cluster,ML001,0.00354530,0.0000000680815584,0.0000000028155320,0.0000125974455452,Serapias separation is strong on both scales overall but endpoint ordering changes
+cluster,ML002,0.19911670,0.0084093395243127,0.1026328419777849,0.2386657003895470,Brosimum cluster decision changes with scale/dependence
+cluster,ML003,0.17406774,0.0033190761450124,0.0557599071745649,0.3834801118471982,Spondias cluster decision changes with scale/dependence
+cluster,ML014,0.09831774,0.0011157887528941,0.0030116580916598,0.0163146192296734,Eucalyptus socialis is stronger on proportional-change scale
+cluster,ML020,1.00000000,0.8949310094813427,0.8227331319678706,1.0000000000000000,Chaco remains unresolved in magnitude
+fisher,FULL,0.01212432,0.0000000001178695,0.0000000017227795,0.0000994600018128,Full-corpus rejection occurs on both scales but covariance-free g does not certify
+fisher,OMIT_ML001,0.18194353,0.0000291822388429,0.0043441814864746,0.1113789244205897,Leave-one-Serapias robustness classification is scale and dependence sensitive

@@ -1,0 +1,247 @@
+# Interaction provenance as the hidden fragmentation layer — 2026-10-06
+
+## Status
+
+Post hoc mechanistic triangulation and prospective hypothesis. This note does **not** change the frozen quantitative denominator, does not add an independent programme, and does not establish mediation.
+
+## Why the existing proxy-failure result can be sharpened
+
+The promoted EGWEE result is that interaction quantity is a non-identifying stand-alone sentinel of reproductive function. The remaining biological question is why local interaction quantity can look intact while reproductive function deteriorates.
+
+The strongest mechanistic refinement is not simply "visitation is noisy." It is:
+
+> **Fragmentation can preserve or concentrate local interaction events while changing the identity, origin and compatibility of what is transferred.**
+
+This distinguishes **interaction amount** from **interaction provenance**.
+
+A visit, a pollen grain or even a pollen tube records that transfer occurred. It does not necessarily record:
+
+- whether the donor was self or outcross;
+- whether the donor was compatible;
+- how many effective donors contributed;
+- whether pollen moved within or among fragments;
+- how far the donor was from the recipient;
+- whether the pollinator repeatedly visited the same plant or local neighbourhood;
+- whether poor matings were later removed by selective abortion.
+
+Thus a high local count can coexist with a degraded mating pool.
+
+## Internal anchor 1: Eucalyptus wandoo
+
+The source itself provides the clearest count–provenance clue.
+
+Across populations, smaller populations had **more pollen tubes** at the base of the style, whereas larger populations produced more fruits and, in year 2, more seeds per fruit. The authors proposed that pollinators may concentrate foraging among fewer trees in small populations, increasing within-plant foraging and self-pollination.
+
+The same paper reports a significant maternal-plant relationship in which multilocus outcrossing rate was lower on plants with more pollen tubes (r² = 0.14, P = 0.032, after removal of one zero-pollen-tube outlier). This is exactly the direction expected if a larger amount of pollen transfer can carry poorer mating provenance.
+
+### Population-level Table 6 × Table 7 overlap
+
+Published mating-system estimates are available for six populations. Five of those populations (F, C, E, B, A) also have both pollen-tube and year-2 seed-production measurements.
+
+The deterministic post hoc overlap gives:
+
+- Q pollen tubes vs seed-progeny multilocus outcrossing rate t_m: **r = -0.524**;
+- t_m vs year-2 seeds per fruit: **r = +0.694**;
+- Q pollen tubes vs year-2 seeds per fruit: **r = -0.267**;
+- fragmentation severity vs t_m across all six mating populations: **r = -0.489**.
+
+These values are descriptive only. n=5 for Q–E–F overlap, n=6 for fragmentation–t_m, and the stages are not synchronous: pollen tubes and the retained F measure are from year 2, whereas t_m was estimated from seed progeny produced in year 1.
+
+They therefore do **not** establish mediation.
+
+### Why seed-based t_m may itself be a late proxy
+
+The source also explains why population-level t_m did not show a resolved fragmentation effect despite evidence for increased self-pollination. In eucalypts, preferential post-zygotic elimination of selfed seeds can leave the surviving seed cohort enriched for outcrossed progeny.
+
+This matters for prospective design. If mating quality is measured only from surviving seeds, the measurement occurs **after** part of the reproductive filter that EGWEE is trying to localize.
+
+The hidden state should therefore be measured as early as possible: compatible/outcross pollen on stigmas, donor identity of pollen or early embryos, pollen-donor diversity, or direct paternity before strong viability filtering.
+
+## Internal anchor 2: Cardiopetalum calophyllum
+
+The Brazilian cerrado programme separates local pollinator presence from reproductive output unusually cleanly.
+
+Fragment size was strongly associated with fruit set, follicle set and seed set, while pollinator abundance was not detectably related to fragment size, isolation or local reproductive-plant density.
+
+The source authors explicitly suggested a spatial-transfer mechanism: the generalist beetle pollinator can persist in fragments, but its short flights may favour pollen exchange among nearby plants within fragments and reduce exchange among fragments and demes.
+
+Thus retained local pollinator abundance need not imply retained spatial breadth of mating.
+
+## Internal anchor 3: Kakamega Acanthopale
+
+The recovered direct panel gives:
+
+- interaction/visitation occurrence: Hedges g = **+0.349**;
+- fruit set: Hedges g = **-2.848**;
+- I-F contrast: **+3.197**, 95% CI **[+1.208, +5.186]**, P = **0.00163**.
+
+The source project report also noted that high visitation in a highly degraded fragment could reflect local superabundance of Acanthopale or a lack of alternative floral resources.
+
+This is compatible with local interaction concentration, but donor identity and mating quality were not measured. The mechanism therefore remains unresolved in this programme.
+
+## Independent internal bridges: provenance is biologically consequential
+
+The missing coordinate is not hypothetical elsewhere in the EGWEE corpus.
+
+### *Eucalyptus socialis* — donor diversity predicts progeny fitness
+
+The recovered Monarto family frame shows that isolated-pasture mothers have higher correlated paternity than small-remnant mothers, meaning fewer effective pollen donors. In the source analysis across families, correlated paternity had a negative effect on progeny growth and explained **16.6% of deviance**, while the number of half-sibships explained 15.2%. The source concluded that reduced pollen diversity affected fitness over and above inbreeding.
+
+This is not an additional false-reassurance I–F replication because local interaction quantity was not measured on that recovered frame. It is an independent internal bridge showing that the proposed provenance coordinate can itself carry fitness-relevant information.
+
+### *Spondias purpurea* — fragmentation spatially compresses realised pollen flow
+
+The same EGWEE corpus also contains a direct spatial example: fragmented *Spondias* sites show shorter realised pollen flow and higher correlated paternity, while juvenile and seed cohorts have lower heterozygosity and higher inbreeding than adults in fragmented habitat. The programme does not prove the Wandoo/Cardiopetalum/Acanthopale mechanism, but it demonstrates that fragmentation can alter **where successful pollen comes from and how many sires contribute**, rather than only how many pollinator visits occur.
+
+## Two-stage masking hypothesis
+
+Putting these observations together suggests a more precise mechanism than generic proxy noise.
+
+1. **local-count masking** — fragmentation can maintain or concentrate visits/pollen deposition while spatially compressing donor origin, compatible mating or donor diversity;
+2. **survivor-filter masking** — poor/selfed matings can be preferentially removed before seed or seedling genotyping, so a late mating estimate from survivors can look healthier than the incoming mating pool.
+
+The resulting observational pattern can be deceptive at both ends: an upstream count can look intact, and a downstream survivor-based genetic metric can also look relatively intact, while absolute reproductive output is already reduced.
+
+We treat this as a **two-stage masking hypothesis**, not a confirmed common mechanism. The current evidence does not establish its prevalence, temporal ordering across species, or mediation of all three false-reassurance anchors. Its value is that it makes the next measurement window explicit: incoming pollen/donor provenance and very early embryos should be measured before viability selection whenever possible.
+
+## Translation modifier: reproductive assurance
+
+The provenance hypothesis does **not** predict that degraded provenance must always produce an immediate decline in seed number. The plant mating system can change the translation from provenance to function.
+
+A particularly useful external counterexample is *Rhododendron ferrugineum*. Across the same 28 natural patches, the source jointly measured flower visitation, pollen limitation from seed set and progeny-array outcrossing. Small patches had high visitation but lower outcrossing / more selfing; nevertheless, pollinator-mediated selfing and geitonogamy reduced pollen limitation and provided reproductive assurance. In other words, provenance quality deteriorated while a quantity-like reproductive endpoint was partly buffered.
+
+The opposite biological boundary is visible in *Conospermum undulatum*. It is strongly self-incompatible: experimental self-pollination can initiate fruits, but the embryos abort and no viable seeds are produced. Such a system cannot use the same selfing route to convert locally concentrated visitation into equivalent viable reproduction.
+
+This contrast suggests a prospective modifier:
+
+> **mating system and reproductive assurance determine whether provenance loss appears as immediate functional decline or as temporarily buffered function with degraded mating quality.**
+
+This is not a fitted moderator result for EGWEE. The formal moderator gate remains separate, and the present comparison was assembled after the interaction→function pattern was recognized. It is retained because it turns the many-to-many translation map into a specific biological prediction rather than treating every mismatch as unrelated noise.
+
+## External mechanistic triangulation
+
+### Dianella revoluta
+
+Experimental isolation reduced **outcross conspecific pollen receipt** over short distances while heterospecific pollen deposition did not decline. The original authors interpreted this as maintained pollinator visitation with reduced effective outcross pollen transfer.
+
+This is a direct demonstration that event/visit quantity can be retained while donor provenance deteriorates.
+
+### Rhododendron ferrugineum
+
+The linked *Rhododendron ferrugineum* fragmentation programme provides an unusually complete external example of the proposed masking sequence.
+
+- In the pollen-transfer study (Delmas et al. 2016; doi:10.1002/ece3.2280), low-density patches had the **highest flower visitation rates** but the **lowest proportion of conspecific pollen** transported and deposited by pollinators. Self-pollen could buffer the immediate pollen-transfer deficit.
+- In the 28-patch mating study (Delmas et al. 2015; doi:10.1111/plb.12200), small floral displays combined high visitation with **lower realised outcrossing / higher selfing**, while pollinator-mediated selfing and geitonogamy reduced pollen limitation.
+- In the linked 28-patch lifetime-fitness study (Delmas et al. 2014; doi:10.1186/s12862-014-0243-7), reproductive assurance increased seed production by about **27%** on average and was stronger toward smaller floral displays, yet lifetime inbreeding depression was about **0.9** and adult inbreeding was far lower than expected from progeny selfing. The authors concluded that poor survival of selfed offspring counteracted the apparent reproductive-assurance benefit.
+
+Together these studies show a sequence very close to the two-stage masking hypothesis:
+
+`high local visitation → degraded pollen provenance / more selfing → short-term seed assurance → strong later fitness filtering`.
+
+The key point is not merely that "more visits ≠ better pollination." Even **short-term reproductive output can look buffered while long-term realised fitness is not**. Effective reproductive assurance therefore has to be defined at the life-history stage relevant to persistence, not simply by seed production in the flowering season.
+
+### Fragmented pollen-transport networks
+
+A 2024 comparison of flower-visitation and pollen-transport metanetworks across 29 fragmented calcareous grasslands found that only **36.8%** of unique pairwise interactions were shared by both network representations. Pollen-transport networks were more specialized than visitation networks.
+
+This shows that partner identity and actual pollen transport contain ecological structure that visitation counts do not preserve.
+
+## Sharpened prospective mechanism
+
+The mechanistic chain should be written as:
+
+`fragmentation -> local interaction concentration / retained counts -> altered transfer provenance -> effective mating -> reproductive function`
+
+rather than only:
+
+`fragmentation -> fewer visits -> lower reproduction`.
+
+A minimal decomposition is:
+
+`effective transfer = interaction quantity × effective-provenance fraction`.
+
+The second term can fall because of selfing, incompatibility, repeated donors, reduced donor diversity, shortened transfer distance, or reduced inter-fragment movement even when the first term is stable or increases.
+
+This product is a heuristic, not a fitted model: different mating systems require different definitions of effective provenance.
+
+## Translation decomposition: why the same Q can map to different F
+
+The frozen many-to-many map becomes easier to interpret if the biological conversion is decomposed into four distinct coordinates:
+
+- **Q — interaction quantity:** visits, pollinator abundance, pollen receipt or pollen-tube number;
+- **P — transfer provenance:** compatible/outcross fraction, donor identity, donor diversity and spatial origin;
+- **V — post-transfer viability:** fertilization success, selective abortion, embryo/seed survival and other post-zygotic filters;
+- **A — effective reproductive assurance:** a biologically independent or compensating route that can still produce viable offspring, such as effective autonomous selfing, wind pollination or apomixis.
+
+A heuristic expression is:
+
+`F ∝ Q × P × V + A`
+
+This is **not a fitted equation, an exact identity or a claim that all pathways are additive**. It is a bookkeeping device for the biological fact that local interaction counts identify reproductive function only when the hidden conversion coordinates remain sufficiently stable.
+
+Under this decomposition the observed response geometries have explicit interpretations:
+
+- **concordant deterioration:** Q declines and compensation is insufficient, with P or V possibly declining as well;
+- **false reassurance:** Q is maintained or elevated but P and/or V deteriorate, while A is insufficient;
+- **apparent over-warning / buffering:** Q declines, yet A or another conversion route preserves F;
+- **apparent resilience:** both the focal route and compensatory conversion remain sufficient over the observed range.
+
+This formulation also shows why **nominal self-compatibility is not the right moderator**. Wandoo can self, but selfed progeny can be preferentially removed; the route exists genetically but is weak as *effective* reproductive assurance. By contrast, wind pollination in *Haloxylon*, ambophily/apomixis in *Lithraea*, and pollinator-mediated selfing in *Rhododendron* can bypass part of the disrupted focal route and preserve a quantity-like reproductive endpoint.
+
+The prospective modifier is therefore **effective reproductive assurance**, defined by successful viable output rather than by mating-system label alone.
+
+## Effective assurance capacity, not mating-system label
+
+The current contrasts sharpen the proposed modifier one step further.
+
+A categorical mating-system label is too coarse. What matters is **effective assurance capacity**: whether an alternative reproductive route actually bypasses the damaged provenance step and still yields **viable offspring**.
+
+Five source-explicit examples make the distinction concrete:
+
+- *Eucalyptus wandoo* can self, but preferential loss of selfed progeny means that selfing does not provide complete viable reproductive assurance; high pollen-tube quantity can therefore coexist with lower seed production.
+- *Conospermum undulatum* can initiate fruits after self-pollination, but selfed embryos abort and viable seeds are not produced; provenance loss is therefore difficult to bypass.
+- *Haloxylon ammodendron* has a documented wind-pollination route, so reduced insect visitation need not map directly to lower natural seed set.
+- *Lithraea molleoides* combines ambophily with apomictic seed production, providing multiple routes by which reproductive output can remain stable.
+- *Rhododendron ferrugineum* uses pollinator-mediated selfing/geitonogamy as reproductive assurance: small patches can retain seed production while realised outcrossing falls.
+
+This is **not a moderator test** and does not estimate effect frequencies. The examples were assembled after the translation structure was known and span different evidence tiers. Their role is conceptual: they show why a mating-system label alone can misclassify the actual ability of a plant to compensate for provenance loss.
+
+The prospective variable should therefore be measured directly as **effective assurance capacity**, preferably by experimental bagging/crossing or an explicit alternative-pollination route linked to viable seed production.
+
+## Fresh predictions
+
+A genuinely new synchronized test should measure Q, P and F on the same individuals and flowering episode.
+
+1. **Count–provenance decoupling:** fragmentation can leave Q unchanged or higher while P declines.
+2. **Provenance dominates translation:** P should explain reproductive function after conditioning on Q more consistently than Q alone.
+3. **Concentration signature:** systems showing Q maintenance or increase should show shorter within-plant/within-patch movement, fewer effective donors, lower compatible/outcross fraction, or stronger donor inequality.
+4. **Connectivity intervention:** restoring corridors or donor availability can improve P and F before any detectable increase in local visit counts.
+5. **Stage-of-measurement prediction:** early pollen/embryo provenance should show stronger fragmentation responses than outcrossing estimated only from surviving seeds when selective abortion removes poor matings.
+
+## General ecological interpretation
+
+The potentially general principle is therefore:
+
+> **Fragmentation may first simplify the provenance of biological transfer before reducing the local amount of transfer.**
+
+That would explain how a landscape can be broadly deteriorating while local interaction counts remain deceptively normal or even elevated.
+
+It also gives the conservation result a more specific meaning. Monitoring should not only ask **how many interactions occurred**, but **who interacted, from where, and whether the transfer remained genetically and functionally effective**.
+
+## Claim ceiling
+
+Allowed:
+
+- Wandoo provides source-level evidence that high pollen-tube quantity can coexist with lower outcrossing at the maternal-plant level;
+- a five-population Table 6 × Table 7 overlap points in a Q↓quality/F direction but is small, post hoc and temporally non-synchronous;
+- Cardiopetalum and Kakamega are compatible with retained/concentrated local interaction despite downstream reproductive loss;
+- external studies directly demonstrate preserved visitation with degraded outcross/conspecific pollen transfer;
+- interaction provenance is a biologically grounded prospective explanation for the promoted false-reassurance result.
+
+Not allowed:
+
+- provenance loss is established as the common mechanism of all three EGWEE anchors;
+- the Wandoo five-population overlap is a mediation test;
+- seed-progeny t_m is an unbiased measure of incoming pollen quality;
+- local interaction concentration is universal under fragmentation;
+- the current corpus estimates how often count–provenance decoupling occurs in nature.

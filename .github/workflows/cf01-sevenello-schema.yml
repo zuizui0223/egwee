@@ -1,0 +1,42 @@
+name: Inspect CF01 Sevenello schema
+
+on:
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - 'scripts/inspect_cf01_sevenello_schema.py'
+      - '.github/workflows/cf01-sevenello-schema.yml'
+      - 'evidence/meta_extraction/phase2_cf01_sevenello_figshare_manifest_v1.json'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Inspect public CSV headers and structural fields only
+        run: python scripts/inspect_cf01_sevenello_schema.py
+      - name: Commit schema gate
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            evidence/meta_extraction/phase2_cf01_sevenello_schema_v1.json \
+            manuscript/PHASE2_CF01_SEVENELLO_SCHEMA_2026-09-25.md
+          if git diff --cached --quiet; then
+            echo 'No Sevenello schema changes'
+          else
+            git commit -m 'Inspect Sevenello public schema'
+            git pull --rebase origin meta/systematic-coverage-moderator-expansion-2026-09-16
+            git push origin HEAD:meta/systematic-coverage-moderator-expansion-2026-09-16
+          fi

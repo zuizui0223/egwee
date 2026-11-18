@@ -1,0 +1,31 @@
+name: Heliconia plot-year reproductive translation audit
+
+on:
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - 'scripts/audit_heliconia_plot_year_fecundity_translation.py'
+      - 'scripts/audit_heliconia_forward_lag_prediction.py'
+      - '.github/workflows/heliconia-plot-year-translation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Reproduce two-way plot and year conditioned reproductive associations
+        run: python scripts/audit_heliconia_plot_year_fecundity_translation.py --output build/heliconia_plot_year_translation.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: heliconia-plot-year-translation
+          path: build/heliconia_plot_year_translation.json
+          if-no-files-found: error

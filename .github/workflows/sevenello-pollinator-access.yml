@@ -1,0 +1,33 @@
+name: Sevenello pollinator access vs pollen addition
+on:
+  pull_request:
+    paths:
+      - 'scripts/audit_sevenello_pollinator_access_20261024.py'
+      - '.github/workflows/sevenello-pollinator-access.yml'
+      - 'evidence/meta_extraction/sevenello_2026_raw/**'
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - 'scripts/audit_sevenello_pollinator_access_20261024.py'
+      - '.github/workflows/sevenello-pollinator-access.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install NumPy and SciPy
+        run: python -m pip install --quiet numpy scipy
+      - name: Verify sources and all four treatment outcomes at physical reserve grain
+        run: python scripts/audit_sevenello_pollinator_access_20261024.py --output sevenello_four_arm_20261024.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sevenello-four-arm-access-decomposition
+          path: sevenello_four_arm_20261024.json

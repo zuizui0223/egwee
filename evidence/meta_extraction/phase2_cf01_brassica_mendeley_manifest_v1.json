@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "dataset_id": "6jw833yrt4",
+  "version": 1,
+  "dataset_doi": "10.17632/6jw833yrt4.1",
+  "public_api": "https://data.mendeley.com/public-api/datasets/6jw833yrt4/files?folder_id=root&version=1",
+  "files": [
+    {
+      "filename": "Data.xlsx",
+      "bytes": 48097,
+      "sha256": "e8fb36182a27fa1f3058adfb079ffc8edfea3ecbe7e78308e4383bd4f4dadd73",
+      "mendeley_file_id": "1d62ce7d-487f-419b-b3a9-1bb0ca61e793",
+      "declared_size": 48097,
+      "schema": {
+        "format": "xlsx",
+        "sheets": {
+          "PlotInfo": {
+            "columns": [
+              "Site",
+              "Condition",
+              "Plot",
+              "Latitude",
+              "Longitude"
+            ],
+            "data_rows": 23,
+            "interest_columns": [
+              "Site",
+              "Condition",
+              "Plot",
+              "Latitude",
+              "Longitude"
+            ]
+          },
+          "FSetData": {
+            "columns": [
+              "Site",
+              "Condition",
+              "Plot",
+              "Plant",
+              "FruitSet",
+              "Tratam"
+            ],
+            "data_rows": 751,
+            "interest_columns": [
+              "Site",
+              "Condition",
+              "Plot",
+              "Plant",
+              "FruitSet"
+            ]
+          },
+          "BeeDivData": {
+            "columns": [
+              "Bee diversity sampled in natural vegetation, within a 100m radius from plots",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            "data_rows": 71,
+            "interest_columns": [
+              "Bee diversity sampled in natural vegetation, within a 100m radius from plots"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "direct_visitation_file_hint_detected": false,
+  "fruit_set_file_hint_detected": true,
+  "effect_calculation_opened": false
+}

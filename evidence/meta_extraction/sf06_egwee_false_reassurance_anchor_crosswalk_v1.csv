@@ -1,0 +1,4 @@
+anchor_id,system,source_id,egwee_failure_geometry,sf06_public_s1_pair_present,sf06_pair_id,external_sign_test_relevance,interpretation
+A1,Eucalyptus wandoo,doi:10.3389/fevo.2018.00039,I_positive_F_negative,no,,not_directly_tested,"strong EGWEE sign-discordant false-reassurance anchor is absent from accessible SF06 paired public-S1 subset"
+A2,Cardiopetalum calophyllum,doi:10.1017/S0266467412000120,I_negative_F_more_negative,yes,SF06PAIR035,sign_concordant_amplitude_mismatch,"SF06 sign topology cannot detect this anchor's main failure because both endpoint signs are negative; the failure is quantitative severity translation"
+A3,Acanthopale pubescens,urn:nbn:de:hbz:5N-08143,I_positive_F_negative,no,,not_directly_tested,"strong EGWEE sign-discordant false-reassurance anchor is absent from accessible SF06 paired public-S1 subset"

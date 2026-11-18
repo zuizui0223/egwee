@@ -1,0 +1,25 @@
+name: Heliconia independent-plot recruitment audit
+
+on:
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - 'evidence/meta_extraction/heliconia_plot_cohorts_1999_2005_v1.csv'
+      - 'scripts/check_heliconia_plot_recruitment_audit.py'
+      - '.github/workflows/heliconia-recruitment-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify source-derived independent-plot estimands
+        run: python scripts/check_heliconia_plot_recruitment_audit.py

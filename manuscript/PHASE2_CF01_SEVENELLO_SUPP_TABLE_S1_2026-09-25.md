@@ -1,0 +1,39 @@
+# CFTQ0001 Sevenello supplementary Table S1 audit — 2026-09-25
+
+Only the **first supplementary table (Table S1)** was opened. Later supplementary
+tables containing model/results information were not inspected in this gate.
+
+- DOCX bytes: **290550**
+- Table S1 rows including header: **22**
+- Table S1 columns: **7**
+
+## Table S1 transcription
+
+- Remnant | Area (km2) | Position | Crop | Species | Coordinates | Distance to crop (m)
+- WA12427 | 1.1 | Edge | Pasture | LARO, GORO, POAR | -29.735011, 116.562464 | 47.7
+- WA12427 | 1.1 | Core | Pasture | LARO, GORO, POAR, POGN | -29.732964, 116.560528 | 319
+- WA12427 | 1.1 | Edge | Canola | LARO, GORO, POAR, POGN | -29.738463, 116.556468 | 28.6
+- WA12427 | 1.1 | Core | Canola | LARO, GORO, POAR, POGN | -29.735011, 116.562465 | 211.8
+- Latham | 0.81 | Edge | Wheat | POGN | -29.775530, 116.531727 | 3.4
+- Latham Private | 2.72 | Edge | Wheat | POGN | -29.782675, 116.530883 | 24.2
+- Maya Private | 6.38 | Edge | Canola | LARO, GORO, POAR | -29.811711, 116.531683 | 45.8
+- Maya Private | 6.38 | Core | Canola | LARO, GORO, POAR | -29.811489, 116.530483 | 166.1
+- Maya | 2.53 | Edge | Canola | GORO | -29.871695, 116.515318 | 32.3
+- Maya | 2.53 | Core | Canola | GORO | -29.868980, 116.512725 | 184
+- Maya | 2.53 | Core | Wheat | POGN | -29.868831, 116.513195 | 227
+- Buntine | 38.03 | Edge | Wheat | LARO, POAR, POGN | -29.966992, 116.584798 | 14.5
+- Buntine | 38.03 | Core | Wheat | LARO, POAR, POGN | -29.972873, 116.584919 | 671.6
+- Buntine | 38.03 | Edge | Canola | LARO, POAR, POGN | -29.966951, 116.605115 | 25.3
+- Buntine | 38.03 | Core | Canola | LARO, POAR, POGN | -29.968823, 116.603641 | 275.4
+- Milton | 4.14 | Edge | Wheat | GORO, LARO | -30.214090, 116.823316 | 45.8
+- Milton | 4.14 | Core | Wheat | GORO, LARO | -30.217727, 116.819857 | 459.2
+- Xantippe East | 2.6 | Edge | Wheat | GORO, LARO, POAR | -30.275382, 117.031002 | 22.7
+- Xantippe East | 2.6 | Core | Wheat | GORO, LARO, POAR | -30.272558, 117.027148 | 332.1
+- Xantippe Tank | 2.07 | Edge | Canola | LARO, POGN | -30.285941, 116.970297 | 13
+- Xantippe Tank | 2.07 | Core | Canola | LARO, POGN | -30.288813, 116.965168 | 607.2
+
+## Gate
+
+Use Table S1 only to reconcile reserve/remnant aliases, crop-side sampling units,
+edge/core transects and focal-species occupancy. Do not use later supplementary
+result tables before the candidate-specific recovery contract is frozen.

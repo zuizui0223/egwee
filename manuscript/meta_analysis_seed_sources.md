@@ -7,7 +7,7 @@ These sources define the starting search corpus. They are not treated as indepen
 1. Aguilar et al. (2006), *Ecology Letters* 9:968–980, doi:10.1111/j.1461-0248.2006.00927.x — fragmentation effects on pollination and plant reproductive success.
 2. Aguilar et al. (2008), *Molecular Ecology* 17:5177–5188, doi:10.1111/j.1365-294X.2008.03971.x — fragmentation effects on plant genetic diversity and mating-related genetic responses.
 3. Aguilar et al. (2019), *Ecology Letters* 22:1163–1173, doi:10.1111/ele.13272 — progeny genetic erosion and progeny performance under fragmentation.
-4. Méndez-Rojas et al. (2023), *AoB PLANTS* 15:plad019 — fine-scale spatial genetic structure under anthropogenic fragmentation/degradation.
+4. Miguel-Peñaloza et al. (2023), *AoB PLANTS* 15:plad019 — fine-scale spatial genetic structure under anthropogenic fragmentation/degradation.
 5. Updated land-use meta-analysis in *Annals of Botany* (2024 online / 2025 volume) — pollination plus male and female fitness, with Supplementary Data Table S1 containing the meta-analysis dataset.
 6. Olhnuud et al. (2025), *Journal of Applied Ecology*, doi:10.1111/1365-2664.70161 — insect-pollinator abundance/richness responses to fragmentation; deposited data: Dryad doi:10.5061/dryad.dz08kps9p.
 
@@ -34,6 +34,11 @@ For each prior synthesis:
 3. join candidate primary studies across synthesis domains;
 4. flag studies that appear in two or more response domains;
 5. return to the original paper/supplement for independent effect extraction;
-6. extend citation and keyword searches forward through 2026-09-11.
+6. extend backward/forward citation and keyword searches through the frozen Phase-2 cutoff 2026-09-18.
 
 The strongest first-pass candidates are studies appearing in more than one existing synthesis because they can provide the within-study cross-layer contrasts that are the paper's primary target.
+
+
+## Phase-2 source-frame execution status
+
+Frame-level public-source verification is recorded in `META_ANALYSIS_PHASE2_SOURCE_FRAME_AUDIT_2026-09-18.md` and `meta_analysis_coverage_frame_v2.csv`. Verification of a source frame is not the same as row-level screening completion: primary-study rows must still be materialized, deduplicated and frozen before new numerical effects are opened.

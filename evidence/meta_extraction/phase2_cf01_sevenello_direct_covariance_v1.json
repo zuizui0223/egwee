@@ -1,0 +1,177 @@
+{
+  "programme_id": "P2_CF01_SEVENELLO_2026",
+  "status": "direct_IF_three_panel_covariance_aware",
+  "primary_species": [
+    "GORO",
+    "LARO",
+    "POAR"
+  ],
+  "sensitivity_species": [
+    "POGN"
+  ],
+  "primary_fragmentation_contrast": "Edge_minus_Core",
+  "I_endpoint": "all_bees_per_transect",
+  "F_endpoint": "mean_total_viable_seeds_per_OP_plant",
+  "covariance_method": "group_centered_transect_pair_proxy",
+  "panels": {
+    "GORO": {
+      "primary_or_sensitivity": "primary",
+      "n_edge": 6,
+      "n_core": 6,
+      "transect_keys": [
+        "Maya|Canola|Core",
+        "Maya|Canola|Edge",
+        "Maya Private|Canola|Core",
+        "Maya Private|Canola|Edge",
+        "Milton|Wheat|Core",
+        "Milton|Wheat|Edge",
+        "WA12427|Canola|Core",
+        "WA12427|Canola|Edge",
+        "WA12427|Wheat|Core",
+        "WA12427|Wheat|Edge",
+        "Xantippe East|Wheat|Core",
+        "Xantippe East|Wheat|Edge"
+      ],
+      "I_g": 0.029631086907354876,
+      "F_g": 0.009516487953365666,
+      "I_variance": 0.3333699167213046,
+      "F_variance": 0.33333710681429024,
+      "residual_correlation_IF": -0.1288932657017698,
+      "sampling_covariance_proxy_IF": -0.04296702271287579,
+      "covariance_determinant": 0.10927839849799177,
+      "positive_definite": true,
+      "I_minus_F": {
+        "delta": 0.02011459895398921,
+        "variance": 0.7526410689613464,
+        "se": 0.8675488856320124,
+        "z": 0.02318555102440787,
+        "p_two_sided": 0.9815022641227207,
+        "ci95": [
+          -1.6802499717126134,
+          1.7204791696205919
+        ]
+      }
+    },
+    "LARO": {
+      "primary_or_sensitivity": "primary",
+      "n_edge": 8,
+      "n_core": 8,
+      "transect_keys": [
+        "Buntine|Canola|Core",
+        "Buntine|Canola|Edge",
+        "Buntine|Wheat|Core",
+        "Buntine|Wheat|Edge",
+        "Maya Private|Canola|Core",
+        "Maya Private|Canola|Edge",
+        "Milton|Wheat|Core",
+        "Milton|Wheat|Edge",
+        "WA12427|Canola|Core",
+        "WA12427|Canola|Edge",
+        "WA12427|Wheat|Core",
+        "WA12427|Wheat|Edge",
+        "Xantippe East|Wheat|Core",
+        "Xantippe East|Wheat|Edge",
+        "Xantippe Tank|Canola|Core",
+        "Xantippe Tank|Canola|Edge"
+      ],
+      "I_g": -0.34016285996637746,
+      "F_g": 0.1193440647476182,
+      "I_variance": 0.2536159616031408,
+      "F_variance": 0.2504450939309526,
+      "residual_correlation_IF": 0.42858646282654306,
+      "sampling_covariance_proxy_IF": 0.10801473516742174,
+      "covariance_determinant": 0.05184969031279921,
+      "positive_definite": true,
+      "I_minus_F": {
+        "delta": -0.4595069247139957,
+        "variance": 0.28803158519924993,
+        "se": 0.5366857415650708,
+        "z": -0.8561936513796548,
+        "p_two_sided": 0.3918906736283586,
+        "ci95": [
+          -1.5113916491977055,
+          0.592377799769714
+        ]
+      }
+    },
+    "POAR": {
+      "primary_or_sensitivity": "primary",
+      "n_edge": 6,
+      "n_core": 6,
+      "transect_keys": [
+        "Buntine|Canola|Core",
+        "Buntine|Canola|Edge",
+        "Buntine|Wheat|Core",
+        "Buntine|Wheat|Edge",
+        "Maya Private|Canola|Core",
+        "Maya Private|Canola|Edge",
+        "WA12427|Canola|Core",
+        "WA12427|Canola|Edge",
+        "WA12427|Wheat|Core",
+        "WA12427|Wheat|Edge",
+        "Xantippe East|Wheat|Core",
+        "Xantippe East|Wheat|Edge"
+      ],
+      "I_g": -0.34616341440855514,
+      "F_g": 0.0584505758556793,
+      "I_variance": 0.3383262128947912,
+      "F_variance": 0.33347568624241086,
+      "residual_correlation_IF": 0.4487298676555903,
+      "sampling_covariance_proxy_IF": 0.15072485977937183,
+      "covariance_determinant": 0.09010558266337519,
+      "positive_definite": true,
+      "I_minus_F": {
+        "delta": -0.40461399026423445,
+        "variance": 0.37035217957845845,
+        "se": 0.6085656740060669,
+        "z": -0.6648649563172714,
+        "p_two_sided": 0.5061368716222638,
+        "ci95": [
+          -1.597380793543469,
+          0.788152813015
+        ]
+      }
+    },
+    "POGN": {
+      "primary_or_sensitivity": "sensitivity",
+      "n_edge": 6,
+      "n_core": 5,
+      "transect_keys": [
+        "Buntine|Canola|Core",
+        "Buntine|Canola|Edge",
+        "Buntine|Wheat|Core",
+        "Buntine|Wheat|Edge",
+        "Latham|Wheat|Edge",
+        "Latham Private|Wheat|Edge",
+        "WA12427|Canola|Core",
+        "WA12427|Canola|Edge",
+        "WA12427|Wheat|Core",
+        "Xantippe Tank|Canola|Core",
+        "Xantippe Tank|Canola|Edge"
+      ],
+      "I_g": -0.3917844482834449,
+      "F_g": -0.22380587821156475,
+      "I_variance": 0.3736437145719741,
+      "F_variance": 0.3689434426267599,
+      "residual_correlation_IF": 0.44784551125123173,
+      "sampling_covariance_proxy_IF": 0.16627883155906073,
+      "covariance_determinant": 0.11020474854538809,
+      "positive_definite": true,
+      "I_minus_F": {
+        "delta": -0.16797857007188013,
+        "variance": 0.41002949408061246,
+        "se": 0.6403354543367191,
+        "z": -0.2623290166649884,
+        "p_two_sided": 0.7930677930596712,
+        "ci95": [
+          -1.4230129985959419,
+          1.0870558584521817
+        ]
+      }
+    }
+  },
+  "programme_internal_bonferroni_p": 1.0,
+  "direct_IF_programme_increment": 1,
+  "phase1_frozen_synthesis_increment": 0,
+  "retrospective_recovery": true
+}

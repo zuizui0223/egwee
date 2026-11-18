@@ -1,0 +1,37 @@
+name: Probe SF03 Wiley supplements
+
+on:
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - '.github/workflows/probe-sf03-wiley-supplement.yml'
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Probe SF03 public supporting files
+        run: |
+          set -u
+          LANDING='https://onlinelibrary.wiley.com/doi/10.1111/ele.13272'
+          UA='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36'
+          curl --location --silent --show-error --user-agent "$UA" --cookie-jar /tmp/wiley.cookies "$LANDING" -o /tmp/landing.html || true
+          for FILE in ele13272-sup-0001-Suppinfo.pdf ele13272-sup-0002-AppendixS1.pdf
+          do
+            URL="https://onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1111%2Fele.13272&file=$FILE"
+            OUT="/tmp/$FILE"
+            CODE="$(curl --location --silent --show-error \
+              --user-agent "$UA" \
+              --referer "$LANDING" \
+              --cookie /tmp/wiley.cookies \
+              --header 'Accept: application/pdf,application/octet-stream,*/*' \
+              --output "$OUT" \
+              --write-out '%{http_code}' \
+              "$URL" || true)"
+            SIZE="$(wc -c < "$OUT" 2>/dev/null || echo 0)"
+            TYPE="$(file -b "$OUT" 2>/dev/null || true)"
+            SHA="$(sha256sum "$OUT" 2>/dev/null | awk '{print $1}' || true)"
+            echo "SF03_SUPPLEMENT file=$FILE code=$CODE size=$SIZE type=$TYPE sha256=$SHA url=$URL"
+          done

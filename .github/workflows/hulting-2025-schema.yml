@@ -1,6 +1,12 @@
 name: Hulting 2025 source gates
 
 on:
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - 'scripts/inspect_hulting_2025_raw_schema.py'
+      - '.github/workflows/hulting-2025-schema.yml'
   pull_request:
     paths:
       - 'manuscript/HULTING_2025_CLUSTER_RECOVERY_CONTRACT.md'
@@ -23,6 +29,8 @@ jobs:
       - name: Inspect Dryad metadata only
         run: python scripts/probe_hulting_2025_dryad_schema.py
       - name: Inspect raw hierarchy after exposure lock
+        env:
+          HULTING_2025_RAW_OUT: /tmp/hulting_2025_raw.csv
         run: python scripts/inspect_hulting_2025_raw_schema.py
       - name: Inspect publisher supplementary model tables
         run: python scripts/inspect_hulting_2025_supplement.py

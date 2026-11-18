@@ -1,0 +1,36 @@
+name: GloPL baseline-independent manual pollination polarity
+on:
+  pull_request:
+    paths:
+      - 'scripts/audit_glopl_control_invariant_polarity_20261029.py'
+      - '.github/workflows/glopl-control-invariant-polarity.yml'
+      - 'evidence/meta_extraction/glopl_2018/GloPL_with_id.csv'
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - 'scripts/audit_glopl_control_invariant_polarity_20261029.py'
+      - '.github/workflows/glopl-control-invariant-polarity.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Recover source-locked baseline-invariant treatment contrasts
+        run: >
+          python scripts/audit_glopl_control_invariant_polarity_20261029.py
+          --output glopl_control_invariant_20261029.json
+          --cases_csv glopl_invariant_treatment_cases_20261029.csv
+      - uses: actions/upload-artifact@v4
+        with:
+          name: glopl-control-pairing-invariance-audit
+          path: |
+            glopl_control_invariant_20261029.json
+            glopl_invariant_treatment_cases_20261029.csv

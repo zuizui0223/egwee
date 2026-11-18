@@ -17,9 +17,15 @@ on:
       - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-11_GRADIENT_GEOMETRY.md'
       - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-12_MULTILAYER_CLUSTERS.md'
       - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-13_COHORT_DEPENDENCE.md'
+      - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-18_SYSTEMATIC_COVERAGE_MODERATORS.md'
       - 'manuscript/META_ANALYSIS_EXTRACTION_STATUS_2026-09-11.md'
       - 'manuscript/META_ANALYSIS_CLUSTER_STATUS_2026-09-12.md'
       - 'manuscript/meta_analysis_effect_schema.json'
+      - 'manuscript/meta_analysis_coverage_frame_v2.csv'
+      - 'manuscript/meta_analysis_moderator_schema_v1.csv'
+      - 'manuscript/meta_analysis_recovery_priority_v2.csv'
+      - 'evidence/meta_extraction/coverage_expansion_pair_coverage_v1.csv'
+      - 'manuscript/meta_analysis_phase2_contract.json'
       - 'manuscript/meta_analysis_seed_sources.md'
       - 'manuscript/meta_analysis_candidate_ledger.csv'
       - 'manuscript/meta_analysis_primary_study_seed_v1.csv'
@@ -31,6 +37,7 @@ on:
       - 'manuscript/tables/table_s3_primary_marginal_effects.csv'
       - 'evidence/meta_extraction/**'
       - 'scripts/check_meta_analysis_contract.py'
+      - 'scripts/check_systematic_coverage_expansion_contract.py'
       - 'scripts/check_meta_analysis_progress.py'
       - 'scripts/check_spondias_paternity_effect.py'
       - 'scripts/check_spondias_multilayer_cluster.py'
@@ -48,66 +55,95 @@ on:
       - 'scripts/check_manuscript_claim_sync.py'
       - 'scripts/check_study_flow_transparency.py'
       - 'scripts/check_statistical_estimand_contract.py'
+      - 'scripts/check_estimand_scale_robustness.py'
+      - 'scripts/check_effect_scale_sign_logic.py'
+      - 'manuscript/ESTIMAND_SIGN_INVARIANCE_AUDIT_2026-10-10.md'
+      - 'scripts/check_if_reliability_sufficiency.py'
+      - 'scripts/check_wandoo_mating_provenance_triangulation.py'
+      - 'scripts/check_interaction_provenance_context.py'
+      - 'scripts/check_fragmentation_translation_decomposition.py'
+      - 'scripts/check_effective_reproductive_assurance_context.py'
+      - 'scripts/check_myrtus_stage_displacement.py'
+      - 'manuscript/FRAGMENTATION_STAGE_DISPLACEMENT_2026-10-08.md'
+      - 'evidence/meta_extraction/fragmentation_stage_displacement_context_v1.csv'
+      - 'evidence/meta_extraction/myrtus_2010_2012_patch_crosswalk_v1.csv'
+      - 'evidence/meta_extraction/effective_reproductive_assurance_context_v1.csv'
+      - 'evidence/meta_extraction/interaction_provenance_context_v1.csv'
+      - 'manuscript/INTERACTION_PROVENANCE_HYPOTHESIS_2026-10-06.md'
+      - 'scripts/check_ecological_generality_and_surprise.py'
+      - 'evidence/meta_extraction/ecological_generality_surprise_promotion_v1.json'
+      - 'manuscript/ECOLOGICAL_GENERALITY_AND_SURPRISE_2026-09-29.md'
+      - 'evidence/meta_extraction/if_reliability_sufficiency_v1.csv'
+      - 'evidence/meta_extraction/if_reliability_wandoo_table6_v1.csv'
+      - 'manuscript/IF_RELIABILITY_SUFFICIENCY_2026-10-06.md'
+      - 'evidence/meta_extraction/ecological_if_programme_census_v1.csv'
+      - 'manuscript/ECOLOGICAL_IF_DIRECTION_CENSUS_2026-09-27.md'
+      - 'manuscript/FRESH_ECOLOGICAL_IF_VALIDATION_PREREGISTRATION_2026-09-27.md'
+      - 'manuscript/FRESH_ECOLOGICAL_IF_VALIDATION_AMENDMENT_2026-09-27_BOTTLENECK_LOCALIZATION.md'
+      - 'manuscript/FRESH_ECOLOGICAL_IF_VALIDATION_AMENDMENT_2026-09-29_EFFECT_SCALE.md'
+      - 'manuscript/FRESH_ECOLOGICAL_IF_SYNCHRONIZED_FIELD_MODULE_V1.md'
+      - 'manuscript/fresh_ecological_if_validation_contract_v1.json'
+      - 'manuscript/fresh_ecological_if_moderator_schema_v1.csv'
+      - 'manuscript/SUBMISSION_FREEZE_2026-09-27.md'
+      - 'manuscript/submission_freeze_manifest_v1.json'
+      - 'scripts/check_submission_freeze.py'
+      - 'scripts/check_fresh_ecological_if_validation_contract.py'
+      - 'evidence/meta_extraction/ecological_mating_function_programme_census_v1.csv'
+      - 'manuscript/ECOLOGICAL_BOTTLENECK_POSITION_AUDIT_2026-09-27.md'
+      - 'scripts/check_ecological_mating_function_programme_census.py'
+      - 'evidence/meta_extraction/ecological_process_function_programme_census_v1.csv'
+      - 'manuscript/ECOLOGICAL_PROCESS_FUNCTION_CENSUS_2026-09-27.md'
+      - 'scripts/check_ecological_process_function_programme_census.py'
+      - 'scripts/check_ecological_bottleneck_direction_influence.py'
+      - 'scripts/check_ecological_if_programme_census.py'
+      - 'evidence/meta_extraction/estimand_scale_sensitivity_v1.csv'
+      - 'evidence/meta_extraction/estimand_scale_fisher_sensitivity_v1.csv'
+      - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-27_ESTIMAND_SCALE.md'
+      - 'manuscript/ESTIMAND_SCALE_SENSITIVITY_RESULT_2026-09-27.md'
+      - 'scripts/check_estimand_scale_sensitivity.py'
       - 'scripts/check_covariance_robustness.py'
       - 'scripts/check_primary_effect_supplement.py'
       - 'scripts/build_primary_effect_forest.py'
+      - 'evidence/meta_extraction/if_sign_geometry_census_v1.csv'
+      - 'evidence/meta_extraction/if_sign_uncertainty_v1.csv'
+      - 'evidence/meta_extraction/scale_stable_quantity_function_proxy_failure_v1.csv'
+      - 'manuscript/IF_SIGN_GEOMETRY_2026-09-29.md'
+      - 'manuscript/IF_SIGN_UNCERTAINTY_2026-10-01.md'
+      - 'manuscript/IF_PROXY_FAILURE_NOVELTY_AUDIT_2026-10-01.md'
+      - 'manuscript/SCALE_STABLE_QUANTITY_FUNCTION_PROXY_FAILURE_2026-09-29.md'
+      - 'scripts/check_if_sign_geometry.py'
+      - 'scripts/check_if_sign_uncertainty.py'
+      - 'scripts/check_qualitative_external_if_audit.py'
+      - 'scripts/check_if_translation_map.py'
+      - 'scripts/check_if_translation_influence.py'
+      - 'scripts/check_if_translation_category_sensitivity.py'
+      - 'evidence/meta_extraction/if_interaction_metric_class_v1.csv'
+      - 'manuscript/IF_TRANSLATION_METRIC_SENSITIVITY_2026-10-05.md'
+      - 'scripts/check_if_interaction_metric_sensitivity.py'
+      - 'scripts/check_if_sentinel_determinism.py'
+      - 'scripts/check_if_sentinel_incremental_value.py'
+      - 'manuscript/IF_SENTINEL_INCREMENTAL_VALUE_2026-10-07.md'
+      - 'manuscript/IF_SENTINEL_DETERMINISM_2026-10-05.md'
+      - 'manuscript/IF_TRANSLATION_CATEGORY_SENSITIVITY_2026-10-05.md'
+      - 'scripts/check_fragmentation_sentinel_sufficiency.py'
+      - 'scripts/check_interaction_decline_necessity_sufficiency.py'
+      - 'manuscript/INTERACTION_DECLINE_NECESSITY_SUFFICIENCY_2026-10-03.md'
+      - 'manuscript/FRAGMENTATION_SENTINEL_SUFFICIENCY_2026-10-03.md'
+      - 'evidence/meta_extraction/if_translation_map_v1.csv'
+      - 'manuscript/IF_TRANSLATION_NONIDENTIFIABILITY_2026-10-03.md'
+      - 'evidence/meta_extraction/qualitative_external_if_audit_v1.csv'
+      - 'manuscript/QUALITATIVE_EXTERNAL_IF_AUDIT_2026-10-03.md'
+      - 'scripts/check_scale_stable_quantity_function_proxy_failure.py'
       - 'scripts/check_journal_of_ecology_submission_shape.py'
       - 'scripts/check_double_anonymous_submission.py'
       - 'scripts/build_journal_of_ecology_figures.py'
       - 'scripts/build_anonymous_review_package.py'
+      - 'docs/superpowers/specs/2026-09-17-egwee-systematic-coverage-moderator-expansion-design.md'
+      - 'docs/superpowers/plans/2026-09-17-egwee-systematic-coverage-moderator-expansion.md'
       - '.github/workflows/meta-analysis-contract.yml'
   push:
     branches: [main]
     paths:
-      - 'README.md'
-      - 'manuscript/MULTILAYER_FRAGMENTATION_META_ANALYSIS.md'
-      - 'manuscript/JOURNAL_OF_ECOLOGY_FIGURE_TABLE_PLAN.md'
-      - 'manuscript/JOURNAL_OF_ECOLOGY_TITLE_PAGE_TEMPLATE.md'
-      - 'manuscript/COVARIANCE_ROBUSTNESS_RESULT.md'
-      - 'manuscript/META_ANALYSIS_PROTOCOL_2026-09-11.md'
-      - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-11_EFFECT_UNITS.md'
-      - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-11_GRADIENT_GEOMETRY.md'
-      - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-12_MULTILAYER_CLUSTERS.md'
-      - 'manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-13_COHORT_DEPENDENCE.md'
-      - 'manuscript/META_ANALYSIS_EXTRACTION_STATUS_2026-09-11.md'
-      - 'manuscript/META_ANALYSIS_CLUSTER_STATUS_2026-09-12.md'
-      - 'manuscript/meta_analysis_effect_schema.json'
-      - 'manuscript/meta_analysis_seed_sources.md'
-      - 'manuscript/meta_analysis_candidate_ledger.csv'
-      - 'manuscript/meta_analysis_primary_study_seed_v1.csv'
-      - 'manuscript/meta_analysis_primary_study_seed_v1_sources.md'
-      - 'manuscript/meta_analysis_extraction_queue_v1.csv'
-      - 'manuscript/meta_analysis_submission_metadata.md'
-      - 'manuscript/tables/table_s1_cluster_recovery_flow.csv'
-      - 'manuscript/tables/table_s2_covariance_robustness.csv'
-      - 'manuscript/tables/table_s3_primary_marginal_effects.csv'
-      - 'evidence/meta_extraction/**'
-      - 'scripts/check_meta_analysis_contract.py'
-      - 'scripts/check_meta_analysis_progress.py'
-      - 'scripts/check_spondias_paternity_effect.py'
-      - 'scripts/check_spondias_multilayer_cluster.py'
-      - 'scripts/probe_spondias_supplement.py'
-      - 'scripts/inspect_spondias_supplement.py'
-      - 'scripts/check_brosimum_extraction.py'
-      - 'scripts/probe_brosimum_figshare.py'
-      - 'scripts/audit_brosimum_raw_workbook.py'
-      - 'scripts/recover_brosimum_multilayer_cluster.py'
-      - 'scripts/check_serapias_extraction.py'
-      - 'scripts/check_serapias_binary_effects.py'
-      - 'scripts/check_multilayer_cluster_contract.py'
-      - 'scripts/check_cross_system_cf_pilot.py'
-      - 'scripts/check_magnolia_extraction.py'
-      - 'scripts/check_manuscript_claim_sync.py'
-      - 'scripts/check_study_flow_transparency.py'
-      - 'scripts/check_statistical_estimand_contract.py'
-      - 'scripts/check_covariance_robustness.py'
-      - 'scripts/check_primary_effect_supplement.py'
-      - 'scripts/build_primary_effect_forest.py'
-      - 'scripts/check_journal_of_ecology_submission_shape.py'
-      - 'scripts/check_double_anonymous_submission.py'
-      - 'scripts/build_journal_of_ecology_figures.py'
-      - 'scripts/build_anonymous_review_package.py'
-      - '.github/workflows/meta-analysis-contract.yml'
 
 jobs:
   contract:
@@ -117,10 +153,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Install raw-data reader
-        run: python -m pip install --quiet openpyxl
+      - name: Install analysis readers
+        run: python -m pip install --quiet openpyxl numpy
       - name: Validate protocol-first meta-analysis state
         run: python scripts/check_meta_analysis_contract.py
+      - name: Validate systematic coverage and moderator expansion
+        run: python scripts/check_systematic_coverage_expansion_contract.py
       - name: Validate corpus and extraction progress
         run: python scripts/check_meta_analysis_progress.py
       - name: Audit Spondias site-level paternity effect
@@ -155,8 +193,74 @@ jobs:
         run: python scripts/check_study_flow_transparency.py
       - name: Check statistical estimand and Fisher interpretation
         run: python scripts/check_statistical_estimand_contract.py
+      - name: Audit authoritative estimand-scale robustness
+        run: python scripts/check_estimand_scale_robustness.py
+      - name: Audit algebraic sign identity across effect scales
+        run: python scripts/check_effect_scale_sign_logic.py
+      - name: Audit cross-scale process-function geometry
+        run: python scripts/check_bottleneck_scale_robustness.py
+      - name: Audit I-F measurement-reliability sufficiency
+        run: python scripts/check_if_reliability_sufficiency.py
+      - name: Audit Wandoo interaction-provenance triangulation
+        run: python scripts/check_wandoo_mating_provenance_triangulation.py
+      - name: Audit interaction-provenance evidence hierarchy
+        run: python scripts/check_interaction_provenance_context.py
+      - name: Audit fragmentation translation decomposition
+        run: python scripts/check_fragmentation_translation_decomposition.py
+      - name: Audit effective reproductive-assurance context
+        run: python scripts/check_effective_reproductive_assurance_context.py
+      - name: Audit Myrtus stage-displacement and extinction-debt crosswalk
+        run: python scripts/check_myrtus_stage_displacement.py
+      - name: Audit qualitative process-function sign geometry
+        run: python scripts/check_qualitative_process_function_sign_geometry.py
+      - name: Audit scale-stable interaction-quantity proxy failure
+        run: python scripts/check_scale_stable_quantity_function_proxy_failure.py
+      - name: Audit transition-specific filtering topology
+        run: python scripts/check_transition_specific_filtering.py
+      - name: Audit ecological generality and hidden mating hypothesis
+        run: python scripts/check_ecological_generality_and_surprise.py
+      - name: Audit scale-stable interaction-function sign geometry
+        run: python scripts/check_if_sign_geometry.py
+      - name: Audit interaction-function sign uncertainty
+        run: python scripts/check_if_sign_uncertainty.py
+      - name: Audit frozen qualitative external I-F evidence
+        run: python scripts/check_qualitative_external_if_audit.py
+      - name: Audit frozen I-F translation non-identifiability
+        run: python scripts/check_if_translation_map.py
+      - name: Audit I-F translation influence
+        run: python scripts/check_if_translation_influence.py
+      - name: Audit I-F translation category sensitivity
+        run: python scripts/check_if_translation_category_sensitivity.py
+      - name: Audit I-F interaction-metric sensitivity
+        run: python scripts/check_if_interaction_metric_sensitivity.py
+      - name: Audit I-F sentinel determinism
+        run: python scripts/check_if_sentinel_determinism.py
+      - name: Audit I-F incremental sentinel value
+        run: python scripts/check_if_sentinel_incremental_value.py
+      - name: Audit fragmentation sentinel sufficiency
+        run: python scripts/check_fragmentation_sentinel_sufficiency.py
+      - name: Audit necessity and sufficiency of interaction decline
+        run: python scripts/check_interaction_decline_necessity_sufficiency.py
       - name: Check covariance robustness and certification boundary
         run: python scripts/check_covariance_robustness.py
+      - name: Validate unified ecological process-function census
+        run: python scripts/check_ecological_process_function_programme_census.py
+      - name: Validate bottleneck-direction influence
+        run: python scripts/check_ecological_bottleneck_direction_influence.py
+      - name: Validate complete ecological I-F direction census
+        run: python scripts/check_ecological_if_programme_census.py
+      - name: Validate ecological bottleneck-position audit
+        run: python scripts/check_ecological_mating_function_programme_census.py
+      - name: Validate fresh ecological I-F validation contract
+        run: python scripts/check_fresh_ecological_if_validation_contract.py
+      - name: Guard recruitment-stage source and opportunity arithmetic
+        run: python scripts/check_stage_opportunity_ledger.py
+      - name: Audit Heliconia plot-level recruitment and missingness
+        run: python scripts/check_heliconia_plot_recruitment_audit.py
+      - name: Audit Heliconia held-out population-size diagnostic
+        run: python scripts/check_heliconia_density_predictive_value.py
+      - name: Reproduce Heliconia longitudinal source-locked cohort audit
+        run: python scripts/check_heliconia_longitudinal_recruitment.py
       - name: Audit all 17 primary marginal effects
         run: python scripts/check_primary_effect_supplement.py
       - name: Build supplementary primary-effect forest
@@ -165,7 +269,7 @@ jobs:
         run: python scripts/check_journal_of_ecology_submission_shape.py
       - name: Check double-anonymous manuscript
         run: python scripts/check_double_anonymous_submission.py
-      - name: Build Journal of Ecology figures and Table 1
+      - name: Build Journal of Ecology figures and Tables 1-2
         run: python scripts/build_journal_of_ecology_figures.py
       - name: Build anonymous reviewer code and data package
         run: python scripts/build_anonymous_review_package.py
@@ -175,3 +279,9 @@ jobs:
           name: anonymous-review-package
           path: build/anonymous_review_package.zip
           if-no-files-found: error
+      # The publication freeze remains fail-closed, but should not mask upstream
+      # scientific validation or artifact failures during an open revision.
+      - name: Audit nested SF06 publication-deletion prediction influence
+        run: python scripts/check_sf06_publication_delete_predictive_influence.py
+      - name: Validate ecology-first submission freeze
+        run: python scripts/check_submission_freeze.py

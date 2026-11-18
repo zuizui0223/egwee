@@ -1,0 +1,8 @@
+{
+  "schema_version": 2,
+  "status": "superseded_pointer_only",
+  "superseded_on": "2026-09-18",
+  "canonical_contract": "manuscript/meta_analysis_phase2_contract.json",
+  "canonical_amendment": "manuscript/META_ANALYSIS_PROTOCOL_AMENDMENT_2026-09-18_SYSTEMATIC_COVERAGE_MODERATORS.md",
+  "note": "Historical values remain in git history. This file must not be used as an executable analysis contract."
+}

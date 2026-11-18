@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "cluster_id": "P2_CF01_GPAIR_003",
+  "source": {
+    "citation": "Farwig et al. 2008",
+    "doi": "10.1007/s10592-007-9343-x",
+    "site_order": ["Malava", "Kisere", "Mukangu", "Buyangu", "Isecheno B", "Isecheno A", "Ikuywa", "Kaimosi"],
+    "forest_context": ["fragment", "fragment", "main_forest", "main_forest", "main_forest", "main_forest", "fragment", "fragment"]
+  },
+  "method": {
+    "label": "approximate_reconstructed_sampling_covariance_from_group_residual_correlations",
+    "residual_model": "endpoint ~ intercept + fragment_indicator",
+    "covariance_formula": "V_ij = R_ij * sqrt(v_i * v_j)",
+    "marginal_variance_rule": "canonical_EGWEE_Hedges_g_LS"
+  },
+  "primary_pair": {
+    "pair_id": "G_adult-G_offspring",
+    "residual_correlation": 0.646753410671,
+    "marginal_variances": [0.526515534135, 0.528687306776],
+    "sampling_covariance": 0.341227295431,
+    "covariance_matrix": [
+      [0.526515534135, 0.341227295431],
+      [0.341227295431, 0.528687306776]
+    ],
+    "eigenvalues_ascending": [0.186372628179, 0.868830212732],
+    "positive_definite": true,
+    "effect_difference_Gadult_minus_Goffspring": -0.026149459057,
+    "difference_variance": 0.372748250048,
+    "difference_se": 0.610531121277,
+    "z": -0.042830673402,
+    "p_two_sided": 0.965836512579,
+    "ci95": [-1.222768468202, 1.170469550088]
+  },
+  "admission": {
+    "pair_specific_admissible": true,
+    "phase1_baseline_changed": false,
+    "programme_count_increment": 1
+  }
+}

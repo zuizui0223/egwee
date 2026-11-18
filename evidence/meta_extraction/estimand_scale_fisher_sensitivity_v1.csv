@@ -1,0 +1,5 @@
+estimand,dependence_regime,full_fisher_p,omit_ML001_fisher_p,interpretation_role
+hedges_g,registered_rho_proxy,0.01212432,0.18194353,historical_primary
+oriented_lnRR,carried_existing_rho_proxy,1.1786949416822378e-10,2.9182238842850177e-05,working_scale_sensitivity
+oriented_lnRR,zero_covariance,1.7227795177175651e-09,0.004344181486474443,working_scale_sensitivity
+oriented_lnRR,cauchy_maximum_contrast_variance,9.946000181275223e-05,0.11137892442058767,covariance_free_noncertification_boundary

@@ -1,0 +1,9 @@
+programme_id,system,n_primary_IF_panels,n_opposite_sign_primary_panels,has_opposite_sign_primary_panel,resolved_opposite_sign_panel,registered_programme_p,scale_check,interpretation
+ML020,Aizen-Feinsinger Chaco programme,3,0,no,no,1.00000000,direct_g_and_lnRR_same_sign_in_all_panels,all retained species I and F deteriorate
+P2_CF01_SEVENELLO_2026,Sevenello edge-core annual forbs,3,2,yes,no,1.00000000,direct_g_signs_equal_raw_mean_direction,LARO and POAR have I negative F positive point signs but differences unresolved
+P2_CF01_BERGSDORF_KAKAMEGA_2006,Kakamega multi-species programme,4,1,yes,yes,0.00653539,Acanthopale_opposite_sign_survives_lnRR,Acanthopale I positive F negative and resolved under g and lnRR; other panels both positive
+ML015,Eucalyptus wandoo,1,1,yes,yes,0.00256953,fisher_z_gradient_sign_discordance,pollen-tube response positive and seed-production response negative; registered pair/programme difference resolved
+P2_CF01_CARDIOPETALUM_2012,Cardiopetalum calophyllum,1,0,no,no,0.00315990,fisher_z_gradient_same_negative_sign,pollinator abundance and fruit set both negative though magnitude difference resolves
+P2_CF01_ZURICH_2026,Zurich BetterBlooms phytometers,4,1,yes,no,0.62784436,fisher_z_gradient_sign_discordance_in_one_panel,Onobrychis I negative F positive point signs but programme difference unresolved
+P2_CF01_MILKWEED_URBAN_2023,Common milkweed Toronto gradient,1,1,yes,no,0.16677237,fisher_z_gradient_sign_discordance,I negative F positive point signs but pair difference unresolved
+P2_CF01_PRITCHARD_2005,Custard-apple orchard isolation,1,0,no,no,,fisher_z_gradient_same_negative_sign_but_pair_covariance_unavailable,I and F both negative; pair difference not testable

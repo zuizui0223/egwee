@@ -1,0 +1,38 @@
+name: Audit Phase-2 CF01 seed work identities
+
+on:
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - 'evidence/meta_extraction/phase2_cf01_bibliographic_resolution_v1.csv'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Build CF01 seed work identity ledger
+        run: python scripts/build_phase2_cf01_seed_work_identity.py
+      - name: Commit identity audit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            evidence/meta_extraction/phase2_cf01_seed_work_identity_v1.csv \
+            evidence/meta_extraction/phase2_cf01_seed_duplicate_work_groups_v1.csv \
+            evidence/meta_extraction/phase2_cf01_seed_work_identity_summary_v1.json \
+            manuscript/PHASE2_CF01_SEED_WORK_IDENTITY_2026-09-23.md
+          if git diff --cached --quiet; then
+            echo 'No CF01 seed-identity changes'
+          else
+            git commit -m 'Audit Phase-2 CF01 seed work identities'
+            git pull --rebase origin meta/systematic-coverage-moderator-expansion-2026-09-16
+            git push origin HEAD:meta/systematic-coverage-moderator-expansion-2026-09-16
+          fi

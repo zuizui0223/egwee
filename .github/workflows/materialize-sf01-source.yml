@@ -1,0 +1,58 @@
+name: Materialize SF01 source universe
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Resolve and download public KNB/DataONE Table S1 object
+        run: |
+          set -e
+          QUERY='https://cn.dataone.org/cn/v2/query/solr/?q=id%3A%22bowdish.796.1%22&fl=id%2CdataUrl%2CformatType%2Csize&wt=json'
+          curl --fail --location --retry 3 --retry-delay 2 "$QUERY" -o /tmp/sf01_solr.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data = json.loads(Path('/tmp/sf01_solr.json').read_text())
+          docs = data.get('response', {}).get('docs', [])
+          assert len(docs) == 1, docs
+          doc = docs[0]
+          assert doc.get('id') == 'bowdish.796.1', doc
+          assert doc.get('formatType') == 'DATA', doc
+          url = doc.get('dataUrl')
+          assert url, doc
+          Path('/tmp/sf01_data_url.txt').write_text(url)
+          print('SF01_DATAONE_RESOLVED', doc)
+          PY
+          DATA_URL="$(cat /tmp/sf01_data_url.txt)"
+          curl --fail --location --retry 3 --retry-delay 2 "$DATA_URL" -o /tmp/sf01_table.tsv
+          test -s /tmp/sf01_table.tsv
+      - name: Build outcome-blind SF01 publication universe
+        run: |
+          python scripts/build_phase2_sf01_study_universe.py \
+            /tmp/sf01_table.tsv evidence/meta_extraction
+          test -s evidence/meta_extraction/phase2_sf01_publication_universe_v1.csv
+          test -s evidence/meta_extraction/phase2_sf01_source_frame_summary_v1.json
+          test -s manuscript/PHASE2_SF01_MATERIALIZATION_2026-09-20.md
+      - name: Commit SF01 materialization
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            evidence/meta_extraction/phase2_sf01_publication_universe_v1.csv \
+            evidence/meta_extraction/phase2_sf01_source_frame_summary_v1.json \
+            manuscript/PHASE2_SF01_MATERIALIZATION_2026-09-20.md
+          if git diff --cached --quiet; then
+            echo 'No SF01 materialization changes'
+          else
+            git commit -m 'Materialize SF01 publication universe'
+            git push origin HEAD:meta/systematic-coverage-moderator-expansion-2026-09-16
+          fi

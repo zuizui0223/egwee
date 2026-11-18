@@ -1,0 +1,53 @@
+name: Recover CF01 Zurich gradient
+
+on:
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - 'manuscript/CF01_ZURICH_2026_GRADIENT_RECOVERY_CONTRACT.md'
+      - 'evidence/meta_extraction/phase2_cf01_zurich_exposure_v1.csv'
+      - 'evidence/meta_extraction/phase2_cf01_zurich_visitation_source_v1.csv'
+      - 'evidence/meta_extraction/phase2_cf01_zurich_source_manifest_v1.json'
+      - 'scripts/recover_phase2_cf01_zurich_gradient.py'
+      - '.github/workflows/recover-cf01-zurich-gradient.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Download source EnviDat archive
+        run: |
+          curl --fail --location --retry 3 --retry-delay 2 \
+            'https://www.envidat.ch/dataset/d8e61f31-c2e5-4052-8784-b1624dfbfc40/resource/cef4a88c-0ef6-4327-a4a0-fc7d33b468e5/download/rejichacko_etal_2025_envidat.zip' \
+            -o /tmp/zurich_envidat.zip
+          test -s /tmp/zurich_envidat.zip
+      - name: Recover source-defined garden-level gradient effects
+        run: python scripts/recover_phase2_cf01_zurich_gradient.py /tmp/zurich_envidat.zip
+      - name: Commit Zurich gradient recovery
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            evidence/meta_extraction/phase2_cf01_zurich_garden_values_v1.csv \
+            evidence/meta_extraction/phase2_cf01_zurich_gradient_effects_v1.csv \
+            evidence/meta_extraction/phase2_cf01_zurich_gradient_covariance_v1.json \
+            manuscript/PHASE2_CF01_ZURICH_GRADIENT_RECOVERY_2026-09-24.md
+          if git diff --cached --quiet; then
+            echo 'No Zurich gradient changes'
+          else
+            git commit -m 'Recover Zurich gradient I-F programme'
+            git pull --rebase origin meta/systematic-coverage-moderator-expansion-2026-09-16
+            git push origin HEAD:meta/systematic-coverage-moderator-expansion-2026-09-16
+          fi

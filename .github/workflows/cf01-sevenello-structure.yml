@@ -1,0 +1,43 @@
+name: Materialize CF01 Sevenello structure
+
+on:
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - 'scripts/materialize_cf01_sevenello_structure.py'
+      - '.github/workflows/cf01-sevenello-structure.yml'
+      - 'evidence/meta_extraction/phase2_cf01_sevenello_figshare_manifest_v1.json'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Materialize structural identifiers only
+        run: python scripts/materialize_cf01_sevenello_structure.py
+      - name: Commit structural tables
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            evidence/meta_extraction/phase2_cf01_sevenello_bee_structural_units_v1.csv \
+            evidence/meta_extraction/phase2_cf01_sevenello_plant_structural_units_v1.csv \
+            manuscript/PHASE2_CF01_SEVENELLO_STRUCTURE_2026-09-25.md
+          if git diff --cached --quiet; then
+            echo 'No Sevenello structural changes'
+          else
+            git commit -m 'Materialize Sevenello structural units'
+            git pull --rebase origin meta/systematic-coverage-moderator-expansion-2026-09-16
+            git push origin HEAD:meta/systematic-coverage-moderator-expansion-2026-09-16
+          fi

@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "seed_manifest_units": 363,
+  "candidate_units": 17472,
+  "bibliographically_resolved_seed_units": 292,
+  "exact_seed_doi_count": 82,
+  "unresolved_seed_author_year_keys": 67,
+  "screening_status_counts": {
+    "excluded_post_cutoff": 2,
+    "existing_CF01_seed_no_new_screen": 263,
+    "pending_bibliographic_metadata_recovery": 300,
+    "pending_cutoff_date_adjudication": 1,
+    "pending_seed_identity_adjudication": 55,
+    "pending_title_abstract_methods_screen": 16851
+  },
+  "deduplication_rule": "exact OpenAlex ID, DOI, or normalized title + publication year => existing seed; author-year collision with unresolved seed => adjudicate, never auto-collapse; only cutoff-eligible candidates with no detected seed collision enter title/abstract/method screening",
+  "effect_outcomes_opened": false
+}

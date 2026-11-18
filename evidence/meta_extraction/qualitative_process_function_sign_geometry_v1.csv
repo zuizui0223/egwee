@@ -1,0 +1,23 @@
+programme_id,panel_id,design_stream,process_stage,process_effect,reproductive_effect,sign_geometry,qualitative_mode,note
+ML020,Atamisquea_emarginata,direct,I_interaction,-0.712802558110,-1.004776808504,same_sign,co_deterioration,both negative
+ML020,Cercidium_australe,direct,I_interaction,-0.637331203988,-1.138528122970,same_sign,co_deterioration,both negative
+ML020,Prosopis_nigra,direct,I_interaction,-0.480571386641,-1.135496758044,same_sign,co_deterioration,both negative
+P2_CF01_SEVENELLO_2026,GORO,direct,I_interaction,0.029631086907,0.009516487953,same_sign,co_positive,both slightly positive
+P2_CF01_SEVENELLO_2026,LARO,direct,I_interaction,-0.340162859966,0.119344064748,opposite_sign,downstream_buffering,interaction lower at edge while reproduction higher
+P2_CF01_SEVENELLO_2026,POAR,direct,I_interaction,-0.346163414409,0.058450575856,opposite_sign,downstream_buffering,interaction lower at edge while reproduction higher
+P2_CF01_BERGSDORF_KAKAMEGA_2006,AP_2001,direct,I_interaction,0.348901857611,-2.847886138044,opposite_sign,downstream_failure,visitation maintained or higher while fruit set lower
+P2_CF01_BERGSDORF_KAKAMEGA_2006,AE_2002,direct,I_interaction,1.726118231296,0.817850703610,same_sign,co_positive,both positive
+P2_CF01_BERGSDORF_KAKAMEGA_2006,AE_2003,direct,I_interaction,1.138952006053,0.204658939845,same_sign,co_positive,both positive
+P2_CF01_BERGSDORF_KAKAMEGA_2006,HD_2002_03,direct,I_interaction,1.108828898149,0.868855589087,same_sign,co_positive,both positive
+ML015,Eucalyptus_wandoo,gradient,I_interaction,0.690291232004,-0.875930795707,opposite_sign,downstream_failure,pollen tubes increase while seed production declines
+P2_CF01_ZURICH_2026,Daucus_carota,gradient,I_interaction,-0.449319867806,-0.399387439593,same_sign,co_deterioration,both negative
+P2_CF01_ZURICH_2026,Raphanus_sativus,gradient,I_interaction,-0.578411780481,-0.565070722182,same_sign,co_deterioration,both negative
+P2_CF01_ZURICH_2026,Onobrychis_viciifolia,gradient,I_interaction,-0.261779308878,0.119071768633,opposite_sign,downstream_buffering,interaction declines while fruit set increases
+P2_CF01_ZURICH_2026,Symphytum_officinale,gradient,I_interaction,-0.450258575861,-0.570969449575,same_sign,co_deterioration,both negative
+P2_CF01_MILKWEED_URBAN_2023,primary,gradient,I_interaction,-0.323258614173,0.104945967884,opposite_sign,downstream_buffering,pollinator abundance declines while follicles increase
+P2_CF01_ACER_MIYABEI_2014,primary,gradient,C_movement_connectivity,0.181083735621,-0.000190678906,opposite_sign,downstream_failure_near_zero_F,connectivity positive while F is effectively near zero negative
+P2_CF01_CARDIOPETALUM_2012,primary,gradient,I_interaction,-0.245165314917,-1.683797866540,same_sign,co_deterioration,both negative but F much more negative
+P2_CF01_PRITCHARD_2005,primary,gradient,I_interaction,-0.989075021144,-1.489790174137,same_sign,co_deterioration,both negative
+ML001,Serapias_lingua,direct,C_movement_connectivity,-10.099014842641,-4.554090700612,same_sign,co_deterioration,both negative on registered g
+ML002,Brosimum_alicastrum,direct,C_movement_connectivity,-2.321537609900,-1.286939644908,same_sign,co_deterioration,both negative on registered g
+ML014,Eucalyptus_socialis,direct,G_mating,-1.023913881040,-0.271808874814,same_sign,co_deterioration,both negative on registered g

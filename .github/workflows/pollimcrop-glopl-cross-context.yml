@@ -1,0 +1,40 @@
+name: EGWEE wild-crop pollen stage cross-validation
+on:
+  pull_request:
+    paths:
+      - 'scripts/audit_pollimcrop_glopl_cross_context_20261024.py'
+      - '.github/workflows/pollimcrop-glopl-cross-context.yml'
+      - 'evidence/meta_extraction/pollimcrop_2023/**'
+      - 'evidence/meta_extraction/glopl_2018/GloPL_with_id.csv'
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - 'scripts/audit_pollimcrop_glopl_cross_context_20261024.py'
+      - '.github/workflows/pollimcrop-glopl-cross-context.yml'
+      - 'evidence/meta_extraction/pollimcrop_2023/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install numpy
+        run: python -m pip install --quiet numpy
+      - name: Validate source geography, DOI overlap and all same-case contrasts
+        run: >
+          python scripts/audit_pollimcrop_glopl_cross_context_20261024.py
+          --output cross_domain_20261024.json
+          --discordant-cases crop_stage_discordant_20261024.csv
+      - uses: actions/upload-artifact@v4
+        with:
+          name: egwee-wild-crop-pollen-stage-analysis
+          path: |
+            cross_domain_20261024.json
+            crop_stage_discordant_20261024.csv

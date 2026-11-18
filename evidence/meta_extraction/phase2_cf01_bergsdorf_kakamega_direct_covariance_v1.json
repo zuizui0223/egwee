@@ -1,0 +1,132 @@
+{
+  "programme_id": "P2_CF01_BERGSDORF_KAKAMEGA_2006",
+  "status": "direct_IF_four_panel_covariance_aware_retrospective",
+  "source": "Bergsdorf 2006 dissertation",
+  "independent_unit": "study_site_locality",
+  "habitat_contrast": "surrounding_forest_fragment_minus_main_forest_site",
+  "programme_is_retrospective": true,
+  "source_values_visible_before_recovery_rule": true,
+  "recovered_panels": [
+    "AP_2001",
+    "AE_2002",
+    "AE_2003",
+    "HD_2002_03"
+  ],
+  "blocked_panels": [
+    {
+      "panel": "Dracaena_fragrans_2002_03",
+      "status": "site_level_common_IF_vectors_not_recoverable",
+      "note": "Public indexed source exposes grouped levels of pollination but not a complete common site-level visitation-occurrence and fruit-set table under the deterministic panel rule."
+    }
+  ],
+  "panel_blocks": {
+    "AP_2001": {
+      "species": "Acanthopale pubescens",
+      "campaign": "2001",
+      "n_fragment": 4,
+      "n_main": 3,
+      "I_g": 0.3489018576114121,
+      "I_variance": 0.5920285123508114,
+      "F_g": -2.847886138043839,
+      "F_variance": 1.16265158013778,
+      "residual_rho_IF": 0.43670052516289376,
+      "cov_IF": 0.3623095810260032,
+      "covariance_determinant": 0.5570546528680521,
+      "positive_definite": true,
+      "I_minus_F": {
+        "delta": 3.196787995655251,
+        "variance": 1.030060930436585,
+        "se": 1.014919174336846,
+        "z": 3.1497956452976177,
+        "p_two_sided": 0.0016338470329969239,
+        "ci95": [
+          1.2075829667359048,
+          5.185993024574597
+        ]
+      }
+    },
+    "AE_2002": {
+      "species": "Acanthus eminens",
+      "campaign": "2002",
+      "n_fragment": 2,
+      "n_main": 3,
+      "I_g": 1.726118231296142,
+      "I_variance": 1.1312817481746253,
+      "F_g": 0.8178507036098889,
+      "F_variance": 0.9002213106728523,
+      "residual_rho_IF": -0.6232931407973067,
+      "cov_IF": -0.6290025159980411,
+      "covariance_determinant": 0.6227597729501708,
+      "positive_definite": true,
+      "I_minus_F": {
+        "delta": 0.9082675276862532,
+        "variance": 3.28950809084356,
+        "se": 1.8137001105043689,
+        "z": 0.5007815362781638,
+        "p_two_sided": 0.6165248813642412,
+        "ci95": [
+          -2.646519367658626,
+          4.463054423031132
+        ]
+      }
+    },
+    "AE_2003": {
+      "species": "Acanthus eminens",
+      "campaign": "2003",
+      "n_fragment": 3,
+      "n_main": 4,
+      "I_g": 1.1389520060526925,
+      "I_variance": 0.6759913099112942,
+      "F_g": 0.20465893984535266,
+      "F_variance": 0.5863251391660921,
+      "residual_rho_IF": -0.48137230250519947,
+      "cov_IF": -0.30305462208160167,
+      "covariance_determinant": 0.30450859489378607,
+      "positive_definite": true,
+      "I_minus_F": {
+        "delta": 0.9342930662073399,
+        "variance": 1.8684256932405896,
+        "se": 1.3669036883557633,
+        "z": 0.6835105312585651,
+        "p_two_sided": 0.49428429787039474,
+        "ci95": [
+          -1.744788933304918,
+          3.6133750657195978
+        ]
+      }
+    },
+    "HD_2002_03": {
+      "species": "Heinsenia diervilleoides",
+      "campaign": "2002-2003",
+      "n_fragment": 3,
+      "n_main": 4,
+      "I_g": 1.1088288981488423,
+      "I_variance": 0.6711548708597601,
+      "F_g": 0.8688555890874087,
+      "F_variance": 0.637255478668221,
+      "residual_rho_IF": 0.12337209084902465,
+      "cov_IF": 0.08068356646950837,
+      "covariance_determinant": 0.4211872805920049,
+      "positive_definite": true,
+      "I_minus_F": {
+        "delta": 0.23997330906143366,
+        "variance": 1.1470432165889644,
+        "se": 1.0710010348216124,
+        "z": 0.2240644978474778,
+        "p_two_sided": 0.8227071167737002,
+        "ci95": [
+          -1.8591501465940548,
+          2.3390967647169223
+        ]
+      }
+    }
+  },
+  "programme_internal_gate": {
+    "method": "Bonferroni_across_four_recovered_dependent_panels",
+    "min_panel_p": 0.0016338470329969239,
+    "multiplier": 4,
+    "p_programme": 0.0065353881319876956
+  },
+  "pair_programme_increment": 1,
+  "phase1_primary_cluster_increment": 0
+}

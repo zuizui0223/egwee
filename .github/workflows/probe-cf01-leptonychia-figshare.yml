@@ -1,0 +1,28 @@
+name: Probe CF01 Leptonychia Figshare
+
+on:
+  push:
+    branches:
+      - meta/systematic-coverage-moderator-expansion-2026-09-16
+    paths:
+      - 'scripts/probe_cf01_leptonychia_figshare.py'
+      - '.github/workflows/probe-cf01-leptonychia-figshare.yml'
+      - 'manuscript/CF01_LEPTONYCHIA_2009_CF_RECOVERY_CONTRACT.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install schema reader
+        run: python -m pip install --quiet openpyxl beautifulsoup4
+      - name: Probe public Figshare collection and file schemas
+        run: python scripts/probe_cf01_leptonychia_figshare.py
