@@ -221,5 +221,16 @@
     "Upstream observed visit and pollen contrasts among recovered and unrecovered fruits cannot reveal missing seed-set values or classify cause.",
     "Original source Seed.set denominator does not exactly match stated published formula in 10 fruits; original response unchanged.",
     "One local site, eight filming dates, no independent fragmentation origin or gene-mating causal evidence."
-  ]
+  ],
+  "partial_identification_of_hypothetical_all122_seedset_mean": {
+    "target": "Mean potential Seed.set of all 122 filmed flowers IF each unrecovered fruit had a well-defined source-comparable Seed.set in [0,1]. This is a hypothetical sensitivity estimand, not observed realized field fecundity.",
+    "known_seedset_sum_from_93": 37.00813392800001,
+    "known_93_mean": 0.3979369239569893,
+    "worst_case_zero_for_all_unrecovered_lower_bound": 0.30334536006557383,
+    "worst_case_one_for_all_unrecovered_upper_bound": 0.5410502780983607,
+    "identification_interval_width": 0.23770491803278687,
+    "unidentified_unrecovered_fruits": 29,
+    "no_missing_at_random_assumption": true,
+    "no_zero_imputation_in_original_QPF001_predictive_analysis": true
+  }
 }
