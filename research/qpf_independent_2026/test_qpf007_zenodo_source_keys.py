@@ -85,7 +85,7 @@ class SourceGate(unittest.TestCase):
           "data_ABPOLL_ID_resume.txt":tsv("session\tID_full\tSR_all\n1.A\tA\t4\n1.A\tB\t6\n"),
           "data_ABPOLL_flower_resume.txt":tsv("session\tID_full\tid_flow\tpl\n1.A\tA\tf1\t350\n"),
           "data_ABPOLL_fix10_paternities.txt":tsv("session\tID_full\tparent\n1.A\tA\tX\n"),
-          "data_ABPOLL_ID_level_ID.txt":tsv("session\tID_full_foc\tID_full_part\tseed_couple_on_foc\n1.A\tA\tB\t9999\n"),
+          "data_ABPOLL_ID_level_detID.txt":tsv("session\tID_full_foc\tID_full_part\tseed_couple_on_foc\n1.A\tA\tB\t9999\n"),
         }
         record["files"]=[
           {"key":name,"size":len(body),
