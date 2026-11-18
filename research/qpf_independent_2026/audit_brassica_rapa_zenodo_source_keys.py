@@ -136,10 +136,20 @@ def decode_table(payload: bytes) -> tuple[list[str], list[tuple[str,str]] | None
     if headers is None:
         raise ValueError("Original source missing header")
     headers = [x.strip().lstrip("\ufeff").strip('"') for x in headers]
-    if len(headers)==0 or len(headers)!=len(set(headers)) or len(headers)>300:
-        raise ValueError("Source header names duplicated/unreasonably wide")
-    if any(len(x)>85 for x in headers):
-        raise ValueError("Unreasonable single source header")
+    # Author files may include dozens/hundreds of derived analysis columns;
+    # repeated non-key names are a disclosed schema ambiguity, not a reason
+    # to alter which source plants are present. Key duplicates DO stop.
+    if len(headers)==0 or len(headers)>3000:
+        raise ValueError("Original source header width unsafe: "+str(len(headers)))
+    duplicate_names={n for n,count in Counter(headers).items() if count>1}
+    if any(x.casefold() in ("session","id_full","id_full_foc") for x in duplicate_names):
+        raise ValueError("Ambiguous duplicated original biological ID header")
+    if any(len(x)>120 for x in headers):
+        raise ValueError("Unreasonable original single source header")
+    # R write.table with row.names=TRUE may have a blank first header
+    # followed by data rows one field wider; recognize and name that
+    # harmless structural row number without guessing IDs or phenotypes.
+    pending_row_index=False
     def findname(*names):
         lower={x.lower():x for x in headers}
         for n in names:
@@ -156,8 +166,18 @@ def decode_table(payload: bytes) -> tuple[list[str], list[tuple[str,str]] | None
     for cells in reader:
         if not cells or all(not s.strip() for s in cells):
             continue
+        if len(cells)==len(headers)+1 and not pending_row_index:
+            if not cells[0].strip().isdigit():
+                raise ValueError("Source has an extra non-index column not present in header")
+            headers=["__source_row_number"]+headers
+            session_pos=session_pos+1 if session_pos is not None else None
+            person_pos=person_pos+1 if person_pos is not None else None
+            pending_row_index=True
         if len(cells)!=len(headers):
-            raise ValueError("Inconsistent original TSV/CSV field count")
+            raise ValueError(
+                "Inconsistent original TSV/CSV field count: "
+                + str(len(cells)) + " data cells vs " + str(len(headers)) + " header fields"
+            )
         n+=1
         if n>MAX_ROWS:
             raise ValueError("Original source unexpectedly many records")
