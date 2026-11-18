@@ -1,0 +1,41 @@
+name: CropPol original field/visitor source schema gate
+on:
+  push:
+    branches: [analysis/croppol-guild-function-20261118]
+  pull_request:
+    paths:
+      - research/croppol_guild_function/**
+      - .github/workflows/croppol-source-schema.yml
+  workflow_dispatch:
+jobs:
+  original-author-schema:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Synthetic original schema contract
+        run: python research/croppol_guild_function/audit_source_schema.py --self-test
+      - name: Fetch pinned original author files for header and original row counts ONLY
+        run: |
+          python research/croppol_guild_function/audit_source_schema.py --output croppol_source_schema_derivative.json
+          python - <<'PY'
+          import json
+          r=json.load(open("croppol_source_schema_derivative.json"))
+          assert r["status"]=="ORIGINAL_CROPPOL_SOURCE_SCHEMA_PASS"
+          assert r["yield_values_inspected"] is False
+          assert r["pollinator_group_counts_inspected"] is False
+          assert r["same_field_join_verified"] is False
+          assert r["source_raw_rows_redistributed"] is False
+          assert len(r["source_files"])==2
+          print("CROPPOL_SOURCE_ONLY_NO_OUTCOME_PASS")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: croppol-source-schema-only
+          path: croppol_source_schema_derivative.json
+          retention-days: 14

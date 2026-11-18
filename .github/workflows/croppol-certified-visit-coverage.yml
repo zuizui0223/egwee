@@ -1,0 +1,42 @@
+name: CropPol certified guild visit and Q-F coverage
+on:
+  push:
+    branches: [analysis/croppol-guild-function-20261118]
+  pull_request:
+    paths:
+      - research/croppol_guild_function/**
+      - .github/workflows/croppol-certified-visit-coverage.yml
+  workflow_dispatch:
+jobs:
+  source-certified-guild-cover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify source survey definitions and missing-versus-zero
+        run: python research/croppol_guild_function/audit_syrphid_coverage_before_qf.py --self-test
+      - name: Lock source surveyed-Syrphidae field and programme coverage, no yield effects
+        run: |
+          python research/croppol_guild_function/audit_syrphid_coverage_before_qf.py --output croppol_qualified_guild_source_coverage.json
+          python - <<'PY'
+          import json
+          x=json.load(open("croppol_qualified_guild_source_coverage.json"))
+          assert x["status"]=="SOURCE_GUILD_ZERO_COVERAGE_VERIFIED"
+          assert x["total_original_field_rows"]==3448
+          assert x["original_unique_exact_study_site_year_crop_keys"]==3448
+          assert x["yield_visit_pair_effects_read"] is False
+          assert x["target_yield_value_distributed"] is False
+          assert x["raw_source_rows_redistributed"] is False
+          assert x["no_posthoc_zero_promotion"] is True
+          print(x["decision"])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: croppol-certified-guild-coverage-derivative
+          path: croppol_qualified_guild_source_coverage.json
+          retention-days: 14

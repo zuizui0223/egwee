@@ -1,0 +1,45 @@
+name: CropPol postprimary predictive stability audit
+on:
+  push:
+    branches: [analysis/croppol-guild-function-20261118]
+  pull_request:
+    paths:
+      - research/croppol_guild_function/**
+      - .github/workflows/croppol-postprimary-predictive-diagnostic.yml
+  workflow_dispatch:
+jobs:
+  source-locked-robustness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install frozen dependency
+        run: python -m pip install numpy==2.3.5
+      - name: Synthetic original source fold integrity
+        run: python research/croppol_guild_function/audit_postprimary_predictive_stability.py --self-test
+      - name: Original source fixed Mnull comparison and split sensitivity
+        run: |
+          python research/croppol_guild_function/audit_postprimary_predictive_stability.py --output croppol_postprimary_stability_derivative.json
+          python - <<'PY'
+          import json
+          x=json.load(open("croppol_postprimary_stability_derivative.json"))
+          assert x["status"]=="POSTPRIMARY_CROPPOL_PREDICTION_DIAGNOSTIC_COMPLETED"
+          assert x["source_original_fields"]==591
+          assert x["source_original_panels"]==29
+          assert x["source_original_programmes"]==20
+          assert abs(x["unchanged_original_primary_M0_minus_M1_gain"]+0.4472056338953386)<1e-10
+          assert x["requested_alternative_fold_seeds"]==50
+          assert x["no_feature_outcome_scale_or_ridge_tuning"] is True
+          assert x["original_outcomes_or_individual_predictions_redistributed"] is False
+          print("CROPPOL_POSTPRIMARY_NO_REPAIRED_PRIMARY_TEST_PASS")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: croppol-postprimary-predictive-diagnostic
+          path: croppol_postprimary_stability_derivative.json
+          retention-days: 14
