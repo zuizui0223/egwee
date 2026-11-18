@@ -1,0 +1,56 @@
+name: EGWEE corrected EuPPollNet original-schema gate
+
+on:
+  push:
+    branches:
+      - analysis/euppollnet-guild-resource-partition-20261118
+    paths:
+      - 'research/euppollnet_guild_partition/**'
+      - '.github/workflows/euppollnet-source-and-guild.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Synthetic source schema identity
+        run: python research/euppollnet_guild_partition/audit_source_schema.py --self-test
+      - name: Audit original author files without guild or plant values
+        run: |
+          python research/euppollnet_guild_partition/audit_source_schema.py \
+            --output research/euppollnet_guild_partition/output/source_schema.json
+      - name: Install numpy for prespecified guild null
+        run: python -m pip install numpy==2.3.5
+      - name: Verify native key construction without external source
+        run: python research/euppollnet_guild_partition/audit_guild_keys_before_effect.py --self-test
+      - name: Audit source taxonomy, study/network IDs and unit counts BEFORE JSD outcomes
+        run: |
+          python research/euppollnet_guild_partition/audit_guild_keys_before_effect.py \
+            --output research/euppollnet_guild_partition/output/source_key_gate.json
+      - name: Synthetic guild JSD and finite-population null verification
+        run: python research/euppollnet_guild_partition/estimate_guild_partition.py --self-test
+      - name: Estimate preregistered 52-programme observation-guild JSD correction
+        run: |
+          python research/euppollnet_guild_partition/estimate_guild_partition.py \
+            --output research/euppollnet_guild_partition/output/guild_partition_result.json
+      - name: Verify post-primary same-date and shared-host diagnostics on synthetic data
+        run: python research/euppollnet_guild_partition/robustness_same_day_shared_hosts.py --self-test
+      - name: Run retrospectively frozen same-day and shared-host partition checks
+        run: |
+          python research/euppollnet_guild_partition/robustness_same_day_shared_hosts.py \
+            --output research/euppollnet_guild_partition/output/postprimary_same_day_shared_hosts.json
+      - name: Store derivative-only source gate
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: euppollnet-original-schema-receipt
+          path: research/euppollnet_guild_partition/output/*.json
+          if-no-files-found: warn
