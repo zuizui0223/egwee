@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "run_id": 44242881984,
+  "status": "SOURCE_ACCESS_STOP_NO_NEW_QPF_NUMERIC_TEST",
+  "source_only_protocol_commit": "0968b56a86c435a83888d4cac12a3621e8335e5a",
+  "source_provenance": {
+    "QPF001": {
+      "species": "Oenothera fruticosa",
+      "paper_doi": "10.1002/ajb2.1720",
+      "dryad_doi": "10.5061/dryad.hqbzkh1g9",
+      "file": "FIGO_2019_Data_20210523.xlsx",
+      "official_source_bytes": 27351,
+      "official_source_sha256": "83790bb7d63222e3e21c0ceed5d729cacf63a2df843e5807836d8e5c853447aa",
+      "official_source_version": "2021-06-08",
+      "public_download_attempt": "https://datadryad.org/stash/downloads/file_stream/736848",
+      "public_file_stream_http_status": 403,
+      "official_metadata_verified": true,
+      "original_xlsx_downloaded": false,
+      "original_flower_identifiers_verified": false,
+      "source_only_paper_design": {
+        "filmed_flowers": 122,
+        "fruit_seed_outcomes_recovered": 93,
+        "unrecovered": 29,
+        "n_independent_original_studies": 1,
+        "measures": [
+          "video visitation per flower",
+          "conspecific and heterospecific pollen grains on same flower",
+          "mature fruit seed set for subset"
+        ]
+      },
+      "new_test_complete": false
+    },
+    "QPF002": {
+      "species": "Argentina anserina",
+      "paper_doi": "10.1098/rspb.2023.1519",
+      "dryad_doi": "10.5061/dryad.98sf7m0pk",
+      "official_related_zenodo_ids": [
+        10563520,
+        10563521
+      ],
+      "zenodo_concept_id": 10563520,
+      "zenodo_versioned_record_id": 10563521,
+      "zenodo_record_types": "two related DOIs route to a single software record/version lineage; not an independently replicated field dataset",
+      "verified_original_code_files": [
+        {
+          "name": "Visitation_Rate_and_SEM_analyses.R",
+          "bytes": 3137,
+          "md5": "5e543853da269942c5b850b464945c06"
+        },
+        {
+          "name": "Segmented_code.R",
+          "bytes": 1599,
+          "md5": "401e75022ad36b4fc7d39d2225c62438"
+        }
+      ],
+      "original_biological_data_in_zenodo": false,
+      "original_biological_workbooks_downloaded": false,
+      "published_observations_temporal_grain": {
+        "field_visits": "2020–2021",
+        "pollen_pistil_histology": "2019–2021 pooled",
+        "fruit_and_seed_set": "mainly 2022; M93 population uses 2021 separate survey",
+        "population_count": 13
+      },
+      "measured_original_effect_already_published": "effective population size interacted with visitation for pollen-quality limitation and separately affected fruit/seed output; not novel to infer generic NE x visitation mediation"
+    }
+  },
+  "source_gate": {
+    "original_numeric_pollen_seed_visits_read": false,
+    "source_worksheets_opened": 0,
+    "original_QPF_predictions_fitted": 0,
+    "new_empirical_independent_programmes_with_complete_QPF_join": 0,
+    "original_raw_source_redistributed": false,
+    "third_party_software_executed": false
+  },
+  "CI": {
+    "latest_run": 44242881984,
+    "latest_artifact_id": 14400148492,
+    "artifact_sha256": "76ef4328f82bb900cc01f86e238c72ae3bc2fe14c0945b72233a68ef0bad5d45",
+    "synthetic_tests": "passed",
+    "source_access_gate": "passed (explicit 403 captured, Zenodo concept/version deduplicated)"
+  },
+  "research_decision": "NEED_EXACT_OENOTHERA_ORIGINAL_XLSX_BEFORE_SAME_FLOWER_Q_P_F_PREDICTION",
+  "next_single_missing_source_file": {
+    "name": "FIGO_2019_Data_20210523.xlsx",
+    "expected_exact_bytes": 27351,
+    "required_sha256": "83790bb7d63222e3e21c0ceed5d729cacf63a2df843e5807836d8e5c853447aa",
+    "purpose": "Verify within-flower visitor/pollen/fruit join, event observation effort and complete-case selection before preregistering blocked-out-of-date predictive test"
+  }
+}

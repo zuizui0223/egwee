@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "id": "QPF001_QPF002_access_independence_audit_20261118",
+  "status": "source_only_derived_before_opening_any_new_original_flower_pollen_seed_values",
+  "target": {
+    "QPF001": {
+      "species": "Oenothera fruticosa",
+      "paper_doi": "10.1002/ajb2.1720",
+      "dataset_doi": "10.5061/dryad.hqbzkh1g9",
+      "source_filename": "FIGO_2019_Data_20210523.xlsx",
+      "advertised_public_file_url": "https://datadryad.org/stash/downloads/file_stream/736848",
+      "advertised_by": "https://ndl.iitkgp.ac.in/re_document/dryad/datadryad/doi_10_5061_dryad_hqbzkh1g9",
+      "published_sample": "122 filmed flowers, 93 matured fruits with seed set; possible remaining fruit missingness/herbivory",
+      "independent_programmes": 1
+    },
+    "QPF002": {
+      "species": "Argentina anserina",
+      "paper_doi": "10.1098/rspb.2023.1519",
+      "dataset_doi": "10.5061/dryad.98sf7m0pk",
+      "official_zenodo_related_software_records": [
+        10563520,
+        10563521
+      ],
+      "already_registered_overlapping_studies": "Same original 13-population plant programme as other SMF001 Argentina data. Do NOT increment study count."
+    }
+  },
+  "order": [
+    "Publicly cited original source URL/DOI and official metadata first, without model outcomes",
+    "Attempt bounded public direct original XLSX retrieval only from evidenced original-data URL",
+    "If accessible, inspect ZIP/XLSX CRC, SHA256 and sheet row/header structure, not pollen/seed values",
+    "Zenodo records 10563520,10563521 are software-related work. Even if downloadable, do not assume they contain independent raw biological observations",
+    "If unavailable, document 401/403/429 or redirect/access stop; never attempt authentication bypass or fabricate rows",
+    "Only after exact flower/date/plant linkage headers are verified: new standalone prediction protocol before outcomes"
+  ],
+  "nonclaims": [
+    "No new effect-size estimate or source biological test until original workbook is available.",
+    "The original Smith et al. (2021) already demonstrated heterospecific pollen×conspecific pollen effects on seed set; any new predictive analysis needs a distinct heldout question.",
+    "One Oenothera natural site is not multiple independent landscapes. 93 fruits from 122 filmed flowers can be outcome-observation-selected.",
+    "The Dryad–Zenodo integration releases software separately; two Zenodo record IDs do not create two independent data studies.",
+    "Neither source is island–urban matched natural fragmentation replication."
+  ]
+}
