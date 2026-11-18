@@ -141,6 +141,13 @@ def audit_rows(p2016:list[dict], seed2016:list[dict], all2016:list[dict],
             raise ValueError("Original 2016 pollen-source key or assay disagreement")
     if Counter(x["treat"] for x in all2016)!=Counter({"V":94,"O":65,"B":73}):
         raise ValueError("Original 2016 three-arm source coverage shifted")
+    joint_original=[a[pid] for pid in b]
+    if Counter(r["treat"] for r in joint_original)!=Counter({"V":47,"O":15}):
+        raise ValueError("Original 47 visited + 15 open pollen-assayed ramets shifted")
+    if Counter(r["visID"] for r in joint_original)!=Counter({
+        "Bombus":20,"Muscoidea":21,"Osmia":6,"Open":15
+    }):
+        raise ValueError("Original matched source visitor taxa were reclassified")
     R16=[]
     for r in all2016:
         if not all(observed(r[k]) for k in ("polDepMC","polDepNonMC","seedPerFlr")):
@@ -190,6 +197,8 @@ def audit_rows(p2016:list[dict], seed2016:list[dict], all2016:list[dict],
         "source_all_2016_ramets":232,"source_2016_pollen_assayed_ramets":62,
         "2016_pollen_seed_exact_matched_ramets":len(R16),
         "2016_matched_P_ramets_by_treatment":{"V":47,"O":15,"B":0},
+        "2016_matched_P_ramets_by_visitor":{"Bombus":20,"Muscoidea":21,"Osmia":6,"Open":15},
+        "2016_matched_pollen_and_seed_plantID_source_match":62,
         "2016_site_group":{"RG":38,"SP":24},
         "2016_week_group":{"1":4,"2":18,"3":16,"4":20,"5":4},
         "2016_2015_are_distinct_experiments":True,
