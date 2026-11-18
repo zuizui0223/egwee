@@ -1,0 +1,51 @@
+name: CY002 source-corrected original Cyanus plot-out result contract
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/compatibility_function/CY002_*'
+      - 'research/compatibility_function/run_cyanus_CY002_plot_holdout.py'
+      - 'research/compatibility_function/test_cyanus_CY002_model.py'
+      - 'research/compatibility_function/test_cyanus_CY002_result.py'
+      - '.github/workflows/cy002-source-corrected-result.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  preserve-original-count-correction-and-12-plot-null:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Source-withheld synthetic 33-mother and full 12-plot fit checks
+        run: |
+          python -m unittest discover -s research/compatibility_function \
+            -p 'test_cyanus_CY002_model.py' -v
+      - name: Verify original-source count corrected and negative 12-plot result
+        run: |
+          python -m unittest discover -s research/compatibility_function \
+            -p 'test_cyanus_CY002_result.py' -v
+      - name: Original source and previous experiment are not silently overwritten
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from collections import Counter
+          d=Path("research/compatibility_function")
+          x=json.loads((d/"CY002_ORIGINAL_PLOT_HOLDOUT_RESULT_20261118.json").read_text())
+          p=json.loads((d/"CY002_FROZEN_SOURCE_COUNT_CORRECTION_20261118.json").read_text())
+          assert x["primary_decision"]=="NO_PRACTICALLY_PORTABLE_INCREMENT"
+          assert x["primary_correlated_paternity"]["relative_MSE_improvement_pct"]<0
+          assert x["sampling"]["offspring_typed_total"]==549
+          assert sum(f["n_mothers"] for f in x["folds"])==33
+          assert len(x["folds"])==12
+          assert p["blinding_and_analysis_disclosure"]["strictly_outcome_blind"] is False
+          assert not list(d.glob("*.xlsx")) and not list(d.glob("*.zip"))
+          assert (d/"CY001_FROZEN_PLOT_HOLDOUT_PROTOCOL_20261118.json").exists()
+          print("Synthetic-only CI verified negative original-source aggregates; it does NOT rerun the missing raw XLSX in Actions.")
+          PY
