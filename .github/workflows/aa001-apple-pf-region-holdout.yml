@@ -44,8 +44,33 @@ jobs:
               assert x["total_original_regions"]==len(x["heldout_region_folds_anonymized"])
           print("AA001_PF_SOURCE_AND_CLAIM_CEILING_"+x["status"])
           PY
+      - name: Post-outcome frozen fold-score aggregation only, no refitting
+        run: |
+          python - <<'PY'
+          import json
+          p="aa001_pf_region_holdout_derivative.json"
+          x=json.load(open(p))
+          assert x["status"]=="PF_SOURCE_ONE_STUDY_REGION_HOLDOUT_COMPLETE"
+          PY
+          python research/apple_orchard_qpf/audit_AA001_postoutcome_fold_influence.py \
+            --source aa001_pf_region_holdout_derivative.json \
+            --output aa001_postoutcome_fold_influence.json
+          python - <<'PY'
+          import json
+          x=json.load(open("aa001_postoutcome_fold_influence.json"))
+          assert x["status"]=="POST_OUTCOME_AGGREGATE_ONLY_INFLUENCE_AUDIT"
+          assert x["source_model_and_folds_refit"] is False
+          assert x["posthoc_exploratory_not_preregistered"] is True
+          assert x["original_source_rows_redistributed"] is False
+          assert x["n_of_five_deletions_reversing_positive_orchard_weighted_gain"]>=1
+          lo,hi=x["leave_one_scoring_region_aggregate_only_orchard_weighted_range"]
+          assert lo<0<hi
+          print("AA001_POSTOUTCOME_REGION_INFLUENCE_PASS")
+          PY
       - uses: actions/upload-artifact@v4
         with:
           name: aa001-orchard-pf-region-derivative-only
-          path: aa001_pf_region_holdout_derivative.json
+          path: |
+            aa001_pf_region_holdout_derivative.json
+            aa001_postoutcome_fold_influence.json
           retention-days: 14
