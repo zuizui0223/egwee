@@ -1,0 +1,151 @@
+{
+  "schema_version": 2,
+  "experiment_id": "CY002_cyanus_original_offspring_n_corrected_plot_holdout",
+  "status": "source_denominator_corrected_before_full_model_fit_with_limited_preview_disclosure",
+  "registered_date": "2026-11-18",
+  "source": {
+    "doi": "10.5061/dryad.9p8cz8ws1",
+    "paper_doi": "10.1002/ajb2.16440",
+    "species": "Cyanus segetum",
+    "required_original_file": "Data_Dryad.xlsx",
+    "readme": "README.md",
+    "public_version": "2024-09-20",
+    "verified_page": "https://datadryad.org/dataset/doi%3A10.5061/dryad.9p8cz8ws1",
+    "strict_access": "Only official source DOI/version/file links; HTTP 401/429 or missing data => access STOP, never fabricated records."
+  },
+  "published_frame": {
+    "farm_count": 1,
+    "original_plant_n": 144,
+    "selected_genetic_mother_n": 33,
+    "plots_with_mothers_n": 12,
+    "original_plots_n": 16,
+    "parents_subsampled_from_n": 64,
+    "seed_screen": "Only plants with >=20 viable germinable seeds eligible for genotyping; seed production conditional on selection.",
+    "typed_progeny_n_reported": 549,
+    "progeny_per_mother": "15–17 typed",
+    "independence": "33 mothers nested within 12 plots on ONE farm; original article already modeled pollinator effects on genetic mating."
+  },
+  "required_columns": {
+    "A": "unique maternal identifier",
+    "B": "mother allele count (eight loci)",
+    "C": "offspring expected heterozygosity Hs",
+    "D": "offspring multilocus correlated paternity rpm",
+    "E": "relative maternal attractiveness visits per 15 minutes",
+    "F": "conspecific pollen donor density",
+    "G": "heterospecific floral richness",
+    "H": "local floral density",
+    "V": "original plot label",
+    "W": "original strip type",
+    "X": "offspring typed count",
+    "AB": "lifetime maternal seed number"
+  },
+  "source_gate": [
+    "Original signed-response model fitting was not run under CY001; its strict 15–17 per-mother source gate stops upon one source 12 and remains archived.",
+    "Before fitting corrected CY002, verify both original ZIP entry SHA256 and workbook digest as in official Dryad metadata.",
+    "Source-only mother/plot/typed-offspring structural roster must match exactly: 33 mothers, 12 plots, 549 children with 1x12, 1x15, 5x16, 26x17.",
+    "No source mother omitted for the low typed-offspring count. There is no predeclared per-mother lower threshold beyond complete original row.",
+    "Mother-specific rpm and seed outcome values must not be used to change regression, selection gate, plot grouping, denominator or model.",
+    "Keep original A–AB column semantics; do not infer unique mother outcomes from the source metadata sheet.",
+    "Any other identity/header mismatch stops rather than being silently repaired."
+  ],
+  "primary": {
+    "endpoint": "original rpm of progeny from same mother; lower is greater paternity diversity; not LA005's nonmaternal-allele lower bound",
+    "M0": "intercept + mother allele count + log1p(conspecific donor density) + log1p(floral richness) + log1p(floral density) + strip type indicator",
+    "M1": "M0 + log1p(relative maternal visit attractiveness per 15 minutes)",
+    "fit": "training-fold standardized non-intercept ridge normal equations, penalty lambda=1, intercept unpenalized",
+    "prediction": "clip rpm predictions to [0,1] in both M0 and M1",
+    "validation": "12 leave-one-WHOLE-plot-out folds; each mother appears in exactly one held-out fold",
+    "metric": "pooled mother-average squared error and MAE; report each plot n and M0/M1 losses",
+    "estimand": "delta=MSE(M0)-MSE(M1), positive indicates lower held-out error with visit predictor",
+    "positive_gate": "delta>0 AND relative reduction >=5% of M0 MSE AND positive delta in >=8 of 12 plot folds",
+    "negative_gate": "NO_PRACTICALLY_PORTABLE_INCREMENT when any one criterion fails",
+    "no_site_pvalue": "Plots from a single farm are not independent landscapes; no nominal 33-mother i.i.d. inference."
+  },
+  "secondary": {
+    "endpoint": "log1p(AB seed number), only in the outcome-selected 33 mothers, not generalizable to initial 144",
+    "models": "Exactly same predictors and ridge lambda; no response clipping",
+    "analysis": "12 same plot folds, descriptive MSE/MAE and sign only; never rescue primary based on secondary."
+  },
+  "firewall": [
+    "Study published the functional guild–mating association already; this analysis tests held-out portability, not first discovery.",
+    "Cannot claim outcrossing rate or genetic compatible pollen from rpm alone.",
+    "No selection of additional guild covariates or favorable response after outcome opening.",
+    "No deleting plots, retuning lambda, revising transformations or screening by seed outcome.",
+    "Raw third-party worksheets or maternal records never committed.",
+    "No direct numeric pooling with LA005 or interpretation as island–urban convergence.",
+    "Preserve LA001/LA002 failed seed prediction and LA005 tiny within-study marker prediction."
+  ],
+  "original_protocol_commit": "a118ab77e71a097b46d264738e34c0428384a304",
+  "original_protocol_result": "CY001_SOURCE_GATE_STOP: published 15-17 typed offspring expectation is contradicted by one original 12-typed maternal record",
+  "uploaded_archive_name": "doi_10_5061_dryad_9p8cz8ws1__v20240920.zip",
+  "actual_verified_source_manifest": {
+    "archive_sha256": "1d1f03c1f3dee00e3bd0d62b74099f5bd31162d61f7a61f4984e0a19b9c5d973",
+    "entry_xlsx_name": "Data_Dryad.xlsx",
+    "entry_xlsx_size": 27995,
+    "entry_xlsx_sha256": "18941f666c040c81c5db3f43c661d44fc157e9db636eef07a4aafd49f77b5332",
+    "readme_name": "README.md",
+    "readme_sha256": "530018a194d6ccdad3bea3b504e48b5c1b0f9f1fe1e9945fe9ca8aa8708fbcb1",
+    "crc": "pass"
+  },
+  "fixed_actual_structural_receipt": {
+    "sheet_name": "Dataset",
+    "data_rows": 33,
+    "columns": 29,
+    "mother_key_unique": 33,
+    "plot_n": 12,
+    "plot_sizes_sorted": [
+      1,
+      2,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3
+    ],
+    "strip_n": 2,
+    "strip_counts": {
+      "Grass-legume": 13,
+      "Wildflower": 20
+    },
+    "offspring_typed_histogram": {
+      "12": 1,
+      "15": 1,
+      "16": 5,
+      "17": 26
+    },
+    "offspring_typed_total": 549,
+    "required_missing_count": 0
+  },
+  "analysis_retained_verbatim_from_CY001": {
+    "primary": {
+      "endpoint": "original rpm of progeny from same mother; lower is greater paternity diversity; not LA005's nonmaternal-allele lower bound",
+      "M0": "intercept + mother allele count + log1p(conspecific donor density) + log1p(floral richness) + log1p(floral density) + strip type indicator",
+      "M1": "M0 + log1p(relative maternal visit attractiveness per 15 minutes)",
+      "fit": "training-fold standardized non-intercept ridge normal equations, penalty lambda=1, intercept unpenalized",
+      "prediction": "clip rpm predictions to [0,1] in both M0 and M1",
+      "validation": "12 leave-one-WHOLE-plot-out folds; each mother appears in exactly one held-out fold",
+      "metric": "pooled mother-average squared error and MAE; report each plot n and M0/M1 losses",
+      "estimand": "delta=MSE(M0)-MSE(M1), positive indicates lower held-out error with visit predictor",
+      "positive_gate": "delta>0 AND relative reduction >=5% of M0 MSE AND positive delta in >=8 of 12 plot folds",
+      "negative_gate": "NO_PRACTICALLY_PORTABLE_INCREMENT when any one criterion fails",
+      "no_site_pvalue": "Plots from a single farm are not independent landscapes; no nominal 33-mother i.i.d. inference."
+    },
+    "secondary": {
+      "endpoint": "log1p(AB seed number), only in the outcome-selected 33 mothers, not generalizable to initial 144",
+      "models": "Exactly same predictors and ridge lambda; no response clipping",
+      "analysis": "12 same plot folds, descriptive MSE/MAE and sign only; never rescue primary based on secondary."
+    }
+  },
+  "blinding_and_analysis_disclosure": {
+    "note": "During initial original file exploration, a spreadsheet schema preview inadvertently included header plus the first FOUR mother rows across A:AC, displaying their rpm and seed counts before CY002 freeze. No site-heldout errors, associations, or model fits were computed at that point.",
+    "strictly_outcome_blind": false,
+    "individual_rows_republished": false,
+    "revised_design_after_source_only_counts": "Only the offspring typing structural admissibility condition changed; the original response, predictors, lambda=1, 12 plot folds and >=5%/8 plot positive decision rule were copied without revision.",
+    "interpretation": "Classify CY002 as protocol-preserving corrected exploratory replication, not a fully preregistered independent confirmatory test."
+  }
+}

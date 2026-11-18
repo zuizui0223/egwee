@@ -1,0 +1,48 @@
+{
+  "schema_version": 2,
+  "status": "ACTUAL_SOURCE_MATCHED_12_TYPED_EXCEPTION_BEFORE_MODEL_FIT_BUT_FOUR_PREVIEW_ROWS_SEEN",
+  "CY001_unmodified_protocol_commit": "a118ab77e71a097b46d264738e34c0428384a304",
+  "CY001_stop": "Original registered lower bound 15 genotyped offspring per mother violated for exactly one original maternal source record with 12",
+  "CY002_source_correction_commit": "98e2635626515950e7d7c29136b2d4c6c3f17722",
+  "original_archive": {
+    "name": "doi_10_5061_dryad_9p8cz8ws1__v20240920.zip",
+    "sha256": "1d1f03c1f3dee00e3bd0d62b74099f5bd31162d61f7a61f4984e0a19b9c5d973",
+    "original_data_xlsx_sha256": "18941f666c040c81c5db3f43c661d44fc157e9db636eef07a4aafd49f77b5332",
+    "readme_sha256": "530018a194d6ccdad3bea3b504e48b5c1b0f9f1fe1e9945fe9ca8aa8708fbcb1",
+    "crc": "pass"
+  },
+  "source_structural_data": {
+    "workbook_sheets": [
+      "Dataset",
+      "Metadata"
+    ],
+    "dataset_rows_including_header": 34,
+    "source_mother_n": 33,
+    "source_unique_mother_n": 33,
+    "dataset_columns": 29,
+    "source_plots": 12,
+    "source_plot_size_histogram": {
+      "1": 1,
+      "2": 1,
+      "3": 10
+    },
+    "source_strip_counts": {
+      "Grass-legume": 13,
+      "Wildflower": 20
+    },
+    "source_offspring_success_count_histogram": {
+      "12": 1,
+      "15": 1,
+      "16": 5,
+      "17": 26
+    },
+    "source_typed_offspring_total": 549,
+    "required_columns_missing": 0
+  },
+  "purpose": "Correct a source denominator discrepancy before the complete 12-fold scoring; retain original 33 mothers and all original fixed model terms, penalty and thresholds.",
+  "outcome_exposure_disclosure": "An initial worksheet schema preview showed 4 maternal rpm and seed values before the CY002 freeze; no 12-fold analysis or predictor-response relationship had been computed then. CY002 is therefore not strictly outcome-blind confirmatory.",
+  "raw_individual_values_redistributed": false,
+  "source_schema_computed_locally_before_full_plot_fit": true,
+  "source_schema_committed_to_GitHub_after_local_fit": true,
+  "claim_scope": "No original field data, per-mother identifiers, child alleles or third-party XLSX/README contents redistributed, only source aggregate receipt."
+}
