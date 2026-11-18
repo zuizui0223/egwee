@@ -62,10 +62,10 @@ class SourceGate(unittest.TestCase):
 
     def test_original_R_space_delimited_quoted_source_headers_and_keys(self):
         source=tsv(
-            '"session" "ID_full" "id_flow" "pl" "SR_all"\\n'
-            '"1.A" "Mother1" "flower-a" 9999 500\\n'
-            '"1.A" "Mother1" "flower-b" 9998 502\\n'
-            '"2.A" "Mother2" "flower-c" 9997 501\\n'
+            '"session" "ID_full" "id_flow" "pl" "SR_all"\n'
+            '"1.A" "Mother1" "flower-a" 9999 500\n'
+            '"1.A" "Mother1" "flower-b" 9998 502\n'
+            '"2.A" "Mother2" "flower-c" 9997 501\n'
         )
         # Only original session+plant key count may leave the parser; never
         # aggregate/match the synthetic signed response or pollen values.
