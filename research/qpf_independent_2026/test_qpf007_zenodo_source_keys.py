@@ -77,11 +77,10 @@ class SourceGate(unittest.TestCase):
 
     def test_R_write_table_row_number_and_nonkey_duplicate_columns(self):
         rows=tsv(
-            '"session" "ID_full" "helper" "helper"\\n'
-            '1 "3.X1" "M1" 8 5\\n'
-            '2 "3.X1" "M2" 3 7\\n'
+            '"session" "ID_full" "helper" "helper"\n'
+            '1 "3.X1" "M1" 8 5\n'
+            '2 "3.X1" "M2" 3 7\n'
         )
-        rows=rows.replace(b"\\\\n",b"\\n")
         cols,_,n,keys,groups=q.decode_table(rows)
         self.assertEqual(n,2)
         self.assertEqual(len(groups),1)
