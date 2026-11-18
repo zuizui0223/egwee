@@ -1,0 +1,68 @@
+name: QPF007 post-coverage Brassica 145-plant 16-session exploratory pilot
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/qpf_independent_2026/QPF007_FROZEN_POSTCOVERAGE_*'
+      - 'research/qpf_independent_2026/run_qpf007_postcoverage_all145_exploratory.py'
+      - 'research/qpf_independent_2026/run_qpf007_brassica_2026_session_holdout.py'
+      - 'research/qpf_independent_2026/test_qpf007_postcoverage_exploratory.py'
+      - '.github/workflows/qpf007-postcoverage-all145.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  preserve-original-coverage-stop-and-run-labeled-exploratory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify original preoutcome freeze, poststop lock and synthetic two-solver pilot
+        run: |
+          python -m unittest discover -s research/qpf_independent_2026 \
+            -p 'test_qpf007_frozen_session_model.py' -v
+          python -m unittest discover -s research/qpf_independent_2026 \
+            -p 'test_qpf007_postcoverage_exploratory.py' -v
+      - name: Original publisher source, ALL 145 complete plants and 16 sessions exploratory
+        run: |
+          python research/qpf_independent_2026/run_qpf007_postcoverage_all145_exploratory.py \
+            --output qpf007_postcoverage_aggregate_only/exploratory_sessions.json
+      - name: Enforce original registered STOP and suppress all original individual data
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          x=json.loads(Path('qpf007_postcoverage_aggregate_only/exploratory_sessions.json').read_text())
+          assert x["confirmation_source_gate_result"]=="COVERAGE_STOP_NO_ORIGINAL_SOURCE_PREDICTIVE_TEST"
+          assert x["confirmed_original_registered_predictive_result"] is False
+          assert x["no_new_confirmatory_decision"]=="EXPLORATORY_POSTSTOP_DIAGNOSTIC_ONLY_NEVER_CONFIRMATORY"
+          assert x["postcoverage_freeze_commit"]=="0933180d563150885968ee4d2eceb3f8fbb0245b"
+          assert x["source_all_plant_n"]==160 and x["source_complete_mother_n"]==145
+          assert x["source_excluded_plant_n"]==15
+          assert x["n_group_below_original_six_plant_minimum"]==1
+          assert len(x["session_folds"])==16
+          assert sum(z["n_maternal_source_plants"] for z in x["session_folds"])==145
+          assert x["independent_numeric_verification"]["max_absolute_heldout_prediction_discrepancy"]<1e-8
+          assert x["source_data_redistributed"] is False
+          assert x["original_source_plant_IDs_disclosed"] is False
+          p=Path('research/qpf_independent_2026')
+          assert not list(p.glob('data_ABPOLL*.txt'))
+          assert not list(p.glob('*.zip'))
+          print('Exploratory, after-coverage original source result only; original confirmation STOP preserved.')
+          PY
+      - name: Archive only 16-fold aggregate, never original plant or child values
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qpf007-postcoverage-145plant-original-16session-aggregate-only
+          path: qpf007_postcoverage_aggregate_only/
+          if-no-files-found: warn
+          retention-days: 90
