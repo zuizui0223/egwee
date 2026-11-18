@@ -33,7 +33,7 @@ The source matched **583** original network-days; **213** met all new source-dat
 | Qualifying original network×date units | **213** |
 | Independent original study programmes | **18** |
 | Programmes with positive use divergence | **18/18** |
-| Programme-equal observed use JSD | **0.28687470 nats** (date-equal descriptive) |
+| Date-equal observed use JSD (descriptive) | **0.28687470 nats** |
 | Programme-equal excess JSD after within-date finite-count null | **+0.18872731 nats** |
 | Whole original programme bootstrap 95% interval | **[+0.14136375, +0.23686457]** |
 | Leave-one-whole-programme mean range | **[+0.17988479, +0.19908368]** |
