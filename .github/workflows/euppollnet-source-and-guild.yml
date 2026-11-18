@@ -27,6 +27,14 @@ jobs:
         run: |
           python research/euppollnet_guild_partition/audit_source_schema.py \
             --output research/euppollnet_guild_partition/output/source_schema.json
+      - name: Install numpy for prespecified guild null
+        run: python -m pip install numpy==2.3.5
+      - name: Verify native key construction without external source
+        run: python research/euppollnet_guild_partition/audit_guild_keys_before_effect.py --self-test
+      - name: Audit source taxonomy, study/network IDs and unit counts BEFORE JSD outcomes
+        run: |
+          python research/euppollnet_guild_partition/audit_guild_keys_before_effect.py \
+            --output research/euppollnet_guild_partition/output/source_key_gate.json
       - name: Store derivative-only source gate
         if: always()
         uses: actions/upload-artifact@v4
