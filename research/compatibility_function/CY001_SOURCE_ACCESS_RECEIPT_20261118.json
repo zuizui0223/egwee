@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "experiment_id": "CY001_cyanus_plot_heldout_mating_vs_seed",
+  "status": "SOURCE_ACCESS_STOP_NO_RAW_OUTCOME_TEST",
+  "source_doi": "10.5061/dryad.9p8cz8ws1",
+  "original_article_doi": "10.1002/ajb2.16440",
+  "source_original_version": "2024-09-20",
+  "source_manifest_from_official_Dryad_API": [
+    {
+      "name": "Data_Dryad.xlsx",
+      "bytes": 27995,
+      "digest_type": "sha-256",
+      "digest": "18941f666c040c81c5db3f43c661d44fc157e9db636eef07a4aafd49f77b5332"
+    },
+    {
+      "name": "README.md",
+      "bytes": 15811,
+      "digest_type": "sha-256",
+      "digest": "530018a194d6ccdad3bea3b504e48b5c1b0f9f1fe1e9945fe9ca8aa8708fbcb1"
+    }
+  ],
+  "source_metadata_verified": true,
+  "file_inventory_verified": true,
+  "original_file_download": "HTTPError 401 Unauthorized from officially advertised file link",
+  "original_excel_worksheet_headers_read": false,
+  "original_numeric_maternal_rows_read": false,
+  "original_33_mother_12_plot_join_verified": false,
+  "new_rpm_prediction_computed": false,
+  "new_seed_prediction_computed": false,
+  "raw_original_files_redistributed": false,
+  "published_source_design": {
+    "maternal_n": 33,
+    "source_plant_n": 144,
+    "genotyped_mothers_selected_from_seed_eligible_n": 64,
+    "plot_n": 12,
+    "farm_n": 1,
+    "genetic_selection_condition": ">=20 viable germinable seeds before genetic subsampling"
+  },
+  "freeze_commit": "a118ab77e71a097b46d264738e34c0428384a304",
+  "source_workflow_run": 44235962169,
+  "source_workflow_artifact_id": 14396219408,
+  "source_workflow_artifact_digest": "sha256:7e314bcc1902eeb22304bcc3ab7aab389743f67c3cf575a7c2e15330c175cbff",
+  "scientific_decision": "SOURCE_ACCESS_STOP_NO_INDEPENDENT_NUMERIC_PREDICTION",
+  "claim_ceiling": [
+    "HTTP 401 on this official file stream is not proof that Dryad dataset is private or that values do not exist.",
+    "No new ecological null or positive finding; no original biological outcome was opened.",
+    "12 plots from one original farm are not 12 independent landscape-study replicates.",
+    "Seed number in selected 33 mothers is outcome-selected and cannot generalize to 144 field plants.",
+    "rpm correlated paternity differs from LA005 detectable-nonmaternal-allele indicator.",
+    "Original article already modeled pollinator functional groups and progeny genetic outcomes."
+  ]
+}
