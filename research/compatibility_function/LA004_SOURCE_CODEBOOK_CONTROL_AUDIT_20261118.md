@@ -64,3 +64,7 @@ python research/compatibility_function/run_la004_glossary_control_audit.py \
 ```
 
 The runner fails on wrong SHA, missing glossary, wrong source periods/category counts, control outcome incompleteness, or changed 6,702/2,850 source denominators. It writes only aggregated counts/rates/labels. The ZIP and individual rows are never redistributed via GitHub; CI is source-withheld and tests only synthetic controls plus source-generated aggregate receipts. Original LA001 and LA002 negative site-held-out predictions stay frozen.
+
+## 2026-11-18 official Dryad dataset-page clarification
+
+The primary Dryad **file descriptions for both 2014 and 2015 main-array files** use a different, broader official code dictionary from the ancillary temporal-sheet glossary quoted above: **`BF` = bee-fly, `B` = honeybee or carpenter bee, `L` = lepidoptera**, `F` = other Diptera, `AH` = Andrenidae/Halictidae, `K` = katydid and `U` = unknown. This **supersedes any implicit generalization of the ancillary temporal `B = Butterfly` label to every array worksheet**. Both source descriptions remain inspectable; do not retroactively erase the conflict. Exact citation and scientific limits: `LA005_OFFICIAL_DRYAD_MAIN_ARRAY_CODEBOOK_20261118.md`. Published visit total 3,748 remains unresolved.
