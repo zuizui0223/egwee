@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "analysis_id": "LA005_maternal_nonmaternal_allele_visit_prediction_v1",
+  "status": "ORIGINAL_SOURCE_GENOTYPE_PAIRING_SITE_HOLDOUT_COMPLETED",
+  "protocol_freeze_commit": "8f185bd271af42a93da32928c2e54132a07c63e7",
+  "dryad_dataset_doi": "10.5061/dryad.2pj0j",
+  "original_article_doi": "10.1111/evo.13167",
+  "original_archive_sha256": "82bcaa1c3a504cc779bc9c2aa95199a657dd404b3fdf62f7059e4ff5028b39c1",
+  "source_grain": {
+    "field_plants": 256,
+    "source_maternal_rows": 249,
+    "source_unique_maternal_labels": 248,
+    "exact_field_matched_unique_source_mothers": 246,
+    "duplicate_source_mother_id": 1,
+    "duplicate_mother_blocks_excluded": 2,
+    "source_mothers_not_matched_to_field": 2,
+    "offspring_source_rows": 1796,
+    "offspring_rows_with_unmatched_mother_label": 7,
+    "max_unambiguous_field_linked_mother_keys": 245,
+    "source_typed_offspring_under_matched_unique_mother_blocks_before_child_threshold": 1766,
+    "source_typed_offspring_excluded_by_maternal_n_child_filter": 24,
+    "eligible_mothers_min_four_children": 233,
+    "eligible_offspring_in_admitted_mothers": 1742,
+    "n_site_year_groups": 8,
+    "n_distinct_sites": 4,
+    "source_half_hour_visitation_sessions": 121,
+    "admitted_mothers_by_site": {
+      "Waco": 56,
+      "Quarry": 63,
+      "24-43": 51,
+      "Landersville": 63
+    },
+    "maternal_source_gt_match_to_field": "All matched mothers have exact SC/SI concordance; no separate S-allele compatibility estimate",
+    "marker_calling": "Six loci; need >=4 jointly typed loci; nonmaternal allele at any locus is observed-outcross lower-bound; not full MLTR"
+  },
+  "primary_target": "per-mother lower-bound fraction of at least four genotyped children carrying a nonmaternal marker allele",
+  "predictors_M0": "year2015+SC+year2015:SC+log1p(total lifetime flowers)+days-to-flower/30+maternal heterozygous locus fraction",
+  "predictors_M1": "M0 + log1p((AH+BF counted site-year field visits)/(open flower-hours))",
+  "method": "train-only standardized logit[(k+0.5)/(n-k+0.5)] ridge lambda 1; predict sigmoid, mother-weighted Brier on empirical k/n; 4 entire site holdouts",
+  "holdout_folds": [
+    {
+      "site": "Waco",
+      "n_mothers": 56,
+      "genotyped_children": 421,
+      "M0_brier": 0.06798508056941706,
+      "M1_brier": 0.06874461249328072,
+      "M0_mae": 0.17288214303910895,
+      "M1_mae": 0.1764440345381279,
+      "M0_minus_M1_brier": -0.00075953192386366
+    },
+    {
+      "site": "Quarry",
+      "n_mothers": 63,
+      "genotyped_children": 485,
+      "M0_brier": 0.044796062320822595,
+      "M1_brier": 0.043821242400268474,
+      "M0_mae": 0.1595761015329018,
+      "M1_mae": 0.1581532631017003,
+      "M0_minus_M1_brier": 0.0009748199205541208
+    },
+    {
+      "site": "24-43",
+      "n_mothers": 51,
+      "genotyped_children": 363,
+      "M0_brier": 0.09442440580763763,
+      "M1_brier": 0.09441902989439786,
+      "M0_mae": 0.20795226241346,
+      "M1_mae": 0.20794894453235166,
+      "M0_minus_M1_brier": 0.000005375913239763497
+    },
+    {
+      "site": "Landersville",
+      "n_mothers": 63,
+      "genotyped_children": 473,
+      "M0_brier": 0.05948088748256542,
+      "M1_brier": 0.05808922405106086,
+      "M0_mae": 0.1815709549227418,
+      "M1_mae": 0.179621785702657,
+      "M0_minus_M1_brier": 0.0013916634315045626
+    }
+  ],
+  "pooled": {
+    "M0_brier": 0.06520281993858507,
+    "M1_brier": 0.06474432708442815,
+    "M0_mae": 0.17930999978533094,
+    "M1_mae": 0.17925360592257342,
+    "M0_minus_M1_brier": 0.00045849285415691665,
+    "relative_brier_improvement_percent": 0.7031794860847642,
+    "positive_site_folds": 3,
+    "total_site_folds": 4
+  },
+  "frozen_decision": "BOUNDED_WITHIN_STUDY_VISIT_TO_DETECTABLE_OUTCROSSING_INCREMENT",
+  "secondary_descriptive_classes": [
+    {
+      "year": 2014,
+      "group": "SI",
+      "n_mothers": 54,
+      "n_genotyped_children": 373,
+      "mean_detected_nonmaternal_allele_fraction": 0.9576058201058202,
+      "mean_effective_source_visit_rate": 1.6364747207206691
+    },
+    {
+      "year": 2014,
+      "group": "SC",
+      "n_mothers": 55,
+      "n_genotyped_children": 403,
+      "mean_detected_nonmaternal_allele_fraction": 0.3652036852036852,
+      "mean_effective_source_visit_rate": 1.7669566796839522
+    },
+    {
+      "year": 2015,
+      "group": "SI",
+      "n_mothers": 64,
+      "n_genotyped_children": 495,
+      "mean_detected_nonmaternal_allele_fraction": 0.9736793154761905,
+      "mean_effective_source_visit_rate": 0.5152706401874472
+    },
+    {
+      "year": 2015,
+      "group": "SC",
+      "n_mothers": 60,
+      "n_genotyped_children": 471,
+      "mean_detected_nonmaternal_allele_fraction": 0.3029761904761905,
+      "mean_effective_source_visit_rate": 0.5711186656713945
+    }
+  ],
+  "source_definitions": {
+    "official_dryad_dataset_page": "https://datadryad.org/dataset/doi%3A10.5061/dryad.2pj0j",
+    "official_array_codes": "BF bee-fly, F other fly, B honeybee or carpenter bee, L lepidoptera; 2014 temporal-sheet B Butterfly conflicts, keep both grounded descriptions",
+    "publication_visit_count": "3748 official visits not reconciled to 6702 original position tokens",
+    "no_raw_source_redistributed": true
+  },
+  "scientific_limitations": [
+    "Effect is small (0.00046 absolute mother-weighted Brier, 0.70% relative) and 24-43 fold difference nearly zero; cannot claim strong mechanism or practical value",
+    "Four sites inside one original study; no leave-study or independent region transfer",
+    "Original paper already reports MLTR outcrossing SI 0.877-0.992 and SC 0.186-0.397: current raw allele indicator reuses the same material; not a new independent mating-system discovery",
+    "Observed nonmaternal allele is a lower bound on genetic outcrossing; undetected outcross and genotyping errors possible",
+    "S-locus marker class and experimental SC/SI fully correspond, so no separate compatibility mechanism identified",
+    "Source-effective AH/BF visits are not verified effective compatible pollen deposition, and official 3748 visit definition unresolved",
+    "Mother-level nuisance genotype sensitivity is only partially represented by heterozygous locus fraction",
+    "Original archived source not redistributed; result report is aggregate only",
+    "Do not replace LA001 or LA002 frozen seed-count primary negative results or infer a natural urban/island convergence law"
+  ],
+  "method_inference": "Prespecified within-one-programme conditional predictive gate passed. No conventional independent-site confidence interval or causal effect claimed; exploratory real-data test."
+}

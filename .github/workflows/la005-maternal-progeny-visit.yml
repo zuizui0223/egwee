@@ -1,0 +1,51 @@
+name: LA005 original-mother lower-bound outcrossing site-transfer contract
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/compatibility_function/LA005_*'
+      - 'research/compatibility_function/run_la005_mating_visit.py'
+      - 'research/compatibility_function/test_la005_mating_visit.py'
+      - '.github/workflows/la005-maternal-progeny-visit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  prospective-source-withheld-mating-visit-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify original pre-outcome commit and allele/holdout contracts
+        run: |
+          python -m unittest discover \
+            -s research/compatibility_function -p 'test_la005_mating_visit.py' -v
+      - name: Verify exact mother/offspring denominators and original negative results
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('research/compatibility_function')
+          f=json.loads((root/'LA005_DETECTABLE_OUTCROSSING_SITE_HOLDOUT_RESULT_20261118.json').read_text())
+          p=json.loads((root/'LA005_FROZEN_MATING_VISIT_PROTOCOL_20261118.json').read_text())
+          assert p['status']=='prospective_locked_before_opening_offspring_nonmaternal_allele_outcomes'
+          assert f['protocol_freeze_commit']=='8f185bd271af42a93da32928c2e54132a07c63e7'
+          assert f['source_grain']['eligible_mothers_min_four_children']==233
+          assert f['source_grain']['eligible_offspring_in_admitted_mothers']==1742
+          assert f['pooled']['positive_site_folds']==3
+          assert 0 < f['pooled']['M0_minus_M1_brier'] < 0.001
+          assert f['frozen_decision']=='BOUNDED_WITHIN_STUDY_VISIT_TO_DETECTABLE_OUTCROSSING_INCREMENT'
+          assert len(f['holdout_folds'])==4
+          assert sum(row['n_mothers'] for row in f['holdout_folds'])==233
+          assert f['source_definitions']['no_raw_source_redistributed']
+          assert not list(root.glob('*.xlsx')) and not list(root.glob('*.zip'))
+          print('Bounded within-study lower-bound mating signal preserved with original negative LA001/LA002.')
+          PY
