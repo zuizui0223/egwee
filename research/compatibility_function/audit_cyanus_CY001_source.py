@@ -39,6 +39,7 @@ def check() -> dict:
         "doi_metadata_status": info["source_metadata_status"],
         "file_inventory_status": info["source_files_status"],
         "file_inventory_count": len(inventory),
+        "public_file_manifest": inventory,
         "all_expected_filenames_found": not bool(info.get("missing_expected_filenames")),
         "source_workbook_schemas": match,
         "public_download_failed_reason": [
