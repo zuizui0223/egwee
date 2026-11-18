@@ -1,0 +1,47 @@
+name: LA004 source-internal insect codebook and control denominator audit
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/compatibility_function/run_la004_glossary_control_audit.py'
+      - 'research/compatibility_function/test_la004_source_codebook.py'
+      - 'research/compatibility_function/LA004_*'
+      - 'research/compatibility_function/LA003_SOURCE_TABLE2_RATE_RECONCILIATION_20261118.md'
+      - '.github/workflows/la004-codebook-controls.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-original-2014-glossary-without-source-data:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check source-data withholding and aggregate codebook contract
+        run: |
+          python -m unittest discover -s research/compatibility_function \
+            -p 'test_la004_source_codebook.py' -v
+      - name: Preserve historical negative outcome decisions
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=Path('research/compatibility_function')
+          receipt=json.loads((d/'LA004_ORIGINAL_CODEBOOK_CONTROL_RECEIPT_20261118.json').read_text())
+          la1=json.loads((d/'LA001_HELDOUT_RESULT_20261117.json').read_text())
+          la2=json.loads((d/'LA002_ASSAY_WEIGHTED_SITE_HOLDOUT_RESULT_20261117.json').read_text())
+          assert receipt['status']=='BF_LOWERCASE_SOURCE_CODE_RESOLVED_PUBLISHED_VISIT_COUNT_STILL_UNRESOLVED'
+          assert receipt['raw_visitation_record_units']=={'insect_event_rows':2850,'position_tokens':6702,'published_visits':3748}
+          assert receipt['source_case_sensitive_counts']['2014:Bf']['plant_position_tokens']==205
+          assert receipt['emasculation_controls']['Final pass']['n_source_controls']==21
+          assert la1['decision']=='NO_ROBUST_SINGLE_PROGRAMME_INCREMENT'
+          assert la2['frozen_decision']=='NO_ROBUST_ASSAY_CALIBRATED_SITE_TRANSFER_INCREMENT'
+          assert not list(d.glob('*.xlsx')) and not list(d.glob('*.zip'))
+          print('Source codebook is partially resolved; no 3748 reconstruction or outcome retuning claimed')
+          PY
