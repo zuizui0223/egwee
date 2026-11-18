@@ -19,6 +19,9 @@ from run_leavenworthia_LA001 import SOURCE_SHA, SITES, sheets, value
 
 PUBLISHED_VISITS = 3748
 PUBLISHED_PERIODS = 121
+# Published Table 2 total rows sometimes differ by .001 from rounded sums.
+PUBLISHED_TOTAL_RATES = {2014: {"SI": 2.008, "SC": 2.245},
+                         2015: {"SI": 1.068, "SC": 1.167}}
 PUBLISHED_RATES = {
     2014: {"SI": {"AH": 1.479, "BF": .060, "F": .233, "Other": .236},
            "SC": {"AH": 1.678, "BF": .080, "F": .191, "Other": .297}},
@@ -145,7 +148,7 @@ def audit(source: Path) -> dict:
                 r = {}
                 for category in ("AH", "BF", "F", "Other", "Total"):
                     observed = fmean(per_group_rate[(genotype, category)])
-                    paper = (sum(PUBLISHED_RATES[year][genotype].values())
+                    paper = (PUBLISHED_TOTAL_RATES[year][genotype]
                              if category == "Total" else PUBLISHED_RATES[year][genotype][category])
                     r[category] = {
                         "source_position_token_rate_mean": observed,
