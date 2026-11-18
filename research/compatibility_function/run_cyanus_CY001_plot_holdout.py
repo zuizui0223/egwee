@@ -155,6 +155,11 @@ def analyze(path,schema_receipt):
     pinned=json.loads(schema_receipt.read_text())
     if pinned.get("status")!="SOURCE_SCHEMA_VERIFIED_NO_RESPONSES_OPENED":
         raise RuntimeError("Missing prior source-only schema receipt")
+    # Verify the frozen ORIGINAL byte hash before opening any workbook member
+    # or biological outcome, including when the proposed XLSX is corrupted.
+    current_digest=hashlib.sha256(path.read_bytes()).hexdigest()
+    if current_digest != pinned.get("source_sha256"):
+        raise RuntimeError("Raw original XLSX bytes changed since schema-only freeze")
     verified=source_schema(path)
     for k in ("source_sha256","selected_mother_n","plot_n","plot_sizes_sorted",
               "strip_n","typed_offspring_n"):
