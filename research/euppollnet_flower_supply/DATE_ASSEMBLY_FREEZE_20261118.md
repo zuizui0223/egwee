@@ -1,0 +1,23 @@
+# Post-coverage source-unit amendment: reconstitute complete native network-date from matched source mergers
+
+**Frozen 2026-11-18, before computing ANY bloom-confirmed guild JSD.** This is **not** a replacement for the predeclared strict merger-episode gate or another prospectively independent test. The strict gate remains `0` qualifying merger episodes and is retained in `SOURCE_COVERAGE_RESULT_20261118.md`. Existing PR #72 guild JSD main result is already known positive.
+
+## Source-only reason for a separate unit
+
+Original EuPPollNet `Flower_data_merger` is a **row-level field linkage**, not guaranteed to be a complete plant-visitor census independently sufficient to model two guilds and ≥3 plant taxa. At source-only stage it produced 4,365 exact source-merger-and-date records spanning 19 source programmes, but zero units with 20 visits/guild and three positive counted taxa **per merger**. Those are sub-records, not independent whole-community observation sites. The biologically justified survey unit for simultaneous choice is the **whole original Study_id×Network_id×calendar date**, with source-exact matched merger links assembled *only within that study, network and day*.
+
+## Separate new target and fixed coverage
+
+No ecological effect is calculated until the following locked **source-only** date reassembly gate succeeds:
+
+1. For each interaction event, original source `Study_id,Network_id,Date` and nonmissing original `Flower_data_merger` must match independently counted flowers on the SAME original `Study_id,Network_id,Year,Month,Day,Flower_data_merger`. No broad network-only or geographic fuzzy join.
+2. Within the same complete study/network/date combine **distinct valid exact-link merger records** into one survey date, preserving per-plant visitation by the original source-accepted taxon and original guild whitelist. Count repeated original pollinator visit rows once; no replication due to flower rows.
+3. The union of original counted flower taxa must be matched with original interaction `Plant_accepted_name` by literal normalized name or unique original→accepted name map within the same network-year; unmapped/ambiguous taxa excluded, no GBIF guessing. **Flower availability is binary presence (positive count), not standardized flower number**, because flower units vary across studies. Flower rows with zero or missing cannot silently become positive available flower taxa.
+4. A date is structurally eligible only if >=3 positively counted identifiable plant taxa, >=10 **original wild-bee** and >=10 **Syrphidae** visit records TO positively counted taxa, >=70% **of all original bee visits and all original syrphid visits that day** represented by exact linked positive-flower taxa, and one common, present original flower `Units` label across all its matched source records.
+5. Minimum coverage to authorize an effect: **>=20 complete source network-dates from >=5 independent original study programmes**, with original programmes 23/24/25 still combined into one. If not met: `BLOOM_CONFIRMED_DATE_COVERAGE_STOP`, no effect.
+6. If coverage passes, subsequent original-source analysis **under this distinct post-primary observational estimand**: for each eligible study-network-date, restrict to taxa documented with positive flower counts and count bee and hoverfly visits by plant. Compute observed JSD minus 199 within-date exact multivariate-hypergeometric random-label nulls conditioning on same-day visited plant frequencies and guild totals. Aggregate eligible days equally within source programmes, then source programmes equally; 2,000 whole-programme bootstrap. Fixed seeds (null 20261124, bootstrap 20261125). Report network-days, programmes, fraction of positive programme means and original primary/robustness only as external interpretive reference, **never as another independent confirming study**. Do not select alternate thresholds if negative.
+7. This test controls for *positive co-recorded blooms and calendar day* on common source records, **not flower density, nectar production or source-native sampling effort**; even a positive result is observed guild-specific visitation allocation, NOT proven floral preference, competition, effective pollen transfer, seed set or fragmentation response.
+
+## Integrity / provenance
+
+Source SHA and original row cardinalities remain exactly those registered in the prior supply coverage protocol, and parent 311 eligible network-year frames remain invariant. No original rows, plant names, geographic coordinates or taxon-level outcomes committed. The branch remains draft and stacked on PR #72. The strict per-merger coverage negative result is preserved and **not rewritten**, and post-primary selection is documented.
