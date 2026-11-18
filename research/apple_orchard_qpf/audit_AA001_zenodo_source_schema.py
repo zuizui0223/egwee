@@ -126,7 +126,8 @@ def audit():
     result["source_files_in_record"]=len(entries)
     for name in EXPECTED:
         info=entries[name]
-        r={"original_filename":name,"status":"FILE_NOT_ACCESSED"}
+        r={"original_filename":name,"status":"FILE_NOT_ACCESSED",
+           "metadata_link_relation_keys": sorted((info.get("links") or {}).keys())}
         try:
             size=info.get("size")
             if not isinstance(size,int) or size<10 or size>MAX_FILE:
