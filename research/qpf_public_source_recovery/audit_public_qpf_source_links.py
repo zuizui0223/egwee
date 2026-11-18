@@ -14,11 +14,13 @@ import hashlib
 import json
 from pathlib import Path
 import re
+import sys
 from urllib.parse import quote
 from urllib.request import Request, urlopen
 import zipfile
 from xml.etree import ElementTree as ET
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "compatibility_function"))
 from audit_dryad_joint_state_source_schema import metadata_for_one
 
 PUBLIC_FIRST_URL = "https://datadryad.org/stash/downloads/file_stream/736848"
