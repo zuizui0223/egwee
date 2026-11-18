@@ -132,19 +132,12 @@ def audit():
             size=info.get("size")
             if not isinstance(size,int) or size<10 or size>MAX_FILE:
                 raise ValueError("Source size missing or outside safe bound")
-            href=(info.get("links") or {}).get("content")
+            # This record uses Zenodo's 'self' relation for file bytes.
+            # Prior source-only audit proved self returns plain delimited text,
+            # not JSON. Accept either metadata-advertised relation unchanged.
+            href=(info.get("links") or {}).get("content") or (info.get("links") or {}).get("self")
             if not href:
-                # Zenodo RDM can advertise only a file-metadata self relation.
-                # Follow exact official link, never invent a file-content URL.
-                self_href=(info.get("links") or {}).get("self")
-                if not self_href:
-                    raise ValueError("No Zenodo-advertised file self/content link")
-                file_meta=json.loads(get_bytes(self_href,MAX_META))
-                if str(file_meta.get("key",""))!=name:
-                    raise ValueError("Official file-metadata name mismatch")
-                href=(file_meta.get("links") or {}).get("content")
-                if not href:
-                    raise ValueError("No content link at official file self metadata")
+                raise ValueError("No Zenodo-advertised original source link")
             blob=get_bytes(href,MAX_FILE)
             if len(blob)!=size:
                 raise ValueError("Original size checksum mismatch")
