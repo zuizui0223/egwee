@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "analysis_id": "LA003_source_only_published_visit_unit_audit",
+  "status": "PARTIAL_RATE_RECONSTRUCTION_WITH_UNRESOLVED_TOTAL_VISIT_UNITS",
+  "original_paper_doi": "10.1111/evo.13167",
+  "original_dataset_doi": "10.5061/dryad.2pj0j",
+  "source_zip_sha256": "82bcaa1c3a504cc779bc9c2aa95199a657dd404b3fdf62f7059e4ff5028b39c1",
+  "measurement_provenance": "Exact original user-supplied Dryad ZIP, 2014/2015 Pollinator Data XLSX, source-only non-outcome aggregation; no field seed/fitness/genotype values included",
+  "reported_paper": {
+    "visits": 3748,
+    "half_hour_periods": 121,
+    "bagged_controls": 17,
+    "rate_by_year_genotype": {
+      "2014": {
+        "SI": 2.008,
+        "SC": 2.245
+      },
+      "2015": {
+        "SI": 1.068,
+        "SC": 1.167
+      }
+    }
+  },
+  "source_grains": {
+    "half_hour_periods": 121,
+    "insect_event_rows": 2850,
+    "position_tokens": 6702,
+    "distinct_positions_per_event_sum": 5064,
+    "in_range_position_tokens": 6701,
+    "zero_open_flower_inrange_tokens": 38,
+    "invalid_position_tokens": 1,
+    "admitted_LA001_tokens": 6663
+  },
+  "source_by_year": {
+    "2014": {
+      "completed_sessions": 45,
+      "open_flower_rows": 45,
+      "insect_event_rows": 532,
+      "position_tokens": 1657,
+      "distinct_positions_per_event_sum": 1370,
+      "source_admitted_tokens": 1620,
+      "zero_open_flower_tokens": 37,
+      "out_of_range_tokens": 0
+    },
+    "2015": {
+      "completed_sessions": 76,
+      "open_flower_rows": 80,
+      "insect_event_rows": 2318,
+      "position_tokens": 5045,
+      "distinct_positions_per_event_sum": 3694,
+      "source_admitted_tokens": 5043,
+      "zero_open_flower_tokens": 1,
+      "out_of_range_tokens": 1
+    }
+  },
+  "source_case_sensitive_taxon_codes": {
+    "2014": {
+      "Bf": {
+        "insect_rows": 44,
+        "position_tokens": 205
+      },
+      "BF": {
+        "insect_rows": 3,
+        "position_tokens": 4
+      }
+    },
+    "2015": {
+      "BF": {
+        "insect_rows": 85,
+        "position_tokens": 780
+      }
+    }
+  },
+  "per_period_rate_method": "For each completed 30-min source period and SC/SI genotype, rate=2*(numeric position tokens assigned to genotype)/(number of logged open flowers for that genotype); average only periods with genotype open_n>0; source groups BF case-folded solely to display rate comparison; not confirmed paper taxonomy dictionary",
+  "observed_rates": {
+    "2014": {
+      "SI": {
+        "source_total": 1.9857685453406901,
+        "n_periods": 45,
+        "source_AH": 1.4684830314271926,
+        "source_BF_casefold": 0.1861655915960764,
+        "source_F": 0.22771681250514322,
+        "source_Other": 0.1034031098122779
+      },
+      "SC": {
+        "source_total": 2.24547416561454,
+        "n_periods": 44,
+        "source_AH": 1.678182729553754,
+        "source_BF_casefold": 0.22514823042194276,
+        "source_F": 0.19057333832734902,
+        "source_Other": 0.1515698673114941
+      }
+    },
+    "2015": {
+      "SI": {
+        "source_total": 1.0391311690940188,
+        "n_periods": 74,
+        "source_AH": 0.4163564759117799,
+        "source_BF_casefold": 0.17945210474693757,
+        "source_F": 0.3888953286517939,
+        "source_Other": 0.05442725978350745
+      },
+      "SC": {
+        "source_total": 1.1473004471418682,
+        "n_periods": 75,
+        "source_AH": 0.48408266147734025,
+        "source_BF_casefold": 0.1954601745878976,
+        "source_F": 0.41513180562204993,
+        "source_Other": 0.05262580545458036
+      }
+    }
+  },
+  "original_single_visit_control_source_rows": 21,
+  "source_cpp_code_roles": "main.cpp Individual.h Locus.h operate the simulation; no source observation-tabulation code",
+  "resolved": "Some published per-flower per-hour rates, especially 2014 SC total/AH/F, reproduced closely using source token-per-period averaging.",
+  "unresolved": [
+    "Published 3748 visit-unit mapping to raw 2850 insect rows and 6702 position tokens",
+    "2014 case-sensitive Bf vs BF meaning and paper category proportions",
+    "2015 small rate discrepancies",
+    "21 controls original vs 17 published"
+  ],
+  "scientific_firewall": [
+    "Source measurement audit only; not a 2017 paper correction",
+    "Not a biological inference or new prediction",
+    "Original frozen LA001 and LA002 no-improvement site-holdout decisions preserved",
+    "Third-party raw XLSX/position sequences not redistributed"
+  ]
+}

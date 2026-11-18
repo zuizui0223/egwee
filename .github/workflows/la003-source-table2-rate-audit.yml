@@ -1,0 +1,45 @@
+name: LA003 original-paper Table 2 visit-unit source audit contract
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/compatibility_function/run_la003_published_visit_rate_audit.py'
+      - 'research/compatibility_function/test_la003_source_rate_audit.py'
+      - 'research/compatibility_function/LA003_*'
+      - '.github/workflows/la003-source-table2-rate-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test-original-source-rate-arithmetic-without-raw-files:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Audit rate arithmetic, source counting units and old nulls
+        run: |
+          python -m unittest discover -s research/compatibility_function \
+            -p 'test_la003_source_rate_audit.py' -v
+      - name: Verify no individual source data exported
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d = Path('research/compatibility_function')
+          r = json.loads((d/'LA003_TABLE2_AGGREGATE_RECEIPT_20261118.json').read_text())
+          assert r['status']=='PARTIAL_RATE_RECONSTRUCTION_WITH_UNRESOLVED_TOTAL_VISIT_UNITS'
+          assert r['source_grains']['insect_event_rows']==2850
+          assert r['source_grains']['position_tokens']==6702
+          assert r['reported_paper']['visits']==3748
+          assert not list(d.glob('*.zip'))
+          assert not list(d.glob('Pollinator+Data+*.xlsx'))
+          assert r['observed_rates']['2014']['SC']['source_total']>2.245
+          assert r['observed_rates']['2014']['SC']['source_total']<2.246
+          print('Source aggregate receipt verified; 3748 numerator remains unresolved.')
+          PY
