@@ -186,6 +186,8 @@ def analyze():
     rngb=np.random.default_rng(RNG_BOOT)
     draw=rngb.integers(0,len(pr),size=(N_BOOT,len(pr)))
     boot=differences[draw].mean(axis=1)
+    boot_bee=bee_means[draw].mean(axis=1)
+    boot_fly=fly_means[draw].mean(axis=1)
     loo=(sum(differences)-differences)/(len(pr)-1)
     return {
         "status":"EXPLORATORY_RECORDED_FLOWER_SUPPLY_COMPARISON_COMPLETED",
@@ -198,9 +200,13 @@ def analyze():
         "n_exact_source_study_network_dates":len(units),
         "n_independent_original_programmes":len(pr),
         "n_positive_programme_delta":int(np.sum(differences>0)),
+        "n_positive_programme_bee_excess":int(np.sum(bee_means>0)),
+        "n_positive_programme_syrphid_excess":int(np.sum(fly_means>0)),
         "mean_excess_jsd_bee_to_source_recorded_flowers":float(np.mean(bee_means)),
         "mean_excess_jsd_syrphid_to_source_recorded_flowers":float(np.mean(fly_means)),
         "primary_delta_bee_minus_syrphid_excess_jsd":float(np.mean(differences)),
+        "post_outcome_secondary_bee_bootstrap_95pct":[float(v) for v in np.percentile(boot_bee,[2.5,97.5])],
+        "post_outcome_secondary_syrphid_bootstrap_95pct":[float(v) for v in np.percentile(boot_fly,[2.5,97.5])],
         "whole_programme_bootstrap_95pct":[float(v) for v in np.percentile(boot,[2.5,97.5])],
         "programme_leave_one_out_delta_range":[float(np.min(loo)),float(np.max(loo))],
         "source_units_3plus_bloom_taxa":True,
