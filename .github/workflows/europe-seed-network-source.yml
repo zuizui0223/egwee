@@ -23,6 +23,8 @@ jobs:
           python-version: '3.11'
       - name: Synthetic source-header integrity gate
         run: python research/europe_seed_network_transport/audit_zenodo_seed_source_schema.py --self-test
+      - name: Check published Zenodo record versions and file inventory without outcomes
+        run: python research/europe_seed_network_transport/probe_published_zenodo_version_metadata.py
       - name: Fetch official Zenodo v2 files and inspect headers only
         run: |
           python research/europe_seed_network_transport/audit_zenodo_seed_source_schema.py \
