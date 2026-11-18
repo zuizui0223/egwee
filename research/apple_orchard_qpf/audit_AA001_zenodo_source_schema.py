@@ -153,6 +153,7 @@ def audit():
         except (HTTPError,URLError,ValueError,TypeError,KeyError,UnicodeError) as exc:
             r["status"]="ORIGINAL_FILE_ACCESS_OR_FORMAT_STOP"
             r["error_type"]=type(exc).__name__
+            if not isinstance(exc,HTTPError):r["safe_error_reason"]=str(exc)[:160]
             if isinstance(exc,HTTPError):r["http_status"]=exc.code
         result["per_source"].append(r)
     ok=sum(p["status"]=="ORIGINAL_FILE_SCHEMA_PASS" for p in result["per_source"])
