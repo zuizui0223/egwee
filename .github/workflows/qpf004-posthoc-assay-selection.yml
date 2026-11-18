@@ -1,0 +1,49 @@
+name: QPF004 original-pollen-assay selection and site-week support audit
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/qpf_source_grain/QPF004_POSTHOC_*'
+      - 'research/qpf_source_grain/diagnose_qpf004_pollen_assay_selection.py'
+      - 'research/qpf_source_grain/test_qpf004_pollen_assay_selection.py'
+      - '.github/workflows/qpf004-posthoc-assay-selection.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  prove-source-selection-does-not-rewrite-frozen-negative:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Source-withheld original-preregistered-no-increment & group support audit
+        run: |
+          python -m unittest discover -s research/qpf_source_grain \
+            -p 'test_qpf004_pollen_assay_selection.py' -v
+      - name: Confirm all original classes and 232 source phenotype units unchanged
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('research/qpf_source_grain')
+          result=json.loads((root/'QPF004_POSTHOC_POLLEN_ASSAY_SELECTION_20261118.json').read_text())
+          prev=json.loads((root/'QPF004_ORIGINAL_WEEK_HOLDOUT_RESULT_20261118.json').read_text())
+          assert result['original_primary_decision']==prev['registered_decision']=='NO_PRACTICALLY_PORTABLE_POLLEN_INCREMENT'
+          assert result['source_all_2016_seed_per_flower_ramets']==232
+          assert result['source_ramets_with_measured_stigma_P']==62
+          assert result['source_ramets_without_stigma_P']==170
+          g={x['treatment']:x for x in result['source_treatment_coverage_and_F_descriptives']}
+          assert g['V']['pollen_assay_n']==47
+          assert g['O']['pollen_assay_n']==15
+          assert g['B']['pollen_assay_n']==0
+          assert not list(root.glob('*.xlsx')) and not list(root.glob('*.zip')) and not list(root.glob('*.pdf'))
+          assert result['original_individual_flower_ramet_values_exported'] is False
+          print('Only original-source aggregate P-assay coverage inspected; no new fitting or causal comparison.')
+          PY
