@@ -1,0 +1,50 @@
+name: EuPPollNet bloom-confirmed same-day guild partition
+on:
+  push:
+    branches: [analysis/euppollnet-supply-gate-20261118]
+  pull_request:
+    paths:
+      - research/euppollnet_flower_supply/**
+      - .github/workflows/euppollnet-bloom-confirmed-guild.yml
+  workflow_dispatch:
+jobs:
+  bloom-source-date:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install source-prior pinned NumPy
+        run: python -m pip install numpy==2.3.5
+      - name: Source-only date and synthetic finite-count test
+        run: python research/euppollnet_flower_supply/estimate_bloom_confirmed_guild_date.py --self-test
+      - name: Execute pre-frozen post-primary source-date coverage and conditional effect
+        run: |
+          python research/euppollnet_flower_supply/estimate_bloom_confirmed_guild_date.py --output bloom_confirmed_day_derivative.json
+          python - <<'PY'
+          import json
+          x=json.load(open("bloom_confirmed_day_derivative.json"))
+          assert x["status"] in ("POSTPRIMARY_BLOOM_CONFIRMED_DATE_ESTIMATED","BLOOM_CONFIRMED_DATE_COVERAGE_STOP")
+          assert x["counts"]["source_interactions"]==623476
+          assert x["counts"]["original_flower_rows"]==199692
+          assert x["counts"]["original_primary_networks"]==311
+          assert x["original_author_source_rows_redistributed"] is False
+          assert x["true_flower_number_supply_correction_performed"] is False
+          assert x["seed_or_pollen_quality_measured"] is False
+          if x["status"]=="POSTPRIMARY_BLOOM_CONFIRMED_DATE_ESTIMATED":
+              assert x["coverage_threshold_met"] is True
+              assert x["qualifying_native_network_dates"]>=20
+              assert x["qualifying_independent_original_programmes"]>=5
+          else:
+              assert x["effect_estimated"] is False
+          print("BLOOM_CONFIRMED_POSTPRIMARY_SOURCE_CONTRACT_PASS")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: euppollnet-bloom-confirmed-date-derivative
+          path: bloom_confirmed_day_derivative.json
+          retention-days: 14

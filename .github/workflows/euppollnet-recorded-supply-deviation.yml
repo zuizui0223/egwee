@@ -1,0 +1,51 @@
+name: EuPPollNet recorded flower-supply guild deviation
+on:
+  push:
+    branches: [analysis/euppollnet-supply-gate-20261118]
+  pull_request:
+    paths:
+      - research/euppollnet_flower_supply/**
+      - .github/workflows/euppollnet-recorded-supply-deviation.yml
+  workflow_dispatch:
+jobs:
+  corrected-supply-reference:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Pin NumPy used by the corrected original guild analysis
+        run: python -m pip install numpy==2.3.5
+      - name: Synthetic bloom-proportion and null test
+        run: python research/euppollnet_flower_supply/estimate_recorded_supply_deviation.py --self-test
+      - name: Recompute source-verified 213-date supply-relative comparison
+        run: |
+          python research/euppollnet_flower_supply/estimate_recorded_supply_deviation.py --output euppollnet_recorded_supply_derivative.json
+          python - <<'PY'
+          import json
+          x=json.load(open("euppollnet_recorded_supply_derivative.json"))
+          assert x["status"]=="EXPLORATORY_RECORDED_FLOWER_SUPPLY_COMPARISON_COMPLETED"
+          assert x["n_exact_source_study_network_dates"]==213
+          assert x["n_independent_original_programmes"]==18
+          assert x["source_original_primary_eligible_networks"]==311
+          assert abs(x["primary_delta_bee_minus_syrphid_excess_jsd"]-(-0.007880529316510475))<1e-8
+          assert abs(x["mean_excess_jsd_bee_to_source_recorded_flowers"]-0.12297075841478618)<1e-8
+          assert abs(x["mean_excess_jsd_syrphid_to_source_recorded_flowers"]-0.13085128773129662)<1e-8
+          assert x["whole_programme_bootstrap_95pct"][0] < 0 < x["whole_programme_bootstrap_95pct"][1]
+          assert x["n_positive_programme_delta"]==8
+          assert x["n_positive_programme_bee_excess"]==18
+          assert x["n_positive_programme_syrphid_excess"]==18
+          assert x["source_recorded_counts_are_not_calibrated_true_flower_supply"] is True
+          assert x["measured_actual_compatible_pollen_or_seed_function"] is False
+          assert x["raw_original_source_rows_redistributed"] is False
+          print("RECODED_FLOWER_GUILD_COMPARISON_NO_CAUSAL_PREFERENCE_PASS")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: euppollnet-recorded-supply-derivative
+          path: euppollnet_recorded_supply_derivative.json
+          retention-days: 14
