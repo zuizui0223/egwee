@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "audit_id": "QPF004_Mertensia_ciliata_source_identity_and_access_20261118",
+  "status": "SOURCE_ACCESS_STOP_ORIGINAL_XLSX_NOT_RECOVERED",
+  "original_six_source_registry_id": "QPF004",
+  "original_registry_wrong_species": "Mimulus/Erythranthe ciliata",
+  "source_verified_correct_species": "Mertensia ciliata",
+  "family": "Boraginaceae",
+  "paper_doi": "10.1002/ajb2.1439",
+  "source_doi": "10.7280/D19X0D",
+  "original_public_version": "2020-06-19",
+  "official_dryad_metadata_verified": true,
+  "official_file_inventory_verified": true,
+  "official_file_inventory": [
+    {
+      "name": "gallagher&campbell_nonSpatialData_phenologyExperiment.pdf",
+      "bytes": 236709,
+      "digest_type": "sha-256",
+      "sha256": "14d97ecbf68da07252293c751987789d768181bba23da38a9b036dac0cd19972",
+      "content_inspected": false
+    },
+    {
+      "name": "gallagher&campbell_nonSpatialData_pollinatorEffectiveness.pdf",
+      "bytes": 206337,
+      "digest_type": "sha-256",
+      "sha256": "f12e0588619e4a795d7f56a3d42f11cd4b7328716a901041e95f90c67e54ca7f",
+      "content_inspected": false
+    },
+    {
+      "name": "gallagher&campbell_phenologyExperimentData.xlsx",
+      "bytes": 96329,
+      "digest_type": "sha-256",
+      "sha256": "51263c0cabe9dd04dbf716a4594e7d700c5235dd3f85a65ab51f43fcef828411",
+      "download_attempt": "HTTP 401 Unauthorized",
+      "source_workbook_headers_read": false
+    },
+    {
+      "name": "gallagher&campbell_pollinatorEffectivenessData.xlsx",
+      "bytes": 77873,
+      "digest_type": "sha-256",
+      "sha256": "bbfcbbaf43b53b0ef835b891bd8932ae3761a383e4ecb1f38440a4ba9d477c38",
+      "download_attempt": "HTTP 401 Unauthorized",
+      "source_workbook_headers_read": false
+    }
+  ],
+  "source_design_provenance": {
+    "2015 phenology": {
+      "n_potted_plants_flowered": 40,
+      "weeks": 4,
+      "final_week_cut_flower_added_after_initial_15h_zero_visitors": true,
+      "same_flower_Q_P_F_joins_verified": false
+    },
+    "2016 single_visit": {
+      "n_visited_ramets": 95,
+      "n_marked_flowers": 235,
+      "published_pollen_response_n": 62,
+      "published_seed_response_n": 232,
+      "n_open_control_ramets": 65,
+      "n_bagged_control_ramets": 74,
+      "actual_joint_2016_ramet_CP_HP_seed_rows": null,
+      "same_ramet_flower_joins_verified": false
+    }
+  },
+  "source_access_gate": {
+    "doi_metadata": true,
+    "manifest": true,
+    "source_xlsx_downloaded": 0,
+    "source_xlsx_headers_read": 0,
+    "original_same_cohort_joins_verified": 0,
+    "computed_original_new_QPF_effects": 0,
+    "read_metadata_PDF_contents": false
+  },
+  "actions_run": 44267222603,
+  "actions_artifact_id": 14411211897,
+  "actions_artifact_sha256": "07dfc67be1a0ed68006bb2f257620062ec1d95f2c0c0296038ba90aed29649de",
+  "local_uploaded_zip_receipt_available": false,
+  "file_needed_next": "Original published Dryad 2020 ZIP containing all 4 registered files, or both original published XLSX sources verified against exact sha256 above",
+  "admission_decision": "DO_NOT_ADMIT_AS_NEW_COMPLETE_DIRECT_QPF_UNTIL_EXACT_RAMET_FLOWER_JOIN_AND_MISSINGNESS_AUDIT",
+  "scientific_limitations": [
+    "The original QPF six-candidate list is unchanged in historical freeze; only an explicit taxonomic correction is recorded.",
+    "2015 flowering-manipulated plant-level Q,P,F and 2016 single-visit source are different cohorts and experiments.",
+    "2016 source 235 marked flowers, 62 pollen and 232 seed responses are not 235 fully paired triplets.",
+    "2015 last-week cut stems changed floral display and observation effort after zero visitors in first 15h.",
+    "Original 2020 paper already found shift to Bombus visits counteracted overall visit decline. This is not a new discovered QPF mechanism.",
+    "Related 2021 experiment is not automatically an independent species-region study or directly measured pollen P.",
+    "HTTP 401 is official file-stream access failure; it cannot imply data are private or the ecological hypothesis is negative."
+  ],
+  "original_biological_raw_rows_redistributed": false,
+  "new_ecological_inference_fitted": false
+}
