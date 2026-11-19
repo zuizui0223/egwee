@@ -82,7 +82,9 @@ def one_chain(kids,lookup,seed):
     draws={key:[] for key in ("documented_positive","optimistic_missing_as_positive",
                              "roster_presence","positive_given_measured_row")}
     group_optimistic={s:0 for s in sessions}
-    group_original_fraction={s:ratios(Counter(cat(s,m,f,lookup) for m,f in state[s]))
+    # Observed session evidence MUST use the unpermuted author-assigned
+    # parentage, not the chain state after the warm-up swaps.
+    group_original_fraction={s:ratios(Counter(cat(s,m,f,lookup) for m,f in original[s]))
                              ["optimistic_missing_as_positive"] for s in sessions}
     # Avoid repeated original contact table lookups on impossible phenotype.
     for _ in range(N_NULL):
