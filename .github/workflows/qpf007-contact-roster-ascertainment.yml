@@ -1,0 +1,55 @@
+name: QPF007 genetic father contact roster-ascertainment challenge
+on:
+  push:
+    branches: [audit/qpf007-contact-roster-missingness-20261119]
+  pull_request:
+    paths:
+      - research/qpf_independent_2026/QPF007_POSTHOC_ROSTER_ASCERTAINMENT_FREEZE_20261119.md
+      - research/qpf_independent_2026/audit_qpf007_contact_roster_ascertainment.py
+      - .github/workflows/qpf007-contact-roster-ascertainment.yml
+  workflow_dispatch:
+
+jobs:
+  source-missingness-conditional-null:
+    runs-on: ubuntu-latest
+    timeout-minutes: 17
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Synthetic source roster P/Z/U/A and no-raw-data tests
+        run: python research/qpf_independent_2026/audit_qpf007_contact_roster_ascertainment.py --self-test
+      - name: Run source-locked two-chain missing-roster challenge, preserving the original source primary
+        run: |
+          python research/qpf_independent_2026/audit_qpf007_contact_roster_ascertainment.py \
+            --output qpf007_postoutcome_roster_ascertainment_derivative.json
+          python - <<'PY'
+          import json
+          r=json.load(open("qpf007_postoutcome_roster_ascertainment_derivative.json"))
+          assert r["status"]=="QPF007_SOURCE_ROSTER_ASC_BOUNDS_POSTOUTCOME_COMPLETE"
+          assert r["source_original_positive_evidence_P"]==688
+          assert r["source_explicit_zero_evidence_Z"]==23
+          assert r["source_present_but_contact_unknown_U"]==0
+          assert r["source_directed_pair_row_absent_A"]==30
+          assert r["original_outcrossed_offspring"]==741
+          assert r["original_selfed_offspring_excluded"]==358
+          assert r["original_barbot_co10_primary_reported_not_changed"] is True
+          assert r["source_pair_absence_is_unknown_not_negative_contact"] is True
+          assert len(r["independent_null_chains"])==2
+          assert all(x["conditional_null_draws"]==2000 for x in r["independent_null_chains"])
+          assert r["source_original_phenotypes_genotypes_mother_father_offspring_IDs_not_redistributed"] is True
+          assert r["not_an_independent_registrational_confirmation"] is True
+          assert r["decision"] in ("CONTACT_INFERENCE_SURVIVES_OPTIMISTIC_SOURCE_ROSTER_BOUND",
+                                   "CONTACT_ASSOCIATION_DEPENDS_ON_ROSTER_ASCERTAINMENT")
+          print("QPF007_PARENTAL_SOURCE_ROSTER_ASCERTAINMENT_CHALLENGE_EXECUTED")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: qpf007-postoutcome-sire-contact-roster-missingness-derivative
+          path: qpf007_postoutcome_roster_ascertainment_derivative.json
+          retention-days: 14
