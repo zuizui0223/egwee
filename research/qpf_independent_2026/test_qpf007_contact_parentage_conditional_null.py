@@ -363,6 +363,15 @@ def main():
        "n_selfed":r.get("original_selfed_assigned_offspring_excluded_from_primary"),
        "source_counts":r.get("original_contact_evidence_categories",{}).get(10),
        "primary_metric":r.get("prespecified_contact_evidence_metrics",{}).get("10"),
+       "fixed_prelisted_carryover_sensitivity":{
+          co:{
+            "observed":v["original_positive_contact_evidence_outcross_offspring_fraction"],
+            "fixed_marginal_expected":v["conditional_fixed_margin_null_fraction_mean"],
+            "excess":v["observed_minus_fixed_margin_null_evidence_excess"],
+            "conditional_mc_p":v["monte_carlo_one_sided_p_conditional_null"],
+            "positive_sessions":v["source_sessions_with_positive_minus_null"]
+          } for co,v in r.get("prespecified_contact_evidence_metrics",{}).items()
+       },
        "null_diagnostics":r.get("null_permutation_diagnostics"),
        "error":r.get("reason"),"postprimary":True
     }
