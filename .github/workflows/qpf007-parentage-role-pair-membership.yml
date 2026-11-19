@@ -1,0 +1,48 @@
+name: QPF007 source-authored father/mother role + pair-table row identity audit
+on:
+  push:
+    branches: [audit/qpf007-verified-parentage-pair-join-20261118]
+  pull_request:
+    paths:
+      - research/qpf_independent_2026/audit_qpf007_source_parent_roles_and_pair_rows.py
+      - research/qpf_independent_2026/QPF007_POSTROLE_PARENTAGE_PAIR_ID_CONTRACT_20261119.md
+      - .github/workflows/qpf007-parentage-role-pair-membership.yml
+  workflow_dispatch:
+jobs:
+  published-CERVUS-role:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Test original-role and exact source-name path
+        run: python research/qpf_independent_2026/audit_qpf007_source_parent_roles_and_pair_rows.py --self-test
+      - name: Source-hashed original maternal/paternal IDs, no visit effect
+        run: |
+          python research/qpf_independent_2026/audit_qpf007_source_parent_roles_and_pair_rows.py \
+            --output qpf007_genetic_parent_pair_membership.json
+          python - <<'PY'
+          import json
+          r=json.load(open("qpf007_genetic_parent_pair_membership.json"))
+          assert r["status"]=="ORIGINAL_PARENTAGE_PAIRED_ID_AND_ROLE_SOURCE_CHECK_COMPLETE"
+          assert r["author_R_line_88_known_parent_session_substr_verified"] is True
+          assert r["author_R_male_candidate_grouping_and_known_parent_mother_grouping_verified"] is True
+          assert r["do_not_interpret_pair_table_row_as_positive_flower_contact"] is True
+          assert r["source_assigned_paternity_ID_pair_membership_computed"] is True
+          assert r["source_genotypic_paternity_rows_published"] is False
+          assert r["new_partner_overlap_scientific_effect_estimated"] is False
+          assert r["observational_positive_contact_status_certified"] is False
+          assert r["one_experimental_original_study_only"] is True
+          print("QPF007_AUTHOR_PARENT_ROLE_ORIGINAL_SOURCE_ROWS_NO_CONTACT_EFFECT_PASS")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: qpf007-verified-mother-father-ID-source-metadata
+          path: qpf007_genetic_parent_pair_membership.json
+          retention-days: 14

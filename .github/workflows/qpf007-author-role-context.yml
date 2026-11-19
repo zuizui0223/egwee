@@ -1,0 +1,41 @@
+name: QPF007 published paternity R code 24-line roles
+on:
+  push:
+    branches: [audit/qpf007-verified-parentage-pair-join-20261118]
+  pull_request:
+    paths:
+      - research/qpf_independent_2026/audit_qpf007_author_source_role_context.py
+      - .github/workflows/qpf007-author-role-context.yml
+  workflow_dispatch:
+jobs:
+  bounded-original-author-context:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify exact author-script source and bounded role evidence
+        run: |
+          python research/qpf_independent_2026/audit_qpf007_author_source_role_context.py --output author_role_bounded_24line_receipt.json
+          python - <<'PY'
+          import json
+          x=json.load(open("author_role_bounded_24line_receipt.json"))
+          assert x["status"]=="AUTHOR_R_SOURCE_ROLE_CODE_CONTEXT_VERIFIED"
+          assert x["bounded_source_code_line_count"]==24
+          assert x["source_known_id_session_derivation_seen"] is True
+          assert x["original_genotype_or_phenotype_rows_opened"] is False
+          assert x["actual_genetic_assignment_estimated"] is False
+          assert x["parentage_father_role_automatic_certification"] is False
+          print("QPF007_AUTHOR_SCRIPT_ROLE_SOURCE_PROVENANCE_PASS")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: qpf007-author-24line-semantics
+          path: author_role_bounded_24line_receipt.json
+          retention-days: 14
