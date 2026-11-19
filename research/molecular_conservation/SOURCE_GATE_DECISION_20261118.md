@@ -43,3 +43,13 @@ Genetic intervention and ecological intervention effects are distinct; no causal
 
 ## Claim ceiling
 Existing field evidence supports compatibility limitation in some systems, not cross-system predictive transport or causal rescue. Neutral diversity, S-allele availability, effective mating, general fitness, and interaction-dependent seed/recruitment function are distinct. The numerical model AUC 0.927 is not a natural result. The five-cluster EGWEE synthesis and active EGWE Theoretical Ecology flagship remain untouched.
+
+## Follow-up executed HTTP diagnosis — 2026-11-19
+- Workflow: https://github.com/zuizui0223/egwee/actions/runs/44456077128 ; status completed/success.
+- Job: 135331287864. Artifact: 14497324362, name molecular-source-access-only, SHA256 04e3998ec2f0a57c0ee7669dafc5fb88c47f568f4e3bdbbcf94d8d97bd720154.
+- SMF001 official API advertises six XLSX, first two probed returned HTTP 401 each.
+- SMF002 official API advertises nine XLSX (not all are the seven preselected target workbooks), first two probed returned HTTP 401 each.
+- Thus 4/4 bounded probes were HTTP 401, no redirected success. The precise authentication requirement and availability via another legitimate publisher/author route are not established.
+- Probe is Range bytes=0-0 and reads at most one response byte if reachable; no biological values are retained or displayed. Workflow success signifies successful diagnosis, **not successful source acquisition**.
+- Decision remains SOURCE_ACCESS_STOP, no valid G×I×F matched rows and no new ecological result. Do not use unauthorized endpoints, scrape login sessions, or infer that all files are inaccessible from four probes.
+- Next action: use documented source-owner or repository-authorized original file route; once acquired, inspect headers and provenance only, then freeze join grain before effect analysis.
