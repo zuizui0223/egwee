@@ -3,8 +3,7 @@
 
 Verifies that the author's known_id session derivation and candidate_id paternal
 aggregation are consistent with the original ID tables. Pair TABLE ROW
-presence is NOT positive flower contact. No visits, seeds or father recovery
-coefficients computed; no source observations/IDs emitted.
+presence is NOT positive flower contact. Paternal ID strings define reproductive dyads and ARE original genetic identity outcomes; we inspect source IDs for structural membership but compute no visit/fertilization coefficient. No raw source rows or IDs are emitted.
 """
 from __future__ import annotations
 import argparse
@@ -118,8 +117,10 @@ def run():
       "ID_only_summary":counts,
       "decision":decision,
       "do_not_interpret_pair_table_row_as_positive_flower_contact":True,
-      "paternal_fertilization_or_mating_edge_result_computed":False,
+      "source_assigned_paternity_ID_pair_membership_computed":True,
+      "paternity_identity_is_a_genetic_outcome":True,
       "new_partner_overlap_scientific_effect_estimated":False,
+      "observational_positive_contact_status_certified":False,
       "source_pair_contact_numeric_values_opened":False,
       "source_genotypic_paternity_rows_published":False,
       "one_experimental_original_study_only":True,
@@ -142,7 +143,7 @@ def main():
         "status":"PARENTAL_OR_SOURCE_ROLE_STOP",
         "error_type":type(e).__name__,
         "reason":str(e)[:240],
-        "paternal_fertilization_or_mating_edge_result_computed":False,
+        "source_assigned_paternity_ID_pair_membership_computed":False,
     }
     a.output.parent.mkdir(parents=True,exist_ok=True)
     a.output.write_text(json.dumps(result,sort_keys=True,indent=2)+"\n")
