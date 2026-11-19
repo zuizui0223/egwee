@@ -1,0 +1,35 @@
+# RHP001 (wild Oenothera) pre-outcome seed-family predictive test
+
+**Frozen 19 Nov 2026 AFTER publisher original source-only schema check but BEFORE inspecting any original `correlatedPaternity` values or signed treatment effects.** This is a *separately scoped, one-original-study, maternal-family generalization* prediction, **not** a direct father-contact replication of the 2026 Barbot experimental Brassica edge metric.
+
+## Author original source and grain
+
+Rhodes, Fant & Skogen (2017), *Pollinator identity and spatial isolation influence multiple paternity in an annual plant*, Molecular Ecology [10.1111/mec.14115](https://doi.org/10.1111/mec.14115), Dryad [10.5061/dryad.p24q3](https://doi.org/10.5061/dryad.p24q3), [official Zenodo Dryad mirror ID 4942351](https://zenodo.org/records/4942351). Published source record license CC0; all 9 original files publisher-advertised and checksummed by [CI 44513179110](https://github.com/zuizui0223/egwee/actions/runs/44513179110). Exact original mother-family `multiplePaternity.csv` contains **60 source rows** with literal `plantID`, `treatment`, `isolation20`, `correlatedPaternity`. Other source files `pollinatorBouts.csv` 175 original bouts, `pollenDispersal.csv` 406 individual dispersal distances, author genotype workbook. The latter **have no verified mother/father plus direct pollinator visit-pair ID**, so they are **not** joined to family-level paternity for this hypothesis.
+
+Original publication already established that night-hawkmoth vs day-solitary-bee visitation access and site isolation influence multiple paternity. Those are **published prior art**, not new ecological discovery. New narrow methodological prediction: out-of-mother family paternity **predictive sufficiency** of source-recorded treatment labels conditional on spatial isolation.
+
+## Source-only eligibility audit before outcome comparison
+
+- Retain source 60 original family rows; `plantID` is a source maternal family identifier; check number of unique maternal plants and distribution of row counts per mother with no raw IDs output. Do NOT assume one family row is an independent maternal plant. Unique biological independent unit for splitting and bootstrap is original `plantID`.
+- Exactly source-declared treatment categories `c`, `de`, `ne` (case/whitespace normalized only; c=control, de=day exclusion, ne=night exclusion). Never recode exclusion as a realized individual bee/moth visit. Treatment is experimental, not plant-level direct visitor identity.
+- Original source `isolation20` finite ≥0; original MLTR `correlatedPaternity` finite numeric and bounded **[−1,1]** (a negative numerical estimator is not automatically a biological 0); missing cannot be filled 0; no outcome or genotype values logged.
+- Require **≥48** original usable seed-family rows, **≥18 unique maternal plants**, **≥10 usable rows in each original treatment**, **≥2 original treatment levels**, and source family value variation checked only at modeling stage (source-only gate must not inspect response direction or variance); otherwise STOP. Sources are one original publication and botanical species, not 60 independent habitats.
+
+## Fixed, conditional family-heldout prediction
+
+- Response: original MLTR `correlatedPaternity` estimator per source seed family, untransformed. Larger values mean paternity more concentrated (a higher probability that two progeny share a sire), not automatically fewer distinct true mates for finite offspring. An estimate of 0 is not "zero siring"; source `genotypes.xlsx` is not read by this model.
+- Model **Mnull**: intercept = training seed-family mean.
+- Model **M0**: Mnull plus train-z-standardized `log1p(isolation20)`, ridge λ=1 unpenalized intercept.
+- Model **M1**: M0 plus TWO source treatment indicators (reference alphabetically c); same ridge λ=1, unpenalized intercept, z-score ONLY the numeric source `log1p(isolation20)`; treatment indicators remain 0/1 to prevent rare treatments dominating; if train-only isolation has zero variance, source model STOP. Use same response and source inclusion for all three models, no tuning, no outlier trimming. Exactly one held-out fold per mother; all original family rows from a mother are in the same fold. **Every source family scored once**. Score source-family MSE & MAE then aggregate **mother-equal**, to avoid mothers with many seed families dominating; report also family-equal alternative separately. Do not claim leave-one-mother is leave-one-region or study-out generality.
+- The primary incremental question is Δ=MSE(M0)−MSE(M1). Positive means treatment adds heldout predictive information beyond source isolation; not a biological causal effect or 2x sire number effect. Also report Mnull−M0 to check spatial baseline sufficiency.
+- Whole-mother nonparametric bootstrap **4,000** draws seed 20261119, *reuse heldout mother errors without refitting*, CI for the mother-equal Δ; **do not** call bootstrap a cross-study predictive interval. Two independent ridge solvers (numpy normal equations and coordinate descent or separate verified pure python method) must match tolerance 1e−8; group-safe synthetic test must catch plant-family leakage.
+- **Pre-fixed source-specific support gate:** positive Δ, 4,000 mother-bootstrap percentile lower bound >0, and ≥60% mothers with positive M0−M1 heldout error. Otherwise `NO_RESOLVED_ONE_STUDY_TREATMENT_PREDICTION_GAIN`. Every sign retained, no postoutcome model alternative.
+
+## Biological and inferential limits
+
+- Direct individual pollinator movement and precise assigned genetic sire edges are **not** available at the same `plantID` family grain. This is a guild-exclusion → molecular multiple-paternity-proxy predictive analysis, NOT a replication of the Barbot co10 maternal/paternal offspring-marginal contact null, nor molecular pollen donor compatibility or viable offspring fitness.
+- A mother exposed to different treatments on different flowers can create within-mother treatment effects; the inference unit for out-of-mother prediction is still mother. Distinct treatments do not prove a particular pollinator visited this mother.
+- The original source already reported pollinator identity and isolation effects, so even a source-positive prediction is **a validation of conditional information under a new heldout design** rather than a novel ecological mechanism. It cannot increase the PR #90 number of independently validated direct visit-partner studies beyond one.
+- Inference is restricted to one species and one study/time/place; independently sampled flower families are nested, mother-heldout folds are correlated and bootstrap only resamples mothers. No p-value on 60 independent habitats, no universal meta claim. No original source rows, genotypes, plant IDs or source phenotypes distributed.
+
+This pre-outcome lock must precede code committing/executing signed response. No edits to original source archive, earlier QPF007 PR #85/#88/#89/#90, main fragmentation five-cluster synthesis or theoretical egwe.

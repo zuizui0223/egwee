@@ -1,0 +1,72 @@
+name: Wild Oenothera 2017 original maternal paternity holdout
+on:
+  push:
+    branches: [analysis/independent-paternity-source-bridge-20261119]
+  pull_request:
+    paths:
+      - research/independent_parentage_bridge/**
+      - .github/workflows/rhp001-maternal-paternity-holdout.yml
+  workflow_dispatch:
+
+jobs:
+  wild-original-maternal-plant-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pinned numerical dependency
+        run: python -m pip install numpy==2.3.5
+      - name: Verify no maternal leakage and independent ridge predictors on synthetic data
+        run: python research/independent_parentage_bridge/test_rhp001_oenothera_maternal_holdout.py --self-test
+      - name: Original author mother/pollinator exclusion source coverage, no fitted biological associations
+        run: |
+          python research/independent_parentage_bridge/test_rhp001_oenothera_maternal_holdout.py \
+            --source-only --output rhp001_original_mother_coverage.json
+          python - <<'PY'
+          import json
+          x=json.load(open("rhp001_original_mother_coverage.json"))
+          assert x["status"]=="RHP001_PUBLISHED_ORIGINAL_MATERNAL_COHORT_AUDIT_COMPLETE"
+          assert x["original_source_maternal_fruit_rows"]==60
+          assert x["source_numeric_paternity_used_to_estimate_effect"] is False
+          assert x["direct_father_to_mother_visit_pairs_measured"] is False
+          assert x["original_source_individual_rows_or_IDs_exported"] is False
+          print("RHP001_ORIGINAL_MOTHER_GRAIN_NO_OUTCOME_GATE_"+x["decision"])
+          PY
+      - name: Original source mother-heldout MLTR paternity prediction, conditional on earlier gate
+        run: |
+          python research/independent_parentage_bridge/test_rhp001_oenothera_maternal_holdout.py \
+            --output rhp001_original_mother_heldout_derivative.json
+          python - <<'PY'
+          import json
+          a=json.load(open("rhp001_original_mother_coverage.json"))
+          x=json.load(open("rhp001_original_mother_heldout_derivative.json"))
+          assert a["registered_complete_source_gate_pass"] is (x["status"]=="RHP001_ORIGINAL_FAMILY_HOLDOUT_MODEL_COMPLETED")
+          assert x["status"] in ("RHP001_ORIGINAL_MATERNAL_ELIGIBILITY_STOP",
+                                   "RHP001_ORIGINAL_FAMILY_HOLDOUT_MODEL_COMPLETED")
+          assert x["original_source_genotypes_parentage_values_or_mother_IDs_not_redistributed"] is True
+          assert x["previous_Barbot_father_contact_source_result_untouched"] is True
+          assert x["this_is_not_partner_specific_visitation"] is True
+          if x["status"]=="RHP001_ORIGINAL_FAMILY_HOLDOUT_MODEL_COMPLETED":
+              assert x["source_original_seed_families_n"]>=48
+              assert x["source_original_maternal_plants_n"]>=18
+              assert x["independent_2_solver_max_abs_predictive_disagreement"]<1e-8
+              assert x["original_source_mother_folds_n"]==x["source_original_maternal_plants_n"]
+              print("RHP001_TRUE_ORIGINAL_WILD_MOTHER_HELDOUT_EXECUTED")
+          else:
+              assert x["effect_estimated"] is False
+              print("RHP001_TRUE_ORIGINAL_WILD_MOTHER_HELDOUT_ELIGIBILITY_STOP")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: rhp001-wild-oenothera-paternity-maternal-gated-derivative
+          path: |
+            rhp001_original_mother_coverage.json
+            rhp001_original_mother_heldout_derivative.json
+          retention-days: 14
