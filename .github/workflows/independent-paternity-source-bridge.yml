@@ -1,0 +1,48 @@
+name: Two independent original paternity source-and-grain audit
+on:
+  push:
+    branches: [analysis/independent-paternity-source-bridge-20261119]
+  pull_request:
+    paths:
+      - research/independent_parentage_bridge/**
+      - .github/workflows/independent-paternity-source-bridge.yml
+  workflow_dispatch:
+jobs:
+  official-source-checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Test official-host restrictions and synthetic biological schemas
+        run: python research/independent_parentage_bridge/audit_independent_original_parentage_source.py --self-test
+      - name: Obtain exact official Dryad Leventhal and Zenodo-mirrored Rhodes data structurally
+        run: |
+          python research/independent_parentage_bridge/audit_independent_original_parentage_source.py \
+            --output independent_paternity_published_source_only.json
+          python - <<'PY'
+          import json
+          x=json.load(open('independent_paternity_published_source_only.json'))
+          assert x["status"]=="TWO_CANDIDATE_PROGRAMME_SOURCE_AUDIT_COMPLETE"
+          assert x["n_independent_original_publication_programmes"]==2
+          assert x["direct_contact_v_genetic_parentage_study_n_verified"]==0
+          assert x["previous_Barbot_one_study_father_contact_result_changed"] is False
+          assert x["no_original_genotypes_parentage_values_individual_IDs_or_source_data_redistributed"] is True
+          assert x["any_new_biological_effect_estimated"] is False
+          for r in x["published_programmes"]:
+              assert r["status"] in (
+                  "ALL_ORIGINAL_SOURCE_HEADERS_VERIFIED",
+                  "PUBLIC_ORIGINAL_SOURCE_ACCESS_STOP",
+                  "SOURCE_METADATA_OR_FILE_INVENTORY_STOP")
+              assert r["no_source_raw_rows_redistributed"] is True
+          print("TWO_OFFICIAL_ORIGINAL_PUB_SOURCE_GATES_EXECUTED_NO_FALSE_ID_JOIN")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: two-independent-original-parentage-source-grain-only
+          path: independent_paternity_published_source_only.json
+          retention-days: 14
