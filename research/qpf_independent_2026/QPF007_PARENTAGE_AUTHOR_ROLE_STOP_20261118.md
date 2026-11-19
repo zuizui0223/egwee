@@ -25,3 +25,14 @@ No original genotype, source individual rows, father assignment, per-pair seed c
 - No external source code redistribution; GitHub PR remains **DRAFT** stacked on PR #88.
 
 **Current decision: STOP father-specific quantitative analysis.** This gate protects the earlier *stigma count → genotype-inferred mate number* prediction from being mislabeled as direct observational pollen father matching.
+
+
+---
+
+## Superseded 2026-11-19 role-evidence resolution — preserve original historical STOP
+
+This file faithfully records an **earlier temporary source-role STOP**. That blocker was subsequently resolved by a **separate later source-code verification**, not by guessing a father from its `candidate_id` string. The published Zenodo README refers to `script_ABPOLL_main_analysis.R` (singular), but the **actual publisher record** exposes `script_ABPOLL_main_analyses.R` (plural). Publisher advertised MD5 and the full actual **297,463-byte R source SHA256 `a8e47abb7b2b4e7d6f85574fa6444eddd35a2bf0537592eccb4354fabb2402e9`** were verified by [CI 44460795179](https://github.com/zuizui0223/egwee/actions/runs/44460795179). Its original code derives `session` from the 5-character `known_id` prefix, groups `candidate_id` for original father/seed assignments, and `known_id` for original maternal genotyped offspring counts, consistently with the paper's CERVUS 80%-confidence assignment methods.
+
+The follow-up source-hash gate [CI 44460795341](https://github.com/zuizui0223/egwee/actions/runs/44460795341) confirmed **1,099/1,099 assigned parent IDs in the same source session**, 391 distinct genetic mother–father pairs (88 selfing), and 361 genetic pairs with a corresponding **row** in the source partner table. These are source-role/identity findings, not evidence that all rows represent positive observed pollinator contact. The subsequent [`QPF007_CONTACT_GENETIC_PARENTAGE_NULL_RESULT_20261119.md`](QPF007_CONTACT_GENETIC_PARENTAGE_NULL_RESULT_20261119.md) reports a *later, separately frozen, exploratory* pair-specific contact and sire-assignment benchmark with true positive contact values and a source-parental-margin conditional null.
+
+**Original snapshot intact:** The previous STOP was appropriate prior to codebook verification, but it is no longer the current biological-role blocker. Limits persist: CERVUS assignment is not error-free, paternal source genotype is not physically measured stigma pollen, the 16 sessions are one study, and the original author's broad mate filtering finding is prior art.
