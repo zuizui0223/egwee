@@ -1,0 +1,56 @@
+name: QPF007 original father-contact fixed-margin null (postprimary)
+on:
+  push:
+    branches: [analysis/qpf007-contact-null-calibration-20261119]
+  pull_request:
+    paths:
+      - research/qpf_independent_2026/QPF007_CONTACT_NULL_FROZEN_20261119.md
+      - research/qpf_independent_2026/test_qpf007_contact_parentage_conditional_null.py
+      - .github/workflows/qpf007-contact-marginal-null.yml
+  workflow_dispatch:
+
+jobs:
+  original-genotyped-offspring-null:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Synthetic fixed mother and sire offspring marginal swap invariants
+        run: python research/qpf_independent_2026/test_qpf007_contact_parentage_conditional_null.py --self-test
+      - name: Original published source degree-margin conditional null, fixed carryover 10
+        run: |
+          python research/qpf_independent_2026/test_qpf007_contact_parentage_conditional_null.py \
+            --output qpf007_contact_father_marginal_null_derivative.json
+          python - <<'PY'
+          import json
+          p="qpf007_contact_father_marginal_null_derivative.json"
+          r=json.load(open(p))
+          assert r["status"] in ("ORIGINAL_PARENTAGE_CONTACT_FIXED_MARGINAL_NULL_COMPLETE",
+                                 "ORIGINAL_SOURCE_FIXED_MARGINAL_NULL_COVERAGE_STOP")
+          assert r["original_paternity_rows"]==1099
+          assert r["original_source_provenance"]["original_roster_plant"]==160
+          assert r["original_source_provenance"]["original_pair_contact_rows_in_main_16"]==1209
+          assert r["original_raw_data_rows_or_parent_identifiers_redistributed"] is False
+          assert r["source_pair_row_absence_not_biological_zero"] is True
+          assert r["original_preexisting_positive_recovery_not_claimed_novel"] is True
+          assert r["primary_is_postprimary_exploratory"] is True
+          if r["status"]=="ORIGINAL_PARENTAGE_CONTACT_FIXED_MARGINAL_NULL_COMPLETE":
+              assert r["original_2000_fixed_margin_null_realizations"]==2000
+              assert r["n_original_experimental_sessions"]==16
+              assert r["prespecified_contact_evidence_metrics"]["10"]["predeclared_bounded_positive_rule_pass"] is (r["decision"]=="ONE_STUDY_EXPLORATORY_EXCESS_CONTACT_EVIDENCE_ABOVE_MARGINAL_NULL")
+              print("QPF007_SOURCE_VERIFIED_NULL_2000_COMPLETED")
+          else:
+              print("QPF007_SOURCE_VERIFIED_CONTACT_NULL_NO_EXCHANGEABILITY_STOP")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: qpf007-source-genetic-contact-marginal-null-aggregate
+          path: qpf007_contact_father_marginal_null_derivative.json
+          retention-days: 14
