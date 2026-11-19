@@ -25,10 +25,16 @@ MAX_PRINT_LINES=24
 
 def code_source():
     doc=load_manifest()
+    names=[str(r.get("key") or r.get("filename") or "") for r in doc["files"]]
     matches=[r for r in doc["files"]
              if (r.get("key") or r.get("filename"))==SOURCE_NAME]
     if len(matches)!=1:
-        raise ValueError("SOURCE_STOP: original author script missing/ambiguous in Zenodo")
+        candidates=sorted(n for n in names
+                          if n.casefold().endswith((".r",".rmd",".rscript"))
+                          or "script" in n.casefold()
+                          or "readme" in n.casefold())
+        raise ValueError("SOURCE_STOP: requested R filename missing/ambiguous; publisher code/README roster: "+
+                         repr(candidates[:60]))
     entry=matches[0]
     expected_bytes=entry.get("size")
     if not isinstance(expected_bytes,int) or not 1000<=expected_bytes<=MAX_SIZE:
