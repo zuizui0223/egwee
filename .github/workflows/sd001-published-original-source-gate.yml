@@ -1,0 +1,53 @@
+name: SD001 Silene original Dataverse parentage and pollen two-grain source audit
+on:
+  push:
+    branches: [research/silene-independent-parentage-source-20261119]
+  pull_request:
+    paths:
+      - research/silene_original_parentage/**
+      - .github/workflows/sd001-published-original-source-gate.yml
+  workflow_dispatch:
+
+jobs:
+  source-public-biological-grains:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Test official Dataverse host and source biology safe field constraints
+        run: python research/silene_original_parentage/audit_sd001_dataverse_original_source.py --self-test
+      - name: Inspect published 1150 paternity and 186 measured stigma pollen source schema, no row phenotypes
+        run: |
+          python research/silene_original_parentage/audit_sd001_dataverse_original_source.py \
+            --output sd001_exact_original_parentage_pollen_source_receipt.json
+          python - <<'PY'
+          import json
+          x=json.load(open("sd001_exact_original_parentage_pollen_source_receipt.json"))
+          assert x["source_expected_file_count"]==2
+          assert x["source_official_persistent_id"]=="10.57745/CF1VNW"
+          assert x["status"] in (
+             "TWO_ORIGINAL_SOURCE_SCHEMAS_VERIFIED_NO_BIOLOGICAL_JOIN",
+             "PUBLIC_ORIGINAL_SOURCE_ACCESS_OR_SCHEMA_STOP",
+             "SOURCE_METADATA_OR_OFFICIAL_ID_STOP")
+          assert x["one_original_experimental_study_not_1150_replicate_programmes"] is True
+          assert x["same_flower_Q_P_F_joins_verified"] is False
+          assert x["assigned_father_linked_to_sequential_stigma_visit_verified"] is False
+          assert x["original_source_rows_or_genotypes_redistributed"] is False
+          assert x["biological_effect_estimated"] is False
+          if x["status"]=="TWO_ORIGINAL_SOURCE_SCHEMAS_VERIFIED_NO_BIOLOGICAL_JOIN":
+              assert sorted(y["verified_nonempty_original_data_rows"] for y in x["source_files"])==[186,1150]
+              assert all(y["original_source_MD5_pass"] for y in x["source_files"])
+              print("SD001_PUBLISHER_TWO_ASSAYS_NO_FALSE_MATERNAL_JOIN_VERIFIED")
+          else:
+              print("SD001_PUBLISHER_SOURCE_ACCESS_OR_SCHEMA_STOP_DOCUMENTED")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sd001-2026-original-two-assays-safe-source-grain
+          path: sd001_exact_original_parentage_pollen_source_receipt.json
+          retention-days: 14
