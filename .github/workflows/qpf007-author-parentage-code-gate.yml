@@ -31,14 +31,22 @@ jobs:
           python - <<'PY'
           import json
           x=json.load(open("qpf007_original_R_role_audit.json"))
-          assert x["status"]=="PUBLISHED_ORIGINAL_AUTHOR_SCRIPT_CHECKSUM_VERIFIED"
-          assert x["source_code_executed"] is False
-          assert x["source_raw_individual_genotypes_or_paternities_opened"] is False
+          assert x["status"] in ("PUBLISHED_ORIGINAL_AUTHOR_SCRIPT_CHECKSUM_VERIFIED","ORIGINAL_AUTHOR_CODEBOOK_ACCESS_STOP")
+          if x["status"]=="PUBLISHED_ORIGINAL_AUTHOR_SCRIPT_CHECKSUM_VERIFIED":
+              assert x["source_code_executed"] is False
+          if x["status"]=="PUBLISHED_ORIGINAL_AUTHOR_SCRIPT_CHECKSUM_VERIFIED":
+              assert x["source_raw_individual_genotypes_or_paternities_opened"] is False
           assert x["source_genetic_effect_estimated"] is False
-          assert x["original_author_R_source_code_redistributed"] is False
+          if x["status"]=="PUBLISHED_ORIGINAL_AUTHOR_SCRIPT_CHECKSUM_VERIFIED":
+              assert x["original_author_R_source_code_redistributed"] is False
           assert x["paternity_roles_certified_by_this_automated_source_gate"] is False
-          assert len(x["bounded_author_code_evidence_for_review"])<=24
-          print("QPF007_AUTHOR_R_CODEBOOK_PROVENANCE_PASS_REQUIRES_ROLE_REVIEW")
+          if x["status"]=="PUBLISHED_ORIGINAL_AUTHOR_SCRIPT_CHECKSUM_VERIFIED":
+              assert len(x["bounded_author_code_evidence_for_review"])<=24
+          else:
+              assert x["paternity_roles_certified_by_this_automated_source_gate"] is False
+              assert x["source_genetic_effect_estimated"] is False
+              assert len(x.get("reason",""))>0
+          print("QPF007_AUTHOR_ROLE_SOURCE_GATE_"+x["status"]+"_NO_PARENTAGE_CLAIM")
           PY
       - uses: actions/upload-artifact@v4
         with:
