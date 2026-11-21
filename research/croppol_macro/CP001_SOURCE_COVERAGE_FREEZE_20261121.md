@@ -121,3 +121,23 @@ Implementation plan:
 Scientific gate: **COVERAGE_ONLY_NOT_MODEL_ADMISSION** even if transport and
 schema verification pass. Preserve `main`, the existing five-cluster evidence,
 and theoretical `egwe`.
+
+### Pre-run implementation review rulings
+
+Before original row processing, independent code review identified unrestricted
+category strings, incomplete transport-error receipts and discarded identity
+evidence on a schema failure. These were reproduced with synthetic fixtures.
+Categorical output now uses a bounded, independently specified vocabulary of
+standard units and measurement labels; every other nonmissing label is counted
+as `<unreviewed_label>` without printing its value. This inventory is deliberately
+incomplete and does not decide endpoint eligibility. A populated unit field still
+means field presence, not verified unit equivalence.
+
+Request, byte identity and schema stages remain separate; verified byte hashes
+are retained even if schema validation stops. The schema fingerprint is SHA256
+of UTF-8 comma-joined ordered header names without a trailing newline, expected
+`f2ee8b3f934bc412f649022c2349f77df18531842f4810983fa60bc721343866`.
+Connection resets and truncated HTTP reads must produce an exit-2 receipt.
+Redirect rejection is part of the exact-source contract and occurs before a
+redirect is followed. No broader model or raw-data redistribution is authorized.
+
