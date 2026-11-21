@@ -16,6 +16,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Validate synthetic source-only join-gate fixtures
+        run: python -m unittest discover -s research/molecular_conservation -p 'test_validate_joint_state_schema.py' -v
       - name: Probe official Dryad source links only
         run: |
           mkdir -p source_receipt
