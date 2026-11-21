@@ -109,14 +109,14 @@ versus zero, duplicate keys, provisional grouping, and blocked-access receipt
 behavior require independent tests.
 
 Implementation plan:
-- [ ] Build an auditor with `inspect_csv(raw: bytes) -> dict`,
+- [x] Build an auditor with `inspect_csv(raw: bytes) -> dict`,
   `fetch_verified_source() -> bytes`, and `main() -> int`.
-- [ ] Synthetic fixtures test zero versus missing, joint presence by measurement
+- [x] Synthetic fixtures test zero versus missing, joint presence by measurement
   family, repeated source groups, duplicate keys, wrong headers/hashes and
   HTTP/timeout receipts. Observe failures before implementation.
-- [ ] Run scoped tests, inspect source-safe output and obtain code review.
-- [ ] Execute the fixed-source audit once; record exact counts and caveats.
-- [ ] Keep a draft PR; no automatic source admission or model execution.
+- [x] Run scoped tests, inspect source-safe output and obtain code review.
+- [x] Execute the fixed-source audit once; record exact counts and caveats.
+- [x] Keep a draft PR; no automatic source admission or model execution.
 
 Scientific gate: **COVERAGE_ONLY_NOT_MODEL_ADMISSION** even if transport and
 schema verification pass. Preserve `main`, the existing five-cluster evidence,
