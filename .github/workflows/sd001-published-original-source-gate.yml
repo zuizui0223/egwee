@@ -20,11 +20,16 @@ jobs:
         with:
           python-version: '3.11'
       - name: Test official Dataverse host and source biology safe field constraints
-        run: python research/silene_original_parentage/audit_sd001_dataverse_original_source.py --self-test
-      - name: Inspect published 1150 paternity and 186 measured stigma pollen source schema, no row phenotypes
+        run: |
+          python research/silene_original_parentage/audit_sd001_dataverse_original_source.py --self-test
+          python -m unittest discover -s research/silene_original_parentage -p 'test_sd001_source_gate.py' -v
+      - name: Require verified publisher source schema; source STOP exits 2
         run: |
           python research/silene_original_parentage/audit_sd001_dataverse_original_source.py \
             --output sd001_exact_original_parentage_pollen_source_receipt.json
+      - name: Validate and report source receipt, including blocked source
+        if: always()
+        run: |
           python - <<'PY'
           import json
           x=json.load(open("sd001_exact_original_parentage_pollen_source_receipt.json"))
@@ -47,7 +52,10 @@ jobs:
               print("SD001_PUBLISHER_SOURCE_ACCESS_OR_SCHEMA_STOP_DOCUMENTED")
           PY
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: sd001-2026-original-two-assays-safe-source-grain
           path: sd001_exact_original_parentage_pollen_source_receipt.json
+          if-no-files-found: error
           retention-days: 14
+

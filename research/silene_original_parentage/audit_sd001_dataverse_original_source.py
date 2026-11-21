@@ -72,11 +72,19 @@ def one_file(item,name):
        "status":"SOURCE_FILE_NOT_YET_RETRIEVED",
     }
     try:
-        raw,typ=official_bytes(BASE+"/api/access/datafile/"+str(id_)+"?format=original",SOURCE_MAX)
-        if out["publisher_declared_bytes"] is not None and len(raw)!=out["publisher_declared_bytes"]:
-            raise ValueError("Dataverse original published file size does not match")
         expected_md5=out["publisher_declared_md5"]
-        if expected_md5 and hashlib.md5(raw).hexdigest().lower()!=str(expected_md5).lower():
+        if not isinstance(expected_md5,str) or not re.fullmatch(r"[0-9a-fA-F]{32}",expected_md5):
+            raise ValueError("No valid publisher original-file MD5 checksum")
+        # Dataverse retains separate sizes for the ingested TAB and saved
+        # original CSV. The format=original bytes must use the latter size.
+        expected_size=(file.get("originalFileSize") if file.get("originalFileName")
+                       else file.get("filesize"))
+        if not isinstance(expected_size,int) or isinstance(expected_size,bool) or expected_size<=0:
+            raise ValueError("No valid publisher size for requested original representation")
+        raw,typ=official_bytes(BASE+"/api/access/datafile/"+str(id_)+"?format=original",SOURCE_MAX)
+        if len(raw)!=expected_size:
+            raise ValueError("Dataverse original published file size does not match")
+        if hashlib.md5(raw).hexdigest().lower()!=expected_md5.lower():
             raise ValueError("Original source MD5 does not match publisher file checksum")
         # Original source is text tabular, not an automatic recreation of
         # genotype/paternity semantics.
@@ -96,6 +104,7 @@ def one_file(item,name):
         out.update({
             "actual_source_sha256":hashlib.sha256(raw).hexdigest(),
             "actual_source_bytes":len(raw),
+            "verified_original_representation_bytes":expected_size,
             "actual_download_content_type":typ,
             "first_line_field_count":len(headers),
             "original_field_labels":[x.strip() for x in headers],
@@ -109,7 +118,7 @@ def one_file(item,name):
             "original_source_MD5_pass":bool(expected_md5),
             "status":"PUBLISHED_SOURCE_ORIGINAL_HEADER_AND_LINE_COUNT_VERIFIED",
         })
-    except (HTTPError,URLError,ValueError,KeyError,TypeError,UnicodeError) as ex:
+    except (HTTPError,URLError,TimeoutError,ValueError,KeyError,TypeError,UnicodeError) as ex:
         out["status"]="ORIGINAL_SOURCE_ACCESS_OR_SEMANTICS_STOP"
         out["source_stop_type"]=type(ex).__name__
         if isinstance(ex,HTTPError):out["source_stop_http"]=ex.code
@@ -142,6 +151,8 @@ def audit():
         supplied=str(version.get("datasetPersistentId") or data.get("persistentId") or "")
         if supplied.casefold()!=DOI.casefold():
             raise ValueError("Published Dataverse source DOI does not match")
+        if version.get("versionState")!="RELEASED":
+            raise ValueError("Official source dataset version is not RELEASED")
         items=version.get("files")
         if not isinstance(items,list):raise ValueError("No original Dataverse public file metadata")
         names={str(x.get("label","")):x for x in items}
@@ -157,7 +168,7 @@ def audit():
         if any(k not in names for k in FILE_EXPECTED):
             raise ValueError("One or both official source file name labels are absent")
         result["status"]="SOURCE_OFFICIAL_METADATA_VERIFIED"
-    except (HTTPError,URLError,ValueError,KeyError,TypeError,json.JSONDecodeError) as ex:
+    except (HTTPError,URLError,TimeoutError,ValueError,KeyError,TypeError,json.JSONDecodeError) as ex:
         result["status"]="SOURCE_METADATA_OR_OFFICIAL_ID_STOP"
         result["source_stop_type"]=type(ex).__name__
         if isinstance(ex,HTTPError):result["source_stop_http"]=ex.code
@@ -214,7 +225,7 @@ def main():
            } for x in result.get("source_files",[])],
            "effect_estimated":False}
     print("SD001_ORIGINAL_DATAVERSE_SOURCE_AUDIT "+json.dumps(brief,sort_keys=True,ensure_ascii=False),flush=True)
-    return 0
+    return 0 if result["status"]=="TWO_ORIGINAL_SOURCE_SCHEMAS_VERIFIED_NO_BIOLOGICAL_JOIN" else 2
 
 if __name__=="__main__":raise SystemExit(main())
 

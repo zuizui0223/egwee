@@ -27,3 +27,20 @@ If the parentage data separately supply exact maternal plant IDs, assigned sourc
 The prior Barbot PR #90 source finding (+12.61 pp under fixed mother/father offspring-marginal null, robust to roster missingness in draft PR #92) remains **one original research programme** for actual same-study directed contact vs assigned sire. Independent Rhodes 2017 wild *Oenothera* source has grouped pollinator exclusion and maternal correlated paternity but no matched individual partner contact, so its mean model +7.49% was statistically uncertain. **Silene 2026 is another separate source for process stages, not an automatic second contact→sire replication.**
 
 Preserve original source intellectual credit, raw data at original repository, no original genotype/visit/individual phenotype rows redistributed, no GitHub `main` or theoretical `egwe` mutations.
+
+## 21 November source-gate correction (after access STOP, before outcome inspection)
+
+The original freeze is retained above. The executed [source audit result](SD001_SOURCE_AUDIT_RESULT_20261121.md)
+records the 19 November redirect rejection and the 21 November HTTP 503.
+The advertised row counts remain unverified; the published abstract's 1,320
+seeds versus 1,150 deposited records also remains unreconciled. Separate
+experimental material must not be described as independent-team replication:
+Barbot and Dufay/Dufaÿ are authors of both the Silene and Brassica papers.
+
+This amendment changes technical evidence reporting, not a biological model:
+source STOP now exits 2 while retaining the derivative receipt; only RELEASED
+metadata and a valid publisher MD5 can pass, and saved-original bytes use the
+publisher's original-file size rather than an ingested TAB size. No redirect
+domain or authentication policy is relaxed. Synthetic regression tests do not
+establish availability, biological key identity or source row counts.
+
