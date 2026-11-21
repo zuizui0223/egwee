@@ -1,0 +1,39 @@
+name: Molecular conservation Dryad source-access diagnostic
+on:
+  pull_request:
+    paths:
+      - 'research/molecular_conservation/**'
+      - '.github/workflows/molecular-conservation-source-diagnostic.yml'
+  workflow_dispatch:
+jobs:
+  source-access-only:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate synthetic source-only join-gate fixtures
+        run: python -m unittest discover -s research/molecular_conservation -p 'test_validate_joint_state_schema.py' -v
+      - name: Probe official Dryad source links only
+        run: |
+          mkdir -p source_receipt
+          python research/molecular_conservation/diagnose_dryad_access.py --output source_receipt/diagnosis.json
+      - name: Verify no biological outcomes
+        run: |
+          python - <<'PY'
+          import json
+          x=json.load(open('source_receipt/diagnosis.json'))
+          assert x['raw_values_saved'] is False
+          assert x['biological_join_verified'] is False
+          assert x['effect_estimated'] is False
+          assert len(x['sources'])==2
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: molecular-source-access-only
+          path: source_receipt/diagnosis.json
+          retention-days: 30
