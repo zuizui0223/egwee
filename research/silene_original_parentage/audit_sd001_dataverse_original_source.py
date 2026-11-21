@@ -45,7 +45,7 @@ def official_bytes(url,max_n):
         "Accept":"application/json,text/tab-separated-values,application/octet-stream,*/*"})
     with urlopen(req,timeout=40) as resp:
         if urlparse(resp.geturl()).hostname!="entrepot.recherche.data.gouv.fr":
-            raise ValueError("Publisher redirected source to unverified domain")
+            raise ValueError("Publisher redirected source to unverified domain: "+str(urlparse(resp.geturl()).hostname))
         raw=resp.read(max_n+1)
         if len(raw)>max_n:raise ValueError("Publisher file size over bounded source audit")
         content_type=resp.headers.get("Content-Type","")
@@ -62,6 +62,10 @@ def one_file(item,name):
        "publisher_declared_bytes":file.get("filesize"),
        "publisher_data_file_content_type":file.get("contentType"),
        "publisher_declared_md5":file.get("md5"),
+       "publisher_original_file_name":file.get("originalFileName"),
+       "publisher_original_file_bytes":file.get("originalFileSize"),
+       "publisher_original_file_format":file.get("originalFileFormat"),
+       "publisher_checksum":file.get("checksum"),
        "original_dataset_rows_expected":FILE_EXPECTED[name],
        "source_numeric_outcomes_not_examined":True,
        "source_original_ID_or_genotype_rows_redistributed":False,
@@ -198,6 +202,12 @@ def main():
               "rows":x.get("verified_nonempty_original_data_rows"),
               "fields":x.get("original_field_labels"),
               "md5_pass":x.get("original_source_MD5_pass"),
+              "publisher_original_name":x.get("publisher_original_file_name"),
+              "publisher_original_bytes":x.get("publisher_original_file_bytes"),
+              "publisher_original_format":x.get("publisher_original_file_format"),
+              "publisher_bytes":x.get("publisher_declared_bytes"),
+              "publisher_md5":x.get("publisher_declared_md5"),
+              "publisher_checksum":x.get("publisher_checksum"),
               "stop_type":x.get("source_stop_type"),
               "stop_http":x.get("source_stop_http"),
               "stop_reason":x.get("source_stop_bounded_reason")
@@ -207,3 +217,4 @@ def main():
     return 0
 
 if __name__=="__main__":raise SystemExit(main())
+
