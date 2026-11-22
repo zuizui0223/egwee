@@ -43,6 +43,26 @@ jobs:
               print('Exact interannual ID-label overlap:',r['exact_id_label_overlap_across_generations'])
               print('Actual pedigree link: NOT VERIFIED')
           PY
+      - name: Audit 2026 in-situ treatment/population design without seed values
+        run: |
+          python research/molecular_conservation/audit_lupinus_2026_field_design.py > source_receipt/lupinus_2026_design_groups.json
+          python - <<'PY'
+          import json
+          x=json.load(open('source_receipt/lupinus_2026_design_groups.json'))
+          assert x['phenotype_values_read'] is False
+          assert x['snp_values_read'] is False
+          assert x['effect_estimated'] is False
+          assert x['raw_data_redistributed'] is False
+          assert x['decision'] in (
+            'LOCK_ENDPOINT_AND_TREATMENT_CONTRAST_BEFORE_READING_SEED_VALUES',
+            'SOURCE_DESIGN_SCHEMA_STOP')
+          print('Design status:',x['status'])
+          if x['status']=='PUBLIC_DESIGN_CATEGORIES_VERIFIED_NO_OUTCOME_VALUES':
+              print('Observed source rows:',x['rows'])
+              print('Public experimental design category counts:',json.dumps(
+                    x['categories_with_at_least_5_observations'],sort_keys=True))
+              print('Unique experimental genotype labels:',x['unique_genotype_label_count'])
+          PY
       - name: Enforce no original observations, genetic calls or effects were exported
         run: |
           python - <<'PY'
