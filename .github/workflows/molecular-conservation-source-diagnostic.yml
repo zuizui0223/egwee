@@ -42,6 +42,20 @@ jobs:
           print('Lupinus 2026 source status:',x['status'])
           print('Files listed:',len(x['files']))
           print('XLSX headers verified:',sum(f['schema_status']=='XLSX_FIRST_ROW_AND_COUNTS_ONLY' for f in x['files']))
+          def normal(t): return str(t).strip().lower().replace(' ','_')
+          known={'id','plant_id','genotype','population','origin','site','line',
+                 'family','mother','mother_id','year','date','treatment',
+                 'flowering_onset','flowering_time','onset_date','shoot_growth',
+                 'number_of_seeds','seed_number','seed_count','seed_set',
+                 'seed_weight','fruit_set','fruit_number','survival',
+                 'germination','recruitment','pollinator_visit','pollen_deposition'}
+          for f in x['files']:
+              for sh in f.get('sheets',[]):
+                  headers={normal(t) for t in sh.get('first_row_headers',[])}
+                  print('Schema-only:',f['filename'],'sheet',sh['worksheet'],
+                        'physical_rows',sh['physical_rows'],
+                        'recognized_field_headers',sorted(headers & known),
+                        'header_cell_count',len(headers))
           PY
       - uses: actions/upload-artifact@v4
         with:
