@@ -42,12 +42,12 @@ reuse CP001 fetch_verified_source, verify_bytes, EXPECTED_COLUMNS.
 Files: add .github/workflows/cp002-croppol-measurement-sources.yml and dated
 aggregate receipt/result; update PR94 metadata.
 Consumes: Task 1's inspect_csv/main and frozen rules.
-- [ ] Commit code/rules/workflow before live execution.
-- [ ] Execute original source audit; require verified identity/schema and
+- [x] Commit code/rules/workflow before live execution.
+- [x] Execute original source audit; require verified identity/schema and
   aggregate-only artifact. A STOP is not a null ecological result.
-- [ ] Inspect exact-head logs, verify artifact hash, and independently recount
+- [x] Inspect exact-head logs, verify artifact hash, and independently recount
   the decisive candidate and component counts.
-- [ ] Persist result, remaining limitations and validation evidence; verify
+- [x] Persist result, remaining limitations and validation evidence; verify
   final-head execution and draft/unmerged state.
 
 ## Ledger
@@ -83,3 +83,14 @@ admit a confirmatory transfer model even when its implementation succeeds.
 Ruling: per-file source-hash documentation is supplied by the independently
 collected evidence manifest, including the template blob verified by root.
 No review finding is left as a deferred code defect.
+
+Task 2: production commit 0351a9e completed both CP001 and CP002 push/PR runs.
+CP002 run44972392076 passed33tests and original source/metadata audit.
+Artifact14734291967 ZIP digest independently verified, aggregate-only contents.
+Independent JS recount matched all6candidateframes,4graphdefinitions and8
+baseline profiles after distinguishing the broad574-row abundance frame from
+the precommitted reviewed-method572-row frame. Original discrepancy retained.
+Result:452strictvisitrows/19sourcecomponents;121area-massrows/5components;
+full3covariate area-mass baseline38rows/1component. No model admitted or fitted.
+Final result-head verification is linked from PR94 metadata after artifact
+persistence; no main merge is part of this task.
