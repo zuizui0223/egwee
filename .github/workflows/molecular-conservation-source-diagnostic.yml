@@ -24,6 +24,8 @@ jobs:
           python research/molecular_conservation/diagnose_dryad_access.py --output source_receipt/diagnosis.json
       - name: Audit newly located Rutidosis Dryad file inventory (metadata only)
         run: python research/molecular_conservation/audit_rutidosis_dryad_inventory.py | tee source_receipt/rutidosis_inventory.json
+      - name: Probe official Rutidosis original file and validate workbook structure only
+        run: python research/molecular_conservation/audit_rutidosis_original_workbook_schema.py | tee source_receipt/rutidosis_workbook_source_gate.json
       - name: Verify no biological outcomes
         run: |
           python - <<'PY'
@@ -33,6 +35,11 @@ jobs:
           assert x['biological_join_verified'] is False
           assert x['effect_estimated'] is False
           assert len(x['sources'])==2
+          y=json.load(open('source_receipt/rutidosis_workbook_source_gate.json'))
+          assert y['original_file_redistributed'] is False
+          assert y['individual_data_values_exported'] is False
+          assert y['effect_estimated'] is False
+          assert y['source_join_verified'] is False
           PY
       - uses: actions/upload-artifact@v4
         with:
