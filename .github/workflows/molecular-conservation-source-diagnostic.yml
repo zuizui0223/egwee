@@ -63,6 +63,23 @@ jobs:
                     x['categories_with_at_least_5_observations'],sort_keys=True))
               print('Unique experimental genotype labels:',x['unique_genotype_label_count'])
           PY
+      - name: Check source-published first-sheet line-code glossary only
+        run: |
+          python research/molecular_conservation/audit_lupinus_2026_source_codebook.py > source_receipt/lupinus_2026_codebook_gate.json
+          python - <<'PY'
+          import json
+          r=json.load(open('source_receipt/lupinus_2026_codebook_gate.json'))
+          assert r['individual_or_genetic_values_read'] is False
+          assert r['phenotype_or_seed_values_read'] is False
+          assert r['effect_estimated'] is False
+          assert r['raw_document_text_redistributed'] is False
+          assert r['decision'] in ('SOURCE_CODEBOOK_CANDIDATE_REQUIRES_AUTHOR_CHECK',
+              'NO_VERIFIED_CODEBOOK_IN_SOURCE_SHEET1','SOURCE_DOC_ACCESS_STOP')
+          print('Codebook source decision:',r['decision'])
+          if r['status']=='SOURCE_SHEET1_TEXT_CLASSIFICATION_NO_BIOLOGICAL_VALUES':
+              print('Text rows examined:',r['sheet1_physical_text_rows'])
+              print('Source codes classified:',r['controlled_keyword_rows'])
+          PY
       - name: Enforce no original observations, genetic calls or effects were exported
         run: |
           python - <<'PY'
