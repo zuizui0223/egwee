@@ -147,6 +147,14 @@ def evaluate(blocks):
     original=defaultdict(list)
     for b in blocks:original[b["source_component"]].append(b)
     source_keys=sorted(original)
+    scoreable=sum(any(b["pairs"] for b in original[s]) for s in source_keys)
+    if scoreable<MIN_SCOREABLE:
+        return {"status":"SOURCE_HELDOUT_RANK_COVERAGE_STOP",
+                "effect_estimated":False,
+                "source_components_all":len(source_keys),
+                "source_components_scored":scoreable,
+                "source_components_unscorable_due_to_output_ties":len(source_keys)-scoreable,
+                "decision":"STOP_FEWER_THAN_EIGHT_SCOREABLE_SOURCE_COMPONENTS"}
     score_rows=[]
     skipped=0
     train_visit_positive=0
