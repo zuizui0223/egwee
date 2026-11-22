@@ -1,4 +1,4 @@
-name: Molecular conservation Dryad source-access diagnostic
+name: Molecular conservation source and join gates
 on:
   pull_request:
     paths:
@@ -6,43 +6,45 @@ on:
       - '.github/workflows/molecular-conservation-source-diagnostic.yml'
   workflow_dispatch:
 jobs:
-  source-access-only:
+  source-and-join-gates:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-    timeout-minutes: 8
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Validate synthetic source-only join-gate fixtures
-        run: python -m unittest discover -s research/molecular_conservation -p 'test_validate_joint_state_schema.py' -v
-      - name: Probe official Dryad source links only
+      - name: Verify source-only molecular/functional join-gate fixtures
+        run: python -m unittest discover -s research/molecular_conservation -p 'test_*.py' -v
+      - name: Verify 2026 Lupinus in-situ public source metadata and headers only
         run: |
           mkdir -p source_receipt
-          python research/molecular_conservation/diagnose_dryad_access.py --output source_receipt/diagnosis.json
-      - name: Audit newly located Rutidosis Dryad file inventory (metadata only)
-        run: python research/molecular_conservation/audit_rutidosis_dryad_inventory.py | tee source_receipt/rutidosis_inventory.json
-      - name: Probe official Rutidosis original file and validate workbook structure only
-        run: python research/molecular_conservation/audit_rutidosis_original_workbook_schema.py | tee source_receipt/rutidosis_workbook_source_gate.json
-      - name: Verify no biological outcomes
+          python research/molecular_conservation/audit_lupinus_2026_in_situ_source.py > source_receipt/lupinus_2026_in_situ_schema.json
+      - name: Enforce no original observations, genetic calls or effects were exported
         run: |
           python - <<'PY'
           import json
-          x=json.load(open('source_receipt/diagnosis.json'))
-          assert x['raw_values_saved'] is False
-          assert x['biological_join_verified'] is False
-          assert x['effect_estimated'] is False
-          assert len(x['sources'])==2
-          y=json.load(open('source_receipt/rutidosis_workbook_source_gate.json'))
-          assert y['original_file_redistributed'] is False
-          assert y['individual_data_values_exported'] is False
-          assert y['effect_estimated'] is False
-          assert y['source_join_verified'] is False
+          x=json.load(open('source_receipt/lupinus_2026_in_situ_schema.json'))
+          assert x['article_id']==29606180
+          assert x['raw_files_redistributed'] is False
+          assert x['nonheader_outcome_values_read'] is False
+          assert x['genotype_values_read'] is False
+          assert x['source_individual_join_verified'] is False
+          assert x['new_effect_estimated'] is False
+          assert x['independent_biological_programmes_added']==0
+          assert x['status'] in ('SOURCE_METADATA_VERIFIED','SOURCE_METADATA_STOP')
+          assert all(f['schema_status'] in (
+            'XLSX_FIRST_ROW_AND_COUNTS_ONLY',
+            'METADATA_ONLY_UNSUPPORTED_OR_SIZE_LIMIT',
+            'DOWNLOAD_OR_SCHEMA_STOP') for f in x['files'])
+          print('Lupinus 2026 source status:',x['status'])
+          print('Files listed:',len(x['files']))
+          print('XLSX headers verified:',sum(f['schema_status']=='XLSX_FIRST_ROW_AND_COUNTS_ONLY' for f in x['files']))
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: molecular-source-access-only
-          path: source_receipt/*.json
+          name: molecular-source-2026-lupinus-only
+          path: source_receipt/lupinus_2026_in_situ_schema.json
           retention-days: 30
