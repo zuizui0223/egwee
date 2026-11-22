@@ -1,0 +1,42 @@
+# CP004 — original CropPol source-withheld *rank* transfer: field-size-only baseline
+
+**Frozen on 22 November 2026 BEFORE this project's source yield ranks, correlations or source-withheld scores were inspected.** CP001–CP003 source metadata and key/grain audits have already been executed; CP002 showed the 3-covariate area-normalized harvest-mass baseline exists in only one original source component and CP003 showed sampling raw files cannot recover field area or plant density. Thus this is a clearly **reduced-field-context exploratory predictive benchmark**, not the original 3-covariate ecological test, not a new causal pollination effect, and not independent confirmation of Barbot pollen→father links.
+
+## Scientific target and prior art
+
+Can the **ranking** of field direct reproductive or harvest outputs within an otherwise homogeneous original study/crop/year/unit/observation frame be better forecast in an **unseen source component** using both original field size and visitation rate than field size alone?
+
+Prior CropPol studies already quantify visitor–yield associations: Reilly et al. (2024) DOI 10.1111/geb.13843, Vezzani et al. 2025 DOI 10.1111/1365-2664.70042, and Turo et al. 2024 DOI 10.1038/s41559-024-02460-2. Prior author-held-out visitor prediction exists in Giménez-García et al. 2023 DOI 10.5194/we-23-99-2023. This is an explorative *new-source field-output rank transport diagnostic with a single weak comparator*, not the first paper on visitor benefit and not proof of mechanism.
+
+## Frozen input and eligibility, established without looking at outcomes
+
+Exactly original `ibartomeus/CropPol` v2.1.0 pinned commit `febec7dcc088ccf1bd721c41ce8dda87a2dcba1a`, `Final_Data/CropPol_field_level_data.csv`, 2,195,393 bytes / Git blob `cd19a354741ac40428e6b94aa1ec2ee596ff0547`, SHA256 `ecfa84d1f6a52f24f13b7096347a59f231e8cc77eef8692b0a0183ceca86f879`. Reuse CP002 reviewed exact 68-column labels/source connected components and CP003 group-filter helper. No use of taxon-level sampling rows, added pollen proxies, derived `yield2`, per-source outcome normalization, standing-flower data or input raw data redistribution.
+
+Begin with CP002 exactly strict **452** original fields (reviewed primary direct outcome; explicit timed focal/transect visits; author use-visits selector; valid taxon scope). Keep original source component/crop/year/normalized **exact** yield unit/visit unit/observation method/taxon scope constant within a comparison block. Retain fields with original positive finite `field_size` hectares and valid nonnegative finite `visitation_rate`, original direct outcome `yield` present, and globally unique `study_id × site_id × sampling_year` key. A block must contain **≥5 distinct field keys** and **≥2 distinct positive field sizes**. This was available in CP002 before any outcome ranks were examined: expected **201** source rows, **12** comparison blocks, **10 provisional source components**. If numbers differ, STOP. Importantly **do not exclude a block for constant visits**, only report and preserve such zeros of independent signal. If at least 8 provisional components cannot be evaluated because of all-tied outcomes, mark not estimable, not a negative biological effect.
+
+## Predictor-only transformation
+
+Within each block, compute midranks of `log(field_size)` and `log1p(visitation_rate)` separately (identical ranking as original variables, including exact ties), then map to `(midrank - (n+1)/2) / (n-1)`. This yields consistent bounded, original-unit-invariant predictor ranks across studies; ranking uses the **field-size and visitation inputs only**, including inputs for test sources, which is an explicitly transductive comparison of a known set of fields. No held-out yield is used to choose features or scale predictors. Classifications, group membership and ranks from predictors can be compiled before accessing outcome values. All field keys and labels remain in-memory only.
+
+Pairs are *unordered* original field pairs within a homogeneous block. For each pair `(i,j)`, feature differences are `(size_rank_i−size_rank_j)` for M0 and `(size_rank_difference,visit_rank_difference)` for M1; **outcome label** is `sign(yield_i−yield_j)`. Exclude outcome-tied pairs from TRAIN and TEST score, **report their number**. This is still original outcome rank, not numeric yield regression. The field pairs are correlated; they are never counted as independent studies or bootstrap units.
+
+## Fixed source-withheld models and score
+
+Train on every provisional source component except one, test on all its blocks and fields. M0 is a no-intercept L2 ridge linear sign score from `size_rank_difference`; M1 adds `visit_rank_difference`. Fixed ridge `lambda=0.10` for each coefficient; no hyperparameter tuning and no outcome-based feature selection.
+
+To prevent big sources and multiple fields from dominating training: weight every source component equally; within it weight each eligible block equally; within a block weight its non-yield-tied field pairs equally. Solve the exact 1×1 and 2×2 ridge normal equations (analytical solution checked against independent synthetic reference). No intercept: reverse pair changes score sign. No response-based scaling, no borrowing the heldout source's response mean or variance.
+
+For each held-out source component, compute pairwise correct sign proportion, 0.5 for exactly zero model score, within each block (ignore outcome ties), then average block scores equally within source. Score difference `Δ = concordance(M1) − concordance(M0)` is positive when observed visits improve previously unseen programme-specific within-block **ranking**. Report source-equal mean Δ and both model concordances; source counts of positive / negative / zero; source equal source-level bootstrap 4,000 resamples RNG seed `20261122`, 2.5%/97.5% percentile interval from **already-scored sources**, no refitting; explicitly **not** a cross-study CI of independent experiments. State whether source components were proven independent (NO).
+
+**Pre-fixed positive-source transport support rule:** ≥8 scoreable original source components, source-equal Δ>0, whole-source bootstrap lower 95% percentile >0, and ≥70% original scored components with Δ>0. Otherwise `NO_RESOLVED_REDUCED_BASELINE_TRANSFER_GAIN` (or `SOURCE_HELDOUT_RANK_COVERAGE_STOP` if fewer than 8 scoreable). Never select a subgroup or another endpoint after seeing the outcome; no source may be silently dropped for negative effect, ties, or weak field-size association. Report all originally eligible strata and all source-direction counts.
+
+## Scientific limitations and interpretation ceiling
+
+- A single-field-area comparator **does not control crop resources, flower density, soil, climate, pesticide management, field production potential or source reporting effort**. Crop field area cannot be substituted for flowering plant density. Stronger field context was not jointly available across sufficient original source components, as CP002 documented.
+- Within-block rank prediction is **not** absolute yield forecast, a pollen transfer mechanism, an inferred pollen-donor identity network, direct pollen deposition, or viable offspring/recruitment.
+- Pooled rank from heterogeneous source *endpoints* mixes different ecological targets; report that results combine reproductive-count/set and harvest-mass families **only ordinally within homogeneous blocks**. Do not report a pooled quantitative percent yield change.
+- Exact original source DOI blocking is conservative but not a certified independent-programme census; repeated related original fields may remain in separate components. A source-level bootstrap cannot validate causal or macroecological universality.
+- Original `yield` labels do not guarantee all outcomes are measured independently of visitation; this original-endpoint-construction limitation is reported regardless of score.
+- Exploratory single-source-holdout improvement does not establish a new broad ecological principle or the importance of wild pollinators specifically (total visits and survey scope differ). No guaranteed positivity claimed.
+
+All original raw values remain in the original CropPol repository. GitHub holds only scripts and aggregate research metrics, source hashes and audit records. Keep PR94 DRAFT and leave `main`, fragmentation meta-analysis, Barbot genetic results and theory egwe untouched.
