@@ -28,14 +28,14 @@ Files: add CP002_METADATA_RULES.json, audit_cp002_measurement_sources.py and
 test_cp002_measurement_sources.py in research/croppol_macro/.
 Interfaces: inspect_csv(raw: bytes) -> aggregate dict; main() -> exit status;
 reuse CP001 fetch_verified_source, verify_bytes, EXPECTED_COLUMNS.
-- [ ] Write hand-derived fixtures covering the five Review Focus risks, zero/
+- [x] Write hand-derived fixtures covering the five Review Focus risks, zero/
   missing syntax, method/unit mismatch, source schema failure, safe output,
   source read failure receipts and separate primary/secondary endpoints.
-- [ ] Run tests against unimplemented interfaces and observe failure.
-- [ ] Implement the classifiers, source connected components, aggregate counts
+- [x] Run tests against unimplemented interfaces and observe failure.
+- [x] Implement the classifiers, source connected components, aggregate counts
   and predictor-only completeness/variation audit.
-- [ ] Run all CP001 and CP002 tests; expect zero failures.
-- [ ] Obtain fresh independent code review; fix important findings with a
+- [x] Run all CP001 and CP002 tests; expect zero failures.
+- [x] Obtain fresh independent code review; fix important findings with a
   reproduced failing test and record rulings.
 
 ## Task 2: Original execution and interpretation
@@ -58,3 +58,28 @@ Ruling: no model in CP002; source meaning and baseline adequacy must be measured
 before an incremental prediction test can be scientifically specified.
 Cost: biological result waits for an admissible design rather than a trivial
 constant-baseline comparison.
+
+Task 1: initial 14 synthetic cases failed before implementation; after
+implementation, DOI-regex failures were resolved and all 24 CP001/CP002 tests
+passed. Two additional provenance-boundary fixtures then reproduced incorrect
+embedded-year removal and valid DOI-parenthesis trimming; both fixed, 26/26 pass.
+Ruling: original/coordinated DOI allowlist replaces unvetted parseable-DOI links;
+source review identified synthesis containers and erroneous DOI suffixes.
+Cost: unknown true source links may remain unmerged, so independence stays
+unverified and modelling admission remains closed.
+Ruling: preserve sampling protocol and report half-pair baseline variation in
+addition to any variation, based on the independent pre-outcome design review.
+Cost: narrower comparison blocks and possibly fewer feasible fields.
+
+Final review: fresh independent review completed before live production execution.
+Final: fixed baseline-denominator loss, impossible measurement domains and
+unknown abundance scopes, duplicate-key dependence on metadata/covariates,
+and missing-group namespace collision. Seven targeted fixtures reproduced the
+issues (including missing-token inconsistency); final suite 33/33 passed.
+Ruling: reviewer-set-aside provenance issues remain scientific limitations: no
+physical field identity, independent programme identity, source endpoint
+construction or preharvest covariate timing is certified. Cost: this audit cannot
+admit a confirmatory transfer model even when its implementation succeeds.
+Ruling: per-file source-hash documentation is supplied by the independently
+collected evidence manifest, including the template blob verified by root.
+No review finding is left as a deferred code defect.

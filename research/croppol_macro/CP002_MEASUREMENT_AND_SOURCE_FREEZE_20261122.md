@@ -95,3 +95,37 @@ Commit our code, tests, classification rules and aggregate results only.
 - Tests: source/metadata safety, no missing-to-zero conversion, transitive
   source blocking, method/unit separation and a genuinely varying baseline.
 - Independent review before live run; retain exact run/head/source fingerprints.
+
+### Pre-execution metadata review amendments
+Categorical labels and provenance relationships were inspected during design.
+This is a metadata-informed specification fixed before live eligibility/baseline
+execution; it is not an unseen-data preregistration. No response relationship or
+outcome distribution was inspected.
+
+Only the 11 reviewed original/coordinated-study DOI references in
+CP002_SOURCE_DOI_REGISTRY.json may create publication edges. Shared synthesis
+containers and unreviewed/incorrect DOI strings cannot. Complete four-digit
+underscore-delimited year tokens are removed; remaining study labels are exact,
+without fuzzy name matching. The full source graph is built before filtering.
+This is deliberately conservative blocking, not certified independent programmes.
+
+Within-block audit also preserves the original observation-method label. In
+addition to any baseline variation, report the prespecified indicator that at
+least half of field pairs differ in the baseline vector. This uses covariates
+only and is descriptive, not model admission. Candidate keys are not certified
+physical-field identities. Field area is in hectares; plant density is plants
+per square metre. The source of density and its timing remain unverified.
+
+### Independent implementation review before the production run
+Numeric syntax/presence and physically valid candidates are separate: require
+nonnegative direct production and visitor measures; only explicitly reviewed
+percentage labels receive a maximum of 100. These are domain checks, not
+selection by an observed biological relationship. Abundance candidates also
+require a reviewed recorded taxonomic scope.
+
+All frame blocks and block-size distributions are counted before baseline
+complete-case filtering. Duplicate candidate triples are audited across the
+whole file independently of crop/group completeness; a duplicate cannot become
+eligible merely because one copy lacks a covariate. Missing source IDs use a
+disjoint internal namespace, are counted separately and never certify a source.
+Per-file source hashes are in CP002_SOURCE_EVIDENCE_MANIFEST.json.

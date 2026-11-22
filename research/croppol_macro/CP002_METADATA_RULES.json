@@ -1,0 +1,556 @@
+{
+  "abundance_methods": [
+    "sweep net",
+    "transects",
+    "focal observations",
+    "sweep net + focal observations"
+  ],
+  "baseline_definitions": {
+    "field_size": {
+      "locator": "Metadata row45; also attributes.csv line16",
+      "meaning": "Area of the crop field",
+      "provenance": "Generic schema does not certify original field boundary, measurement technique, or derivation.",
+      "source": "https://github.com/ibartomeus/CropPol/blob/febec7dcc088ccf1bd721c41ce8dda87a2dcba1a/Template/Template_example_V10.ods",
+      "unit": "hectare"
+    },
+    "plant_density": {
+      "locator": "Metadata row56; also attributes.csv line27",
+      "meaning": "Number of crop plants per area of crop field",
+      "provenance": "Generic 61/65/68 cleaning passes import col_double; no density assignment found there. Source-submission measured/spacing-derived/ratio-derived status remains unresolved.",
+      "source": "https://github.com/ibartomeus/CropPol/blob/febec7dcc088ccf1bd721c41ce8dda87a2dcba1a/Template/Template_example_V10.ods",
+      "unit": "individuals per square meter"
+    },
+    "total_sampled_area": {
+      "locator": "Metadata rows15,79; attributes.csv lines48,74",
+      "meaning": "Surveyed census/transect area; distinct from field_size",
+      "provenance": "Template and attributes differ in wording about summing spatial areas versus repeat censuses. Do not use it to replace crop-field area.",
+      "source": "https://github.com/ibartomeus/CropPol/blob/febec7dcc088ccf1bd721c41ce8dda87a2dcba1a/Template/Template_example_V10.ods",
+      "unit": "square meters"
+    }
+  },
+  "definition_sources": [
+    {
+      "locators": {
+        "richness_restriction": 66,
+        "sampling_abundance": 67,
+        "sampling_visitation": 81,
+        "taxa_recorded": 60,
+        "use_visits_or_abundance": 61,
+        "visitation_rate_units": 82,
+        "yield": 46,
+        "yield2": 48,
+        "yield2_units": 49,
+        "yield_units": 47
+      },
+      "sheet": "Metadata",
+      "url": "https://github.com/ibartomeus/CropPol/blob/febec7dcc088ccf1bd721c41ce8dda87a2dcba1a/Template/Template_example_V10.ods"
+    },
+    {
+      "lines": "26–31, 87–119",
+      "meaning": "sampling_method is a linking label; standardized type has sweep net, transects, focal observations, pan trap/bee bowl/blue vane trap/pitfall, other.",
+      "url": "https://github.com/ibartomeus/CropPol/blob/febec7dcc088ccf1bd721c41ce8dda87a2dcba1a/testthat/test-format-sampling-method-NEWDATA.R"
+    },
+    {
+      "lines": "19,21",
+      "meaning": "Author analysis distinction between visit observations and net abundance; primary yield choice and exclusion of estimated pollen deposition.",
+      "url": "https://github.com/ibartomeus/CropPollinationModels/blob/bf209807bc359b7ce86156cd7ffd600ced06d1f2/methods.qmd"
+    },
+    {
+      "lines": "19–36, 51–55, 67–75, 272–308",
+      "meaning": "Analysis-specific selector and taxa handling; wildbees excludes Bombus in base columns.",
+      "url": "https://github.com/ibartomeus/CropPollinationModels/blob/bf209807bc359b7ce86156cd7ffd600ced06d1f2/scripts/read_data.R"
+    }
+  ],
+  "doi_registry_file": "CP002_SOURCE_DOI_REGISTRY.json",
+  "domain_policy": "Numeric availability remains separate. Direct physical outcomes and visitor counts must be nonnegative; only listed explicitly percentage endpoints receive an upper bound of 100. Labels without an explicit percentage definition do not receive that upper bound.",
+  "endpoint_labels": {
+    "yield2_units": {
+      "%pods produced_pod weight": {
+        "construction": "unknown_construction",
+        "family": "ambiguous_combined_metric"
+      },
+      "average fruit number per metre2 of tree canopy just prior to harvest": {
+        "construction": "direct_or_reported",
+        "family": "reproductive_count_or_set"
+      },
+      "final fruitset (%): flowers that developed into mature fruits at harvest": {
+        "construction": "direct_or_reported",
+        "family": "reproductive_count_or_set"
+      },
+      "fruit set": {
+        "construction": "direct_or_reported",
+        "family": "reproductive_count_or_set"
+      },
+      "fruit set (%): flowers producing a berry)": {
+        "construction": "direct_or_reported",
+        "family": "reproductive_count_or_set"
+      },
+      "fruit weight": {
+        "construction": "direct_or_reported",
+        "family": "organ_mass_or_quality_component"
+      },
+      "individual fruit weight (grams)": {
+        "construction": "direct_or_reported",
+        "family": "organ_mass_or_quality_component"
+      },
+      "initial fruitset (%)": {
+        "construction": "direct_or_reported",
+        "family": "reproductive_count_or_set"
+      },
+      "kg per hectare": {
+        "construction": "direct_or_reported",
+        "family": "harvest_mass_area"
+      },
+      "kg per hectare (dried berries)": {
+        "construction": "direct_or_reported",
+        "family": "harvest_mass_area"
+      },
+      "mean marketability": {
+        "construction": "direct_or_reported",
+        "family": "quality_or_marketability"
+      },
+      "mean weight per apple (grams per apple)": {
+        "construction": "direct_or_reported",
+        "family": "organ_mass_or_quality_component"
+      },
+      "mean weight per bean pod (grams)": {
+        "construction": "direct_or_reported",
+        "family": "organ_mass_or_quality_component"
+      },
+      "na": {
+        "construction": "missing",
+        "family": "missing"
+      },
+      "number of fruits": {
+        "construction": "direct_or_reported",
+        "family": "reproductive_count_or_set"
+      },
+      "number of fruits on fixed branch length per tree": {
+        "construction": "direct_or_reported",
+        "family": "reproductive_count_or_set"
+      },
+      "number of fruits per flower": {
+        "construction": "direct_or_reported",
+        "family": "reproductive_count_or_set"
+      },
+      "pollination index of strawberry": {
+        "construction": "unknown_construction",
+        "family": "pollination_index_proxy"
+      },
+      "production per tree (stadertization was necessary because the number of trees per plot varied)": {
+        "construction": "reported_standardization",
+        "family": "production_unspecified_units"
+      },
+      "seed set": {
+        "construction": "direct_or_reported",
+        "family": "reproductive_count_or_set"
+      },
+      "seed set: difference in number of seeds of 10 flowers bagged to exclude pollinators and 10 flowers receiving open pollination // 10 flowers receiving open pollination and 10 flowers artifically manipulated to receive an abundance of outcross pollen": {
+        "construction": "derived_contrast",
+        "family": "treatment_contrast"
+      },
+      "seed weight (g/100 seeds)": {
+        "construction": "direct_or_reported",
+        "family": "organ_mass_or_quality_component"
+      },
+      "seeds per apple": {
+        "construction": "direct_or_reported",
+        "family": "reproductive_count_or_set"
+      },
+      "seeds per pod": {
+        "construction": "direct_or_reported",
+        "family": "reproductive_count_or_set"
+      },
+      "total number of fruits per site": {
+        "construction": "direct_or_reported",
+        "family": "reproductive_count_or_set"
+      },
+      "wet seed mass per fruit": {
+        "construction": "direct_or_reported",
+        "family": "organ_mass_or_quality_component"
+      },
+      "yield.g.pod": {
+        "construction": "direct_or_reported",
+        "family": "organ_mass_or_quality_component"
+      },
+      "z-score seed set (%)": {
+        "construction": "already_transformed",
+        "family": "already_transformed"
+      }
+    },
+    "yield_units": {
+      "# fruit over 500g": {
+        "construction": "direct_or_reported",
+        "family": "thresholded_output_or_quality"
+      },
+      "average # of seeds per fruit": {
+        "construction": "direct_or_reported",
+        "family": "reproductive_count_or_set"
+      },
+      "average fruit set per 100 flowers": {
+        "construction": "direct_or_reported",
+        "family": "reproductive_count_or_set"
+      },
+      "bags per hectare": {
+        "construction": "direct_or_reported",
+        "family": "harvest_quantity_nonmass"
+      },
+      "berry weight": {
+        "construction": "direct_or_reported",
+        "family": "organ_mass_or_quality_component"
+      },
+      "dry weight: mean kgs per tree": {
+        "construction": "direct_or_reported",
+        "family": "harvest_mass_per_plant"
+      },
+      "early fruit set (%)": {
+        "construction": "direct_or_reported",
+        "family": "reproductive_count_or_set"
+      },
+      "early fruit set (number of unripe fruits per inflorescence)": {
+        "construction": "direct_or_reported",
+        "family": "reproductive_count_or_set"
+      },
+      "final fruit set (%)": {
+        "construction": "direct_or_reported",
+        "family": "reproductive_count_or_set"
+      },
+      "final seed set (%): ovules that developed into seeds at harvest": {
+        "construction": "direct_or_reported",
+        "family": "reproductive_count_or_set"
+      },
+      "fruit set": {
+        "construction": "direct_or_reported",
+        "family": "reproductive_count_or_set"
+      },
+      "fruit set (%)": {
+        "construction": "direct_or_reported",
+        "family": "reproductive_count_or_set"
+      },
+      "fruit set (%) per flowers": {
+        "construction": "direct_or_reported",
+        "family": "reproductive_count_or_set"
+      },
+      "fruit set (%) per plant": {
+        "construction": "direct_or_reported",
+        "family": "reproductive_count_or_set"
+      },
+      "fruit set (%): 100 number of fruits/number of open flowers": {
+        "construction": "direct_or_reported",
+        "family": "reproductive_count_or_set"
+      },
+      "fruit set (%): initial number of floral buds in the respective branch and the number of developing fruits": {
+        "construction": "direct_or_reported",
+        "family": "reproductive_count_or_set"
+      },
+      "fruit set (%): percentage of intact marked flowers (not damaged by herbivores) that developed into swollen green fruits approximately three weeks after pollination per site": {
+        "construction": "direct_or_reported",
+        "family": "reproductive_count_or_set"
+      },
+      "fruit set: difference in grams between seedcotton (fiber and seeds) weight of 10 flowers bagged to exclude pollinators and 10 flowers receiving open pollination // 10 flowers receiving open pollination and 10 flowers artifically manipulated to receive an abundance of outcross pollen": {
+        "construction": "derived_contrast",
+        "family": "treatment_contrast"
+      },
+      "fruit set: weight in g of 100 randomly selected seeds": {
+        "construction": "direct_or_reported",
+        "family": "organ_mass_or_quality_component"
+      },
+      "fruit weight per branch": {
+        "construction": "direct_or_reported",
+        "family": "harvest_mass_fixed_part"
+      },
+      "fruit weight per plant": {
+        "construction": "direct_or_reported",
+        "family": "harvest_mass_per_plant"
+      },
+      "grams": {
+        "construction": "direct_or_reported",
+        "family": "mass_unspecified_grain"
+      },
+      "grams per fruit": {
+        "construction": "direct_or_reported",
+        "family": "organ_mass_or_quality_component"
+      },
+      "insect pollination: open pollination [control] - self-pollination [tulle bags]": {
+        "construction": "derived_contrast",
+        "family": "treatment_contrast"
+      },
+      "kg": {
+        "construction": "direct_or_reported",
+        "family": "mass_unspecified_grain"
+      },
+      "kg per field": {
+        "construction": "direct_or_reported",
+        "family": "harvest_mass_field"
+      },
+      "kg per ha": {
+        "construction": "direct_or_reported",
+        "family": "harvest_mass_area"
+      },
+      "kg per ha (dried and hulled beans)": {
+        "construction": "direct_or_reported",
+        "family": "harvest_mass_area"
+      },
+      "kg per hectare": {
+        "construction": "direct_or_reported",
+        "family": "harvest_mass_area"
+      },
+      "kg per shrub": {
+        "construction": "direct_or_reported",
+        "family": "harvest_mass_per_plant"
+      },
+      "kg per square meter": {
+        "construction": "direct_or_reported",
+        "family": "harvest_mass_area"
+      },
+      "late fruit set (%)": {
+        "construction": "direct_or_reported",
+        "family": "reproductive_count_or_set"
+      },
+      "mean berry weight": {
+        "construction": "direct_or_reported",
+        "family": "organ_mass_or_quality_component"
+      },
+      "mean fruit weight": {
+        "construction": "direct_or_reported",
+        "family": "organ_mass_or_quality_component"
+      },
+      "mean fruit weight for 10 fruits per field (grams)": {
+        "construction": "direct_or_reported",
+        "family": "organ_mass_or_quality_component"
+      },
+      "mean kgs per tree": {
+        "construction": "direct_or_reported",
+        "family": "harvest_mass_per_plant"
+      },
+      "mean weight per plant": {
+        "construction": "direct_or_reported",
+        "family": "harvest_mass_per_plant"
+      },
+      "na": {
+        "construction": "missing",
+        "family": "missing"
+      },
+      "number of fruits": {
+        "construction": "direct_or_reported",
+        "family": "reproductive_count_or_set"
+      },
+      "number of fruits per_flower": {
+        "construction": "direct_or_reported",
+        "family": "reproductive_count_or_set"
+      },
+      "number/treatment/site": {
+        "construction": "direct_or_reported",
+        "family": "unspecified_count"
+      },
+      "percentage of fully pollinated fruits per pot": {
+        "construction": "direct_or_reported",
+        "family": "reproductive_completion_proxy"
+      },
+      "pod set (%)": {
+        "construction": "direct_or_reported",
+        "family": "reproductive_count_or_set"
+      },
+      "pods per node": {
+        "construction": "direct_or_reported",
+        "family": "reproductive_count_or_set"
+      },
+      "primary fruit weight (grams)": {
+        "construction": "direct_or_reported",
+        "family": "organ_mass_or_quality_component"
+      },
+      "seed set": {
+        "construction": "direct_or_reported",
+        "family": "reproductive_count_or_set"
+      },
+      "seed set (number of full seeds per flowerhead)": {
+        "construction": "direct_or_reported",
+        "family": "reproductive_count_or_set"
+      },
+      "seed set (percentage developed seed per siliqua)": {
+        "construction": "direct_or_reported",
+        "family": "reproductive_count_or_set"
+      },
+      "seed weight of 10 sunflower heads (kg)": {
+        "construction": "direct_or_reported",
+        "family": "harvest_mass_fixed_part"
+      },
+      "seeds per plant": {
+        "construction": "direct_or_reported",
+        "family": "reproductive_count_or_set"
+      },
+      "tonne per acre": {
+        "construction": "direct_or_reported",
+        "family": "harvest_mass_area"
+      },
+      "tonne per hectare": {
+        "construction": "direct_or_reported",
+        "family": "harvest_mass_area"
+      },
+      "z-score seeds produced": {
+        "construction": "already_transformed",
+        "family": "already_transformed"
+      }
+    }
+  },
+  "excluded_umbrella_dois": [
+    "10.1038/ncomms8414",
+    "10.1126/science.1230200",
+    "10.1073/pnas.1517092112",
+    "10.1126/sciadv.aax0121",
+    "10.1002/ecy.3614",
+    "10.5281/zenodo.4311291",
+    "10.1111/geb.13843"
+  ],
+  "interpretation": "Exact metadata labels are candidate classifications, not verified source constructions.",
+  "limitations": [
+    "Unit-family classification does not establish measurement validity or actual treatment exposure.",
+    "No yield_units or yield2_units label explicitly identifies inferred pollen deposition; source documentation is required for that exclusion.",
+    "Unknown or ambiguous labels remain review cases and should not be auto-coerced.",
+    "A prefix match for fruit set is unsafe: exact exceptions are present.",
+    "DOI matches are vetted original-study links; not a proof of programme independence.",
+    "Do not substitute surveyed area for field area or plant density for flower density."
+  ],
+  "management": {
+    "conventional": "conventional",
+    "ipm": "ipm",
+    "organic": "organic",
+    "unmanaged": "unmanaged"
+  },
+  "primary_true_percentage_labels": [
+    "early fruit set (%)",
+    "final fruit set (%)",
+    "final seed set (%): ovules that developed into seeds at harvest",
+    "fruit set (%)",
+    "fruit set (%) per flowers",
+    "fruit set (%) per plant",
+    "fruit set (%): 100 number of fruits/number of open flowers",
+    "fruit set (%): initial number of floral buds in the respective branch and the number of developing fruits",
+    "fruit set (%): percentage of intact marked flowers (not damaged by herbivores) that developed into swollen green fruits approximately three weeks after pollination per site",
+    "late fruit set (%)",
+    "pod set (%)",
+    "seed set (percentage developed seed per siliqua)"
+  ],
+  "selectors": {
+    "drop (enclosure)": "drop_(enclosure)",
+    "drop (hb not recorded)": "drop_(hb_not_recorded)",
+    "drop (methods)": "drop_(methods)",
+    "drop (pan trap)": "drop_(pan_trap)",
+    "use abundance": "use_abundance",
+    "use visits": "use_visits"
+  },
+  "source_commit": "febec7dcc088ccf1bd721c41ce8dda87a2dcba1a",
+  "taxa_scopes": {
+    "all visitors": "all_visitors",
+    "bees": "bees",
+    "bees and leps": "bees_and_leps",
+    "bees and syrphids": "bees_and_syrphids",
+    "bees, syrphids and wasps": "bees,_syrphids_and_wasps",
+    "bumblebees": "bumblebees",
+    "none": "none",
+    "wild bees": "wild_bees"
+  },
+  "version": 1,
+  "vetted_original_dois": [
+    "10.1098/rspb.2020.0922",
+    "10.1126/science.aac7287",
+    "10.1016/j.agee.2021.107697",
+    "10.1016/j.ecolind.2022.108880",
+    "10.1038/s41598-019-49535-w",
+    "10.1111/2041-210x.13292",
+    "10.1111/j.1365-2664.2007.01418.x",
+    "10.1016/j.agee.2009.05.001",
+    "10.1016/j.biocon.2013.11.001",
+    "10.1111/j.1461-0248.2007.01110.x",
+    "10.1111/ele.13150"
+  ],
+  "visit_methods": {
+    "focal observations": "active_observation_compatible",
+    "na": "missing",
+    "other": "unresolved",
+    "sweep net": "net_collection_not_direct_timed_observation",
+    "transects": "active_observation_compatible"
+  },
+  "visit_units": {
+    "(average number of) visits per 100 flowers and hour": {
+      "family": "explicit_timed_rate",
+      "timed": true
+    },
+    "(average number of) visits per inflorescence and hour": {
+      "family": "explicit_timed_rate",
+      "timed": true
+    },
+    "counts per flower and hour": {
+      "family": "explicit_timed_rate",
+      "timed": true
+    },
+    "flowers visited per hour": {
+      "family": "explicit_timed_rate",
+      "timed": true
+    },
+    "insects per flower": {
+      "family": "insect_density_without_time",
+      "timed": false
+    },
+    "na": {
+      "family": "missing",
+      "timed": false
+    },
+    "visits": {
+      "family": "event_count_without_denominator",
+      "timed": false
+    },
+    "visits per 100 flowers": {
+      "family": "floral_count_without_time",
+      "timed": false
+    },
+    "visits per 100 flowers and hour": {
+      "family": "explicit_timed_rate",
+      "timed": true
+    },
+    "visits per 100 inflorescences and hour": {
+      "family": "explicit_timed_rate",
+      "timed": true
+    },
+    "visits per 100 sunflowers heads and hour": {
+      "family": "explicit_timed_rate",
+      "timed": true
+    },
+    "visits per bush and hour": {
+      "family": "explicit_timed_rate",
+      "timed": true
+    },
+    "visits per flower": {
+      "family": "floral_count_without_time",
+      "timed": false
+    },
+    "visits per flower per 45-s observation period": {
+      "family": "explicit_timed_rate",
+      "timed": true
+    },
+    "visits per hour": {
+      "family": "explicit_timed_rate",
+      "timed": true
+    },
+    "visits per hour and m2": {
+      "family": "explicit_timed_rate",
+      "timed": true
+    },
+    "visits per inflorescence and hour": {
+      "family": "explicit_timed_rate",
+      "timed": true
+    },
+    "visits per plant and hour": {
+      "family": "explicit_timed_rate",
+      "timed": true
+    },
+    "visits per tree and hour": {
+      "family": "explicit_timed_rate",
+      "timed": true
+    },
+    "visits per unit of time": {
+      "family": "rate_time_unit_unspecified",
+      "timed": false
+    }
+  }
+}

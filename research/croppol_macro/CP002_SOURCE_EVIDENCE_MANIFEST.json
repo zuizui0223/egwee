@@ -1,0 +1,85 @@
+{
+  "field": {
+    "bytes": 2195393,
+    "commit": "febec7dcc088ccf1bd721c41ce8dda87a2dcba1a",
+    "git_blob_sha1": "cd19a354741ac40428e6b94aa1ec2ee596ff0547",
+    "path": "Final_Data/CropPol_field_level_data.csv",
+    "repository": "ibartomeus/CropPol",
+    "sha256": "ecfa84d1f6a52f24f13b7096347a59f231e8cc77eef8692b0a0183ceca86f879"
+  },
+  "sources": [
+    {
+      "bytes": 1813,
+      "commit": "febec7dcc088ccf1bd721c41ce8dda87a2dcba1a",
+      "git_blob": "b3f1d965b6b8b8aaf45d8112a6bf0d3adc61030c",
+      "path": "Final_Data/Supporting_R_scripts/add_dynamic_paper_variables_to_field_data_with_65_variables.R",
+      "repository": "ibartomeus/CropPol"
+    },
+    {
+      "bytes": 18211,
+      "commit": "febec7dcc088ccf1bd721c41ce8dda87a2dcba1a",
+      "git_blob": "09883a6a352446a9a8bb163191204bc90b7c11e7",
+      "path": "Final_Data/Supporting_files/Dynamic_paper_extra_variables/field_data new columns.xlsx",
+      "repository": "ibartomeus/CropPol"
+    },
+    {
+      "commit": "febec7dcc088ccf1bd721c41ce8dda87a2dcba1a",
+      "git_blob": "4fb52251be5117e2861e5a2c3464a3630de4e3c3",
+      "path": "Final_Data/Supporting_R_scripts/cleaning_field_level_files_with_68_variables.R",
+      "repository": "ibartomeus/CropPol"
+    },
+    {
+      "bytes": 365535,
+      "commit": "febec7dcc088ccf1bd721c41ce8dda87a2dcba1a",
+      "git_blob": "a2b442776623308df5c28cfcf258e8db16043598",
+      "inspection": "Only schema, id coverage and provenance were used; no contacts printed or retained in deliverable.",
+      "path": "Final_Data/CropPol_data_ownership.csv",
+      "repository": "ibartomeus/CropPol"
+    },
+    {
+      "commit": "febec7dcc088ccf1bd721c41ce8dda87a2dcba1a",
+      "git_blob": "f6e0c267efb48c35497f62bda77bdc2d543fb407",
+      "path": "Final_Data/Supporting_R_scripts/cleaning_data_ownership.R",
+      "repository": "ibartomeus/CropPol"
+    },
+    {
+      "bytes": 10464,
+      "commit": "febec7dcc088ccf1bd721c41ce8dda87a2dcba1a",
+      "git_blob": "671d77a05ac9fabd2753a5baa1205cea71723f41",
+      "path": "Metadata/data/metadata/attributes.csv",
+      "repository": "ibartomeus/CropPol"
+    },
+    {
+      "commit": "bf209807bc359b7ce86156cd7ffd600ced06d1f2",
+      "construction_lines": "43-93",
+      "git_blob": "57a7e982490d13c560fffaa8dd82fe4c07733fc1",
+      "path": "scripts/Original_analysis/HB vs WI analysis clean.R",
+      "repository": "ibartomeus/CropPollinationModels"
+    },
+    {
+      "commit": "bf209807bc359b7ce86156cd7ffd600ced06d1f2",
+      "git_blob": "da01dd7ea812ba64c2b406b8781cb90d0a34eb78",
+      "path": "scripts/read_data.R",
+      "repository": "ibartomeus/CropPollinationModels"
+    },
+    {
+      "commit": "bf209807bc359b7ce86156cd7ffd600ced06d1f2",
+      "git_blob": "f88dbba733af38a1269e25978cf2c69c2a2febd5",
+      "path": "methods.qmd",
+      "repository": "ibartomeus/CropPollinationModels"
+    },
+    {
+      "bytes": 26969,
+      "commit": "febec7dcc088ccf1bd721c41ce8dda87a2dcba1a",
+      "git_blob": "475573cf9386ee7e96d7c8c55486bf620b0cc404",
+      "path": "Template/Template_example_V10.ods",
+      "repository": "ibartomeus/CropPol"
+    }
+  ],
+  "workbook_history": {
+    "commit": "f11b30e4c3ddd1396b1f31227d46a924a69b8a1c",
+    "date": "2023-01-21T13:09:01Z",
+    "message": "Create field_data new columns.xlsx",
+    "url": "https://github.com/ibartomeus/CropPol/commit/f11b30e4c3ddd1396b1f31227d46a924a69b8a1c"
+  }
+}
