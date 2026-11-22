@@ -1,0 +1,52 @@
+{
+  "verified_run": 45009831579,
+  "source": "Original author CropPol v2.1.0 source pinned",
+  "status": "POSTOUTCOME_REDUCED_BASELINE_RANK_SENSITIVITY_COMPLETE",
+  "decision": "PENALTY_AND_JACKKNIFE_SIGN_STABLE_NEGATIVE",
+  "original_CP004_result_not_modified": true,
+  "fixed_penalty_results": {
+    "0.01": {
+      "bootstrap_95pct_internal_source_interval": [
+        -0.0653880617895149,
+        0.0032058349464881325
+      ],
+      "negative_source_components": 6,
+      "positive_source_components": 4,
+      "score_M0": 0.5239893283658781,
+      "score_M1": 0.4928511899334178,
+      "source_equal_added_visitation_increment": -0.03113813843246027,
+      "zero_source_components": 0
+    },
+    "0.1": {
+      "bootstrap_95pct_internal_source_interval": [
+        -0.06953299589501903,
+        -0.006459751253667007
+      ],
+      "negative_source_components": 7,
+      "positive_source_components": 3,
+      "score_M0": 0.5239893283658781,
+      "score_M1": 0.4860390615733018,
+      "source_equal_added_visitation_increment": -0.03795026679257629,
+      "zero_source_components": 0
+    },
+    "1.0": {
+      "bootstrap_95pct_internal_source_interval": [
+        -0.07872238255123412,
+        -0.009050557713550747
+      ],
+      "negative_source_components": 7,
+      "positive_source_components": 3,
+      "score_M0": 0.5239893283658781,
+      "score_M1": 0.4805280628281923,
+      "source_equal_added_visitation_increment": -0.043461265537685756,
+      "zero_source_components": 0
+    }
+  },
+  "jackknife_source_evaluation_leave_one_out_min": -0.04576173434469245,
+  "jackknife_source_evaluation_leave_one_out_max": -0.028278074213973492,
+  "jackknife_negative_count": 10,
+  "penalty_direction_negative_all": true,
+  "jackknife_direction_negative_all": true,
+  "source_site_names_and_original_fields_redistributed": false,
+  "interpretation": "Explicit post-outcome sensitivity; not independent-source genetic pollination or causal proof"
+}
