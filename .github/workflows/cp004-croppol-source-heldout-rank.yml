@@ -1,0 +1,58 @@
+name: CP004 reduced-baseline source-withheld yield rank diagnostic
+on:
+  push:
+    branches: [research/croppol-macro-source-coverage-20261121]
+  pull_request:
+    paths:
+      - research/croppol_macro/**
+      - .github/workflows/cp004-croppol-source-heldout-rank.yml
+  workflow_dispatch:
+
+jobs:
+  frozen-source-ranking:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify source-group holdout rank invariance and 8 synthetic guards
+        run: python -m unittest discover -s research/croppol_macro -p 'test_cp004_rank_validation.py' -v
+      - name: Run exact original-source withheld field-size and visits ordinal prediction
+        run: |
+          python research/croppol_macro/audit_cp004_source_heldout_yield_ranks.py \
+            --output cp004_source_withheld_rank_aggregate.json
+          python - <<'PY'
+          import json
+          x=json.load(open("cp004_source_withheld_rank_aggregate.json"))
+          assert x["status"] in ("SOURCE_HELDOUT_REDUCED_BASELINE_RANK_TEST_COMPLETE",
+                                 "SOURCE_HELDOUT_RANK_COVERAGE_STOP")
+          assert x["source_original_sha256"]=="ecfa84d1f6a52f24f13b7096347a59f231e8cc77eef8692b0a0183ceca86f879"
+          e=x["source_eligibility_fingerprint"]
+          assert e["source_field_size_selection_rows"]==201
+          assert e["source_comparison_blocks"]==12
+          assert e["provisional_source_components"]==10
+          assert x["not_direct_causal_pollinator_effect"] is True
+          assert x["heldout_response_moments_or_rank_transforms_used_in_training"] is False
+          assert x["original_source_group_independence_confirmed"] is False
+          assert x["original_source_rows_sites_locations_study_labels_or_numeric_phenotypes_redistributed"] is False
+          if x["status"]=="SOURCE_HELDOUT_REDUCED_BASELINE_RANK_TEST_COMPLETE":
+              assert x["source_components_scored"]>=8
+              assert len(x["source_equal_increment_bootstrap_CI95"])==2
+              assert x["source_equal_M0_field_size_only_concordance"]>=0
+              assert x["source_equal_M1_field_size_plus_total_visits_concordance"]<=1
+              print("CP004_SOURCE_WITHHELD_RANK_BENCHMARK_COMPLETED",x["decision"])
+          else:
+              assert x["effect_estimated"] is False
+              print("CP004_NO_EIGHT_SCOREABLE_SOURCES_COVERAGE_STOP")
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cp004-original-source-heldout-rank-aggregate
+          path: cp004_source_withheld_rank_aggregate.json
+          if-no-files-found: error
+          retention-days: 14
