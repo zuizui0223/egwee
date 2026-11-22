@@ -32,3 +32,11 @@
 [Official Dryad API accounts documentation](https://github.com/datadryad/dryad-app/blob/main/documentation/apis/api_accounts.md) confirms certain file download calls require an API bearer token. Prior HTTP 401 was an authentication gate rather than evidence no original exists. Repeated anonymous Dryad calls were removed from this PR's CI. The source-only Figshare read was a separate public provenance route.
 
 **Decision:** `FIELD_SEED_COLUMN_PRESENT_BUT_LINE_SEMANTICS_AND_PEDIGREE_UNRESOLVED`. Treat as a high-quality **prospective phenotype–reproduction feasibility candidate**, not a new affirmative eco-genetic-function effect.
+
+## Follow-up codebook audit — run 45032319827
+
+- A new **text-only** audit examined the seven physical rows of the original `Lupinus_angustifolius_data_field.xlsx` first worksheet. It read no numeric outcome/genotype values.
+- Result: `NO_VERIFIED_CODEBOOK_IN_SOURCE_SHEET1`; recognized C/J/L/R/T/X treatment-code definitions **0**. This is a stop on **verified one-letter code → biological treatment mapping**, *not proof that no mapping exists in the published supplementary methods or author's dictionary*.
+- GitHub Actions [run 45032319827](https://github.com/zuizui0223/egwee/actions/runs/45032319827) succeeded and 10/10 synthetic source/ID tests passed. Codebook retrieval cannot convert the letter codes into source-defined CFL/GFL/EFL/OUT without external evidence.
+- The 2026 OUP public abstract confirms the experiment had controls, artificial-selection lines (selfing and outcrossing), and assisted gene flow lines propagated to F3, **but does not identify which one-letter Excel source codes correspond to these arms**. See DOI 10.1093/aob/mcag061 (2026-03-26).
+- **Decision: SOURCE_CODEBOOK_STOP_BEFORE_SEED_EFFECT.** No regression on `number_of_seeds`, no inferred family/pedigree links, no new causal reproductive rescue claims. Continue only if a primary codebook or correspondingly documented treatment crosswalk is recovered; then freeze source-defined controls, missing/zero outcome, cohort nesting and holdout before opening signed seed values.
