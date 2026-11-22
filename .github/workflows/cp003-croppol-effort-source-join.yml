@@ -1,0 +1,50 @@
+name: CP003 pinned CropPol sampling effort join and source grain
+on:
+  push:
+    branches: [research/croppol-macro-source-coverage-20261121]
+  pull_request:
+    paths:
+      - research/croppol_macro/**
+      - .github/workflows/cp003-croppol-effort-source-join.yml
+  workflow_dispatch:
+
+jobs:
+  sample-effort-join:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify no taxon-row time summing or field-year leakage in 10 synthetic tests
+        run: python -m unittest discover -s research/croppol_macro -p 'test_cp003_sampling_effort.py' -v
+      - name: Audit exact pinned original field and sampling sources and source-safe joins
+        run: |
+          python research/croppol_macro/audit_cp003_sampling_effort.py \
+            --output cp003_sampling_effort_source_receipt.json
+          python - <<'PY'
+          import json
+          r=json.load(open("cp003_sampling_effort_source_receipt.json"))
+          assert r["status"]=="EFFORT_SOURCE_KEYS_AUDITED_NOT_MODEL_ADMISSION"
+          assert r["source_sampling_original_file_size"]==22084522
+          assert r["source_sampling_git_blob_sha1"]=="b7ab3fd92da0be5e8ec41b6ada50c2da7d4756c2"
+          assert r["source_sampling_sha256"]=="aafba5d3dfbab2c93f3a60e31181d2c5b33535cc2c8f33b85495facb42382f30"
+          assert r["original_sample"]["sampling_taxon_method_rows"]==54191
+          assert r["frames"]["strict_direct_timed_visit"]["rows"]==452
+          assert r["frames"]["strict_harvest_mass_area"]["rows"]==121
+          assert r["all_counts_are_source_structure_not_biological_prediction"] is True
+          assert r["raw_identifiers_taxa_methods_numeric_values_or_source_rows_redistributed"] is False
+          assert r["numeric_outcomes_correlations_or_model_scores_computed"] is False
+          assert r["independent_source_components_confirmed"] is False
+          print("CP003_SAMPLING_SOURCE_AUDIT_PASS_NOT_MODEL_ADMISSION")
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cp003-original-sampling-effort-grain-derivative
+          path: cp003_sampling_effort_source_receipt.json
+          if-no-files-found: error
+          retention-days: 14
