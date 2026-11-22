@@ -1,0 +1,499 @@
+{
+  "anomalies": {
+    "duplicate_candidate_keys": 0,
+    "extra_rows_beyond_candidate_keys": 0,
+    "rows_missing_candidate_keys": 0
+  },
+  "baseline": {
+    "author_use_visits_direct_timed": {
+      "all_three": {
+        "block_size_distribution": {
+          "11": 1,
+          "12": 1,
+          "13": 1,
+          "15": 1,
+          "16": 2,
+          "17": 1,
+          "18": 1,
+          "19": 3,
+          "2": 1,
+          "20": 1,
+          "23": 1,
+          "24": 1,
+          "25": 2,
+          "27": 1,
+          "29": 1,
+          "3": 2,
+          "4": 5,
+          "5": 1,
+          "56": 1,
+          "7": 1,
+          "8": 1
+        },
+        "blocks": 30,
+        "blocks_at_least_five": 3,
+        "blocks_at_least_half_pairs_differ": 3,
+        "blocks_touching_global_duplicate_keys": 0,
+        "blocks_with_duplicate_candidate_keys": 0,
+        "candidate_keys_are_not_verified_physical_field_identities": true,
+        "complete_case_block_size_distribution": {
+          "0": 27,
+          "19": 2,
+          "5": 1
+        },
+        "complete_rows": 43,
+        "components_with_variable_blocks": 2,
+        "rows_at_least_half_pairs_differ": 43,
+        "rows_in_variable_blocks": 43,
+        "rows_missing_block_metadata": 0,
+        "variable_blocks": 3
+      },
+      "field_size": {
+        "block_size_distribution": {
+          "11": 1,
+          "12": 1,
+          "13": 1,
+          "15": 1,
+          "16": 2,
+          "17": 1,
+          "18": 1,
+          "19": 3,
+          "2": 1,
+          "20": 1,
+          "23": 1,
+          "24": 1,
+          "25": 2,
+          "27": 1,
+          "29": 1,
+          "3": 2,
+          "4": 5,
+          "5": 1,
+          "56": 1,
+          "7": 1,
+          "8": 1
+        },
+        "blocks": 30,
+        "blocks_at_least_five": 15,
+        "blocks_at_least_half_pairs_differ": 12,
+        "blocks_touching_global_duplicate_keys": 0,
+        "blocks_with_duplicate_candidate_keys": 0,
+        "candidate_keys_are_not_verified_physical_field_identities": true,
+        "complete_case_block_size_distribution": {
+          "0": 7,
+          "11": 1,
+          "13": 1,
+          "16": 2,
+          "18": 1,
+          "19": 3,
+          "2": 1,
+          "20": 1,
+          "24": 1,
+          "25": 1,
+          "27": 1,
+          "29": 1,
+          "3": 2,
+          "4": 5,
+          "5": 1,
+          "7": 1
+        },
+        "complete_rows": 296,
+        "components_with_variable_blocks": 10,
+        "rows_at_least_half_pairs_differ": 201,
+        "rows_in_variable_blocks": 201,
+        "rows_missing_block_metadata": 0,
+        "variable_blocks": 12
+      },
+      "management": {
+        "block_size_distribution": {
+          "11": 1,
+          "12": 1,
+          "13": 1,
+          "15": 1,
+          "16": 2,
+          "17": 1,
+          "18": 1,
+          "19": 3,
+          "2": 1,
+          "20": 1,
+          "23": 1,
+          "24": 1,
+          "25": 2,
+          "27": 1,
+          "29": 1,
+          "3": 2,
+          "4": 5,
+          "5": 1,
+          "56": 1,
+          "7": 1,
+          "8": 1
+        },
+        "blocks": 30,
+        "blocks_at_least_five": 22,
+        "blocks_at_least_half_pairs_differ": 1,
+        "blocks_touching_global_duplicate_keys": 0,
+        "blocks_with_duplicate_candidate_keys": 0,
+        "candidate_keys_are_not_verified_physical_field_identities": true,
+        "complete_case_block_size_distribution": {
+          "11": 1,
+          "12": 1,
+          "13": 1,
+          "15": 1,
+          "16": 2,
+          "17": 1,
+          "18": 1,
+          "19": 3,
+          "2": 1,
+          "20": 1,
+          "23": 1,
+          "24": 1,
+          "25": 2,
+          "27": 1,
+          "29": 1,
+          "3": 2,
+          "4": 5,
+          "5": 1,
+          "56": 1,
+          "7": 1,
+          "8": 1
+        },
+        "complete_rows": 452,
+        "components_with_variable_blocks": 6,
+        "rows_at_least_half_pairs_differ": 29,
+        "rows_in_variable_blocks": 149,
+        "rows_missing_block_metadata": 0,
+        "variable_blocks": 7
+      },
+      "plant_density": {
+        "block_size_distribution": {
+          "11": 1,
+          "12": 1,
+          "13": 1,
+          "15": 1,
+          "16": 2,
+          "17": 1,
+          "18": 1,
+          "19": 3,
+          "2": 1,
+          "20": 1,
+          "23": 1,
+          "24": 1,
+          "25": 2,
+          "27": 1,
+          "29": 1,
+          "3": 2,
+          "4": 5,
+          "5": 1,
+          "56": 1,
+          "7": 1,
+          "8": 1
+        },
+        "blocks": 30,
+        "blocks_at_least_five": 4,
+        "blocks_at_least_half_pairs_differ": 4,
+        "blocks_touching_global_duplicate_keys": 0,
+        "blocks_with_duplicate_candidate_keys": 0,
+        "candidate_keys_are_not_verified_physical_field_identities": true,
+        "complete_case_block_size_distribution": {
+          "0": 26,
+          "15": 1,
+          "19": 2,
+          "5": 1
+        },
+        "complete_rows": 58,
+        "components_with_variable_blocks": 3,
+        "rows_at_least_half_pairs_differ": 58,
+        "rows_in_variable_blocks": 58,
+        "rows_missing_block_metadata": 0,
+        "variable_blocks": 4
+      }
+    },
+    "harvest_mass_area_author_visits": {
+      "all_three": {
+        "block_size_distribution": {
+          "15": 1,
+          "18": 1,
+          "19": 3,
+          "2": 1,
+          "25": 1,
+          "4": 1
+        },
+        "blocks": 8,
+        "blocks_at_least_five": 2,
+        "blocks_at_least_half_pairs_differ": 2,
+        "blocks_touching_global_duplicate_keys": 0,
+        "blocks_with_duplicate_candidate_keys": 0,
+        "candidate_keys_are_not_verified_physical_field_identities": true,
+        "complete_case_block_size_distribution": {
+          "0": 6,
+          "19": 2
+        },
+        "complete_rows": 38,
+        "components_with_variable_blocks": 1,
+        "rows_at_least_half_pairs_differ": 38,
+        "rows_in_variable_blocks": 38,
+        "rows_missing_block_metadata": 0,
+        "variable_blocks": 2
+      },
+      "field_size": {
+        "block_size_distribution": {
+          "15": 1,
+          "18": 1,
+          "19": 3,
+          "2": 1,
+          "25": 1,
+          "4": 1
+        },
+        "blocks": 8,
+        "blocks_at_least_five": 4,
+        "blocks_at_least_half_pairs_differ": 4,
+        "blocks_touching_global_duplicate_keys": 0,
+        "blocks_with_duplicate_candidate_keys": 0,
+        "candidate_keys_are_not_verified_physical_field_identities": true,
+        "complete_case_block_size_distribution": {
+          "0": 2,
+          "18": 1,
+          "19": 3,
+          "2": 1,
+          "4": 1
+        },
+        "complete_rows": 81,
+        "components_with_variable_blocks": 3,
+        "rows_at_least_half_pairs_differ": 75,
+        "rows_in_variable_blocks": 75,
+        "rows_missing_block_metadata": 0,
+        "variable_blocks": 4
+      },
+      "management": {
+        "block_size_distribution": {
+          "15": 1,
+          "18": 1,
+          "19": 3,
+          "2": 1,
+          "25": 1,
+          "4": 1
+        },
+        "blocks": 8,
+        "blocks_at_least_five": 6,
+        "blocks_at_least_half_pairs_differ": 0,
+        "blocks_touching_global_duplicate_keys": 0,
+        "blocks_with_duplicate_candidate_keys": 0,
+        "candidate_keys_are_not_verified_physical_field_identities": true,
+        "complete_case_block_size_distribution": {
+          "15": 1,
+          "18": 1,
+          "19": 3,
+          "2": 1,
+          "25": 1,
+          "4": 1
+        },
+        "complete_rows": 121,
+        "components_with_variable_blocks": 1,
+        "rows_at_least_half_pairs_differ": 0,
+        "rows_in_variable_blocks": 25,
+        "rows_missing_block_metadata": 0,
+        "variable_blocks": 1
+      },
+      "plant_density": {
+        "block_size_distribution": {
+          "15": 1,
+          "18": 1,
+          "19": 3,
+          "2": 1,
+          "25": 1,
+          "4": 1
+        },
+        "blocks": 8,
+        "blocks_at_least_five": 3,
+        "blocks_at_least_half_pairs_differ": 3,
+        "blocks_touching_global_duplicate_keys": 0,
+        "blocks_with_duplicate_candidate_keys": 0,
+        "candidate_keys_are_not_verified_physical_field_identities": true,
+        "complete_case_block_size_distribution": {
+          "0": 5,
+          "15": 1,
+          "19": 2
+        },
+        "complete_rows": 53,
+        "components_with_variable_blocks": 2,
+        "rows_at_least_half_pairs_differ": 53,
+        "rows_in_variable_blocks": 53,
+        "rows_missing_block_metadata": 0,
+        "variable_blocks": 3
+      }
+    }
+  },
+  "biological_effect_estimated": false,
+  "commit": "febec7dcc088ccf1bd721c41ce8dda87a2dcba1a",
+  "frames": {
+    "author_use_abundance_direct": {
+      "blocking_components": 32,
+      "countries": 19,
+      "crops": 22,
+      "provisional_study_id2_groups": 42,
+      "rows": 572
+    },
+    "author_use_visits_direct_timed": {
+      "blocking_components": 19,
+      "countries": 12,
+      "crops": 15,
+      "provisional_study_id2_groups": 19,
+      "rows": 452
+    },
+    "harvest_mass_area_author_visits": {
+      "blocking_components": 5,
+      "countries": 5,
+      "crops": 5,
+      "provisional_study_id2_groups": 5,
+      "rows": 121
+    },
+    "primary_direct_timed_observation": {
+      "blocking_components": 21,
+      "countries": 13,
+      "crops": 16,
+      "provisional_study_id2_groups": 23,
+      "rows": 485
+    },
+    "primary_direct_total_visit": {
+      "blocking_components": 29,
+      "countries": 17,
+      "crops": 20,
+      "provisional_study_id2_groups": 40,
+      "rows": 986
+    },
+    "primary_organ_quality_total_visit": {
+      "blocking_components": 4,
+      "countries": 5,
+      "crops": 3,
+      "provisional_study_id2_groups": 7,
+      "rows": 482
+    },
+    "primary_reviewed_direct": {
+      "blocking_components": 64,
+      "countries": 28,
+      "crops": 37,
+      "provisional_study_id2_groups": 84,
+      "rows": 1657
+    },
+    "reproductive_author_visits": {
+      "blocking_components": 13,
+      "countries": 9,
+      "crops": 9,
+      "provisional_study_id2_groups": 13,
+      "rows": 302
+    }
+  },
+  "grouping": {
+    "combined_components": 111,
+    "components_including_unresolved_nodes": 111,
+    "distinct_doi_tokens": 99,
+    "independent_programme_count_verified": false,
+    "largest_component_study_id2_groups": 13,
+    "provisional_study_id2_groups": 145,
+    "rows_with_no_doi_token": 659,
+    "unresolved_source_nodes": 0,
+    "unvetted_distinct_doi_tokens": 88,
+    "unvetted_doi_tokens_never_used_as_links": true,
+    "vetted_distinct_doi_tokens_present": 11,
+    "vetted_dois_linking_multiple_study_id2": 11,
+    "vetted_publication_components": 113,
+    "year_stem_components": 142
+  },
+  "invalid_domains": {
+    "negative_abundance": 0,
+    "negative_visitation": 0,
+    "primary_direct_negative": 0,
+    "primary_percentage_above_100": 0
+  },
+  "metadata_categories": {
+    "management": {
+      "conventional": 1718,
+      "ipm": 112,
+      "missing": 1247,
+      "organic": 343,
+      "unmanaged": 28
+    },
+    "selector": {
+      "drop_(enclosure)": 24,
+      "drop_(hb_not_recorded)": 234,
+      "drop_(methods)": 82,
+      "drop_(pan_trap)": 83,
+      "use_abundance": 965,
+      "use_visits": 2060
+    },
+    "taxa_scope": {
+      "all_visitors": 2160,
+      "bees": 661,
+      "bees,_syrphids_and_wasps": 177,
+      "bees_and_leps": 60,
+      "bees_and_syrphids": 74,
+      "bumblebees": 16,
+      "none": 30,
+      "wild_bees": 270
+    },
+    "visit_method": {
+      "active_observation_compatible": 1912,
+      "missing": 1376,
+      "net_collection_not_direct_timed_observation": 123,
+      "unresolved": 37
+    },
+    "visit_unit_family": {
+      "event_count_without_denominator": 689,
+      "explicit_timed_rate": 1154,
+      "floral_count_without_time": 241,
+      "insect_density_without_time": 9,
+      "missing": 1343,
+      "rate_time_unit_unspecified": 12
+    }
+  },
+  "model_admission": false,
+  "original_rows_or_IDs_redistributed": false,
+  "outcome_families": {
+    "yield": {
+      "already_transformed": 177,
+      "harvest_mass_area": 606,
+      "harvest_mass_field": 50,
+      "harvest_mass_fixed_part": 37,
+      "harvest_mass_per_plant": 76,
+      "harvest_quantity_nonmass": 53,
+      "mass_unspecified_grain": 42,
+      "missing": 44,
+      "no_numeric_value": 859,
+      "organ_mass_or_quality_component": 539,
+      "reproductive_completion_proxy": 11,
+      "reproductive_count_or_set": 888,
+      "thresholded_output_or_quality": 24,
+      "treatment_contrast": 12,
+      "unspecified_count": 30
+    },
+    "yield2": {
+      "already_transformed": 177,
+      "harvest_mass_area": 50,
+      "no_numeric_value": 1876,
+      "organ_mass_or_quality_component": 111,
+      "pollination_index_proxy": 27,
+      "production_unspecified_units": 11,
+      "quality_or_marketability": 15,
+      "reproductive_count_or_set": 1181
+    }
+  },
+  "outcome_magnitudes_or_relationships_computed": false,
+  "path": "Final_Data/CropPol_field_level_data.csv",
+  "predictor_only_completeness_and_distinctness_audited": true,
+  "release": "v2.1.0",
+  "rules_sha256": "5810972ff5179dba661d78d630687fe9b5bbdaa4ae31559606db16ba55153979",
+  "schema_sha256": "f2ee8b3f934bc412f649022c2349f77df18531842f4810983fa60bc721343866",
+  "schema_verified": true,
+  "source_actual_bytes": 2195393,
+  "source_actual_sha256": "ecfa84d1f6a52f24f13b7096347a59f231e8cc77eef8692b0a0183ceca86f879",
+  "source_git_blob_sha1": "cd19a354741ac40428e6b94aa1ec2ee596ff0547",
+  "source_identity_verified": true,
+  "source_repository": "ibartomeus/CropPol",
+  "status": "METADATA_AUDITED_NOT_MODEL_ADMISSION",
+  "total_rows": 3448,
+  "unresolved": {
+    "baseline_covariate_timing_and_derivation": true,
+    "endpoint_original_construction_and_inferred_pollen_exclusion": true,
+    "independent_programme_identity": true,
+    "original_visitation_protocol": true
+  }
+}

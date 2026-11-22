@@ -1,0 +1,49 @@
+name: CP005 posthoc CropPol original-source penalty and jackknife diagnostics
+on:
+  push:
+    branches: [research/croppol-macro-source-coverage-20261121]
+  pull_request:
+    paths:
+      - research/croppol_macro/**
+      - .github/workflows/cp005-croppol-posthoc-rank-sensitivity.yml
+  workflow_dispatch:
+
+jobs:
+  source-rank-sensitivity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify distinct synthetic original-source lambda solutions and primary equivalence
+        run: python -m unittest discover -s research/croppol_macro -p 'test_cp005_penalty_jackknife.py' -v
+      - name: Run exact source retrospective penalty grid and source jackknife
+        run: |
+          python research/croppol_macro/audit_cp005_posthoc_penalty_jackknife.py \
+            --output cp005_aggregate_posthoc_penalty_sensitivity.json
+          python - <<'PY'
+          import json
+          r=json.load(open("cp005_aggregate_posthoc_penalty_sensitivity.json"))
+          assert r["status"]=="POSTOUTCOME_REDUCED_BASELINE_RANK_SENSITIVITY_COMPLETE"
+          assert r["original_cp004_full_frozen_0p1_score_reproduced"] is True
+          assert r["original_cp004_model_and_frozen_result_unchanged"] is True
+          assert sorted(r["all_fixed_penalty_results"])==["0.01","0.1","1.0"]
+          assert r["n_jackknife_source_evaluation_deletions"]==10
+          assert r["frozen_source_eligibility"]["source_field_size_selection_rows"]==201
+          assert r["frozen_source_eligibility"]["provisional_source_components"]==10
+          assert r["original_field_rows_study_names_sites_outcomes_and_visit_values_redistributed"] is False
+          assert r["not_an_independent_ecological_replication"] is True
+          assert r["full_context_causal_model_admitted"] is False
+          print("CP005_POSTOUTCOME_RIDGE_GRID_ALL_PENALTIES_RETAINED",r["decision"])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cp005-original-source-posthoc-rank-robustness
+          path: cp005_aggregate_posthoc_penalty_sensitivity.json
+          if-no-files-found: error
+          retention-days: 14

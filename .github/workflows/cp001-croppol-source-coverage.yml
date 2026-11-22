@@ -1,0 +1,46 @@
+name: CP001 pinned CropPol source coverage, no effect estimates
+on:
+  push:
+    branches: [research/croppol-macro-source-coverage-20261121]
+  pull_request:
+    paths:
+      - research/croppol_macro/**
+      - .github/workflows/cp001-croppol-source-coverage.yml
+  workflow_dispatch:
+
+jobs:
+  source-coverage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check source identity, observational grain and safe output regressions
+        run: python -m unittest discover -s research/croppol_macro -p 'test_cp001_source_coverage.py' -v
+      - name: Audit pinned source coverage without estimating biological effects
+        run: |
+          python research/croppol_macro/audit_cp001_source_coverage.py --output cp001_source_coverage_receipt.json
+          python - <<'PY'
+          import json
+          x = json.load(open('cp001_source_coverage_receipt.json'))
+          assert x['status'] == 'SOURCE_COVERAGE_VERIFIED_NOT_MODEL_ADMISSION'
+          assert x['source_identity_verified'] and x['schema_verified']
+          assert x['column_count'] == 68
+          assert x['model_admission'] is False
+          assert x['biological_effect_estimated'] is False
+          assert x['original_rows_or_IDs_redistributed'] is False
+          assert x['numeric_cell_magnitudes_or_relationships_computed'] is False
+          assert x['independent_study_count_verified'] is False
+          print('CP001_SOURCE_COVERAGE_GATE_PASS_NOT_MODEL_ADMISSION')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cp001-croppol-pinned-source-coverage-derivative
+          path: cp001_source_coverage_receipt.json
+          if-no-files-found: error
+          retention-days: 14

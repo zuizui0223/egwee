@@ -1,0 +1,57 @@
+{
+  "audit_date": "2026-11-21",
+  "source_commit": "febec7dcc088ccf1bd721c41ce8dda87a2dcba1a",
+  "method": "Independent Python csv parser with Decimal.is_finite presence checks; primary auditor and helpers not read or reused",
+  "source_bytes": 2195393,
+  "git_blob_sha1": "cd19a354741ac40428e6b94aa1ec2ee596ff0547",
+  "source_sha256": "ecfa84d1f6a52f24f13b7096347a59f231e8cc77eef8692b0a0183ceca86f879",
+  "counts": {
+    "rows": 3448,
+    "columns": 68,
+    "study_id": 221,
+    "provisional_study_id2_groups": 145,
+    "crops": 48,
+    "countries": 35,
+    "complete_candidate_keys": 3448,
+    "unique_candidate_keys": 3448,
+    "duplicate_key_groups": 0,
+    "excess_duplicate_rows": 0,
+    "inconsistent_study_to_group_mappings": 0,
+    "malformed_csv_rows": 0,
+    "duplicate_column_names": 0
+  },
+  "subsets": {
+    "primary_yield_unit_and_visit": {
+      "rows": 1710,
+      "provisional_groups": 53,
+      "crops": 23,
+      "countries": 21
+    },
+    "primary_yield_unit_and_abundance": {
+      "rows": 1593,
+      "provisional_groups": 88,
+      "crops": 37,
+      "countries": 30
+    },
+    "seed_or_fruit_count_and_visit": {
+      "rows": 266,
+      "provisional_groups": 14,
+      "crops": 10,
+      "countries": 7
+    }
+  },
+  "additional_exploratory_presence_overlap": {
+    "definition": "Intersection of yield+unit+visit and yield+unit+abundance, no effect estimated",
+    "rows": 802,
+    "provisional_groups": 38,
+    "crops": 20,
+    "countries": 20
+  },
+  "discrepancies_found": [],
+  "model_admission": false,
+  "biological_effect_estimated": false,
+  "original_rows_or_identifiers_exported": false,
+  "independent_study_count_verified": false,
+  "endpoint_semantics_verified": false
+}
+

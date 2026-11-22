@@ -1,0 +1,45 @@
+name: CP002 CropPol measurement and source-family audit
+on:
+  push:
+    branches: [research/croppol-macro-source-coverage-20261121]
+  pull_request:
+    paths:
+      - research/croppol_macro/**
+      - .github/workflows/cp002-croppol-measurement-sources.yml
+  workflow_dispatch:
+
+jobs:
+  measurement-source-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify measurement, source blocking and baseline boundaries
+        run: python -m unittest discover -s research/croppol_macro -p 'test_cp00*.py' -v
+      - name: Audit original metadata and candidate baseline without fitting effects
+        run: |
+          python research/croppol_macro/audit_cp002_measurement_sources.py --output cp002_measurement_sources_receipt.json
+          python - <<'PY'
+          import json
+          x = json.load(open('cp002_measurement_sources_receipt.json'))
+          assert x['status'] == 'METADATA_AUDITED_NOT_MODEL_ADMISSION'
+          assert x['source_identity_verified'] and x['schema_verified']
+          assert x['source_actual_sha256'] == 'ecfa84d1f6a52f24f13b7096347a59f231e8cc77eef8692b0a0183ceca86f879'
+          assert x['model_admission'] is False and x['biological_effect_estimated'] is False
+          assert x['original_rows_or_IDs_redistributed'] is False
+          assert x['outcome_magnitudes_or_relationships_computed'] is False
+          assert x['grouping']['independent_programme_count_verified'] is False
+          print('CP002_MEASUREMENT_SOURCE_AUDIT_PASS_NOT_MODEL_ADMISSION')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cp002-croppol-measurement-source-derivative
+          path: cp002_measurement_sources_receipt.json
+          if-no-files-found: error
+          retention-days: 14

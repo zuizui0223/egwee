@@ -1,0 +1,35 @@
+{
+  "status": "SOURCE_HELDOUT_REDUCED_BASELINE_RANK_TEST_COMPLETE",
+  "decision": "NO_RESOLVED_REDUCED_BASELINE_TRANSFER_GAIN",
+  "source_run": 45009495412,
+  "CI_original_source_completed": true,
+  "pinned_author_git_commit": "febec7dcc088ccf1bd721c41ce8dda87a2dcba1a",
+  "pinned_author_file_sha256": "ecfa84d1f6a52f24f13b7096347a59f231e8cc77eef8692b0a0183ceca86f879",
+  "source_eligibility_fingerprint": {
+    "field_size_complete_rows_before_5row_and_variation_gate": 296,
+    "original_strict_source_field_rows": 452,
+    "outcome_nontied_field_pairs": 1758,
+    "outcome_tied_pairs_excluded_from_pairwise_scores": 23,
+    "provisional_source_components": 10,
+    "source_comparison_blocks": 12,
+    "source_field_size_selection_rows": 201,
+    "source_study_field_ids_or_yield_values_exported": false,
+    "visit_constant_blocks_retained": 0,
+    "visit_varying_blocks": 12
+  },
+  "source_components_scored": 10,
+  "model_M0_field_size_concordance": 0.5239893283658781,
+  "model_M1_field_size_plus_total_visits_concordance": 0.4860390615733018,
+  "heldout_increment_M1_minus_M0": -0.03795026679257629,
+  "source_bootstrap_CI95": [
+    -0.06900665410415047,
+    -0.008066633041469842
+  ],
+  "source_groups_negative": 7,
+  "source_groups_positive": 3,
+  "source_groups_zero": 0,
+  "folds_with_positive_trained_visitation_coefficient": 9,
+  "predeclared_bounded_rule_pass": false,
+  "source_field_phenotypes_and_individual_ids_exported": false,
+  "caveat": "Exploratory source-blocked rank prediction with field-size-only baseline; no confounding control nor causal inference, provisional study independence"
+}
