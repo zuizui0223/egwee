@@ -105,7 +105,7 @@ class SampleSummary:
         st=self.status[field]
         return next(iter(st["positive"])) if len(st["positive"])==1 else None
 
-def sampling_summary(raw):
+def sampling_summary(raw,expected_rows=54191):
     sampling={}
     n=0
     miss_key=0
@@ -120,16 +120,16 @@ def sampling_summary(raw):
         sampling[k].add(row)
         a=value(row["abundance"])
         valid_abundance+=a is not None and a>=0
-    if n!=54191:raise ValueError("Original sampling row count drift")
+    if n!=expected_rows:raise ValueError("Original sampling row count drift")
     return sampling,{"sampling_taxon_method_rows":n,
                      "rows_missing_study_site_key":miss_key,
                      "nonnegative_numeric_taxon_abundance_rows":valid_abundance,
                      "distinct_complete_sampling_site_keys":len(sampling),
                      "same_taxon_row_not_independent_census_or_field":True}
 
-def field_frames(raw):
+def field_frames(raw,expected=(3448,452,121)):
     rows=list(tabular_rows(raw,tuple(cp001.EXPECTED_COLUMNS)))
-    if len(rows)!=3448:raise ValueError("Original field row count drift")
+    if len(rows)!=expected[0]:raise ValueError("Original field row count drift")
     for i,row in enumerate(rows):
         row["_group"]=(("observed",row["study_id2"]) if not missing(row["study_id2"])
                        else ("unresolved",str(i)))
@@ -162,7 +162,7 @@ def field_frames(raw):
         if selected:
             strict.append((k,r))
             if yf=="harvest_mass_area":harvest.append((k,r))
-    if (len(all_rows),len(strict),len(harvest)) != (3448,452,121):
+    if (len(all_rows),len(strict),len(harvest)) != expected:
         raise ValueError("CP002 source admission frame changed; no row imputation allowed")
     return {"all_fields":all_rows,
             "strict_direct_timed_visit":strict,
