@@ -22,6 +22,27 @@ jobs:
         run: |
           mkdir -p source_receipt
           python research/molecular_conservation/audit_lupinus_2026_in_situ_source.py > source_receipt/lupinus_2026_in_situ_schema.json
+      - name: Compare 2025 and 2026 genotype/lineage ID labels, never outcomes
+        run: |
+          python research/molecular_conservation/audit_lupinus_2025_2026_id_linkage.py > source_receipt/lupinus_2025_2026_id_gate.json
+          python - <<'PY'
+          import json
+          r=json.load(open('source_receipt/lupinus_2025_2026_id_gate.json'))
+          assert r['snp_genotypes_read'] is False
+          assert r['outcome_columns_read'] is False
+          assert r['phenotype_values_read'] is False
+          assert r['raw_data_exported'] is False
+          assert r['direct_maternal_lineage_link_confirmed'] is False
+          assert r['decision'] in (
+            'SOURCE_PEDIGREE_CROSSWALK_REQUIRED_BEFORE_ANY_CROSS_YEAR_EFFECT',
+            'SOURCE_ACCESS_OR_SCHEMA_STOP')
+          print('Interannual ID source audit:',r['status'])
+          if r['status']=='SOURCE_ID_AND_LINE_LABELS_ONLY_NO_OUTCOMES':
+              print('2025/2026 rows:',r['2025_source_rows'],r['2026_source_rows'])
+              print('Shared population×line categories:',r['shared_population_line_category_count'])
+              print('Exact interannual ID-label overlap:',r['exact_id_label_overlap_across_generations'])
+              print('Actual pedigree link: NOT VERIFIED')
+          PY
       - name: Enforce no original observations, genetic calls or effects were exported
         run: |
           python - <<'PY'
@@ -60,5 +81,5 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: molecular-source-2026-lupinus-only
-          path: source_receipt/lupinus_2026_in_situ_schema.json
+          path: source_receipt/*.json
           retention-days: 30
