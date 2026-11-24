@@ -114,6 +114,7 @@ jobs:
                         'physical_rows',sh['physical_rows'],
                         'recognized_field_headers',sorted(headers & known),
                         'header_cell_count',len(headers))
+                  print('Original source column headers only (no values):',sh.get('first_row_headers',[])[:30])
                   print('Exact source-field aliases only:',sorted(
                         (str(h)[:90],normal(h)) for h in sh.get('first_row_headers',[])
                         if normal(h) in known))
