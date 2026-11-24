@@ -217,3 +217,60 @@ jobs:
           name: lupf1-seed-endpoint-validity-only
           path: source_receipt/lupf1_invalid_seed_diagnostic.json
           retention-days: 30
+
+  lupf2-exploratory-continuous-reproductive-index:
+    needs: [source-and-join-gates, lupf1-seed-field-validity-diagnostic]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify both original stop and NEW exploratory protocol predate outcome fit
+        run: |
+          git merge-base --is-ancestor 28938fe193d01d7eca5bd2fe776f37ecb1f58e27 HEAD
+          git merge-base --is-ancestor 053eca26bc1b527e828cb82cbac9318d20be7621 HEAD
+      - name: Run LUPF2 fivefold genotype-grouped exploratory reproductive-index prediction
+        run: |
+          mkdir -p source_receipt
+          python research/molecular_conservation/run_lupf2_exploratory_continuous_seed.py --output source_receipt/lupf2_exploratory_summary.json
+      - name: Enforce non-confirmatory, non-genetic and source privacy boundaries
+        run: |
+          python - <<'PY'
+          import json
+          v=json.load(open('source_receipt/lupf2_exploratory_summary.json'))
+          assert v['new_exploratory_protocol_commit']=='053eca26bc1b527e828cb82cbac9318d20be7621'
+          assert v['original_lupf1_preregistered_status']=='SOURCE_ENDPOINT_INVALID_STOP'
+          assert v['original_individual_rows_redistributed'] is False
+          assert v['new_genetic_rescue_effect'] is False
+          assert v['new_natural_GxIxF_validation'] is False
+          assert v['result_is_confirmatory'] is False
+          assert v['status'] in ('EXPLORATORY_SOURCE_CONTINUOUS_SEED_AUDIT_COMPLETE',
+                                 'EXPLORATORY_SOURCE_OR_ANALYSIS_STOP')
+          if v['status']=='EXPLORATORY_SOURCE_CONTINUOUS_SEED_AUDIT_COMPLETE':
+            assert v['all_original_rows']==3024
+            assert v['observed_source_genotype_groups']==84
+            assert v['source_missingness']['missing_seed_index']==990
+            assert v['source_missingness']['missing_onset']==982
+            assert v['source_category_flags']['fractional_nonnegative_seed_index']==153
+            assert v['n_complete_cases']<=2034
+            assert v['decision'] in ('EXPLORATORY_PREDICTIVE_INCREMENT',
+                                      'EXPLORATORY_NO_ROBUST_INCREMENT')
+            assert sum(x['n_records'] for x in v['fold_results'])==v['n_complete_cases']
+            print('Exploratory score:',v['decision'])
+            print('Observed complete-case records:',v['n_complete_cases'])
+            print('M0/M1 heldout MSE:',v['M0_MSE'],v['M1_MSE'])
+            print('Uncertainty:',v['fixed_prediction_cluster_bootstrap_95pct'])
+          else:
+            print('Exploratory source or model stop:',v['reason'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lupf2-exploratory-aggregate-only
+          path: source_receipt/lupf2_exploratory_summary.json
+          retention-days: 30
