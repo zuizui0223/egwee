@@ -312,3 +312,54 @@ jobs:
           name: lupf2-posthoc-observation-support-only
           path: source_receipt/lupf2_stratum_observation_support.json
           retention-days: 30
+
+  lupf2-posthoc-frozen-direction:
+    needs: source-and-join-gates
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Require original LUPF1/LUPF2 and posthoc direction protocol ancestry
+        run: |
+          git merge-base --is-ancestor 28938fe193d01d7eca5bd2fe776f37ecb1f58e27 HEAD
+          git merge-base --is-ancestor 053eca26bc1b527e828cb82cbac9318d20be7621 HEAD
+          git merge-base --is-ancestor d9e2f7aa9c8179158d49b55637aa18e4ca178f4a HEAD
+      - name: Reproduce exact original five fold scores before reporting coefficient direction
+        run: |
+          mkdir -p source_receipt
+          python research/molecular_conservation/audit_lupf2_frozen_direction.py --output source_receipt/lupf2_posthoc_direction_receipt.json
+      - name: Enforce score reproducibility and interpretation limits
+        run: |
+          python - <<'PY'
+          import json
+          d=json.load(open("source_receipt/lupf2_posthoc_direction_receipt.json"))
+          assert d["original_lupf1_status"]=="SOURCE_ENDPOINT_INVALID_STOP"
+          assert d["no_new_predictive_model_or_parameter_tuning"] is True
+          assert d["new_confirmatory_p_value_computed"] is False
+          assert d["original_individual_values_redistributed"] is False
+          assert d["status"] in ("LUPF2_POSTHOC_FROZEN_DIRECTION_REPRODUCED",
+                                 "LUPF2_POSTHOC_DIRECTION_STOP")
+          if d["status"]=="LUPF2_POSTHOC_FROZEN_DIRECTION_REPRODUCED":
+              assert d["matched_original_mse"] is True
+              assert d["n_complete_cases"]==2008
+              assert d["n_label_groups"]==84
+              assert len(d["folds"])==5
+              assert d["natural_GxIxF_model_transfer_claim"] is False
+              print("Exact original 5 folds reproduced.")
+              print("Posthoc onset association sign:",d["descriptive_direction"])
+              print("Posthoc per-unit slopes:",[x["ridge_onset_coefficient_per_source_unit"] for x in d["folds"]])
+          else:
+              print("DESCRIPTIVE DIRECTION GATE STOP:",d.get("reason"))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lupf2-posthoc-frozen-direction-only
+          path: source_receipt/lupf2_posthoc_direction_receipt.json
+          retention-days: 30
