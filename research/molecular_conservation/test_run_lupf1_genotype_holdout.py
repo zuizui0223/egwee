@@ -4,6 +4,31 @@ import unittest
 import run_lupf1_genotype_holdout as m
 
 class LUPF1Tests(unittest.TestCase):
+    def test_verified_space_separated_excel_seed_header(self):
+        import io
+        from zipfile import ZipFile
+        cells=["id", "genotype", "population", "line", "flowering_onset",
+               "number of seeds"]
+        letters=["A","B","C","D","E","F"]
+        header="".join(
+            '<c r="'+letter+'1" t="inlineStr"><is><t>'+name+'</t></is></c>'
+            for letter,name in zip(letters,cells))
+        vals=["plant1","geno1","FRO","C","120","17"]
+        body="".join(
+            '<c r="'+letter+'2" t="inlineStr"><is><t>'+val+'</t></is></c>'
+            for letter,val in zip(letters,vals))
+        xml=('<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">'
+             '<sheetData><row r="1">'+header+'</row>'
+             '<row r="2">'+body+'</row></sheetData></worksheet>')
+        out=io.BytesIO()
+        with ZipFile(out,"w") as z:
+            z.writestr("xl/worksheets/sheet2.xml",xml)
+        rows=m.decode_source_sheet(out.getvalue())
+        self.assertEqual(len(rows),1)
+        self.assertEqual(rows[0]["number_of_seeds"],"17")
+        self.assertEqual(rows[0]["flowering_onset"],"120")
+        self.assertNotIn("number of seeds",rows[0])
+
     def test_ridge_linear_solver(self):
         self.assertEqual(m.solve([[2,0],[0,4]],[4,8]),[2,2])
     def test_fold_never_splits_genotype_key(self):
