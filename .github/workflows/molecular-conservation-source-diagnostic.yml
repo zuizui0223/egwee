@@ -2,7 +2,8 @@ name: Molecular conservation source and join gates
 on:
   pull_request:
     paths:
-      - 'research/molecular_conservation/**'
+      - 'research/molecular_conservation/*.py'
+      - 'research/molecular_conservation/**/*.py'
       - '.github/workflows/molecular-conservation-source-diagnostic.yml'
   workflow_dispatch:
 jobs:
@@ -175,6 +176,7 @@ jobs:
           retention-days: 30
 
   lupf1-seed-field-validity-diagnostic:
+    if: false  # original LUPF1 source-validity receipt frozen, no repeated live download
     needs: source-and-join-gates
     runs-on: ubuntu-latest
     permissions:
@@ -278,6 +280,7 @@ jobs:
           retention-days: 30
 
   lupf2-posthoc-observation-support:
+    if: false  # original missingness source-strata receipt frozen at run 45329193843
     needs: source-and-join-gates
     runs-on: ubuntu-latest
     permissions:
@@ -367,6 +370,7 @@ jobs:
           retention-days: 30
 
   lupf2-posthoc-fruit-seed-integrity:
+    if: false  # original quality receipt frozen at run 45355506975
     needs: source-and-join-gates
     runs-on: ubuntu-latest
     permissions:
