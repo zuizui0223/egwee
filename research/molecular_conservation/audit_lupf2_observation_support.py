@@ -19,7 +19,7 @@ import run_lupf2_exploratory_continuous_seed as exp
 
 SOURCE_SHA="7d0c86d290cf93968cf4f1b155a4ca1647ee399520d9b5ada66f74e892235734"
 
-def aggregate(rows):
+def aggregate(rows, check_denominator=True):
     out={}
     raw_groups=defaultdict(set)
     for row in rows:
@@ -60,10 +60,11 @@ def aggregate(rows):
                    "n_source_genotype_label_groups":len(raw_groups[label]),
                   } for label,ct in sorted(out.items())],
     }
-    if sum(x["n_source_rows"] for x in result["strata"])!=3024:
-        raise src.SourceStop("SOURCE_DENOMINATOR_CHANGED")
-    if sum(x["n_both_present"] for x in result["strata"])!=2008:
-        raise src.SourceStop("SOURCE_ELIGIBLE_COUNT_CHANGED")
+    if check_denominator:
+        if sum(x["n_source_rows"] for x in result["strata"])!=3024:
+            raise src.SourceStop("SOURCE_DENOMINATOR_CHANGED")
+        if sum(x["n_both_present"] for x in result["strata"])!=2008:
+            raise src.SourceStop("SOURCE_ELIGIBLE_COUNT_CHANGED")
     return result
 
 def run():
