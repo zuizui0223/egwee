@@ -219,6 +219,7 @@ jobs:
           retention-days: 30
 
   lupf2-exploratory-continuous-reproductive-index:
+    if: false  # run 45328763380 is frozen; no repeated signed model after positive result
     needs: [source-and-join-gates, lupf1-seed-field-validity-diagnostic]
     runs-on: ubuntu-latest
     permissions:
@@ -273,4 +274,41 @@ jobs:
         with:
           name: lupf2-exploratory-aggregate-only
           path: source_receipt/lupf2_exploratory_summary.json
+          retention-days: 30
+
+  lupf2-posthoc-observation-support:
+    needs: source-and-join-gates
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check source completeness only, no new model
+        run: |
+          mkdir -p source_receipt
+          python research/molecular_conservation/audit_lupf2_observation_support.py > source_receipt/lupf2_stratum_observation_support.json
+      - name: Verify source-only, nonconfirmatory observation support
+        run: |
+          python - <<'PY'
+          import json
+          x=json.load(open('source_receipt/lupf2_stratum_observation_support.json'))
+          assert x['no_new_model_fitted'] is True
+          assert x['no_new_effect_estimated'] is True
+          assert x['individual_values_redistributed'] is False
+          assert x['anonymous_line_codebook_verified'] is False
+          assert x['status'] in ('POSTHOC_OBSERVATION_SUPPORT_ONLY',
+                                 'POSTHOC_SUPPORT_SOURCE_STOP')
+          if x['status']=='POSTHOC_OBSERVATION_SUPPORT_ONLY':
+              assert sum(y['n_source_rows'] for y in x['strata'])==3024
+              assert sum(y['n_both_present'] for y in x['strata'])==2008
+              print('Posthoc source observation support:',x['strata'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lupf2-posthoc-observation-support-only
+          path: source_receipt/lupf2_stratum_observation_support.json
           retention-days: 30
