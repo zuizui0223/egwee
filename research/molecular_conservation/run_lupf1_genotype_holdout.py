@@ -55,6 +55,16 @@ def numeric(value):
         return None
     return x if math.isfinite(x) else None
 
+def decode_source_sheet(blob):
+    """Strict, pre-outcome-verified XLSX header crosswalk; no other substitutions."""
+    header, rows = data_to_sparse_rows(blob, "xl/worksheets/sheet2.xml", RAW_COLS)
+    if not RAW_COLS.issubset(set(header)):
+        raise SourceStop("SOURCE_FIELD_HEADERS_CHANGED")
+    for row in rows:
+        row["number_of_seeds"] = row.pop(RAW_SEED_HEADER, "")
+    return rows
+
+
 def fold_of(key):
     return int.from_bytes(hashlib.sha256(key.encode("utf8")).digest()[:4], "big") % FOLDS
 
@@ -214,12 +224,7 @@ def run():
         raise SourceStop("UNREGISTERED_DOWNLOAD_HOST")
     blob = download(url)
     sha = hashlib.sha256(blob).hexdigest()
-    header, rows = data_to_sparse_rows(blob, "xl/worksheets/sheet2.xml", RAW_COLS)
-    if not RAW_COLS.issubset(set(header)):
-        raise SourceStop("SOURCE_FIELD_HEADERS_CHANGED")
-    # Exact source-only header spelling repair, not an outcome-dependent model change.
-    for row in rows:
-        row["number_of_seeds"] = row.pop(RAW_SEED_HEADER, "")
+    rows = decode_source_sheet(blob)
     records, missing, flags, ngroups = prepare(rows)
     result = {
         "status": "FROZEN_SOURCE_OUTCOME_AUDIT_COMPLETE",
