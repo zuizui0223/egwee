@@ -120,3 +120,51 @@ jobs:
           name: molecular-source-2026-lupinus-only
           path: source_receipt/*.json
           retention-days: 30
+
+  frozen-lupf1-outcome-audit:
+    needs: source-and-join-gates
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Require the pre-outcome protocol to be an ancestor
+        run: git merge-base --is-ancestor 28938fe193d01d7eca5bd2fe776f37ecb1f58e27 HEAD
+      - name: Execute strictly frozen genotype-cluster field seed proxy holdout
+        run: |
+          mkdir -p source_receipt
+          python research/molecular_conservation/run_lupf1_genotype_holdout.py --output source_receipt/lupf1_summary.json
+      - name: Enforce original-source non-disclosure and claim limits
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('source_receipt/lupf1_summary.json')
+          v=json.loads(p.read_text(encoding='utf8'))
+          assert v['frozen_protocol_commit']=='28938fe193d01d7eca5bd2fe776f37ecb1f58e27'
+          assert v['individual_source_data_redistributed'] is False
+          assert v['genomic_marker_values_read'] is False
+          assert v['genetic_intervention_effect_estimated'] is False
+          assert v['natural_genetic_interaction_function_validation'] is False
+          assert v['status'] in ('FROZEN_SOURCE_OUTCOME_AUDIT_COMPLETE',
+                                 'SOURCE_OR_FROZEN_ANALYSIS_STOP')
+          if v['status']=='FROZEN_SOURCE_OUTCOME_AUDIT_COMPLETE':
+            assert v['source_rows']==3024
+            assert v['genotype_labels_in_source']==84
+            assert v['n_complete_cases']<=3024
+            assert v['decision'] in ('WITHIN_PROGRAMME_PREDICTIVE_INCREMENT',
+                                     'NO_ROBUST_WITHIN_PROGRAMME_INCREMENT')
+          print('Frozen analysis status:',v['status'])
+          print('Outcome comparison gate:',v.get('decision','STOP'))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lupf1-frozen-genotype-heldout-aggregates
+          path: source_receipt/lupf1_summary.json
+          retention-days: 30
