@@ -26,6 +26,10 @@ FREEZE = "28938fe193d01d7eca5bd2fe776f37ecb1f58e27"
 ARTICLE = 29606180
 NAME = "Lupinus_angustifolius_data_field.xlsx"
 COLS = {"id", "genotype", "population", "line", "flowering_onset", "number_of_seeds"}
+# Original Figshare sheet2 spells this ONE header with spaces. This alias was
+# independently verified by the pre-outcome source-only job 45328163059.
+RAW_SEED_HEADER = "number of seeds"
+RAW_COLS = (COLS - {"number_of_seeds"}) | {RAW_SEED_HEADER}
 LINES = ("C", "J", "L", "R", "T", "X")
 FOLDS = 5
 BOOT = 1000
@@ -210,9 +214,12 @@ def run():
         raise SourceStop("UNREGISTERED_DOWNLOAD_HOST")
     blob = download(url)
     sha = hashlib.sha256(blob).hexdigest()
-    header, rows = data_to_sparse_rows(blob, "xl/worksheets/sheet2.xml", COLS)
-    if not COLS.issubset(set(header)):
+    header, rows = data_to_sparse_rows(blob, "xl/worksheets/sheet2.xml", RAW_COLS)
+    if not RAW_COLS.issubset(set(header)):
         raise SourceStop("SOURCE_FIELD_HEADERS_CHANGED")
+    # Exact source-only header spelling repair, not an outcome-dependent model change.
+    for row in rows:
+        row["number_of_seeds"] = row.pop(RAW_SEED_HEADER, "")
     records, missing, flags, ngroups = prepare(rows)
     result = {
         "status": "FROZEN_SOURCE_OUTCOME_AUDIT_COMPLETE",
