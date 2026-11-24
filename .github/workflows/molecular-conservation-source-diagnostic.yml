@@ -125,6 +125,7 @@ jobs:
           retention-days: 30
 
   frozen-lupf1-outcome-audit:
+    if: false  # frozen primary already stopped: invalid source seed endpoint, no blind retry
     needs: source-and-join-gates
     runs-on: ubuntu-latest
     permissions:
@@ -170,4 +171,49 @@ jobs:
         with:
           name: lupf1-frozen-genotype-heldout-aggregates
           path: source_receipt/lupf1_summary.json
+          retention-days: 30
+
+  lupf1-seed-field-validity-diagnostic:
+    needs: source-and-join-gates
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify original pre-outcome protocol ancestry
+        run: git merge-base --is-ancestor 28938fe193d01d7eca5bd2fe776f37ecb1f58e27 HEAD
+      - name: Diagnose original seed-value data quality without re-fitting
+        run: |
+          mkdir -p source_receipt
+          python research/molecular_conservation/diagnose_lupf1_invalid_seed_values.py > source_receipt/lupf1_invalid_seed_diagnostic.json
+      - name: Enforce source-only interpretability boundary
+        run: |
+          python - <<'PY'
+          import json
+          x=json.load(open('source_receipt/lupf1_invalid_seed_diagnostic.json'))
+          assert x['new_predictive_model_ran'] is False
+          assert x['source_values_or_individual_ids_exported'] is False
+          assert x['decision']=='SOURCE_ENDPOINT_INVALID_STOP_MAINTAINED'
+          assert x['status'] in ('POST_STOP_OUTCOME_VALIDITY_ONLY',
+                                 'SOURCE_DIAGNOSTIC_ACCESS_OR_SCHEMA_STOP')
+          if x['status']=='POST_STOP_OUTCOME_VALIDITY_ONLY':
+            assert x['original_rows']==3024
+            assert x['valid_core_source_labels']==3024
+            assert sum(x['seed_value_categories'].values())==3024
+            assert sum(x['onset_value_categories'].values())==3024
+            print('Source invalid-seed categories:',x['seed_value_categories'])
+            print('Flowering-onset categories:',x['onset_value_categories'])
+            print('Valid both:',x['seed_and_onset_both_valid_rows'])
+          print('No phenotype prediction/effect estimated.')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lupf1-seed-endpoint-validity-only
+          path: source_receipt/lupf1_invalid_seed_diagnostic.json
           retention-days: 30
