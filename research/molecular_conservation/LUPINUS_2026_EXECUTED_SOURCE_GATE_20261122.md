@@ -40,3 +40,16 @@
 - GitHub Actions [run 45032319827](https://github.com/zuizui0223/egwee/actions/runs/45032319827) succeeded and 10/10 synthetic source/ID tests passed. Codebook retrieval cannot convert the letter codes into source-defined CFL/GFL/EFL/OUT without external evidence.
 - The 2026 OUP public abstract confirms the experiment had controls, artificial-selection lines (selfing and outcrossing), and assisted gene flow lines propagated to F3, **but does not identify which one-letter Excel source codes correspond to these arms**. See DOI 10.1093/aob/mcag061 (2026-03-26).
 - **Decision: SOURCE_CODEBOOK_STOP_BEFORE_SEED_EFFECT.** No regression on `number_of_seeds`, no inferred family/pedigree links, no new causal reproductive rescue claims. Continue only if a primary codebook or correspondingly documented treatment crosswalk is recovered; then freeze source-defined controls, missing/zero outcome, cohort nesting and holdout before opening signed seed values.
+
+## 2026-11-24 source-only arithmetic reconciliation — do not infer treatment identities
+
+The **2023 author thesis, Chapter 4, original field design** states **2,808 sown seeds**, 36 seeds per maternal genotype, four biological treatment lines per population and two northern source populations, except that one FRO gene-flow F3 line included eight rather than ten maternal genotypes. This equals **78 genotype units × 36 seeds**. Source: Sandra Sacristán Bajo, *Evaluation of assisted evolution as a conservation strategy for climate change adaptation* (2023), Chapter 4 pp.194–199, university repository https://burjcdigital.urjc.es/server/api/core/bitstreams/e43b6427-a0c1-4d55-ae97-83945eecee8d/content.
+
+The **2026 publicly deposited original data-source** has **3,024 rows** and **84 genotype labels**. The source-design-only counts give:
+- Codes `C(720) + J(648) + L(720) + T(720) = 2,808` source rows, or **78 × 36**;
+- Other codes `R(144) + X(72) = 216` source rows, or **6 × 36**;
+- All six codes: 2,808 + 216 = **3,024** = 84 × 36.
+
+This is a striking **numerical concordance** between the thesis sowing total and four of six anonymous 2026 Excel line categories. It **does not verify** which code represents control, selfed early line, outbred early line, or assisted-gene-flow line; it also **does not verify** whether `R/X` are excluded plants, additional experimental lines, extra planting/measurement records or records from a different publication revision.
+
+**Unresolved denominator gate:** source row count is neither confirmed living plants nor observed seed outcomes. The author-defined 2026 article/source inclusion set and each coded line's meaning must be recovered before causal treatment effect estimates. The LUPF1 development-only seed proxy test was *prospectively frozen before opening outcomes* to use the **entire original 3,024 rows**, treating all six line codes as anonymous technical strata and counting missingness rather than silently restricting to the apparently matching 2,808. Do not revise this primary outcome-dependent specification after seeing its result.
