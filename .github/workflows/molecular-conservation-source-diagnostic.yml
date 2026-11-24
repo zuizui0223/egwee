@@ -314,6 +314,7 @@ jobs:
           retention-days: 30
 
   lupf2-posthoc-frozen-direction:
+    if: false  # original 5-fold signed-coefficient audit frozen at run 45341693463
     needs: source-and-join-gates
     runs-on: ubuntu-latest
     permissions:
