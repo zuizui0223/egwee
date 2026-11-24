@@ -365,3 +365,48 @@ jobs:
           name: lupf2-posthoc-frozen-direction-only
           path: source_receipt/lupf2_posthoc_direction_receipt.json
           retention-days: 30
+
+  lupf2-posthoc-fruit-seed-integrity:
+    needs: source-and-join-gates
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Inspect original fruit/seed availability categories only, never fit a model
+        run: |
+          mkdir -p source_receipt
+          python research/molecular_conservation/audit_lupf2_seed_fruit_source_integrity.py > source_receipt/lupf2_seed_fruit_integrity.json
+      - name: Verify original-source consistency and prohibit effect claims
+        run: |
+          python - <<'PY'
+          import json
+          r=json.load(open('source_receipt/lupf2_seed_fruit_integrity.json'))
+          assert r['no_new_regression_or_effect_estimated'] is True
+          assert r['no_original_rows_or_source_identifiers_redistributed'] is True
+          assert r['new_genetic_intervention_claim'] is False
+          assert r['new_pollination_or_recruitment_function_claim'] is False
+          assert r['status'] in ('POSTHOC_FRUIT_SEED_SOURCE_INTEGRITY_COUNTS_ONLY',
+                                 'POSTHOC_FRUIT_SEED_SOURCE_INTEGRITY_STOP')
+          if r['status']=='POSTHOC_FRUIT_SEED_SOURCE_INTEGRITY_COUNTS_ONLY':
+              assert r['all_original_rows']==3024
+              assert r['source_genotype_label_groups']==84
+              assert r['global_seed_categories']['MISSING']==990
+              assert r['global_seed_categories']['NONNEGATIVE_FRACTION']==153
+              assert r['global_seed_categories']['NONNEGATIVE_INTEGER']==1881
+              assert r['by_source_population']['TOTAL']['both_seed_and_onset_numeric_nonnegative']==2008
+              print('Original fruit column validity:',r['global_fruit_categories'])
+              print('Seed/fruit source compatibility totals:',r['by_source_population']['TOTAL'])
+              print('Per population source quality summary:',r['by_source_population']['FRO'],r['by_source_population']['PIC'])
+          else:
+              print('Source-only audit stop:',r.get('reason'))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lupf2-original-fruit-seed-quality-only
+          path: source_receipt/lupf2_seed_fruit_integrity.json
+          retention-days: 30
