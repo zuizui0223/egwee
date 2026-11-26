@@ -4,6 +4,7 @@ on:
     paths:
       - 'research/molecular_conservation/run_ech01a_maternal_holdout.py'
       - 'research/molecular_conservation/audit_ech02_focal_circle_join.py'
+      - 'research/molecular_conservation/audit_ech01a_published_range.py'
       - '.github/workflows/ech01a-maternal-holdout.yml'
   workflow_dispatch:
 permissions:
@@ -32,6 +33,10 @@ jobs:
           plan=foldplan(r,True)
           assert all(not ({p for x in tr for p in x[:2]}&{p for x in te for p in x[:2]}) for tr,te in plan)
           PY
+      - name: Diagnose published range precision without outcomes
+        run: |
+          mkdir -p source_receipt
+          python research/molecular_conservation/audit_ech01a_published_range.py | tee source_receipt/ech01a_range.json
       - name: Run pinned long-term offspring prediction comparison
         run: |
           mkdir -p source_receipt
