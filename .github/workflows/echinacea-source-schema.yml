@@ -1,0 +1,48 @@
+name: Echinacea long-term public source schema
+on:
+  pull_request:
+    paths:
+      - 'research/molecular_conservation/audit_echinacea_longterm_sources.py'
+      - 'research/molecular_conservation/audit_echinacea_author_semantics.py'
+      - 'research/molecular_conservation/audit_ech01_life_history_semantics.py'
+      - '.github/workflows/echinacea-source-schema.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-schema:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Inspect official public original files and schema
+        run: |
+          mkdir -p source_receipt
+          python research/molecular_conservation/audit_echinacea_longterm_sources.py | tee source_receipt/ech_source_schema.json
+      - name: Verify author field semantics and source-defined candidate join keys
+        run: python research/molecular_conservation/audit_echinacea_author_semantics.py | tee source_receipt/ech_author_semantics.json
+      - name: Audit original life-history and cohort definitions
+        run: python research/molecular_conservation/audit_ech01_life_history_semantics.py | tee source_receipt/ech_life_history_semantics.json
+      - name: Require source-only claim boundaries
+        run: |
+          python - <<'PY'
+          import json
+          d=json.load(open('source_receipt/ech_source_schema.json'))
+          assert d['no_model_fitted'] is True
+          assert d['original_individual_values_exported'] is False
+          assert set(d['sources'])=={'ECH01','ECH02','ECH03'}
+          k=json.load(open('source_receipt/ech_author_semantics.json'))
+          assert k['no_model_fitted'] is True and k['raw_rows_exported'] is False
+          l=json.load(open('source_receipt/ech_life_history_semantics.json'))
+          assert l['no_model_fitted'] is True and l['source_code_executed'] is False and l['raw_records_exported'] is False
+          for s in d['sources'].values():
+            assert s['status'] in ('official_item_verified','source_access_stop')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ech-original-public-source-schema
+          path: source_receipt/*.json
+          retention-days: 90

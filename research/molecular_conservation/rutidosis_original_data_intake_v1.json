@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "programme_id": "RUTIDOSIS_CROSSING_PROGRAMME",
+  "status": "ORIGINAL_NUMERIC_DATA_NOT_VERIFIED",
+  "no_empirical_effect_estimated": true,
+  "studies": [
+    {
+      "source_id": "SI001",
+      "doi": "10.1111/j.1365-2664.2010.01798.x",
+      "design": "seven natural populations; diallel-estimated compatibility, stigma pollen, seed set",
+      "measurement_level": "population",
+      "functional_genotype_type": "crossing_inferred_not_sequence_confirmed",
+      "independent_study_cluster": "RUTIDOSIS_CROSSING_PROGRAMME",
+      "source_rows_verified": false,
+      "required_keys": ["population_id", "sampling_period"],
+      "required_fields": ["compatible_mate_probability", "pollen_deposition", "seed_set", "denominator_or_sampling_variance"],
+      "decision": "AWAIT_ORIGINAL_TABLE"
+    },
+    {
+      "source_id": "SI002",
+      "doi": "10.1038/sj.hdy.6801070",
+      "design": "within/between-population crossing; 24 diploid and 5 tetraploid pairs",
+      "measurement_level": "donor_recipient_pair_nested_in_population",
+      "functional_genotype_type": "crossing_origin_not_sequence_confirmed",
+      "independent_study_cluster": "RUTIDOSIS_CROSSING_PROGRAMME",
+      "source_rows_verified": false,
+      "required_keys": ["recipient_population_id", "donor_population_id", "ploidy", "crossing_arm"],
+      "required_fields": ["fertilization_count", "crossing_denominator", "block_id"],
+      "decision": "AWAIT_ORIGINAL_PAIR_TABLE_AND_OVERLAP_AUDIT"
+    }
+  ],
+  "forbidden": [
+    "counting_SI001_and_SI002_as_independent_replicates_without_overlap_audit",
+    "interpreting_diallel_inferred_alleles_as_directly_sequenced_S_locus",
+    "fitting_effects_before_source_key_audit",
+    "claiming_multigeneration_genetic_rescue_from_single_cross"
+  ]
+}

@@ -1,0 +1,125 @@
+name: Campanula source-bound site transfer
+on:
+  pull_request:
+    paths:
+      - 'research/molecular_conservation/run_camp01_fixed_site_holdout.py'
+      - 'research/molecular_conservation/test_run_camp01_fixed_site_holdout.py'
+      - 'research/molecular_conservation/audit_camp01_population_source_alignment.py'
+      - 'research/molecular_conservation/run_camp01a_source_amended.py'
+      - '.github/workflows/camp01-source-bound-site-transfer.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  camp01-original-data:
+    if: false  # original frozen 53-population gate stopped on 56 source pollinator rows
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run synthetic checks before source access
+        run: python -m unittest discover -s research/molecular_conservation -p 'test_run_camp01_fixed_site_holdout.py' -v
+      - name: Execute frozen original-source site-holdout test
+        run: |
+          mkdir -p source_receipt
+          python research/molecular_conservation/run_camp01_fixed_site_holdout.py | tee source_receipt/camp01_result.json
+      - name: Verify claims and original source boundaries
+        run: |
+          python - <<'PY'
+          import json
+          r=json.load(open('source_receipt/camp01_result.json'))
+          assert r['protocol']=='03bc79ff02158e73e08138efcb5440130e6f22c0'
+          assert r['raw_rows_redistributed'] is False
+          assert r['molecular_GxIxF_validated'] is False
+          assert r['causal_visitation_effect_claimed'] is False
+          assert r['status'] in ('CAMP01_FIXED_SITE_HOLDOUT_COMPLETE','CAMP01_SOURCE_OR_SUPPORT_STOP')
+          if r['status']=='CAMP01_FIXED_SITE_HOLDOUT_COMPLETE':
+              assert len(r['source_files'])==2
+              assert r['analysis_experimental_populations']>=30
+              assert r['site_folds']>=8
+              assert r['source_population_levels']==4
+              assert sum(f['n'] for f in r['folds'])==r['analysis_experimental_populations']
+              assert r['decision'] in ('WITHIN_PROGRAMME_SITE_TRANSFER_INCREMENT','NO_SUPPORTED_SITE_TRANSFER_INCREMENT')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: camp01-original-source-aggregate-receipt
+          path: source_receipt/camp01_result.json
+          retention-days: 90
+
+  camp01-source-design-only:
+    if: false  # source-only alignment frozen: run 45760495519
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Reconcile original source population counts and design keys only
+        run: |
+          mkdir -p source_receipt
+          python research/molecular_conservation/audit_camp01_population_source_alignment.py | tee source_receipt/camp01_source_design.json
+      - name: Verify no new model or outcome values
+        run: |
+          python - <<'PY'
+          import json
+          d=json.load(open('source_receipt/camp01_source_design.json'))
+          assert d['new_model_fitted'] is False
+          assert d['outcome_values_interpreted'] is False
+          assert d['raw_rows_exported'] is False
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: camp01-source-design-only
+          path: source_receipt/camp01_source_design.json
+          retention-days: 90
+
+  camp01a-amended-site-holdout:
+    if: false  # frozen negative result: run 45760620127; do not search alternative outcomes
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Recheck frozen site-holdout core synthetic tests
+        run: python -m unittest discover -s research/molecular_conservation -p 'test_run_camp01_fixed_site_holdout.py' -v
+      - name: Execute the source-amended label-invariant site-holdout
+        run: |
+          mkdir -p source_receipt
+          python research/molecular_conservation/run_camp01a_source_amended.py | tee source_receipt/camp01a_result.json
+      - name: Confirm original stop preserved and no new causal claim
+        run: |
+          python - <<'PY'
+          import json
+          r=json.load(open('source_receipt/camp01a_result.json'))
+          assert r['protocol']=='7d7d8a01ba051f291493f096a6c86d07a28dc428'
+          assert r['original_CAMP01_status']=='SOURCE_OR_SUPPORT_STOP'
+          assert r['raw_rows_redistributed'] is False
+          assert r['treatment_labels_semantically_verified'] is False
+          assert r['molecular_GxIxF_validated'] is False
+          assert r['causal_visitation_effect_claimed'] is False
+          if r['status']=='CAMP01A_SITE_HOLDOUT_COMPLETE':
+              assert r['date_unmatched_excluded']==2
+              assert r['analysis_experimental_populations']>=30
+              assert r['site_folds']>=8
+              assert sum(f['n'] for f in r['folds'])==r['analysis_experimental_populations']
+              assert all('descriptive_interaction_coefficient' not in f for f in r['folds'])
+              print('Fixed comparison decision:',r['decision'])
+          else:
+              assert r['status']=='CAMP01A_SOURCE_OR_SUPPORT_STOP'
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: camp01a-source-amended-aggregate
+          path: source_receipt/camp01a_result.json
+          retention-days: 90

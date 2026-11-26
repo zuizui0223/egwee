@@ -1,0 +1,416 @@
+name: Molecular conservation source and join gates
+on:
+  pull_request:
+    paths:
+      - 'research/molecular_conservation/*.py'
+      - 'research/molecular_conservation/**/*.py'
+      - '.github/workflows/molecular-conservation-source-diagnostic.yml'
+  workflow_dispatch:
+jobs:
+  source-and-join-gates:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify source-only molecular/functional join-gate fixtures
+        run: python -m unittest discover -s research/molecular_conservation -p 'test_*.py' -v
+      - name: Verify 2026 Lupinus in-situ public source metadata and headers only
+        run: |
+          mkdir -p source_receipt
+          python research/molecular_conservation/audit_lupinus_2026_in_situ_source.py > source_receipt/lupinus_2026_in_situ_schema.json
+      - name: Compare 2025 and 2026 genotype/lineage ID labels, never outcomes
+        run: |
+          python research/molecular_conservation/audit_lupinus_2025_2026_id_linkage.py > source_receipt/lupinus_2025_2026_id_gate.json
+          python - <<'PY'
+          import json
+          r=json.load(open('source_receipt/lupinus_2025_2026_id_gate.json'))
+          assert r['snp_genotypes_read'] is False
+          assert r['outcome_columns_read'] is False
+          assert r['phenotype_values_read'] is False
+          assert r['raw_data_exported'] is False
+          assert r['direct_maternal_lineage_link_confirmed'] is False
+          assert r['decision'] in (
+            'SOURCE_PEDIGREE_CROSSWALK_REQUIRED_BEFORE_ANY_CROSS_YEAR_EFFECT',
+            'SOURCE_ACCESS_OR_SCHEMA_STOP')
+          print('Interannual ID source audit:',r['status'])
+          if r['status']=='SOURCE_ID_AND_LINE_LABELS_ONLY_NO_OUTCOMES':
+              print('2025/2026 rows:',r['2025_source_rows'],r['2026_source_rows'])
+              print('Shared population×line categories:',r['shared_population_line_category_count'])
+              print('Exact interannual ID-label overlap:',r['exact_id_label_overlap_across_generations'])
+              print('Actual pedigree link: NOT VERIFIED')
+          PY
+      - name: Audit 2026 in-situ treatment/population design without seed values
+        run: |
+          python research/molecular_conservation/audit_lupinus_2026_field_design.py > source_receipt/lupinus_2026_design_groups.json
+          python - <<'PY'
+          import json
+          x=json.load(open('source_receipt/lupinus_2026_design_groups.json'))
+          assert x['phenotype_values_read'] is False
+          assert x['snp_values_read'] is False
+          assert x['effect_estimated'] is False
+          assert x['raw_data_redistributed'] is False
+          assert x['decision'] in (
+            'LOCK_ENDPOINT_AND_TREATMENT_CONTRAST_BEFORE_READING_SEED_VALUES',
+            'SOURCE_DESIGN_SCHEMA_STOP')
+          print('Design status:',x['status'])
+          if x['status']=='PUBLIC_DESIGN_CATEGORIES_VERIFIED_NO_OUTCOME_VALUES':
+              print('Observed source rows:',x['rows'])
+              print('Public experimental design category counts:',json.dumps(
+                    x['categories_with_at_least_5_observations'],sort_keys=True))
+              print('Unique experimental genotype labels:',x['unique_genotype_label_count'])
+          PY
+      - name: Check source-published first-sheet line-code glossary only
+        run: |
+          python research/molecular_conservation/audit_lupinus_2026_source_codebook.py > source_receipt/lupinus_2026_codebook_gate.json
+          python - <<'PY'
+          import json
+          r=json.load(open('source_receipt/lupinus_2026_codebook_gate.json'))
+          assert r['individual_or_genetic_values_read'] is False
+          assert r['phenotype_or_seed_values_read'] is False
+          assert r['effect_estimated'] is False
+          assert r['raw_document_text_redistributed'] is False
+          assert r['decision'] in ('SOURCE_CODEBOOK_CANDIDATE_REQUIRES_AUTHOR_CHECK',
+              'NO_VERIFIED_CODEBOOK_IN_SOURCE_SHEET1','SOURCE_DOC_ACCESS_STOP')
+          print('Codebook source decision:',r['decision'])
+          if r['status']=='SOURCE_SHEET1_TEXT_CLASSIFICATION_NO_BIOLOGICAL_VALUES':
+              print('Text rows examined:',r['sheet1_physical_text_rows'])
+              print('Source codes classified:',r['controlled_keyword_rows'])
+          PY
+      - name: Enforce no original observations, genetic calls or effects were exported
+        run: |
+          python - <<'PY'
+          import json
+          x=json.load(open('source_receipt/lupinus_2026_in_situ_schema.json'))
+          assert x['article_id']==29606180
+          assert x['raw_files_redistributed'] is False
+          assert x['nonheader_outcome_values_read'] is False
+          assert x['genotype_values_read'] is False
+          assert x['source_individual_join_verified'] is False
+          assert x['new_effect_estimated'] is False
+          assert x['independent_biological_programmes_added']==0
+          assert x['status'] in ('SOURCE_METADATA_VERIFIED','SOURCE_METADATA_STOP')
+          assert all(f['schema_status'] in (
+            'XLSX_FIRST_ROW_AND_COUNTS_ONLY',
+            'METADATA_ONLY_UNSUPPORTED_OR_SIZE_LIMIT',
+            'DOWNLOAD_OR_SCHEMA_STOP') for f in x['files'])
+          print('Lupinus 2026 source status:',x['status'])
+          print('Files listed:',len(x['files']))
+          print('XLSX headers verified:',sum(f['schema_status']=='XLSX_FIRST_ROW_AND_COUNTS_ONLY' for f in x['files']))
+          def normal(t): return str(t).strip().lower().replace(' ','_')
+          known={'id','plant_id','genotype','population','origin','site','line',
+                 'family','mother','mother_id','year','date','treatment',
+                 'flowering_onset','flowering_time','onset_date','shoot_growth',
+                 'number_of_seeds','seed_number','seed_count','seed_set',
+                 'seed_weight','fruit_set','fruit_number','survival',
+                 'germination','recruitment','pollinator_visit','pollen_deposition'}
+          for f in x['files']:
+              for sh in f.get('sheets',[]):
+                  headers={normal(t) for t in sh.get('first_row_headers',[])}
+                  print('Schema-only:',f['filename'],'sheet',sh['worksheet'],
+                        'physical_rows',sh['physical_rows'],
+                        'recognized_field_headers',sorted(headers & known),
+                        'header_cell_count',len(headers))
+                  print('Original source column headers only (no values):',sh.get('first_row_headers',[])[:30])
+                  print('Exact source-field aliases only:',sorted(
+                        (str(h)[:90],normal(h)) for h in sh.get('first_row_headers',[])
+                        if normal(h) in known))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: molecular-source-2026-lupinus-only
+          path: source_receipt/*.json
+          retention-days: 30
+
+  frozen-lupf1-outcome-audit:
+    if: false  # frozen primary already stopped: invalid source seed endpoint, no blind retry
+    needs: source-and-join-gates
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Require the pre-outcome protocol to be an ancestor
+        run: git merge-base --is-ancestor 28938fe193d01d7eca5bd2fe776f37ecb1f58e27 HEAD
+      - name: Execute strictly frozen genotype-cluster field seed proxy holdout
+        run: |
+          mkdir -p source_receipt
+          python research/molecular_conservation/run_lupf1_genotype_holdout.py --output source_receipt/lupf1_summary.json
+      - name: Enforce original-source non-disclosure and claim limits
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('source_receipt/lupf1_summary.json')
+          v=json.loads(p.read_text(encoding='utf8'))
+          assert v['frozen_protocol_commit']=='28938fe193d01d7eca5bd2fe776f37ecb1f58e27'
+          assert v['individual_source_data_redistributed'] is False
+          assert v['genomic_marker_values_read'] is False
+          assert v['genetic_intervention_effect_estimated'] is False
+          assert v['natural_genetic_interaction_function_validation'] is False
+          assert v['status'] in ('FROZEN_SOURCE_OUTCOME_AUDIT_COMPLETE',
+                                 'SOURCE_OR_FROZEN_ANALYSIS_STOP')
+          if v['status']=='FROZEN_SOURCE_OUTCOME_AUDIT_COMPLETE':
+            assert v['source_rows']==3024
+            assert v['genotype_labels_in_source']==84
+            assert v['n_complete_cases']<=3024
+            assert v['decision'] in ('WITHIN_PROGRAMME_PREDICTIVE_INCREMENT',
+                                     'NO_ROBUST_WITHIN_PROGRAMME_INCREMENT')
+          print('Frozen analysis status:',v['status'])
+          print('Outcome comparison gate:',v.get('decision','STOP'))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lupf1-frozen-genotype-heldout-aggregates
+          path: source_receipt/lupf1_summary.json
+          retention-days: 30
+
+  lupf1-seed-field-validity-diagnostic:
+    if: false  # original LUPF1 source-validity receipt frozen, no repeated live download
+    needs: source-and-join-gates
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify original pre-outcome protocol ancestry
+        run: git merge-base --is-ancestor 28938fe193d01d7eca5bd2fe776f37ecb1f58e27 HEAD
+      - name: Diagnose original seed-value data quality without re-fitting
+        run: |
+          mkdir -p source_receipt
+          python research/molecular_conservation/diagnose_lupf1_invalid_seed_values.py > source_receipt/lupf1_invalid_seed_diagnostic.json
+      - name: Enforce source-only interpretability boundary
+        run: |
+          python - <<'PY'
+          import json
+          x=json.load(open('source_receipt/lupf1_invalid_seed_diagnostic.json'))
+          assert x['new_predictive_model_ran'] is False
+          assert x['source_values_or_individual_ids_exported'] is False
+          assert x['decision']=='SOURCE_ENDPOINT_INVALID_STOP_MAINTAINED'
+          assert x['status'] in ('POST_STOP_OUTCOME_VALIDITY_ONLY',
+                                 'SOURCE_DIAGNOSTIC_ACCESS_OR_SCHEMA_STOP')
+          if x['status']=='POST_STOP_OUTCOME_VALIDITY_ONLY':
+            assert x['original_rows']==3024
+            assert x['valid_core_source_labels']==3024
+            assert sum(x['seed_value_categories'].values())==3024
+            assert sum(x['onset_value_categories'].values())==3024
+            print('Source invalid-seed categories:',x['seed_value_categories'])
+            print('Flowering-onset categories:',x['onset_value_categories'])
+            print('Valid both:',x['seed_and_onset_both_valid_rows'])
+          print('No phenotype prediction/effect estimated.')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lupf1-seed-endpoint-validity-only
+          path: source_receipt/lupf1_invalid_seed_diagnostic.json
+          retention-days: 30
+
+  lupf2-exploratory-continuous-reproductive-index:
+    if: false  # run 45328763380 is frozen; no repeated signed model after positive result
+    needs: [source-and-join-gates, lupf1-seed-field-validity-diagnostic]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify both original stop and NEW exploratory protocol predate outcome fit
+        run: |
+          git merge-base --is-ancestor 28938fe193d01d7eca5bd2fe776f37ecb1f58e27 HEAD
+          git merge-base --is-ancestor 053eca26bc1b527e828cb82cbac9318d20be7621 HEAD
+      - name: Run LUPF2 fivefold genotype-grouped exploratory reproductive-index prediction
+        run: |
+          mkdir -p source_receipt
+          python research/molecular_conservation/run_lupf2_exploratory_continuous_seed.py --output source_receipt/lupf2_exploratory_summary.json
+      - name: Enforce non-confirmatory, non-genetic and source privacy boundaries
+        run: |
+          python - <<'PY'
+          import json
+          v=json.load(open('source_receipt/lupf2_exploratory_summary.json'))
+          assert v['new_exploratory_protocol_commit']=='053eca26bc1b527e828cb82cbac9318d20be7621'
+          assert v['original_lupf1_preregistered_status']=='SOURCE_ENDPOINT_INVALID_STOP'
+          assert v['original_individual_rows_redistributed'] is False
+          assert v['new_genetic_rescue_effect'] is False
+          assert v['new_natural_GxIxF_validation'] is False
+          assert v['result_is_confirmatory'] is False
+          assert v['status'] in ('EXPLORATORY_SOURCE_CONTINUOUS_SEED_AUDIT_COMPLETE',
+                                 'EXPLORATORY_SOURCE_OR_ANALYSIS_STOP')
+          if v['status']=='EXPLORATORY_SOURCE_CONTINUOUS_SEED_AUDIT_COMPLETE':
+            assert v['all_original_rows']==3024
+            assert v['observed_source_genotype_groups']==84
+            assert v['source_missingness']['missing_seed_index']==990
+            assert v['source_missingness']['missing_onset']==982
+            assert v['source_category_flags']['fractional_nonnegative_seed_index']==153
+            assert v['n_complete_cases']<=2034
+            assert v['decision'] in ('EXPLORATORY_PREDICTIVE_INCREMENT',
+                                      'EXPLORATORY_NO_ROBUST_INCREMENT')
+            assert sum(x['n_records'] for x in v['fold_results'])==v['n_complete_cases']
+            print('Exploratory score:',v['decision'])
+            print('Observed complete-case records:',v['n_complete_cases'])
+            print('M0/M1 heldout MSE:',v['M0_MSE'],v['M1_MSE'])
+            print('Uncertainty:',v['fixed_prediction_cluster_bootstrap_95pct'])
+          else:
+            print('Exploratory source or model stop:',v['reason'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lupf2-exploratory-aggregate-only
+          path: source_receipt/lupf2_exploratory_summary.json
+          retention-days: 30
+
+  lupf2-posthoc-observation-support:
+    if: false  # original missingness source-strata receipt frozen at run 45329193843
+    needs: source-and-join-gates
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check source completeness only, no new model
+        run: |
+          mkdir -p source_receipt
+          python research/molecular_conservation/audit_lupf2_observation_support.py > source_receipt/lupf2_stratum_observation_support.json
+      - name: Verify source-only, nonconfirmatory observation support
+        run: |
+          python - <<'PY'
+          import json
+          x=json.load(open('source_receipt/lupf2_stratum_observation_support.json'))
+          assert x['no_new_model_fitted'] is True
+          assert x['no_new_effect_estimated'] is True
+          assert x['individual_values_redistributed'] is False
+          assert x['anonymous_line_codebook_verified'] is False
+          assert x['status'] in ('POSTHOC_OBSERVATION_SUPPORT_ONLY',
+                                 'POSTHOC_SUPPORT_SOURCE_STOP')
+          if x['status']=='POSTHOC_OBSERVATION_SUPPORT_ONLY':
+              assert sum(y['n_source_rows'] for y in x['strata'])==3024
+              assert sum(y['n_both_present'] for y in x['strata'])==2008
+              print('Posthoc source observation support:',x['strata'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lupf2-posthoc-observation-support-only
+          path: source_receipt/lupf2_stratum_observation_support.json
+          retention-days: 30
+
+  lupf2-posthoc-frozen-direction:
+    if: false  # original 5-fold signed-coefficient audit frozen at run 45341693463
+    needs: source-and-join-gates
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Require original LUPF1/LUPF2 and posthoc direction protocol ancestry
+        run: |
+          git merge-base --is-ancestor 28938fe193d01d7eca5bd2fe776f37ecb1f58e27 HEAD
+          git merge-base --is-ancestor 053eca26bc1b527e828cb82cbac9318d20be7621 HEAD
+          git merge-base --is-ancestor d9e2f7aa9c8179158d49b55637aa18e4ca178f4a HEAD
+      - name: Reproduce exact original five fold scores before reporting coefficient direction
+        run: |
+          mkdir -p source_receipt
+          python research/molecular_conservation/audit_lupf2_frozen_direction.py --output source_receipt/lupf2_posthoc_direction_receipt.json
+      - name: Enforce score reproducibility and interpretation limits
+        run: |
+          python - <<'PY'
+          import json
+          d=json.load(open("source_receipt/lupf2_posthoc_direction_receipt.json"))
+          assert d["original_lupf1_status"]=="SOURCE_ENDPOINT_INVALID_STOP"
+          assert d["no_new_predictive_model_or_parameter_tuning"] is True
+          assert d["new_confirmatory_p_value_computed"] is False
+          assert d["original_individual_values_redistributed"] is False
+          assert d["status"] in ("LUPF2_POSTHOC_FROZEN_DIRECTION_REPRODUCED",
+                                 "LUPF2_POSTHOC_DIRECTION_STOP")
+          if d["status"]=="LUPF2_POSTHOC_FROZEN_DIRECTION_REPRODUCED":
+              assert d["matched_original_mse"] is True
+              assert d["n_complete_cases"]==2008
+              assert d["n_label_groups"]==84
+              assert len(d["folds"])==5
+              assert d["natural_GxIxF_model_transfer_claim"] is False
+              print("Exact original 5 folds reproduced.")
+              print("Posthoc onset association sign:",d["descriptive_direction"])
+              print("Posthoc per-unit slopes:",[x["ridge_onset_coefficient_per_source_unit"] for x in d["folds"]])
+          else:
+              print("DESCRIPTIVE DIRECTION GATE STOP:",d.get("reason"))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lupf2-posthoc-frozen-direction-only
+          path: source_receipt/lupf2_posthoc_direction_receipt.json
+          retention-days: 30
+
+  lupf2-posthoc-fruit-seed-integrity:
+    if: false  # original quality receipt frozen at run 45355506975
+    needs: source-and-join-gates
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Inspect original fruit/seed availability categories only, never fit a model
+        run: |
+          mkdir -p source_receipt
+          python research/molecular_conservation/audit_lupf2_seed_fruit_source_integrity.py > source_receipt/lupf2_seed_fruit_integrity.json
+      - name: Verify original-source consistency and prohibit effect claims
+        run: |
+          python - <<'PY'
+          import json
+          r=json.load(open('source_receipt/lupf2_seed_fruit_integrity.json'))
+          assert r['no_new_regression_or_effect_estimated'] is True
+          assert r['no_original_rows_or_source_identifiers_redistributed'] is True
+          assert r['new_genetic_intervention_claim'] is False
+          assert r['new_pollination_or_recruitment_function_claim'] is False
+          assert r['status'] in ('POSTHOC_FRUIT_SEED_SOURCE_INTEGRITY_COUNTS_ONLY',
+                                 'POSTHOC_FRUIT_SEED_SOURCE_INTEGRITY_STOP')
+          if r['status']=='POSTHOC_FRUIT_SEED_SOURCE_INTEGRITY_COUNTS_ONLY':
+              assert r['all_original_rows']==3024
+              assert r['source_genotype_label_groups']==84
+              assert r['global_seed_categories']['MISSING']==990
+              assert r['global_seed_categories']['NONNEGATIVE_FRACTION']==153
+              assert r['global_seed_categories']['NONNEGATIVE_INTEGER']==1881
+              assert r['by_source_population']['TOTAL']['both_seed_and_onset_numeric_nonnegative']==2008
+              print('Original fruit column validity:',r['global_fruit_categories'])
+              print('Seed/fruit source compatibility totals:',r['by_source_population']['TOTAL'])
+              print('Per population source quality summary:',r['by_source_population']['FRO'],r['by_source_population']['PIC'])
+          else:
+              print('Source-only audit stop:',r.get('reason'))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lupf2-original-fruit-seed-quality-only
+          path: source_receipt/lupf2_seed_fruit_integrity.json
+          retention-days: 30
