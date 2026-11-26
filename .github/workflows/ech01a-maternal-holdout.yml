@@ -11,6 +11,7 @@ permissions:
   contents: read
 jobs:
   maternal-holdout:
+    if: false  # ECH01A and ECH02 focal audit frozen at run 45771261636; preserve original result
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
