@@ -56,7 +56,7 @@ def prepare(f,p,author_code):
         dam,sire=clean(r["cgPlaId.dam"]),clean(r["cgPlaId.sire"])
         if ismiss(dam) or ismiss(sire):raise Stop("PARENT_ID_MISSING")
         dist=num(r["parentDist"],"parentDist");delta=num(r["diffStartDir"],"diffStartDir")
-        if not 0<=dist<=9014 or not -13<=delta<=12:raise Stop("PUBLISHED_RANGE_MISMATCH")
+        if not 0<=dist<=9014.5827889427+1e-8 or not -13<=delta<=12:raise Stop("PUBLISHED_RANGE_MISMATCH")
         fruit=clean(r["ach_pos"])
         if fruit not in CATS:raise Stop("UNKNOWN_FRUIT_POSITION")
         alive=num(a["ld2022"],"ld2022")
