@@ -1,0 +1,38 @@
+name: Echinacea long-term public source schema
+on:
+  pull_request:
+    paths:
+      - 'research/molecular_conservation/audit_echinacea_longterm_sources.py'
+      - '.github/workflows/echinacea-source-schema.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-schema:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Inspect official public original files and schema
+        run: |
+          mkdir -p source_receipt
+          python research/molecular_conservation/audit_echinacea_longterm_sources.py | tee source_receipt/ech_source_schema.json
+      - name: Require source-only claim boundaries
+        run: |
+          python - <<'PY'
+          import json
+          d=json.load(open('source_receipt/ech_source_schema.json'))
+          assert d['no_model_fitted'] is True
+          assert d['original_individual_values_exported'] is False
+          assert set(d['sources'])=={'ECH01','ECH02','ECH03'}
+          for s in d['sources'].values():
+            assert s['status'] in ('official_item_verified','source_access_stop')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ech-original-public-source-schema
+          path: source_receipt/ech_source_schema.json
+          retention-days: 90
