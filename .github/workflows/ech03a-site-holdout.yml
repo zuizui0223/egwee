@@ -1,0 +1,57 @@
+name: Echinacea joint mating opportunity fixed site holdout
+on:
+  pull_request:
+    paths:
+      - 'research/molecular_conservation/run_ech03a_joint_mating.py'
+      - '.github/workflows/ech03a-site-holdout.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  fixed-omp-comparison:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check numerical model and frozen protocol
+        run: |
+          git merge-base --is-ancestor f07b86e04cc77c869dc5f28e5a80c684ebe924c0 HEAD
+          PYTHONPATH=research/molecular_conservation python - <<'PY'
+          from run_ech03a_joint_mating import fit, evaluate
+          r=[(str(i//4),2014+i%4,float(i%2),i/10.,.5,.2,.5,i/30.,i/30.) for i in range(24)]
+          assert len(fit(r[:20],r[20:],True))==4
+          assert all(0<=x<=1 for x in fit(r[:20],r[20:],False))
+          assert len(evaluate(r)['folds'])==6
+          PY
+      - name: Execute exact source site-holdout comparison
+        run: |
+          mkdir -p source_receipt
+          python research/molecular_conservation/run_ech03a_joint_mating.py | tee source_receipt/ech03a.json
+      - name: Validate claims and fold denominators
+        run: |
+          python - <<'PY'
+          import json
+          r=json.load(open('source_receipt/ech03a.json'))
+          assert r['new_molecular_GxIxF_validation'] is False
+          assert r['causal_intervention_claim'] is False
+          assert r['original_individual_rows_exported'] is False
+          assert r['protocol']=='f07b86e04cc77c869dc5f28e5a80c684ebe924c0'
+          if r['status']=='ECH03A_SITE_HOLDOUT_COMPLETE':
+              assert r['source_rows']==210
+              assert r['source_sites']==35
+              assert r['seed_observed']==152
+              assert sum(f['n'] for f in r['folds'])==r['complete_scenes']
+              assert len(r['folds'])==r['complete_sites']
+          else:
+              assert r['status']=='ECH03A_SOURCE_OR_MODEL_STOP'
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ech03a-aggregate-frozen-result
+          path: source_receipt/ech03a.json
+          retention-days: 90
