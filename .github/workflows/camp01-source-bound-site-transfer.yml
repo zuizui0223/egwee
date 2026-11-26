@@ -53,6 +53,7 @@ jobs:
           retention-days: 90
 
   camp01-source-design-only:
+    if: false  # source-only alignment frozen: run 45760495519
     runs-on: ubuntu-latest
     timeout-minutes: 6
     steps:
@@ -80,6 +81,7 @@ jobs:
           retention-days: 90
 
   camp01a-amended-site-holdout:
+    if: false  # frozen negative result: run 45760620127; do not search alternative outcomes
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
