@@ -1,0 +1,50 @@
+name: Campanula source-bound site transfer
+on:
+  pull_request:
+    paths:
+      - 'research/molecular_conservation/run_camp01_fixed_site_holdout.py'
+      - 'research/molecular_conservation/test_run_camp01_fixed_site_holdout.py'
+      - '.github/workflows/camp01-source-bound-site-transfer.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  camp01-original-data:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run synthetic checks before source access
+        run: python -m unittest discover -s research/molecular_conservation -p 'test_run_camp01_fixed_site_holdout.py' -v
+      - name: Execute frozen original-source site-holdout test
+        run: |
+          mkdir -p source_receipt
+          python research/molecular_conservation/run_camp01_fixed_site_holdout.py | tee source_receipt/camp01_result.json
+      - name: Verify claims and original source boundaries
+        run: |
+          python - <<'PY'
+          import json
+          r=json.load(open('source_receipt/camp01_result.json'))
+          assert r['protocol']=='03bc79ff02158e73e08138efcb5440130e6f22c0'
+          assert r['raw_rows_redistributed'] is False
+          assert r['molecular_GxIxF_validated'] is False
+          assert r['causal_visitation_effect_claimed'] is False
+          assert r['status'] in ('CAMP01_FIXED_SITE_HOLDOUT_COMPLETE','CAMP01_SOURCE_OR_SUPPORT_STOP')
+          if r['status']=='CAMP01_FIXED_SITE_HOLDOUT_COMPLETE':
+              assert len(r['source_files'])==2
+              assert r['analysis_experimental_populations']>=30
+              assert r['site_folds']>=8
+              assert r['source_population_levels']==4
+              assert sum(f['n'] for f in r['folds'])==r['analysis_experimental_populations']
+              assert r['decision'] in ('WITHIN_PROGRAMME_SITE_TRANSFER_INCREMENT','NO_SUPPORTED_SITE_TRANSFER_INCREMENT')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: camp01-original-source-aggregate-receipt
+          path: source_receipt/camp01_result.json
+          retention-days: 90
