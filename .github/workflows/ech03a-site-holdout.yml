@@ -9,6 +9,7 @@ permissions:
   contents: read
 jobs:
   fixed-omp-comparison:
+    if: false  # frozen ECH03A outcome, run 45769677182; no repeated model search
     runs-on: ubuntu-latest
     timeout-minutes: 6
     steps:
