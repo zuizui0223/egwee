@@ -4,12 +4,14 @@ on:
     paths:
       - 'research/molecular_conservation/run_camp01_fixed_site_holdout.py'
       - 'research/molecular_conservation/test_run_camp01_fixed_site_holdout.py'
+      - 'research/molecular_conservation/audit_camp01_population_source_alignment.py'
       - '.github/workflows/camp01-source-bound-site-transfer.yml'
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   camp01-original-data:
+    if: false  # original frozen 53-population gate stopped on 56 source pollinator rows
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
@@ -47,4 +49,31 @@ jobs:
         with:
           name: camp01-original-source-aggregate-receipt
           path: source_receipt/camp01_result.json
+          retention-days: 90
+
+  camp01-source-design-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Reconcile original source population counts and design keys only
+        run: |
+          mkdir -p source_receipt
+          python research/molecular_conservation/audit_camp01_population_source_alignment.py | tee source_receipt/camp01_source_design.json
+      - name: Verify no new model or outcome values
+        run: |
+          python - <<'PY'
+          import json
+          d=json.load(open('source_receipt/camp01_source_design.json'))
+          assert d['new_model_fitted'] is False
+          assert d['outcome_values_interpreted'] is False
+          assert d['raw_rows_exported'] is False
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: camp01-source-design-only
+          path: source_receipt/camp01_source_design.json
           retention-days: 90
