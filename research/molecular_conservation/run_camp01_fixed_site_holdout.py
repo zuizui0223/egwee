@@ -166,8 +166,15 @@ def run():
             if not url:raise Stop("NO_OFFICIAL_DOWNLOAD_LINK")
             raw=fetch(url,2_000_000)
             if hashlib.md5(raw).hexdigest()!=md5:raise Stop("ORIGINAL_MD5_MISMATCH")
-            h,rows=csvrows(raw);tabs[fn]=rows
+            h,rows=csvrows(raw)
             d["source_files"].append({"name":fn,"sha256":hashlib.sha256(raw).hexdigest(),"rows":len(rows),"headers":h})
+            # First source-only run 45760327934, original digest verified:
+            # listed data dictionary's "seed number" is CSV header "seednumber".
+            if fn=="PLdataindividual.csv" and "seednumber" in h and "seed_number" not in h:
+                h=["seed_number" if k=="seednumber" else k for k in h]
+                for row in rows:row["seed_number"]=row.pop("seednumber")
+                d["verified_source_header_alias"]={"seednumber":"seed_number"}
+            tabs[fn]=rows
             required=BASE_FIELDS|({"individual","treatment","seed_number"} if fn.startswith("PL") else {"visits_per_flower"})
             if not required.issubset(h):
                 raise Stop("REQUIRED_SOURCE_HEADER_MISSING:"+",".join(sorted(required-set(h))))
